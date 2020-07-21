@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PpspsControllerTest < ActionDispatch::IntegrationTest
+class MoaTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

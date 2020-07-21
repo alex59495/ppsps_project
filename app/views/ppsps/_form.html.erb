@@ -1,0 +1,15 @@
+<%= link_to "Revenir à mes PPSP", ppsps_path %>
+
+<%= simple_form_for @ppsp do |f| %>
+  <%= f.input :address, label: "Adresse" %>
+  <%= f.input :start, label: "Date de début"  %>
+  <%= f.input :end, label: "Date de fin"  %>
+  <%= f.input :nature, label: "Nature du travail"  %>
+  <%= f.input :workforce, label: "Workforce"  %>
+  <%= f.input :company_id, label: "Entreprise", as: :select, collection: Company.all.order(:name) %>
+  <% if policy(Company).new? %>
+    <%= link_to "Ajouter une entreprise", new_company_path %>
+  <% end %>
+  <%= f.input :moa_id, label: "MOA", as: :select, collection: Moa.all.order(:name) %>
+  <%= f.submit %>
+<% end %>

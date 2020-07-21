@@ -1,0 +1,2 @@
+class Moa < ApplicationRecord
+end

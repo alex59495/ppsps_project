@@ -1,5 +1,6 @@
 class Ppsp < ApplicationRecord
-  has_one :company
+  belongs_to :company
+  belongs_to :user
   validates :company, presence: true
   validates :address, presence: true
   validates :start, presence: true
