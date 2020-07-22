@@ -4,8 +4,9 @@ ppsp_1:
   end: "20/07/2020"
   nature: "test_1 nature"
   workforce: "test_1 workforce"
-  user: user_test
+  user: user_test_1
   company: company_test
+  moa: moa_test
 
 ppsp_2:
   address: "test_2 address"
@@ -13,8 +14,9 @@ ppsp_2:
   end: "20/07/2020"
   nature: "test_2 nature"
   workforce: "test_2 workforce"
-  user: user_test
+  user: user_test_1
   company: company_test
+  moa: moa_test
 
 ppsp_3:
   address: "test_3 address"
@@ -22,6 +24,7 @@ ppsp_3:
   end: "20/07/2020"
   nature: "test_3 nature"
   workforce: "test_3 workforce"
-  user: user_test
+  user: user_test_2
   company: company_test
+  moa: moa_test
   

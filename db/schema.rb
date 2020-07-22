@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_21_023539) do
+ActiveRecord::Schema.define(version: 2020_07_22_142014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,16 @@ ActiveRecord::Schema.define(version: 2020_07_21_023539) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "moes", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "representative"
+    t.string "phone"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "ppsps", force: :cascade do |t|
     t.string "address"
     t.date "start"
@@ -43,9 +53,42 @@ ActiveRecord::Schema.define(version: 2020_07_21_023539) do
     t.bigint "user_id", null: false
     t.bigint "company_id", null: false
     t.bigint "moa_id", null: false
+    t.bigint "moe_id", null: false
+    t.bigint "project_information_id", null: false
     t.index ["company_id"], name: "index_ppsps_on_company_id"
     t.index ["moa_id"], name: "index_ppsps_on_moa_id"
+    t.index ["moe_id"], name: "index_ppsps_on_moe_id"
+    t.index ["project_information_id"], name: "index_ppsps_on_project_information_id"
     t.index ["user_id"], name: "index_ppsps_on_user_id"
+  end
+
+  create_table "project_informations", force: :cascade do |t|
+    t.string "reference"
+    t.string "responsible"
+    t.string "phone"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "site_manager_id", null: false
+    t.bigint "team_manager_id", null: false
+    t.index ["site_manager_id"], name: "index_project_informations_on_site_manager_id"
+    t.index ["team_manager_id"], name: "index_project_informations_on_team_manager_id"
+  end
+
+  create_table "site_managers", force: :cascade do |t|
+    t.string "name"
+    t.string "phone"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "team_managers", force: :cascade do |t|
+    t.string "name"
+    t.string "phone"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -63,5 +106,9 @@ ActiveRecord::Schema.define(version: 2020_07_21_023539) do
 
   add_foreign_key "ppsps", "companies"
   add_foreign_key "ppsps", "moas"
+  add_foreign_key "ppsps", "moes", column: "moe_id"
+  add_foreign_key "ppsps", "project_informations"
   add_foreign_key "ppsps", "users"
+  add_foreign_key "project_informations", "site_managers"
+  add_foreign_key "project_informations", "team_managers"
 end

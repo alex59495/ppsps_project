@@ -36,8 +36,52 @@ moa = {
   email: "alexis@gmail.com"
 }
 
-m = Moa.create(name: moa[:name], address: moa[:address], representative: moa[:representative], phone: moa[:phone], email: moa[:email])
-p "create #{m.id} moa"
+moa1 = Moa.create(name: moa[:name], address: moa[:address], representative: moa[:representative], phone: moa[:phone], email: moa[:email])
+p "create #{moa1.id} moa"
+
+# Create MOA
+moe = {
+  name: "Test MOE",
+  address: "test address MOE",
+  representative: "test representative MOE",
+  phone: "0328261864",
+  email: "alexiis@gmail.com"
+}
+
+moe1 = Moe.create(name: moe[:name], address: moe[:address], representative: moe[:representative], phone: moe[:phone], email: moe[:email])
+p "create #{moe1.id} moe"
+
+# Create Site Manager
+site_manager = {
+  name: "Test chef de chantier",
+  phone: "0600000000",
+  email: "chefdechantier@gmail.com"
+}
+site_manager1 = SiteManager.create(name: site_manager[:name], phone:site_manager[:phone], email:site_manager[:email])
+p "create #{site_manager1.id} site manager"
+
+# Create Team Manager
+team_manager = {
+  name: "Test chef d'équipe",
+  phone: "0600000000",
+  email: "chefdequipe@gmail.com"
+}
+team_manager1 = TeamManager.create(name: team_manager[:name], phone:team_manager[:phone], email:team_manager[:email])
+p "create #{team_manager1.id} team manager"
+
+# Create Project Informations
+project_information = {
+  reference: "AABB130",
+  responsible: "Responsible Test",
+  phone: "0300000000",
+  email: "project@gmail.com",
+  site_manager_id: 1,
+  team_manager_id: 1
+}
+project_information1 = ProjectInformation.create(reference: project_information[:reference], phone:project_information[:phone],
+responsible:project_information[:responsible], email:project_information[:email], site_manager_id:project_information[:site_manager_id],
+team_manager_id:project_information[:team_manager_id])
+p "create #{project_information1.id} team manager"
 
 # Create PPSP
 ppsps = [{
@@ -49,6 +93,8 @@ ppsps = [{
   user_id: 1,
   company_id: 1,
   moa_id: 1,
+  moe_id: 1,
+  project_information_id: 1,
 }, {
   address: "test_2 address",
   start: DateTime.new(2020,9,1,17),
@@ -58,6 +104,8 @@ ppsps = [{
   user_id: 1,
   company_id: 1,
   moa_id: 1,
+  moe_id: 1,
+  project_information_id: 1,
 }, {
   address: "test_3 address",
   start: DateTime.new(2020,9,1,17),
@@ -67,10 +115,14 @@ ppsps = [{
   user_id: 2,
   company_id: 1,
   moa_id: 1,
+  moe_id: 1,
+  project_information_id: 1,
 }]
 
 ppsps.each do |ppsp|
-  p = Ppsp.create(address: ppsp[:address], start: ppsp[:start], end: ppsp[:end], nature: ppsp[:nature], workforce: ppsp[:workforce], 
-  user_id: ppsp[:user_id], company_id: ppsp[:company_id], moa_id: ppsp[:moa_id])
+  p = Ppsp.create(address: ppsp[:address], start: ppsp[:start], end: ppsp[:end], nature: ppsp[:nature], 
+  workforce: ppsp[:workforce], user_id: ppsp[:user_id], company_id: ppsp[:company_id], moa_id: ppsp[:moa_id],
+  moe_id: ppsp[:moe_id], project_information_id: ppsp[:project_information_id],
+  )
   p "create #{p.id} PPSP"
 end

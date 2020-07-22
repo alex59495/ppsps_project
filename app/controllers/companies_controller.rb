@@ -1,12 +1,14 @@
 class CompaniesController < ApplicationController
   def new
     @company = Company.new
+    authorize @company
   end
 
   def create
     @company = Company.new(params_company)
+    authorize @company
     if @company.save
-      redirect_to ppsp_new_path
+      redirect_to new_ppsp_path
     else
       render :new
     end

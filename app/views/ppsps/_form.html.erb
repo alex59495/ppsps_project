@@ -11,5 +11,16 @@
     <%= link_to "Ajouter une entreprise", new_company_path %>
   <% end %>
   <%= f.input :moa_id, label: "MOA", as: :select, collection: Moa.all.order(:name) %>
+  <% if policy(Moa).new? %>
+    <%= link_to "Ajouter un MOA", new_moa_path %>
+  <% end %>
+  <%= f.input :moe_id, label: "MOE", as: :select, collection: Moe.all.order(:name) %>
+  <% if policy(Moe).new? %>
+    <%= link_to "Ajouter un MOE", new_mo_path %>
+  <% end %>
+  <%= f.input :project_information_id, label: "Informations sur le projet", as: :select, collection: ProjectInformation.all.order(:reference) %>
+  <% if policy(Moe).new? %>
+    <%= link_to "Ajouter un projet", new_project_information_path %>
+  <% end %>
   <%= f.submit %>
 <% end %>

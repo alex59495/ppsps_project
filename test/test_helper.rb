@@ -8,7 +8,8 @@ class ActiveSupport::TestCase
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :companies
-  fixtures :users
+  fixtures :users  
+  fixtures :moas
   fixtures :ppsps
 
   # Test with devise...
