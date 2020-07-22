@@ -90,6 +90,9 @@ ppsps = [{
   end: DateTime.new(2020,9,1,19),
   nature: "test_1 nature",
   workforce: "test_1 workforce",
+  agglomeration: "Agglomeration",
+  street_impact: "Pas d'impact",
+  river_guidance: "Cours d'eau",
   user_id: 1,
   company_id: 1,
   moa_id: 1,
@@ -101,6 +104,9 @@ ppsps = [{
   end: DateTime.new(2020,9,1,19),
   nature: "test_2 nature",
   workforce: "test_2 workforce",
+  agglomeration: "Agglomeration",
+  street_impact: "Pas d'impact",
+  river_guidance: "Cours d'eau",
   user_id: 1,
   company_id: 1,
   moa_id: 1,
@@ -112,6 +118,9 @@ ppsps = [{
   end: DateTime.new(2020,9,1,19),
   nature: "test_3 nature",
   workforce: "test_3 workforce",
+  agglomeration: "Agglomeration",
+  street_impact: "Pas d'impact",
+  river_guidance: "Cours d'eau",
   user_id: 2,
   company_id: 1,
   moa_id: 1,
@@ -122,7 +131,24 @@ ppsps = [{
 ppsps.each do |ppsp|
   p = Ppsp.create(address: ppsp[:address], start: ppsp[:start], end: ppsp[:end], nature: ppsp[:nature], 
   workforce: ppsp[:workforce], user_id: ppsp[:user_id], company_id: ppsp[:company_id], moa_id: ppsp[:moa_id],
-  moe_id: ppsp[:moe_id], project_information_id: ppsp[:project_information_id],
+  moe_id: ppsp[:moe_id], project_information_id: ppsp[:project_information_id], agglomeration: ppsp[:agglomeration],
+  street_impact: ppsp[:street_impact], river_guidance: ppsp[:river_guidance]
   )
   p "create #{p.id} PPSP"
+end
+
+# Create site_installations
+SiteInstallation::SITE_INSTALLATIONS.each do |site|
+  s = SiteInstallation.create(name: site)
+  p "Create #{s.id} site installations"
+end
+# Create altitude_works 
+AltitudeWork::ALTITUDE_WORKS.each do |work|
+  w = AltitudeWork.create(name: work)
+  p "Create #{w.id} altitude works"
+end
+# Create risks
+Risk::RISKS.each do |risk|
+  r = Risk.create(name: risk)
+  p "Create #{r.id} risks"
 end

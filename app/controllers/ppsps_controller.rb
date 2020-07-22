@@ -1,6 +1,5 @@
 class PpspsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :find_ppsp, only: [ :update, :show, :destroy, :edit ]
+  before_action :find_ppsp, only: [ :update, :show, :destroy, :edit, :informations_supplementaires ]
 
   def index
     @ppsps = policy_scope(Ppsp.where(user: current_user))
@@ -21,10 +20,18 @@ class PpspsController < ApplicationController
     @ppsp.user = current_user
     authorize @ppsp
     if @ppsp.save
-      redirect_to ppsps_path
+      redirect_to informations_supplementaires_ppsp_path(@ppsp)
     else
       render :new
     end
+  end
+
+  def informations_supplementaires
+    authorize @ppsp
+    # Needed in the form
+    @selected_installation = SelectedInstallation.new
+    # Selected installations already existing for this PPSP
+    @selected_active = SelectedInstallation.where(ppsp_id: @ppsp.id)
   end
 
   def edit
@@ -48,7 +55,7 @@ class PpspsController < ApplicationController
 
   private
   def params_ppsp
-    params.require(:ppsp).permit(:address, :start, :end, :nature, :workforce, :company_id)
+    params.require(:ppsp).permit(:address, :start, :end, :nature, :workforce, :agglomeration, :street_impact, :river_guidance, :company_id, :moa_id, :moe_id, :project_information_id)
   end
 
   def find_ppsp

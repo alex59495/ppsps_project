@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
-  resources :ppsps
+  resources :ppsps do
+    resources :selected_installations, only: [ :create ]
+    member do
+      get :informations_supplementaires
+    end
+  end
   resources :companies, only: [ :new, :create ]
   resources :moas, only: [ :new, :create ]
   resources :moes, only: [ :new, :create ]

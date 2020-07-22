@@ -28,4 +28,8 @@ class PpspPolicy < ApplicationPolicy
   def edit?
     record.user == user
   end
+
+  def informations_supplementaires?
+    record.user == user
+  end
 end

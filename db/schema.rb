@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_22_142014) do
+ActiveRecord::Schema.define(version: 2020_07_22_191932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "altitude_works", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
@@ -48,6 +54,9 @@ ActiveRecord::Schema.define(version: 2020_07_22_142014) do
     t.date "end"
     t.string "nature"
     t.string "workforce"
+    t.string "agglomeration"
+    t.string "street_impact"
+    t.string "river_guidance"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
@@ -73,6 +82,27 @@ ActiveRecord::Schema.define(version: 2020_07_22_142014) do
     t.bigint "team_manager_id", null: false
     t.index ["site_manager_id"], name: "index_project_informations_on_site_manager_id"
     t.index ["team_manager_id"], name: "index_project_informations_on_team_manager_id"
+  end
+
+  create_table "risks", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "selected_installations", force: :cascade do |t|
+    t.bigint "site_installation_id"
+    t.bigint "ppsp_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ppsp_id"], name: "index_selected_installations_on_ppsp_id"
+    t.index ["site_installation_id"], name: "index_selected_installations_on_site_installation_id"
+  end
+
+  create_table "site_installations", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "site_managers", force: :cascade do |t|

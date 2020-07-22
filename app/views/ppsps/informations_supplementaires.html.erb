@@ -1,0 +1,8 @@
+<%= simple_form_for [@ppsp, @selected_installation] do |f| %>
+  <%= f.association :site_installation, as: :check_boxes %>
+  <%= f.submit %>
+<% end %>
+
+<% @selected_active.each do |select_installation| %>
+  <%= select_installation.site_installation.name %>
+<% end %>
