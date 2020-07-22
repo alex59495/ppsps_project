@@ -34,7 +34,7 @@ gem 'devise'
 gem 'pundit'
 
 gem 'autoprefixer-rails'
-gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap', '~> 4.3.1'
 gem 'font-awesome-sass'
 gem 'simple_form'
 group :development, :test do  gem 'pry-byebug'
