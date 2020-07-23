@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_22_191932) do
+ActiveRecord::Schema.define(version: 2020_07_23_011945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,15 @@ ActiveRecord::Schema.define(version: 2020_07_22_191932) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "selected_altitudes", force: :cascade do |t|
+    t.bigint "altitude_work_id"
+    t.bigint "ppsp_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["altitude_work_id"], name: "index_selected_altitudes_on_altitude_work_id"
+    t.index ["ppsp_id"], name: "index_selected_altitudes_on_ppsp_id"
+  end
+
   create_table "selected_installations", force: :cascade do |t|
     t.bigint "site_installation_id"
     t.bigint "ppsp_id"
@@ -97,6 +106,15 @@ ActiveRecord::Schema.define(version: 2020_07_22_191932) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["ppsp_id"], name: "index_selected_installations_on_ppsp_id"
     t.index ["site_installation_id"], name: "index_selected_installations_on_site_installation_id"
+  end
+
+  create_table "selected_risks", force: :cascade do |t|
+    t.bigint "ppsp_id", null: false
+    t.bigint "risk_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ppsp_id"], name: "index_selected_risks_on_ppsp_id"
+    t.index ["risk_id"], name: "index_selected_risks_on_risk_id"
   end
 
   create_table "site_installations", force: :cascade do |t|
@@ -141,4 +159,6 @@ ActiveRecord::Schema.define(version: 2020_07_22_191932) do
   add_foreign_key "ppsps", "users"
   add_foreign_key "project_informations", "site_managers"
   add_foreign_key "project_informations", "team_managers"
+  add_foreign_key "selected_risks", "ppsps"
+  add_foreign_key "selected_risks", "risks"
 end

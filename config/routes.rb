@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
   resources :ppsps do
-    resources :selected_installations, only: [ :create ]
+    resources :selected_installations, only: [ :create, :destroy ]
+    resources :selected_altitudes, only: [ :create, :destroy ]
+    resources :selected_risks, only: [ :create, :destroy ]
     member do
       get :informations_supplementaires
     end

@@ -1,7 +1,7 @@
 class SelectedInstallationsController < ApplicationController
+  before_action :find_ppsp
 
   def create
-    @ppsp = Ppsp.find(params[:ppsp_id])
     #For each element from the view ppsp/informations_supplementaire which were selected
     params_selected_installation.each do |installation|
       @selected_installation = SelectedInstallation.new(site_installation_id: installation)
@@ -17,8 +17,19 @@ class SelectedInstallationsController < ApplicationController
     # end
   end
 
+  def destroy
+    @selected_installation = SelectedInstallation.find(params[:id])
+    authorize @selected_installation
+    @selected_installation.destroy
+    redirect_to informations_supplementaires_ppsp_path(@ppsp)
+  end
+
   private
   def params_selected_installation
     params.require(:selected_installation).require(:site_installation_id)
+  end
+
+  def find_ppsp
+    @ppsp = Ppsp.find(params[:ppsp_id])
   end
 end

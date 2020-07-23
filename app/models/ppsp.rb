@@ -11,6 +11,10 @@ class Ppsp < ApplicationRecord
   belongs_to :project_information
   has_many :selected_installations
   has_many :site_installations, through: :selected_installations
+  has_many :selected_altitudes
+  has_many :altitude_works, through: :selected_altitudes
+  has_many :selected_risks
+  has_many :risks, through: :selected_risks
   validates :address, presence: true
   validates :start, presence: true
   validates :end, presence: true

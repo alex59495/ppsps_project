@@ -3,6 +3,51 @@
   <%= f.submit %>
 <% end %>
 
-<% @selected_active.each do |select_installation| %>
-  <%= select_installation.site_installation.name %>
+<div class="selected_active">
+  <% @selected_installation_active.each do |select_installation| %>
+    <div class="card-selected">
+      <div class="card-name">
+        <%= select_installation.site_installation.name %>
+      </div>
+      <div class="btn-delete">
+        <%= link_to "x",  ppsp_selected_installation_path(select_installation.ppsp.id, select_installation.id), method: :delete, data: {confirm: "Êtes-vous sûr de vouloir supprimer ?"} %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= simple_form_for [@ppsp, @selected_altitude] do |f| %>
+  <%= f.association :altitude_work, as: :check_boxes %>
+  <%= f.submit %>
 <% end %>
+
+<div class="selected_active">
+  <% @selected_altitude_active.each do |select_altitude| %>
+    <div class="card-selected">
+      <div class="card-name">
+        <%= select_altitude.altitude_work.name %>
+      </div>
+      <div class="btn-delete">
+        <%= link_to "x",  ppsp_selected_altitude_path(select_altitude.ppsp.id, select_altitude.id), method: :delete, data: {confirm: "Êtes-vous sûr de vouloir supprimer ?"} %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= simple_form_for [@ppsp, @selected_risk] do |f| %>
+  <%= f.association :risk, as: :check_boxes %>
+  <%= f.submit %>
+<% end %>
+
+<div class="selected_active">
+  <% @selected_risk_active.each do |select_risk| %>
+    <div class="card-selected">
+      <div class="card-name">
+        <%= select_risk.risk.name %>
+      </div>
+      <div class="btn-delete">
+        <%= link_to "x",  ppsp_selected_risk_path(select_risk.ppsp.id, select_risk.id), method: :delete, data: {confirm: "Êtes-vous sûr de vouloir supprimer ?"} %>
+      </div>
+    </div>
+  <% end %>
+</div>

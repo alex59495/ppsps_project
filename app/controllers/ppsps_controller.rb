@@ -8,7 +8,6 @@ class PpspsController < ApplicationController
   def new
     @ppsp = Ppsp.new
     authorize @ppsp
-    @companies = Company.all
   end
 
   def show
@@ -28,10 +27,19 @@ class PpspsController < ApplicationController
 
   def informations_supplementaires
     authorize @ppsp
-    # Needed in the form
+    @companies = Company.all
+    # Input of the option of installations for the form
     @selected_installation = SelectedInstallation.new
     # Selected installations already existing for this PPSP
-    @selected_active = SelectedInstallation.where(ppsp_id: @ppsp.id)
+    @selected_installation_active = SelectedInstallation.where(ppsp_id: @ppsp.id)
+    # Input of the option of altitude work for the form
+    @selected_altitude = SelectedAltitude.new
+    # Selected altitude work already existing for this PPSP
+    @selected_altitude_active = SelectedAltitude.where(ppsp_id: @ppsp.id)
+    # Input of the option of altitude work for the form
+    @selected_risk = SelectedRisk.new
+    # Selected altitude work already existing for this PPSP
+    @selected_risk_active = SelectedRisk.where(ppsp_id: @ppsp.id)
   end
 
   def edit
@@ -41,7 +49,7 @@ class PpspsController < ApplicationController
   def update
     authorize @ppsp
     if @ppsp.update(params_ppsp)
-      redirect_to ppsps_path
+      redirect_to informations_supplementaires_ppsp_path(@ppsp)
     else
       render :edit
     end
