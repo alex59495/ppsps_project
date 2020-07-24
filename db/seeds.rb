@@ -8,7 +8,7 @@
 
 
 # Create company
-c = Company.create(name: "test company", address: "test company addres")
+c = Company.create(name: "test company", address: "test company addres", representative: "company rep", phone: "0845454545", email: "company@gmail.com")
 p "create #{c.id} company"
 
 # Create users

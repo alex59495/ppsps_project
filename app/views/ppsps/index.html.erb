@@ -4,7 +4,8 @@
 <% @ppsps.each do |ppsp| %>
   <div class="card-ppsp">
     <%= link_to ppsp, ppsp_path(ppsp) %>
-    <%= link_to "x", ppsp_path(ppsp), method: :delete  %>
-    <%= link_to "edit", edit_ppsp_path(ppsp)  %>
+    <%= link_to "PDF", ppsp_pdf_ppsp_path(ppsp, format: :pdf) %>
+    <%= link_to "edit", edit_ppsp_path(ppsp) %>
+    <%= link_to "x", ppsp_path(ppsp), method: :delete, target: '_blank' %>
   </div>
 <% end %>

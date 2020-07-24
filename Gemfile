@@ -33,6 +33,10 @@ gem 'devise'
 # Authorization
 gem 'pundit'
 
+# Handle PDF
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 gem 'autoprefixer-rails'
 gem 'bootstrap', '~> 4.0.0'
 gem 'font-awesome-sass'

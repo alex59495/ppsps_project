@@ -1,5 +1,5 @@
 class PpspsController < ApplicationController
-  before_action :find_ppsp, only: [ :update, :show, :destroy, :edit, :informations_supplementaires ]
+  before_action :find_ppsp, only: [ :update, :show, :ppsp_pdf, :destroy, :edit, :informations_supplementaires ]
 
   def index
     @ppsps = policy_scope(Ppsp.where(user: current_user))
@@ -12,7 +12,30 @@ class PpspsController < ApplicationController
 
   def show
     authorize @ppsp
+    # If you don't want to display in pdf anymore you can change the format in the index view
   end
+
+  def ppsp_pdf
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: 'ppsp', 
+        encoding: 'utf8',
+        template: "ppsps/show.pdf.erb",
+        layout: "pdf.html.erb"
+      end
+    end
+    authorize @ppsp
+  end
+
+  # def download_pdf
+  #   pdf = WickedPdf.new.pdf_from_string(
+  #   render_to_string('download_pdf', layout: false))
+  #   send_data(pdf,
+  #     filename: 'ppsp.pdf',
+  #     type: 'application/pdf',
+  #     disposition: 'attachment')
+  # end
 
   def create
     @ppsp = Ppsp.new(params_ppsp)

@@ -1,0 +1,26 @@
+.banner {
+  height: 300px;
+  color: white;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), asset-data-url('PPSP.jpg');
+  
+  .banner-title {
+    position: absolute;
+    top: 90px;
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+    font-size: 30px;
+  }
+
+  .banner-subtitle {
+    position: absolute;
+    top: 180px;
+    width: 100%;
+    text-align: center;
+    font-weight: 400;
+    font-size: 18px;
+  }
+}
