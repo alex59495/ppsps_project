@@ -1,6 +1,6 @@
 <div class="pdf">
-  <%= wicked_pdf_image_tag 'camion-ppsp.jpg', height: '100px' %>
-  <div class="banner">
+  <%= image_tag 'camion_ppsp.png', height: '100px' %>
+  <div class="pdf-banner">
     <div class="banner-title">
       Plan Particulier de Sécurité et de Protection de la Santé
     </div>
@@ -8,26 +8,31 @@
       Si tu veux écrire un sous-titre c'est ici
     </div>
   </div>
-  <div class="pdf-company-name">
-    Nom de l'entreprise : <%= @ppsp.company.name %>
-  </div>
-  <div class="pdf-company-address">
-    Coordonnées de l'entreprise : <%= @ppsp.company.address %>
-  </div>
-  <div class="pdf-ppsp-site">
-    Lieu du chantier : <%= @ppsp.address %>
-  </div>
-  <div class="pdf-ppsp-start">
-    Date de début : <%= @ppsp.start %>
-  </div>
-  <div class="pdf-ppsp-end">
-    Date de fin : <%= @ppsp.end %>
-  </div>
-  <div class="pdf-nature">
-    Nature des travaux : <%= @ppsp.nature %>
-  </div>
-  <div class="pdf-workforce">
-    Moyens humains : <%= @ppsp.workforce %>
+  <div class="pdf-general-infos mb-5">
+    <div class="gi-title">
+      Informations générale
+    </div>
+    <div class="gi-company-name">
+      Nom de l'entreprise : <%= @ppsp.company.name %>
+    </div>
+    <div class="gi-company-address">
+      Coordonnées de l'entreprise : <%= @ppsp.company.address %>
+    </div>
+    <div class="gi-ppsp-site">
+      Lieu du chantier : <%= @ppsp.address %>
+    </div>
+    <div class="gi-ppsp-start">
+      Date de début : <%= @ppsp.start %>
+    </div>
+    <div class="gi-ppsp-end">
+      Date de fin : <%= @ppsp.end %>
+    </div>
+    <div class="gi-nature">
+      Nature des travaux : <%= @ppsp.nature %>
+    </div>
+    <div class="gi-workforce">
+      Moyens humains : <%= @ppsp.workforce %>
+    </div>
   </div>
   <div class="pdf-renseignement-admin">
     <div class="pdf-moa">
@@ -132,6 +137,22 @@
       </div>     
     </div>
   </div>
+  <% if @ppsp.subcontractor_id %>
+    <div class="pdf-subcontractor">
+      <div class="subcontractor-title">
+        Sous-Traitants
+      </div>
+      <div class="subcontractor-name">
+        <%= @ppsp.subcontractor.name %>
+      </div>
+      <div class="subcontractor-address">
+        <%= @ppsp.subcontractor.address %>
+      </div>
+      <div class="subcontractor-work">
+        <%= @ppsp.subcontractor.work %>
+      </div>
+    </div>
+  <% end %>
   <div class="pdf-agglomeration">
     Agglomération : <%= @ppsp.agglomeration %>
   </div>

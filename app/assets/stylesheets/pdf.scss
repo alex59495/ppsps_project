@@ -1,13 +1,13 @@
-.banner {
+.pdf-banner {
   height: 300px;
-  color: red;
+  color: white;
   background-position: center;
   background-size: cover;
   position: relative;
   background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), asset-data-url('PPSP.jpg');
 }
-
-.banner .banner-title {
+  
+.pdf-banner .banner-title {
   position: absolute;
   top: 90px;
   width: 100%;
@@ -16,13 +16,17 @@
   font-size: 30px;
 }
 
-.banner .banner-subtitle {
-  position: absolute;
-  top: 180px;
-  width: 100%;
-  text-align: center;
-  font-weight: 400;
-  font-size: 18px;
+.pdf-banner .banner-subtitle {
+    position: absolute;
+    top: 180px;
+    width: 100%;
+    text-align: center;
+    font-weight: 400;
+    font-size: 18px;
 }
-  
 
+.pdf-general-infos .gi-title {
+  text-align: center;
+  font-weight: 500;
+  font-size: 26px;
+}

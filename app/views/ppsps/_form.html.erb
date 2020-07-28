@@ -1,7 +1,7 @@
 <%= link_to "Revenir à mes PPSP", ppsps_path %>
 
 <%= simple_form_for @ppsp do |f| %>
-  <%= f.input :address, label: "Adresse" %>
+  <%= f.input :address, label: "Adresse", input_html: { id: :autocomplete_address } %>
   <%= f.input :start, label: "Date de début"  %>
   <%= f.input :end, label: "Date de fin"  %>
   <%= f.input :nature, label: "Nature du travail"  %>
@@ -21,6 +21,42 @@
   <%= f.input :project_information_id, label: "Projet", as: :select, collection: ProjectInformation.all.order(:reference) %>
   <% if policy(Moe).new? %>
     <%= link_to "Ajouter un projet", new_project_information_path %>
+  <% end %>
+  <%= f.input :subcontractor_id, label: "Sous-Traitants", as: :select, collection: Subcontractor.all.order(:name) %>
+  <% if policy(Subcontractor).new? %>
+    <%= link_to "Ajouter un Sous-Traitants", new_subcontractor_path %>
+  <% end %>
+  <%= f.input :regional_committee_id, label: "Comité régional de l'OPPBTP", as: :select, collection: RegionalCommittee.all.order(:id) %>
+  <% if policy(RegionalCommittee).new? %>
+    <%= link_to "Ajouter un comité régional", new_regional_committee_path %>
+  <% end %>
+  <%= f.input :pension_insurance_id, label: "Caisse d'assurance retraite", as: :select, collection: PensionInsurance.all.order(:id) %>
+  <% if policy(PensionInsurance).new? %>
+    <%= link_to "Ajouter une caisse d'assurance retraite", new_pension_insurance_path %>
+  <% end %>
+  <%= f.input :direcct_id, label: "DIRECCT", as: :select, collection: Direcct.all.order(:id) %>
+  <% if policy(Direcct).new? %>
+    <%= link_to "Ajouter un DIRECCT", new_direcct_path %>
+  <% end %>
+  <%= f.input :work_medecine_id, label: "Médecine du travail", as: :select, collection: WorkMedecine.all.order(:id) %>
+  <% if policy(WorkMedecine).new? %>
+    <%= link_to "Ajouter un médecin du travail", new_work_medecine_path %>
+  <% end %>
+  <%= f.input :demining_id, label: "Déminage", as: :select, collection: Demining.all.order(:name) %>
+  <% if policy(Demining).new? %>
+    <%= link_to "Ajouter un Sous-Traitants", new_demining_path %>
+  <% end %>
+  <%= f.input :sos_hand_id, label: "SOS Mains et Doigts", as: :select, collection: SosHand.all.order(:name) %>
+  <% if policy(SosHand).new? %>
+    <%= link_to "Ajouter un Sous-Traitants", new_sos_hand_path %>
+  <% end %>
+  <%= f.input :anti_poison_id, label: "Centre anti-poison", as: :select, collection: AntiPoison.all.order(:name) %>
+  <% if policy(AntiPoison).new? %>
+    <%= link_to "Ajouter un Sous-Traitants", new_anti_poison_path %>
+  <% end %>
+  <%= f.input :hospital_id, label: "Hôpital", as: :select, collection: Hospital.all.order(:name) %>
+  <% if policy(Hospital).new? %>
+    <%= link_to "Ajouter un Sous-Traitants", new_hospital_path %>
   <% end %>
   <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
   <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>

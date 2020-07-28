@@ -1,6 +1,6 @@
 <div class="pdf">
-  <%= wicked_pdf_image_tag 'camion-ppsp.jpg', height: '100px' %>
-  <div class="banner">
+  <%= image_tag 'camion_ppsp.png', height: '100px' %>
+  <div class="pdf-banner mb-3">
     <div class="banner-title">
       Plan Particulier de Sécurité et de Protection de la Santé
     </div>
@@ -8,137 +8,171 @@
       Si tu veux écrire un sous-titre c'est ici
     </div>
   </div>
-  <div class="pdf-company-name">
-    Nom de l'entreprise : <%= @ppsp.company.name %>
-  </div>
-  <div class="pdf-company-address">
-    Coordonnées de l'entreprise : <%= @ppsp.company.address %>
-  </div>
-  <div class="pdf-ppsp-site">
-    Lieu du chantier : <%= @ppsp.address %>
-  </div>
-  <div class="pdf-ppsp-start">
-    Date de début : <%= @ppsp.start %>
-  </div>
-  <div class="pdf-ppsp-end">
-    Date de fin : <%= @ppsp.end %>
-  </div>
-  <div class="pdf-nature">
-    Nature des travaux : <%= @ppsp.nature %>
-  </div>
-  <div class="pdf-workforce">
-    Moyens humains : <%= @ppsp.workforce %>
-  </div>
-  <div class="pdf-renseignement-admin">
-    <div class="pdf-moa">
-      <div class="moa-title">
-        MOA
+  <div class="container">
+    <div class="pdf-general-infos mb-3">
+      <div class="pdf-title">
+        Informations générales
       </div>
-      <div class="moa-name">
-        <%= @ppsp.moa.name %>
+      <div class="gi-company-name">
+        Nom de l'entreprise : <%= @ppsp.company.name %>
       </div>
-      <div class="moa-address">
-        <%= @ppsp.moa.address %>
+      <div class="gi-company-address">
+        Coordonnées de l'entreprise : <%= @ppsp.company.address %>
       </div>
-      <div class="moa-representative">
-        <%= @ppsp.moa.representative %>
+      <div class="gi-ppsp-site">
+        Lieu du chantier : <%= @ppsp.address %>
       </div>
-      <div class="moa-phone">
-        <%= @ppsp.moa.phone %>
+      <div class="gi-ppsp-start">
+        Date de début : <%= @ppsp.start %>
       </div>
-      <div class="moa-email">
-        <%= @ppsp.moa.email %>
+      <div class="gi-ppsp-end">
+        Date de fin : <%= @ppsp.end %>
+      </div>
+      <div class="gi-nature">
+        Nature des travaux : <%= @ppsp.nature %>
+      </div>
+      <div class="gi-workforce">
+        Moyens humains : <%= @ppsp.workforce %>
       </div>
     </div>
-    <div class="pdf-moe">
-      <div class="moe-title">
-        MOE
+    <div class="pdf-renseignement-admin mb-3">
+      <div class="pdf-moa mb-3">
+        <div class="pdf-title">
+          MOA
+        </div>
+        <div class="moa-name">
+          Nom : <%= @ppsp.moa.name %>
+        </div>
+        <div class="moa-address">
+          Adresse : <%= @ppsp.moa.address %>
+        </div>
+        <div class="moa-representative">
+          Représentant : <%= @ppsp.moa.representative %>
+        </div>
+        <div class="moa-phone">
+          Téléphone : <%= @ppsp.moa.phone %>
+        </div>
+        <div class="moa-email">
+          Email : <%= @ppsp.moa.email %>
+        </div>
       </div>
-      <div class="moe-name">
-        <%= @ppsp.moe.name %>
+      <div class="pdf-moe mb-3">
+        <div class="pdf-title">
+          MOE
+        </div>
+        <div class="moe-name">
+          Nom : <%= @ppsp.moe.name %>
+        </div>
+        <div class="moe-address">
+          Adresse : <%= @ppsp.moe.address %>
+        </div>
+        <div class="moe-representative">
+          Représentant : <%= @ppsp.moe.representative %>
+        </div>
+        <div class="moe-phone">
+          Téléphone : <%= @ppsp.moe.phone %>
+        </div>
+        <div class="moe-email">
+          Email : <%= @ppsp.moe.email %>
+        </div> 
       </div>
-      <div class="moe-address">
-        <%= @ppsp.moe.address %>
-      </div>
-      <div class="moe-representative">
-        <%= @ppsp.moe.representative %>
-      </div>
-      <div class="moe-phone">
-        <%= @ppsp.moe.phone %>
-      </div>
-      <div class="moe-email">
-        <%= @ppsp.moe.email %>
-      </div> 
     </div>
-  </div>
-  <div class="pdf-project-org">
-    <div class="pdf-company">
-      <div class="company-title">
-        Entreprise
+    <div class="pdf-project-org mb-3">
+      <div class="pdf-company mb-3">
+        <div class="pdf-title">
+          Entreprise
+        </div>
+        <div class="company-name">
+          Nom : <%= @ppsp.company.name %>
+        </div>
+        <div class="company-address">
+          Adresse : <%= @ppsp.company.address %>
+        </div>
+        <div class="company-representative">
+          Représentant : <%= @ppsp.company.representative %>
+        </div>
+        <div class="company-phone">
+          Téléphone : <%= @ppsp.company.phone %>
+        </div>
+        <div class="company-email">
+          Email : <%= @ppsp.company.email %>
+        </div>
       </div>
-      <div class="company-name">
-        <%= @ppsp.company.name %>
-      </div>
-      <div class="company-address">
-        <%= @ppsp.company.address %>
-      </div>
-      <div class="company-representative">
-        <%= @ppsp.company.representative %>
-      </div>
-      <div class="company-phone">
-        <%= @ppsp.company.phone %>
-      </div>
-      <div class="company-email">
-        <%= @ppsp.company.email %>
+      <div class="pdf-project-information mb-3">
+        <div class="pdf-title">
+          Informations du chantier
+        </div>
+        <div class="pi-reference">
+          Référence : <%= @ppsp.project_information.reference %>
+        </div>
+        <div class="pi-responsible">
+          Responsable : <%= @ppsp.project_information.responsible %>
+        </div>
+        <div class="pi-phone">
+          Téléphone : <%= @ppsp.project_information.phone %>
+        </div>
+        <div class="pi-email">
+          Email : <%= @ppsp.project_information.email %>
+        </div>
+        <div class="pi-site-manager">
+          <div class="pdf-subtitle">
+            Chef de chantier
+          </div>
+          <div class="pi-site-manager-name">
+            Nom : <%= @ppsp.project_information.site_manager.name %>
+          </div>
+          <div class="pi-site-manager-phone">
+            <%= @ppsp.project_information.site_manager.phone %>
+          </div>
+          <div class="pi-site-manager-email">
+            <%= @ppsp.project_information.site_manager.email %>
+          </div>
+        </div>
+        <div class="pi-team-manager">
+          <div class="pdf-subtitle">
+            Chef d'équipe
+          </div>
+          <div class="pi-team-manage-name">
+            <%= @ppsp.project_information.team_manager.name %>
+          </div>
+          <div class="pi-team-manage-phone">
+            <%= @ppsp.project_information.team_manager.phone %>
+          </div>
+          <div class="pi-team-manage-email">
+            <%= @ppsp.project_information.team_manager.email %>
+          </div>
+        </div>     
       </div>
     </div>
-    <div class="pdf-project-information">
-      <div class="pi-title">
-        Informations du chantier
-      </div>
-      <div class="pi-reference">
-        <%= @ppsp.project_information.reference %>
-      </div>
-      <div class="pi-responsible">
-        <%= @ppsp.project_information.responsible %>
-      </div>
-      <div class="pi-phone">
-        <%= @ppsp.project_information.phone %>
-      </div>
-      <div class="pi-email">
-        <%= @ppsp.project_information.email %>
-      </div>
-      <div class="pi-site-manager">
-        <div class="pi-site-manager-name">
-          <%= @ppsp.project_information.site_manager.name %>
+    <% if @ppsp.subcontractor_id %>
+      <div class="pdf-subcontractor mb-3">
+        <div class="pdf-title">
+          Sous-Traitants
         </div>
-        <div class="pi-site-manager-phone">
-          <%= @ppsp.project_information.site_manager.phone %>
+        <div class="subcontractor-name">
+          <%= @ppsp.subcontractor.name %>
         </div>
-        <div class="pi-site-manager-email">
-          <%= @ppsp.project_information.site_manager.email %>
+        <div class="subcontractor-address">
+          <%= @ppsp.subcontractor.address %>
+        </div>
+        <div class="subcontractor-work">
+          <%= @ppsp.subcontractor.work %>
         </div>
       </div>
-      <div class="pi-team-manager">
-        <div class="pi-team-manage-name">
-          <%= @ppsp.project_information.team_manager.name %>
-        </div>
-        <div class="pi-team-manage-phone">
-          <%= @ppsp.project_information.team_manager.phone %>
-        </div>
-        <div class="pi-team-manage-email">
-          <%= @ppsp.project_information.team_manager.email %>
-        </div>
-      </div>     
+    <% end %>
+    <div class="pdf-signalization mb-3">
+      <div class="pdf-title">
+        Signalisation
+      </div>
+      <div class="pdf-agglomeration">
+        Agglomération : <%= @ppsp.agglomeration %>
+      </div>
+      <div class="pdf-street-impact">
+        Impact Voirie : <%= @ppsp.street_impact %>
+      </div>
+      <div class="pdf-river-guidance">
+        Signalisation fluviale : <%= @ppsp.river_guidance %>
+      </div>
     </div>
-  </div>
-  <div class="pdf-agglomeration">
-    Agglomération : <%= @ppsp.agglomeration %>
-  </div>
-  <div class="pdf-street-impact">
-    Impact Voirie : <%= @ppsp.street_impact %>
-  </div>
-  <div class="pdf-river-guidance">
-    Signalisation fluviale : <%= @ppsp.river_guidance %>
   </div>
 </div>

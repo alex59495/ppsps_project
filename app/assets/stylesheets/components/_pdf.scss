@@ -1,0 +1,47 @@
+// Attention !! Le fichier stylesheets/pdf.scss ne peut pas avoir de commentaires. 
+// Bien supprimer tout commentaires avant de copier/coller
+
+// On importe Bootstrap etc.. directement dans le layout views/layout/pdf.html.erb
+
+// Banner
+
+.pdf-banner {
+  height: 300px;
+  color: white;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), asset-data-url('PPSP.jpg');
+}
+  
+.pdf-banner .banner-title {
+  position: absolute;
+  top: 90px;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  font-size: 30px;
+}
+
+.pdf-banner .banner-subtitle {
+    position: absolute;
+    top: 180px;
+    width: 100%;
+    text-align: center;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+// Infos générales
+
+.pdf-title {
+  text-align: center;
+  font-weight: 500;
+  font-size: 26px;
+}
+
+.pdf-subtitle {
+  text-align: center;
+  font-weight: 500;
+  font-size: 18px;
+}

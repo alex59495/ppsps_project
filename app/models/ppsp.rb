@@ -9,6 +9,15 @@ class Ppsp < ApplicationRecord
   belongs_to :moa
   belongs_to :moe
   belongs_to :project_information
+  belongs_to :pension_insurance
+  belongs_to :direcct
+  belongs_to :regional_committee
+  belongs_to :work_medecine
+  belongs_to :sos_hand
+  belongs_to :anti_poison
+  belongs_to :demining
+  belongs_to :hospital
+  belongs_to :subcontractor, optional: true
   has_many :selected_installations
   has_many :site_installations, through: :selected_installations
   has_many :selected_altitudes
@@ -28,4 +37,12 @@ class Ppsp < ApplicationRecord
   validates :moe_id, presence: true
   validates :company_id, presence: true
   validates :project_information_id, presence: true
+  validates :demining_id, presence: true
+  validates :anti_poison_id, presence: true
+  validates :sos_hand_id, presence: true
+  validates :regional_committee_id, presence: true
+  validates :direcct_id, presence: true
+  validates :work_medecine_id, presence: true
+  validates :pension_insurance_id, presence: true
+  validates :hospital_id, presence: true
 end

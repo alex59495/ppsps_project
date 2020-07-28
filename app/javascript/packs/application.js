@@ -3,10 +3,16 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+//= require jquery
+//= require rails-ujs
+//= require turbolinks
+//= require_tree .
 require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
+
+import { AutoCompleteGeocoding } from "../components/autocomplete"
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -15,3 +21,7 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+document.addEventListener('turbolinks:load', () => {
+  AutoCompleteGeocoding();
+})
