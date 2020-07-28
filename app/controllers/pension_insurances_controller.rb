@@ -1,4 +1,8 @@
 class PensionInsurancesController < ApplicationController
+  def index
+    @pension_insurances = policy_scope(PensionInsurance)
+  end
+
   def new
     @pensions_insurance = PensionsInsurance.new
     authorize @pensions_insurance

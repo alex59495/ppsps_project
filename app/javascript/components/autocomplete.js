@@ -2,7 +2,6 @@
 const AutoCompleteGeocoding = () => {
   function initializeAutocomplete(id) {     
       var element = document.getElementById(id);
-      console.log(element)
       if (element) {
         var autocomplete = new google.maps.places.Autocomplete(element, { types: ['geocode'], componentRestrictions: {country: 'fr'} });
         google.maps.event.addListener(autocomplete, 'place_changed', onPlaceChanged);
@@ -12,7 +11,7 @@ const AutoCompleteGeocoding = () => {
   function onPlaceChanged() {
       var place = this.getPlace();     
   
-      console.log(place);  // Uncomment this line to view the full object returned by Google API.     
+      // console.log(place);  // Uncomment this line to view the full object returned by Google API.     
   
   for (var i in place.address_components) {
   var component = place.address_components[i];

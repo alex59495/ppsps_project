@@ -1,4 +1,8 @@
 class RegionalCommitteesController < ApplicationController
+  def index
+    @regional_committees = policy_scope(RegionalCommittee)
+  end
+
   def new
     @regional_committee = RegionalCommittee.new
     authorize @regional_committee

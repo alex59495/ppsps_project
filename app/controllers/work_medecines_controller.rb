@@ -1,4 +1,8 @@
 class WorkMedecinesController < ApplicationController
+  def index
+    @work_medecines = policy_scope(WorkMedecine)
+  end
+
   def new
     @work_medecine = WorkMedecine.new
     authorize @work_medecine

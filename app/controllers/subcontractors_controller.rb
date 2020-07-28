@@ -1,4 +1,8 @@
 class SubcontractorsController < ApplicationController
+  def index
+    @subcontractors = policy_scope(Subcontractor)
+  end
+
   def new
     @subcontractor = Subcontractor.new
     authorize @subcontractor

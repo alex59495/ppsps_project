@@ -1,4 +1,8 @@
 class AntiPoisonsController < ApplicationController
+  def index
+    @anti_poisons = policy_scope(AntiPoison)
+  end
+
   def new
     @anti_poison = AntiPoison.new
     authorize @anti_poison

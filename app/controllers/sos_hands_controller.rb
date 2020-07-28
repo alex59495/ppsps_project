@@ -1,4 +1,8 @@
 class SosHandsController < ApplicationController
+  def index
+    @sos_hands = policy_scope(SosHand)
+  end
+
   def new
     @sos_hand = SosHand.new
     authorize @sos_hand

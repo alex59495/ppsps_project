@@ -36,8 +36,11 @@
       </div>
     </div>
     <div class="pdf-renseignement-admin mb-3">
+      <div class="pdf-title">
+        Renseignements Administratifs
+      </div>
       <div class="pdf-moa mb-3">
-        <div class="pdf-title">
+        <div class="pdf-subtitle">
           MOA
         </div>
         <div class="moa-name">
@@ -57,7 +60,7 @@
         </div>
       </div>
       <div class="pdf-moe mb-3">
-        <div class="pdf-title">
+        <div class="pdf-subtitle">
           MOE
         </div>
         <div class="moe-name">
@@ -78,9 +81,12 @@
       </div>
     </div>
     <div class="pdf-project-org mb-3">
+      <div class="pdf-title">
+        Organigramme du chantier
+      </div>
       <div class="pdf-company mb-3">
-        <div class="pdf-title">
-          Entreprise
+        <div class="pdf-subtitle">
+          Entreprise titulaire
         </div>
         <div class="company-name">
           Nom : <%= @ppsp.company.name %>
@@ -99,7 +105,7 @@
         </div>
       </div>
       <div class="pdf-project-information mb-3">
-        <div class="pdf-title">
+        <div class="pdf-subtitle">
           Informations du chantier
         </div>
         <div class="pi-reference">
@@ -115,7 +121,7 @@
           Email : <%= @ppsp.project_information.email %>
         </div>
         <div class="pi-site-manager">
-          <div class="pdf-subtitle">
+          <div class="pdf-subsubtitle">
             Chef de chantier
           </div>
           <div class="pi-site-manager-name">
@@ -129,19 +135,173 @@
           </div>
         </div>
         <div class="pi-team-manager">
-          <div class="pdf-subtitle">
+          <div class="pdf-subsubtitle">
             Chef d'équipe
           </div>
-          <div class="pi-team-manage-name">
+          <div class="pi-team-manager-name">
             <%= @ppsp.project_information.team_manager.name %>
           </div>
-          <div class="pi-team-manage-phone">
+          <div class="pi-team-manager-phone">
             <%= @ppsp.project_information.team_manager.phone %>
           </div>
-          <div class="pi-team-manage-email">
+          <div class="pi-team-manager-email">
             <%= @ppsp.project_information.team_manager.email %>
           </div>
         </div>     
+      </div>
+    </div>
+    <div class="rescues">
+      <div class="pdf-title">
+        Organisation des secours
+      </div>
+      <div class="prevention-organisms">
+        <div class="pdf-subtitle">
+          Organismes de préventions
+        </div>
+        <div class="po-direcct">
+          <div class="pdf-subsubtitle">
+            DIRECCT
+          </div>
+          <div class="po-direcct-address">
+            <%= @ppsp.direcct.address %>
+          </div>
+          <div class="po-direcct-phone">
+            <%= @ppsp.direcct.phone %>
+          </div>
+          <div class="po-direcct-fax">
+            <%= @ppsp.direcct.fax %>
+          </div>
+        </div>
+        <div class="po-regional-committee">
+          <div class="pdf-subsubtitle">
+            Comité Régional de l'OPPBTP
+          </div>
+          <div class="po-rc-name">
+            <%= @ppsp.regional_committee.name %>
+          </div>
+          <div class="po-rc-address">
+            <%= @ppsp.regional_committee.address %>
+          </div>
+          <div class="po-rc-phone">
+            <%= @ppsp.regional_committee.phone %>
+          </div>
+          <div class="po-rc-fax">
+            <%= @ppsp.regional_committee.fax %>
+          </div>
+        </div>
+        <div class="po-pension-insurance">
+          <div class="pdf-subsubtitle">
+            Caisse d'Assurance Retraite et de Santé au Travail
+          </div>
+          <div class="po-pi-address">
+            <%= @ppsp.pension_insurance.address %>
+          </div>
+          <div class="po-pi-phone">
+            <%= @ppsp.pension_insurance.phone %>
+          </div>
+          <div class="po-pi-fax">
+            <%= @ppsp.pension_insurance.fax %>
+          </div>
+        </div>
+        <div class="po-work-medecine">
+          <div class="pdf-subsubtitle">
+            Médecine du Travail
+          </div>
+          <div class="po-wm-address">
+            <%= @ppsp.work_medecine.address %>
+          </div>
+          <div class="po-wm-phone">
+            <%= @ppsp.work_medecine.phone %>
+          </div>
+          <div class="po-wm-fax">
+            <%= @ppsp.work_medecine.fax %>
+          </div>
+        </div>
+      </div>
+      <div class="external-services">
+        <div class="pdf-subtitle">
+          Services extérieurs
+        </div>
+        <div class="es-firemen">
+          <div class="pdf-subsubtitle">
+            Pompier
+          </div>
+          <div class="es-firemen-num">
+            18 ou 112 (portable)
+          </div>
+        </div>
+        <div class="es-police">
+          <div class="pdf-subsubtitle">
+            Police
+          </div>
+          <div class="es-police-num">
+            17
+          </div>
+        </div>
+        <div class="es-SAMU">
+          <div class="pdf-subsubtitle">
+            SAMU
+          </div>
+          <div class="es-SAMU-num">
+            15
+          </div>
+        </div>
+        <div class="es-demining">
+          <div class="pdf-subsubtitle">
+            Centre de déminage
+          </div>
+          <div class="es-demining-name">
+            <%= @ppsp.demining.name %>
+          </div>
+          <div class="es-demining-address">
+            <%= @ppsp.demining.address %>
+          </div>
+          <div class="es-demining-phone">
+            <%= @ppsp.demining.phone %>
+          </div>
+        </div>
+        <div class="es-anti-poison">
+          <div class="pdf-subsubtitle">
+            Centre Anti-Poison
+          </div>
+          <div class="es-ap-name">
+            <%= @ppsp.anti_poison.name %>
+          </div>
+          <div class="es-ap-address">
+            <%= @ppsp.anti_poison.address %>
+          </div>
+          <div class="es-ap-phone">
+            <%= @ppsp.anti_poison.phone %>
+          </div>
+        </div>
+        <div class="es-sos-hand">
+          <div class="pdf-subsubtitle">
+            SOS Mains et Doigts
+          </div>
+          <div class="es-sh-name">
+            <%= @ppsp.sos_hand.name %>
+          </div>
+          <div class="es-sh-address">
+            <%= @ppsp.sos_hand.address %>
+          </div>
+          <div class="es-sh-phone">
+            <%= @ppsp.sos_hand.phone %>
+          </div>
+        </div>
+        <div class="es-hospital">
+          <div class="pdf-subsubtitle">
+            Hôpital le plus proche
+          </div>
+          <div class="es-hospital-name">
+            <%= @ppsp.hospital.name %>
+          </div>
+          <div class="es-hospital-address">
+            <%= @ppsp.hospital.address %>
+          </div>
+          <div class="es-hospital-phone">
+            <%= @ppsp.hospital.phone %>
+          </div>
+        </div>
       </div>
     </div>
     <% if @ppsp.subcontractor_id %>

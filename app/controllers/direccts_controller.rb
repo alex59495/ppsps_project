@@ -1,4 +1,8 @@
 class DirecctsController < ApplicationController
+  def index
+    @direccts = policy_scope(Direcct)
+  end
+
   def new
     @direcct = Direcct.new
     authorize @direcct

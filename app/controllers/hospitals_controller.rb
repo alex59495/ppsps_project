@@ -1,4 +1,8 @@
 class HospitalsController < ApplicationController
+  def index
+    @hospitals = policy_scope(Hospital)
+  end
+
   def new
     @hospital = Hospital.new
     authorize @hospital

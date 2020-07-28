@@ -1,4 +1,8 @@
 class MoesController < ApplicationController
+  def index
+    @moes = policy_scope(Moe)
+  end
+
   def new
     @moe = Moe.new
     authorize @moe
