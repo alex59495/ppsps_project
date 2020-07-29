@@ -4,7 +4,6 @@ class AntiPoisonPolicy < ApplicationPolicy
       scope.all
     end
   end
-
   
   def new?
     user.admin == true
@@ -12,5 +11,21 @@ class AntiPoisonPolicy < ApplicationPolicy
 
   def create?
     new?
+  end
+
+  def show?
+    true
+  end
+
+  def destroy
+    user.admin == true
+  end
+
+  def edit?
+    user.admin == true
+  end
+
+  def update
+    edit?
   end
 end

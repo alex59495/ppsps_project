@@ -1,4 +1,6 @@
 class SubcontractorsController < ApplicationController
+  before_action :find_subcontractor, only: [ :update, :show, :destroy, :edit ]
+
   def index
     @subcontractors = policy_scope(Subcontractor)
   end
@@ -18,8 +20,25 @@ class SubcontractorsController < ApplicationController
     end
   end
 
+  def edit
+    authorize @subcontractor
+  end
+
+  def update
+    authorize @subcontractor
+    if @subcontractor.update(params_subcontractor)
+      redirect_to subcontractors_path
+    else
+      render :edit
+    end
+  end
+
   private
   def params_subcontractor
-    params.require(:subcontractor).permit(:name, :phone, :email, :sub_responsible_id)
+    params.require(:subcontractor).permit(:address, :name, :work, :id_sub_responsible)
+  end
+
+  def find_subcontractor
+    @subcontractor = Subcontractor.find(params[:id])
   end
 end

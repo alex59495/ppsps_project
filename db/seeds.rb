@@ -154,9 +154,17 @@ p "create #{sos_hand.id} sos hand"
 anti_poison = AntiPoison.create(name: "Clinique Lille Sud", phone: "03 03 03 03 03", address: "Rue du anti poison")
 p "create #{anti_poison.id} anti poison"
 
-# Create hospital
-hospital = Hospital.create(name: "Hopital de Vervins", address: "Quelque part à Vervins", phone: "03 03 03 03 03")
-
+# Create hospitals
+CSV.foreach('./Database_hospitals.csv', headers: true, encoding:'iso-8859-1:utf-8', col_sep: ";") do |row|
+  # Create a hash for each hospital with the header of the CSV file
+  hospital = row.to_h
+  h = Hospital.create(
+    name: hospital['Nom'], 
+    address: "#{hospital['Adresse']}, #{hospital[:Ville]}, #{hospital['Code Postal']}",
+    phone: hospital['Téléphone'],
+    )
+  p "Create #{h.id} hospital"
+end
 
 # Create PPSP
 ppsps = [{

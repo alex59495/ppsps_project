@@ -1,4 +1,6 @@
 class MoasController < ApplicationController
+  before_action :find_moa, only: [ :update, :show, :destroy, :edit ]
+
   def index
     @moas = policy_scope(Moa)
   end
@@ -18,8 +20,25 @@ class MoasController < ApplicationController
     end
   end
 
+  def edit
+    authorize @moa
+  end
+
+  def update
+    authorize @moa
+    if @moa.update(params_moa)
+      redirect_to moas_path
+    else
+      render :edit
+    end
+  end
+
   private
   def params_moa
-    params.require(:moa).permit(:name, :address, :representative, :phone, :email)
+    params.require(:moa).permit(:address, :name, :phone, :email, :representative)
+  end
+
+  def find_moa
+    @moa = Moa.find(params[:id])
   end
 end

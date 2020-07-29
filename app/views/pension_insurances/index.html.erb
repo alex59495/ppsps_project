@@ -1,1 +1,7 @@
-<%= @pension_insurances %>
+<% @pension_insurances.each do |pension_insurance| %>
+  <div class="card-database">
+    <%= link_to pension_insurance, pension_insurance_path(pension_insurance) %>
+    <%= link_to "Edit", edit_pension_insurance_path(pension_insurance) %>
+    <%= link_to "x", pension_insurance_path(pension_insurance), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+  </div>
+<% end %>

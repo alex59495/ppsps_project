@@ -1,4 +1,6 @@
 class DeminingsController < ApplicationController
+  before_action :find_demining, only: [ :update, :show, :destroy, :edit ]
+
   def index
     @deminings = policy_scope(Demining)
   end

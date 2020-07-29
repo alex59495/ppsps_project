@@ -1,4 +1,6 @@
 class ProjectInformationsController < ApplicationController
+  before_action :find_project_information, only: [ :update, :show, :destroy, :edit ]
+
   def index
     @project_informations = policy_scope(ProjectInformation)
   end
@@ -18,8 +20,25 @@ class ProjectInformationsController < ApplicationController
     end
   end
 
+  def edit
+    authorize @project_information
+  end
+
+  def update
+    authorize @project_information
+    if @project_information.update(params_project_information)
+      redirect_to project_informations_path
+    else
+      render :edit
+    end
+  end
+
   private
-  def params_project
-    params.require(:project).permit(:reference, :responsible, :phone, :email, :site_manager_id, :team_manager_id)
+  def params_project_information
+    params.require(:project_information).permit(:reference, :phone, :email, :resposible, :site_manager_id, :team_manager_id)
+  end
+
+  def find_project_information
+    @project_information = ProjectInformation.find(params[:id])
   end
 end

@@ -1,4 +1,6 @@
 class SosHandsController < ApplicationController
+  before_action :find_sos_hand, only: [ :update, :show, :destroy, :edit ]
+
   def index
     @sos_hands = policy_scope(SosHand)
   end
@@ -18,8 +20,25 @@ class SosHandsController < ApplicationController
     end
   end
 
+  def edit
+    authorize @sos_hand
+  end
+
+  def update
+    authorize @sos_hand
+    if @sos_hand.update(params_sos_hand)
+      redirect_to sos_hands_path
+    else
+      render :edit
+    end
+  end
+
   private
   def params_sos_hand
     params.require(:sos_hand).permit(:address, :name, :phone)
+  end
+
+  def find_sos_hand
+    @sos_hand = SosHand.find(params[:id])
   end
 end

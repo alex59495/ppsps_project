@@ -1,1 +1,7 @@
-<%= @subcontractors %>
+<% @subcontractors.each do |subcontractor| %>
+  <div class="card-database">
+    <%= link_to subcontractor, subcontractor_path(subcontractor) %>
+    <%= link_to "Edit", edit_subcontractor_path(subcontractor) %>
+    <%= link_to "x", subcontractor_path(subcontractor), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+  </div>
+<% end %>

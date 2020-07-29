@@ -1,7 +1,7 @@
 <%= link_to "Revenir à mes PPSP", ppsps_path %>
 
 <%= simple_form_for @ppsp do |f| %>
-  <%= f.input :address, label: "Adresse", input_html: { id: :autocomplete_address } %>
+  <%= f.input :address, label: "Adresse", placeholder: "Indiquez une adresse", input_html: { id: :autocomplete_address } %>
   <%= f.input :start, label: "Date de début"  %>
   <%= f.input :end, label: "Date de fin"  %>
   <%= f.input :nature, label: "Nature du travail"  %>
