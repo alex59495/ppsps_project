@@ -14,10 +14,10 @@
         Informations générales
       </div>
       <div class="gi-company-name">
-        Nom de l'entreprise : <%= @ppsp.company.name %>
+        Nom de l'entreprise : <%= current_user.company.name %>
       </div>
       <div class="gi-company-address">
-        Coordonnées de l'entreprise : <%= @ppsp.company.address %>
+        Coordonnées de l'entreprise : <%= current_user.company.address %>
       </div>
       <div class="gi-ppsp-site">
         Lieu du chantier : <%= @ppsp.address %>
@@ -89,19 +89,19 @@
           Entreprise titulaire
         </div>
         <div class="company-name">
-          Nom : <%= @ppsp.company.name %>
+          Nom : <%= current_user.company.name %>
         </div>
         <div class="company-address">
-          Adresse : <%= @ppsp.company.address %>
+          Adresse : <%= current_user.company.address %>
         </div>
         <div class="company-representative">
-          Représentant : <%= @ppsp.company.representative %>
+          Représentant : <%= "#{current_user.first_name} #{current_user.last_name}" %>
         </div>
         <div class="company-phone">
-          Téléphone : <%= @ppsp.company.phone %>
+          Téléphone : <%= current_user.company.phone %>
         </div>
         <div class="company-email">
-          Email : <%= @ppsp.company.email %>
+          Email : <%= current_user.email %>
         </div>
       </div>
       <div class="pdf-project-information mb-3">

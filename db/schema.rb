@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_28_013538) do
+ActiveRecord::Schema.define(version: 2020_07_30_152107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,9 +32,7 @@ ActiveRecord::Schema.define(version: 2020_07_28_013538) do
   create_table "companies", force: :cascade do |t|
     t.string "name"
     t.string "address"
-    t.string "representative"
     t.string "phone"
-    t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -103,7 +101,6 @@ ActiveRecord::Schema.define(version: 2020_07_28_013538) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
-    t.bigint "company_id", null: false
     t.bigint "moa_id", null: false
     t.bigint "moe_id", null: false
     t.bigint "project_information_id", null: false
@@ -117,7 +114,6 @@ ActiveRecord::Schema.define(version: 2020_07_28_013538) do
     t.bigint "anti_poison_id", null: false
     t.bigint "hospital_id", null: false
     t.index ["anti_poison_id"], name: "index_ppsps_on_anti_poison_id"
-    t.index ["company_id"], name: "index_ppsps_on_company_id"
     t.index ["demining_id"], name: "index_ppsps_on_demining_id"
     t.index ["direcct_id"], name: "index_ppsps_on_direcct_id"
     t.index ["hospital_id"], name: "index_ppsps_on_hospital_id"
@@ -236,6 +232,8 @@ ActiveRecord::Schema.define(version: 2020_07_28_013538) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "first_name", default: "", null: false
+    t.string "last_name", default: "", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -244,6 +242,8 @@ ActiveRecord::Schema.define(version: 2020_07_28_013538) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "admin", default: false
+    t.bigint "company_id", null: false
+    t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -257,7 +257,6 @@ ActiveRecord::Schema.define(version: 2020_07_28_013538) do
   end
 
   add_foreign_key "ppsps", "anti_poisons"
-  add_foreign_key "ppsps", "companies"
   add_foreign_key "ppsps", "deminings"
   add_foreign_key "ppsps", "direccts"
   add_foreign_key "ppsps", "hospitals"
@@ -275,4 +274,5 @@ ActiveRecord::Schema.define(version: 2020_07_28_013538) do
   add_foreign_key "selected_risks", "ppsps"
   add_foreign_key "selected_risks", "risks"
   add_foreign_key "subcontractors", "sub_responsibles"
+  add_foreign_key "users", "companies"
 end

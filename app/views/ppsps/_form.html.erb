@@ -6,7 +6,6 @@
   <%= f.input :end, label: "Date de fin"  %>
   <%= f.input :nature, label: "Nature du travail"  %>
   <%= f.input :workforce, label: "Workforce"  %>
-  <%= f.input :company_id, label: "Entreprise", as: :select, collection: Company.all %>
   <% if policy(Company).new? %>
     <%= link_to "Ajouter une entreprise", new_company_path %>
   <% end %>

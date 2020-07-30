@@ -87,7 +87,7 @@ class PpspsController < ApplicationController
   private
   def params_ppsp
     params.require(:ppsp).permit(:address, :start, :end, :nature, :workforce, :agglomeration, 
-    :street_impact, :river_guidance, :company_id, :moa_id, :moe_id, :project_information_id, 
+    :street_impact, :river_guidance, :moa_id, :moe_id, :project_information_id, 
     :subcontractor_id, :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
     :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id)
   end
