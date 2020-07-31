@@ -4,7 +4,9 @@ class CreateSubcontractors < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :address
       t.string :work
-
+      t.string :responsible_name
+      t.string :responsible_phone
+      t.string :responsible_email
       t.timestamps
     end
   end

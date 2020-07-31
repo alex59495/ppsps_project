@@ -21,10 +21,6 @@
   <% if policy(Moe).new? %>
     <%= link_to "Ajouter un projet", new_project_information_path %>
   <% end %>
-  <%= f.input :subcontractor_id, label: "Sous-Traitants", as: :select, collection: Subcontractor.all.order(:name) %>
-  <% if policy(Subcontractor).new? %>
-    <%= link_to "Ajouter un Sous-Traitants", new_subcontractor_path %>
-  <% end %>
   <%= f.input :regional_committee_id, label: "Comité régional de l'OPPBTP", as: :select, collection: RegionalCommittee.all.order(:id) %>
   <% if policy(RegionalCommittee).new? %>
     <%= link_to "Ajouter un comité régional", new_regional_committee_path %>

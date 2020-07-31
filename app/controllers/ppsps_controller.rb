@@ -63,6 +63,10 @@ class PpspsController < ApplicationController
     @selected_risk = SelectedRisk.new
     # Selected altitude work already existing for this PPSP
     @selected_risk_active = SelectedRisk.where(ppsp_id: @ppsp.id)
+    # Input of the option of subcontractors for the form
+    @subcontractor = Subcontractor.new
+    # Selected subcontractors already existing for this PPSP
+    @selected_subcontractor_active = SelectedSubcontractor.where(ppsp_id: @ppsp.id)
   end
 
   def edit

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_30_152107) do
+ActiveRecord::Schema.define(version: 2020_07_31_170911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,7 +104,6 @@ ActiveRecord::Schema.define(version: 2020_07_30_152107) do
     t.bigint "moa_id", null: false
     t.bigint "moe_id", null: false
     t.bigint "project_information_id", null: false
-    t.bigint "subcontractor_id"
     t.bigint "direcct_id", null: false
     t.bigint "regional_committee_id", null: false
     t.bigint "pension_insurance_id", null: false
@@ -123,7 +122,6 @@ ActiveRecord::Schema.define(version: 2020_07_30_152107) do
     t.index ["project_information_id"], name: "index_ppsps_on_project_information_id"
     t.index ["regional_committee_id"], name: "index_ppsps_on_regional_committee_id"
     t.index ["sos_hand_id"], name: "index_ppsps_on_sos_hand_id"
-    t.index ["subcontractor_id"], name: "index_ppsps_on_subcontractor_id"
     t.index ["user_id"], name: "index_ppsps_on_user_id"
     t.index ["work_medecine_id"], name: "index_ppsps_on_work_medecine_id"
   end
@@ -183,6 +181,15 @@ ActiveRecord::Schema.define(version: 2020_07_30_152107) do
     t.index ["risk_id"], name: "index_selected_risks_on_risk_id"
   end
 
+  create_table "selected_subcontractors", force: :cascade do |t|
+    t.bigint "ppsp_id", null: false
+    t.bigint "subcontractor_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ppsp_id"], name: "index_selected_subcontractors_on_ppsp_id"
+    t.index ["subcontractor_id"], name: "index_selected_subcontractors_on_subcontractor_id"
+  end
+
   create_table "site_installations", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -205,22 +212,15 @@ ActiveRecord::Schema.define(version: 2020_07_30_152107) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "sub_responsibles", force: :cascade do |t|
-    t.string "name"
-    t.string "phone"
-    t.string "email"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "subcontractors", force: :cascade do |t|
     t.string "name"
     t.string "address"
     t.string "work"
+    t.string "responsible_name"
+    t.string "responsible_phone"
+    t.string "responsible_email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "sub_responsible_id", null: false
-    t.index ["sub_responsible_id"], name: "index_subcontractors_on_sub_responsible_id"
   end
 
   create_table "team_managers", force: :cascade do |t|
@@ -266,13 +266,13 @@ ActiveRecord::Schema.define(version: 2020_07_30_152107) do
   add_foreign_key "ppsps", "project_informations"
   add_foreign_key "ppsps", "regional_committees"
   add_foreign_key "ppsps", "sos_hands"
-  add_foreign_key "ppsps", "subcontractors"
   add_foreign_key "ppsps", "users"
   add_foreign_key "ppsps", "work_medecines"
   add_foreign_key "project_informations", "site_managers"
   add_foreign_key "project_informations", "team_managers"
   add_foreign_key "selected_risks", "ppsps"
   add_foreign_key "selected_risks", "risks"
-  add_foreign_key "subcontractors", "sub_responsibles"
+  add_foreign_key "selected_subcontractors", "ppsps"
+  add_foreign_key "selected_subcontractors", "subcontractors"
   add_foreign_key "users", "companies"
 end

@@ -1,0 +1,15 @@
+.card-info-selected {
+  border: 1px solid black;
+  padding: 4px;
+  padding-right: 10px;
+  border-radius: 4px;
+  margin: 4px;
+  display: inline-flex;
+  position: relative
+}
+
+.card-btn-delete {
+  position: relative;
+  top: -10px;
+  right: -8px;
+}

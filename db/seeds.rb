@@ -94,24 +94,18 @@ responsible:project_information[:responsible], email:project_information[:email]
 team_manager_id:project_information[:team_manager_id])
 p "create #{project_information1.id} project info"
 
-# Create Sub Responsible
-sub_responsible = {
-  name: "responsable sous-traitant",
-  phone: "0600000000",
-  email: "sub_responsible@gmail.com"
-}
-sub_responsible1 = SubResponsible.create(name: sub_responsible[:name], phone: sub_responsible[:phone], email: sub_responsible[:email])
-p "create #{sub_responsible1.id} sub responsible"
-
 # Create Subcontractor
 subcontractor = {
   name: "Sous Traitant",
   address: "address subcontract",
   work: "work subcontract",
-  sub_responsible_id: 1,
+  responsible_name: "Alexis Responsable",
+  responsible_phone: "03 28 26 18 63",
+  responsible_email: "alexis@gmail.com",
 }
 subcontractor1 = Subcontractor.create(name: subcontractor[:name], address: subcontractor[:address], 
-work: subcontractor[:work], sub_responsible_id: subcontractor[:sub_responsible_id])
+work: subcontractor[:work], responsible_name: subcontractor[:responsible_name], responsible_phone: subcontractor[:responsible_phone],
+responsible_email: subcontractor[:responsible_email])
 p "create #{subcontractor1.id} subcontractor"
 
 # Create DIRECCT
@@ -191,7 +185,6 @@ ppsps = [{
   moa_id: 1,
   moe_id: 1,
   project_information_id: 1,
-  subcontractor_id: 1,
   pension_insurance_id: 1,
   direcct_id: 1,
   work_medecine_id: 1,
@@ -248,7 +241,7 @@ ppsps.each do |ppsp|
   p = Ppsp.create(address: ppsp[:address], start: ppsp[:start], end: ppsp[:end], nature: ppsp[:nature], 
   workforce: ppsp[:workforce], user_id: ppsp[:user_id], moa_id: ppsp[:moa_id],
   moe_id: ppsp[:moe_id], project_information_id: ppsp[:project_information_id], agglomeration: ppsp[:agglomeration],
-  street_impact: ppsp[:street_impact], river_guidance: ppsp[:river_guidance], subcontractor_id: ppsp[:subcontractor_id],
+  street_impact: ppsp[:street_impact], river_guidance: ppsp[:river_guidance],
   pension_insurance_id: ppsp[:pension_insurance_id], direcct_id: ppsp[:direcct_id], work_medecine_id: ppsp[:work_medecine_id],
   regional_committee_id: ppsp[:regional_committee_id], demining_id: ppsp[:demining_id], 
   sos_hand_id: ppsp[:sos_hand_id], anti_poison_id: ppsp[:anti_poison_id], hospital_id: ppsp[:hospital_id],

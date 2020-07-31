@@ -21,6 +21,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+# Be able to redirect with a post method
+gem 'repost'
 
 # Autocomplete geocoding
 gem "geocoder"
@@ -43,7 +45,6 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
 gem 'autoprefixer-rails'
-gem 'bootstrap', '~> 4.0.0'
 gem 'font-awesome-sass'
 gem 'simple_form'
 group :development, :test do  gem 'pry-byebug'

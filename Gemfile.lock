@@ -184,6 +184,7 @@ GEM
       ffi (~> 1.0)
     redis (4.2.1)
     regexp_parser (1.7.1)
+    repost (0.3.2)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -278,6 +279,7 @@ DEPENDENCIES
   pundit
   rails (~> 6.0.3, >= 6.0.3.2)
   redis (~> 4.0)
+  repost
   sass-rails (>= 6)
   selenium-webdriver
   simple_form

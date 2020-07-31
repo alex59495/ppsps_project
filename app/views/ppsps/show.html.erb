@@ -304,19 +304,28 @@
         </div>
       </div>
     </div>
-    <% if @ppsp.subcontractor_id %>
+    <% @ppsp.subcontractors.each do |subcontract| %>
       <div class="pdf-subcontractor mb-3">
         <div class="pdf-title">
           Sous-Traitants
         </div>
         <div class="subcontractor-name">
-          <%= @ppsp.subcontractor.name %>
+          <%= subcontract.name %>
         </div>
         <div class="subcontractor-address">
-          <%= @ppsp.subcontractor.address %>
+          <%= subcontract.address %>
         </div>
         <div class="subcontractor-work">
-          <%= @ppsp.subcontractor.work %>
+          <%= subcontract.work %>
+        </div>
+        <div class="subcontractor-respname">
+          <%= subcontract.responsible_name %>
+        </div>
+        <div class="subcontractor-respphone">
+          <%= subcontract.responsible_phone %>
+        </div>
+        <div class="subcontractor-respmail">
+          <%= subcontract.responsible_email %>
         </div>
       </div>
     <% end %>

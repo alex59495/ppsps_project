@@ -3,9 +3,11 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   get 'database', to: 'pages#database', as: :database
   resources :ppsps do
+    resources :subcontractors
     resources :selected_installations, only: [ :create, :destroy ]
     resources :selected_altitudes, only: [ :create, :destroy ]
     resources :selected_risks, only: [ :create, :destroy ]
+    resources :selected_subcontractors, only: [ :create, :destroy ]
     member do
       get :ppsp_pdf
     end
@@ -19,8 +21,6 @@ Rails.application.routes.draw do
   resources :project_informations
   resources :site_managers
   resources :team_managers
-  resources :subcontractors
-  resources :sub_responsibles
   resources :hospitals
   resources :anti_poisons
   resources :sos_hands

@@ -1,4 +1,3 @@
 class Subcontractor < ApplicationRecord
-  has_many :ppsps
-  belongs_to :sub_responsible
+  has_many :selected_subcontractors
 end
