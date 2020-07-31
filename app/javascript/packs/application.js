@@ -15,6 +15,7 @@ import "bootstrap";
 
 // import { AutoCompleteGeocoding } from "../components/autocomplete"
 // La clé API pour l'utilisation de l'autocomplete Geocoding se trouve dans config/application.yml
+import { HideForm } from "../components/hide-form"
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -25,4 +26,5 @@ import "bootstrap";
 // const imagePath = (name) => images(name, true)
 
 document.addEventListener('turbolinks:load', () => {
+  HideForm();
 })

@@ -1,7 +1,14 @@
-<%= simple_form_for [@ppsp, @selected_installation], remote: true do |f| %>
-  <%= f.association :site_installation, as: :check_boxes %>
-  <%= f.submit %>
-<% end %>
+<div>
+  <input type="checkbox" id="checkSiteInstallation" name="siteInstallation">
+  <label for="checkSiteInstallation">Y-a-t-il des installations de chantier ?</label>
+</div>
+
+<div class="hidden-form hidden" id="siteInstallation">
+  <%= simple_form_for [@ppsp, @selected_installation], remote: true do |f| %>
+    <%= f.association :site_installation, as: :check_boxes %>
+    <%= f.submit %>
+  <% end %>
+</div>
 
 <div class="selected_active">
   <% @selected_installation_active.each do |select_installation| %>
@@ -16,10 +23,17 @@
   <% end %>
 </div>
 
-<%= simple_form_for [@ppsp, @selected_altitude], remote: true do |f| %>
-  <%= f.association :altitude_work, as: :check_boxes %>
-  <%= f.submit %>
-<% end %>
+<div>
+  <input type="checkbox" id="checkAltitudeWork" name="altitudeWork">
+  <label for="checkAltitudeWork">Le chantier est-il concerné par des travaux en hauteur ?</label>
+</div>
+
+<div class="hidden-form hidden" id="altitudeWork">
+  <%= simple_form_for [@ppsp, @selected_altitude], remote: true do |f| %>
+    <%= f.association :altitude_work, as: :check_boxes %>
+    <%= f.submit %>
+  <% end %>
+</div>
 
 <div class="selected_active">
   <% @selected_altitude_active.each do |select_altitude| %>
@@ -34,6 +48,7 @@
   <% end %>
 </div>
 
+Sélectionner les types de travaux associés au projet
 <%= simple_form_for [@ppsp, @selected_risk], remote: true do |f| %>
   <%= f.association :risk, as: :check_boxes %>
   <%= f.submit %>

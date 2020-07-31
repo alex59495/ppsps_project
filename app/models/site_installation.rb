@@ -27,5 +27,5 @@ class SiteInstallation < ApplicationRecord
   ]
   has_many :selected_installations
   validates :name, presence: true
-  validates :mobile, presence: true
+  validates :mobile, inclusion: {in: [true, false] }
 end
