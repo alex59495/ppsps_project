@@ -18,7 +18,10 @@ class SubcontractorsController < ApplicationController
       # Using the gem 'repost' to redirect with a post action to create the selected subcontractors element
       redirect_post ppsp_selected_subcontractors_path(subcontractor_id: @subcontractor.id), options: {authenticity_token: :auto}
     else
-      render :new
+      # Respond with the .js.erb to print the modal with errors
+      respond_to do |format|
+        format.js { render 'ppsps/informations_supplementaires' }
+      end
     end
   end
 

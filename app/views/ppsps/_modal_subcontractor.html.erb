@@ -8,7 +8,7 @@
     </div>
     <div class="modal-body">
       <div class="cards-form">
-        <%= simple_form_for [@ppsp, @subcontractor] do |f| %>
+        <%= simple_form_for [@ppsp, @subcontractor], remote: true do |f| %>
           <%= f.input :name %>
           <%= f.input :address %>
           <%= f.input :work %>

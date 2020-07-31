@@ -251,7 +251,7 @@ end
 
 # Create site_installations
 SiteInstallation::SITE_INSTALLATIONS.each do |site|
-  s = SiteInstallation.create(name: site)
+  s = SiteInstallation.create(name: site[:name], mobile: site[:mobile])
   p "Create #{s.id} site installations"
 end
 # Create altitude_works 
