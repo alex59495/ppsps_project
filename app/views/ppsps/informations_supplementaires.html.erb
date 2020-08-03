@@ -3,10 +3,24 @@
   <label for="checkSiteInstallation">Y-a-t-il des installations de chantier ?</label>
 </div>
 
-<div class="hidden-form hidden" id="siteInstallation">
+<div class="hidden-form hidden" id="siteInstallationType">
+  <input type="checkbox" id="checkSiteInstallationMobile" name="siteInstallationMobile">
+  <label for="checkSiteInstallationMobile">Mobile ?</label>
+  <input type="checkbox" id="checkSiteInstallationFix" name="siteInstallationFix">
+  <label for="checkSiteInstallationFix">Fixe ?</label>
+</div>
+
+<div class="hidden-form hidden" id="siteInstallationMobile">
   <%= simple_form_for [@ppsp, @selected_installation], remote: true do |f| %>
-    <%= f.association :site_installation, as: :check_boxes %>
-    <%= f.submit %>
+    <%= f.association :site_installation, as: :check_boxes, collection: SiteInstallation.where(mobile: true).order(:name) %>
+    <%= f.button :submit, "Ajouter des installations mobiles" %>
+  <% end %>
+</div>
+
+<div class="hidden-form hidden" id="siteInstallationFix">
+  <%= simple_form_for [@ppsp, @selected_installation], remote: true do |f| %>
+    <%= f.association :site_installation, as: :check_boxes, collection: SiteInstallation.where(mobile: false).order(:name) %>
+    <%= f.button :submit, "Ajouter des installations fixes" %>
   <% end %>
 </div>
 
@@ -30,7 +44,7 @@
 
 <div class="hidden-form hidden" id="altitudeWork">
   <%= simple_form_for [@ppsp, @selected_altitude], remote: true do |f| %>
-    <%= f.association :altitude_work, as: :check_boxes %>
+    <%= f.association :altitude_work, as: :check_boxes, collection: AltitudeWork.order(:name) %>
     <%= f.submit %>
   <% end %>
 </div>
@@ -50,7 +64,7 @@
 
 Sélectionner les types de travaux associés au projet
 <%= simple_form_for [@ppsp, @selected_risk], remote: true do |f| %>
-  <%= f.association :risk, as: :check_boxes %>
+  <%= f.association :risk, as: :check_boxes, collection: Risk.order(:name) %>
   <%= f.submit %>
 <% end %>
 

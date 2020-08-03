@@ -1,9 +1,19 @@
 const HideForm = () => {
-  if (document.getElementById('siteInstallation')) {
-    const siteInstallation = document.getElementById('siteInstallation');
+  if (document.getElementById('siteInstallationType')) {
+    const siteInstallationType = document.getElementById('siteInstallationType');
     const checkSiteInstallation = document.getElementById('checkSiteInstallation');
     checkSiteInstallation.addEventListener('click', (event) => {
-      siteInstallation.classList.toggle('hidden');
+      siteInstallationType.classList.toggle('hidden');
+    })
+    const checkSiteInstallationMobile = document.getElementById('checkSiteInstallationMobile');
+    const siteInstallationMobile = document.getElementById('siteInstallationMobile');
+    checkSiteInstallationMobile.addEventListener('click', (event) => {
+      siteInstallationMobile.classList.toggle('hidden');
+    })
+    const checkSiteInstallationFix = document.getElementById('checkSiteInstallationFix');
+    const siteInstallationFix = document.getElementById('siteInstallationFix');
+    checkSiteInstallationFix.addEventListener('click', (event) => {
+      siteInstallationFix.classList.toggle('hidden');
     })
   }
   if (document.getElementById('altitudeWork')) {

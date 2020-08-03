@@ -343,5 +343,42 @@
         Signalisation fluviale : <%= @ppsp.river_guidance %>
       </div>
     </div>
+
+    <% if @ppsp.site_installations %>
+      <div class="pdf-site-installation">
+        <div class="pdf-title">
+          Installations de chantier
+        </div>
+        <% @ppsp.site_installations.each do |site| %>
+          <div class="si-name">
+            <%= site.name %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    <% if @ppsp.altitude_works %>
+      <div class="pdf-altitude-work">
+        <div class="pdf-title">
+          Travail en altitude
+        </div>
+        <% @ppsp.altitude_works.each do |work| %>
+          <div class="aw-name">
+            <%= work.name %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    <% if @ppsp.risks %>
+      <div class="pdf-risk">
+        <div class="pdf-title">
+          Risque
+        </div>
+        <% @ppsp.risks.each do |risk| %>
+          <div class="risk-name">
+            <%= risk.name %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
