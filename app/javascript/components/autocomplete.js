@@ -1,5 +1,6 @@
 // app/assets/javascripts/autocomplete.js
-const AutoCompleteGeocoding = () => {
+
+
   function initializeAutocomplete(id) {     
       var element = document.getElementById(id);
       if (element) {

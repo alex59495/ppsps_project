@@ -55,6 +55,8 @@ class PpspsController < ApplicationController
     @selected_installation = SelectedInstallation.new
     # Selected installations already existing for this PPSP
     @selected_installation_active = SelectedInstallation.where(ppsp_id: @ppsp.id)
+    # Show all the work altitudes except "Autre" which will be entered within a string field by the user
+    @work_altitudes = AltitudeWork.where.not(name: "Autre")
     # Input of the option of altitude work for the form
     @selected_altitude = SelectedAltitude.new
     # Selected altitude work already existing for this PPSP

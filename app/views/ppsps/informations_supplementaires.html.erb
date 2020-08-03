@@ -17,10 +17,11 @@
   <% end %>
 </div>
 
+<%# Not to have a double id with the other form %>
 <div class="hidden-form hidden" id="siteInstallationFix">
   <%= simple_form_for [@ppsp, @selected_installation], remote: true do |f| %>
     <%= f.association :site_installation, as: :check_boxes, collection: SiteInstallation.where(mobile: false).order(:name) %>
-    <%= f.button :submit, "Ajouter des installations fixes" %>
+    <%= f.button :submit, "Ajouter des installations mobiles" %>
   <% end %>
 </div>
 
@@ -42,18 +43,31 @@
   <label for="checkAltitudeWork">Le chantier est-il concerné par des travaux en hauteur ?</label>
 </div>
 
-<div class="hidden-form hidden" id="altitudeWork">
-  <%= simple_form_for [@ppsp, @selected_altitude], remote: true do |f| %>
-    <%= f.association :altitude_work, as: :check_boxes, collection: AltitudeWork.order(:name) %>
-    <%= f.submit %>
-  <% end %>
-</div>
+<form class="simple_form new_selected_altitude hidden-form hidden" id="altitudeWork" novalidate="novalidate" action=<%= ppsp_selected_altitudes_path(@ppsp) %> data-remote="true" accept-charset="UTF-8" method="post">
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+  <fieldset class="form-group check_boxes required selected_altitude_altitude_work">
+    <legend class="col-form-label pt-0">Altitude work <abbr title="required">*</abbr></legend>
+    <input type="hidden" name="selected_altitude[altitude_work_id][]" value="">
+    <% @work_altitudes.each do |work| %>
+      <div class="form-check">
+        <input class="form-check-input check_boxes required" type="checkbox" value="<%= work.id %>" name="selected_altitude[altitude_work_id][]" id="selected_altitude_altitude_work_id_<%= work.id %>">
+        <label class="form-check-label collection_check_boxes" for="selected_altitude_altitude_work_id_<%= work.id %>"><%= work.name %></label>
+      </div>
+    <% end %>
+      <input class="form-control string required" type="text" placeholder="Autres..." name="selected_altitude[altitude_work_id][]" id="selected_altitude_altitude_work_id_<%= AltitudeWork.last.id + 1 %>">
+    <input type="submit" name="commit" value="Create Selected altitude" data-disable-with="Create Selected altitude">
+  </fieldset>
+</form>
 
 <div class="selected_active">
   <% @selected_altitude_active.each do |select_altitude| %>
     <div class="card-info-selected">
       <div class="card-info-name">
-        <%= select_altitude.altitude_work.name %>
+        <% if select_altitude.other %>
+          <%= select_altitude.altitude_work.name %>, <%= select_altitude.other %>
+        <% else %>
+          <%= select_altitude.altitude_work.name %>
+        <% end %>
       </div>
       <div class="card-btn-delete">
         <%= link_to "x",  ppsp_selected_altitude_path(select_altitude.ppsp.id, select_altitude.id), method: :delete, remote: true, data: {confirm: "Êtes-vous sûr de vouloir supprimer ?"} %>

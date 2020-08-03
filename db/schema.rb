@@ -157,6 +157,7 @@ ActiveRecord::Schema.define(version: 2020_07_31_170911) do
   create_table "selected_altitudes", force: :cascade do |t|
     t.bigint "altitude_work_id"
     t.bigint "ppsp_id"
+    t.string "other"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["altitude_work_id"], name: "index_selected_altitudes_on_altitude_work_id"
