@@ -38,6 +38,8 @@
   text-align: center;
   font-weight: 500;
   font-size: 26px;
+  border-bottom: solid 0.5px gray;
+  margin-bottom: 8px;
 }
 
 .pdf-subtitle {
@@ -50,4 +52,9 @@
   text-align: center;
   font-weight: 400;
   font-size: 18px;
+}
+
+.pdf-text-container {
+  padding: 8px;
+  box-shadow: 2px 2px 4px 4px rgba(204, 204, 204, 0.5);
 }

@@ -1,4 +1,4 @@
-class SubcontractorPolicy < ApplicationPolicy
+class SecurityCoordinatorPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       scope.all
@@ -27,9 +27,5 @@ class SubcontractorPolicy < ApplicationPolicy
 
   def update
     edit?
-  end
-
-  def modal?
-    true
   end
 end

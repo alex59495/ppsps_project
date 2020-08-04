@@ -14,15 +14,16 @@ class SubcontractorsController < ApplicationController
   def create
     @subcontractor = Subcontractor.new(params_subcontractor)
     authorize @subcontractor
-    if @subcontractor.save
-      # Using the gem 'repost' to redirect with a post action to create the selected subcontractors element
-      redirect_post ppsp_selected_subcontractors_path(subcontractor_id: @subcontractor.id), options: {authenticity_token: :auto}
-    else
-      # Respond with the .js.erb to print the modal with errors
-      respond_to do |format|
-        format.js { render 'ppsps/informations_supplementaires' }
+    
+      if @subcontractor.save
+        # format.html { redirect_post ppsp_selected_subcontractors_path(subcontractor_id: @subcontractor.id), options: {authenticity_token: :auto} }
+        redirect_to modal_ppsp_subcontractor_path(@ppsp, @subcontractor)
+      else
+        # Respond with the .js.erb to print the modal with errors
+        respond_to do |format|
+          format.js { render 'ppsps/informations_supplementaires' }
+        end
       end
-    end
   end
 
   def edit
@@ -36,6 +37,13 @@ class SubcontractorsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def modal
+    @subcontractor = Subcontractor.find(params[:id])
+    authorize @subcontractor
+    # Using the gem 'repost' to redirect with a post action to create the selected subcontractors element
+    redirect_post ppsp_selected_subcontractors_path(subcontractor_id: @subcontractor.id), options: {authenticity_token: :auto}
   end
 
   private

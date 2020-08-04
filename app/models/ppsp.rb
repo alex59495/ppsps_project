@@ -15,6 +15,8 @@ class Ppsp < ApplicationRecord
   belongs_to :anti_poison
   belongs_to :demining
   belongs_to :hospital
+  belongs_to :security_coordinator, optional: true
+  accepts_nested_attributes_for :security_coordinator
   has_many :selected_subcontractor
   has_many :subcontractors, through: :selected_subcontractor
   has_many :selected_installations

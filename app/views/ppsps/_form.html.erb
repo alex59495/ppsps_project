@@ -9,7 +9,15 @@
   <% if policy(Company).new? %>
     <%= link_to "Ajouter une entreprise", new_company_path %>
   <% end %>
-  <%= f.input :moa_id, label: "MOA", as: :select, collection: Moa.all.order(:name)  %>
+  <div class="form-group select required ppsp_moa_id">
+    <label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
+    <select class="form-control select required" name="ppsp[moa_id]" id="ppsp_moa_id">
+      <option value=""></option>
+      <% Moa.all.order(:name).each do |moa| %>
+        <option value=<%= moa.id %>><%= moa.name %> - <%= moa.representative %> </option>
+      <% end %>
+    </select>
+  </div>
   <% if policy(Moa).new? %>
     <%= link_to "Ajouter un MOA", new_moa_path %>
   <% end %>
@@ -17,7 +25,15 @@
   <% if policy(Moe).new? %>
     <%= link_to "Ajouter un MOE", new_mo_path %>
   <% end %>
-  <%= f.input :project_information_id, label: "Projet", as: :select, collection: ProjectInformation.all.order(:reference) %>
+  <div class="form-group select required ppsp_project_information_id">
+    <label class="select required" for="ppsp_project_information_id">Projet <abbr title="required">*</abbr></label>
+    <select class="form-control select required" name="ppsp[project_information_id]" id="ppsp_project_information_id">
+      <option value=""></option>
+      <% ProjectInformation.all.order(:reference).each do |project| %>
+        <option value=<%= project.id %>><%= "#{project.reference} - #{project.responsible}" %></option>
+      <% end %>
+    </select>
+  </div>
   <% if policy(Moe).new? %>
     <%= link_to "Ajouter un projet", new_project_information_path %>
   <% end %>
@@ -39,48 +55,45 @@
   <% end %>
   <%= f.input :demining_id, label: "Déminage", as: :select, collection: Demining.all.order(:name) %>
   <% if policy(Demining).new? %>
-    <%= link_to "Ajouter un Sous-Traitants", new_demining_path %>
+    <%= link_to "Ajouter un Centre de déminage", new_demining_path %>
   <% end %>
   <%= f.input :sos_hand_id, label: "SOS Mains et Doigts", as: :select, collection: SosHand.all.order(:name) %>
   <% if policy(SosHand).new? %>
-    <%= link_to "Ajouter un Sous-Traitants", new_sos_hand_path %>
+    <%= link_to "Ajouter un centre SOS Mains et Doigts", new_sos_hand_path %>
   <% end %>
   <%= f.input :anti_poison_id, label: "Centre anti-poison", as: :select, collection: AntiPoison.all.order(:name) %>
   <% if policy(AntiPoison).new? %>
-    <%= link_to "Ajouter un Sous-Traitants", new_anti_poison_path %>
+    <%= link_to "Ajouter un centre anti-poison", new_anti_poison_path %>
   <% end %>
   <%= f.input :hospital_id, label: "Hôpital", as: :select, collection: Hospital.all.order(:name) %>
   <% if policy(Hospital).new? %>
-    <%= link_to "Ajouter un Sous-Traitants", new_hospital_path %>
+    <%= link_to "Ajouter un Hôpital", new_hospital_path %>
+  <% end %>
+  <div class="form-group select optional ppsp_security_coordinator_id">
+    <label class="select optional" for="ppsp_security_coordinator_id">Coordinateur sécurité</label>
+    <select class="form-control select optional" name="ppsp[security_coordinator_id]" id="ppsp_security_coordinator_id">
+      <option value=""></option>
+      <% SecurityCoordinator.all.order(:name).each do |sc| %>
+        <option value="<%= sc.id%>"><%= "#{sc.name} - #{sc.representative}" %></option>
+      <% end %>
+    </select></div>
+  <% if policy(SecurityCoordinator).new? %>
+    <div>
+      <input type="checkbox" id="checkSecurityCoordinator" name="securityCoordinator">
+      <label for="checkSecurityCoordinator">Ajouter un nouveau coordinateur sécurité ?</label>
+    </div>
+    <div class="hidden-form hidden" id="securityCoordinator">
+      <%= f.fields_for :security_coordinator, @security_coordinator, url: security_coordinators_path do |h| %>
+        <%= h.text_field :name, placeholder: "Coordinateur sécurité" %>
+        <%= h.text_field :representative, placeholder: "Représentant" %>
+        <%= h.text_field :address, placeholder: "Adresse" %>
+        <%= h.text_field :phone, placeholder: "Téléphone" %>
+        <%= h.text_field :email, placeholder: "Email" %>
+      <% end %>
+    </div>
   <% end %>
   <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
   <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>
   <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
   <%= f.submit %>
 <% end %>
-
-<%
-=begin%>
-<div class="form-group select required ppsp_moa_id"> %>
-  <label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
-  <select class="form-control select required" name="ppsp[moa_id]" id="ppsp_moa_id">
-    <option value=""></option>
-    <% Moa.all.order(:name).each do |moa| %>
-      <option value=<%= moa.id %>><%= moa.name %> - <%= moa.phone %> </option>
-    <% end %>
-  </select>
-</div>
-
-
-<div class="form-group select required ppsp_project_information_id">
-  <label class="select required" for="ppsp_project_information_id">Projet <abbr title="required">*</abbr></label>
-  <select class="form-control select required" name="ppsp[project_information_id]" id="ppsp_project_information_id">
-    <option value=""></option>
-    <% ProjectInformation.all.order(:reference).each do |project| %>
-      <option value=<%= project.id %>><%= "#{project.reference} - #{project.responsible}" %></option>
-    <% end %>
-  </select>
-</div>
-<%
-=end%>
-

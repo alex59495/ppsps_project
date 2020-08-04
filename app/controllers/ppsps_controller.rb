@@ -8,10 +8,12 @@ class PpspsController < ApplicationController
   def new
     @ppsp = Ppsp.new
     authorize @ppsp
+    @security_coordinator = SecurityCoordinator.new
   end
 
   def show
     authorize @ppsp
+    @n = 0
     # If you don't want to display in pdf anymore you can change the format in the index view
   end
 
@@ -73,6 +75,7 @@ class PpspsController < ApplicationController
 
   def edit
     authorize @ppsp
+    @security_coordinator = SecurityCoordinator.new
   end
 
   def update
@@ -95,7 +98,8 @@ class PpspsController < ApplicationController
     params.require(:ppsp).permit(:address, :start, :end, :nature, :workforce, :agglomeration, 
     :street_impact, :river_guidance, :moa_id, :moe_id, :project_information_id, 
     :subcontractor_id, :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
-    :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id)
+    :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, 
+    security_coordinator: [:name, :representative, :phone, :email, :address])
   end
 
   def find_ppsp

@@ -1,0 +1,7 @@
+<% @security_coordinators.each do |security_coordinator| %>
+  <div class="card-database">
+    <%= link_to security_coordinator, security_coordinator_path(security_coordinator) %>
+    <%= link_to "Edit", edit_security_coordinator_path(security_coordinator) %>
+    <%= link_to "x", security_coordinator_path(security_coordinator), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+  </div>
+<% end %>

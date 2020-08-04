@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_31_170911) do
+ActiveRecord::Schema.define(version: 2020_08_04_023158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 2020_07_31_170911) do
     t.bigint "sos_hand_id", null: false
     t.bigint "anti_poison_id", null: false
     t.bigint "hospital_id", null: false
+    t.bigint "security_coordinator_id"
     t.index ["anti_poison_id"], name: "index_ppsps_on_anti_poison_id"
     t.index ["demining_id"], name: "index_ppsps_on_demining_id"
     t.index ["direcct_id"], name: "index_ppsps_on_direcct_id"
@@ -121,6 +122,7 @@ ActiveRecord::Schema.define(version: 2020_07_31_170911) do
     t.index ["pension_insurance_id"], name: "index_ppsps_on_pension_insurance_id"
     t.index ["project_information_id"], name: "index_ppsps_on_project_information_id"
     t.index ["regional_committee_id"], name: "index_ppsps_on_regional_committee_id"
+    t.index ["security_coordinator_id"], name: "index_ppsps_on_security_coordinator_id"
     t.index ["sos_hand_id"], name: "index_ppsps_on_sos_hand_id"
     t.index ["user_id"], name: "index_ppsps_on_user_id"
     t.index ["work_medecine_id"], name: "index_ppsps_on_work_medecine_id"
@@ -150,6 +152,16 @@ ActiveRecord::Schema.define(version: 2020_07_31_170911) do
 
   create_table "risks", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "security_coordinators", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "representative"
+    t.string "phone"
+    t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -267,6 +279,7 @@ ActiveRecord::Schema.define(version: 2020_07_31_170911) do
   add_foreign_key "ppsps", "pension_insurances"
   add_foreign_key "ppsps", "project_informations"
   add_foreign_key "ppsps", "regional_committees"
+  add_foreign_key "ppsps", "security_coordinators"
   add_foreign_key "ppsps", "sos_hands"
   add_foreign_key "ppsps", "users"
   add_foreign_key "ppsps", "work_medecines"

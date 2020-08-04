@@ -171,6 +171,20 @@ CSV.foreach('./Database_hospitals.csv', headers: true, encoding:'iso-8859-1:utf-
   p "Create #{h.id} hospital"
 end
 
+# Create security coordinators
+CSV.foreach('./Database_security_coordinators.csv', headers: true, encoding:'iso-8859-1:utf-8', col_sep: ";") do |row|
+  # Create a hash for each hospital with the header of the CSV file
+  security_coordinator = row.to_h
+  sc = SecurityCoordinator.create(
+    name: security_coordinator['Coordonnateur'], 
+    address: security_coordinator['Adresse'],
+    phone: security_coordinator['Telephone'],
+    email: security_coordinator['Mail'],
+    representative: security_coordinator['Nom du representant'],
+    )
+  p "Create #{sc.id} security coordinators"
+end
+
 # Create PPSP
 ppsps = [{
   address: "test_1 address",
@@ -191,6 +205,7 @@ ppsps = [{
   regional_committee_id: 1,
   demining_id: 1,
   sos_hand_id: 1,
+  security_coordinator_id: 7,
   anti_poison_id: 1,
   hospital_id: 1,
 }, {

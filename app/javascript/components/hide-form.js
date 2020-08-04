@@ -23,6 +23,13 @@ const HideForm = () => {
       altitudeWork.classList.toggle('hidden');
     })
   }
+  if (document.getElementById('securityCoordinator')) {
+    const securityCoordinator = document.getElementById('securityCoordinator');
+    const checkSecurityCoordinator = document.getElementById('checkSecurityCoordinator');
+    checkSecurityCoordinator.addEventListener('click', (event) => {
+      securityCoordinator.classList.toggle('hidden');
+    })
+  }
 }
 
-export { HideForm }
+export { HideForm };
