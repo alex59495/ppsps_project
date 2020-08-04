@@ -24,6 +24,10 @@ gem 'redis', '~> 4.0'
 # Be able to redirect with a post method
 gem 'repost'
 
+# Internationalization gem
+gem 'i18n'
+gem 'devise-i18n', '~> 1.2'
+
 # Autocomplete geocoding
 gem "geocoder"
 gem "figaro"

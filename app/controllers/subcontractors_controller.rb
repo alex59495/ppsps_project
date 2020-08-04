@@ -14,7 +14,6 @@ class SubcontractorsController < ApplicationController
   def create
     @subcontractor = Subcontractor.new(params_subcontractor)
     authorize @subcontractor
-    
       if @subcontractor.save
         # format.html { redirect_post ppsp_selected_subcontractors_path(subcontractor_id: @subcontractor.id), options: {authenticity_token: :auto} }
         redirect_to modal_ppsp_subcontractor_path(@ppsp, @subcontractor)

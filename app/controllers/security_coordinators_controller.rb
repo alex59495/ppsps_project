@@ -20,7 +20,11 @@ class SecurityCoordinatorsController < ApplicationController
     if @security_coordinator.save
       redirect_to new_ppsp_path
     else
-      render :new
+      # Respond with the .js.erb to print the modal with errors
+      respond_to do |format|
+        format.js { render 'ppsps/modal_security_coordinator' }
+      end
+      # render :new
     end
   end
 
@@ -39,7 +43,7 @@ class SecurityCoordinatorsController < ApplicationController
 
   private
   def params_security_coordinator
-    params.require(:security_coordinator).permit(:address, :name, :phone, :email, :phone)
+    params.require(:security_coordinator).permit(:address, :name, :representative, :email, :phone)
   end
 
   def find_security_coordinator

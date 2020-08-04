@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   get 'database', to: 'pages#database', as: :database
   resources :ppsps do
-    resources :subcontractors do
+    resources :subcontractors, only: [:create] do
       member do
         get :modal
       end
@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       get :informations_supplementaires
     end
   end
+  resources :subcontractors, except: [:create]
   resources :companies
   resources :security_coordinators
   resources :moas

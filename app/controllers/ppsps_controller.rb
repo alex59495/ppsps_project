@@ -41,6 +41,7 @@ class PpspsController < ApplicationController
 
   def create
     @ppsp = Ppsp.new(params_ppsp)
+    @security_coordinator = SecurityCoordinator.new
     @ppsp.user = current_user
     authorize @ppsp
     if @ppsp.save
@@ -99,7 +100,7 @@ class PpspsController < ApplicationController
     :street_impact, :river_guidance, :moa_id, :moe_id, :project_information_id, 
     :subcontractor_id, :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
     :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, 
-    security_coordinator: [:name, :representative, :phone, :email, :address])
+    :security_coordinator_id)
   end
 
   def find_ppsp

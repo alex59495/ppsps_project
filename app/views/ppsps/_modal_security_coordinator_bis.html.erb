@@ -1,0 +1,36 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="ModalSecurityCoordinator">Ajouter un coordinateur sécurité</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="cards-form">
+        <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden" form="FormSecurityCoordinator">
+        <div class="form-group string required security_coordinator_name">
+          <label class="string required" for="security_coordinator_name">Coordinateur sécurité <abbr title="required">*</abbr></label>
+          <input class="form-control sc-form-name string required" type="text" name="security_coordinator[name]" id="security_coordinator_name" form="FormSecurityCoordinator">
+        </div>
+        <div class="form-group string required security_coordinator_representative">
+          <label class="string required" for="security_coordinator_representative">Représentant <abbr title="required">*</abbr></label>
+          <input class="form-control sc-form-representative string required" type="text" name="security_coordinator[representative]" id="security_coordinator_representative" form="FormSecurityCoordinator">
+        </div>
+        <div class="form-group string required security_coordinator_address">
+          <label class="string required" for="security_coordinator_address">Adresse <abbr title="required">*</abbr></label>
+          <input class="form-control sc-form-address string required" type="text" name="security_coordinator[address]" id="security_coordinator_address" form="FormSecurityCoordinator">
+        </div>
+        <div class="form-group tel required security_coordinator_phone">
+          <label class="tel required" for="security_coordinator_phone">Téléphone <abbr title="required">*</abbr></label>
+          <input class="form-control sc-form-phone string tel required" type="tel" name="security_coordinator[phone]" id="security_coordinator_phone" form="FormSecurityCoordinator">
+        </div>
+        <div class="form-group email required security_coordinator_email">
+          <label class="email required" for="security_coordinator_email">Email <abbr title="required">*</abbr></label>
+          <input class="form-control sc-form-email string email required" type="email" name="security_coordinator[email]" id="security_coordinator_email" form="FormSecurityCoordinator">
+        </div>
+        <input type="submit" id="securityCoordinatorNew" name="commit" value="Create Security coordinator" data-disable-with="Create Security coordinator" form="FormSecurityCoordinator">
+      </div>
+    </div>
+  </div>
+</div>

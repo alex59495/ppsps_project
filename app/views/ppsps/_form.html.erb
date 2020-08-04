@@ -1,5 +1,9 @@
 <%= link_to "Revenir à mes PPSP", ppsps_path %>
 
+<%# Pas possible de "nester" des forms en HTML5, on utilise donc une technique qui vise a renseigner un id %>
+<%# et à reprendre dans les inputs que l'on souhaite associer à ce form %>
+<form id="FormSecurityCoordinator" action=<%= security_coordinators_path %> method="post"></form>
+
 <%= simple_form_for @ppsp do |f| %>
   <%= f.input :address, label: "Adresse", placeholder: "Indiquez une adresse", input_html: { id: :autocomplete_address } %>
   <%= f.input :start, label: "Date de début"  %>
@@ -25,15 +29,22 @@
   <% if policy(Moe).new? %>
     <%= link_to "Ajouter un MOE", new_mo_path %>
   <% end %>
-  <div class="form-group select required ppsp_project_information_id">
-    <label class="select required" for="ppsp_project_information_id">Projet <abbr title="required">*</abbr></label>
-    <select class="form-control select required" name="ppsp[project_information_id]" id="ppsp_project_information_id">
-      <option value=""></option>
-      <% ProjectInformation.all.order(:reference).each do |project| %>
-        <option value=<%= project.id %>><%= "#{project.reference} - #{project.responsible}" %></option>
-      <% end %>
-    </select>
-  </div>
+  <%= simple_fields_for :project_information do |h| %>
+    <%= h.input :reference, label: "Référence du projet" %>
+    <%= h.input :responsible, label: "Responsable" %>
+    <%= h.input :phone, label: "Téléphone" %>
+    <%= h.input :email, label: "Email" %>
+    <%= simple_fields_for :site_manager do |j| %>
+      <%= j.input :name, label: "Chef de chantier" %>
+      <%= j.input :phone, label: "Téléphone" %>
+      <%= j.input :email, label: "Email" %>
+    <% end %>
+    <%= simple_fields_for :team_manager do |k| %>
+      <%= k.input :name, label: "Chef d'équipe" %>
+      <%= k.input :phone, label: "Téléphone"  %>
+      <%= k.input :email, label: "Email" %>
+    <% end %>
+  <% end %>
   <% if policy(Moe).new? %>
     <%= link_to "Ajouter un projet", new_project_information_path %>
   <% end %>
@@ -77,23 +88,18 @@
         <option value="<%= sc.id%>"><%= "#{sc.name} - #{sc.representative}" %></option>
       <% end %>
     </select></div>
-  <% if policy(SecurityCoordinator).new? %>
-    <div>
-      <input type="checkbox" id="checkSecurityCoordinator" name="securityCoordinator">
-      <label for="checkSecurityCoordinator">Ajouter un nouveau coordinateur sécurité ?</label>
-    </div>
-    <div class="hidden-form hidden" id="securityCoordinator">
-      <%= f.fields_for :security_coordinator, @security_coordinator, url: security_coordinators_path do |h| %>
-        <%= h.text_field :name, placeholder: "Coordinateur sécurité" %>
-        <%= h.text_field :representative, placeholder: "Représentant" %>
-        <%= h.text_field :address, placeholder: "Adresse" %>
-        <%= h.text_field :phone, placeholder: "Téléphone" %>
-        <%= h.text_field :email, placeholder: "Email" %>
-      <% end %>
-    </div>
-  <% end %>
   <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
   <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>
   <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
   <%= f.submit %>
+<% end %>
+
+<% if policy(SecurityCoordinator).new? %>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalSecurityCoordinator">
+    Ajouter un Coordinateur sécurité
+  </button>
+  <!-- Modal -->
+  <div class="modal fade" id="ModalSecurityCoordinator" tabindex="-1" role="dialog" aria-labelledby="ModalSecurityCoordinator" aria-hidden="true">
+    <%= render 'modal_security_coordinator' %>
+  </div>
 <% end %>
