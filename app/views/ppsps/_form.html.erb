@@ -1,105 +1,109 @@
-<%= link_to "Revenir à mes PPSP", ppsps_path %>
+<div class="row">
+  <div class="col-6 offset-3">
+    <%= link_to "Revenir à mes PPSP", ppsps_path %>
 
-<%# Pas possible de "nester" des forms en HTML5, on utilise donc une technique qui vise a renseigner un id %>
-<%# et à reprendre dans les inputs que l'on souhaite associer à ce form %>
-<form id="FormSecurityCoordinator" action=<%= security_coordinators_path %> method="post"></form>
+    <%# Pas possible de "nester" des forms en HTML5, on utilise donc une technique qui vise a renseigner un id %>
+    <%# et à reprendre dans les inputs que l'on souhaite associer à ce form %>
+    <form id="FormSecurityCoordinator" action=<%= security_coordinators_path %> method="post"></form>
 
-<%= simple_form_for @ppsp do |f| %>
-  <%= f.input :address, label: "Adresse", placeholder: "Indiquez une adresse", input_html: { id: :autocomplete_address } %>
-  <%= f.input :start, label: "Date de début"  %>
-  <%= f.input :end, label: "Date de fin"  %>
-  <%= f.input :nature, label: "Nature du travail"  %>
-  <%= f.input :workforce, label: "Workforce"  %>
-  <% if policy(Company).new? %>
-    <%= link_to "Ajouter une entreprise", new_company_path %>
-  <% end %>
-  <div class="form-group select required ppsp_moa_id">
-    <label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
-    <select class="form-control select required" name="ppsp[moa_id]" id="ppsp_moa_id">
-      <option value=""></option>
-      <% Moa.all.order(:name).each do |moa| %>
-        <option value=<%= moa.id %>><%= moa.name %> - <%= moa.representative %> </option>
+    <%= simple_form_for @ppsp do |f| %>
+      <%= f.input :address, label: "Adresse", placeholder: "Indiquez une adresse", input_html: { id: :autocomplete_address } %>
+      <%= f.input :start, label: "Date de début"  %>
+      <%= f.input :end, label: "Date de fin"  %>
+      <%= f.input :nature, label: "Nature du travail"  %>
+      <%= f.input :workforce, label: "Workforce"  %>
+      <% if policy(Company).new? %>
+        <%= link_to "Ajouter une entreprise", new_company_path %>
       <% end %>
-    </select>
-  </div>
-  <% if policy(Moa).new? %>
-    <%= link_to "Ajouter un MOA", new_moa_path %>
-  <% end %>
-  <%= f.input :moe_id, label: "MOE", as: :select, collection: Moe.all.order(:name) %>
-  <% if policy(Moe).new? %>
-    <%= link_to "Ajouter un MOE", new_mo_path %>
-  <% end %>
-  <%= simple_fields_for :project_information do |h| %>
-    <%= h.input :reference, label: "Référence du projet" %>
-    <%= h.input :responsible, label: "Responsable" %>
-    <%= h.input :phone, label: "Téléphone" %>
-    <%= h.input :email, label: "Email" %>
-    <%= simple_fields_for :site_manager do |j| %>
-      <%= j.input :name, label: "Chef de chantier" %>
-      <%= j.input :phone, label: "Téléphone" %>
-      <%= j.input :email, label: "Email" %>
-    <% end %>
-    <%= simple_fields_for :team_manager do |k| %>
-      <%= k.input :name, label: "Chef d'équipe" %>
-      <%= k.input :phone, label: "Téléphone"  %>
-      <%= k.input :email, label: "Email" %>
-    <% end %>
-  <% end %>
-  <% if policy(Moe).new? %>
-    <%= link_to "Ajouter un projet", new_project_information_path %>
-  <% end %>
-  <%= f.input :regional_committee_id, label: "Comité régional de l'OPPBTP", as: :select, collection: RegionalCommittee.all.order(:id) %>
-  <% if policy(RegionalCommittee).new? %>
-    <%= link_to "Ajouter un comité régional", new_regional_committee_path %>
-  <% end %>
-  <%= f.input :pension_insurance_id, label: "Caisse d'assurance retraite", as: :select, collection: PensionInsurance.all.order(:id) %>
-  <% if policy(PensionInsurance).new? %>
-    <%= link_to "Ajouter une caisse d'assurance retraite", new_pension_insurance_path %>
-  <% end %>
-  <%= f.input :direcct_id, label: "DIRECCT", as: :select, collection: Direcct.all.order(:id) %>
-  <% if policy(Direcct).new? %>
-    <%= link_to "Ajouter un DIRECCT", new_direcct_path %>
-  <% end %>
-  <%= f.input :work_medecine_id, label: "Médecine du travail", as: :select, collection: WorkMedecine.all.order(:id) %>
-  <% if policy(WorkMedecine).new? %>
-    <%= link_to "Ajouter un médecin du travail", new_work_medecine_path %>
-  <% end %>
-  <%= f.input :demining_id, label: "Déminage", as: :select, collection: Demining.all.order(:name) %>
-  <% if policy(Demining).new? %>
-    <%= link_to "Ajouter un Centre de déminage", new_demining_path %>
-  <% end %>
-  <%= f.input :sos_hand_id, label: "SOS Mains et Doigts", as: :select, collection: SosHand.all.order(:name) %>
-  <% if policy(SosHand).new? %>
-    <%= link_to "Ajouter un centre SOS Mains et Doigts", new_sos_hand_path %>
-  <% end %>
-  <%= f.input :anti_poison_id, label: "Centre anti-poison", as: :select, collection: AntiPoison.all.order(:name) %>
-  <% if policy(AntiPoison).new? %>
-    <%= link_to "Ajouter un centre anti-poison", new_anti_poison_path %>
-  <% end %>
-  <%= f.input :hospital_id, label: "Hôpital", as: :select, collection: Hospital.all.order(:name) %>
-  <% if policy(Hospital).new? %>
-    <%= link_to "Ajouter un Hôpital", new_hospital_path %>
-  <% end %>
-  <div class="form-group select optional ppsp_security_coordinator_id">
-    <label class="select optional" for="ppsp_security_coordinator_id">Coordinateur sécurité</label>
-    <select class="form-control select optional" name="ppsp[security_coordinator_id]" id="ppsp_security_coordinator_id">
-      <option value=""></option>
-      <% SecurityCoordinator.all.order(:name).each do |sc| %>
-        <option value="<%= sc.id%>"><%= "#{sc.name} - #{sc.representative}" %></option>
+      <div class="form-group select required ppsp_moa_id">
+        <label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
+        <select class="form-control select required" name="ppsp[moa_id]" id="ppsp_moa_id">
+          <option value=""></option>
+          <% Moa.all.order(:name).each do |moa| %>
+            <option value=<%= moa.id %>><%= moa.name %> - <%= moa.representative %> </option>
+          <% end %>
+        </select>
+      </div>
+      <% if policy(Moa).new? %>
+        <%= link_to "Ajouter un MOA", new_moa_path %>
       <% end %>
-    </select></div>
-  <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
-  <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>
-  <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
-  <%= f.submit %>
-<% end %>
+      <%= f.input :moe_id, label: "MOE", as: :select, collection: Moe.all.order(:name) %>
+      <% if policy(Moe).new? %>
+        <%= link_to "Ajouter un MOE", new_mo_path %>
+      <% end %>
+      <%= simple_fields_for :project_information, @ppsp.project_information do |h| %>
+        <%= h.input :reference, label: "Référence du projet" %>
+        <%= h.input :responsible, label: "Responsable" %>
+        <%= h.input :phone, label: "Téléphone" %>
+        <%= h.input :email, label: "Email" %>
+        <%= simple_fields_for :site_manager do |j| %>
+          <%= j.input :name, label: "Chef de chantier" %>
+          <%= j.input :phone, label: "Téléphone" %>
+          <%= j.input :email, label: "Email" %>
+        <% end %>
+        <%= simple_fields_for :team_manager do |k| %>
+          <%= k.input :name, label: "Chef d'équipe" %>
+          <%= k.input :phone, label: "Téléphone"  %>
+          <%= k.input :email, label: "Email" %>
+        <% end %>
+      <% end %>
+      <% if policy(ProjectInformation).new? %>
+        <%= link_to "Ajouter un projet", new_project_information_path %>
+      <% end %>
+      <%= f.input :regional_committee_id, label: "Comité régional de l'OPPBTP", as: :select, collection: RegionalCommittee.all.order(:id) %>
+      <% if policy(RegionalCommittee).new? %>
+        <%= link_to "Ajouter un comité régional", new_regional_committee_path %>
+      <% end %>
+      <%= f.input :pension_insurance_id, label: "Caisse d'assurance retraite", as: :select, collection: PensionInsurance.all.order(:id) %>
+      <% if policy(PensionInsurance).new? %>
+        <%= link_to "Ajouter une caisse d'assurance retraite", new_pension_insurance_path %>
+      <% end %>
+      <%= f.input :direcct_id, label: "DIRECCT", as: :select, collection: Direcct.all.order(:id) %>
+      <% if policy(Direcct).new? %>
+        <%= link_to "Ajouter un DIRECCT", new_direcct_path %>
+      <% end %>
+      <%= f.input :work_medecine_id, label: "Médecine du travail", as: :select, collection: WorkMedecine.all.order(:id) %>
+      <% if policy(WorkMedecine).new? %>
+        <%= link_to "Ajouter un médecin du travail", new_work_medecine_path %>
+      <% end %>
+      <%= f.input :demining_id, label: "Déminage", as: :select, collection: Demining.all.order(:name) %>
+      <% if policy(Demining).new? %>
+        <%= link_to "Ajouter un Centre de déminage", new_demining_path %>
+      <% end %>
+      <%= f.input :sos_hand_id, label: "SOS Mains et Doigts", as: :select, collection: SosHand.all.order(:name) %>
+      <% if policy(SosHand).new? %>
+        <%= link_to "Ajouter un centre SOS Mains et Doigts", new_sos_hand_path %>
+      <% end %>
+      <%= f.input :anti_poison_id, label: "Centre anti-poison", as: :select, collection: AntiPoison.all.order(:name) %>
+      <% if policy(AntiPoison).new? %>
+        <%= link_to "Ajouter un centre anti-poison", new_anti_poison_path %>
+      <% end %>
+      <%= f.input :hospital_id, label: "Hôpital", as: :select, collection: Hospital.all.order(:name) %>
+      <% if policy(Hospital).new? %>
+        <%= link_to "Ajouter un Hôpital", new_hospital_path %>
+      <% end %>
+      <div class="form-group select optional ppsp_security_coordinator_id">
+        <label class="select optional" for="ppsp_security_coordinator_id">Coordinateur sécurité</label>
+        <select class="form-control select optional" name="ppsp[security_coordinator_id]" id="ppsp_security_coordinator_id">
+          <option value=""></option>
+          <% SecurityCoordinator.all.order(:name).each do |sc| %>
+            <option value="<%= sc.id%>"><%= "#{sc.name} - #{sc.representative}" %></option>
+          <% end %>
+        </select></div>
+      <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
+      <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>
+      <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
+      <%= f.submit %>
+    <% end %>
 
-<% if policy(SecurityCoordinator).new? %>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalSecurityCoordinator">
-    Ajouter un Coordinateur sécurité
-  </button>
-  <!-- Modal -->
-  <div class="modal fade" id="ModalSecurityCoordinator" tabindex="-1" role="dialog" aria-labelledby="ModalSecurityCoordinator" aria-hidden="true">
-    <%= render 'modal_security_coordinator' %>
+    <% if policy(SecurityCoordinator).new? %>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalSecurityCoordinator">
+        Ajouter un Coordinateur sécurité
+      </button>
+      <!-- Modal -->
+      <div class="modal fade" id="ModalSecurityCoordinator" tabindex="-1" role="dialog" aria-labelledby="ModalSecurityCoordinator" aria-hidden="true">
+        <%= render 'ppsps/modal_security_coordinator' %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>

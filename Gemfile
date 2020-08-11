@@ -23,6 +23,11 @@ gem 'redis', '~> 4.0'
 # gem 'bcrypt', '~> 3.1.7'
 # Be able to redirect with a post method
 gem 'repost'
+# bootstrap
+gem 'bootstrap', '~> 5.0.0.alpha1'
+
+# Handle nested form
+gem "cocoon"
 
 # Internationalization gem
 gem 'i18n'
@@ -31,7 +36,6 @@ gem 'devise-i18n', '~> 1.2'
 # Autocomplete geocoding
 gem "geocoder"
 gem "figaro"
-gem 'jquery-rails' 
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

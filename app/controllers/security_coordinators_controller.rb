@@ -18,7 +18,10 @@ class SecurityCoordinatorsController < ApplicationController
     @security_coordinator = SecurityCoordinator.new(params_security_coordinator)
     authorize @security_coordinator
     if @security_coordinator.save
-      redirect_to new_ppsp_path
+      # Respond with the view security_coordinator/create.js.erb to close the modal and come back to the form
+      respond_to do |format|
+        format.js {}
+      end
     else
       # Respond with the .js.erb to print the modal with errors
       respond_to do |format|

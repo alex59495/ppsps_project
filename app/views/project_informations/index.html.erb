@@ -1,7 +1,0 @@
-<% @project_informations.each do |project_information| %>
-  <div class="card-database">
-    <%= link_to project_information, project_information_path(project_information) %>
-    <%= link_to "Edit", edit_project_information_path(project_information) %>
-    <%= link_to "x", project_information_path(project_information), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
-  </div>
-<% end %>

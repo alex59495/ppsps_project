@@ -110,7 +110,7 @@ fr:
       month: Mois
       year: Année
   errors:
-    format: "%{attribute} %{message}"
+    format: "%{message}"
     messages:
       accepted: doit être accepté(e)
       blank: doit être rempli(e)

@@ -14,7 +14,6 @@ class PpspsController < ApplicationController
   def show
     authorize @ppsp
     @n = 0
-    # If you don't want to display in pdf anymore you can change the format in the index view
   end
 
   def ppsp_pdf
@@ -30,17 +29,14 @@ class PpspsController < ApplicationController
     authorize @ppsp
   end
 
-  # def download_pdf
-  #   pdf = WickedPdf.new.pdf_from_string(
-  #   render_to_string('download_pdf', layout: false))
-  #   send_data(pdf,
-  #     filename: 'ppsp.pdf',
-  #     type: 'application/pdf',
-  #     disposition: 'attachment')
-  # end
-
-  def create
+  def create 
+    @team_manager = TeamManager.new(params_team_manager)
+    @site_manager = SiteManager.new(params_site_manager)
+    @project_information = ProjectInformation.new(params_project)
     @ppsp = Ppsp.new(params_ppsp)
+    @project_information.team_manager_id = @team_manager.id
+    @project_information.site_manager_id = @site_manager.id
+    @ppsp.project_information_id = @project_information.id
     @security_coordinator = SecurityCoordinator.new
     @ppsp.user = current_user
     authorize @ppsp
@@ -81,6 +77,7 @@ class PpspsController < ApplicationController
 
   def update
     authorize @ppsp
+    @security_coordinator = SecurityCoordinator.new
     if @ppsp.update(params_ppsp)
       redirect_to informations_supplementaires_ppsp_path(@ppsp)
     else
@@ -101,6 +98,19 @@ class PpspsController < ApplicationController
     :subcontractor_id, :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
     :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, 
     :security_coordinator_id)
+  end
+
+  def params_project
+    params.require(:project_information).permit(:reference, :responsible, :phone, :email, 
+    :site_manager_id, :team_manager_id)
+  end
+
+  def params_site_manager
+    params.require(:site_manager).permit(:name, :phone, :email)
+  end
+
+  def params_team_manager
+    params.require(:team_manager).permit(:name, :phone, :email)
   end
 
   def find_ppsp

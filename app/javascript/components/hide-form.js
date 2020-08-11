@@ -1,7 +1,7 @@
 const HideForm = () => {
-  if (document.getElementById('siteInstallationType')) {
-    const siteInstallationType = document.getElementById('siteInstallationType');
-    const checkSiteInstallation = document.getElementById('checkSiteInstallation');
+  if ($('#siteInstallationType')[0]) {
+    const siteInstallationType = $('#siteInstallationType')[0];
+    const checkSiteInstallation = $('checkSiteInstallation')[0];
     checkSiteInstallation.addEventListener('click', (event) => {
       siteInstallationType.classList.toggle('hidden');
     })
