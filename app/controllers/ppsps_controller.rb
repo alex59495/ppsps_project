@@ -18,9 +18,9 @@ class PpspsController < ApplicationController
 
   def ppsp_pdf
     respond_to do |format|
-      format.html
       format.pdf do
-        render pdf: 'ppsp', 
+        render pdf: 'ppsp',
+        enable_local_file_access: true,
         encoding: 'utf8',
         template: "ppsps/show.pdf.erb",
         layout: "pdf.html.erb"

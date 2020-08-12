@@ -8,10 +8,12 @@
 .pdf-banner {
   height: 300px;
   color: white;
-  background-position: center;
-  background-size: cover;
   position: relative;
-  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), asset-data-url('PPSP.jpg');
+}
+
+.pdf-banner img {
+  height: 300px;
+  width: 100%;
 }
   
 .pdf-banner .banner-title {

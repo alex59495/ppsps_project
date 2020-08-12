@@ -15,15 +15,7 @@
       <% if policy(Company).new? %>
         <%= link_to "Ajouter une entreprise", new_company_path %>
       <% end %>
-      <div class="form-group select required ppsp_moa_id">
-        <label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
-        <select class="form-control select required" name="ppsp[moa_id]" id="ppsp_moa_id">
-          <option value=""></option>
-          <% Moa.all.order(:name).each do |moa| %>
-            <option value=<%= moa.id %>><%= moa.name %> - <%= moa.representative %> </option>
-          <% end %>
-        </select>
-      </div>
+      <%= f.input :moa_id, label: "MOA", as: :select, collection: Moa.all.order(:name), label_method: lambda { |moa| "#{moa.name} - #{moa.representative}"} %>
       <% if policy(Moa).new? %>
         <%= link_to "Ajouter un MOA", new_moa_path %>
       <% end %>
@@ -82,14 +74,7 @@
       <% if policy(Hospital).new? %>
         <%= link_to "Ajouter un Hôpital", new_hospital_path %>
       <% end %>
-      <div class="form-group select optional ppsp_security_coordinator_id">
-        <label class="select optional" for="ppsp_security_coordinator_id">Coordinateur sécurité</label>
-        <select class="form-control select optional" name="ppsp[security_coordinator_id]" id="ppsp_security_coordinator_id">
-          <option value=""></option>
-          <% SecurityCoordinator.all.order(:name).each do |sc| %>
-            <option value="<%= sc.id%>"><%= "#{sc.name} - #{sc.representative}" %></option>
-          <% end %>
-        </select></div>
+      <%= f.input :security_coordinator_id, label: "Coordinateur sécurité", as: :select, collection: SecurityCoordinator.all.order(:name), label_method: lambda { |security| "#{security.name} - #{security.representative}"} %>
       <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
       <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>
       <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>

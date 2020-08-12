@@ -1,10 +1,12 @@
 .pdf-banner {
   height: 300px;
   color: white;
-  background-position: center;
-  background-size: cover;
   position: relative;
-  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), asset-data-url('PPSP.jpg');
+}
+
+.pdf-banner img {
+  height: 300px;
+  width: 100%;
 }
   
 .pdf-banner .banner-title {
@@ -29,10 +31,23 @@
   text-align: center;
   font-weight: 500;
   font-size: 26px;
+  border-bottom: solid 0.5px gray;
+  margin-bottom: 8px;
 }
 
 .pdf-subtitle {
   text-align: center;
   font-weight: 500;
+  font-size: 22px;
+}
+
+.pdf-subsubtitle {
+  text-align: center;
+  font-weight: 400;
   font-size: 18px;
+}
+
+.pdf-text-container {
+  padding: 8px;
+  box-shadow: 2px 2px 4px 4px rgba(204, 204, 204, 0.5);
 }
