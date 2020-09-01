@@ -6,7 +6,8 @@ class Ppsp < ApplicationRecord
   belongs_to :user
   belongs_to :moa
   belongs_to :moe
-  belongs_to :project_information
+  belongs_to :project_information, inverse_of: :ppsps
+  accepts_nested_attributes_for :project_information
   belongs_to :pension_insurance
   belongs_to :direcct
   belongs_to :regional_committee
@@ -16,7 +17,6 @@ class Ppsp < ApplicationRecord
   belongs_to :demining
   belongs_to :hospital
   belongs_to :security_coordinator, optional: true
-  accepts_nested_attributes_for :project_information
   has_many :selected_subcontractor
   has_many :subcontractors, through: :selected_subcontractor
   has_many :selected_installations
@@ -35,7 +35,6 @@ class Ppsp < ApplicationRecord
   validates :river_guidance, presence: true
   validates :moa_id, presence: true
   validates :moe_id, presence: true
-  validates :project_information_id, presence: true
   validates :demining_id, presence: true
   validates :anti_poison_id, presence: true
   validates :sos_hand_id, presence: true

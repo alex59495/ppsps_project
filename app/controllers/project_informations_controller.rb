@@ -35,7 +35,8 @@ class ProjectInformationsController < ApplicationController
 
   private
   def params_project_information
-    params.require(:project_information).permit(:reference, :phone, :email, :resposible, :site_manager_id, :team_manager_id)
+    params.require(:project_information).permit(:reference, :phone, :email, :resposible, :site_manager_id, :team_manager_id,
+    site_manager_attributes: [:name, :phone, :email], team_manager_attributes: [:name, :phone, :email])
   end
 
   def find_project_information

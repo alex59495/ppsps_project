@@ -8,6 +8,9 @@ class PpspsController < ApplicationController
   def new
     @ppsp = Ppsp.new
     authorize @ppsp
+    @ppsp.build_project_information
+    @ppsp.build_project_information.build_site_manager
+    @ppsp.build_project_information.build_team_manager
     @security_coordinator = SecurityCoordinator.new
   end
 
@@ -19,30 +22,27 @@ class PpspsController < ApplicationController
   def ppsp_pdf
     respond_to do |format|
       format.pdf do
-        render pdf: 'ppsp',
-        enable_local_file_access: true,
-        encoding: 'utf8',
-        template: "ppsps/show.pdf.erb",
-        layout: "pdf.html.erb"
+        render(
+          pdf: 'ppsp',
+          enable_local_file_access: true,
+          encoding: 'utf8',
+          template: 'ppsps/show.pdf.erb',
+          layout: 'pdf.html.erb'
+        )
       end
     end
     authorize @ppsp
   end
 
-  def create 
-    @team_manager = TeamManager.new(params_team_manager)
-    @site_manager = SiteManager.new(params_site_manager)
-    @project_information = ProjectInformation.new(params_project)
+  def create
     @ppsp = Ppsp.new(params_ppsp)
-    @project_information.team_manager_id = @team_manager.id
-    @project_information.site_manager_id = @site_manager.id
-    @ppsp.project_information_id = @project_information.id
     @security_coordinator = SecurityCoordinator.new
     @ppsp.user = current_user
     authorize @ppsp
     if @ppsp.save
       redirect_to informations_supplementaires_ppsp_path(@ppsp)
     else
+      flash[:alert] = "Le formulaire n'a pas été rempli correctement, merci de réessayer !"
       render :new
     end
   end
@@ -94,23 +94,12 @@ class PpspsController < ApplicationController
   private
   def params_ppsp
     params.require(:ppsp).permit(:address, :start, :end, :nature, :workforce, :agglomeration, 
-    :street_impact, :river_guidance, :moa_id, :moe_id, :project_information_id, 
-    :subcontractor_id, :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
+    :street_impact, :river_guidance, :moa_id, :moe_id, :subcontractor_id, 
+    :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
     :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, 
-    :security_coordinator_id)
-  end
-
-  def params_project
-    params.require(:project_information).permit(:reference, :responsible, :phone, :email, 
-    :site_manager_id, :team_manager_id)
-  end
-
-  def params_site_manager
-    params.require(:site_manager).permit(:name, :phone, :email)
-  end
-
-  def params_team_manager
-    params.require(:team_manager).permit(:name, :phone, :email)
+    :security_coordinator_id, project_information_attributes: [:ppsp_id, :reference, :responsible, 
+    :phone, :email, site_manager_attributes: [:name, :email, :phone], 
+    team_manager_attributes: [:name, :email, :phone]])
   end
 
   def find_ppsp
