@@ -13,9 +13,6 @@ Rails.application.routes.draw do
     resources :selected_risks, only: [ :create, :destroy ]
     resources :selected_subcontractors, only: [ :create, :destroy ]
     member do
-      get :ppsp_pdf
-    end
-    member do
       get :informations_supplementaires
     end
   end

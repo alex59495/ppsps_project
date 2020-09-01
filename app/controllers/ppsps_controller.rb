@@ -8,6 +8,10 @@ class PpspsController < ApplicationController
   def new
     @ppsp = Ppsp.new
     authorize @ppsp
+    #Create the fields for the project_information, site_manager and team_manager => Nested form in the view
+    # This way they are created in the DB if the @ppsp is saved
+    # We used the 'accepts_nested_attributes_for' in the models
+    # We used the projection_information_attributes in the params
     @ppsp.build_project_information
     @ppsp.build_project_information.build_site_manager
     @ppsp.build_project_information.build_team_manager
@@ -17,10 +21,9 @@ class PpspsController < ApplicationController
   def show
     authorize @ppsp
     @n = 0
-  end
-
-  def ppsp_pdf
     respond_to do |format|
+      # Two response for the show method depending on the format we call
+      format.html
       format.pdf do
         render(
           pdf: 'ppsp',
@@ -31,7 +34,6 @@ class PpspsController < ApplicationController
         )
       end
     end
-    authorize @ppsp
   end
 
   def create
