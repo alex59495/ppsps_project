@@ -64,7 +64,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
-    bootstrap (4.3.1)
+    bootstrap (5.0.0.alpha1)
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
@@ -79,6 +79,7 @@ GEM
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
     childprocess (3.0.0)
+    cocoon (1.2.14)
     coderay (1.1.3)
     concurrent-ruby (1.1.6)
     crass (1.0.6)
@@ -88,6 +89,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-i18n (1.9.1)
+      devise (>= 4.7.1)
     dotenv (2.7.6)
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
@@ -95,8 +98,11 @@ GEM
     erubi (1.9.0)
     execjs (2.7.0)
     ffi (1.13.1)
+    figaro (1.2.0)
+      thor (>= 0.14.0, < 2)
     font-awesome-sass (5.13.0)
       sassc (>= 1.11)
+    geocoder (1.6.3)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.8.3)
@@ -177,6 +183,7 @@ GEM
       ffi (~> 1.0)
     redis (4.2.1)
     regexp_parser (1.7.1)
+    repost (0.3.2)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -234,6 +241,9 @@ GEM
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    wicked_pdf (2.1.0)
+      activesupport
+    wkhtmltopdf-binary (0.12.6.2)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.4.0)
@@ -244,12 +254,17 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   bootsnap (>= 1.4.2)
-  bootstrap (~> 4.3.1)
+  bootstrap (~> 5.0.0.alpha1)
   byebug
-  capybara
+  capybara (>= 2.15)
+  cocoon
   devise
+  devise-i18n (~> 1.2)
   dotenv-rails
+  figaro
   font-awesome-sass
+  geocoder
+  i18n
   jbuilder (~> 2.7)
   launchy
   listen (~> 3.2)
@@ -260,6 +275,7 @@ DEPENDENCIES
   pundit
   rails (~> 6.0.3, >= 6.0.3.2)
   redis (~> 4.0)
+  repost
   sass-rails (>= 6)
   selenium-webdriver
   simple_form
@@ -268,8 +284,10 @@ DEPENDENCIES
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 3.3.0)
-  webdrivers (~> 4.0)
+  webdrivers
   webpacker (~> 4.0)
+  wicked_pdf
+  wkhtmltopdf-binary
 
 RUBY VERSION
    ruby 2.6.5p114

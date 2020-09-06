@@ -17,6 +17,10 @@ class PpspPolicy < ApplicationPolicy
     true
   end
 
+  def ppsp_pdf?
+    true
+  end
+
   def destroy?
     record.user == user
   end
@@ -26,6 +30,10 @@ class PpspPolicy < ApplicationPolicy
   end
 
   def edit?
+    record.user == user
+  end
+
+  def informations_supplementaires?
     record.user == user
   end
 end

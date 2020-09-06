@@ -6,7 +6,9 @@ class CreatePpsps < ActiveRecord::Migration[6.0]
       t.date :end
       t.string :nature
       t.string :workforce
-
+      t.string :agglomeration
+      t.string :street_impact
+      t.string :river_guidance
       t.timestamps
     end
   end

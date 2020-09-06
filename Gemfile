@@ -21,6 +21,21 @@ gem 'jbuilder', '~> 2.7'
 gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+# Be able to redirect with a post method
+gem 'repost'
+# bootstrap
+gem 'bootstrap', '~> 5.0.0.alpha1'
+
+# Handle nested form
+gem "cocoon"
+
+# Internationalization gem
+gem 'i18n'
+gem 'devise-i18n', '~> 1.2'
+
+# Autocomplete geocoding
+gem "geocoder"
+gem "figaro"
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -33,6 +48,10 @@ gem 'devise'
 # Authorization
 gem 'pundit'
 
+# Handle PDF
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 gem 'autoprefixer-rails'
 gem 'bootstrap', '~> 4.3.1'
 gem 'font-awesome-sass'
@@ -43,10 +62,6 @@ group :development, :test do  gem 'pry-byebug'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  # Testing
-  gem 'capybara'
-  gem 'webdrivers', '~> 4.0'
-  gem 'launchy'
 end
 
 group :development do
@@ -60,10 +75,11 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  # gem 'capybara', '>= 2.15'
+  gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
-  # gem 'webdrivers'
+  gem 'webdrivers'
+  gem 'launchy'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

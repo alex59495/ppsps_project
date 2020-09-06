@@ -1,0 +1,7 @@
+<% @anti_poisons.each do |poison| %>
+  <div class="card-database">
+    <%= link_to poison, anti_poison_path(poison) %>
+    <%= link_to "Edit", edit_anti_poison_path(poison) %>
+    <%= link_to "x", anti_poison_path(poison), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+  </div>
+<% end %>
