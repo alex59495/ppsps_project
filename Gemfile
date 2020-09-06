@@ -53,6 +53,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
 gem 'autoprefixer-rails'
+gem 'bootstrap', '~> 4.3.1'
 gem 'font-awesome-sass'
 gem 'simple_form'
 group :development, :test do  gem 'pry-byebug'
