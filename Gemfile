@@ -31,7 +31,8 @@ gem "cocoon"
 
 # Internationalization gem
 gem 'i18n'
-gem 'devise-i18n', '~> 1.2'
+gem 'rails-i18n'
+gem 'devise-i18n'
 
 # Autocomplete geocoding
 gem "geocoder"
@@ -53,13 +54,15 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
 gem 'autoprefixer-rails'
-gem 'bootstrap', '~> 4.3.1'
 gem 'font-awesome-sass'
 gem 'simple_form'
 group :development, :test do  gem 'pry-byebug'
   gem 'pry-rails'
   gem 'dotenv-rails'
-
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'factory_bot_rails'
+  gem 'faker'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
@@ -75,11 +78,11 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
-  gem 'launchy'
+  # gem 'capybara', '>= 2.15'
+  # gem 'selenium-webdriver'
+  # # Easy installation and use of web drivers to run system tests with browsers
+  # gem 'webdrivers'
+  # gem 'launchy'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

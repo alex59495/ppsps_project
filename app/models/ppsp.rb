@@ -26,8 +26,8 @@ class Ppsp < ApplicationRecord
   has_many :selected_risks
   has_many :risks, through: :selected_risks
   validates :address, presence: true
-  validates :start, presence: true
-  validates :end, presence: true
+  validates :start_date, presence: true
+  validates :end_date, presence: true
   validates :nature, presence: true
   validates :workforce, presence: true
   validates :agglomeration, presence: true
