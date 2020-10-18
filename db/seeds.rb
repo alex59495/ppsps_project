@@ -188,8 +188,8 @@ end
 # Create PPSP
 ppsps = [{
   address: "test_1 address",
-  start: DateTime.new(2020,9,1,17),
-  end: DateTime.new(2020,9,1,19),
+  start_date: DateTime.new(2020,9,1,17),
+  end_date: DateTime.new(2020,9,1,19),
   nature: "test_1 nature",
   workforce: "test_1 workforce",
   agglomeration: "Agglomeration",
@@ -210,8 +210,8 @@ ppsps = [{
   hospital_id: 1,
 }, {
   address: "test_2 address",
-  start: DateTime.new(2020,9,1,17),
-  end: DateTime.new(2020,9,1,19),
+  start_date: DateTime.new(2020,9,1,17),
+  end_date: DateTime.new(2020,9,1,19),
   nature: "test_2 nature",
   workforce: "test_2 workforce",
   agglomeration: "Agglomeration",
@@ -231,8 +231,8 @@ ppsps = [{
   hospital_id: 1,
 }, {
   address: "test_3 address",
-  start: DateTime.new(2020,9,1,17),
-  end: DateTime.new(2020,9,1,19),
+  start_date: DateTime.new(2020,9,1,17),
+  end_date: DateTime.new(2020,9,1,19),
   nature: "test_3 nature",
   workforce: "test_3 workforce",
   agglomeration: "Agglomeration",
@@ -253,7 +253,7 @@ ppsps = [{
 }]
 
 ppsps.each do |ppsp|
-  p = Ppsp.create(address: ppsp[:address], start: ppsp[:start], end: ppsp[:end], nature: ppsp[:nature], 
+  p = Ppsp.create(address: ppsp[:address], start_date: ppsp[:start_date], end_date: ppsp[:end_date], nature: ppsp[:nature], 
   workforce: ppsp[:workforce], user_id: ppsp[:user_id], moa_id: ppsp[:moa_id],
   moe_id: ppsp[:moe_id], project_information_id: ppsp[:project_information_id], agglomeration: ppsp[:agglomeration],
   street_impact: ppsp[:street_impact], river_guidance: ppsp[:river_guidance],
