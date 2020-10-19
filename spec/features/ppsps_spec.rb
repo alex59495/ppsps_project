@@ -11,6 +11,7 @@ RSpec.feature "Ppsps", type: :feature, js: true do
   context 'Logged as User' do
     before do
       user = create(:user)
+      ppsp = create(:ppsp, user: user)
       login_as(user)
     end
     
@@ -21,8 +22,8 @@ RSpec.feature "Ppsps", type: :feature, js: true do
 
     it 'Click on PDF' do
       visit(ppsps_path)
-      click_link('PDF')
-      expect(page).to has_content('Plan Particulier de Sécurité et de Protection de la Santé')
+      new_window = window_opened_by {click_link 'PDF'}
+      expect(new_window).to have_content('Plan Particulier de Sécurité et de Protection de la Santé')
     end
   end
 end
