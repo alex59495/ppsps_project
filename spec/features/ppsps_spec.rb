@@ -18,5 +18,11 @@ RSpec.feature "Ppsps", type: :feature, js: true do
       visit(ppsps_path)
       expect(page).to have_current_path(ppsps_path)
     end
+
+    it 'Click on PDF' do
+      visit(ppsps_path)
+      click_link('PDF')
+      expect(page).to has_content('Plan Particulier de Sécurité et de Protection de la Santé')
+    end
   end
 end

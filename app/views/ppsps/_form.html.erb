@@ -8,8 +8,8 @@
 
     <%= simple_form_for @ppsp do |f| %>
       <%= f.input :address, label: "Adresse", placeholder: "Indiquez une adresse...", input_html: { id: :autocomplete_address } %>
-      <%= f.input :start, label: "Date de début"  %>
-      <%= f.input :end, label: "Date de fin"  %>
+      <%= f.input :start_date, label: "Date de début"  %>
+      <%= f.input :end_date, label: "Date de fin"  %>
       <%= f.input :nature, label: "Nature du travail", placeholder: "Description des travaux..." %>
       <%= f.input :workforce, label: "Personnel impliqué", placeholder: "1 Chef de chantier, 2 ouvriers..." %>
       <% if policy(Company).new? %>
