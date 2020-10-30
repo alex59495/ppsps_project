@@ -11,12 +11,20 @@ class PensionInsurancesController < ApplicationController
   end
 
   def create
-    @pensions_insurance = PensionsInsurance.new(params_pensions_insurance)
-    authorize @pensions_insurance
-    if @pensions_insurance.save
-      redirect_to new_ppsp_path
+    @pension_insurance = PensionInsurance.new(params_pension_insurance)
+    authorize @pension_insurance
+    if @pension_insurance.save
+      # Create an ordered list to use in the view 'pension_insurance/_form_field_pension_insurance'
+      @pension_insurances = PensionInsurance.all.sort_by { |pension_insurance| pension_insurance.address }
+      # Respond with the view pension_insurance/create.js.erb to close the modal and come back to the form
+      respond_to do |format|
+        format.js {}
+      end
     else
-      render :new
+      # Respond with the .js.erb to print the modal with errors
+      respond_to do |format|
+        format.js { render 'ppsps/modal_pension_insurance' }
+      end
     end
   end
 

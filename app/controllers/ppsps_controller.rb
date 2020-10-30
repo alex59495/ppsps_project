@@ -17,6 +17,11 @@ class PpspsController < ApplicationController
     @ppsp.build_project_information.build_team_manager
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
+    @moa = Moa.new
+    @moe = Moe.new
+    @pension_insurance = PensionInsurance.new
+    @regional_committee = RegionalCommittee.new
+    @direcct = Direcct.new
   end
 
   def show

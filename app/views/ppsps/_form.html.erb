@@ -17,11 +17,15 @@
       <% end %>
       <%= f.input :moa_id, label: "MOA", as: :select, collection: Moa.all.order(:name), label_method: lambda { |moa| "#{moa.name} - #{moa.representative}"} %>
       <% if policy(Moa).new? %>
-        <%= link_to "Ajouter un MOA", new_moa_path %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalMoa">
+          Ajouter un Maître d'ouvrage
+        </button>
       <% end %>
       <%= f.input :moe_id, label: "MOE", as: :select, collection: Moe.all.order(:name) %>
       <% if policy(Moe).new? %>
-        <%= link_to "Ajouter un MOE", new_mo_path %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalMoe">
+          Ajouter un Maître d'oeuvre
+        </button>
       <% end %>
       <%= f.simple_fields_for :project_information, ProjectInformation.new do |h| %>
         <%= h.input :reference, label: "Référence du projet", placeholder: "B 484..." %>
@@ -44,15 +48,21 @@
       <% end %>
       <%= f.input :regional_committee_id, label: "Comité régional de l'OPPBTP", as: :select, collection: RegionalCommittee.all.order(:id) %>
       <% if policy(RegionalCommittee).new? %>
-        <%= link_to "Ajouter un comité régional", new_regional_committee_path %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalRegionalCommittee">
+          Ajouter un Comité Régional
+        </button>
       <% end %>
       <%= f.input :pension_insurance_id, label: "Caisse d'assurance retraite", as: :select, collection: PensionInsurance.all.order(:id) %>
       <% if policy(PensionInsurance).new? %>
-        <%= link_to "Ajouter une caisse d'assurance retraite", new_pension_insurance_path %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalPensionInsurance">
+          Ajouter une Caisse d'assurance
+        </button>
       <% end %>
       <%= f.input :direcct_id, label: "DIRECCT", as: :select, collection: Direcct.all.order(:id) %>
       <% if policy(Direcct).new? %>
-        <%= link_to "Ajouter un DIRECCT", new_direcct_path %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalDirecct">
+          Ajouter un DIRECCT
+        </button>
       <% end %>
       <%= f.input :work_medecine_id, label: "Médecine du travail", as: :select, collection: WorkMedecine.all.order(:id) %>
       <% if policy(WorkMedecine).new? %>
@@ -98,6 +108,36 @@
     <% if policy(Hospital).new? %>
       <div class="modal fade" id="ModalHospital" tabindex="-1" role="dialog" aria-labelledby="ModalHospital" aria-hidden="true">
         <%= render 'ppsps/modal_hospital' %>
+      </div>
+    <% end %>
+    <%# Modal Moa %>
+    <% if policy(Moa).new? %>
+      <div class="modal fade" id="ModalMoa" tabindex="-1" role="dialog" aria-labelledby="ModalMoa" aria-hidden="true">
+        <%= render 'ppsps/modal_moa' %>
+      </div>
+    <% end %>
+    <%# Modal Moe %>
+    <% if policy(Moe).new? %>
+      <div class="modal fade" id="ModalMoe" tabindex="-1" role="dialog" aria-labelledby="ModalMoe" aria-hidden="true">
+        <%= render 'ppsps/modal_moe' %>
+      </div>
+    <% end %>
+    <%# Modal Direcct %>
+    <% if policy(Direcct).new? %>
+      <div class="modal fade" id="ModalDirecct" tabindex="-1" role="dialog" aria-labelledby="ModalDirecct" aria-hidden="true">
+        <%= render 'ppsps/modal_direcct' %>
+      </div>
+    <% end %>
+    <%# Modal Pension Insurance %>
+    <% if policy(PensionInsurance).new? %>
+      <div class="modal fade" id="ModalPensionInsurance" tabindex="-1" role="dialog" aria-labelledby="ModalPensionInsurance" aria-hidden="true">
+        <%= render 'ppsps/modal_pension_insurance' %>
+      </div>
+    <% end %>
+    <%# Modal Regional Committee %>
+    <% if policy(RegionalCommittee).new? %>
+      <div class="modal fade" id="ModalRegionalCommittee" tabindex="-1" role="dialog" aria-labelledby="ModalRegionalCommittee" aria-hidden="true">
+        <%= render 'ppsps/modal_regional_committee' %>
       </div>
     <% end %>
   </div>
