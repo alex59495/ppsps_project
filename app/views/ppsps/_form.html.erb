@@ -12,9 +12,6 @@
       <%= f.input :end_date, label: "Date de fin"  %>
       <%= f.input :nature, label: "Nature du travail", placeholder: "Description des travaux..." %>
       <%= f.input :workforce, label: "Personnel impliqué", placeholder: "1 Chef de chantier, 2 ouvriers..." %>
-      <% if policy(Company).new? %>
-        <%= link_to "Ajouter une entreprise", new_company_path %>
-      <% end %>
       <%= f.input :moa_id, label: "MOA", as: :select, collection: Moa.all.order(:name), label_method: lambda { |moa| "#{moa.name} - #{moa.representative}"} %>
       <% if policy(Moa).new? %>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalMoa">
@@ -64,7 +61,7 @@
           Ajouter un DIRECCT
         </button>
       <% end %>
-      <%= f.input :work_medecine_id, label: "Médecine du travail", as: :select, collection: WorkMedecine.all.order(:id) %>
+      <%= f.input :work_medecine_id, label: "Médecine du travail", as: :select, collection: WorkMedecine.all.order(:address), label_method: lambda { |instance| "#{instance.address} - #{instance.phone}"} %>
       <% if policy(WorkMedecine).new? %>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalWorkMedecine">
           Ajouter un médecin du travail
