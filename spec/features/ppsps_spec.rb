@@ -22,8 +22,19 @@ RSpec.feature "Ppsps", type: :feature, js: true do
 
     it 'Click on PDF' do
       visit(ppsps_path)
-      new_window = window_opened_by {click_link 'PDF'}
-      expect(new_window).to have_content('Plan Particulier de Sécurité et de Protection de la Santé')
+      click_link('PDF')
+      # Test if there is more than one tab open which would tell us if the PDF link work well opening another tab
+      expect(page.driver.browser.window_handles.size).to be > 1
+    end
+
+    it 'Remove a Ppsp' do
+      visit(ppsps_path)
+      count = Ppsp.all.length
+      click_link('x')
+      accept_confirm do
+        click_link ''
+      end
+      expect(Ppsp.all.length).to eq(count - 1)
     end
   end
 end
