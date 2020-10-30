@@ -22,6 +22,10 @@ class PpspsController < ApplicationController
     @pension_insurance = PensionInsurance.new
     @regional_committee = RegionalCommittee.new
     @direcct = Direcct.new
+    @work_medecine = WorkMedecine.new
+    @demining = Demining.new
+    @sos_hand = SosHand.new
+    @anti_poison = AntiPoison.new
   end
 
   def show

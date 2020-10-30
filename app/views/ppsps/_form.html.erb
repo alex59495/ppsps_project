@@ -66,19 +66,27 @@
       <% end %>
       <%= f.input :work_medecine_id, label: "Médecine du travail", as: :select, collection: WorkMedecine.all.order(:id) %>
       <% if policy(WorkMedecine).new? %>
-        <%= link_to "Ajouter un médecin du travail", new_work_medecine_path %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalWorkMedecine">
+          Ajouter un médecin du travail
+        </button>
       <% end %>
       <%= f.input :demining_id, label: "Déminage", as: :select, collection: Demining.all.order(:name) %>
       <% if policy(Demining).new? %>
-        <%= link_to "Ajouter un Centre de déminage", new_demining_path %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalDemining">
+          Ajouter un centre de déminage
+        </button>
       <% end %>
       <%= f.input :sos_hand_id, label: "SOS Mains et Doigts", as: :select, collection: SosHand.all.order(:name) %>
       <% if policy(SosHand).new? %>
-        <%= link_to "Ajouter un centre SOS Mains et Doigts", new_sos_hand_path %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalSosHand">
+          Ajouter un centre SOS Mains et Doigts
+        </button>
       <% end %>
       <%= f.input :anti_poison_id, label: "Centre anti-poison", as: :select, collection: AntiPoison.all.order(:name) %>
       <% if policy(AntiPoison).new? %>
-        <%= link_to "Ajouter un centre anti-poison", new_anti_poison_path %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalAntiPoison">
+          Ajouter un Centre anti poison
+        </button>
       <% end %>
       <%= f.input :hospital_id, label: "Hôpital", as: :select, collection: Hospital.all.order(:name) %>
       <% if policy(Hospital).new? %>
@@ -138,6 +146,30 @@
     <% if policy(RegionalCommittee).new? %>
       <div class="modal fade" id="ModalRegionalCommittee" tabindex="-1" role="dialog" aria-labelledby="ModalRegionalCommittee" aria-hidden="true">
         <%= render 'ppsps/modal_regional_committee' %>
+      </div>
+    <% end %>
+    <%# Modal Anti_Poison %>
+    <% if policy(AntiPoison).new? %>
+      <div class="modal fade" id="ModalAntiPoison" tabindex="-1" role="dialog" aria-labelledby="ModalAntiPoison" aria-hidden="true">
+        <%= render 'ppsps/modal_anti_poison' %>
+      </div>
+    <% end %>
+    <%# Modal Work Medecine %>
+    <% if policy(AntiPoison).new? %>
+      <div class="modal fade" id="ModalWorkMedecine" tabindex="-1" role="dialog" aria-labelledby="ModalWorkMedecine" aria-hidden="true">
+        <%= render 'ppsps/modal_work_medecine' %>
+      </div>
+    <% end %>
+    <%# Modal Sos Hand %>
+    <% if policy(SosHand).new? %>
+      <div class="modal fade" id="ModalSosHand" tabindex="-1" role="dialog" aria-labelledby="ModalSosHand" aria-hidden="true">
+        <%= render 'ppsps/modal_sos_hand' %>
+      </div>
+    <% end %>
+    <%# Modal Anti_Poison %>
+    <% if policy(Demining).new? %>
+      <div class="modal fade" id="ModalDemining" tabindex="-1" role="dialog" aria-labelledby="ModalDemining" aria-hidden="true">
+        <%= render 'ppsps/modal_demining' %>
       </div>
     <% end %>
   </div>
