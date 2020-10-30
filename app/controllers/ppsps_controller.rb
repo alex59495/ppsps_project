@@ -16,6 +16,7 @@ class PpspsController < ApplicationController
     @ppsp.build_project_information.build_site_manager
     @ppsp.build_project_information.build_team_manager
     @security_coordinator = SecurityCoordinator.new
+    @hospital = Hospital.new
   end
 
   def show

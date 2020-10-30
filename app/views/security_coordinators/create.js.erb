@@ -2,4 +2,5 @@ $(document).ready(function() {
   $(".modal-backdrop").hide()
   $("#ModalSecurityCoordinator").hide()
   $(".modal-open").css({overflow: 'scroll'})
+  $(".ppsp_security_coordinator_id")[0].innerHTML = "<%= j(render 'form_field_security_coordinator') %>";
 })

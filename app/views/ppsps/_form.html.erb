@@ -72,22 +72,32 @@
       <% end %>
       <%= f.input :hospital_id, label: "Hôpital", as: :select, collection: Hospital.all.order(:name) %>
       <% if policy(Hospital).new? %>
-        <%= link_to "Ajouter un Hôpital", new_hospital_path %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalHospital">
+          Ajouter un Hôpital
+        </button>
       <% end %>
       <%= f.input :security_coordinator_id, label: "Coordinateur sécurité", as: :select, collection: SecurityCoordinator.all.order(:name), label_method: lambda { |security| "#{security.name} - #{security.representative}"} %>
+      <% if policy(SecurityCoordinator).new? %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalSecurityCoordinator">
+          Ajouter un Coordinateur sécurité
+        </button>
+      <% end %>
       <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
       <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>
       <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
       <%= f.submit "Créer un nouveau PPSP" %>
     <% end %>
 
+    <%# Modal Security Coordinator %>
     <% if policy(SecurityCoordinator).new? %>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalSecurityCoordinator">
-        Ajouter un Coordinateur sécurité
-      </button>
-      <!-- Modal -->
       <div class="modal fade" id="ModalSecurityCoordinator" tabindex="-1" role="dialog" aria-labelledby="ModalSecurityCoordinator" aria-hidden="true">
         <%= render 'ppsps/modal_security_coordinator' %>
+      </div>
+    <% end %>
+    <%# Modal Hospital %>
+    <% if policy(Hospital).new? %>
+      <div class="modal fade" id="ModalHospital" tabindex="-1" role="dialog" aria-labelledby="ModalHospital" aria-hidden="true">
+        <%= render 'ppsps/modal_hospital' %>
       </div>
     <% end %>
   </div>

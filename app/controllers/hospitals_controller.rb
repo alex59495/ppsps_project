@@ -14,9 +14,17 @@ class HospitalsController < ApplicationController
     @hospital = Hospital.new(params_hospital)
     authorize @hospital
     if @hospital.save
-      redirect_to new_ppsp_path
+      # Create an ordered list to use in the view 'hospital/_form_field_hospital'
+      @hospitals = Hospital.all.sort_by { |hospital| hospital.name.downcase }
+      # Respond with the view hospital/create.js.erb to close the modal and come back to the form
+      respond_to do |format|
+        format.js {}
+      end
     else
-      render :new
+      # Respond with the .js.erb to print the modal with errors
+      respond_to do |format|
+        format.js { render 'ppsps/modal_hospital' }
+      end
     end
   end
 

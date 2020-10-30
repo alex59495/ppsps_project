@@ -1,0 +1,8 @@
+<div class="form-group select optional ppsp_security_coordinator_id"><label class="select optional" for="ppsp_security_coordinator_id">Coordinateur sécurité</label>
+  <select class="form-control select optional" name="ppsp[security_coordinator_id]" id="ppsp_security_coordinator_id">
+    <option value=""></option>
+    <% @security_coordinators.each do |secu| %>
+      <%= "<option value=#{secu.id}>#{secu.name} - #{secu.representative}</option>".html_safe %>
+    <% end %>
+  </select>
+</div>
