@@ -14,9 +14,17 @@ class MoesController < ApplicationController
     @moe = Moe.new(params_moe)
     authorize @moe
     if @moe.save
-      redirect_to new_ppsp_path
+      # Create an ordered list to use in the view 'moe/_form_field_moe'
+      @moes = Moe.all.sort_by { |moe| moe.name.downcase }
+      # Respond with the view moe/create.js.erb to close the modal and come back to the form
+      respond_to do |format|
+        format.js {}
+      end
     else
-      render :new
+      # Respond with the .js.erb to print the modal with errors
+      respond_to do |format|
+        format.js { render 'ppsps/modal_moe' }
+      end
     end
   end
 

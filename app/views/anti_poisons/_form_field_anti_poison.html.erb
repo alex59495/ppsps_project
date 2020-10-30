@@ -1,0 +1,7 @@
+<label class="select required" for="ppsp_anti_poison_id">Centre anti-poison <abbr title="required">*</abbr></label>
+<select class="form-control select required" name="ppsp[anti_poison_id]" id="ppsp_anti_poison_id">
+  <option value=""></option>
+  <% @anti_poisons.each do |instance| %>
+    <%= "<option value=#{instance.id}>#{instance.name}</option>".html_safe %>
+  <% end %>
+</select>

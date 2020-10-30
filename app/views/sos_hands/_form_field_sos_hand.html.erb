@@ -1,0 +1,8 @@
+<div class="form-group select required ppsp_sos_hand_id"><label class="select required" for="ppsp_sos_hand_id">SOS Mains et Doigts <abbr title="required">*</abbr></label>
+  <select class="form-control select required" name="ppsp[sos_hand_id]" id="ppsp_sos_hand_id">
+    <option value=""></option>
+    <% @sos_hands.each do |instance| %>
+      <%= "<option value=#{instance.id}>#{instance.name}</option>".html_safe %>
+    <% end %>
+  </select>
+</div>

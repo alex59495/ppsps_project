@@ -14,9 +14,17 @@ class WorkMedecinesController < ApplicationController
     @work_medecine = WorkMedecine.new(params_work_medecine)
     authorize @work_medecine
     if @work_medecine.save
-      redirect_to new_ppsp_path
+      # Create an ordered list to use in the view 'work_medecine/_form_field_work_medecine'
+      @work_medecines = WorkMedecine.all.sort_by { |work_medecine| work_medecine.address }
+      # Respond with the view work_medecine/create.js.erb to close the modal and come back to the form
+      respond_to do |format|
+        format.js {}
+      end
     else
-      render :new
+      # Respond with the .js.erb to print the modal with errors
+      respond_to do |format|
+        format.js { render 'ppsps/modal_work_medecine' }
+      end
     end
   end
 

@@ -1,0 +1,7 @@
+$(document).ready(function() {
+  $(".modal-backdrop").hide();
+  $("#ModalHospital").hide();
+  $(".modal-open").css({overflow: 'scroll'});
+  document.querySelector(".ppsp_hospital_id").innerHTML = "<%= j(render 'form_field_hospital') %>";
+})
+

@@ -18,9 +18,17 @@ class AntiPoisonsController < ApplicationController
     @anti_poison = AntiPoison.new(params_anti_poison)
     authorize @anti_poison
     if @anti_poison.save
-      redirect_to new_ppsp_path
+      # Create an ordered list to use in the view 'anti_poison/_form_field_anti_poison'
+      @anti_poisons = AntiPoison.all.sort_by { |anti_poison| anti_poison.name }
+      # Respond with the view anti_poison/create.js.erb to close the modal and come back to the form
+      respond_to do |format|
+        format.js {}
+      end
     else
-      render :new
+      # Respond with the .js.erb to print the modal with errors
+      respond_to do |format|
+        format.js { render 'ppsps/modal_anti_poison' }
+      end
     end
   end
 

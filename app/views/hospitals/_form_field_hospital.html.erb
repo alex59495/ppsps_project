@@ -1,0 +1,9 @@
+<div class="form-group select required ppsp_hospital_id">
+  <label class="select required" for="ppsp_hospital_id">Hôpital <abbr title="required">*</abbr></label>
+  <select class="form-control select required" name="ppsp[hospital_id]" id="ppsp_hospital_id">
+    <option value=""></option>
+    <% @hospitals.each do |hospital| %>
+      <%= "<option value=#{hospital.id}>#{hospital.name}</option>".html_safe %>
+    <% end %>
+  </select>
+</div>

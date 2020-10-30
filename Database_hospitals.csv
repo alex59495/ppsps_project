@@ -1,4 +1,4 @@
-Nom;Code postal;Ville;Adresse;Téléphone
+Nom;Code postal;Ville;Adresse;Telephone
 Centre Hospitalier de Valenciennes ;59322;VALENCIENNES ;Avenue Désandrouin;03 27 14 33 33 
 Centre Hospitalier Roger Salengro de Lille;59037;LILLE;Rue Emile Laine ;03 20 44 62 31 
 Centre Hospitalier Victor Provolo;59056;ROUBAIX ;11 Boulevard Lacordaire;03 20 99 31 31
@@ -51,5 +51,5 @@ Centre Hospitalier de Laon;2001;LAON;Rue Marcelin Berthelot;03 23 24 33 33
 Centre Hospitalier de Villiers Saint Denis ;2310;VILLIERS ST DENIS;1 Rue Victor et Louis Monfort;03 23 70 75 22 
 Centre Hospitalier de Chauny;2303;CHAUNY;94 Rue des Anciens Combattants ;03 23 38 55 00 
 Centre Hospitalier de Guise ;2120;GUISE;858 Rue des Docteurs Devillers ;03 23 51 55 55 
-Centre Hospitalier de Château Thierry;24 054;CHÂTEAU THIERRY;Route de Verdilly;03 23 69 66 00 
+Centre Hospitalier de Château Thierry;24054;CHÂTEAU THIERRY;Route de Verdilly;03 23 69 66 00 
 Centre Hospitalier de Vervins ;2120;VERVINS ;20 Place de la Liberté;03 23 91 60 60 

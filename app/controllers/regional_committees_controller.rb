@@ -14,11 +14,20 @@ class RegionalCommitteesController < ApplicationController
     @regional_committee = RegionalCommittee.new(params_regional_committee)
     authorize @regional_committee
     if @regional_committee.save
-      redirect_to new_ppsp_path
+      # Create an ordered list to use in the view 'regional_committee/_form_field_regional_committee'
+      @regional_committees = RegionalCommittee.all.sort_by { |regional_committee| regional_committee.name }
+      # Respond with the view regional_committee/create.js.erb to close the modal and come back to the form
+      respond_to do |format|
+        format.js {}
+      end
     else
-      render :new
+      # Respond with the .js.erb to print the modal with errors
+      respond_to do |format|
+        format.js { render 'ppsps/modal_regional_committee' }
+      end
     end
   end
+  
 
   def edit
     authorize @regional_committee

@@ -91,8 +91,8 @@ ActiveRecord::Schema.define(version: 2020_08_04_023158) do
 
   create_table "ppsps", force: :cascade do |t|
     t.string "address"
-    t.date "start"
-    t.date "end"
+    t.date "start_date"
+    t.date "end_date"
     t.string "nature"
     t.string "workforce"
     t.string "agglomeration"

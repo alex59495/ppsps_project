@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
+gem 'rails', '~> 6.0.3', '>= 6.0.3.3'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -21,17 +21,18 @@ gem 'jbuilder', '~> 2.7'
 gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+gem "actionview", ">= 6.0.3.3"
 # Be able to redirect with a post method
 gem 'repost'
 # bootstrap
 gem 'bootstrap', '~> 5.0.0.alpha1'
-
 # Handle nested form
 gem "cocoon"
 
 # Internationalization gem
 gem 'i18n'
-gem 'devise-i18n', '~> 1.2'
+gem 'rails-i18n'
+gem 'devise-i18n'
 
 # Autocomplete geocoding
 gem "geocoder"
@@ -53,15 +54,23 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
 gem 'autoprefixer-rails'
-gem 'bootstrap', '~> 4.3.1'
 gem 'font-awesome-sass'
 gem 'simple_form'
-group :development, :test do  gem 'pry-byebug'
+group :development, :test do  
+  gem 'pry-byebug'
   gem 'pry-rails'
   gem 'dotenv-rails'
-
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'selenium-webdriver'
+  gem 'webdrivers'
+  gem 'launchy'
+  gem 'shoulda-matchers'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
 end
 
 group :development do
@@ -71,15 +80,16 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-commands-rspec'
 end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
-  gem 'launchy'
+  # gem 'capybara', '>= 2.15'
+  # gem 'selenium-webdriver'
+  # # Easy installation and use of web drivers to run system tests with browsers
+  # gem 'webdrivers'
+  # gem 'launchy'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

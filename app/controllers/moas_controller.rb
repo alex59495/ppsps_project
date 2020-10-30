@@ -14,9 +14,17 @@ class MoasController < ApplicationController
     @moa = Moa.new(params_moa)
     authorize @moa
     if @moa.save
-      redirect_to new_ppsp_path
+      # Create an ordered list to use in the view 'moa/_form_field_moa'
+      @moas = Moa.all.sort_by { |moa| moa.name }
+      # Respond with the view moa/create.js.erb to close the modal and come back to the form
+      respond_to do |format|
+        format.js {}
+      end
     else
-      render :new
+      # Respond with the .js.erb to print the modal with errors
+      respond_to do |format|
+        format.js { render 'ppsps/modal_moa' }
+      end
     end
   end
 

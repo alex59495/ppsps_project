@@ -18,6 +18,8 @@ class SecurityCoordinatorsController < ApplicationController
     @security_coordinator = SecurityCoordinator.new(params_security_coordinator)
     authorize @security_coordinator
     if @security_coordinator.save
+      # Create an ordered list to use in the view 'security_coordinator/_form_field_security_coordinator'
+      @security_coordinators = SecurityCoordinator.all.sort_by { |s| s.name.downcase }
       # Respond with the view security_coordinator/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
@@ -27,7 +29,6 @@ class SecurityCoordinatorsController < ApplicationController
       respond_to do |format|
         format.js { render 'ppsps/modal_security_coordinator' }
       end
-      # render :new
     end
   end
 

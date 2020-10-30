@@ -14,9 +14,17 @@ class SosHandsController < ApplicationController
     @sos_hand = SosHand.new(params_sos_hand)
     authorize @sos_hand
     if @sos_hand.save
-      redirect_to new_ppsp_path
+      # Create an ordered list to use in the view 'sos_hand/_form_field_sos_hand'
+      @sos_hands = SosHand.all.sort_by { |sos_hand| sos_hand.name }
+      # Respond with the view sos_hand/create.js.erb to close the modal and come back to the form
+      respond_to do |format|
+        format.js {}
+      end
     else
-      render :new
+      # Respond with the .js.erb to print the modal with errors
+      respond_to do |format|
+        format.js { render 'ppsps/modal_sos_hand' }
+      end
     end
   end
 

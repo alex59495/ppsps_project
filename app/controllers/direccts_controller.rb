@@ -15,9 +15,17 @@ class DirecctsController < ApplicationController
     @direcct = Direcct.new(params_direcct)
     authorize @direcct
     if @direcct.save
-      redirect_to new_ppsp_path
+      # Create an ordered list to use in the view 'direcct/_form_field_direcct'
+      @direccts = Direcct.all.sort_by { |direcct| direcct.address }
+      # Respond with the view direcct/create.js.erb to close the modal and come back to the form
+      respond_to do |format|
+        format.js {}
+      end
     else
-      render :new
+      # Respond with the .js.erb to print the modal with errors
+      respond_to do |format|
+        format.js { render 'ppsps/modal_direcct' }
+      end
     end
   end
 

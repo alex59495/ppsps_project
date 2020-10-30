@@ -14,9 +14,17 @@ class DeminingsController < ApplicationController
     @demining = Demining.new(params_demining)
     authorize @demining
     if @demining.save
-      redirect_to new_ppsp_path
+      # Create an ordered list to use in the view 'demining/_form_field_demining'
+      @deminings = Demining.all.sort_by { |demining| demining.name }
+      # Respond with the view demining/create.js.erb to close the modal and come back to the form
+      respond_to do |format|
+        format.js {}
+      end
     else
-      render :new
+      # Respond with the .js.erb to print the modal with errors
+      respond_to do |format|
+        format.js { render 'ppsps/modal_demining' }
+      end
     end
   end
 
