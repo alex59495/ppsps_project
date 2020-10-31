@@ -1,7 +1,7 @@
 const HideForm = () => {
   if ($('#siteInstallationType')[0]) {
     const siteInstallationType = $('#siteInstallationType')[0];
-    const checkSiteInstallation = $('checkSiteInstallation')[0];
+    const checkSiteInstallation = $('#checkSiteInstallation')[0];
     checkSiteInstallation.addEventListener('click', (event) => {
       siteInstallationType.classList.toggle('hidden');
     })

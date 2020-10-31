@@ -49,12 +49,22 @@ class PpspsController < ApplicationController
   def create
     @ppsp = Ppsp.new(params_ppsp)
     @security_coordinator = SecurityCoordinator.new
+    @hospital = Hospital.new
+    @moa = Moa.new
+    @moe = Moe.new
+    @pension_insurance = PensionInsurance.new
+    @regional_committee = RegionalCommittee.new
+    @direcct = Direcct.new
+    @work_medecine = WorkMedecine.new
+    @demining = Demining.new
+    @sos_hand = SosHand.new
+    @anti_poison = AntiPoison.new
     @ppsp.user = current_user
     authorize @ppsp
     if @ppsp.save
       redirect_to informations_supplementaires_ppsp_path(@ppsp)
     else
-      flash[:alert] = "Le formulaire n'a pas été rempli correctement, merci de réessayer !"
+      flash.now.alert = "Le formulaire n'a pas été rempli correctement, merci de réessayer !"
       render :new
     end
   end
@@ -105,7 +115,7 @@ class PpspsController < ApplicationController
 
   private
   def params_ppsp
-    params.require(:ppsp).permit(:address, :start, :end, :nature, :workforce, :agglomeration, 
+    params.require(:ppsp).permit(:address, :start_date, :end_date, :nature, :workforce, :agglomeration, 
     :street_impact, :river_guidance, :moa_id, :moe_id, :subcontractor_id, 
     :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
     :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, 

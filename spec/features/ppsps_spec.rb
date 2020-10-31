@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Ppsps", type: :feature, js: true do
+RSpec.feature "Ppsps Views", type: :feature, js: true do
   context "Unlogged user" do
     it 'Redirect to Sign In page' do
       visit(ppsps_path)
@@ -29,12 +29,11 @@ RSpec.feature "Ppsps", type: :feature, js: true do
 
     it 'Remove a Ppsp' do
       visit(ppsps_path)
-      count = Ppsp.all.length
-      click_link('x')
-      accept_confirm do
-        click_link ''
+      count = Ppsp.count
+      accept_alert do
+        click_link 'x'
       end
-      expect(Ppsp.all.length).to eq(count - 1)
+      expect(Ppsp.count).to eq(count - 1)
     end
   end
 end

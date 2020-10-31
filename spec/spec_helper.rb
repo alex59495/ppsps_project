@@ -21,9 +21,9 @@ end
 
 Capybara.javascript_driver = :chrome
 
-#
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+
   # FactoryBot Lint
   config.before(:suite) do
     FactoryBot.lint
