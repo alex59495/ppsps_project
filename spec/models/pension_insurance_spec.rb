@@ -5,4 +5,10 @@ RSpec.describe PensionInsurance, type: :model do
     pension_insurance = create(:pension_insurance)
     expect(pension_insurance).to be_kind_of(PensionInsurance)
   end
+
+  it { should validate_presence_of(:address)}
+  it { should validate_presence_of(:phone)}
+  it { should validate_presence_of(:fax)}
+
+  it { should have_many(:ppsps)}
 end
