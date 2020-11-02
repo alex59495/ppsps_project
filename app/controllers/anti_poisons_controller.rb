@@ -3,6 +3,7 @@ class AntiPoisonsController < ApplicationController
 
   def index
     @anti_poisons = policy_scope(AntiPoison)
+    @anti_poison = AntiPoison.new
   end
 
   def show

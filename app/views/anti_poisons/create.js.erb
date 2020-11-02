@@ -2,6 +2,11 @@ $(document).ready(function() {
   $(".modal-backdrop").hide();
   $("#ModalAntiPoison").hide();
   $(".modal-open").css({overflow: 'scroll'});
-  document.querySelector(".ppsp_anti_poison_id").innerHTML = "<%= j(render 'form_field_anti_poison') %>";
+  if (document.querySelector(".ppsp_anti_poison_id")) {
+    document.querySelector(".ppsp_anti_poison_id").innerHTML = "<%= j(render 'form_field_anti_poison') %>";
+  }
+  if (document.querySelector(".list-database")) {
+    document.querySelector(".list-database").innerHTML = "<%= j(render 'list_anti_poisons') %>";
+  }
 })
 
