@@ -2,6 +2,11 @@ $(document).ready(function() {
   $(".modal-backdrop").hide();
   $("#ModalDemining").hide();
   $(".modal-open").css({overflow: 'scroll'});
-  document.getElementById("ppsp_demining_id").innerHTML = "<%= j(render 'form_field_demining') %>";
+  if (document.getElementById("ppsp_demining_id")) {
+    document.getElementById("ppsp_demining_id").innerHTML = "<%= j(render 'form_field_demining') %>";
+  }
+  if (document.querySelector(".list-database")) {
+    document.querySelector(".list-database").innerHTML = "<%= j(render 'list_deminings') %>";
+  }
 })
 

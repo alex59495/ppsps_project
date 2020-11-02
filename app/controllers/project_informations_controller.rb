@@ -5,11 +5,6 @@ class ProjectInformationsController < ApplicationController
     @project_informations = policy_scope(ProjectInformation)
   end
 
-  def new
-    @project = ProjectInformation.new
-    authorize @project
-  end
-
   def create
     @project = ProjectInformation.new(params_project)
     authorize @project

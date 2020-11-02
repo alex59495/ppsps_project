@@ -2,6 +2,11 @@ $(document).ready(function() {
   $(".modal-backdrop").hide();
   $("#ModalSosHand").hide();
   $(".modal-open").css({overflow: 'scroll'});
-  document.getElementById("ppsp_sos_hand_id").innerHTML = "<%= j(render 'form_field_sos_hand') %>";
+  if (document.getElementById("ppsp_sos_hand_id")) {
+    document.getElementById("ppsp_sos_hand_id").innerHTML = "<%= j(render 'form_field_sos_hand') %>";
+  }
+  if (document.querySelector(".list-database")) {
+    document.querySelector(".list-database").innerHTML = "<%= j(render 'list_sos_hands') %>";
+  }
 })
 

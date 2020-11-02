@@ -1,0 +1,7 @@
+<% @deminings.each do |demining| %>
+  <div class="card-database">
+    <%= link_to demining, demining_path(demining) %>
+    <%= link_to "Edit", edit_demining_path(demining) %>
+    <%= link_to "x", demining_path(demining), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+  </div>
+<% end %>

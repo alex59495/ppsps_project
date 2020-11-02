@@ -1,7 +1,20 @@
-<% @hospitals.each do |hospital| %>
-  <div class="card-database">
-    <%= link_to hospital, hospital_path(hospital) %>
-    <%= link_to "Edit", edit_hospital_path(hospital) %>
-    <%= link_to "x", hospital_path(hospital), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+<% if policy(Hospital).new? %>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalHospital">
+    Ajouter un Hôpital
+  </button>
+<% end %>
+<%# Modal Hospital %>
+<% if policy(Hospital).new? %>
+  <div class="modal fade" id="ModalHospital" tabindex="-1" role="dialog" aria-labelledby="ModalHospital" aria-hidden="true">
+    <%= render 'ppsps/modal_hospital' %>
   </div>
 <% end %>
+<div class="list-database">
+  <% @hospitals.each do |hospital| %>
+    <div class="card-database">
+      <%= link_to hospital, hospital_path(hospital) %>
+      <%= link_to "Edit", edit_hospital_path(hospital) %>
+      <%= link_to "x", hospital_path(hospital), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+    </div>
+  <% end %>
+</div>

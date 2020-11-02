@@ -3,10 +3,10 @@ class RegionalCommitteesController < ApplicationController
 
   def index
     @regional_committees = policy_scope(RegionalCommittee)
+    @regional_committee = RegionalCommittee.new
   end
 
-  def new
-    @regional_committee = RegionalCommittee.new
+  def show
     authorize @regional_committee
   end
 

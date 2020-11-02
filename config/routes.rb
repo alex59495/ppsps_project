@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   resources :site_managers
   resources :team_managers
   resources :hospitals
-  resources :anti_poisons
+  resources :anti_poisons, except: [:new]
   resources :sos_hands
   resources :deminings
   resources :work_medecines

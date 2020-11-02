@@ -1,7 +1,20 @@
-<% @sos_hands.each do |sos_hand| %>
-  <div class="card-database">
-    <%= link_to sos_hand, sos_hand_path(sos_hand) %>
-    <%= link_to "Edit", edit_sos_hand_path(sos_hand) %>
-    <%= link_to "x", sos_hand_path(sos_hand), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+<% if policy(SosHand).new? %>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalSosHand">
+    Ajouter un centre SOS Mains et Doigts
+  </button>
+<% end %>
+<%# Modal Sos Hand %>
+<% if policy(SosHand).new? %>
+  <div class="modal fade" id="ModalSosHand" tabindex="-1" role="dialog" aria-labelledby="ModalSosHand" aria-hidden="true">
+    <%= render 'ppsps/modal_sos_hand' %>
   </div>
 <% end %>
+<div class="list-database">
+  <% @sos_hands.each do |sos_hand| %>
+    <div class="card-database">
+      <%= link_to sos_hand, sos_hand_path(sos_hand) %>
+      <%= link_to "Edit", edit_sos_hand_path(sos_hand) %>
+      <%= link_to "x", sos_hand_path(sos_hand), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+    </div>
+  <% end %>
+</div>

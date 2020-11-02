@@ -1,0 +1,7 @@
+<% @moes.each do |moe| %>
+  <div class="card-database">
+    <%= link_to moe, mo_path(moe) %>
+    <%= link_to "Edit", edit_mo_path(moe) %>
+    <%= link_to "x", mo_path(moe), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+  </div>
+<% end %>

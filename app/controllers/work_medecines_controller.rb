@@ -3,10 +3,11 @@ class WorkMedecinesController < ApplicationController
 
   def index
     @work_medecines = policy_scope(WorkMedecine)
+    @work_medecine = WorkMedecine.new
+
   end
 
-  def new
-    @work_medecine = WorkMedecine.new
+  def show
     authorize @work_medecine
   end
 

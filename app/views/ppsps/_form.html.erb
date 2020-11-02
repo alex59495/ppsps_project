@@ -152,7 +152,7 @@
       </div>
     <% end %>
     <%# Modal Work Medecine %>
-    <% if policy(AntiPoison).new? %>
+    <% if policy(WorkMedecine).new? %>
       <div class="modal fade" id="ModalWorkMedecine" tabindex="-1" role="dialog" aria-labelledby="ModalWorkMedecine" aria-hidden="true">
         <%= render 'ppsps/modal_work_medecine' %>
       </div>
@@ -163,7 +163,7 @@
         <%= render 'ppsps/modal_sos_hand' %>
       </div>
     <% end %>
-    <%# Modal Anti_Poison %>
+    <%# Modal Demining %>
     <% if policy(Demining).new? %>
       <div class="modal fade" id="ModalDemining" tabindex="-1" role="dialog" aria-labelledby="ModalDemining" aria-hidden="true">
         <%= render 'ppsps/modal_demining' %>

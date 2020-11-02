@@ -1,0 +1,7 @@
+<% @direccts.each do |direcct| %>
+  <div class="card-database">
+    <%= link_to direcct, direcct_path(direcct) %>
+    <%= link_to "Edit", edit_direcct_path(direcct) %>
+    <%= link_to "x", direcct_path(direcct), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+  </div>
+<% end %>

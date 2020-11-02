@@ -1,7 +1,20 @@
-<% @moes.each do |moe| %>
-  <div class="card-database">
-    <%= link_to moe, mo_path(moe) %>
-    <%= link_to "Edit", edit_mo_path(moe) %>
-    <%= link_to "x", mo_path(moe), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+<% if policy(Moe).new? %>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalMoe">
+    Ajouter un Maître d'oeuvre
+  </button>
+<% end %>
+<%# Modal Moa %>
+<% if policy(Moe).new? %>
+  <div class="modal fade" id="ModalMoe" tabindex="-1" role="dialog" aria-labelledby="ModalMoe" aria-hidden="true">
+    <%= render 'ppsps/modal_moe' %>
   </div>
 <% end %>
+<div class="list-database">
+  <% @moes.each do |moe| %>
+    <div class="card-database">
+      <%= link_to moe, mo_path(moe) %>
+      <%= link_to "Edit", edit_mo_path(moe) %>
+      <%= link_to "x", mo_path(moe), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+    </div>
+  <% end %>
+</div>

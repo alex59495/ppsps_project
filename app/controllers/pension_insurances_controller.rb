@@ -3,10 +3,10 @@ class PensionInsurancesController < ApplicationController
 
   def index
     @pension_insurances = policy_scope(PensionInsurance)
+    @pension_insurance = PensionInsurance.new
   end
 
-  def new
-    @pensions_insurance = PensionsInsurance.new
+  def show
     authorize @pensions_insurance
   end
 

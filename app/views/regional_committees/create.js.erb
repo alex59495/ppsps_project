@@ -2,6 +2,11 @@ $(document).ready(function() {
   $(".modal-backdrop").hide();
   $("#ModalRegionalCommittee").hide();
   $(".modal-open").css({overflow: 'scroll'});
-  document.getElementById("ppsp_regional_committee_id").innerHTML = "<%= j(render 'form_field_regional_committee') %>";
+  if (document.getElementById("ppsp_regional_committee_id")) {
+    document.getElementById("ppsp_regional_committee_id").innerHTML = "<%= j(render 'form_field_regional_committee') %>";
+  }
+  if (document.querySelector(".list-database")) {
+    document.querySelector(".list-database").innerHTML = "<%= j(render 'list_regional_committees') %>";
+  }
 })
 

@@ -1,7 +1,20 @@
-<% @pension_insurances.each do |pension_insurance| %>
-  <div class="card-database">
-    <%= link_to pension_insurance, pension_insurance_path(pension_insurance) %>
-    <%= link_to "Edit", edit_pension_insurance_path(pension_insurance) %>
-    <%= link_to "x", pension_insurance_path(pension_insurance), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+<% if policy(PensionInsurance).new? %>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalPensionInsurance">
+    Ajouter une Caisse d'assurance
+  </button>
+<% end %>
+<%# Modal Pension Insurance %>
+<% if policy(PensionInsurance).new? %>
+  <div class="modal fade" id="ModalPensionInsurance" tabindex="-1" role="dialog" aria-labelledby="ModalPensionInsurance" aria-hidden="true">
+    <%= render 'ppsps/modal_pension_insurance' %>
   </div>
 <% end %>
+<div class="list-database">
+  <% @pension_insurances.each do |pension_insurance| %>
+    <div class="card-database">
+      <%= link_to pension_insurance, pension_insurance_path(pension_insurance) %>
+      <%= link_to "Edit", edit_pension_insurance_path(pension_insurance) %>
+      <%= link_to "x", pension_insurance_path(pension_insurance), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+    </div>
+  <% end %>
+</div>

@@ -3,11 +3,7 @@ class MoasController < ApplicationController
 
   def index
     @moas = policy_scope(Moa)
-  end
-
-  def new
     @moa = Moa.new
-    authorize @moa
   end
 
   def create

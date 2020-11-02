@@ -10,11 +10,6 @@ class AntiPoisonsController < ApplicationController
     authorize @anti_poison
   end
 
-  def new
-    @anti_poison = AntiPoison.new
-    authorize @anti_poison
-  end
-
   def create
     @anti_poison = AntiPoison.new(params_anti_poison)
     authorize @anti_poison

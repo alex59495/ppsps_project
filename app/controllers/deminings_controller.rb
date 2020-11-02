@@ -3,11 +3,7 @@ class DeminingsController < ApplicationController
 
   def index
     @deminings = policy_scope(Demining)
-  end
-  
-  def new
     @demining = Demining.new
-    authorize @demining
   end
 
   def create

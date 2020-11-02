@@ -3,10 +3,10 @@ class SosHandsController < ApplicationController
 
   def index
     @sos_hands = policy_scope(SosHand)
+    @sos_hand = SosHand.new
   end
 
-  def new
-    @sos_hand = SosHand.new
+  def show
     authorize @sos_hand
   end
 
