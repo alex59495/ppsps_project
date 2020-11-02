@@ -41,6 +41,12 @@ class HospitalsController < ApplicationController
     end
   end
 
+  def destroy
+    authorize @hospital
+    @hospital.destroy
+    redirect_to hospitals_path
+  end
+
   private
   def params_hospital
     params.require(:hospital).permit(:address, :name, :phone)

@@ -41,6 +41,12 @@ class MoesController < ApplicationController
     end
   end
 
+  def destroy
+    authorize @moe
+    @moe.destroy
+    redirect_to moes_path
+  end
+
   private
   def params_moe
     params.require(:moe).permit(:address, :name, :phone, :email, :representative)

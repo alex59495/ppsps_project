@@ -17,7 +17,7 @@ class SubResponsiblePolicy < ApplicationPolicy
     true
   end
 
-  def destroy
+  def destroy?
     user.admin == true
   end
 
@@ -25,7 +25,7 @@ class SubResponsiblePolicy < ApplicationPolicy
     user.admin == true
   end
 
-  def update
+  def update?
     edit?
   end
 end

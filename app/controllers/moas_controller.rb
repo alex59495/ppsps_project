@@ -6,6 +6,10 @@ class MoasController < ApplicationController
     @moa = Moa.new
   end
 
+  def show 
+    authorize @moa
+  end
+
   def create
     @moa = Moa.new(params_moa)
     authorize @moa
@@ -36,6 +40,13 @@ class MoasController < ApplicationController
       render :edit
     end
   end
+
+  def destroy
+    authorize @moa
+    @moa.destroy
+    redirect_to moas_path
+  end
+
 
   private
   def params_moa

@@ -42,6 +42,12 @@ class WorkMedecinesController < ApplicationController
     end
   end
 
+  def destroy
+    authorize @work_medecine
+    @work_medecine.destroy
+    redirect_to work_medecines_path
+  end
+
   private
   def params_work_medecine
     params.require(:work_medecine).permit(:address, :fax, :phone)

@@ -7,6 +7,10 @@ class DirecctsController < ApplicationController
     @direcct = Direcct.new
   end
 
+  def show
+    authorize @hospital
+  end
+
   def create
     @direcct = Direcct.new(params_direcct)
     authorize @direcct
@@ -36,6 +40,12 @@ class DirecctsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    authorize @direcct
+    @direcct.destroy
+    redirect_to direccts_path
   end
 
   private

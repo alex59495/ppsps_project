@@ -41,6 +41,12 @@ class SosHandsController < ApplicationController
     end
   end
 
+  def destroy
+    authorize @sos_hand
+    @sos_hand.destroy
+    redirect_to sos_hands_path
+  end
+
   private
   def params_sos_hand
     params.require(:sos_hand).permit(:address, :name, :phone)

@@ -19,18 +19,18 @@ Rails.application.routes.draw do
   resources :subcontractors, except: [:create]
   resources :companies
   resources :security_coordinators
-  resources :moas
-  resources :moes
+  resources :moas, except: [:new]
+  resources :moes, except: [:new]
   resources :project_informations
   resources :site_managers
   resources :team_managers
-  resources :hospitals
+  resources :hospitals, except: [:new]
   resources :anti_poisons, except: [:new]
-  resources :sos_hands
-  resources :deminings
+  resources :sos_hands, except: [:new]
+  resources :deminings, except: [:new]
   resources :work_medecines
-  resources :direccts
-  resources :pension_insurances
-  resources :regional_committees
+  resources :direccts, except: [:new]
+  resources :pension_insurances, except: [:new]
+  resources :regional_committees, except: [:new]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

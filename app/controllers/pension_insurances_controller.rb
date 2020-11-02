@@ -41,6 +41,12 @@ class PensionInsurancesController < ApplicationController
     end
   end
 
+  def destroy
+    authorize @pension_insurance
+    @pension_insurance.destroy
+    redirect_to pension_insurances_path
+  end
+
   private
   def params_pension_insurance
     params.require(:pension_insurance).permit(:address, :phone, :fax)

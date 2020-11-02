@@ -6,6 +6,10 @@ class DeminingsController < ApplicationController
     @demining = Demining.new
   end
 
+  def show
+    authorize @hospital
+  end
+
   def create
     @demining = Demining.new(params_demining)
     authorize @demining
@@ -24,8 +28,31 @@ class DeminingsController < ApplicationController
     end
   end
 
+  def edit
+    authorize @demining
+  end
+
+  def update
+    authorize @demining
+    if @demining.update(params_demining)
+      redirect_to deminings_path
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    authorize @demining
+    @demining.destroy
+    redirect_to deminings_path
+  end
+
   private
   def params_demining
     params.require(:demining).permit(:address, :name, :phone)
+  end
+
+  def find_demining
+    @demining = Demining.find(params[:id])
   end
 end
