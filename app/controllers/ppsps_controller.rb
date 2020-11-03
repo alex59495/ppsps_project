@@ -12,9 +12,9 @@ class PpspsController < ApplicationController
     # This way they are created in the DB if the @ppsp is saved
     # We used the 'accepts_nested_attributes_for' in the models
     # We used the projection_information_attributes in the params
-    @ppsp.build_project_information
-    @ppsp.build_project_information.build_site_manager
-    @ppsp.build_project_information.build_team_manager
+    @project_information = @ppsp.build_project_information
+    @site_manager = @ppsp.build_project_information.build_site_manager
+    @team_manager = @ppsp.build_project_information.build_team_manager
     @project_information = ProjectInformation.new 
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new

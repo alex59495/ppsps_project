@@ -7,7 +7,7 @@
     <form id="FormSecurityCoordinator" action=<%= security_coordinators_path %> method="post"></form>
 
     <%= simple_form_for @ppsp do |f| %>
-      <%= f.input :address, label: "Adresse", placeholder: "Indiquez une adresse...", input_html: { id: :autocomplete_address } %>
+      <%= f.input :address, label: "Adresse", placeholder: "Indiquez une adresse..." %>
       <%= f.input :start_date, label: "Date de début"  %>
       <%= f.input :end_date, label: "Date de fin"  %>
       <%= f.input :nature, label: "Nature du travail", placeholder: "Description des travaux..." %>
@@ -100,7 +100,11 @@
       <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
       <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>
       <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
-      <%= f.submit "Créer un nouveau PPSP" %>
+      <% if params[:action] == 'new' %>
+        <%= f.submit "Créer un nouveau PPSP" %>
+      <% else %>
+        <%= f.submit "Mettre à jour le PPSP" %>
+      <% end %>
     <% end %>
 
     <%# Modal Security Coordinator %>
