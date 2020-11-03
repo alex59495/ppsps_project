@@ -67,7 +67,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
  
     it 'Click on the Show Page' do
       visit(ppsps_path)
-      click_link 'Voir les infos'
+      click_link @ppsp.project_information.reference
       expect(page).to have_current_path(ppsp_path(@ppsp))
     end
 

@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
   it { should validate_presence_of(:first_name)}
   it { should validate_presence_of(:last_name)}
   it { should validate_presence_of(:password)}
-  it { should validate_presence_of(:admin)}
+  it { should allow_value(true, false).for(:admin)}
 
   it { should have_many(:ppsps)}
   it { should belong_to(:company)}

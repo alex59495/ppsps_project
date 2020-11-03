@@ -15,6 +15,7 @@ class PpspsController < ApplicationController
     @ppsp.build_project_information
     @ppsp.build_project_information.build_site_manager
     @ppsp.build_project_information.build_team_manager
+    @project_information = ProjectInformation.new 
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
     @moa = Moa.new
@@ -94,6 +95,11 @@ class PpspsController < ApplicationController
 
   def edit
     authorize @ppsp
+    # This way the edit page is able to retrieve the project informations
+    @project_information = @ppsp.project_information
+    @site_manager = @ppsp.project_information.site_manager
+    @team_manager = @ppsp.project_information.team_manager
+
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
     @moa = Moa.new
@@ -109,7 +115,22 @@ class PpspsController < ApplicationController
 
   def update
     authorize @ppsp
+    # This way the update is able to retrieve the project informations
+    @project_information = @ppsp.project_information
+    @site_manager = @ppsp.project_information.site_manager
+    @team_manager = @ppsp.project_information.team_manager
+
     @security_coordinator = SecurityCoordinator.new
+    @hospital = Hospital.new
+    @moa = Moa.new
+    @moe = Moe.new
+    @pension_insurance = PensionInsurance.new
+    @regional_committee = RegionalCommittee.new
+    @direcct = Direcct.new
+    @work_medecine = WorkMedecine.new
+    @demining = Demining.new
+    @sos_hand = SosHand.new
+    @anti_poison = AntiPoison.new
     if @ppsp.update(params_ppsp)
       redirect_to informations_supplementaires_ppsp_path(@ppsp)
     else

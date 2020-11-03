@@ -5,7 +5,7 @@
 <h1>Mes anciens PPSP</h1>
 <% @ppsps.each do |ppsp| %>
   <div class="card-ppsp">
-    <%= link_to "Voir les infos", ppsp_path(ppsp) %>
+    <%= link_to "PPSP REF #{ppsp.project_information.reference}", ppsp_path(ppsp) %>
     <%= link_to "Exporter en PDF", ppsp_path(ppsp, format: :pdf), target: "_blank" %>
     <%= link_to "edit", edit_ppsp_path(ppsp) %>
     <%= link_to "x", ppsp_path(ppsp), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer ce document ?"} %>

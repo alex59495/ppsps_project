@@ -24,17 +24,17 @@
           Ajouter un Maître d'oeuvre
         </button>
       <% end %>
-      <%= f.simple_fields_for :project_information, ProjectInformation.new do |h| %>
+      <%= f.simple_fields_for :project_information, @project_information do |h| %>
         <%= h.input :reference, label: "Référence du projet", placeholder: "B 484..." %>
         <%= h.input :responsible, label: "Responsable", placeholder: "Entrez le nom du responsable..." %>
         <%= h.input :phone, label: "Téléphone", placeholder: "Entrez le numéro de téléphone du responsable..." %>
         <%= h.input :email, label: "Email", placeholder: "Entrez l'email du responsable..."  %>
-        <%= h.simple_fields_for :site_manager, SiteManager.new do |j| %>
+        <%= h.simple_fields_for :site_manager, @site_manager do |j| %>
           <%= j.input :name, label: "Chef de chantier", placeholder: "Entrez le nom du chef de chantier..."  %>
           <%= j.input :phone, label: "Téléphone", placeholder: "Entrez le numéro de téléphone du chef de chantier..."  %>
           <%= j.input :email, label: "Email", placeholder: "Entrez l'email du chef de chantier..."  %>
         <% end %>
-        <%= h.simple_fields_for :team_manager, TeamManager.new do |k| %>
+        <%= h.simple_fields_for :team_manager, @team_manager do |k| %>
           <%= k.input :name, label: "Chef d'équipe", placeholder: "Entrez le nom du chef d'équipe..." %>
           <%= k.input :phone, label: "Téléphone", placeholder: "Entrez le numéro de téléphone du chef d'équipe..."  %>
           <%= k.input :email, label: "Email", placeholder: "Entrez l'email du chef d'équipe..." %>

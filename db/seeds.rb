@@ -81,18 +81,40 @@ team_manager1 = TeamManager.create(name: team_manager[:name], phone:team_manager
 p "create #{team_manager1.id} team manager"
 
 # Create Project Informations
-project_information = {
+project_information = [{
   reference: "AABB130",
   responsible: "Responsible Test",
   phone: "0300000000",
   email: "project@gmail.com",
   site_manager_id: 1,
   team_manager_id: 1
-}
-project_information1 = ProjectInformation.create(reference: project_information[:reference], phone:project_information[:phone],
-responsible:project_information[:responsible], email:project_information[:email], site_manager_id:project_information[:site_manager_id],
-team_manager_id:project_information[:team_manager_id])
-p "create #{project_information1.id} project info"
+},
+{
+  reference: "AABB131",
+  responsible: "Responsible Test 2",
+  phone: "0300000000",
+  email: "project2@gmail.com",
+  site_manager_id: 1,
+  team_manager_id: 1
+},
+{
+  reference: "AABB132",
+  responsible: "Responsible Test 3",
+  phone: "0300000000",
+  email: "project3@gmail.com",
+  site_manager_id: 1,
+  team_manager_id: 1
+},
+]
+project_information.each do |project|
+  project_information1 = ProjectInformation.create(
+    reference: project[:reference], phone:project[:phone],
+    responsible:project[:responsible], email:project[:email], 
+    site_manager_id:project[:site_manager_id],
+    team_manager_id:project[:team_manager_id])
+  p "create #{project_information1.id} project info"
+end
+
 
 # Create Subcontractor
 subcontractor = {
@@ -192,13 +214,13 @@ ppsps = [{
   end_date: DateTime.new(2020,9,1,19),
   nature: "test_1 nature",
   workforce: "test_1 workforce",
-  agglomeration: "Agglomeration",
-  street_impact: "Pas d'impact",
-  river_guidance: "Cours d'eau",
+  agglomeration: Ppsp::AGGLOMERATIONS.first,
+  street_impact: Ppsp::STREET_IMPACTS[1],
+  river_guidance: Ppsp::RIVER_GUIDANCES[1],
   user_id: 1,
   moa_id: 1,
   moe_id: 1,
-  project_information_id: 1,
+  project_information_id: 2,
   pension_insurance_id: 1,
   direcct_id: 1,
   work_medecine_id: 1,
@@ -214,9 +236,9 @@ ppsps = [{
   end_date: DateTime.new(2020,9,1,19),
   nature: "test_2 nature",
   workforce: "test_2 workforce",
-  agglomeration: "Agglomeration",
-  street_impact: "Pas d'impact",
-  river_guidance: "Cours d'eau",
+  agglomeration: Ppsp::AGGLOMERATIONS.last,
+  street_impact: Ppsp::STREET_IMPACTS[2],
+  river_guidance: Ppsp::RIVER_GUIDANCES.first,
   user_id: 1,
   moa_id: 1,
   moe_id: 1,
@@ -235,13 +257,13 @@ ppsps = [{
   end_date: DateTime.new(2020,9,1,19),
   nature: "test_3 nature",
   workforce: "test_3 workforce",
-  agglomeration: "Agglomeration",
-  street_impact: "Pas d'impact",
-  river_guidance: "Cours d'eau",
+  agglomeration: Ppsp::AGGLOMERATIONS.first,
+  street_impact: Ppsp::STREET_IMPACTS.last,
+  river_guidance: Ppsp::RIVER_GUIDANCES[2],
   user_id: 2,
   moa_id: 1,
   moe_id: 1,
-  project_information_id: 1,
+  project_information_id: 3,
   pension_insurance_id: 1,
   direcct_id: 1,
   work_medecine_id: 1,
