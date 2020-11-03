@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Moas Controller", type: :request do
-  context 'Logged as User admin' do
+  context 'Logged as User Admin' do
     before do
-      user = create(:user)
+      user = create(:user_admin)
       @moa = create(:moa)
       login_as(user)
     end

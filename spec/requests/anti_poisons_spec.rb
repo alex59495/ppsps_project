@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "AntiPoisons Controller", type: :request do
-  context 'Logged as User admin' do
+  context 'Logged as User Admin' do
     before do
-      user = create(:user)
+      user = create(:user_admin)
       @anti_poison = create(:anti_poison)
       login_as(user)
     end

@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Hospitals Controller", type: :request do
-  context 'Logged as User admin' do
+  context 'Logged as User Admin' do
     before do
-      user = create(:user)
+      user = create(:user_admin)
       @hospital = create(:hospital)
       login_as(user)
     end

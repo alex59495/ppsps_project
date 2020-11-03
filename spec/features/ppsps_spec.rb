@@ -2,15 +2,29 @@ require 'rails_helper'
 
 RSpec.feature "Ppsps Views", type: :feature, js: true do
   feature "Unlogged user" do
-    scenario 'Redirect to Sign In page' do
+    scenario 'Redirect to Sign In page when try to access PPSP index' do
       visit(ppsps_path)
       expect(page).to have_current_path(new_user_session_path)
     end
   end
 
-  feature 'Logged as User' do
+  feature 'Logged as normal User' do
     before do
       user = create(:user)
+      @ppsp = create(:ppsp, user: user)
+      login_as(user)
+    end
+
+    scenario "Can't access the Database" do
+      visit(ppsps_path)
+      expect{ find('a', text: 'Modifier les bases de données') }.to raise_error(Capybara::ElementNotFound)
+    end
+  end
+
+
+  feature 'Logged as User Admin' do
+    before do
+      user = create(:user_admin)
       @ppsp = create(:ppsp, user: user)
       login_as(user)
     end
@@ -18,6 +32,17 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
     scenario 'Visit Ppsp index' do
       visit(ppsps_path)
       expect(page).to have_current_path(ppsps_path)
+    end
+
+    scenario 'Can access and modify some databases' do
+      visit(ppsps_path)
+      click_link 'Modifier les bases de données'
+      click_link "Voir la liste des maitres d'ouvrage"
+      first('.card-database').click_link('Edit')
+      fill_in('moa_name', with: 'Update the name')
+      click_button('Modifier ce MOA')
+      moas = Moa.all.order(updated_at: :desc)
+      expect(moas.first.name).to eq('Update the name')
     end
 
     scenario 'Click on the Edit link' do

@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "RegionalCommittees Controller", type: :request do
-  context 'Logged as User admin' do
+  context 'Logged as User Admin' do
     before do
-      user = create(:user)
+      user = create(:user_admin)
       @regional_committee = create(:regional_committee)
       login_as(user)
     end

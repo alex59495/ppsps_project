@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Moes Controller", type: :request do
-  context 'Logged as User admin' do
+  context 'Logged as User Admin' do
     before do
-      user = create(:user)
+      user = create(:user_admin)
       @moe = create(:moe)
       login_as(user)
     end

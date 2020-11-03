@@ -8,8 +8,10 @@
 
 
 # Create company
-c = Company.create(name: "SAS E.T.G.C", address: "31 rue Curie, 62 507, Arques", phone: "0328261863")
-p "create #{c.id} company"
+2.times do 
+  c = Company.create(name: Faker::Company.name, address: Faker::Address.street_address, phone: Faker::PhoneNumber.cell_phone_in_e164)
+  p "create #{c.id} company"
+end
 
 # Create users
 users = [{
@@ -26,6 +28,14 @@ users = [{
   password: "123456",
   admin: false,
   company_id: 1,
+},
+{
+  first_name: "Luc",
+  last_name: "Beaumont",
+  email: "test3@gmail.com",
+  password: "123456",
+  admin: false,
+  company_id: 2,
 }]
 
 users.each do |user|
@@ -225,9 +235,9 @@ ppsps = [{
   direcct_id: 1,
   work_medecine_id: 1,
   regional_committee_id: 1,
+  security_coordinator_id: 7,
   demining_id: 1,
   sos_hand_id: 1,
-  security_coordinator_id: 7,
   anti_poison_id: 1,
   hospital_id: 1,
 }, {
@@ -240,17 +250,18 @@ ppsps = [{
   street_impact: Ppsp::STREET_IMPACTS[2],
   river_guidance: Ppsp::RIVER_GUIDANCES.first,
   user_id: 1,
-  moa_id: 1,
-  moe_id: 1,
+  moa_id: 2,
+  moe_id: 7,
   project_information_id: 1,
   pension_insurance_id: 1,
   direcct_id: 1,
   work_medecine_id: 1,
   regional_committee_id: 1,
+  security_coordinator_id: nil,
   demining_id: 1,
   sos_hand_id: 1,
   anti_poison_id: 1,
-  hospital_id: 1,
+  hospital_id: 3,
 }, {
   address: "test_3 address",
   start_date: DateTime.new(2020,9,1,17),
@@ -261,24 +272,47 @@ ppsps = [{
   street_impact: Ppsp::STREET_IMPACTS.last,
   river_guidance: Ppsp::RIVER_GUIDANCES[2],
   user_id: 2,
-  moa_id: 1,
-  moe_id: 1,
+  moa_id: 4,
+  moe_id: 9,
   project_information_id: 3,
   pension_insurance_id: 1,
   direcct_id: 1,
   work_medecine_id: 1,
   regional_committee_id: 1,
+  security_coordinator_id: nil,
   demining_id: 1,
   sos_hand_id: 1,
   anti_poison_id: 1, 
-  hospital_id: 1,
+  hospital_id: 4,
+}, {
+  address: "test_3 address",
+  start_date: DateTime.new(2020,9,1,17),
+  end_date: DateTime.new(2020,9,1,19),
+  nature: "test_3 nature",
+  workforce: "test_3 workforce",
+  agglomeration: Ppsp::AGGLOMERATIONS.first,
+  street_impact: Ppsp::STREET_IMPACTS.last,
+  river_guidance: Ppsp::RIVER_GUIDANCES[2],
+  user_id: 3,
+  moa_id: 3,
+  moe_id: 5,
+  project_information_id: 3,
+  pension_insurance_id: 1,
+  direcct_id: 1,
+  work_medecine_id: 1,
+  regional_committee_id: 1,
+  security_coordinator_id: 3,
+  demining_id: 1,
+  sos_hand_id: 1,
+  anti_poison_id: 1, 
+  hospital_id: 5,
 }]
 
 ppsps.each do |ppsp|
   p = Ppsp.create(address: ppsp[:address], start_date: ppsp[:start_date], end_date: ppsp[:end_date], nature: ppsp[:nature], 
   workforce: ppsp[:workforce], user_id: ppsp[:user_id], moa_id: ppsp[:moa_id],
   moe_id: ppsp[:moe_id], project_information_id: ppsp[:project_information_id], agglomeration: ppsp[:agglomeration],
-  street_impact: ppsp[:street_impact], river_guidance: ppsp[:river_guidance],
+  street_impact: ppsp[:street_impact], river_guidance: ppsp[:river_guidance], security_coordinator_id: ppsp[:security_coordinator_id],
   pension_insurance_id: ppsp[:pension_insurance_id], direcct_id: ppsp[:direcct_id], work_medecine_id: ppsp[:work_medecine_id],
   regional_committee_id: ppsp[:regional_committee_id], demining_id: ppsp[:demining_id], 
   sos_hand_id: ppsp[:sos_hand_id], anti_poison_id: ppsp[:anti_poison_id], hospital_id: ppsp[:hospital_id],

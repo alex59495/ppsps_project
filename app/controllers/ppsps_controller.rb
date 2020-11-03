@@ -2,7 +2,9 @@ class PpspsController < ApplicationController
   before_action :find_ppsp, only: [ :update, :show, :ppsp_pdf, :destroy, :edit, :informations_supplementaires ]
 
   def index
-    @ppsps = policy_scope(Ppsp.where(user: current_user))
+    # Find all the user who belongs to the company
+    users = User.where(company: current_user.company)
+    @ppsps = policy_scope(Ppsp.where(user: users))
   end
 
   def new
@@ -100,7 +102,7 @@ class PpspsController < ApplicationController
     @site_manager = @ppsp.project_information.site_manager
     @team_manager = @ppsp.project_information.team_manager
 
-    @security_coordinator = SecurityCoordinator.new
+    @security_coordinator = @ppsp.security_coordinator
     @hospital = Hospital.new
     @moa = Moa.new
     @moe = Moe.new
@@ -147,10 +149,10 @@ class PpspsController < ApplicationController
   private
   def params_ppsp
     params.require(:ppsp).permit(:address, :start_date, :end_date, :nature, :workforce, :agglomeration, 
-    :street_impact, :river_guidance, :moa_id, :moe_id, :subcontractor_id, 
+    :street_impact, :river_guidance, :moa_id, :moe_id, :subcontractor_id, :security_coordinator_id,
     :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
     :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, 
-    :security_coordinator_id, project_information_attributes: [:ppsp_id, :reference, :responsible, 
+    project_information_attributes: [:ppsp_id, :reference, :responsible, 
     :phone, :email, site_manager_attributes: [:name, :email, :phone], 
     team_manager_attributes: [:name, :email, :phone]])
   end

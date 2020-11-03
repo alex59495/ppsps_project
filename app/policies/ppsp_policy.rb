@@ -6,7 +6,7 @@ class PpspPolicy < ApplicationPolicy
   end
 
   def show?
-    record.user == user
+    true
   end
 
   def create?

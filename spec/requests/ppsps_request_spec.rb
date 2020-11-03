@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Ppsps Controller", type: :request do
-  context 'Logged as User admin' do
+  context 'Logged as User Admin' do
     let(:moa) { create(:moa) }
     let(:moe) { create(:moe) }
     let(:security_coordinator) { create(:security_coordinator) }
@@ -15,7 +15,7 @@ RSpec.describe "Ppsps Controller", type: :request do
     let(:hospital) { create(:hospital) }
     let(:sos_hand) { create(:sos_hand) }
     let(:anti_poison) { create(:anti_poison) }
-    let(:user) { create(:user) }
+    let(:user) { create(:user_admin) }
     let(:demining) { create(:demining) }
     let(:direcct) { create(:direcct) }
     let(:params_ppsp) { attributes_for(:ppsp).merge({

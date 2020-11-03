@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Deminings Controller", type: :request do
-  context 'Logged as User admin' do
+  context 'Logged as User Admin' do
     before do
-      user = create(:user)
+      user = create(:user_admin)
       @demining = create(:demining)
       login_as(user)
     end

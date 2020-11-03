@@ -4,5 +4,9 @@
   <%= f.input :representative %>
   <%= f.input :phone %>
   <%= f.input :email %>
-  <%= f.submit %>
+  <% if params[:action] == 'new' %>
+    <%= f.submit 'Créer un MOA' %>
+  <% else %>
+    <%= f.submit 'Modifier ce MOA' %>
+  <% end %>
 <% end %>
