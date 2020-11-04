@@ -10,14 +10,21 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
   feature 'Logged as normal User' do
     before do
-      user = create(:user)
-      @ppsp = create(:ppsp, user: user)
-      login_as(user)
+      user_uber = create(:user_uber)
+      @ppsp_1 = create(:ppsp, user: user_uber)
+      @ppsp_2 = create(:ppsp, user: user_uber)
+      @ppsp_3 = create(:ppsp_google)
+      login_as(user_uber)
     end
 
     scenario "Can't access the Database" do
       visit(ppsps_path)
       expect{ find('a', text: 'Modifier les bases de données') }.to raise_error(Capybara::ElementNotFound)
+    end
+
+    scenario "Only the see the Ppsp of his company" do
+      visit(ppsps_path)
+      expect(page).to have_css('.card-ppsp', count: 2)
     end
   end
 

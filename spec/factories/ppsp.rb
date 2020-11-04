@@ -21,5 +21,16 @@ FactoryBot.define do
     anti_poison
     user
     demining
+
+    trait :company_uber do
+      user { association(:user_uber) }
+    end
+
+    trait :company_google do
+      user { association(:user_google) }
+    end
+
+    factory :ppsp_uber, traits: [:company_uber]
+    factory :ppsp_google, traits: [:company_google]
   end
 end

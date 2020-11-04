@@ -38,36 +38,68 @@ RSpec.describe "Ppsps Controller", type: :request do
       })
     }
 
-    before do
-      user = create(:user)
-      @ppsp = create(:ppsp, user: user)
-      login_as(user)
-    end
-
-    context 'Action Destroy' do
-      let(:destroy_action) { delete ppsp_path(@ppsp) }
-      it 'Delete 1 instance of Ppsp when using action destroy' do
-        expect { destroy_action }.to change(Ppsp, :count).by(-1)
+    context 'Actions when you are the record owner' do
+      before do
+        user = create(:user)
+        @ppsp = create(:ppsp, user: user)
+        login_as(user)
       end
 
-      it 'Redirect after destroy' do
-        destroy_action
-        expect(response).to have_http_status(302)
+      context 'Action Destroy' do  
+        let(:destroy_action) { delete ppsp_path(@ppsp) }
+  
+        it 'Delete 1 instance of Ppsp when using action destroy' do
+          expect { destroy_action }.to change(Ppsp, :count).by(-1)
+        end
+  
+        it 'Redirect after destroy' do
+          destroy_action
+          expect(response).to have_http_status(302)
+        end
       end
-    end
+      
+  
+      context 'Action Create' do  
+        let(:create_action) { post ppsps_path, params: { ppsp: params_ppsp } }
+  
+        it 'Add one instance of Ppsp when using create' do
+          expect { create_action }.to change(Ppsp, :count).by(1)
+        end
     
-
-    context 'Action Create' do
-      let(:create_action) { post ppsps_path, params: { ppsp: params_ppsp } }
-
-      it 'Add one instance of Ppsp when using create' do
-        expect { create_action }.to change(Ppsp, :count).by(1)
+        it 'Redirect after create' do
+          create_action
+          expect(response).to have_http_status(302)
+        end
       end
   
-      it 'Redirect after create' do
-        create_action
-        expect(response).to have_http_status(302)
+      context 'Update Create' do
+        let(:update_action) { patch ppsp_path(@ppsp), params: { ppsp: params_ppsp } }
+  
+        it 'Update address of PPSP' do
+          params_ppsp[:address] = 'Update the address'
+          update_action
+          expect(@ppsp.reload.address).to eq('Update the address')
+        end
+    
+        it 'Redirect after update' do
+          update_action
+          expect(response).to have_http_status(302)
+        end
       end
+    end
+
+    context "Actions when you're not the record owner" do
+      before do
+        user = create(:user)
+        @ppsp = create(:ppsp)
+        login_as(user)
+      end
+
+      let(:destroy_action) { delete ppsp_path(@ppsp) }
+      let(:update_action) { patch ppsp_path(@ppsp), params: { ppsp: params_ppsp } }
+
+      it { expect{destroy_action}.to raise_error(Pundit::NotAuthorizedError) }
+      it { expect{update_action}.to raise_error(Pundit::NotAuthorizedError) }
     end
   end
 end
