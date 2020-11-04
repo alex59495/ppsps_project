@@ -43,7 +43,12 @@ class PpspsController < ApplicationController
           enable_local_file_access: true,
           encoding: 'utf8',
           template: 'ppsps/show.pdf.erb',
-          layout: 'pdf.html.erb'
+          layout: 'pdf.html.erb',
+          footer: {
+            html: {
+              template: 'ppsps/footer.html.erb'
+            }
+          },
         )
       end
     end

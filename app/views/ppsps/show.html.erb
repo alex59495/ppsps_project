@@ -13,26 +13,28 @@
       <div class="pdf-title">
         Informations générales
       </div>
-      <div class="gi-company-name">
-        Nom de l'entreprise : <%= current_user.company.name %>
+      <div class="gi-company mb-2">
+        <div class="pdf-subsubtitle mb-1">
+          Entreprise
+        </div>
+        <div class="company-name">
+          <%= current_user.company.name %>
+        </div>
+        <div class="company-address">
+          <%= current_user.company.address %>
+        </div>
       </div>
-      <div class="gi-company-address">
-        Coordonnées de l'entreprise : <%= current_user.company.address %>
+      <div class="pdf-subsubtitle mb-1">
+        Chantier
       </div>
-      <div class="gi-ppsp-site">
-        Lieu du chantier : <%= @ppsp.address %>
-      </div>
-      <div class="gi-ppsp-start">
-        Date de début : <%= @ppsp.start_date %>
-      </div>
-      <div class="gi-ppsp-end">
-        Date de fin : <%= @ppsp.end_date %>
-      </div>
-      <div class="gi-nature">
-        Nature des travaux : <%= @ppsp.nature %>
-      </div>
-      <div class="gi-workforce">
-        Moyens humains : <%= @ppsp.workforce %>
+      <div class="container-50 mb-2">
+        <div class="flexbox">
+          <div class="flex-div">Lieu du chantier :</div><div class="flex-div"><%= @ppsp.address %></div>
+          <div class="flex-div">Date de début : </div><div class="flex-div"><%= @ppsp.start_date %></div>
+          <div class="flex-div">Date de fin : </div><div class="flex-div"><%= @ppsp.end_date %></div>
+          <div class="flex-div">Nature des travaux : </div><div class="flex-div"><%= @ppsp.nature %></div>
+          <div class="flex-div">Moyens humains : </div><div class="flex-div"><%= @ppsp.workforce %></div>
+        </div>
       </div>
     </div>
     <div class="pdf-text-container my-3">
