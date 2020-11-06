@@ -1,19 +1,36 @@
-<%= link_to "Créer un nouveau PPSP", new_ppsp_path %>
-<% if policy(Page).database? %>
-  <%= link_to "Modifier les bases de données", database_path %>
-<% end %>
-
-
-<h1>Mes anciens PPSP</h1>
-<% @ppsps.each do |ppsp| %>
-  <div class="card-ppsp">
-      <%= link_to "PPSP REF #{ppsp.project_information.reference}", ppsp_path(ppsp) %>
-      <%= link_to "Exporter en PDF", ppsp_path(ppsp, format: :pdf), target: "_blank" %>
-    <% if policy(ppsp).edit? %>
-      <%= link_to "edit", edit_ppsp_path(ppsp) %>
+<div class="container">
+  <%= link_to "Créer un nouveau PPSP", new_ppsp_path, class: 'btn-blue' %>
+    <% if policy(Page).database? %>
+      <%= link_to "Modifier les bases de données", database_path, class: 'btn-orange' %>
     <% end %>
-    <% if policy(ppsp).destroy? %>
-      <%= link_to "x", ppsp_path(ppsp), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer ce document ?"} %>
+
+
+  <h1>Mes anciens PPSP</h1>
+  <div class="container-ppsp">
+    <% @ppsps.each do |ppsp| %>
+      <%= link_to ppsp_path(ppsp, format: :pdf), class: 'without-decoration' do %>
+        <div class="card-ppsp">
+          <%= link_to("x", ppsp_path(ppsp), method: :delete, class: 'card-ppsp-delete', data: { confirm: "Êtes-vous sûr de vouloir supprimer ce document ?"}) if policy(ppsp).edit? %> 
+          <div class="card-reference">
+            <%= "Référence #{ppsp.project_information.reference}" %>
+          </div>
+          <div class="card-body row">
+            <div class="col-7">Lieu du chantier: </div><div class="col-5"><%= ppsp.address %></div>
+            <div class="col-7">Date de début: </div><div class="col-5"><%= l ppsp.start_date %></div>
+            <div class="col-7">Date de fin: </div><div class="col-5"><%= l ppsp.end_date %></div>
+          </div> 
+          <div class="card-ppsp-footer">
+            <%= "Créé par #{ppsp.user.first_name} #{ppsp.user.last_name}" %>
+          </div>        
+        </div>
+      <% end %>
     <% end %>
   </div>
-<% end %>
+</div>
+
+<%# <% if policy(ppsp).edit? %>
+  <%# <%= link_to "edit", edit_ppsp_path(ppsp) %>
+<%# <% end %>
+<%# <% if policy(ppsp).destroy? %>
+  <%# <%= link_to "x", ppsp_path(ppsp), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer ce document ?"} %>
+<%# <% end %>

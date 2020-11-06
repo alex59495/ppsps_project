@@ -1,0 +1,30 @@
+.btn-blue {
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: white;
+  background-color: $blue-light;
+  &:hover {
+    background-color: $blue-dark;
+    text-decoration: none;
+    color: white
+  }
+}
+
+.btn-orange {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: $orange;
+  color: black;
+  &:hover {
+    background-color: $orange-dark;
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.link {
+  color: $orange;
+  &:hover{
+    color: $orange-dark
+  }
+}

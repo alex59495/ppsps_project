@@ -1,24 +1,14 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+<div class="navbar navbar-expand-sm navbar-light navbar-ppsp">
   <%= link_to ppsps_path, class:"icon-home" do %>
-    <%= image_tag('logo-ppsp.png', width: 75, height: 75) %>
+    <%= image_tag('logo-ppsp.png', width: 80, height: 80) %>
   <% end %>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <% if user_signed_in? %>
-        <li class="nav-item">
-          <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "nav-link"%>
-        </li>
-      <% else %>
-        <li class="nav-item">
-          <%= link_to "Se connecter", new_user_session_path, class: "nav-link" %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
+  <% if user_signed_in? %>
+    <div class="navbar-text">
+      <%= current_user.company.name %>
+    </div>
+    <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "btn-blue"%>
+  <% else %>
+    <%= link_to "Se connecter", new_user_session_path, class: "btn-blue" %>
+  <% end %>
 </div>
