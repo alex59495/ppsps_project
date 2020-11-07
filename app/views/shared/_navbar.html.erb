@@ -5,7 +5,12 @@
 
   <% if user_signed_in? %>
     <div class="navbar-text">
-      <%= current_user.company.name %>
+      <div class="navbar-company">
+        <%= current_user.company.name %>
+      </div>
+      <div class="navbar-user">
+        <%= "#{current_user.first_name} #{current_user.last_name}" %>
+      </div>
     </div>
     <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "btn-blue"%>
   <% else %>

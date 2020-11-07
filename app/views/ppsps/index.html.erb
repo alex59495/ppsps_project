@@ -5,13 +5,12 @@
     <% end %>
 
 
-  <h1>Mes anciens PPSP</h1>
   <div class="container-ppsp">
     <% @ppsps.each do |ppsp| %>
       <%= link_to ppsp_path(ppsp, format: :pdf), class: 'without-decoration', target: '_blank' do %>
         <div class="card-ppsp">
           <%= button_to("x", ppsp_path(ppsp), method: :delete, class: 'card-ppsp-delete', data: { confirm: "Êtes-vous sûr de vouloir supprimer ce document ?"}) if policy(ppsp).destroy? %> 
-          <%= "<div onclick=location.href=`#{edit_ppsp_path(ppsp)}` id='click-edit' class='card-ppsp-edit'><i class='fas fa-pencil-alt'></i></div>".html_safe if policy(ppsp).edit? %>
+          <%= "<div onclick=location.href=`#{edit_ppsp_path(ppsp)}` class='card-ppsp-edit'><i class='fas fa-pencil-alt'></i></div>".html_safe if policy(ppsp).edit? %>
           <div class="card-reference">
             <%= "Référence #{ppsp.project_information.reference}" %>
           </div>

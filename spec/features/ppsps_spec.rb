@@ -54,7 +54,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
     scenario 'Click on the Edit link' do
       visit(ppsps_path)
-      click_link 'edit'
+      find('.card-ppsp-edit').click
       expect(page).to have_current_path(edit_ppsp_path(@ppsp))
     end
 
