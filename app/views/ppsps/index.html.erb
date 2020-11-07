@@ -8,9 +8,10 @@
   <h1>Mes anciens PPSP</h1>
   <div class="container-ppsp">
     <% @ppsps.each do |ppsp| %>
-      <%= link_to ppsp_path(ppsp, format: :pdf), class: 'without-decoration' do %>
+      <%= link_to ppsp_path(ppsp, format: :pdf), class: 'without-decoration', target: '_blank' do %>
         <div class="card-ppsp">
-          <%= link_to("x", ppsp_path(ppsp), method: :delete, class: 'card-ppsp-delete', data: { confirm: "Êtes-vous sûr de vouloir supprimer ce document ?"}) if policy(ppsp).edit? %> 
+          <%= button_to("x", ppsp_path(ppsp), method: :delete, class: 'card-ppsp-delete', data: { confirm: "Êtes-vous sûr de vouloir supprimer ce document ?"}) if policy(ppsp).destroy? %> 
+          <%= "<div onclick=location.href=`#{edit_ppsp_path(ppsp)}` id='click-edit' class='card-ppsp-edit'><i class='fas fa-pencil-alt'></i></div>".html_safe if policy(ppsp).edit? %>
           <div class="card-reference">
             <%= "Référence #{ppsp.project_information.reference}" %>
           </div>
@@ -27,10 +28,3 @@
     <% end %>
   </div>
 </div>
-
-<%# <% if policy(ppsp).edit? %>
-  <%# <%= link_to "edit", edit_ppsp_path(ppsp) %>
-<%# <% end %>
-<%# <% if policy(ppsp).destroy? %>
-  <%# <%= link_to "x", ppsp_path(ppsp), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer ce document ?"} %>
-<%# <% end %>
