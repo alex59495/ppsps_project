@@ -12,18 +12,40 @@
       <%= f.input :end_date, label: "Date de fin"  %>
       <%= f.input :nature, label: "Nature du travail", placeholder: "Description des travaux..." %>
       <%= f.input :workforce, label: "Personnel impliqué", placeholder: "1 Chef de chantier, 2 ouvriers..." %>
-      <%= f.input :moa_id, label: "MOA", as: :select, collection: Moa.all.order(:name), label_method: lambda { |moa| "#{moa.name} - #{moa.representative}"} %>
-      <% if policy(Moa).new? %>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalMoa">
-          Ajouter un Maître d'ouvrage
-        </button>
-      <% end %>
+      <div class="form-group select required ppsp_moa_id">
+      <div class="d-flex align-items-start">
+          <label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
+          <% if policy(Moa).new? %>
+            <button type="button" class="btn-add" data-toggle="modal" data-target="#ModalMoa">
+              +
+            </button>
+          <% end %>
+      </div>
+        <select class="form-control select required" name="ppsp[moa_id]" id="ppsp_moa_id">
+          <option value=""></option>
+          <% Moa.all.each do |moa| %>
+            <%= "<option value=#{moa.id}>#{moa.name} - #{moa.representative}</option>" %>
+          <% end %>
+        </select>
+      </div>
+      <%# <%= f.input :moa_id, label: "MOA", as: :select, collection: Moa.all.order(:name), label_method: lambda { |moa| "#{moa.name} - #{moa.representative}"} %>
+      <div class="form-group select required ppsp_moe_id">
+        <div class="d-flex align-items-start">
+          <label class="select required" for="ppsp_moe_id">MOE <abbr title="required">*</abbr></label>
+          <% if policy(Moe).new? %>
+            <button type="button" class="btn-add" data-toggle="modal" data-target="#ModalMoe">
+              +
+            </button>
+          <% end %>
+        </div>
+        <select class="form-control select required" name="ppsp[moe_id]" id="ppsp_moe_id">
+          <option value=""></option>
+          <% Moe.all.each do |moe| %>
+            <%= "<option value=#{moe.id}>#{moe.name} - #{moe.representative}</option>" %>
+          <% end %>
+        </select>
+      </div>
       <%= f.input :moe_id, label: "MOE", as: :select, collection: Moe.all.order(:name) %>
-      <% if policy(Moe).new? %>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalMoe">
-          Ajouter un Maître d'oeuvre
-        </button>
-      <% end %>
       <%= f.simple_fields_for :project_information, @project_information do |h| %>
         <%= h.input :reference, label: "Référence du projet", placeholder: "B 484..." %>
         <%= h.input :responsible, label: "Responsable", placeholder: "Entrez le nom du responsable..." %>
@@ -43,12 +65,22 @@
       <% if policy(ProjectInformation).new? %>
         <%= link_to "Ajouter un projet", new_project_information_path %>
       <% end %>
-      <%= f.input :regional_committee_id, label: "Comité régional de l'OPPBTP", as: :select, collection: RegionalCommittee.all.order(:id) %>
-      <% if policy(RegionalCommittee).new? %>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalRegionalCommittee">
-          Ajouter un Comité Régional
-        </button>
-      <% end %>
+      <div class="form-group select required ppsp_regional_committee_id">
+        <div class="form-group select required ppsp_moe_id">
+          <label class="select required" for="ppsp_regional_committee_id">Comité régional de l'OPPBTP <abbr title="required">*</abbr></label>
+          <% if policy(RegionalCommittee).new? %>
+            <button type="button" class="btn-add" data-toggle="modal" data-target="#ModalRegionalCommittee">
+              +
+            </button>
+          <% end %>
+        </div>
+        <select class="form-control select required" name="ppsp[regional_committee_id]" id="ppsp_regional_committee_id">
+          <option value=""></option>
+          <%= RegionalCommittee.all.each do |regional| %>
+            <%= "<option value=#{regional.id}>#{regional.name}</option>" %>
+          <% end %>
+        </select>
+      </div>      
       <%= f.input :pension_insurance_id, label: "Caisse d'assurance retraite", as: :select, collection: PensionInsurance.all.order(:id) %>
       <% if policy(PensionInsurance).new? %>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalPensionInsurance">

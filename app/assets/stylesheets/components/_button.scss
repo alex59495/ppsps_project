@@ -22,6 +22,22 @@
   }
 }
 
+.btn-add {
+  background-color: $orange;
+  height: 20px;
+  width: 20px;
+  padding: 0px;
+  margin: 0px;
+  margin-left: 10px;
+  border-radius: 50%;
+  border: none;
+  font-size: 18px;
+  font-weight: 900;
+  &:hover {
+    background-color: $orange-dark;
+  }
+}
+
 .link {
   color: $orange;
   &:hover{
