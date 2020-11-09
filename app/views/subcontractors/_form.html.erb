@@ -1,7 +1,11 @@
 <%= simple_form_for @subcontractor do |f| %>
   <%= f.input :name, label: "Nom" %>
   <%= f.input :address, label: "Adresse"  %>
-  <%= f.input :work, label: "Travail"  %>
+  <%= f.input :work, label: "Travail effectué"  %>
   <%= f.input :sub_responsible_id, label: "Responsable", as: :select, collection: SubResponsible.all.order(:name)  %>
-  <%= f.submit %>
+  <% if params[:action] == 'new' %>
+    <%= f.submit 'Créer un sous-traitant', class: 'btn-blue' %>
+  <% else %>
+    <%= f.submit 'Modifier ce sous-traitant', class: 'btn-blue' %>
+  <% end %>
 <% end %>

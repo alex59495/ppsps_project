@@ -8,14 +8,7 @@
     </div>
     <div class="modal-body">
       <div class="cards-form">
-        <%= simple_form_for @moa, remote: true do |f| %>
-          <%= f.input :name %>
-          <%= f.input :address %>
-          <%= f.input :representative %>
-          <%= f.input :phone %>
-          <%= f.input :email %>
-          <%= f.submit %>
-        <% end %>
+        <%= render 'moas/form' %>
       </div>
     </div>
   </div>

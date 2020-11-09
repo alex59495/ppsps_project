@@ -1,6 +1,10 @@
 <%= simple_form_for @work_medecine do |f| %>
-  <%= f.input :address %>
-  <%= f.input :phone %>
-  <%= f.input :fax %>
-  <%= f.submit %>
+  <%= f.input :address, label: 'Adresse' %>
+  <%= f.input :phone, label: 'Téléphone' %>
+  <%= f.input :fax, label: 'Fax' %>
+  <% if params[:action] == 'new' %>
+    <%= f.submit 'Créer un nouveau', class: 'btn-blue' %>
+  <% else %>
+    <%= f.submit 'Modifier', class: 'btn-blue' %>
+  <% end %>
 <% end %>

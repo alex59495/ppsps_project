@@ -8,14 +8,7 @@
     </div>
     <div class="modal-body">
       <div class="cards-form">
-        <%= simple_form_for @security_coordinator, remote: true do |f| %>
-          <%= f.input :name %>
-          <%= f.input :representative %>
-          <%= f.input :address %>
-          <%= f.input :phone %>
-          <%= f.input :email %>
-          <%= f.submit %>
-        <% end %>
+        <%= render 'security_coordinators/form' %>
       </div>
     </div>
   </div>

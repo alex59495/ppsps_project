@@ -1,8 +1,12 @@
 <%= simple_form_for @security_coordinator, url: security_coordinator_modal_path do |f| %>
-  <%= f.input :name %>
-  <%= f.input :representative %>
-  <%= f.input :address %>
-  <%= f.input :phone %>
-  <%= f.input :email %>
-  <%= f.submit %>
+  <%= f.input :name, label: 'Nom' %>
+  <%= f.input :representative, label: 'Représentant' %>
+  <%= f.input :address, label: 'Adresse' %>
+  <%= f.input :phone, label: 'Téléphone' %>
+  <%= f.input :email, label: 'Email' %>
+  <% if params[:action] == 'new' %>
+    <%= f.submit 'Créer un coordinateur', class: 'btn-blue' %>
+  <% else %>
+    <%= f.submit 'Modifier ce coordinateur', class: 'btn-blue' %>
+  <% end %>
 <% end %>

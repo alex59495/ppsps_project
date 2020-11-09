@@ -1,6 +1,10 @@
 <%= simple_form_for @demining do |f| %>
-  <%= f.input :name %>
-  <%= f.input :address %>
-  <%= f.input :phone %>
-  <%= f.submit %>
+  <%= f.input :name, label: 'Nom' %>
+  <%= f.input :address, label: 'Adresse' %>
+  <%= f.input :phone, label: 'Téléphone' %>
+  <% if params[:action] == 'new' %>
+    <%= f.submit 'Créer un centre de déminage', class: 'btn-blue' %>
+  <% else %>
+    <%= f.submit 'Modifier ce centre de démninage', class: 'btn-blue' %>
+  <% end %>
 <% end %>

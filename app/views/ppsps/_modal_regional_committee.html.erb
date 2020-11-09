@@ -8,13 +8,7 @@
     </div>
     <div class="modal-body">
       <div class="cards-form">
-        <%= simple_form_for @regional_committee, remote: true do |f| %>
-          <%= f.input :name %>
-          <%= f.input :address %>
-          <%= f.input :phone %>
-          <%= f.input :fax %>
-          <%= f.submit %>
-        <% end %>
+        <%= render 'regional_committees/form' %>
       </div>
     </div>
   </div>
