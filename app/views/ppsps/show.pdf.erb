@@ -322,13 +322,13 @@
     </div>
   </div>
 
-  <% if @ppsp.subcontractors != [] %>
+  <% if @ppsp.subcontractors.count > 0 %>
     <div class="page-break">
-      <div class="pdf-text-container">
+      <div class="pdf-text-container my-3">
         <% @ppsp.subcontractors.each do |subcontract| %>
-          <div class="pdf-subcontractor my-3">
+          <div class="pdf-subcontractor">
             <div class="pdf-title">
-              Sous-Traitant nº<%= @n %>
+              Sous-Traitant nº<%= @n + 1 %>
             </div>
             <div class="container-50 mb-2">
               <div class="flexbox">
@@ -341,7 +341,7 @@
               </div>
             </div>
           </div>
-          <%= @n += 1 %>
+          <% @n += 1 %>
         <% end %>
       </div>
     </div>

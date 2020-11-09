@@ -159,9 +159,11 @@
 
   <div class="subcontractor mb-2">
     <h1>Sous-traitants</h1>
-    <button type="button" class="btn-orange" data-toggle="modal" data-target="#ModalSubcontractor">
-      Ajouter un sous-traitant
-    </button>
+    <div class="d-flex justify-content-center mb-2">
+      <button type="button" class="btn-orange-ext" data-toggle="modal" data-target="#ModalSubcontractor">
+        Ajouter un sous-traitant
+      </button>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="ModalSubcontractor" tabindex="-1" role="dialog" aria-labelledby="ModalSubcontractor" aria-hidden="true">
       <%= render 'modal_subcontractor' %>
