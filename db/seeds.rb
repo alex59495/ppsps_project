@@ -125,21 +125,6 @@ project_information.each do |project|
   p "create #{project_information1.id} project info"
 end
 
-
-# Create Subcontractor
-subcontractor = {
-  name: "Sous Traitant",
-  address: "address subcontract",
-  work: "work subcontract",
-  responsible_name: "Alexis Responsable",
-  responsible_phone: "03 28 26 18 63",
-  responsible_email: "alexis@gmail.com",
-}
-subcontractor1 = Subcontractor.create(name: subcontractor[:name], address: subcontractor[:address], 
-work: subcontractor[:work], responsible_name: subcontractor[:responsible_name], responsible_phone: subcontractor[:responsible_phone],
-responsible_email: subcontractor[:responsible_email])
-p "create #{subcontractor1.id} subcontractor"
-
 # Create DIRECCT
 direcct = {
   address: "70 rue saint sauveur",
@@ -221,7 +206,7 @@ end
 ppsps = [{
   address: "test_1 address",
   start_date: DateTime.new(2020,9,1,17),
-  end_date: DateTime.new(2020,9,1,19),
+  end_date: DateTime.new(2020,9,10,19),
   nature: "test_1 nature",
   workforce: "test_1 workforce",
   agglomeration: Ppsp::AGGLOMERATIONS.first,
@@ -243,7 +228,7 @@ ppsps = [{
 }, {
   address: "test_2 address",
   start_date: DateTime.new(2020,9,1,17),
-  end_date: DateTime.new(2020,9,1,19),
+  end_date: DateTime.new(2020,9,10,19),
   nature: "test_2 nature",
   workforce: "test_2 workforce",
   agglomeration: Ppsp::AGGLOMERATIONS.last,
@@ -265,7 +250,7 @@ ppsps = [{
 }, {
   address: "test_3 address",
   start_date: DateTime.new(2020,9,1,17),
-  end_date: DateTime.new(2020,9,1,19),
+  end_date: DateTime.new(2020,9,10,19),
   nature: "test_3 nature",
   workforce: "test_3 workforce",
   agglomeration: Ppsp::AGGLOMERATIONS.first,
@@ -287,7 +272,7 @@ ppsps = [{
 }, {
   address: "test_3 address",
   start_date: DateTime.new(2020,9,1,17),
-  end_date: DateTime.new(2020,9,1,19),
+  end_date: DateTime.new(2020,9,10,19),
   nature: "test_3 nature",
   workforce: "test_3 workforce",
   agglomeration: Ppsp::AGGLOMERATIONS.first,
@@ -319,6 +304,21 @@ ppsps.each do |ppsp|
   )
   p "create #{p.id} PPSP"
 end
+
+# Create Subcontractor
+subcontractor = {
+  name: "Sous Traitant",
+  address: "address subcontract",
+  work: "work subcontract",
+  responsible_name: "Alexis Responsable",
+  responsible_phone: "03 28 26 18 63",
+  responsible_email: "alexis@gmail.com",
+  ppsp_id: 1,
+}
+subcontractor1 = Subcontractor.create(name: subcontractor[:name], address: subcontractor[:address], 
+work: subcontractor[:work], responsible_name: subcontractor[:responsible_name], responsible_phone: subcontractor[:responsible_phone],
+responsible_email: subcontractor[:responsible_email], ppsp_id: subcontractor[:ppsp_id])
+p "create #{subcontractor1.id} subcontractor"
 
 # Create site_installations
 SiteInstallation::SITE_INSTALLATIONS.each do |site|

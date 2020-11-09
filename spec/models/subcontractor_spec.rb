@@ -13,5 +13,5 @@ RSpec.describe Subcontractor, type: :model do
   it { should validate_presence_of(:responsible_phone)}
   it { should validate_presence_of(:responsible_email)}
 
-  it { should have_many(:selected_subcontractors)}
+  it { should belong_to(:ppsp)}
 end

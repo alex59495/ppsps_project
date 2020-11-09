@@ -18,8 +18,21 @@ $btn-add-size: 25px;
   border-radius: 8px;
   background-color: $orange;
   color: black;
+  border: none;
   &:hover {
     background-color: $orange-dark;
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.btn-orange-ext {
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: $orange solid 0.5px;
+  color: black;
+  &:hover {
+    border: $orange-dark solid 0.5px;
     text-decoration: none;
     color: black;
   }
@@ -28,7 +41,7 @@ $btn-add-size: 25px;
 .btn-add{
   cursor: pointer;
   position: relative;
-  border: 0.5px solid $orange;
+  border: 0.1px solid $orange;
   display: inline-block;
   width: $btn-add-size;
   height: $btn-add-size;

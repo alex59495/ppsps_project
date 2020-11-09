@@ -47,8 +47,9 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       click_link "Voir la liste des maitres d'ouvrage"
       first('.card-database').click_link('Edit')
       fill_in('moa_name', with: 'Update the name')
-      click_button('Modifier ce MOA')
+      click_button('MoaBtn')
       moas = Moa.all.order(updated_at: :desc)
+      expect(page).to have_current_path(moas_path)
       expect(moas.first.name).to eq('Update the name')
     end
 
@@ -69,6 +70,10 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       fill_in('ppsp_address', with: 'Test adresse')
       fill_in('ppsp_nature', with: 'Test de nature')
       fill_in('ppsp_workforce', with: 'Test de personnel')
+      # Select an end_date after start_date
+      find('#ppsp_start_date_3i').find(:xpath, 'option[3]').select_option
+      find('#ppsp_end_date_3i').find(:xpath, 'option[4]').select_option
+
       find('#ppsp_moa_id').find(:xpath, 'option[2]').select_option
       find('#ppsp_moe_id').find(:xpath, 'option[2]').select_option
       fill_in('ppsp_project_information_attributes_reference', with: "ABRFH78")

@@ -1,4 +1,4 @@
-<%= simple_form_for @moe do |f| %>
+<%= simple_form_for @moe, remote: true do |f| %>
   <%= f.input :name, label: 'Nom' %>
   <%= f.input :address, label: 'Adresse' %>
   <%= f.input :representative, label: 'Représentant' %>

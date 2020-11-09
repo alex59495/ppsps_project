@@ -1,0 +1,7 @@
+$(document).ready(function() {
+  $(".modal-backdrop").hide();
+  $("#ModalSubcontractor").hide();
+  $(".modal-open").css({overflow: 'scroll'});
+  $('#containerSubcontract')[0].innerHTML = "<%= escape_javascript(render 'subcontractors/container_subcontract') %>";
+})
+

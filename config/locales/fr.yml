@@ -1,6 +1,14 @@
----
 fr:
   activerecord:
+    models:
+      ppsp: Ppsp
+    attributes:
+      ppsp:
+        address: "L'adresse"
+        start_date: "La date"
+        end_date: "La date"
+        nature: "La nature du travail"
+        workforce: "Le personnel impliqué"
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
@@ -111,7 +119,7 @@ fr:
       month: Mois
       year: Année
   errors:
-    format: "%{attribute} %{message}"
+    format: "%{message}"
     messages:
       accepted: doit être accepté(e)
       blank: doit être rempli(e)

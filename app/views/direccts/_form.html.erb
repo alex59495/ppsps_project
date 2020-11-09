@@ -1,4 +1,4 @@
-<%= simple_form_for @direcct do |f| %>
+<%= simple_form_for @direcct, remote: true do |f| %>
   <%= f.input :address, label: 'Adresse'%>
   <%= f.input :phone, label: 'Téléphone' %>
   <%= f.input :fax, label: 'Fax' %>

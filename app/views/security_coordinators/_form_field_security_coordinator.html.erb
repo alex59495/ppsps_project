@@ -1,5 +1,13 @@
-<div class="form-group select optional ppsp_security_coordinator_id"><label class="select optional" for="ppsp_security_coordinator_id">Coordinateur sécurité</label>
-  <select class="form-control select optional" name="ppsp[security_coordinator_id]" id="ppsp_security_coordinator_id">
+<div class="form-group select optional ppsp_security_coordinator_id">
+    <div class="d-flex align-items-start">
+      <label class="select required" for="ppsp_security_coordinator_id">Coordinateur sécurité</label>
+      <% if policy(SecurityCoordinator).new? %>
+        <button type="button" class="btn-add btn-fill" data-toggle="modal" data-target="#ModalSecurityCoordinator">
+          <i class="fas fa-plus"></i>
+        </button>
+      <% end %>
+    </div>
+    <select class="form-control select optional" name="ppsp[security_coordinator_id]" id="ppsp_security_coordinator_id">
     <option value=""></option>
     <% @security_coordinators.each do |secu| %>
       <%= "<option value=#{secu.id}>#{secu.name} - #{secu.representative}</option>".html_safe %>

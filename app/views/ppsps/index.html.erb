@@ -3,8 +3,7 @@
     <% if policy(Page).database? %>
       <%= link_to "Modifier les bases de données", database_path, class: 'btn-orange' %>
     <% end %>
-
-
+  <h1 class='ppsp-title'><%= "Les PPSP de #{current_user.company.name}" %></h1>
   <div class="container-ppsp">
     <% @ppsps.each do |ppsp| %>
       <%= link_to ppsp_path(ppsp, format: :pdf), class: 'without-decoration', target: '_blank' do %>

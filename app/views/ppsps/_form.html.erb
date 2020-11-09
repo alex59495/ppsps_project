@@ -30,12 +30,7 @@
                 </button>
               <% end %>
             </div>
-            <select class="form-control select required" name="ppsp[moa_id]" id="ppsp_moa_id">
-              <option value=""></option>
-              <% Moa.all.each do |moa| %>
-                <%= "<option value=#{moa.id}>#{moa.name} - #{moa.representative}</option>".html_safe %>
-              <% end %>
-            </select>
+            <%= f.input :moa_id, as: :select, label: false, collection: Moa.all, label_method: lambda {|x| "#{x.name} - #{x.representative}"} %>
           </div>
         </div>
         <div class="col-6">
@@ -48,12 +43,7 @@
                 </button>
               <% end %>
             </div>
-            <select class="form-control select required" name="ppsp[moe_id]" id="ppsp_moe_id">
-              <option value=""></option>
-              <% Moe.all.each do |moe| %>
-                <%= "<option value=#{moe.id}>#{moe.name} - #{moe.representative}</option>".html_safe %>
-              <% end %>
-            </select>
+            <%= f.input :moe_id, as: :select, label: false, collection: Moe.all, label_method: lambda {|x| "#{x.name} - #{x.representative}"} %>
           </div>
         </div>
       </div>
@@ -104,12 +94,7 @@
                 </button>
               <% end %>
             </div>
-            <select class="form-control select required" name="ppsp[regional_committee_id]" id="ppsp_regional_committee_id">
-              <option value=""></option>
-              <%= RegionalCommittee.all.each do |regional| %>
-                <%= "<option value=#{regional.id}>#{regional.name}</option>".html_safe %>
-              <% end %>
-            </select>
+            <%= f.input :regional_committee_id, as: :select, label: false, collection: RegionalCommittee.all, label_method: lambda {|x| "#{x.name}"} %>
           </div>
         </div>
         <div class="col-4">
@@ -122,12 +107,7 @@
                 </button>
               <% end %>
             </div>
-            <select class="form-control select required" name="ppsp[pension_insurance_id]" id="ppsp_pension_insurance_id">
-              <option value=""></option>
-              <% PensionInsurance.all.each do |pension| %>
-                <%= "<option value=#{pension.id}>#{pension.address} - #{pension.phone}</option>".html_safe %>
-              <% end %>
-            </select>
+            <%= f.input :pension_insurance_id, as: :select, label: false, collection: PensionInsurance.all, label_method: lambda {|x| "#{x.address} - #{x.phone}"} %>
           </div>
         </div>
         <div class="col-4">
@@ -140,12 +120,7 @@
                 </button>
               <% end %>
             </div>
-            <select class="form-control select required" name="ppsp[direcct_id]" id="ppsp_direcct_id">
-              <option value=""></option>
-              <% Direcct.all.each do |direcct| %>
-                <%= "<option value=#{direcct.id}>#{direcct.address} - #{direcct.phone}</option>".html_safe %>
-              <% end %>
-            </select>
+            <%= f.input :direcct_id, as: :select, label: false, collection: Direcct.all, label_method: lambda {|x| "#{x.address} - #{x.phone}"} %>
           </div>
         </div>
         <div class="col-4">
@@ -158,12 +133,7 @@
                 </button>
               <% end %>
             </div>
-            <select class="form-control select required" name="ppsp[work_medecine_id]" id="ppsp_work_medecine_id">
-              <option value=""></option>
-              <% WorkMedecine.all.each do |work_medecine| %>
-                <%= "<option value=#{work_medecine.id}>#{work_medecine.address} - #{work_medecine.phone}</option>".html_safe %>
-              <% end %>
-            </select>
+            <%= f.input :work_medecine_id, as: :select, label: false, collection: WorkMedecine.all, label_method: lambda {|x| "#{x.address} - #{x.phone}"} %>
           </div>
         </div>
         <div class="col-4">
@@ -176,12 +146,7 @@
                 </button>
               <% end %>
             </div>
-            <select class="form-control select required" name="ppsp[demining_id]" id="ppsp_demining_id">
-              <option value=""></option>
-              <% Demining.all.each do |demining| %>
-                <%= "<option value=#{demining.id}>#{demining.name}</option>".html_safe %>
-              <% end %>
-            </select>
+            <%= f.input :demining_id, as: :select, label: false, collection: Demining.all, label_method: lambda {|x| "#{x.name}"} %>
           </div>
         </div>
         <div class="col-4">
@@ -194,12 +159,7 @@
                 </button>
               <% end %>
             </div>
-            <select class="form-control select required" name="ppsp[sos_hand_id]" id="ppsp_sos_hand_id">
-              <option value=""></option>
-              <% SosHand.all.each do |sos_hand| %>
-                <%= "<option value=#{sos_hand.id}>#{sos_hand.name}</option>".html_safe %>
-              <% end %>
-            </select>
+              <%= f.input :sos_hand_id, as: :select, label: false, collection: SosHand.all, label_method: lambda {|x| "#{x.name}"} %>
           </div>
         </div>
         <div class="col-4 offset-4">
@@ -212,12 +172,7 @@
                 </button>
               <% end %>
             </div>
-            <select class="form-control select required" name="ppsp[anti_poison_id]" id="ppsp_anti_poison_id">
-              <option value=""></option>
-              <% AntiPoison.all.each do |anti_poison| %>
-                <%= "<option value=#{anti_poison.id}>#{anti_poison.name}</option>".html_safe %>
-              <% end %>
-            </select>
+            <%= f.input :anti_poison_id, as: :select, label: false, collection: AntiPoison.all, label_method: lambda {|x| "#{x.name}"} %>
           </div>
         </div>
       </div>
@@ -231,30 +186,20 @@
               </button>
             <% end %>
           </div>
-          <select class="form-control select required" name="ppsp[hospital_id]" id="ppsp_hospital_id">
-            <option value=""></option>
-            <% Hospital.all.each do |hospital| %>
-              <%= "<option value=#{hospital.id}>#{hospital.name}</option>".html_safe %>
-            <% end %>
-          </select>
+          <%= f.input :hospital_id, as: :select, collection: Hospital.all, label: false, label_method: lambda { |x| "#{x.name}"} %>
         </div>
       </div>
       <div class="col-6 offset-3">
         <div class="form-group select required ppsp_security_coordinator_id">
           <div class="d-flex align-items-start">
-            <label class="select required" for="ppsp_security_coordinator_id">Coodrinateur sécurité <abbr title="required">*</abbr></label>
+            <label class="select required" for="ppsp_security_coordinator_id">Coordinateur sécurité</label>
             <% if policy(SecurityCoordinator).new? %>
               <button type="button" class="btn-add btn-fill" data-toggle="modal" data-target="#ModalSecurityCoordinator">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
           </div>
-          <select class="form-control select required" name="ppsp[security_coordinator_id]" id="ppsp_security_coordinator_id">
-            <option value=""></option>
-            <% SecurityCoordinator.all.each do |security_coordinator| %>
-              <%= "<option value=#{security_coordinator.id}>#{security_coordinator.name} - #{security_coordinator.representative}</option>".html_safe %>
-            <% end %>
-          </select>
+          <%= f.input :security_coordinator_id, as: :select, collection: SecurityCoordinator.all, label: false, label_method: lambda { |x| "#{x.name} - #{x.representative}" } %>
         </div>
       </div>
       <div class="row">

@@ -1,5 +1,12 @@
 <div class="form-group select required ppsp_hospital_id">
-  <label class="select required" for="ppsp_hospital_id">Hôpital <abbr title="required">*</abbr></label>
+  <div class="d-flex align-items-start">
+    <label class="select required" for="ppsp_hospital_id">Hôpital le plus proche<abbr title="required">*</abbr></label>
+    <% if policy(Hospital).new? %>
+      <button type="button" class="btn-add btn-fill" data-toggle="modal" data-target="#ModalHospital">
+        <i class="fas fa-plus"></i>
+      </button>
+    <% end %>
+  </div>
   <select class="form-control select required" name="ppsp[hospital_id]" id="ppsp_hospital_id">
     <option value=""></option>
     <% @hospitals.each do |hospital| %>

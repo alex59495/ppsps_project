@@ -12,7 +12,7 @@
         <%= "#{current_user.first_name} #{current_user.last_name}" %>
       </div>
     </div>
-    <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "btn-blue"%>
+    <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn-blue"%>
   <% else %>
     <%= link_to "Se connecter", new_user_session_path, class: "btn-blue" %>
   <% end %>
