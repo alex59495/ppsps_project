@@ -13,6 +13,9 @@ require("@rails/activestorage").start()
 require("channels")
 import "bootstrap";
 
+// Import react elements
+import '../ppsp-react/index'
+
 // import { AutoCompleteGeocoding } from "../components/autocomplete"
 // La clé API pour l'utilisation de l'autocomplete Geocoding se trouve dans config/application.yml
 import { HideForm } from "../components/hide-form"
@@ -29,3 +32,7 @@ document.addEventListener('turbolinks:load', () => {
   HideForm();
   cardForm();
 })
+// Support component names relative to this directory:
+var componentRequireContext = require.context("components", true);
+var ReactRailsUJS = require("react_ujs");
+ReactRailsUJS.useContext(componentRequireContext);

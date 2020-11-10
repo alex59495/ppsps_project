@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
   get 'database', to: 'pages#database', as: :database
+
+  # Ppsp
   resources :ppsps do
     resources :subcontractors, only: [:create, :destroy]
     resources :selected_installations, only: [ :create, :destroy ]
@@ -11,6 +13,14 @@ Rails.application.routes.draw do
       get :informations_supplementaires
     end
   end
+
+  # API
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :ppsps, only: [ :create, :index, :show ]
+    end
+  end
+
   resources :companies, only: [:create, :destroy]
   resources :security_coordinators, except: [:new]
   resources :moas, except: [:new]
