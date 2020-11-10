@@ -1,10 +1,6 @@
 class SubcontractorsController < ApplicationController
-  before_action :find_subcontractor, only: [ :update, :show, :destroy, :edit ]
+  before_action :find_subcontractor, only: :destroy
   before_action :find_ppsp
-
-  def index
-    @subcontractors = policy_scope(Subcontractor)
-  end
 
   def create
     @subcontractor = Subcontractor.new(params_subcontractor)
@@ -21,19 +17,6 @@ class SubcontractorsController < ApplicationController
           format.js { render 'ppsps/modal_subcontractor' }
         end
       end
-  end
-
-  def edit
-    authorize @subcontractor
-  end
-
-  def update
-    authorize @subcontractor
-    if @subcontractor.update(params_subcontractor)
-      redirect_to subcontractors_path
-    else
-      render :edit
-    end
   end
 
   def destroy

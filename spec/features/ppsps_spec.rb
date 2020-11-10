@@ -120,15 +120,15 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       expect(page.driver.browser.window_handles.size).to be > 1
     end
 
-    # scenario 'Change the field when update' do
-    #   visit(ppsps_path)
-    #   click_link 'edit'
-    #   fill_in('ppsp_project_information_attributes_site_manager_attributes_name', with: 'Update chef de chantier')
-    #   # Need the reload in order to see the modif
-    #   expect{click_button('Mettre à jour le PPSP')}.to change{ @ppsp.reload.project_information.site_manager.name }
-    #     .from('Test de chef de chantier')
-    #     .to('Update chef de chantier')
-    # end
+    scenario 'Change the field when update' do
+      visit(ppsps_path)
+      find('.card-ppsp-edit').click
+      fill_in('ppsp_project_information_attributes_site_manager_attributes_name', with: 'Update chef de chantier')
+      # Need the reload in order to see the modif
+      expect{click_button('Mettre à jour le PPSP')}.to change{ @ppsp.reload.project_information.site_manager.name }
+        .from('Test de chef de chantier')
+        .to('Update chef de chantier')
+    end
 
     scenario 'Confirmation message when delete a Ppsp' do
       visit(ppsps_path)
@@ -146,5 +146,83 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       visit current_path
       expect(Ppsp.count).to eq(count - 1)
     end
+  end
+
+  feature 'Informations Supplémentaires' do
+    before do
+      user = create(:user)
+      @ppsp = create(:ppsp, user: user)
+      login_as(user)
+    end
+
+    let(:risks) {@risks = create_list(:risk, 5)}
+    let(:site_installations) {@site_installations = create_list(:site_installation, 5)}
+    let(:altitude_works) {@altitude_works = create_list(:altitude_work, 5)}
+
+    scenario 'Can add some site installations' do
+      site_installations
+      visit informations_supplementaires_ppsp_path(@ppsp)
+      find('#CheckSiteInstallation').click
+      find('#SiteInstallationMobile').click
+      find("#label_selected_installation_site_installation_id_#{@site_installations.first.id}").click
+      find("#label_selected_installation_site_installation_id_#{@site_installations.second.id}").click
+      find('#FormSiteInstallation').click
+      expect(page).to have_selector('.card-info')
+    end
+
+    scenario 'Can add one altitude work' do
+      altitude_works
+      visit informations_supplementaires_ppsp_path(@ppsp)
+      find('#CheckAltitudeWork').click
+      find("#label_selected_altitude_altitude_work_id_#{@altitude_works.first.id}").click
+      find('#FormAltitudeWork').click
+      expect(page).to have_selector('.card-info')
+    end
+
+    scenario 'Can add some risks' do
+      risks
+      visit informations_supplementaires_ppsp_path(@ppsp)
+      find("#label_selected_risk_risk_id_#{@risks.first.id}").click
+      find("#label_selected_risk_risk_id_#{@risks.second.id}").click
+      find('#FormSelectedRisk').click
+      expect(page).to have_selector('.card-info')  
+    end
+
+    scenario 'Can delete risk' do
+      risks
+      visit informations_supplementaires_ppsp_path(@ppsp)
+      find("#label_selected_risk_risk_id_#{@risks.first.id}").click
+      find('#FormSelectedRisk').click
+      expect(page).to have_selector('.card-info')
+      accept_confirm { find('.card-info-delete').click }
+      visit current_path
+      expect(page).not_to have_selector('.card-info')
+    end
+
+    scenario 'Can delete altitude work' do
+      altitude_works
+      visit informations_supplementaires_ppsp_path(@ppsp)
+      find('#CheckAltitudeWork').click
+      find("#label_selected_altitude_altitude_work_id_#{@altitude_works.first.id}").click
+      find('#FormAltitudeWork').click
+      expect(page).to have_selector('.card-info')
+      accept_confirm { find('.card-info-delete').click }
+      visit current_path
+      expect(page).not_to have_selector('.card-info')
+    end
+
+    scenario 'Can delete aite installation' do
+      site_installations
+      visit informations_supplementaires_ppsp_path(@ppsp)
+      find('#CheckSiteInstallation').click
+      find('#SiteInstallationMobile').click
+      find("#label_selected_installation_site_installation_id_#{@site_installations.first.id}").click
+      find('#FormSiteInstallation').click
+      expect(page).to have_selector('.card-info')
+      accept_confirm { find('.card-info-delete').click }
+      visit current_path
+      expect(page).not_to have_selector('.card-info')
+    end
+
   end
 end

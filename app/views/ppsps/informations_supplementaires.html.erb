@@ -4,33 +4,33 @@
     <div class="row justify-content-center">
       <div class="col-12 d-flex justify-content-center">
         <input type="checkbox" class="hidden" id="checkSiteInstallation" name="siteInstallation">
-        <label for="checkSiteInstallation" class="btn-orange-ext">Ajouter</label>
+        <label for="checkSiteInstallation" id="CheckSiteInstallation" class="btn-orange-ext">Ajouter</label>
       </div>
       <div class="hidden-form hidden col-12 row" id="siteInstallationType">
         <div class="col-6 d-flex justify-content-center">
           <input type="checkbox" style="display: none" id="checkSiteInstallationMobile" name="siteInstallationMobile">
-          <label for="checkSiteInstallationMobile" class="btn-orange-ext">Mobile</label>
+          <label for="checkSiteInstallationMobile" class="btn-orange-ext" id="SiteInstallationMobile">Mobile</label>
         </div>
         <div class="col-6 d-flex justify-content-center">
           <input type="checkbox" style="display: none" id="checkSiteInstallationFix" name="siteInstallationFix">
-          <label for="checkSiteInstallationFix" class="btn-orange-ext">Fixe</label>
+          <label for="checkSiteInstallationFix" class="btn-orange-ext" id="SiteInstallationFix">Fixe</label>
         </div>
 
         <div class="col-6">
           <div class="hidden-form hidden" id="siteInstallationMobile">
-            <form class="simple_form new_selected_installation" id="new_selected_installation" novalidate="novalidate" action="/ppsps/5/selected_installations" accept-charset="UTF-8" data-remote="true" method="post">
+            <form class="simple_form new_selected_installation" id="new_selected_installation" novalidate="novalidate" action=<%= ppsp_selected_installations_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
                 <fieldset class="form-group check_boxes required selected_installation_site_installation">
                   <div class="form-check d-flex flex-wrap justify-content-start">
                     <input type="hidden" name="selected_installation[site_installation_id][]" value="">
                     <% SiteInstallation.where(mobile: true).each do |site| %>
                       <div class="form-check">
                         <input class="form-check-input check_boxes required hidden" type="checkbox" value=<%= site.id %> name="selected_installation[site_installation_id][]" id=<%= "selected_installation_site_installation_id_#{site.id}"%>>
-                        <label class="form-check-label collection_check_boxes card-form" for="selected_installation_site_installation_id_9"><%= site.name %></label>
+                        <label class="form-check-label collection_check_boxes card-form" id=<%= "label_selected_installation_site_installation_id_#{site.id}"%> for= <%="selected_installation_site_installation_id_#{site.id}"%>><%= site.name %></label>
                       </div>
                     <% end %>
                   </div>
                   <div class="d-flex justify-content-center">
-                    <input type="submit" name="commit" value="Ajouter" class="btn btn-orange" data-disable-with="Ajouter">
+                    <input type="submit" name="commit" value="Ajouter" class="btn btn-orange" data-disable-with="Ajouter" id="FormSiteInstallation">
                   </div>
                 </fieldset>
             </form>
@@ -40,14 +40,14 @@
         <div class="col-6">
         <%# Not to have a double id with the other form %>
           <div class="hidden-form hidden" id="siteInstallationFix">
-            <form class="simple_form new_selected_installation" id="new_selected_installation" novalidate="novalidate" action="/ppsps/5/selected_installations" accept-charset="UTF-8" data-remote="true" method="post">
+            <form class="simple_form new_selected_installation" id="new_selected_installation" novalidate="novalidate" action=<%= ppsp_selected_installations_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
               <fieldset class="form-group check_boxes required selected_installation_site_installation">
                 <div class="form-check d-flex flex-wrap justify-content-start">
                   <input type="hidden" name="selected_installation[site_installation_id][]" value="">
                   <% SiteInstallation.where(mobile: false).each do |site| %>
                     <div class="form-check">
                       <input class="form-check-input check_boxes required hidden" type="checkbox" value=<%= site.id%> name="selected_installation[site_installation_id][]" id=<%="selected_installation_site_installation_id_#{site.id}"%>>
-                      <label class="form-check-label collection_check_boxes card-form" for="selected_installation_site_installation_id_5"><%= site.name %></label>
+                      <label class="form-check-label collection_check_boxes card-form" for= <%= "selected_installation_site_installation_id_#{site.id}"%>><%= site.name %></label>
                     </div>
                   <% end %>
                 </div>
@@ -69,7 +69,7 @@
                 <%= "#{select_installation.site_installation.name} <i style='font-size: 12px'>(#{select_installation.site_installation.mobile ? "mobile" : "fixe"})</i>".html_safe %>
               </div>
               <div class="card-info-delete">
-                <%= link_to "x",  ppsp_selected_installation_path(select_installation.ppsp.id, select_installation.id), method: :delete, remote: true, data: {confirm: "Êtes-vous sûr de vouloir supprimer ?"} %>
+                <%= link_to "x",  ppsp_selected_installation_path(@ppsp.id, select_installation.id), method: :delete, remote: true, data: {confirm: "Êtes-vous sûr de vouloir supprimer ?"} %>
               </div>
             </div>
           <% end %>
@@ -82,7 +82,7 @@
     <h1>Travaux en hauteur</h1>
     <div class="d-flex flex-column align-items-center">
       <input type="checkbox" class="hidden" id="checkAltitudeWork" name="altitudeWork">
-      <label for="checkAltitudeWork" class="btn-orange-ext">Ajouter</label>
+      <label for="checkAltitudeWork" id="CheckAltitudeWork" class="btn-orange-ext">Ajouter</label>
 
       <form class="simple_form new_selected_altitude hidden-form hidden" id="altitudeWork" novalidate="novalidate" action=<%= ppsp_selected_altitudes_path(@ppsp) %> data-remote="true" accept-charset="UTF-8" method="post">
         <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
@@ -91,12 +91,12 @@
           <% @work_altitudes.each do |work| %>
             <div class="form-check">
               <input class="form-check-input check_boxes required hidden" type="checkbox" value="<%= work.id %>" name="selected_altitude[altitude_work_id][]" id="selected_altitude_altitude_work_id_<%= work.id %>">
-              <label class="form-check-label collection_check_boxes card-form" for="selected_altitude_altitude_work_id_<%= work.id %>"><%= work.name %></label>
+              <label class="form-check-label collection_check_boxes card-form" id="label_selected_altitude_altitude_work_id_<%= work.id %>" for="selected_altitude_altitude_work_id_<%= work.id %>"><%= work.name %></label>
             </div>
           <% end %>
           <input class="form-control string required" type="text" placeholder="Autres..." name="selected_altitude[altitude_work_id][]" id="selected_altitude_altitude_work_id_<%= AltitudeWork.last.id + 1 %>">
           <div class="d-flex justify-content-center">
-            <input type="submit" name="commit" class="btn-orange" value="Ajouter" data-disable-with="Ajouter">
+            <input type="submit" name="commit" class="btn-orange" value="Ajouter" data-disable-with="Ajouter" id="FormAltitudeWork">
           </div>
         </fieldset>
       </form>
@@ -125,17 +125,17 @@
 
   <div class="risks">
     <h1>Types de travaux associés au projet</h1>
-    <form class="simple_form new_selected_risk" id="new_selected_risk" novalidate="novalidate" action="/ppsps/5/selected_risks" accept-charset="UTF-8" data-remote="true" method="post">
+    <form class="simple_form new_selected_risk" id="new_selected_risk" novalidate="novalidate" action=<%= ppsp_selected_risks_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
         <fieldset class="form-group check_boxes required selected_risk_risk">
           <input type="hidden" name="selected_risk[risk_id][]" value="">
           <div class="form-check d-flex flex-wrap justify-content-center">
             <% Risk.all.each do |risk| %>
               <input class="form-check-input check_boxes required hidden" type="checkbox" value= <%= risk.id %> name="selected_risk[risk_id][]" id=<%= "selected_risk_risk_id_#{risk.id}" %>>
-              <label class="form-check-label collection_check_boxes card-form" for=<%= "selected_risk_risk_id_#{risk.id}" %>><%= risk.name %></label>
+              <label class="form-check-label collection_check_boxes card-form" for=<%= "selected_risk_risk_id_#{risk.id}"%> id=<%= "label_selected_risk_risk_id_#{risk.id}" %>><%= risk.name %></label>
             <% end %>
           </div>
           <div class="d-flex justify-content-center">
-            <input type="submit" name="commit" value="Ajouter" data-disable-with="Ajouter" class="btn-orange-ext">
+            <input type="submit" name="commit" value="Ajouter" data-disable-with="Ajouter" class="btn-orange-ext" id="FormSelectedRisk">
           </div>
         </fieldset>
     </form>

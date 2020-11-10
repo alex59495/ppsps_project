@@ -3,11 +3,10 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   get 'database', to: 'pages#database', as: :database
   resources :ppsps do
-    resources :subcontractors
+    resources :subcontractors, only: [:create, :destroy]
     resources :selected_installations, only: [ :create, :destroy ]
     resources :selected_altitudes, only: [ :create, :destroy ]
     resources :selected_risks, only: [ :create, :destroy ]
-    resources :selected_subcontractors, only: [ :create, :destroy ]
     member do
       get :informations_supplementaires
     end
