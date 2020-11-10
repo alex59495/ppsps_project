@@ -3,3 +3,11 @@
   flex-wrap: wrap;
   margin-top: 2em;
 }
+
+.container-home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 20px;
+  margin-right: 20px;
+}

@@ -4,7 +4,12 @@ class PpspsController < ApplicationController
   def index
     # Find all the user who belongs to the company
     users = User.where(company: current_user.company)
-    @ppsps = policy_scope(Ppsp.where(user: users))
+    if params[:query]
+      @project_information = ProjectInformation.where("reference ILIKE ?", "%#{params[:query]}%")
+      @ppsps = policy_scope(Ppsp.where(project_information: @project_information).where(user: users))
+    else
+      @ppsps = policy_scope(Ppsp.where(user: users))
+    end
   end
 
   def new
