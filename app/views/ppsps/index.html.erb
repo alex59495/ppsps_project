@@ -4,31 +4,6 @@
       <%= link_to "Modifier les bases de données", database_path, class: 'btn-orange' %>
     <% end %>
   <h1 class='ppsp-title'><%= "Les PPSP de #{current_user.company.name}" %></h1>
-  <%= form_tag ppsps_path, method: :get do %>
-    <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Chercher une référence" %>
-    <%= submit_tag "Chercher", class: "btn-blue" %>
-  <% end %>
-  <div class="container-ppsp">
-    <% @ppsps.each do |ppsp| %>
-      <%= link_to ppsp_path(ppsp, format: :pdf), class: 'without-decoration', target: '_blank' do %>
-        <div class="card-ppsp">
-          <%= button_to("x", ppsp_path(ppsp), method: :delete, class: 'card-ppsp-delete', data: { confirm: "Êtes-vous sûr de vouloir supprimer ce document ?"}) if policy(ppsp).destroy? %> 
-          <%= "<div onclick=location.href=`#{edit_ppsp_path(ppsp)}` class='card-ppsp-edit'><i class='fas fa-pencil-alt'></i></div>".html_safe if policy(ppsp).edit? %>
-          <div class="card-reference">
-            <%= "Référence #{ppsp.project_information.reference}" %>
-          </div>
-          <div class="card-body row">
-            <div class="col-7">Lieu du chantier: </div><div class="col-5"><%= ppsp.address %></div>
-            <div class="col-7">Date de début: </div><div class="col-5"><%= l ppsp.start_date %></div>
-            <div class="col-7">Date de fin: </div><div class="col-5"><%= l ppsp.end_date %></div>
-          </div> 
-          <div class="card-ppsp-footer">
-            <%= "Créé par #{ppsp.user.first_name} #{ppsp.user.last_name}" %>
-          </div>        
-        </div>
-      <% end %>
-    <% end %>
-  </div>
+  <div id="root" data-current=<%= current_user.id%>></div>
 </div>
 
-<div id="root"></div>

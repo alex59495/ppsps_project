@@ -12,7 +12,7 @@ class SearchBar extends Component {
 
   render () {
     return (
-      <input type="text" className="form-control" onChange={this.handleChange}/>
+      <input type="text" placeholder="Chercher une référence" className="form-control" onChange={this.handleChange}/>
     )
   }
 }
@@ -20,7 +20,8 @@ class SearchBar extends Component {
 
 const mapStateToProps = (state) => {
   return ({
-    search: state.search
+    search: state.search,
+    ppsps: state.ppsps
   });
 }
 

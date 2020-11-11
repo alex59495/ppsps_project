@@ -11,6 +11,7 @@
   border-radius: 8px;
   box-shadow: 1px 1px 2px 2px $blue-light;
   &:hover {
+    cursor: pointer;
     box-shadow: 1px 1px 2px 2px $blue-dark;
   }
 }
@@ -37,6 +38,7 @@
   font-size: 18px;
   color: $blue-dark;
   font-weight: 700;
+  margin-left: 6px;
   &:hover{
     color: black;
     text-decoration: none;
@@ -68,7 +70,7 @@
   .card-info-selected {
     display: flex;
   }
-  .card-info-delete a {
+  .card-info-delete {
     float: right;
     border: none;
     color: $blue-dark;
