@@ -7,8 +7,10 @@ import reduxPromise from 'redux-promise';
 import logger from 'redux-logger';
 
 // Internal modules
-import ListPpsp from './components/list_ppsp'
-import PpspsReducer from './reducers/ppsps_reducer'
+import ReactApp from './components/react_app'
+import reducerPpsps from './reducers/ppsps_reducer'
+import reducerSearch from './reducers/search_reducer'
+
 
 // log the actions
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -16,18 +18,20 @@ const middlewares = composeEnhancers(applyMiddleware(logger, reduxPromise));
 
 // Intitial State
 const initialState = {
-  ppsps: []
+  ppsps: [],
+  search: ''
 }
 
 // State and reducers
 const reducers = combineReducers({
-  ppsps: PpspsReducer,
+  ppsps: reducerPpsps,
+  search: reducerSearch
 });
 
 // render an instance of the component in the DOM
 ReactDOM.render(
   <Provider store={createStore(reducers, initialState, middlewares)}>
-    <ListPpsp />
+    <ReactApp />
   </Provider>,
   document.getElementById('root')
 )

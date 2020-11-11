@@ -20,7 +20,10 @@ class ListPpsp extends Component {
     return (
       <div className="container-ppsp">
         {this.props.ppsps.map((ppsp) => {
-          return <CardPpsp key={ppsp.id} reference={ppsp.project_information.reference} />
+          return <CardPpsp 
+            key={ppsp.id} id={ppsp.id} reference={ppsp.project_information.reference} 
+            user_first_name = {ppsp.user.first_name} user_last_name = {ppsp.user.last_name}
+            start_date = {ppsp.start_date} end_date = {ppsp.end_date} address={ppsp.address} />
         })}
       </div>
     )

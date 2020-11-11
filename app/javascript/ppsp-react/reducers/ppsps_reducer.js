@@ -1,7 +1,7 @@
 import { FETCH_PPSPS } from '../actions/index'
 
 
-const PpspsReducer = (state = null, action) => {
+const reducerPpsps = (state = null, action) => {
   switch (action.type) {
     case FETCH_PPSPS:
       return action.payload
@@ -10,4 +10,4 @@ const PpspsReducer = (state = null, action) => {
   }
 }
 
-export default PpspsReducer;
+export default reducerPpsps;
