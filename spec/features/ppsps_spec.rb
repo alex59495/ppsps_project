@@ -161,7 +161,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
     let(:risks) {@risks = create_list(:risk, 5)}
     let(:site_installations) {@site_installations = create_list(:site_installation, 5)}
-    let(:altitude_works) {@altitude_works = create_list(:altitude_work, 5)}
+    let(:altitude_works) {@altitude_works = create_list(:altitude_work_without_textfield, 5)}
 
     scenario 'Can add some site installations' do
       site_installations
@@ -178,7 +178,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       altitude_works
       visit informations_supplementaires_ppsp_path(@ppsp)
       find('#CheckAltitudeWork').click
-      find("#label_selected_altitude_altitude_work_id_#{@altitude_works.first.id}").click
+      find("#label_selected_altitude_altitude_work_id_#{@altitude_works.sample.id}").click
       find('#FormAltitudeWork').click
       expect(page).to have_selector('.card-info')
     end
@@ -207,7 +207,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       altitude_works
       visit informations_supplementaires_ppsp_path(@ppsp)
       find('#CheckAltitudeWork').click
-      find("#label_selected_altitude_altitude_work_id_#{@altitude_works.first.id}").click
+      find("#label_selected_altitude_altitude_work_id_#{@altitude_works.sample.id}").click
       find('#FormAltitudeWork').click
       expect(page).to have_selector('.card-info')
       accept_confirm { find('.card-info-delete').click }
