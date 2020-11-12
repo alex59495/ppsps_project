@@ -1,8 +1,12 @@
-<%= simple_form_for @moe do |f| %>
-  <%= f.input :name %>
-  <%= f.input :address %>
-  <%= f.input :representative %>
-  <%= f.input :phone %>
-  <%= f.input :email %>
-  <%= f.submit %>
+<%= simple_form_for @moe, remote: true do |f| %>
+  <%= f.input :name, label: 'Nom' %>
+  <%= f.input :address, label: 'Adresse' %>
+  <%= f.input :representative, label: 'Représentant' %>
+  <%= f.input :phone, label: 'Téléphone' %>
+  <%= f.input :email, label: 'Email' %>
+  <% if params[:action] == 'new' %>
+    <%= f.submit 'Créer un MOE', class: 'btn-blue' %>
+  <% else %>
+    <%= f.submit 'Modifier ce MOE', class: 'btn-blue' %>
+  <% end %>
 <% end %>

@@ -1,7 +1,20 @@
-<% @anti_poisons.each do |poison| %>
-  <div class="card-database">
-    <%= link_to poison, anti_poison_path(poison) %>
-    <%= link_to "Edit", edit_anti_poison_path(poison) %>
-    <%= link_to "x", anti_poison_path(poison), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+<% if policy(AntiPoison).new? %>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalAntiPoison">
+    Ajouter un Centre anti poison
+  </button>
+<% end %>
+<%# Modal Anti_Poison %>
+<% if policy(AntiPoison).new? %>
+  <div class="modal fade" id="ModalAntiPoison" tabindex="-1" role="dialog" aria-labelledby="ModalAntiPoison" aria-hidden="true">
+    <%= render 'ppsps/modal_anti_poison' %>
   </div>
 <% end %>
+<div class="list-database">
+  <% @anti_poisons.each do |poison| %>
+    <div class="card-database">
+      <%= link_to poison.name, anti_poison_path(poison) %>
+      <%= link_to "Edit", edit_anti_poison_path(poison) %>
+      <%= link_to "x", anti_poison_path(poison), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+    </div>
+  <% end %>
+</div>

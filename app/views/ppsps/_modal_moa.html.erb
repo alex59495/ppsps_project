@@ -1,21 +1,14 @@
 <div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title" id="ModalMoa">Ajouter un coordinateur sécurité</h5>
+      <h5 class="modal-title" id="ModalMoa">Ajouter un maître d'ouvrage</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
       <div class="cards-form">
-        <%= simple_form_for @moa, remote: true do |f| %>
-          <%= f.input :name %>
-          <%= f.input :address %>
-          <%= f.input :representative %>
-          <%= f.input :phone %>
-          <%= f.input :email %>
-          <%= f.submit %>
-        <% end %>
+        <%= render 'moas/form' %>
       </div>
     </div>
   </div>

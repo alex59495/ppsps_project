@@ -1,7 +1,20 @@
-<% @work_medecines.each do |work_medecine| %>
-  <div class="card-database">
-    <%= link_to work_medecine, work_medecine_path(work_medecine) %>
-    <%= link_to "Edit", edit_work_medecine_path(work_medecine) %>
-    <%= link_to "x", work_medecine_path(work_medecine), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+<% if policy(WorkMedecine).new? %>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalWorkMedecine">
+    Ajouter un médecin du travail
+  </button>
+<% end %>
+<%# Modal Work Medecine %>
+<% if policy(WorkMedecine).new? %>
+  <div class="modal fade" id="ModalWorkMedecine" tabindex="-1" role="dialog" aria-labelledby="ModalWorkMedecine" aria-hidden="true">
+    <%= render 'ppsps/modal_work_medecine' %>
   </div>
 <% end %>
+<div class="list-database">
+  <% @work_medecines.each do |work_medecine| %>
+    <div class="card-database">
+      <%= link_to work_medecine, work_medecine_path(work_medecine) %>
+      <%= link_to "Edit", edit_work_medecine_path(work_medecine) %>
+      <%= link_to "x", work_medecine_path(work_medecine), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+    </div>
+  <% end %>
+</div>

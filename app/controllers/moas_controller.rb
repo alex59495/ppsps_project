@@ -3,10 +3,10 @@ class MoasController < ApplicationController
 
   def index
     @moas = policy_scope(Moa)
+    @moa = Moa.new
   end
 
-  def new
-    @moa = Moa.new
+  def show 
     authorize @moa
   end
 
@@ -40,6 +40,13 @@ class MoasController < ApplicationController
       render :edit
     end
   end
+
+  def destroy
+    authorize @moa
+    @moa.destroy
+    redirect_to moas_path
+  end
+
 
   private
   def params_moa

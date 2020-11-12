@@ -1,13 +1,13 @@
 class HospitalsController < ApplicationController
   before_action :find_hospital, only: [ :update, :show, :destroy, :edit ]
 
-  def index
-    @hospitals = policy_scope(Hospital)
+  def show
+    authorize @hospital
   end
 
-  def new
+  def index
+    @hospitals = policy_scope(Hospital)
     @hospital = Hospital.new
-    authorize @hospital
   end
 
   def create
@@ -39,6 +39,12 @@ class HospitalsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    authorize @hospital
+    @hospital.destroy
+    redirect_to hospitals_path
   end
 
   private

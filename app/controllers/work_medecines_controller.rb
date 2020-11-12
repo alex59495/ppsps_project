@@ -3,10 +3,11 @@ class WorkMedecinesController < ApplicationController
 
   def index
     @work_medecines = policy_scope(WorkMedecine)
+    @work_medecine = WorkMedecine.new
+
   end
 
-  def new
-    @work_medecine = WorkMedecine.new
+  def show
     authorize @work_medecine
   end
 
@@ -39,6 +40,12 @@ class WorkMedecinesController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    authorize @work_medecine
+    @work_medecine.destroy
+    redirect_to work_medecines_path
   end
 
   private

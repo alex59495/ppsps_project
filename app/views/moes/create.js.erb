@@ -2,6 +2,11 @@ $(document).ready(function() {
   $(".modal-backdrop").hide();
   $("#ModalMoe").hide();
   $(".modal-open").css({overflow: 'scroll'});
-  document.getElementById("ppsp_moe_id").innerHTML = "<%= j(render 'form_field_moe') %>";
+  if (document.getElementById("ppsp_moe_id")) {
+    document.getElementById("ppsp_moe_id").innerHTML = "<%= j(render 'form_field_moe') %>";
+  }
+  if (document.querySelector(".list-database")) {
+    document.querySelector(".list-database").innerHTML = "<%= j(render 'list_moes') %>";
+  }
 })
 

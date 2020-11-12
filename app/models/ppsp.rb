@@ -17,8 +17,7 @@ class Ppsp < ApplicationRecord
   belongs_to :demining
   belongs_to :hospital
   belongs_to :security_coordinator, optional: true
-  has_many :selected_subcontractor
-  has_many :subcontractors, through: :selected_subcontractor
+  has_many :subcontractors, dependent: :destroy
   has_many :selected_installations
   has_many :site_installations, through: :selected_installations
   has_many :selected_altitudes
@@ -43,4 +42,11 @@ class Ppsp < ApplicationRecord
   validates :work_medecine_id, presence: true
   validates :pension_insurance_id, presence: true
   validates :hospital_id, presence: true
+  validate :start_date_cant_be_after_end_date
+
+  def start_date_cant_be_after_end_date
+    if start_date.present? && end_date.present? && start_date >= end_date
+      errors.add(:end_date, "ne peut pas être avant ou égale à la date de début de chantier")
+    end
+  end
 end

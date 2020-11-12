@@ -1,8 +1,12 @@
-<%= simple_form_for @moa do |f| %>
-  <%= f.input :name %>
-  <%= f.input :address %>
-  <%= f.input :representative %>
-  <%= f.input :phone %>
-  <%= f.input :email %>
-  <%= f.submit %>
+<%= simple_form_for @moa, remote: true do |f| %>
+  <%= f.input :name, label: 'Nom' %>
+  <%= f.input :address, label: 'Adresse' %>
+  <%= f.input :representative, label: 'Représentant' %>
+  <%= f.input :phone, label: 'Téléphone' %>
+  <%= f.input :email, label: 'Email' %>
+  <% if params[:action] == 'new' %>
+    <%= f.submit 'Créer un MOA', class: 'btn-blue', id: "MoaBtn" %>
+  <% else %>
+    <%= f.submit 'Modifier ce MOA', class: 'btn-blue', id: "MoaBtn" %>
+  <% end %>
 <% end %>

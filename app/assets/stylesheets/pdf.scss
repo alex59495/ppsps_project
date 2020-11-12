@@ -33,23 +33,87 @@
   font-size: 26px;
   border-bottom: solid 0.5px gray;
   margin-bottom: 8px;
+  margin-bottom: 1em;
 }
 
 .pdf-subtitle {
   text-align: center;
   font-weight: 500;
   font-size: 22px;
+  margin-bottom: 1em;
 }
 
 .pdf-subsubtitle {
-  text-align: center;
-  font-weight: 400;
+  font-weight: 700;
+  text-decoration: underline;
   font-size: 18px;
+  margin-bottom: 1em;
+}
+
+.container-text {
+  text-align: start;
 }
 
 .pdf-text-container {
   padding: 8px;
   box-shadow: 2px 2px 4px 4px rgba(204, 204, 204, 0.5);
+  text-align: center;  
+}
+
+.container-50 {
+  width: 50%;
+  text-align: start;
+  margin: auto;
+}
+
+.container-80 {
+  width: 80%;
+  text-align: start;
+  margin: auto;
+}
+
+.flexbox {
+  // display: -webkit-box; /* wkhtmltopdf uses this one */
+  // display: -webkit-flex;
+  // display: flex;
+  // -webkit-flex-wrap: wrap;
+  display: block;
+  // overflow: auto;
+}
+
+.flexbox::after { 
+  content: " ";
+  display: block; 
+  height: 0; 
+  clear: both;
+}
+
+.flex-div-50 {
+  float: left;
+  width: 50%;
+}
+
+.flex-div-60 {
+  float: left;
+  width: 60%;
+}
+
+.flex-div-40 {
+  float: left;
+  width: 40%;
+}
+
+.flex-div-30 {
+  float: left;
+  width: 33%;
+}
+
+.mb-1 {
+  margin-bottom: 1em;
+}
+
+.mb-2 {
+  margin-bottom: 2em;
 }
 
 .mb-3 {
@@ -64,5 +128,21 @@
 .page-break { 
   display:block; 
   clear:both; 
-  page-break-after:always; 
+  page-break-after:always;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.last-page { 
+  display:block; 
+  clear:both; 
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.footer-text {
+  font-size: 12px;
+  padding-right: 8px;
+  padding-left: 8px;
+  text-align: center;
 }

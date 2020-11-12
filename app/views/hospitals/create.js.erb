@@ -2,6 +2,11 @@ $(document).ready(function() {
   $(".modal-backdrop").hide();
   $("#ModalHospital").hide();
   $(".modal-open").css({overflow: 'scroll'});
-  document.querySelector(".ppsp_hospital_id").innerHTML = "<%= j(render 'form_field_hospital') %>";
+  if (document.querySelector(".ppsp_hospital_id")) {
+    document.querySelector(".ppsp_hospital_id").innerHTML = "<%= j(render 'form_field_hospital') %>";
+  }
+  if (document.querySelector(".list-database")) {
+    document.querySelector(".list-database").innerHTML = "<%= j(render 'list_hospitals') %>";
+  }
 })
 

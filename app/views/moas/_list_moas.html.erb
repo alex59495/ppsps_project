@@ -1,0 +1,7 @@
+<% @moas.each do |moa| %>
+  <div class="card-database">
+    <%= link_to moa, moa_path(moa) %>
+    <%= link_to "Edit", edit_moa_path(moa) %>
+    <%= link_to "x", moa_path(moa), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+  </div>
+<% end %>

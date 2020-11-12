@@ -1,6 +1,10 @@
-<%= simple_form_for @site_manager do |f| %>
+<%= simple_form_for @site_manager, remote: true do |f| %>
   <%= f.input :name, label: "Nom" %>
   <%= f.input :phone, label: "Téléphone"  %>
   <%= f.input :email, label: "Email"  %>
-  <%= f.submit %>
+  <% if params[:action] == 'new' %>
+    <%= f.submit 'Créer un chef de chantier', class: 'btn-blue' %>
+  <% else %>
+    <%= f.submit 'Modifier ce chef de chantier', class: 'btn-blue' %>
+  <% end %>
 <% end %>

@@ -6,5 +6,6 @@ FactoryBot.define do
     responsible_name { Faker::Name.name }
     responsible_phone { Faker::PhoneNumber.phone_number }
     responsible_email { Faker::Internet.email }
+    ppsp
   end
 end

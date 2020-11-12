@@ -1,24 +1,20 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+<div class="navbar navbar-expand-sm navbar-light navbar-ppsp">
   <%= link_to ppsps_path, class:"icon-home" do %>
-    <i class="fas fa-stamp"></i>
+    <%= image_tag('logo-ppsp.png', width: 80, height: 80) %>
   <% end %>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <% if user_signed_in? %>
-        <li class="nav-item">
-          <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "nav-link"%>
-        </li>
-      <% else %>
-        <li class="nav-item">
-          <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
+  <% if user_signed_in? %>
+    <div class="navbar-text">
+      <div class="navbar-company">
+        <%= current_user.company.name %>
+      </div>
+      <div class="navbar-user">
+        <%= "#{current_user.first_name} #{current_user.last_name}" %>
+      </div>
+    </div>
+    <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn-blue"%>
+  <% else %>
+    <a href="mailto:alexis.lenoir60@gmail.com" class="btn-orange">Demander une démo</a>
+    <%= link_to "Se connecter", new_user_session_path, class: "btn-orange-ext" %>
+  <% end %>
 </div>

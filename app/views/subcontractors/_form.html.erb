@@ -1,7 +1,13 @@
-<%= simple_form_for @subcontractor do |f| %>
+<%= simple_form_for [@ppsp, @subcontractor], remote: true do |f| %>
   <%= f.input :name, label: "Nom" %>
   <%= f.input :address, label: "Adresse"  %>
-  <%= f.input :work, label: "Travail"  %>
-  <%= f.input :sub_responsible_id, label: "Responsable", as: :select, collection: SubResponsible.all.order(:name)  %>
-  <%= f.submit %>
+  <%= f.input :work, label: "Travail effectué"  %>
+  <%= f.input :responsible_name, label: "Responsable" %>
+  <%= f.input :responsible_phone, label: "Téléphone"%>
+  <%= f.input :responsible_email, label: "Email" %>
+  <% if params[:action] == 'informations_supplementaires' %>
+    <%= f.submit 'Créer un sous-traitant', class: 'btn-blue' %>
+  <% else %>
+    <%= f.submit 'Modifier ce sous-traitant', class: 'btn-blue' %>
+  <% end %>
 <% end %>

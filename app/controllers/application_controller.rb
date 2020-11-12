@@ -7,14 +7,24 @@ class ApplicationController < ActionController::Base
   after_action :verify_authorized, except: :index, unless: :skip_pundit?
   after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
 
-  private 
+  private
 
-  def after_sign_in_path_for(resource)
-    stored_location_for(resource) || ppsps_path
+  # To hanndle the current_user in React
+  def this_user
+    current_user ? current_user.email : "No"
   end
 
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
+  end
+
+  def default_url_options
+    { host: ENV["DOMAIN"] || "localhost:3000" }
+  end
+
+
+  def after_sign_in_path_for(resource)
+    ppsps_path(resource)
   end
 
 end

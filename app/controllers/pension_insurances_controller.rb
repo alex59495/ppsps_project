@@ -3,10 +3,10 @@ class PensionInsurancesController < ApplicationController
 
   def index
     @pension_insurances = policy_scope(PensionInsurance)
+    @pension_insurance = PensionInsurance.new
   end
 
-  def new
-    @pensions_insurance = PensionsInsurance.new
+  def show
     authorize @pensions_insurance
   end
 
@@ -39,6 +39,12 @@ class PensionInsurancesController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    authorize @pension_insurance
+    @pension_insurance.destroy
+    redirect_to pension_insurances_path
   end
 
   private

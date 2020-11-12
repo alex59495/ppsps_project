@@ -1,7 +1,11 @@
-<%= simple_form_for @regional_committee do |f| %>
-  <%= f.input :name %>
-  <%= f.input :address %>
-  <%= f.input :phone %>
-  <%= f.input :fax %>
-  <%= f.submit %>
+<%= simple_form_for @regional_committee, remote: true do |f| %>
+  <%= f.input :name, label: 'Nom' %>
+  <%= f.input :address, label: 'Adresse'%>
+  <%= f.input :phone, label: 'Téléphone' %>
+  <%= f.input :fax, label: 'Fax' %>
+  <% if params[:action] == 'new' %>
+    <%= f.submit 'Créer un comité régional', class: 'btn-blue' %>
+  <% else %>
+    <%= f.submit 'Modifier ce comité régional', class: 'btn-blue' %>
+  <% end %>
 <% end %>

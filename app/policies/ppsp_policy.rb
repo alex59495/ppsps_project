@@ -6,23 +6,23 @@ class PpspPolicy < ApplicationPolicy
   end
 
   def show?
-    record.user == user
-  end
-
-  def create?
-    new?
+    record.user.company.name == user.company.name
   end
 
   def new?
     true
   end
 
-  def ppsp_pdf?
-    true
+  def create?
+    new?
   end
-
+  
   def destroy?
     record.user == user
+  end
+
+  def ppsp_pdf?
+    record.user.company.name == user.company.name
   end
 
   def update?

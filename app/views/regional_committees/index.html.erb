@@ -1,7 +1,20 @@
-<% @regional_committees.each do |regional_committee| %>
-  <div class="card-database">
-    <%= link_to regional_committee, regional_committee_path(regional_committee) %>
-    <%= link_to "Edit", edit_regional_committee_path(regional_committee) %>
-    <%= link_to "x", regional_committee_path(regional_committee), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+<% if policy(RegionalCommittee).new? %>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalRegionalCommittee">
+    Ajouter un Comité Régional
+  </button>
+<% end %>
+<%# Modal Regional Committee %>
+<% if policy(RegionalCommittee).new? %>
+  <div class="modal fade" id="ModalRegionalCommittee" tabindex="-1" role="dialog" aria-labelledby="ModalRegionalCommittee" aria-hidden="true">
+    <%= render 'ppsps/modal_regional_committee' %>
   </div>
 <% end %>
+<div class="list-database">
+  <% @regional_committees.each do |regional_committee| %>
+    <div class="card-database">
+      <%= link_to regional_committee, regional_committee_path(regional_committee) %>
+      <%= link_to "Edit", edit_regional_committee_path(regional_committee) %>
+      <%= link_to "x", regional_committee_path(regional_committee), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+    </div>
+  <% end %>
+</div>

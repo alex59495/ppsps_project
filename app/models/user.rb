@@ -5,4 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :ppsps
   belongs_to :company
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :admin, inclusion: { in: [ true, false ] }
 end

@@ -1,6 +1,10 @@
-<%= simple_form_for @pension_insurance do |f| %>
-  <%= f.input :address %>
-  <%= f.input :phone %>
-  <%= f.input :fax %>
-  <%= f.submit %>
+<%= simple_form_for @pension_insurance, remote: true do |f| %>
+  <%= f.input :address, label: 'Adresse' %>
+  <%= f.input :phone, label: 'Téléphone' %>
+  <%= f.input :fax, label: 'Fax' %>
+  <% if params[:action] == 'new' %>
+    <%= f.submit "Créer un caisse d'assurance retraite", class: 'btn-blue' %>
+  <% else %>
+    <%= f.submit "Modifier cette caisse d'assurance retraite", class: 'btn-blue' %>
+  <% end %>
 <% end %>

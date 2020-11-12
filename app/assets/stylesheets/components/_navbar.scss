@@ -1,12 +1,26 @@
-.navbar-lewagon {
+.navbar-ppsp {
   justify-content: space-between;
-  background: white;
+  background-color: $gray-light;
+  margin-bottom: 20px;
+  border-bottom: solid 0.5px #cfcfcf;
 }
 
-.navbar-lewagon .navbar-collapse {
+.navbar-ppsp .navbar-collapse {
   flex-grow: 0;
 }
 
-.navbar-lewagon .navbar-brand img {
+.navbar-ppsp .navbar-brand img {
   width: 40px;
+}
+
+.navbar-company {
+  font-weight: 700;
+  font-size: 20px;
+  text-align: center;
+}
+
+.navbar-user {
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
 }

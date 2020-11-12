@@ -3,10 +3,10 @@ class SosHandsController < ApplicationController
 
   def index
     @sos_hands = policy_scope(SosHand)
+    @sos_hand = SosHand.new
   end
 
-  def new
-    @sos_hand = SosHand.new
+  def show
     authorize @sos_hand
   end
 
@@ -39,6 +39,12 @@ class SosHandsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    authorize @sos_hand
+    @sos_hand.destroy
+    redirect_to sos_hands_path
   end
 
   private

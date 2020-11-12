@@ -4,11 +4,11 @@ class DirecctsController < ApplicationController
 
   def index
     @direccts = policy_scope(Direcct)
+    @direcct = Direcct.new
   end
 
-  def new
-    @direcct = Direcct.new
-    authorize @direcct
+  def show
+    authorize @hospital
   end
 
   def create
@@ -40,6 +40,12 @@ class DirecctsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    authorize @direcct
+    @direcct.destroy
+    redirect_to direccts_path
   end
 
   private

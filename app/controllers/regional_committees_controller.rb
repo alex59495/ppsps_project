@@ -3,10 +3,10 @@ class RegionalCommitteesController < ApplicationController
 
   def index
     @regional_committees = policy_scope(RegionalCommittee)
+    @regional_committee = RegionalCommittee.new
   end
 
-  def new
-    @regional_committee = RegionalCommittee.new
+  def show
     authorize @regional_committee
   end
 
@@ -28,7 +28,6 @@ class RegionalCommitteesController < ApplicationController
     end
   end
   
-
   def edit
     authorize @regional_committee
   end
@@ -40,6 +39,12 @@ class RegionalCommitteesController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    authorize @regional_committee
+    @regional_committee.destroy
+    redirect_to regional_committees_path
   end
 
   private

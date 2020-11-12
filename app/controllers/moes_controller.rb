@@ -3,10 +3,10 @@ class MoesController < ApplicationController
 
   def index
     @moes = policy_scope(Moe)
+    @moe = Moe.new
   end
 
-  def new
-    @moe = Moe.new
+  def show
     authorize @moe
   end
 
@@ -39,6 +39,12 @@ class MoesController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    authorize @moe
+    @moe.destroy
+    redirect_to moes_path
   end
 
   private

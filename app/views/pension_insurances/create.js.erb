@@ -2,6 +2,11 @@ $(document).ready(function() {
   $(".modal-backdrop").hide();
   $("#ModalPensionInsurance").hide();
   $(".modal-open").css({overflow: 'scroll'});
-  document.getElementById("ppsp_pension_insurance_id").innerHTML = "<%= j(render 'form_field_pension_insurance') %>";
+  if (document.getElementById("ppsp_pension_insurance_id")) {
+    document.getElementById("ppsp_pension_insurance_id").innerHTML = "<%= j(render 'form_field_pension_insurance') %>";
+  }
+  if (document.querySelector(".list-database")) {
+    document.querySelector(".list-database").innerHTML = "<%= j(render 'list_pension_insurances') %>";
+  }
 })
 

@@ -2,7 +2,10 @@ class PpspsController < ApplicationController
   before_action :find_ppsp, only: [ :update, :show, :ppsp_pdf, :destroy, :edit, :informations_supplementaires ]
 
   def index
-    @ppsps = policy_scope(Ppsp.where(user: current_user))
+    #Handled by react :) (app/assets/javascript/ppsp-react)
+    # In order to search on direct
+    users = User.where(company: current_user.company)
+    @ppsps = policy_scope(Ppsp.where(user: users))
   end
 
   def new
@@ -12,9 +15,10 @@ class PpspsController < ApplicationController
     # This way they are created in the DB if the @ppsp is saved
     # We used the 'accepts_nested_attributes_for' in the models
     # We used the projection_information_attributes in the params
-    @ppsp.build_project_information
-    @ppsp.build_project_information.build_site_manager
-    @ppsp.build_project_information.build_team_manager
+    @project_information = @ppsp.build_project_information
+    @site_manager = @ppsp.build_project_information.build_site_manager
+    @team_manager = @ppsp.build_project_information.build_team_manager
+    @project_information = ProjectInformation.new 
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
     @moa = Moa.new
@@ -40,7 +44,12 @@ class PpspsController < ApplicationController
           enable_local_file_access: true,
           encoding: 'utf8',
           template: 'ppsps/show.pdf.erb',
-          layout: 'pdf.html.erb'
+          layout: 'pdf.html.erb',
+          footer: {
+            html: {
+              template: 'ppsps/footer.html.erb'
+            }
+          },
         )
       end
     end
@@ -49,12 +58,22 @@ class PpspsController < ApplicationController
   def create
     @ppsp = Ppsp.new(params_ppsp)
     @security_coordinator = SecurityCoordinator.new
+    @hospital = Hospital.new
+    @moa = Moa.new
+    @moe = Moe.new
+    @pension_insurance = PensionInsurance.new
+    @regional_committee = RegionalCommittee.new
+    @direcct = Direcct.new
+    @work_medecine = WorkMedecine.new
+    @demining = Demining.new
+    @sos_hand = SosHand.new
+    @anti_poison = AntiPoison.new
     @ppsp.user = current_user
     authorize @ppsp
     if @ppsp.save
       redirect_to informations_supplementaires_ppsp_path(@ppsp)
     else
-      flash[:alert] = "Le formulaire n'a pas été rempli correctement, merci de réessayer !"
+      flash.now.alert = "Le formulaire n'a pas été rempli correctement, merci de réessayer !"
       render :new
     end
   end
@@ -78,18 +97,45 @@ class PpspsController < ApplicationController
     @selected_risk_active = SelectedRisk.where(ppsp_id: @ppsp.id)
     # Input of the option of subcontractors for the form
     @subcontractor = Subcontractor.new
-    # Selected subcontractors already existing for this PPSP
-    @selected_subcontractor_active = SelectedSubcontractor.where(ppsp_id: @ppsp.id)
   end
 
   def edit
     authorize @ppsp
-    @security_coordinator = SecurityCoordinator.new
+    # This way the edit page is able to retrieve the project informations
+    @project_information = @ppsp.project_information
+    @site_manager = @ppsp.project_information.site_manager
+    @team_manager = @ppsp.project_information.team_manager
+    @security_coordinator = (@ppsp.security_coordinator || SecurityCoordinator.new)
+    @hospital = Hospital.new
+    @moa = Moa.new
+    @moe = Moe.new
+    @pension_insurance = PensionInsurance.new
+    @regional_committee = RegionalCommittee.new
+    @direcct = Direcct.new
+    @work_medecine = WorkMedecine.new
+    @demining = Demining.new
+    @sos_hand = SosHand.new
+    @anti_poison = AntiPoison.new
   end
 
   def update
     authorize @ppsp
+    # This way the update is able to retrieve the project informations
+    @project_information = @ppsp.project_information
+    @site_manager = @ppsp.project_information.site_manager
+    @team_manager = @ppsp.project_information.team_manager
+
     @security_coordinator = SecurityCoordinator.new
+    @hospital = Hospital.new
+    @moa = Moa.new
+    @moe = Moe.new
+    @pension_insurance = PensionInsurance.new
+    @regional_committee = RegionalCommittee.new
+    @direcct = Direcct.new
+    @work_medecine = WorkMedecine.new
+    @demining = Demining.new
+    @sos_hand = SosHand.new
+    @anti_poison = AntiPoison.new
     if @ppsp.update(params_ppsp)
       redirect_to informations_supplementaires_ppsp_path(@ppsp)
     else
@@ -97,19 +143,13 @@ class PpspsController < ApplicationController
     end
   end
 
-  def destroy
-    authorize @ppsp
-    @ppsp.destroy
-    redirect_to ppsps_path
-  end
-
   private
   def params_ppsp
-    params.require(:ppsp).permit(:address, :start, :end, :nature, :workforce, :agglomeration, 
-    :street_impact, :river_guidance, :moa_id, :moe_id, :subcontractor_id, 
+    params.require(:ppsp).permit(:address, :start_date, :end_date, :nature, :workforce, :agglomeration, 
+    :street_impact, :river_guidance, :moa_id, :moe_id, :subcontractor_ids, :security_coordinator_id,
     :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
     :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, 
-    :security_coordinator_id, project_information_attributes: [:ppsp_id, :reference, :responsible, 
+    project_information_attributes: [:ppsp_id, :reference, :responsible, 
     :phone, :email, site_manager_attributes: [:name, :email, :phone], 
     team_manager_attributes: [:name, :email, :phone]])
   end

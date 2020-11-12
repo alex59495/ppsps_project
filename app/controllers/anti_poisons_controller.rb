@@ -3,14 +3,10 @@ class AntiPoisonsController < ApplicationController
 
   def index
     @anti_poisons = policy_scope(AntiPoison)
+    @anti_poison = AntiPoison.new
   end
 
   def show
-    authorize @anti_poison
-  end
-
-  def new
-    @anti_poison = AntiPoison.new
     authorize @anti_poison
   end
 
@@ -39,10 +35,17 @@ class AntiPoisonsController < ApplicationController
   def update
     authorize @anti_poison
     if @anti_poison.update(params_anti_poison)
+      p @anti_poison.name
       redirect_to anti_poisons_path
     else
       render :edit
     end
+  end
+
+  def destroy
+    authorize @anti_poison
+    @anti_poison.destroy
+    redirect_to anti_poisons_path
   end
 
   private
