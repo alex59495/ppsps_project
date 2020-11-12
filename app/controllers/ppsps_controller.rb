@@ -143,12 +143,6 @@ class PpspsController < ApplicationController
     end
   end
 
-  def destroy
-    authorize @ppsp
-    @ppsp.destroy
-    redirect_to ppsps_path
-  end
-
   private
   def params_ppsp
     params.require(:ppsp).permit(:address, :start_date, :end_date, :nature, :workforce, :agglomeration, 

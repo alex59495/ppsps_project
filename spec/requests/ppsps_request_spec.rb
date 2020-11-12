@@ -44,19 +44,6 @@ RSpec.describe "Ppsps Controller", type: :request do
         @ppsp = create(:ppsp, user: user)
         login_as(user)
       end
-
-      context 'Action Destroy' do  
-        let(:destroy_action) { delete ppsp_path(@ppsp) }
-  
-        it 'Delete 1 instance of Ppsp when using action destroy' do
-          expect { destroy_action }.to change(Ppsp, :count).by(-1)
-        end
-  
-        it 'Redirect after destroy' do
-          destroy_action
-          expect(response).to have_http_status(302)
-        end
-      end
       
   
       context 'Action Create' do  
@@ -95,10 +82,8 @@ RSpec.describe "Ppsps Controller", type: :request do
         login_as(user)
       end
 
-      let(:destroy_action) { delete ppsp_path(@ppsp) }
       let(:update_action) { patch ppsp_path(@ppsp), params: { ppsp: params_ppsp } }
 
-      it { expect{destroy_action}.to raise_error(Pundit::NotAuthorizedError) }
       it { expect{update_action}.to raise_error(Pundit::NotAuthorizedError) }
     end
   end

@@ -1,4 +1,5 @@
 class Api::V1::PpspsController < Api::V1::BaseController
+  before_action :find_ppsp, only: [:show, :destroy]
   
   def index
     users = User.where(company: current_user.company)
@@ -6,9 +7,18 @@ class Api::V1::PpspsController < Api::V1::BaseController
   end
 
   def show
-    ppsp = Ppsp.find(params[:id])
     authorize @ppsp
-    render json: ppsp
+    render json: @ppsp
   end
 
+  def destroy
+    authorize @ppsp
+    @ppsp.destroy
+    head :no_content
+  end
+
+  private
+  def find_ppsp
+    @ppsp = Ppsp.find(params[:id])
+  end
 end

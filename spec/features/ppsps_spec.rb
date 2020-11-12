@@ -56,7 +56,8 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
     scenario 'Click on the Edit link' do
       visit(ppsps_path)
       find('.card-ppsp-edit').click
-      expect(page).to have_current_path(edit_ppsp_path(@ppsp))
+      # Test if there is more than one tab open which would tell us if the edit page is opened
+      expect(page.driver.browser.window_handles.size).to be > 1
     end
 
     scenario 'Click on the New link' do
@@ -115,33 +116,36 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
     scenario 'Open a new tab when click on PDF' do
       visit(ppsps_path)
-      click_on(class: 'without-decoration')
+      find('.card-ppsp').click
       # Test if there is more than one tab open which would tell us if the PDF link work well opening another tab
       expect(page.driver.browser.window_handles.size).to be > 1
     end
 
     scenario 'Change the field when update' do
       visit(ppsps_path)
-      find('.card-ppsp-edit').click
-      fill_in('ppsp_project_information_attributes_site_manager_attributes_name', with: 'Update chef de chantier')
-      # Need the reload in order to see the modif
-      expect{click_button('Mettre à jour le PPSP')}.to change{ @ppsp.reload.project_information.site_manager.name }
-        .from('Test de chef de chantier')
-        .to('Update chef de chantier')
+      # open a new_window
+      new_window = window_opened_by {  find('.card-ppsp-edit').click }
+      within_window new_window do
+        fill_in('ppsp_project_information_attributes_site_manager_attributes_name', with: 'Update chef de chantier')
+        # Need the reload in order to see the modif
+        expect{click_button('Mettre à jour le PPSP')}.to change{ @ppsp.reload.project_information.site_manager.name }
+          .from('Test de chef de chantier')
+          .to('Update chef de chantier')
+      end
     end
 
     scenario 'Confirmation message when delete a Ppsp' do
       visit(ppsps_path)
       # Accept the data: { confirm: } in the view 
-      msg = accept_confirm { click_button 'x' }
-      expect(msg).to eq('Êtes-vous sûr de vouloir supprimer ce document ?')
+      msg = accept_confirm { find('.card-ppsp-delete').click }
+      expect(msg).to eq('Êtes-vous sûr de vouloir supprimer cet élément ?')
     end
 
     scenario 'Delete a Ppsp when click on "x" on the Index page' do
       visit(ppsps_path)
       count = Ppsp.count
       # Accept the data: { confirm: } in the view 
-      accept_confirm { click_button 'x' }
+      accept_confirm { find('.card-ppsp-delete').click }
       # Had to refresh the page so that the modification is Ok
       visit current_path
       expect(Ppsp.count).to eq(count - 1)

@@ -28,7 +28,7 @@ class CardPpsp extends Component {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')) {
       $.ajax({
         method: 'DELETE',
-        url: `/ppsps/${this.props.id}`,
+        url: `/api/v1/ppsps/${this.props.id}`,
         success: function(data) {
           this.props.fetchPpsps();
         }.bind(this),

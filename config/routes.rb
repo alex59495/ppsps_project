@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'database', to: 'pages#database', as: :database
 
   # Ppsp
-  resources :ppsps do
+  resources :ppsps, except: [:destroy] do
     resources :subcontractors, only: [:create, :destroy]
     resources :selected_installations, only: [ :create, :destroy ]
     resources :selected_altitudes, only: [ :create, :destroy ]
@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   # API
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :ppsps, only: [ :create, :index, :show ]
+      resources :ppsps, only: [ :destroy, :index, :show ]
     end
   end
 

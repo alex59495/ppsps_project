@@ -15,7 +15,10 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const middlewares = composeEnhancers(applyMiddleware(logger, reduxPromise));
 
 // Identifiy currentUser
-const current = document.getElementById('root').dataset.current 
+let current = ''
+if(document.getElementById('ppsps-react')) {
+  current = document.getElementById('ppsps-react').dataset.current 
+}
 
 // Intitial State
 const initialState = {
@@ -34,10 +37,12 @@ export { initialState }
 //   selectedPpsps: reducerPpsps
 // });
 
-// render an instance of the component in the DOM
-ReactDOM.render(
-  <Provider store={createStore(reducerPpsps, initialState, middlewares)}>
-    <ReactApp />
-  </Provider>,
-  document.getElementById('root')
-)
+if(document.getElementById('ppsps-react')) {
+  // render an instance of the component in the DOM
+  ReactDOM.render(
+    <Provider store={createStore(reducerPpsps, initialState, middlewares)}>
+      <ReactApp />
+    </Provider>,
+    document.getElementById('ppsps-react')
+  )
+}
