@@ -161,7 +161,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
     let(:risks) {@risks = create_list(:risk, 5)}
     let(:site_installations) {@site_installations = create_list(:site_installation, 5)}
-    let(:altitude_works) {@altitude_works = create_list(:altitude_work_without_textfield, 5)}
+    let(:altitude_works) {@altitude_works = create_list(:altitude_work_select 5)}
 
     scenario 'Can add some site installations' do
       site_installations

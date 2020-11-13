@@ -316,14 +316,14 @@ fr:
         resend_confirmation_instructions: Renvoyer les instructions de confirmation
     mailer:
       confirmation_instructions:
-        action: Confirmer mon courriel
+        action: Confirmer mon email
         greeting: Bienvenue %{recipient}!
-        instruction: 'Vous pouvez confirmer votre courriel grâce au lien ci-dessous:'
+        instruction: 'Vous pouvez confirmer votre email grâce au lien ci-dessous:'
       reset_password_instructions:
         action: Changer mon mot de passe
         greeting: Bonjour %{recipient}!
         instruction: 'Quelqu''un a demandé un lien pour changer votre mot de passe, le voici :'
-        instruction_2: Si vous n'avez pas émis cette demande, merci d'ignorer ce courriel.
+        instruction_2: Si vous n'avez pas émis cette demande, merci d'ignorer cet email.
         instruction_3: Votre mot de passe ne changera pas tant que vous n'aurez pas cliqué sur ce lien et renseigné un nouveau mot de passe.
       unlock_instructions:
         action: Débloquer mon compte
@@ -357,8 +357,8 @@ fr:
     shared:
       links:
         back: Retour
-        didn_t_receive_confirmation_instructions: Vous n'avez pas reçu le courriel de confirmation ?
-        didn_t_receive_unlock_instructions: Vous n'avez pas reçu le courriel de déblocage ?
+        didn_t_receive_confirmation_instructions: Vous n'avez pas reçu le email de confirmation ?
+        didn_t_receive_unlock_instructions: Vous n'avez pas reçu le email de déblocage ?
         forgot_your_password: Mot de passe oublié ?
         sign_in: Connexion
         sign_in_with_provider: Connexion avec %{provider}
