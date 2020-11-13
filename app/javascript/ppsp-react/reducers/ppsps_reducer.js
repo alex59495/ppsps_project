@@ -1,5 +1,7 @@
 import { SEARCH_QUERY } from '../actions/index'
 import { FETCH_PPSPS } from '../actions/index'
+import { FETCH_USER_PPSPS } from '../actions/index'
+
 
 import { initialState } from '../index'
 

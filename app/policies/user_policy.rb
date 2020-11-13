@@ -6,7 +6,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    user == record
+    user.company == record.company
   end
 
   def edit?

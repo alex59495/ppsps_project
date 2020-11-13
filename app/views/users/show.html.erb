@@ -1,1 +1,15 @@
-<h1>Bonjour <%= "#{@user.first_name} #{@user.last_name}" %></h1>
+<div class="d-flex flex-column align-items-center">
+  <p><%= @user.first_name %></p>
+  <p><%= @user.last_name %></p>
+  <p><%= @user.company.name %></p>
+  <% if @user == current_user %>
+    <p>
+      <%= @user.admin ? "Votre compte est configuré en tant qu'Admin" : "Votre compte n'est pas un compte admin, merci de contacter le support si vous devez bénéficier d'un compte admin" %>
+    </p>
+  <% end %>
+  <% if policy(@user).edit? %>
+    <%= link_to "Éditer les informations", edit_user_path(@user), class: 'btn-blue-ext' %>
+  <% end %>
+  <h2 class="mt-4"><%= @user == current_user ? 'Vos PPSPS' : "Les PPSP de #{@user.first_name}" %>
+  <div id="ppsps-react" class="show-user" data-current=<%= current_user.id %> data-usershow=<%= @user.id %>></div>
+</div>

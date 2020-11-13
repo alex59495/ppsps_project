@@ -5,59 +5,65 @@
 .card-ppsp {
   z-index: -1;
   width: 300px;
+  min-height: 180px;
   padding: 10px;
   color: black;
   margin: 6px;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;;
   box-shadow: 1px 1px 2px 2px $blue-light;
   &:hover {
     cursor: pointer;
     box-shadow: 1px 1px 2px 2px $blue-dark;
   }
-}
 
-.card-reference {
-  text-align: center;
-  font-weight: 700;
-  font-size: 20px;
-}
+  .card-ppsp-reference {
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+  }
+  
+  .card-ppsp-body {
+    font-size: 14px;
+  }
 
-.card-body {
-  font-size: 14px;
-}
-
-.card-ppsp-footer {
-  font-style: italic;
-  font-size: 12px;
-}
-
-.card-ppsp-delete {
-  position: relative;
-  float: right;
-  border: none;
-  font-size: 18px;
-  color: $blue-dark;
-  font-weight: 700;
-  margin-left: 6px;
-  &:hover{
-    color: black;
-    text-decoration: none;
+  .card-ppsp-footer {
+    font-style: italic;
+    font-size: 12px;
+  }
+  
+  .card-ppsp-delete {
+    position: relative;
+    float: right;
+    border: none;
+    font-size: 18px;
+    color: $blue-dark;
+    font-weight: 700;
+    margin-left: 6px;
+    &:hover{
+      color: black;
+      text-decoration: none;
+    }
+  }
+  
+  .card-ppsp-edit {
+    z-index: 9999;
+    position: relative;
+    float: right;
+    border: none;
+    font-size: 18px;
+    color: $blue-dark;
+    font-weight: 700;
+    &:hover{
+      color: black;
+      text-decoration: none;
+    }
   }
 }
 
-.card-ppsp-edit {
-  z-index: 9999;
-  position: relative;
-  float: right;
-  border: none;
-  font-size: 18px;
-  color: $blue-dark;
-  font-weight: 700;
-  &:hover{
-    color: black;
-    text-decoration: none;
-  }
-}
+
 
 .card-info {
   box-shadow:  2px 3px 10px 2px $blue-dark-shadow;

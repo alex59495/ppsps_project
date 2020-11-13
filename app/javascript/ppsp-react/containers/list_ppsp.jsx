@@ -7,11 +7,10 @@ import { fetchPpsps } from '../actions/index'
 
 class ListPpsp extends Component {
   componentDidMount() {
-    this.props.fetchPpsps();
+      this.props.fetchPpsps(this.props.showUser);
   }
 
   render () {
-    // Current_user
     return (
       <div className="container-ppsp">
         {this.props.selectedPpsps.map((ppsp) => {
@@ -28,13 +27,14 @@ class ListPpsp extends Component {
 
 const mapStateToProps = (state) => {
   return ({
-    selectedPpsps: state.selectedPpsps
+    selectedPpsps: state.selectedPpsps,
+    showUser: state.showUser
   });
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchPpsps: () => dispatch(fetchPpsps()),
+    fetchPpsps: (showUser) => dispatch(fetchPpsps(showUser)),
   }
 }
 

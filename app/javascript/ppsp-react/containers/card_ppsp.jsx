@@ -45,14 +45,16 @@ class CardPpsp extends Component {
       return (
         <div>
           <div className="card-ppsp" onClick={this.handleCard}>
-            <div className="card-ppsp-delete" onClick={this.handleDelete}>x</div>
-            <div className='card-ppsp-edit' onClick={this.handleEdit}>
-              <i className='fas fa-pencil-alt'></i>
+            <div className="card-ppsp-header">
+              <div className="card-ppsp-delete" onClick={this.handleDelete}>x</div>
+              <div className='card-ppsp-edit' onClick={this.handleEdit}>
+                <i className='fas fa-pencil-alt'></i>
+              </div>
+              <div className="card-ppsp-reference">
+                {`Reference ${this.props.reference}`}
+              </div>
             </div>
-            <div className="card-reference">
-              {`Reference ${this.props.reference}`}
-            </div>
-            <div className="card-body row">
+            <div className="card-ppsp-body row">
               <div className="col-7">Lieu du chantier: </div><div className="col-5">{this.props.address}</div>
               <div className="col-7">Date de début: </div><div className="col-5">{ this.props.start_date }</div>
               <div className="col-7">Date de fin: </div><div className="col-5">{ this.props.end_date }</div>
@@ -67,10 +69,10 @@ class CardPpsp extends Component {
       return (
         <div>
           <div className="card-ppsp" onClick={this.handleCard}>
-            <div className="card-reference">
+            <div className="card-ppsp-reference">
               {`Reference ${this.props.reference}`}
             </div>
-            <div className="card-body row">
+            <div className="card-ppsp-body row">
               <div className="col-7">Lieu du chantier: </div><div className="col-5">{this.props.address}</div>
               <div className="col-7">Date de début: </div><div className="col-5">{ this.props.start_date }</div>
               <div className="col-7">Date de fin: </div><div className="col-5">{ this.props.end_date }</div>
