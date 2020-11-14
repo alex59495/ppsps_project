@@ -12,12 +12,12 @@
         <%= "#{current_user.first_name} #{current_user.last_name}" %>
       </div>
     </div>
-    <div class="d-flex">
-      <%= link_to "Mon profil", user_path(current_user), class: 'btn-blue-ext', data: { turbolinks: false } %>
-      <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn-blue"%>
+    <div class="d-flex align-items-center">
+      <%= button_to "Mon profil", user_path(current_user), class: 'btn-blue-ext mr-2', data: { turbolinks: false } %>
+      <%= button_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn-blue"%>
     </div>
   <% else %>
     <a href="mailto:alexis.lenoir60@gmail.com" class="btn-orange">Demander une démo</a>
-    <%= link_to "Se connecter", new_user_session_path, class: "btn-orange-ext" %>
+    <%= button_to "Se connecter", new_user_session_path, class: "btn-orange-ext" %>
   <% end %>
 </div>

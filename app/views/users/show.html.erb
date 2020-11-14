@@ -14,7 +14,7 @@
         <%= link_to "Éditer les informations", edit_user_path(@user), class: 'btn-blue-ext' %>
       <% end %>
     </div>
-    <h2 class="mt-4"><%= @user == current_user ? 'Vos PPSPS' : "Les PPSP de #{@user.first_name}" %>
+    <h2><%= @user == current_user ? 'Vos PPSPS' : "Les PPSP de #{@user.first_name}" %></h2>
     <div id="ppsps-react" class="show-user" data-current=<%= current_user.id %> data-usershow=<%= @user.id %>></div>
   </div>
 </div>

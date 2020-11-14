@@ -5,6 +5,6 @@
       <%= f.input :last_name, label: "Nom de famille" %>
       <%= f.submit "Ëditer les informations", class: 'btn-blue' %>
     <% end %>
-    <%= link_to "Revenir au profil", user_path(@user), class: 'link' %>
+    <%= link_to "Revenir au profil", user_path(@user), class: 'link', data: { turbolinks: false } %>
   </div>
 </div>
