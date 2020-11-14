@@ -7,7 +7,7 @@ import { fetchPpsps } from '../actions/index'
 class CardPpsp extends Component {
   handleCard = () => {
     // Fire the opening of the PDF in a new tab
-    const win = window.open(`ppsps/${this.props.id}.pdf`, '_blank');
+    const win = window.open(`/ppsps/${this.props.id}.pdf`, '_blank');
     win.focus();
   }
 
@@ -15,7 +15,7 @@ class CardPpsp extends Component {
     // Avoid to trigger the parent link
     e.stopPropagation();
     // Fire the opening of the edit in a new tab
-    const win = window.open(`ppsps/${this.props.id}/edit`, '_blank');
+    const win = window.open(`/ppsps/${this.props.id}/edit`, '_blank');
     win.focus();
   }
 
@@ -30,7 +30,7 @@ class CardPpsp extends Component {
         method: 'DELETE',
         url: `/api/v1/ppsps/${this.props.id}`,
         success: function(data) {
-          this.props.fetchPpsps();
+          this.props.fetchPpsps(this.props.showUser);
         }.bind(this),
         error: function(xhr, status, error) {
           alert('Vous ne pouvez pas supprimer cet élément', error);
@@ -89,13 +89,14 @@ class CardPpsp extends Component {
 
 const mapStateToProps = (state) => {
   return ({
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    showUser: state.showUser
   });
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchPpsps: () => dispatch(fetchPpsps()),
+    fetchPpsps: (showUser) => dispatch(fetchPpsps(showUser)),
   }
 }
 

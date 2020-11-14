@@ -4,7 +4,8 @@ export const FETCH_USER_PPSPS = 'SEARCH_QUERY'
 
 
 export const fetchPpsps = (showUser) => {
-  const show_user = showUser
+  const show_user = showUser;
+  console.log(show_user);
   const promise = fetch(`/api/v1/ppsps?show_user=${show_user}`)
     .then(response => response.json())
   return {
