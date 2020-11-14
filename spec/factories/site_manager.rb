@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :site_manager do
     name { 'Test de chef de chantier' }
-    phone { Faker::PhoneNumber.phone_number }
+    phone { '0300000000' }
     email { Faker::Internet.email }
   end
 end

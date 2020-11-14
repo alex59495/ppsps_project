@@ -3,15 +3,15 @@ FactoryBot.define do
     name { Faker::Name.name}
     address { Faker::Address.street_address}
     representative { Faker::Name.name }
-    phone { Faker::PhoneNumber.phone_number }
+    phone { '0300000000' }
     email { Faker::Internet.email }
 
     factory :moe_update do
       name { 'Name updated'}
       address { 'Address updated'}
       representative { 'Representative updated' }
-      phone { 'Phone updated' }
-      email { 'Email updated' }
+      phone { '0328282828' }
+      email { 'test@gmail.com' }
     end
   end
 end

@@ -2,7 +2,7 @@
   <h1><%= @user == current_user ? "Bonjour #{current_user.first_name}" : "La page de #{@user.first_name}" %></h1>
   <div class="d-flex flex-column align-items-center">
     <div class="profile">
-      <h2><%= @user == current_user ? "Vos infos" : "Les infos de #{@user.first_name}" %></h2>
+      <%= "<h2>Vos infos</h2>".html_safe if @user == current_user %>
       <p>Nom : <i><%= @user.first_name %> <%= @user.last_name %></i></p>
       <p>Entreprise : <i><%= @user.company.name %></i></p>
       <% if @user == current_user %>
