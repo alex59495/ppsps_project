@@ -91,32 +91,21 @@ team_manager1 = TeamManager.create(name: team_manager[:name], phone:team_manager
 p "create #{team_manager1.id} team manager"
 
 # Create Project Informations
-project_information = [{
-  reference: "AABB130",
-  responsible: "Responsible Test",
-  phone: "0300000000",
-  email: "project@gmail.com",
-  site_manager_id: 1,
-  team_manager_id: 1
-},
-{
-  reference: "AABB131",
-  responsible: "Responsible Test 2",
-  phone: "0300000000",
-  email: "project2@gmail.com",
-  site_manager_id: 1,
-  team_manager_id: 1
-},
-{
-  reference: "AABB132",
-  responsible: "Responsible Test 3",
-  phone: "0300000000",
-  email: "project3@gmail.com",
-  site_manager_id: 1,
-  team_manager_id: 1
-},
-]
-project_information.each do |project|
+infos = []
+30.times do |n|
+  project_info = {
+    reference: "AABB1#{n+10}",
+    responsible: "Responsible Test-#{n}",
+    phone: "0300000000",
+    email: "project-#{n}@gmail.com",
+    site_manager_id: 1,
+    team_manager_id: 1
+  }
+  infos.append(project_info)
+end
+
+
+infos.each do |project|
   project_information1 = ProjectInformation.create(
     reference: project[:reference], phone:project[:phone],
     responsible:project[:responsible], email:project[:email], 
@@ -203,95 +192,33 @@ CSV.foreach('./Database_security_coordinators.csv', headers: true, encoding:'iso
 end
 
 # Create PPSP
-ppsps = [{
-  address: "test_1 address",
-  start_date: DateTime.new(2020,9,1,17),
-  end_date: DateTime.new(2020,9,10,19),
-  nature: "test_1 nature",
-  workforce: "test_1 workforce",
-  agglomeration: Ppsp::AGGLOMERATIONS.first,
-  street_impact: Ppsp::STREET_IMPACTS[1],
-  river_guidance: Ppsp::RIVER_GUIDANCES[1],
-  user_id: 1,
-  moa_id: 1,
-  moe_id: 1,
-  project_information_id: 2,
-  pension_insurance_id: 1,
-  direcct_id: 1,
-  work_medecine_id: 1,
-  regional_committee_id: 1,
-  security_coordinator_id: 7,
-  demining_id: 1,
-  sos_hand_id: 1,
-  anti_poison_id: 1,
-  hospital_id: 1,
-}, {
-  address: "test_2 address",
-  start_date: DateTime.new(2020,9,1,17),
-  end_date: DateTime.new(2020,9,10,19),
-  nature: "test_2 nature",
-  workforce: "test_2 workforce",
-  agglomeration: Ppsp::AGGLOMERATIONS.last,
-  street_impact: Ppsp::STREET_IMPACTS[2],
-  river_guidance: Ppsp::RIVER_GUIDANCES.first,
-  user_id: 1,
-  moa_id: 2,
-  moe_id: 7,
-  project_information_id: 1,
-  pension_insurance_id: 1,
-  direcct_id: 1,
-  work_medecine_id: 1,
-  regional_committee_id: 1,
-  security_coordinator_id: nil,
-  demining_id: 1,
-  sos_hand_id: 1,
-  anti_poison_id: 1,
-  hospital_id: 3,
-}, {
-  address: "test_3 address",
-  start_date: DateTime.new(2020,9,1,17),
-  end_date: DateTime.new(2020,9,10,19),
-  nature: "test_3 nature",
-  workforce: "test_3 workforce",
-  agglomeration: Ppsp::AGGLOMERATIONS.first,
-  street_impact: Ppsp::STREET_IMPACTS.last,
-  river_guidance: Ppsp::RIVER_GUIDANCES[2],
-  user_id: 2,
-  moa_id: 4,
-  moe_id: 9,
-  project_information_id: 3,
-  pension_insurance_id: 1,
-  direcct_id: 1,
-  work_medecine_id: 1,
-  regional_committee_id: 1,
-  security_coordinator_id: nil,
-  demining_id: 1,
-  sos_hand_id: 1,
-  anti_poison_id: 1, 
-  hospital_id: 4,
-}, {
-  address: "test_3 address",
-  start_date: DateTime.new(2020,9,1,17),
-  end_date: DateTime.new(2020,9,10,19),
-  nature: "test_3 nature",
-  workforce: "test_3 workforce",
-  agglomeration: Ppsp::AGGLOMERATIONS.first,
-  street_impact: Ppsp::STREET_IMPACTS.last,
-  river_guidance: Ppsp::RIVER_GUIDANCES[2],
-  user_id: 3,
-  moa_id: 3,
-  moe_id: 5,
-  project_information_id: 3,
-  pension_insurance_id: 1,
-  direcct_id: 1,
-  work_medecine_id: 1,
-  regional_committee_id: 1,
-  security_coordinator_id: 3,
-  demining_id: 1,
-  sos_hand_id: 1,
-  anti_poison_id: 1, 
-  hospital_id: 5,
-}]
+ppsps = []
+30.times do |n|
+  ppsp = {
+    address: Faker::Address.street_address,
+    start_date: DateTime.new(2020,9,1,17),
+    end_date: DateTime.new(2020,9,10,19),
+    nature: "test_#{n+1} nature",
+    workforce: "test_#{n+1} workforce",
+    agglomeration: Ppsp::AGGLOMERATIONS.sample,
+    street_impact: Ppsp::STREET_IMPACTS.sample,
+    river_guidance: Ppsp::RIVER_GUIDANCES.sample,
+    user_id: rand(User.count) + 1,
+    moa_id: rand(Moa.count) + 1,
+    moe_id: rand(Moe.count) + 1,
+    project_information_id: n+1,
+    pension_insurance_id: rand(PensionInsurance.count) + 1,
+    direcct_id: rand(Direcct.count) + 1,
+    work_medecine_id: rand(WorkMedecine.count) + 1,
+    regional_committee_id: rand(RegionalCommittee.count) + 1,
+    security_coordinator_id: rand(SecurityCoordinator.count) + 1,
+    demining_id: rand(Demining.count) + 1,
+    sos_hand_id: rand(SosHand.count) + 1,
+    anti_poison_id: rand(AntiPoison.count) + 1,
+    hospital_id: rand(Hospital.count) + 1,
+  }
+  ppsps.append(ppsp)
+end
 
 ppsps.each do |ppsp|
   p = Ppsp.create(address: ppsp[:address], start_date: ppsp[:start_date], end_date: ppsp[:end_date], nature: ppsp[:nature], 
