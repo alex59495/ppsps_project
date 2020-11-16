@@ -39,6 +39,13 @@ class CardPpsp extends Component {
     }
   }
 
+  handleClickUser = (e) => {
+    // Avoid to trigger the parent link
+    e.stopPropagation();
+    const win = window.open(`/users/${this.props.user.id}`, '_blank');
+    win.focus();
+  }
+
   render() {
     // If the user if the owner of the PPSP he can edit and delete the PPSP, eles he can't
     if(this.props.currentUser == this.props.user.id) {
@@ -60,7 +67,7 @@ class CardPpsp extends Component {
               <div className="col-7">Date de fin: </div><div className="col-5">{ this.props.end_date }</div>
             </div> 
             <div className="card-ppsp-footer">
-              { `Créé par ${this.props.user_first_name} ${this.props.user_last_name}` }
+              Créé par <span className="card-ppsp-link" onClick={this.handleClickUser}>{`${this.props.user_first_name} ${this.props.user_last_name}`}</span>
             </div>   
           </div>
         </div>
@@ -78,7 +85,7 @@ class CardPpsp extends Component {
               <div className="col-7">Date de fin: </div><div className="col-5">{ this.props.end_date }</div>
             </div> 
             <div className="card-ppsp-footer">
-              { `Créé par ${this.props.user_first_name} ${this.props.user_last_name}` }
+              Créé par <span className="card-ppsp-link" onClick={this.handleClickUser}>{`${this.props.user_first_name} ${this.props.user_last_name}`}</span>`
             </div>   
           </div>
         </div>

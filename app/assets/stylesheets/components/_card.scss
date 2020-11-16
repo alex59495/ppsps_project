@@ -18,22 +18,18 @@
     cursor: pointer;
     box-shadow: 1px 1px 2px 2px $blue-dark;
   }
-
   .card-ppsp-reference {
     text-align: center;
     font-weight: 700;
     font-size: 20px;
   }
-  
   .card-ppsp-body {
     font-size: 14px;
   }
-
   .card-ppsp-footer {
     font-style: italic;
     font-size: 12px;
   }
-  
   .card-ppsp-delete {
     position: relative;
     float: right;
@@ -46,8 +42,7 @@
       color: black;
       text-decoration: none;
     }
-  }
-  
+  } 
   .card-ppsp-edit {
     z-index: 9999;
     position: relative;
@@ -59,6 +54,12 @@
     &:hover{
       color: black;
       text-decoration: none;
+    }
+  }
+  .card-ppsp-link {
+    color: $blue-dark;
+    &:hover {
+      color: black;
     }
   }
 }
