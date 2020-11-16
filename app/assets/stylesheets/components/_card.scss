@@ -98,6 +98,14 @@
   }
 }
 
+.card-profile {
+  background-color: rgb(245, 245, 245);
+  box-shadow:  2px 3px 15px 2px gray;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 3em;
+}
+
 .active {
   background-color: $blue-dark-shadow;
 }
