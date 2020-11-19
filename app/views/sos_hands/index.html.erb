@@ -1,5 +1,5 @@
 <% if policy(SosHand).new? %>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalSosHand">
+  <button type="button" class="btn-blue" data-toggle="modal" data-target="#ModalSosHand">
     Ajouter un centre SOS Mains et Doigts
   </button>
 <% end %>
@@ -9,12 +9,24 @@
     <%= render 'ppsps/modal_sos_hand' %>
   </div>
 <% end %>
-<div class="list-database">
+<div class="container-database">
   <% @sos_hands.each do |sos_hand| %>
-    <div class="card-database">
-      <%= link_to sos_hand, sos_hand_path(sos_hand) %>
-      <%= link_to "Edit", edit_sos_hand_path(sos_hand) %>
-      <%= link_to "x", sos_hand_path(sos_hand), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
-    </div>
-  <% end %>
+      <div class="card-database">
+        <div class="card-db-header">
+          <%= link_to edit_sos_hand_path(sos_hand), class: "card-db-edit", target: '_blank' do %>
+            <i class='fas fa-pencil-alt'></i>
+          <% end %>
+          <%= link_to "x", sos_hand_path(sos_hand), class: "card-db-delete", method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+        </div>
+        <div class="db-element">
+          <%= sos_hand.name %>
+        </div>
+        <div class="db-element">
+          <%= sos_hand.address %>
+        </div>
+        <div class="db-element">
+          <%= sos_hand.phone %>
+        </div>
+      </div>
+    <% end %>
 </div>
