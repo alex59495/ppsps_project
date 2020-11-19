@@ -32,7 +32,8 @@ const initialState = {
   search: '',
   selectedPpsps: [],
   currentUser: current,
-  showUser: show
+  showUser: show,
+  page: 1,
 }
 
 export { initialState }

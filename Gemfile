@@ -38,6 +38,9 @@ gem 'devise-i18n'
 gem "geocoder"
 gem "figaro"
 
+# Kaminari : allow pagination in my controller API for PPSP
+gem 'kaminari'
+
 # React
 gem 'react-rails'
 

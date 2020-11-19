@@ -10,7 +10,8 @@ class Api::V1::PpspsController < Api::V1::BaseController
     else
       users = User.where(id: params[:show_user])
     end
-    @ppsps = policy_scope(Ppsp.where(user: users))
+    # Use the Kaminari gem to handle the pagination request to limit the number of element we display
+    params[:page] ? @ppsps = policy_scope(Ppsp.where(user: users).page(params[:page]).per(12)) : @ppsps = policy_scope(Ppsp.where(user: users))
   end
 
   def show

@@ -1,18 +1,38 @@
 import React, { Component } from 'react'
 // import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
+// React Waypoint is a library that provides us with a beautiful little component called a Waypoint that detects when we enter it and can call functions onEnter, onLeave...
+import { Waypoint } from 'react-waypoint';
 
 import CardPpsp from './card_ppsp'
-import { fetchPpsps } from '../actions/index'
+import { fetchPpsps, loadMore } from '../actions/index'
 
 class ListPpsp extends Component {
   componentDidMount() {
-      this.props.fetchPpsps(this.props.showUser);
+    this.props.fetchPpsps(this.props.showUser);
+    this.props.loadMore(this.props.showUser, this.props.page);
+    document.addEventListener('scroll', this.trackScrolling);
   }
+
+  componentDidUpdate() {
+    document.addEventListener('scroll', this.trackScrolling);
+  }
+
+  isBottom(el) {
+    return el.getBoundingClientRect().bottom <= window.innerHeight;
+  }
+
+  trackScrolling = () => {
+    const wrappedElement = document.getElementById('contPpsps');
+    if (this.isBottom(wrappedElement) && (this.props.selectedPpsps.length < this.props.ppsps.length)) {
+      this.props.loadMore(this.props.showUser, this.props.page);
+      document.removeEventListener('scroll', this.trackScrolling);
+    }
+  };
 
   render () {
     return (
-      <div className="container-ppsp">
+      <div className="container-ppsp" id="contPpsps">
         {this.props.selectedPpsps.map((ppsp) => {
           return <CardPpsp 
             key={ppsp.id} id={ppsp.id} reference={ppsp.project_information.reference} 
@@ -27,14 +47,17 @@ class ListPpsp extends Component {
 
 const mapStateToProps = (state) => {
   return ({
+    ppsps: state.ppsps,
     selectedPpsps: state.selectedPpsps,
-    showUser: state.showUser
+    showUser: state.showUser,
+    page: state.page
   });
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchPpsps: (showUser) => dispatch(fetchPpsps(showUser)),
+    loadMore: (showUser, page) => dispatch(loadMore(showUser, page))
   }
 }
 

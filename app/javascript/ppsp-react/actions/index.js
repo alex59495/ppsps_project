@@ -1,12 +1,10 @@
 export const FETCH_PPSPS = 'FETCH_PPSPS'
 export const SEARCH_QUERY = 'SEARCH_QUERY'
-export const FETCH_USER_PPSPS = 'SEARCH_QUERY'
+export const LOAD_MORE = 'LOAD_MORE'
 
 
 export const fetchPpsps = (showUser) => {
-  const show_user = showUser;
-  console.log(show_user);
-  const promise = fetch(`/api/v1/ppsps?show_user=${show_user}`)
+  const promise = fetch(`/api/v1/ppsps?show_user=${showUser}`)
     .then(response => response.json())
   return {
     type: FETCH_PPSPS,
@@ -14,7 +12,14 @@ export const fetchPpsps = (showUser) => {
   };
 }
 
-
+export const loadMore = (showUser, page) => {
+  const promise = fetch(`/api/v1/ppsps?show_user=${showUser}&page=${page}`)
+    .then(response => response.json())
+  return {
+    type: LOAD_MORE,
+    payload: promise,
+  };
+}
 
 export const searchPpsp = (query) => {
   return {
