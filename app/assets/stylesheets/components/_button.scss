@@ -97,3 +97,13 @@ $btn-add-size: 25px;
     color: $orange-dark
   }
 }
+
+.link-db {
+  margin-bottom: 10px;
+  a {
+    color: $orange;
+    &:hover{
+      color: $orange-dark
+    }
+  }
+}

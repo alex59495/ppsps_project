@@ -5,8 +5,8 @@ $(document).ready(function() {
   if (document.querySelector(".ppsp_anti_poison_id")) {
     document.querySelector(".ppsp_anti_poison_id").innerHTML = "<%= j(render 'form_field_anti_poison') %>";
   }
-  if (document.querySelector(".list-database")) {
-    document.querySelector(".list-database").innerHTML = "<%= j(render 'list_anti_poisons') %>";
+  if (document.querySelector(".container-database")) {
+    document.querySelector(".container-database").innerHTML = "<%= j(render 'list_anti_poisons') %>";
   }
 })
 

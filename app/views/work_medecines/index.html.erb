@@ -1,8 +1,13 @@
 <div class="container">
+  <div class="link-db">
+    <%= link_to "Revenir aux bases de données", database_path %>
+  </div>
   <% if policy(WorkMedecine).new? %>
-    <button type="button" class="btn-blue" data-toggle="modal" data-target="#ModalWorkMedecine">
-      Ajouter un médecin du travail
-    </button>
+    <div>
+      <button type="button" class="btn-blue" data-toggle="modal" data-target="#ModalWorkMedecine">
+        Ajouter un médecin du travail
+      </button>
+    </div>
   <% end %>
   <%# Modal Work Medecine %>
   <% if policy(WorkMedecine).new? %>

@@ -1,20 +1,39 @@
-<% if policy(Direcct).new? %>
-  <button type="button" class="btn-blue" data-toggle="modal" data-target="#ModalDirecct">
-    Ajouter un DIRECCT
-  </button>
-<% end %>
-<%# Modal Direcct %>
-<% if policy(Direcct).new? %>
-  <div class="modal fade" id="ModalDirecct" tabindex="-1" role="dialog" aria-labelledby="ModalDirecct" aria-hidden="true">
-    <%= render 'ppsps/modal_direcct' %>
+<div class="container">
+  <div class="link-db">
+    <%= link_to "Revenir aux bases de données", database_path %>
   </div>
-<% end %>
-<div class="list-database">
-  <% @direccts.each do |direcct| %>
-    <div class="card-database">
-      <%= link_to direcct, direcct_path(direcct) %>
-      <%= link_to "Edit", edit_direcct_path(direcct) %>
-      <%= link_to "x", direcct_path(direcct), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+  <% if policy(Direcct).new? %>
+    <div>
+      <button type="button" class="btn-blue" data-toggle="modal" data-target="#ModalDirecct">
+        Ajouter un DIRECCT
+      </button>
     </div>
   <% end %>
+  <%# Modal Direcct %>
+  <% if policy(Direcct).new? %>
+    <div class="modal fade" id="ModalDirecct" tabindex="-1" role="dialog" aria-labelledby="ModalDirecct" aria-hidden="true">
+      <%= render 'ppsps/modal_direcct' %>
+    </div>
+  <% end %>
+  <div class="container-database">
+    <% @direccts.each do |direcct| %>
+      <div class="card-database">
+        <div class="card-db-header">
+          <%= link_to edit_direcct_path(direcct), class: "card-db-edit", target: '_blank' do %>
+            <i class='fas fa-pencil-alt'></i>
+          <% end %>
+          <%= link_to "x", direcct_path(direcct), class: "card-db-delete", method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+        </div>
+        <div class="db-element">
+          <%= direcct.address %>
+        </div>
+        <div class="db-element">
+          <%= direcct.phone %>
+        </div>
+        <div class="db-element">
+          <%= direcct.fax %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

@@ -1,7 +1,25 @@
 <% @moes.each do |moe| %>
   <div class="card-database">
-    <%= link_to moe, mo_path(moe) %>
-    <%= link_to "Edit", edit_mo_path(moe) %>
-    <%= link_to "x", mo_path(moe), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+    <div class="card-db-header">
+      <%= link_to edit_mo_path(moe), class: "card-db-edit", target: '_blank' do %>
+        <i class='fas fa-pencil-alt'></i>
+      <% end %>
+      <%= link_to "x", mo_path(moe), class: "card-db-delete", method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+    </div>
+    <div class="db-element">
+      <%= moe.name %>
+    </div>
+    <div class="db-element">
+      <%= moe.address %>
+    </div>
+    <div class="db-element">
+      <%= moe.representative %>
+    </div>
+    <div class="db-element">
+      <%= moe.phone %>
+    </div>
+    <div class="db-element">
+      <%= moe.email %>
+    </div>
   </div>
 <% end %>

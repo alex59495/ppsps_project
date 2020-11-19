@@ -1,20 +1,45 @@
-<% if policy(Moa).new? %>
-  <button type="button" class="btn-blue" data-toggle="modal" data-target="#ModalMoa">
-    Ajouter un Maître d'ouvrage
-  </button>
-<% end %>
-<%# Modal Moa %>
-<% if policy(Moa).new? %>
-  <div class="modal fade" id="ModalMoa" tabindex="-1" role="dialog" aria-labelledby="ModalMoa" aria-hidden="true">
-    <%= render 'ppsps/modal_moa' %>
+<div class="container">
+  <div class="link-db">
+    <%= link_to "Revenir aux bases de données", database_path %>
   </div>
-<% end %>
-<div class="list-database">
-  <% @moas.each do |moa| %>
-    <div class="card-database">
-      <%= link_to moa, moa_path(moa) %>
-      <%= link_to "Edit", edit_moa_path(moa) %>
-      <%= link_to "x", moa_path(moa), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+  <% if policy(Moa).new? %>
+    <div>
+      <button type="button" class="btn-blue" data-toggle="modal" data-target="#ModalMoa">
+        Ajouter un Maître d'ouvrage
+      </button>
     </div>
   <% end %>
+  <%# Modal Moa %>
+  <% if policy(Moa).new? %>
+    <div class="modal fade" id="ModalMoa" tabindex="-1" role="dialog" aria-labelledby="ModalMoa" aria-hidden="true">
+      <%= render 'ppsps/modal_moa' %>
+    </div>
+  <% end %>
+  <div class="container-database">
+    <% @moas.each do |moa| %>
+      <div class="card-database">
+        <div class="card-db-header">
+          <%= link_to edit_moa_path(moa), class: "card-db-edit", target: '_blank' do %>
+            <i class='fas fa-pencil-alt'></i>
+          <% end %>
+          <%= link_to "x", moa_path(moa), class: "card-db-delete", method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+        </div>
+        <div class="db-element">
+          <%= moa.name %>
+        </div>
+        <div class="db-element">
+          <%= moa.address %>
+        </div>
+        <div class="db-element">
+          <%= moa.representative %>
+        </div>
+        <div class="db-element">
+          <%= moa.phone %>
+        </div>
+        <div class="db-element">
+          <%= moa.email %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

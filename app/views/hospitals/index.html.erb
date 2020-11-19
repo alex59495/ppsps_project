@@ -1,20 +1,39 @@
-<% if policy(Hospital).new? %>
-  <button type="button" class="btn-blue" data-toggle="modal" data-target="#ModalHospital">
-    Ajouter un Hôpital
-  </button>
-<% end %>
-<%# Modal Hospital %>
-<% if policy(Hospital).new? %>
-  <div class="modal fade" id="ModalHospital" tabindex="-1" role="dialog" aria-labelledby="ModalHospital" aria-hidden="true">
-    <%= render 'ppsps/modal_hospital' %>
+<div class="container">
+  <div class="link-db">
+    <%= link_to "Revenir aux bases de données", database_path %>
   </div>
-<% end %>
-<div class="list-database">
-  <% @hospitals.each do |hospital| %>
-    <div class="card-database">
-      <%= link_to hospital, hospital_path(hospital) %>
-      <%= link_to "Edit", edit_hospital_path(hospital) %>
-      <%= link_to "x", hospital_path(hospital), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+  <% if policy(Hospital).new? %>
+    <div>
+      <button type="button" class="btn-blue" data-toggle="modal" data-target="#ModalHospital">
+        Ajouter un Hôpital
+      </button>
     </div>
   <% end %>
+  <%# Modal Hospital %>
+  <% if policy(Hospital).new? %>
+    <div class="modal fade" id="ModalHospital" tabindex="-1" role="dialog" aria-labelledby="ModalHospital" aria-hidden="true">
+      <%= render 'ppsps/modal_hospital' %>
+    </div>
+  <% end %>
+  <div class="container-database">
+    <% @hospitals.each do |hospital| %>
+      <div class="card-database">
+        <div class="card-db-header">
+          <%= link_to edit_hospital_path(hospital), class: "card-db-edit", target: '_blank' do %>
+            <i class='fas fa-pencil-alt'></i>
+          <% end %>
+          <%= link_to "x", hospital_path(hospital), class: "card-db-delete", method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+        </div>
+        <div class="db-element">
+          <%= hospital.name %>
+        </div>
+        <div class="db-element">
+          <%= hospital.address %>
+        </div>
+        <div class="db-element">
+          <%= hospital.phone %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
