@@ -16,30 +16,51 @@ class ListPpsp extends Component {
     document.addEventListener('scroll', this.trackScrolling);
   }
 
+  // Test if we are at the bottom of the page
   isBottom(el) {
     return el.getBoundingClientRect().bottom <= window.innerHeight;
+  }
+
+  // Active the Loading Gif and charge more Ppsps
+  chargeLoad(removeLoad, loadMore) {
+    // Had to divide into constantes because, can't call the arguments this.props inside the fcallback setTimeout function
+    const showUser = this.props.showUser
+    const page = this.props.page
+    document.getElementById('loading').style.display = 'block'
+    setTimeout(function() {
+      removeLoad(),
+      loadMore(showUser, page)
+    }, 1000)
+  }
+
+  // Remove the Loading Gif
+  removeLoad() {
+    document.getElementById('loading').style.display = 'none'
   }
 
   trackScrolling = () => {
     const wrappedElement = document.getElementById('contPpsps');
     if (this.isBottom(wrappedElement) && (this.props.selectedPpsps.length < this.props.ppsps.length)) {
-      this.props.loadMore(this.props.showUser, this.props.page);
+      // Show the Loading element + remove and charge the Ppsps in the callback
+      this.chargeLoad(this.removeLoad, this.props.loadMore)
       document.removeEventListener('scroll', this.trackScrolling);
     }
   };
 
   render () {
     return (
-      <div className="container-ppsp" id="contPpsps">
-        {this.props.selectedPpsps.map((ppsp) => {
-          return <CardPpsp 
-            key={ppsp.id} id={ppsp.id} reference={ppsp.project_information.reference} 
-            user_first_name = {ppsp.user.first_name} user_last_name = {ppsp.user.last_name}
-            start_date = {ppsp.start_date} end_date = {ppsp.end_date} address={ppsp.address}
-            user = {ppsp.user} />
-        })}
+      <React.Fragment>
+        <div className="container-ppsp" id="contPpsps">
+          {this.props.selectedPpsps.map((ppsp) => {
+            return <CardPpsp 
+              key={ppsp.id} id={ppsp.id} reference={ppsp.project_information.reference} 
+              user_first_name = {ppsp.user.first_name} user_last_name = {ppsp.user.last_name}
+              start_date = {ppsp.start_date} end_date = {ppsp.end_date} address={ppsp.address}
+              user = {ppsp.user} />
+          })}
+        </div>
         <div className="loading" id="loading"></div>
-      </div>
+      </React.Fragment>
     )
   }
 }
