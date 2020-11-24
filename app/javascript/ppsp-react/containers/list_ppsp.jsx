@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 // import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
-// React Waypoint is a library that provides us with a beautiful little component called a Waypoint that detects when we enter it and can call functions onEnter, onLeave...
-import { Waypoint } from 'react-waypoint';
 
 import CardPpsp from './card_ppsp'
 import { fetchPpsps, loadMore } from '../actions/index'
@@ -40,6 +38,7 @@ class ListPpsp extends Component {
             start_date = {ppsp.start_date} end_date = {ppsp.end_date} address={ppsp.address}
             user = {ppsp.user} />
         })}
+        <div className="loading" id="loading"></div>
       </div>
     )
   }

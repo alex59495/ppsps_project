@@ -51,7 +51,7 @@ class CardPpsp extends Component {
     // If the user if the owner of the PPSP he can edit and delete the PPSP, eles he can't
     if(this.props.currentUser == this.props.user.id) {
       return (
-        <div>
+        <React.Fragment>
           <div className="card-ppsp" onClick={this.handleCard}>
             <div className="card-ppsp-header">
               <div className="card-ppsp-delete" onClick={this.handleDelete}>x</div>
@@ -71,11 +71,11 @@ class CardPpsp extends Component {
               Créé par <span className="card-ppsp-link" onClick={this.handleClickUser}>{`${this.props.user_first_name} ${this.props.user_last_name}`}</span>
             </div>   
           </div>
-        </div>
+        </React.Fragment>
       )
     } {
       return (
-        <div>
+        <React.Fragment>
           <div className="card-ppsp" onClick={this.handleCard}>
             <div className="card-ppsp-reference">
               {`Reference ${this.props.reference}`}
@@ -89,7 +89,7 @@ class CardPpsp extends Component {
               Créé par <span className="card-ppsp-link" onClick={this.handleClickUser}>{`${this.props.user_first_name} ${this.props.user_last_name}`}</span>`
             </div>   
           </div>
-        </div>
+        </React.Fragment>
       )
     }
   }

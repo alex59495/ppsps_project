@@ -5,10 +5,10 @@ import ListPpsp from '../containers/list_ppsp'
 
 const ReactApp = () => {
   return (
-    <div>
+    <React.Fragment>
       <SearchBar />
       <ListPpsp />
-    </div>
+    </React.Fragment>
   )
 }
 
