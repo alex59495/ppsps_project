@@ -1,14 +1,5 @@
 class SiteManagersController < ApplicationController
-  before_action :find_site_manager, only: [ :update, :show, :destroy, :edit ]
-
-  def index
-    @site_managers = policy_scope(SiteManager)
-  end
-
-  def new
-    @site_manager = SiteManager.new
-    authorize @site_manager
-  end
+  before_action :find_site_manager, only: [ :update ]
 
   def create
     @site_manager = SiteManager.new(params_site_manager)
@@ -20,9 +11,6 @@ class SiteManagersController < ApplicationController
     end
   end
 
-  def edit
-    authorize @site_manager
-  end
 
   def update
     authorize @site_manager

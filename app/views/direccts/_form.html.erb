@@ -2,7 +2,7 @@
   <%= f.input :address, label: 'Adresse'%>
   <%= f.input :phone, label: 'Téléphone' %>
   <%= f.input :fax, label: 'Fax' %>
-  <% if params[:action] == 'new' %>
+  <% if params[:action] == 'new' || params[:action] == 'index' %>
     <%= f.submit 'Créer un DIRECCT', class: 'btn-blue' %>
   <% else %>
     <%= f.submit 'Modifier ce DIRECCT', class: 'btn-blue' %>

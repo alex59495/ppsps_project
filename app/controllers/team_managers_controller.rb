@@ -1,14 +1,5 @@
 class TeamManagersController < ApplicationController
-  before_action :find_team_manager, only: [ :update, :show, :destroy, :edit ]
-
-  def index
-    @team_managers = policy_scope(TeamManager)
-  end
-
-  def new
-    @team_manager = TeamManager.new
-    authorize @team_manager
-  end
+  before_action :find_team_manager, only: [ :update ]
 
   def create
     @team_manager = TeamManager.new(params_team_manager)
@@ -18,10 +9,6 @@ class TeamManagersController < ApplicationController
     else
       render :new
     end
-  end
-
-  def edit
-    authorize @team_manager
   end
 
   def update
