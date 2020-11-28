@@ -6,12 +6,12 @@ class Api::V1::PpspsController < Api::V1::BaseController
     # - On the show page (in this case show_user exist and it has the value of the user.id of the show page we are looking at)
     # - On the index page (in this case the show_user is empty)
     if params[:show_user].nil? || params[:show_user] == ''
-      users = User.where(company: current_user.company)
+      users = User.where(company: current_user.company).order(updated_at: :desc)
     else
-      users = User.where(id: params[:show_user])
+      users = User.where(id: params[:show_user]).order(updated_at: :desc)
     end
     # Use the Kaminari gem to handle the pagination request to limit the number of element we display
-    params[:page] ? @ppsps = policy_scope(Ppsp.where(user: users).page(params[:page]).per(12)) : @ppsps = policy_scope(Ppsp.where(user: users))
+    params[:page] ? @ppsps = policy_scope(Ppsp.where(user: users).page(params[:page]).per(12).order(updated_at: :desc)) : @ppsps = policy_scope(Ppsp.where(user: users).order(updated_at: :desc))
   end
 
   def show
