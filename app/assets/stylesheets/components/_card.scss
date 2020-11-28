@@ -66,14 +66,20 @@
   box-shadow:  2px 3px 10px 2px $blue-dark-shadow;
   padding: 8px;
   border-radius: 8px;
-  .card-info-title{
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  max-width: 330px;
+  .card-info-title {
     font-size: 20px;
     font-weight: 500;
   }
   .card-info-selected {
     display: flex;
+    align-items: center;
   }
-  .card-info-delete {
+  .card-info-delete a {
     float: right;
     border: none;
     color: $blue-dark;

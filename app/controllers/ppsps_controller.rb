@@ -97,6 +97,7 @@ class PpspsController < ApplicationController
     @selected_risk_active = SelectedRisk.where(ppsp_id: @ppsp.id)
     # Input of the option of subcontractors for the form
     @subcontractor = Subcontractor.new
+    (@selected_installation_active.count > 0 || @selected_altitude_active.count > 0 || @selected_risk_active.count > 0 || @ppsp.subcontractors.count > 0) ? @show_select = true : @show_select = false
   end
 
   def edit
