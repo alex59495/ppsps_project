@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { fetchPpsps, loadMore } from '../actions/index'
+import { fetchPpsps } from '../actions/index'
 
 
 class CardPpsp extends Component {
@@ -31,7 +31,6 @@ class CardPpsp extends Component {
         url: `/api/v1/ppsps/${this.props.id}`,
         success: function(data) {
           this.props.fetchPpsps(this.props.showUser);
-          this.props.loadMore(this.props.showUser, this.props.page);
         }.bind(this),
         error: function(xhr, status, error) {
           alert('Vous ne pouvez pas supprimer cet élément', error);
@@ -106,7 +105,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchPpsps: (showUser) => dispatch(fetchPpsps(showUser)),
-    loadMore: (showUser, page) => dispatch(loadMore(showUser, page))
   }
 }
 

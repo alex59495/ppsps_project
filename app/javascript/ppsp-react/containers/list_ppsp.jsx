@@ -8,7 +8,6 @@ import { fetchPpsps, loadMore } from '../actions/index'
 class ListPpsp extends Component {
   componentDidMount() {
     this.props.fetchPpsps(this.props.showUser);
-    this.props.loadMore(this.props.showUser, this.props.page);
     document.addEventListener('scroll', this.trackScrolling);
   }
 

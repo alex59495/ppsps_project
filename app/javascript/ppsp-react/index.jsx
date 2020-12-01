@@ -33,7 +33,7 @@ const initialState = {
   selectedPpsps: [],
   currentUser: current,
   showUser: show,
-  page: 1,
+  page: 2,
 }
 
 export { initialState }

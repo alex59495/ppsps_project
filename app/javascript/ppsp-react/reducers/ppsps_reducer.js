@@ -8,15 +8,19 @@ import { initialState } from '../index'
 
 const reducerPpsps = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_PPSPS:
+    case FETCH_PPSPS: 
       return {
         ...state,
         ppsps: action.payload,
+        // Just select the 12 first elements
+        selectedPpsps: action.payload.slice(0,12),
+        // Reinitialize the infinite scroll when use the search bar
+        page: 2,
       }
     case LOAD_MORE:
       return {
         ...state,
-        // If not the list is empty before the first search action
+        // If the list is not empty before the first search action
         selectedPpsps: state.selectedPpsps.concat(action.payload),
         page: state.page + 1
       }
