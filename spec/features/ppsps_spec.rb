@@ -33,6 +33,17 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
     before do
       user = create(:user_admin)
       @ppsp = create(:ppsp, user: user)
+      create(:moa, company: user.company)
+      create(:moe, company: user.company)
+      create(:direcct, company: user.company)
+      create(:pension_insurance, company: user.company)
+      create(:work_medecine, company: user.company)
+      create(:hospital, company: user.company)
+      create(:demining, company: user.company)
+      create(:anti_poison, company: user.company)
+      create(:regional_committee, company: user.company)
+      create(:sos_hand, company: user.company)
+      create(:security_coordinator, company: user.company)
       login_as(user)
     end
    
@@ -45,12 +56,15 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       visit(ppsps_path)
       click_link 'Modifier les bases de données'
       click_link "Voir la liste des maitres d'ouvrage"
-      first('.card-database').click_link('Edit')
-      fill_in('moa_name', with: 'Update the name')
-      click_button('MoaBtn')
-      moas = Moa.all.order(updated_at: :desc)
-      expect(page).to have_current_path(moas_path)
-      expect(moas.first.name).to eq('Update the name')
+      # Open a new window
+      new_window = window_opened_by { first('.card-database').find('.card-db-edit').click }
+      within_window new_window do
+        fill_in('moa_name', with: 'Update the name')
+        click_button('MoaBtn')
+        moas = Moa.all.order(updated_at: :desc)
+        expect(page).to have_current_path(moas_path)
+        expect(moas.first.name).to eq('Update the name')
+      end
     end
 
     scenario 'Click on the Edit link' do
@@ -74,7 +88,6 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       # Select an end_date after start_date
       find('#ppsp_start_date_3i').find(:xpath, 'option[3]').select_option
       find('#ppsp_end_date_3i').find(:xpath, 'option[4]').select_option
-
       find('#ppsp_moa_id').find(:xpath, 'option[2]').select_option
       find('#ppsp_moe_id').find(:xpath, 'option[2]').select_option
       fill_in('ppsp_project_information_attributes_reference', with: "ABRFH78")
@@ -99,15 +112,9 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#ppsp_agglomeration').find(:xpath, 'option[2]').select_option
       find('#ppsp_street_impact').find(:xpath, 'option[2]').select_option
       find('#ppsp_river_guidance').find(:xpath, 'option[2]').select_option
-      expect {click_button 'Créer un nouveau PPSP'}.to change(Ppsp, :count).by(1)
+      click_button 'Créer un nouveau PPSP'
       expect(page).to have_current_path(informations_supplementaires_ppsp_path(Ppsp.last))
     end
- 
-    # scenario 'Click on the Show Page' do
-    #   visit(ppsps_path)
-    #   click_link @ppsp.project_information.reference
-    #   expect(page).to have_current_path(ppsp_path(@ppsp))
-    # end
 
     scenario 'Show Page have content' do
       visit(ppsp_path(@ppsp))
@@ -127,7 +134,6 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       new_window = window_opened_by {  find('.card-ppsp-edit').click }
       within_window new_window do
         fill_in('ppsp_project_information_attributes_site_manager_attributes_name', with: 'Update chef de chantier')
-        # Need the reload in order to see the modif
         expect{click_button('Mettre à jour le PPSP')}.to change{ @ppsp.reload.project_information.site_manager.name }
           .from('Test de chef de chantier')
           .to('Update chef de chantier')

@@ -5,6 +5,7 @@ FactoryBot.define do
     representative { Faker::Name.name }
     phone { '0300000000' }
     email { Faker::Internet.email }
+    company
 
     factory :moe_update do
       name { 'Name updated'}
@@ -12,6 +13,7 @@ FactoryBot.define do
       representative { 'Representative updated' }
       phone { '0328282828' }
       email { 'test@gmail.com' }
+      company
     end
   end
 end

@@ -2,16 +2,13 @@ class AntiPoisonsController < ApplicationController
   before_action :find_anti_poison, only: [ :update, :show, :destroy, :edit ]
 
   def index
-    @anti_poisons = policy_scope(AntiPoison)
+    @anti_poisons = policy_scope(AntiPoison.where(company: current_user.company))
     @anti_poison = AntiPoison.new
-  end
-
-  def show
-    authorize @anti_poison
   end
 
   def create
     @anti_poison = AntiPoison.new(params_anti_poison)
+    @anti_poison.company = current_user.company
     authorize @anti_poison
     if @anti_poison.save
       # Create an ordered list to use in the view 'anti_poison/_form_field_anti_poison'
@@ -50,7 +47,7 @@ class AntiPoisonsController < ApplicationController
 
   private
   def params_anti_poison
-    params.require(:anti_poison).permit(:address, :name, :phone)
+    params.require(:anti_poison).permit(:address, :name, :phone, :company)
   end
 
   def find_anti_poison

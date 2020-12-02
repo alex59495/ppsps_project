@@ -5,5 +5,6 @@ FactoryBot.define do
     representative { Faker::Name.name }
     phone { '0300000000' }
     email { Faker::Internet.email }
+    company
   end
 end

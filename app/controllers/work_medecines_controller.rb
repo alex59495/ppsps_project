@@ -2,17 +2,13 @@ class WorkMedecinesController < ApplicationController
   before_action :find_work_medecine, only: [ :update, :show, :destroy, :edit ]
 
   def index
-    @work_medecines = policy_scope(WorkMedecine)
+    @work_medecines = policy_scope(WorkMedecine.where(company: current_user.company))
     @work_medecine = WorkMedecine.new
-
-  end
-
-  def show
-    authorize @work_medecine
   end
 
   def create
     @work_medecine = WorkMedecine.new(params_work_medecine)
+    @work_medecine.company = current_user.company
     authorize @work_medecine
     if @work_medecine.save
       # Create an ordered list to use in the view 'work_medecine/_form_field_work_medecine'
@@ -50,7 +46,7 @@ class WorkMedecinesController < ApplicationController
 
   private
   def params_work_medecine
-    params.require(:work_medecine).permit(:address, :fax, :phone)
+    params.require(:work_medecine).permit(:address, :fax, :phone, :company)
   end
 
   def find_work_medecine

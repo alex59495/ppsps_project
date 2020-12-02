@@ -1,5 +1,5 @@
 <div class="container mb-3">
-  <%= link_to "Revenir à mes PPSP", ppsps_path, class: 'link' %>
+  <%= link_to "Revenir à mes PPSP", ppsps_path, class: 'link', data: { turbolinks: false } %>
   <div class="row justify-content-center">
     <%= simple_form_for @ppsp do |f| %>
       <div class="col-6 offset-3">
@@ -30,7 +30,7 @@
                 </button>
               <% end %>
             </div>
-            <%= f.input :moa_id, as: :select, label: false, collection: Moa.all, label_method: lambda {|x| "#{x.name} - #{x.representative}"} %>
+            <%= f.input :moa_id, as: :select, label: false, collection: Moa.where(company: current_user.company), label_method: lambda {|x| "#{x.name} - #{x.representative}"} %>
           </div>
         </div>
         <div class="col-6">
@@ -43,7 +43,7 @@
                 </button>
               <% end %>
             </div>
-            <%= f.input :moe_id, as: :select, label: false, collection: Moe.all, label_method: lambda {|x| "#{x.name} - #{x.representative}"} %>
+            <%= f.input :moe_id, as: :select, label: false, collection: Moe.where(company: current_user.company), label_method: lambda {|x| "#{x.name} - #{x.representative}"} %>
           </div>
         </div>
       </div>
@@ -94,7 +94,7 @@
                 </button>
               <% end %>
             </div>
-            <%= f.input :regional_committee_id, as: :select, label: false, collection: RegionalCommittee.all, label_method: lambda {|x| "#{x.name}"} %>
+            <%= f.input :regional_committee_id, as: :select, label: false, collection: RegionalCommittee.where(company: current_user.company), label_method: lambda {|x| "#{x.name}"} %>
           </div>
         </div>
         <div class="col-4">
@@ -107,7 +107,7 @@
                 </button>
               <% end %>
             </div>
-            <%= f.input :pension_insurance_id, as: :select, label: false, collection: PensionInsurance.all, label_method: lambda {|x| "#{x.address} - #{x.phone}"} %>
+            <%= f.input :pension_insurance_id, as: :select, label: false, collection: PensionInsurance.where(company: current_user.company), label_method: lambda {|x| "#{x.address} - #{x.phone}"} %>
           </div>
         </div>
         <div class="col-4">
@@ -120,7 +120,7 @@
                 </button>
               <% end %>
             </div>
-            <%= f.input :direcct_id, as: :select, label: false, collection: Direcct.all, label_method: lambda {|x| "#{x.address} - #{x.phone}"} %>
+            <%= f.input :direcct_id, as: :select, label: false, collection: Direcct.where(company: current_user.company), label_method: lambda {|x| "#{x.address} - #{x.phone}"} %>
           </div>
         </div>
         <div class="col-4">
@@ -133,7 +133,7 @@
                 </button>
               <% end %>
             </div>
-            <%= f.input :work_medecine_id, as: :select, label: false, collection: WorkMedecine.all, label_method: lambda {|x| "#{x.address} - #{x.phone}"} %>
+            <%= f.input :work_medecine_id, as: :select, label: false, collection: WorkMedecine.where(company: current_user.company), label_method: lambda {|x| "#{x.address} - #{x.phone}"} %>
           </div>
         </div>
         <div class="col-4">
@@ -146,7 +146,7 @@
                 </button>
               <% end %>
             </div>
-            <%= f.input :demining_id, as: :select, label: false, collection: Demining.all, label_method: lambda {|x| "#{x.name}"} %>
+            <%= f.input :demining_id, as: :select, label: false, collection: Demining.where(company: current_user.company), label_method: lambda {|x| "#{x.name}"} %>
           </div>
         </div>
         <div class="col-4">
@@ -159,7 +159,7 @@
                 </button>
               <% end %>
             </div>
-              <%= f.input :sos_hand_id, as: :select, label: false, collection: SosHand.all, label_method: lambda {|x| "#{x.name}"} %>
+              <%= f.input :sos_hand_id, as: :select, label: false, collection: SosHand.where(company: current_user.company), label_method: lambda {|x| "#{x.name}"} %>
           </div>
         </div>
         <div class="col-4 offset-4">
@@ -172,7 +172,7 @@
                 </button>
               <% end %>
             </div>
-            <%= f.input :anti_poison_id, as: :select, label: false, collection: AntiPoison.all, label_method: lambda {|x| "#{x.name}"} %>
+            <%= f.input :anti_poison_id, as: :select, label: false, collection: AntiPoison.where(company: current_user.company), label_method: lambda {|x| "#{x.name}"} %>
           </div>
         </div>
       </div>
@@ -186,7 +186,7 @@
               </button>
             <% end %>
           </div>
-          <%= f.input :hospital_id, as: :select, collection: Hospital.all, label: false, label_method: lambda { |x| "#{x.name}"} %>
+          <%= f.input :hospital_id, as: :select, collection: Hospital.where(company: current_user.company), label: false, label_method: lambda { |x| "#{x.name}"} %>
         </div>
       </div>
       <div class="col-6 offset-3">
@@ -199,7 +199,7 @@
               </button>
             <% end %>
           </div>
-          <%= f.input :security_coordinator_id, as: :select, collection: SecurityCoordinator.all, label: false, label_method: lambda { |x| "#{x.name} - #{x.representative}" } %>
+          <%= f.input :security_coordinator_id, as: :select, collection: SecurityCoordinator.where(company: current_user.company), label: false, label_method: lambda { |x| "#{x.name} - #{x.representative}" } %>
         </div>
       </div>
       <div class="row">

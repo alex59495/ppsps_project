@@ -57,7 +57,7 @@ class PpspsController < ApplicationController
 
   def create
     @ppsp = Ppsp.new(params_ppsp)
-    @security_coordinator = SecurityCoordinator.new
+    @security_coordinator = (@ppsp.security_coordinator || SecurityCoordinator.new)
     @hospital = Hospital.new
     @moa = Moa.new
     @moe = Moe.new
@@ -106,6 +106,7 @@ class PpspsController < ApplicationController
     @project_information = @ppsp.project_information
     @site_manager = @ppsp.project_information.site_manager
     @team_manager = @ppsp.project_information.team_manager
+    
     @security_coordinator = (@ppsp.security_coordinator || SecurityCoordinator.new)
     @hospital = Hospital.new
     @moa = Moa.new
@@ -126,7 +127,7 @@ class PpspsController < ApplicationController
     @site_manager = @ppsp.project_information.site_manager
     @team_manager = @ppsp.project_information.team_manager
 
-    @security_coordinator = SecurityCoordinator.new
+    @security_coordinator = (@ppsp.security_coordinator || SecurityCoordinator.new)
     @hospital = Hospital.new
     @moa = Moa.new
     @moe = Moe.new

@@ -4,7 +4,6 @@ class CreateTeamManagers < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :phone
       t.string :email
-
       t.timestamps
     end
   end

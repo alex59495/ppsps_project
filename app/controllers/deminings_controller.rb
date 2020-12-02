@@ -2,16 +2,13 @@ class DeminingsController < ApplicationController
   before_action :find_demining, only: [ :update, :show, :destroy, :edit ]
 
   def index
-    @deminings = policy_scope(Demining)
+    @deminings = policy_scope(Demining.where(company: current_user.company))
     @demining = Demining.new
-  end
-
-  def show
-    authorize @hospital
   end
 
   def create
     @demining = Demining.new(params_demining)
+    @demining.company = current_user.company
     authorize @demining
     if @demining.save
       # Create an ordered list to use in the view 'demining/_form_field_demining'
@@ -49,7 +46,7 @@ class DeminingsController < ApplicationController
 
   private
   def params_demining
-    params.require(:demining).permit(:address, :name, :phone)
+    params.require(:demining).permit(:address, :name, :phone, :company)
   end
 
   def find_demining

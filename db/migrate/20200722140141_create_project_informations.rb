@@ -5,7 +5,6 @@ class CreateProjectInformations < ActiveRecord::Migration[6.0]
       t.string :responsible
       t.string :phone
       t.string :email
-
       t.timestamps
     end
   end

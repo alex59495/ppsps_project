@@ -2,16 +2,13 @@ class RegionalCommitteesController < ApplicationController
   before_action :find_regional_committee, only: [ :update, :show, :destroy, :edit ]
 
   def index
-    @regional_committees = policy_scope(RegionalCommittee)
+    @regional_committees = policy_scope(RegionalCommittee.where(company: current_user.company))
     @regional_committee = RegionalCommittee.new
-  end
-
-  def show
-    authorize @regional_committee
   end
 
   def create
     @regional_committee = RegionalCommittee.new(params_regional_committee)
+    @regional_committee.company = current_user.company
     authorize @regional_committee
     if @regional_committee.save
       # Create an ordered list to use in the view 'regional_committee/_form_field_regional_committee'
@@ -49,7 +46,7 @@ class RegionalCommitteesController < ApplicationController
 
   private
   def params_regional_committee
-    params.require(:regional_committee).permit(:address, :name, :phone, :fax)
+    params.require(:regional_committee).permit(:address, :name, :phone, :fax, :company)
   end
 
   def find_regional_committee

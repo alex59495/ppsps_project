@@ -2,16 +2,13 @@ class SosHandsController < ApplicationController
   before_action :find_sos_hand, only: [ :update, :show, :destroy, :edit ]
 
   def index
-    @sos_hands = policy_scope(SosHand)
+    @sos_hands = policy_scope(SosHand.where(company: current_user.company))
     @sos_hand = SosHand.new
-  end
-
-  def show
-    authorize @sos_hand
   end
 
   def create
     @sos_hand = SosHand.new(params_sos_hand)
+    @sos_hand.company = current_user.company
     authorize @sos_hand
     if @sos_hand.save
       # Create an ordered list to use in the view 'sos_hand/_form_field_sos_hand'
@@ -49,7 +46,7 @@ class SosHandsController < ApplicationController
 
   private
   def params_sos_hand
-    params.require(:sos_hand).permit(:address, :name, :phone)
+    params.require(:sos_hand).permit(:address, :name, :phone, :company)
   end
 
   def find_sos_hand

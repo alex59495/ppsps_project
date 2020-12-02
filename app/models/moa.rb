@@ -1,5 +1,6 @@
 class Moa < ApplicationRecord
   has_many :ppsps
+  belongs_to :company
   validates :name, presence: true
   validates :representative, presence: true
   validates :address, presence: true

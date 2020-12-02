@@ -4,6 +4,7 @@ class CreateSosHands < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :address
       t.string :phone
+      t.references :company, foreign_key: true
 
       t.timestamps
     end

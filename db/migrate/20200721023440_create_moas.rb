@@ -6,6 +6,7 @@ class CreateMoas < ActiveRecord::Migration[6.0]
       t.string :representative
       t.string :phone
       t.string :email
+      t.references :company, foreign_key: true
 
       t.timestamps
     end

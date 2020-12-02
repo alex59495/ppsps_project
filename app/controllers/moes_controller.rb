@@ -2,16 +2,13 @@ class MoesController < ApplicationController
   before_action :find_moe, only: [ :update, :show, :destroy, :edit ]
 
   def index
-    @moes = policy_scope(Moe)
+    @moes = policy_scope(Moe.where(company: current_user.company))
     @moe = Moe.new
-  end
-
-  def show
-    authorize @moe
   end
 
   def create
     @moe = Moe.new(params_moe)
+    @moe.company = current_user.company
     authorize @moe
     if @moe.save
       # Create an ordered list to use in the view 'moe/_form_field_moe'
@@ -49,7 +46,7 @@ class MoesController < ApplicationController
 
   private
   def params_moe
-    params.require(:moe).permit(:address, :name, :phone, :email, :representative)
+    params.require(:moe).permit(:address, :name, :phone, :email, :representative, :company)
   end
 
   def find_moe
