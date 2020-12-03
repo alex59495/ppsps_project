@@ -2,7 +2,8 @@ class AntiPoisonsController < ApplicationController
   before_action :find_anti_poison, only: [ :update, :show, :destroy, :edit ]
 
   def index
-    @anti_poisons = policy_scope(AntiPoison.where(company: current_user.company))
+    authorize AntiPoison
+    @anti_poisons = policy_scope(AntiPoison)
     @anti_poison = AntiPoison.new
   end
 

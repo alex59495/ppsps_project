@@ -1,9 +1,9 @@
 class DirecctsController < ApplicationController
   before_action :find_direcct, only: [ :update, :show, :destroy, :edit ]
 
-
   def index
-    @direccts = policy_scope(Direcct.where(company: current_user.company))
+    authorize Direcct
+    @direccts = policy_scope(Direcct)
     @direcct = Direcct.new
   end
 

@@ -2,7 +2,8 @@ class SosHandsController < ApplicationController
   before_action :find_sos_hand, only: [ :update, :show, :destroy, :edit ]
 
   def index
-    @sos_hands = policy_scope(SosHand.where(company: current_user.company))
+    authorize SosHand
+    @sos_hands = policy_scope(SosHand)
     @sos_hand = SosHand.new
   end
 

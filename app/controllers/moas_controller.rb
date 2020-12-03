@@ -2,7 +2,8 @@ class MoasController < ApplicationController
   before_action :find_moa, only: [ :update, :show, :destroy, :edit ]
 
   def index
-    @moas = policy_scope(Moa.where(company: current_user.company))
+    authorize Moa
+    @moas = policy_scope(Moa)
     @moa = Moa.new
   end
 

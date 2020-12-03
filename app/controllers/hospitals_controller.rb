@@ -2,7 +2,8 @@ class HospitalsController < ApplicationController
   before_action :find_hospital, only: [ :update, :show, :destroy, :edit ]
   
   def index
-    @hospitals = policy_scope(Hospital.where(company: current_user.company))
+    authorize Hospital
+    @hospitals = policy_scope(Hospital)
     @hospital = Hospital.new
   end
 

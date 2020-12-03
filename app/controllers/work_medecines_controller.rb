@@ -2,7 +2,8 @@ class WorkMedecinesController < ApplicationController
   before_action :find_work_medecine, only: [ :update, :show, :destroy, :edit ]
 
   def index
-    @work_medecines = policy_scope(WorkMedecine.where(company: current_user.company))
+    authorize WorkMedecine
+    @work_medecines = policy_scope(WorkMedecine)
     @work_medecine = WorkMedecine.new
   end
 

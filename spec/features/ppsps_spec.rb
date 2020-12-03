@@ -32,18 +32,19 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
   feature 'Logged as User Admin' do
     before do
       user = create(:user_admin)
-      @ppsp = create(:ppsp, user: user)
-      create(:moa, company: user.company)
-      create(:moe, company: user.company)
-      create(:direcct, company: user.company)
-      create(:pension_insurance, company: user.company)
-      create(:work_medecine, company: user.company)
-      create(:hospital, company: user.company)
-      create(:demining, company: user.company)
-      create(:anti_poison, company: user.company)
-      create(:regional_committee, company: user.company)
-      create(:sos_hand, company: user.company)
-      create(:security_coordinator, company: user.company)
+      moa = create(:moa, company: user.company)
+      moe = create(:moe, company: user.company)
+      direcct = create(:direcct, company: user.company)
+      pension_insurance = create(:pension_insurance, company: user.company)
+      work_medecine = create(:work_medecine, company: user.company)
+      hospital = create(:hospital, company: user.company)
+      demining = create(:demining, company: user.company)
+      anti_poison = create(:anti_poison, company: user.company)
+      regional_committee = create(:regional_committee, company: user.company)
+      sos_hand = create(:sos_hand, company: user.company)
+      security_coordinator = create(:security_coordinator, company: user.company)
+      @ppsp = create(:ppsp, user: user, moa: moa, moe: moe, direcct: direcct, work_medecine: work_medecine, hospital: hospital, pension_insurance: pension_insurance,
+        demining: demining, anti_poison: anti_poison, regional_committee: regional_committee, sos_hand: sos_hand, security_coordinator: security_coordinator)
       login_as(user)
     end
    
@@ -70,8 +71,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
     scenario 'Click on the Edit link' do
       visit(ppsps_path)
       find('.card-ppsp-edit').click
-      # Test if there is more than one tab open which would tell us if the edit page is opened
-      expect(page.driver.browser.window_handles.size).to be > 1
+      expect(page).to have_current_path(edit_ppsp_path(@ppsp))
     end
 
     scenario 'Click on the New link' do
@@ -129,15 +129,11 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
     end
 
     scenario 'Change the field when update' do
-      visit(ppsps_path)
-      # open a new_window
-      new_window = window_opened_by {  find('.card-ppsp-edit').click }
-      within_window new_window do
-        fill_in('ppsp_project_information_attributes_site_manager_attributes_name', with: 'Update chef de chantier')
-        expect{click_button('Mettre à jour le PPSP')}.to change{ @ppsp.reload.project_information.site_manager.name }
-          .from('Test de chef de chantier')
-          .to('Update chef de chantier')
-      end
+      visit(edit_ppsp_path(@ppsp))
+      fill_in('ppsp_project_information_attributes_site_manager_attributes_name', with: 'Update chef de chantier')
+      expect{click_button('Mettre à jour le PPSP')}.to change{ @ppsp.reload.project_information.site_manager.name }
+        .from('Test de chef de chantier')
+        .to('Update chef de chantier')
     end
 
     scenario 'Confirmation message when delete a Ppsp' do

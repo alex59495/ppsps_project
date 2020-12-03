@@ -6,6 +6,6 @@ class PagePolicy < ApplicationPolicy
   end
 
   def database?
-    user.admin == true
+    user.admin
   end
 end

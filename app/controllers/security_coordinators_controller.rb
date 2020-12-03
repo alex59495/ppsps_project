@@ -2,7 +2,8 @@ class SecurityCoordinatorsController < ApplicationController
   before_action :find_security_coordinator, only: [ :update, :show, :destroy, :edit ]
 
   def index
-    @security_coordinators = policy_scope(SecurityCoordinator.where(company: current_user.company))
+    authorize SecurityCoordinator
+    @security_coordinators = policy_scope(SecurityCoordinator)
   end
 
   def new

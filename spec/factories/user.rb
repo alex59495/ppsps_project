@@ -20,6 +20,7 @@ FactoryBot.define do
     end
 
     factory :user_admin, traits: [:admin]
+    factory :user_admin_uber, traits: [:admin, :company_uber]
     factory :user_uber, traits: [:company_uber]
     factory :user_google, traits: [:company_google]
   end

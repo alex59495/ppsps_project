@@ -2,7 +2,8 @@ class MoesController < ApplicationController
   before_action :find_moe, only: [ :update, :show, :destroy, :edit ]
 
   def index
-    @moes = policy_scope(Moe.where(company: current_user.company))
+    authorize Moe
+    @moes = policy_scope(Moe)
     @moe = Moe.new
   end
 

@@ -2,7 +2,8 @@ class PensionInsurancesController < ApplicationController
   before_action :find_pension_insurance, only: [ :update, :show, :destroy, :edit ]
 
   def index
-    @pension_insurances = policy_scope(PensionInsurance.where(company: current_user.company))
+    authorize PensionInsurance
+    @pension_insurances = policy_scope(PensionInsurance)
     @pension_insurance = PensionInsurance.new
   end
 

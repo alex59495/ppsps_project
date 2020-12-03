@@ -14,9 +14,7 @@ class CardPpsp extends Component {
   handleEdit = (e) => {
     // Avoid to trigger the parent link
     e.stopPropagation();
-    // Fire the opening of the edit in a new tab
-    const win = window.open(`/ppsps/${this.props.id}/edit`, '_blank');
-    win.focus();
+    window.location.href = `/ppsps/${this.props.id}/edit`;
   }
 
   handleDelete = (e) => {

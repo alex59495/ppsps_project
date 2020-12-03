@@ -2,7 +2,8 @@ class RegionalCommitteesController < ApplicationController
   before_action :find_regional_committee, only: [ :update, :show, :destroy, :edit ]
 
   def index
-    @regional_committees = policy_scope(RegionalCommittee.where(company: current_user.company))
+    authorize RegionalCommittee
+    @regional_committees = policy_scope(RegionalCommittee)
     @regional_committee = RegionalCommittee.new
   end
 

@@ -2,7 +2,8 @@ class DeminingsController < ApplicationController
   before_action :find_demining, only: [ :update, :show, :destroy, :edit ]
 
   def index
-    @deminings = policy_scope(Demining.where(company: current_user.company))
+    authorize Demining
+    @deminings = policy_scope(Demining)
     @demining = Demining.new
   end
 
