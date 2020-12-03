@@ -111,7 +111,7 @@ class PpspsController < ApplicationController
     @site_manager = @ppsp.project_information.site_manager
     @team_manager = @ppsp.project_information.team_manager
     
-    # Info to add the possibility to create a new element through a modal form
+    # Info to add the possibility to create a new element through a modal form!
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
     @moa = Moa.new
