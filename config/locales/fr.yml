@@ -1,14 +1,99 @@
 fr:
   activerecord:
-    models:
-      ppsp: Ppsp
     attributes:
+      user:
+        current_password: Mot de passe actuel
+        email: Email
+        password: Mot de passe
+        password_confirmation: Confirmation du mot de passe
+        remember_me: Se souvenir de moi
       ppsp:
-        address: "L'adresse"
-        start_date: "La date"
-        end_date: "La date"
-        nature: "La nature du travail"
-        workforce: "Le personnel impliqué"
+        address: L'adresse
+        end_date: La date de fin
+        workforce: Le personnel impliqué
+        nature: La nature du travail
+        moa_id: Le MOA
+        moe_id: Le MOA
+        regional_committee_id: Le comité
+        pension_insurance_id: La caisse d'assurance
+        direcct_id: Le DIRECCT
+        work_medecine_id: La médecine du travail
+        demining_id: Le centre de déminage
+        sos_hand_id: Le centre SOS Mains Doigts
+        anti_poison_id: Le centre anti-poison
+        hospital_id: L'hôpital
+        security_coordinator_id: Le coordinateur sécurité
+        agglomeration_id: Le champs
+        street_impact_id: Le champs
+        river_guidance_id: Le champs
+      project_information:
+        reference: La référence
+        responsible: Le responsable
+        phone: Le téléphone
+        email: L'email
+      site_manager:
+        name: Le nom
+        email: L'email
+        phone: Le téléphone
+      team_manager:
+        name: Le nom
+        email: L'email
+        phone: Le téléphone
+      hospital:
+        name: Le nom
+        address: L'adresse
+        phone: Le téléphone
+      sos_hand:
+        name: Le nom
+        address: L'adresse
+        phone: Le téléphone
+      anti_poison:
+        name: Le nom
+        address: L'adresse
+        phone: Le téléphone
+      demining:
+        name: Le nom
+        address: L'adresse
+        phone: Le téléphone
+      subcontractor:
+        name: Le nom
+        address: L'adresse
+        work: Le travail effectué
+        responsible_name: Le nom du responsable
+        responsible_phone: Le téléphone du responsable
+        responsible_email: L'email du responsable
+      direcct:
+        address: L'adresse
+        phone: Le téléphone
+        fax: Le fax
+      regional_committee:
+        name: Le nom
+        address: L'adresse
+        phone: Le téléphone
+        fax: Le fax
+      pension_insurance:
+        fax: Le fax
+        address: L'adresse
+        phone: Le téléphone
+      work_medecine:
+        name: Le fax
+        address: L'adresse
+        phone: Le téléphone
+      moe:
+        name: Le nom
+        address: L'adresse
+        representative: Le nom du représentant
+        phone: Le téléphone
+        email: L'email
+      moa:
+        name: Le nom
+        address: L'adresse
+        representative: Le nom du représentant
+        phone: Le téléphone
+        email: L'email
+    models:
+      user: Utilisateur
+      ppsp: Ppsp
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
@@ -119,7 +204,7 @@ fr:
       month: Mois
       year: Année
   errors:
-    format: "%{message}"
+    format: "%{attribute} %{message}"
     messages:
       accepted: doit être accepté(e)
       blank: doit être rempli(e)
@@ -141,7 +226,7 @@ fr:
       other_than: doit être différent de %{count}
       present: doit être vide
       required: doit exister
-      taken: n’est pas disponible
+      taken: existe déjà
       too_long:
         one: est trop long (pas plus d’un caractère)
         other: est trop long (pas plus de %{count} caractères)
@@ -225,30 +310,20 @@ fr:
       long: "%A %d %B %Y %Hh%M"
       short: "%d %b %Hh%M"
     pm: pm
-  activerecord:
-    attributes:
-      user:
-        current_password: Mot de passe actuel
-        email: Courriel
-        password: Mot de passe
-        password_confirmation: Confirmation du mot de passe
-        remember_me: Se souvenir de moi
-    models:
-      user: Utilisateur
   devise:
     confirmations:
       new:
         resend_confirmation_instructions: Renvoyer les instructions de confirmation
     mailer:
       confirmation_instructions:
-        action: Confirmer mon courriel
+        action: Confirmer mon email
         greeting: Bienvenue %{recipient}!
-        instruction: 'Vous pouvez confirmer votre courriel grâce au lien ci-dessous:'
+        instruction: 'Vous pouvez confirmer votre email grâce au lien ci-dessous:'
       reset_password_instructions:
         action: Changer mon mot de passe
         greeting: Bonjour %{recipient}!
         instruction: 'Quelqu''un a demandé un lien pour changer votre mot de passe, le voici :'
-        instruction_2: Si vous n'avez pas émis cette demande, merci d'ignorer ce courriel.
+        instruction_2: Si vous n'avez pas émis cette demande, merci d'ignorer cet email.
         instruction_3: Votre mot de passe ne changera pas tant que vous n'aurez pas cliqué sur ce lien et renseigné un nouveau mot de passe.
       unlock_instructions:
         action: Débloquer mon compte
@@ -282,8 +357,8 @@ fr:
     shared:
       links:
         back: Retour
-        didn_t_receive_confirmation_instructions: Vous n'avez pas reçu le courriel de confirmation ?
-        didn_t_receive_unlock_instructions: Vous n'avez pas reçu le courriel de déblocage ?
+        didn_t_receive_confirmation_instructions: Vous n'avez pas reçu le email de confirmation ?
+        didn_t_receive_unlock_instructions: Vous n'avez pas reçu le email de déblocage ?
         forgot_your_password: Mot de passe oublié ?
         sign_in: Connexion
         sign_in_with_provider: Connexion avec %{provider}

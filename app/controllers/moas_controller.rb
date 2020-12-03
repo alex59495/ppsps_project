@@ -2,16 +2,14 @@ class MoasController < ApplicationController
   before_action :find_moa, only: [ :update, :show, :destroy, :edit ]
 
   def index
+    authorize Moa
     @moas = policy_scope(Moa)
     @moa = Moa.new
   end
 
-  def show 
-    authorize @moa
-  end
-
   def create
     @moa = Moa.new(params_moa)
+    @moa.company = current_user.company
     authorize @moa
     if @moa.save
       # Create an ordered list to use in the view 'moa/_form_field_moa'
@@ -50,7 +48,7 @@ class MoasController < ApplicationController
 
   private
   def params_moa
-    params.require(:moa).permit(:address, :name, :phone, :email, :representative)
+    params.require(:moa).permit(:address, :name, :phone, :email, :representative, :company)
   end
 
   def find_moa

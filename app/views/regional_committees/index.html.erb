@@ -1,20 +1,42 @@
-<% if policy(RegionalCommittee).new? %>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalRegionalCommittee">
-    Ajouter un Comité Régional
-  </button>
-<% end %>
-<%# Modal Regional Committee %>
-<% if policy(RegionalCommittee).new? %>
-  <div class="modal fade" id="ModalRegionalCommittee" tabindex="-1" role="dialog" aria-labelledby="ModalRegionalCommittee" aria-hidden="true">
-    <%= render 'ppsps/modal_regional_committee' %>
+<div class="container">
+  <div class="link-db">
+    <%= link_to "Revenir aux bases de données", database_path %>
   </div>
-<% end %>
-<div class="list-database">
-  <% @regional_committees.each do |regional_committee| %>
-    <div class="card-database">
-      <%= link_to regional_committee, regional_committee_path(regional_committee) %>
-      <%= link_to "Edit", edit_regional_committee_path(regional_committee) %>
-      <%= link_to "x", regional_committee_path(regional_committee), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+  <% if policy(RegionalCommittee).new? %>
+    <div>
+      <button type="button" class="btn-blue" data-toggle="modal" data-target="#ModalRegionalCommittee">
+        Ajouter un Comité Régional
+      </button>
     </div>
   <% end %>
+  <%# Modal Regional Committee %>
+  <% if policy(RegionalCommittee).new? %>
+    <div class="modal fade" id="ModalRegionalCommittee" tabindex="-1" role="dialog" aria-labelledby="ModalRegionalCommittee" aria-hidden="true">
+      <%= render 'ppsps/modal_regional_committee' %>
+    </div>
+  <% end %>
+  <div class="container-database">
+    <% @regional_committees.each do |regional_committee| %>
+      <div class="card-database">
+        <div class="card-db-header">
+          <%= link_to edit_regional_committee_path(regional_committee), class: "card-db-edit", target: '_blank' do %>
+            <i class='fas fa-pencil-alt'></i>
+          <% end %>
+          <%= link_to "x", regional_committee_path(regional_committee), class: "card-db-delete", method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+        </div>
+        <div class="db-element">
+          <%= regional_committee.name %>
+        </div>
+        <div class="db-element">
+          <%= regional_committee.address %>
+        </div>
+        <div class="db-element">
+          <%= regional_committee.phone %>
+        </div>
+        <div class="db-element">
+        <%= regional_committee.fax %>
+      </div>
+      </div>
+    <% end %>
+  </div>
 </div>

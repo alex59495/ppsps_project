@@ -1,18 +1,15 @@
 class DirecctsController < ApplicationController
   before_action :find_direcct, only: [ :update, :show, :destroy, :edit ]
 
-
   def index
+    authorize Direcct
     @direccts = policy_scope(Direcct)
     @direcct = Direcct.new
   end
 
-  def show
-    authorize @hospital
-  end
-
   def create
     @direcct = Direcct.new(params_direcct)
+    @direcct.company = current_user.company
     authorize @direcct
     if @direcct.save
       # Create an ordered list to use in the view 'direcct/_form_field_direcct'
@@ -50,7 +47,7 @@ class DirecctsController < ApplicationController
 
   private
   def params_direcct
-    params.require(:direcct).permit(:address, :phone, :fax)
+    params.require(:direcct).permit(:address, :phone, :fax, :company)
   end
 
   def find_direcct

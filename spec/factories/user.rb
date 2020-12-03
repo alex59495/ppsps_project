@@ -3,7 +3,7 @@ FactoryBot.define do
     first_name { Faker::Name.first_name}
     last_name { Faker::Name.last_name}
     email { Faker::Internet.email }
-    password { '123456' }
+    password { '@leX1s' }
     admin { false }
     company
 
@@ -20,6 +20,7 @@ FactoryBot.define do
     end
 
     factory :user_admin, traits: [:admin]
+    factory :user_admin_uber, traits: [:admin, :company_uber]
     factory :user_uber, traits: [:company_uber]
     factory :user_google, traits: [:company_google]
   end

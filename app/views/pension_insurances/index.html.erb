@@ -1,20 +1,39 @@
-<% if policy(PensionInsurance).new? %>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalPensionInsurance">
-    Ajouter une Caisse d'assurance
-  </button>
-<% end %>
-<%# Modal Pension Insurance %>
-<% if policy(PensionInsurance).new? %>
-  <div class="modal fade" id="ModalPensionInsurance" tabindex="-1" role="dialog" aria-labelledby="ModalPensionInsurance" aria-hidden="true">
-    <%= render 'ppsps/modal_pension_insurance' %>
+<div class="container">
+  <div class="link-db">
+    <%= link_to "Revenir aux bases de données", database_path %>
   </div>
-<% end %>
-<div class="list-database">
-  <% @pension_insurances.each do |pension_insurance| %>
-    <div class="card-database">
-      <%= link_to pension_insurance, pension_insurance_path(pension_insurance) %>
-      <%= link_to "Edit", edit_pension_insurance_path(pension_insurance) %>
-      <%= link_to "x", pension_insurance_path(pension_insurance), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+  <% if policy(PensionInsurance).new? %>
+    <div>
+      <button type="button" class="btn-blue" data-toggle="modal" data-target="#ModalPensionInsurance">
+        Ajouter une Caisse d'assurance
+      </button>
     </div>
   <% end %>
+  <%# Modal Pension Insurance %>
+  <% if policy(PensionInsurance).new? %>
+    <div class="modal fade" id="ModalPensionInsurance" tabindex="-1" role="dialog" aria-labelledby="ModalPensionInsurance" aria-hidden="true">
+      <%= render 'ppsps/modal_pension_insurance' %>
+    </div>
+  <% end %>
+  <div class="container-database">
+    <% @pension_insurances.each do |pension_insurance| %>
+      <div class="card-database">
+        <div class="card-db-header">
+          <%= link_to edit_pension_insurance_path(pension_insurance), class: "card-db-edit", target: '_blank' do %>
+            <i class='fas fa-pencil-alt'></i>
+          <% end %>
+          <%= link_to "x", pension_insurance_path(pension_insurance), class: "card-db-delete", method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+        </div>
+        <div class="db-element">
+          <%= pension_insurance.address %>
+        </div>
+        <div class="db-element">
+          <%= pension_insurance.phone %>
+        </div>
+        <div class="db-element">
+          <%= pension_insurance.fax %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

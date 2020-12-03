@@ -4,7 +4,7 @@ FactoryBot.define do
     address { Faker::Address.street_address}
     work { 'Test Work' }
     responsible_name { Faker::Name.name }
-    responsible_phone { Faker::PhoneNumber.phone_number }
+    responsible_phone { '0300000000' }
     responsible_email { Faker::Internet.email }
     ppsp
   end

@@ -3,7 +3,7 @@
   <%= f.input :address, label: 'Adresse'%>
   <%= f.input :phone, label: 'Téléphone' %>
   <%= f.input :fax, label: 'Fax' %>
-  <% if params[:action] == 'new' %>
+  <% if params[:action] == 'new' || params[:action] == 'index' %>
     <%= f.submit 'Créer un comité régional', class: 'btn-blue' %>
   <% else %>
     <%= f.submit 'Modifier ce comité régional', class: 'btn-blue' %>

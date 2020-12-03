@@ -18,6 +18,8 @@ class PpspsController < ApplicationController
     @project_information = @ppsp.build_project_information
     @site_manager = @ppsp.build_project_information.build_site_manager
     @team_manager = @ppsp.build_project_information.build_team_manager
+
+    # Info to add the possibility to create a new element through a modal form
     @project_information = ProjectInformation.new 
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
@@ -57,6 +59,8 @@ class PpspsController < ApplicationController
 
   def create
     @ppsp = Ppsp.new(params_ppsp)
+    
+    # Info to add the possibility to create a new element through a modal form
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
     @moa = Moa.new
@@ -97,6 +101,7 @@ class PpspsController < ApplicationController
     @selected_risk_active = SelectedRisk.where(ppsp_id: @ppsp.id)
     # Input of the option of subcontractors for the form
     @subcontractor = Subcontractor.new
+    (@selected_installation_active.count > 0 || @selected_altitude_active.count > 0 || @selected_risk_active.count > 0 || @ppsp.subcontractors.count > 0) ? @show_select = true : @show_select = false
   end
 
   def edit
@@ -105,7 +110,9 @@ class PpspsController < ApplicationController
     @project_information = @ppsp.project_information
     @site_manager = @ppsp.project_information.site_manager
     @team_manager = @ppsp.project_information.team_manager
-    @security_coordinator = (@ppsp.security_coordinator || SecurityCoordinator.new)
+    
+    # Info to add the possibility to create a new element through a modal form
+    @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
     @moa = Moa.new
     @moe = Moe.new
@@ -125,6 +132,7 @@ class PpspsController < ApplicationController
     @site_manager = @ppsp.project_information.site_manager
     @team_manager = @ppsp.project_information.team_manager
 
+    # Info to add the possibility to create a new element through a modal form
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
     @moa = Moa.new
@@ -136,6 +144,7 @@ class PpspsController < ApplicationController
     @demining = Demining.new
     @sos_hand = SosHand.new
     @anti_poison = AntiPoison.new
+
     if @ppsp.update(params_ppsp)
       redirect_to informations_supplementaires_ppsp_path(@ppsp)
     else

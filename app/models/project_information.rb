@@ -6,6 +6,6 @@ class ProjectInformation < ApplicationRecord
   accepts_nested_attributes_for :team_manager
   validates :reference, presence: true
   validates :responsible, presence: true
-  validates :phone, presence: true
-  validates :email, presence: true
+  validates :phone, presence: true, phone: true
+  validates :email, presence: true, email: true
 end

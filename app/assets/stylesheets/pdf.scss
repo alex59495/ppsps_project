@@ -73,12 +73,7 @@
 }
 
 .flexbox {
-  // display: -webkit-box; /* wkhtmltopdf uses this one */
-  // display: -webkit-flex;
-  // display: flex;
-  // -webkit-flex-wrap: wrap;
   display: block;
-  // overflow: auto;
 }
 
 .flexbox::after { 
@@ -140,9 +135,20 @@
   padding-bottom: 6px;
 }
 
-.footer-text {
+.footer-container {
   font-size: 12px;
   padding-right: 8px;
   padding-left: 8px;
   text-align: center;
+}
+
+.footer-container div {
+  float: left;
+}
+
+.footer-container .footer-text {
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 95%;
+  vertical-align: bottom
 }

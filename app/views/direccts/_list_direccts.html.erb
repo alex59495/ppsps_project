@@ -1,7 +1,19 @@
 <% @direccts.each do |direcct| %>
   <div class="card-database">
-    <%= link_to direcct, direcct_path(direcct) %>
-    <%= link_to "Edit", edit_direcct_path(direcct) %>
-    <%= link_to "x", direcct_path(direcct), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+    <div class="card-db-header">
+      <%= link_to edit_direcct_path(direcct), class: "card-db-edit", target: '_blank' do %>
+        <i class='fas fa-pencil-alt'></i>
+      <% end %>
+      <%= link_to "x", direcct_path(direcct), class: "card-db-delete", method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+    </div>
+    <div class="db-element">
+      <%= direcct.address %>
+    </div>
+    <div class="db-element">
+      <%= direcct.phone %>
+    </div>
+    <div class="db-element">
+      <%= direcct.fax %>
+    </div>
   </div>
 <% end %>

@@ -13,6 +13,18 @@ $btn-add-size: 25px;
   }
 }
 
+.btn-blue-ext {
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: $blue solid 0.5px;
+  color: black;
+  &:hover {
+    border: $blue-dark solid 0.5px;
+    text-decoration: none;
+    color: black;
+  }
+}
+
 .btn-orange {
   padding: 8px 16px;
   border-radius: 8px;
@@ -35,10 +47,11 @@ $btn-add-size: 25px;
     border: $orange-dark solid 0.5px;
     text-decoration: none;
     color: black;
+    cursor: pointer;
   }
 }
 
-.btn-add{
+.btn-round{
   cursor: pointer;
   position: relative;
   border: 0.1px solid $orange;
@@ -83,5 +96,15 @@ $btn-add-size: 25px;
   color: $orange;
   &:hover{
     color: $orange-dark
+  }
+}
+
+.link-db {
+  margin-bottom: 10px;
+  a {
+    color: $orange;
+    &:hover{
+      color: $orange-dark
+    }
   }
 }

@@ -5,6 +5,12 @@ class SubcontractorsController < ApplicationController
   def create
     @subcontractor = Subcontractor.new(params_subcontractor)
     @subcontractor.ppsp_id = @ppsp.id
+    # Add thos lines in order to re-render the selection card on the informations_supplementaires page
+    @selected_installation_active = SelectedInstallation.where(ppsp_id: @ppsp.id)
+    @selected_altitude_active = SelectedAltitude.where(ppsp_id: @ppsp.id)
+    @selected_risk_active = SelectedRisk.where(ppsp_id: @ppsp.id)
+    (@selected_installation_active.count > 0 || @selected_altitude_active.count > 0 || @selected_risk_active.count > 0 || @ppsp.subcontractors.count > 0) ? @show_select = true : @show_select = false
+
     authorize @subcontractor
       if @subcontractor.save
       # Respond with the view subcontractor/create.js.erb to close the modal and come back to the form

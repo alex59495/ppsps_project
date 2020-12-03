@@ -4,25 +4,25 @@ class ProjectInformationPolicy < ApplicationPolicy
       scope.all
     end
   end
+
+  def index?
+    user.admin
+  end
   
   def new?
-    user.admin == true
+    user.admin
   end
 
   def create?
     new?
   end
-
-  def show?
-    true
-  end
-
+  
   def destroy?
-    user.admin == true
+    user.admin
   end
 
   def edit?
-    user.admin == true
+    user.admin
   end
 
   def update?

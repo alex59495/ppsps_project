@@ -22,19 +22,17 @@ Rails.application.routes.draw do
   end
 
   resources :companies, only: [:create, :destroy]
-  resources :security_coordinators, except: [:new]
-  resources :moas, except: [:new]
-  resources :moes, except: [:new]
-  resources :project_informations
-  resources :site_managers
-  resources :team_managers
-  resources :hospitals, except: [:new]
-  resources :anti_poisons, except: [:new]
-  resources :sos_hands, except: [:new]
-  resources :deminings, except: [:new]
-  resources :work_medecines
-  resources :direccts, except: [:new]
-  resources :pension_insurances, except: [:new]
-  resources :regional_committees, except: [:new]
+  resources :security_coordinators, except: [:new, :show]
+  resources :moas, except: [:new, :show]
+  resources :moes, except: [:new, :show]
+  resources :hospitals, except: [:new, :show]
+  resources :anti_poisons, except: [:new, :show]
+  resources :sos_hands, except: [:new, :show]
+  resources :deminings, except: [:new, :show]
+  resources :work_medecines, except: [:new, :show]
+  resources :direccts, except: [:new, :show]
+  resources :pension_insurances, except: [:new, :show]
+  resources :regional_committees, except: [:new, :show]
+  resources :users, only: [:show, :edit, :update]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

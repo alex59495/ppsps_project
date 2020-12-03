@@ -5,8 +5,8 @@ $(document).ready(function() {
   if (document.getElementById("ppsp_work_medecine_id")) {
     document.getElementById("ppsp_work_medecine_id").innerHTML = "<%= j(render 'form_field_work_medecine') %>";
   }
-  if (document.querySelector(".list-database")) {
-    document.querySelector(".list-database").innerHTML = "<%= j(render 'list_work_medecines') %>";
+  if (document.querySelector(".container-database")) {
+    document.querySelector(".container-database").innerHTML = "<%= j(render 'list_work_medecines') %>";
   }
 })
 

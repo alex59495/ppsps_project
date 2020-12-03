@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 import SearchBar from '../containers/search_bar'
 import ListPpsp from '../containers/list_ppsp'
 
 const ReactApp = () => {
   return (
-    <div>
+    <React.Fragment>
       <SearchBar />
       <ListPpsp />
-    </div>
+    </React.Fragment>
   )
 }
 

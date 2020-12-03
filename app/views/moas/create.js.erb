@@ -5,8 +5,8 @@ $(document).ready(function() {
   if (document.getElementById("ppsp_moa_id")) {
     document.getElementById("ppsp_moa_id").innerHTML = "<%= j(render 'form_field_moa') %>";
   }
-  if (document.querySelector(".list-database")) {
-    document.querySelector(".list-database").innerHTML = "<%= j(render 'list_moas') %>";
+  if (document.querySelector(".container-database")) {
+    document.querySelector(".container-database").innerHTML = "<%= j(render 'list_moas') %>";
   }
 })
 

@@ -20,12 +20,20 @@ if(document.getElementById('ppsps-react')) {
   current = document.getElementById('ppsps-react').dataset.current 
 }
 
+// Identify the user you're visiting (show page) = currrent_user
+let show = ''
+if(document.querySelector('.show-user')) {
+  show = document.querySelector('.show-user').dataset.usershow 
+}
+
 // Intitial State
 const initialState = {
   ppsps: [],
   search: '',
   selectedPpsps: [],
-  currentUser: current
+  currentUser: current,
+  showUser: show,
+  page: 2,
 }
 
 export { initialState }

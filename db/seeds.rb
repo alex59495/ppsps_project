@@ -8,6 +8,8 @@
 
 
 # Create company
+c = Company.create(name: "Company Angelique", address: 'Test adress', phone: '0300000000')
+p "create #{c.id} company"
 2.times do 
   c = Company.create(name: Faker::Company.name, address: Faker::Address.street_address, phone: Faker::PhoneNumber.cell_phone_in_e164)
   p "create #{c.id} company"
@@ -18,14 +20,14 @@ users = [{
   first_name: "Angelique",
   last_name: "Lenoir",
   email: "test1@gmail.com",
-  password: "123456",
+  password: "@leX1s",
   admin: true,
   company_id: 1,
 }, {
   first_name: "Jean",
   last_name: "Michel",
   email: "test2@gmail.com",
-  password: "123456",
+  password: "@leX1s",
   admin: false,
   company_id: 1,
 },
@@ -33,7 +35,7 @@ users = [{
   first_name: "Luc",
   last_name: "Beaumont",
   email: "test3@gmail.com",
-  password: "123456",
+  password: "@leX1s",
   admin: false,
   company_id: 2,
 }]
@@ -54,6 +56,7 @@ CSV.foreach('./Database_MOA.csv', headers: true, encoding:'iso-8859-1:utf-8', co
     representative: moa['Nom du representant'],
     phone: moa['Telephone'],
     email: moa['Mail'],
+    company: Company.find_by(name: moa['Entreprise'])
     )
   p "Create #{m.id} MOA"
 end
@@ -68,6 +71,7 @@ CSV.foreach('./Database_MOE.csv', headers: true, encoding:'iso-8859-1:utf-8', co
     representative: moe['Nom du representant'],
     phone: moe['Telephone'],
     email: moe['Mail'],
+    company: Company.find_by(name: moe['Entreprise'])
     )
   p "Create #{mo.id} MOE"
 end
@@ -76,7 +80,7 @@ end
 site_manager = {
   name: "Test chef de chantier",
   phone: "0600000000",
-  email: "chefdechantier@gmail.com"
+  email: "chefdechantier@gmail.com",
 }
 site_manager1 = SiteManager.create(name: site_manager[:name], phone:site_manager[:phone], email:site_manager[:email])
 p "create #{site_manager1.id} site manager"
@@ -85,38 +89,27 @@ p "create #{site_manager1.id} site manager"
 team_manager = {
   name: "Test chef d'équipe",
   phone: "0600000000",
-  email: "chefdequipe@gmail.com"
+  email: "chefdequipe@gmail.com",
 }
 team_manager1 = TeamManager.create(name: team_manager[:name], phone:team_manager[:phone], email:team_manager[:email])
 p "create #{team_manager1.id} team manager"
 
 # Create Project Informations
-project_information = [{
-  reference: "AABB130",
-  responsible: "Responsible Test",
-  phone: "0300000000",
-  email: "project@gmail.com",
-  site_manager_id: 1,
-  team_manager_id: 1
-},
-{
-  reference: "AABB131",
-  responsible: "Responsible Test 2",
-  phone: "0300000000",
-  email: "project2@gmail.com",
-  site_manager_id: 1,
-  team_manager_id: 1
-},
-{
-  reference: "AABB132",
-  responsible: "Responsible Test 3",
-  phone: "0300000000",
-  email: "project3@gmail.com",
-  site_manager_id: 1,
-  team_manager_id: 1
-},
-]
-project_information.each do |project|
+infos = []
+30.times do |n|
+  project_info = {
+    reference: "AABB1#{n+10}",
+    responsible: "Responsible Test-#{n}",
+    phone: "0300000000",
+    email: "project-#{n}@gmail.com",
+    site_manager_id: 1,
+    team_manager_id: 1
+  }
+  infos.append(project_info)
+end
+
+
+infos.each do |project|
   project_information1 = ProjectInformation.create(
     reference: project[:reference], phone:project[:phone],
     responsible:project[:responsible], email:project[:email], 
@@ -130,8 +123,9 @@ direcct = {
   address: "70 rue saint sauveur",
   phone:"03 03 03 03 03",
   fax:"03 03 03 03 03",
+  company: Company.first
 }
-r1 = Direcct.create(address: direcct[:address], phone: direcct[:phone], fax: direcct[:fax])
+r1 = Direcct.create(address: direcct[:address], phone: direcct[:phone], fax: direcct[:fax], company:direcct[:company])
 p "create #{r1.id} direcct"
 
 # Create Regional Committee
@@ -140,9 +134,10 @@ regional_committee = {
   address:"340 avenue de la Marne",
   phone:"03 03 03 03 03",
   fax:"03 03 03 03 03",
+  company: Company.first
 }
 r2 = RegionalCommittee.create(address: regional_committee[:address], phone: regional_committee[:phone], 
-fax: regional_committee[:fax], name: regional_committee[:name])
+fax: regional_committee[:fax], name: regional_committee[:name], company:regional_committee[:company])
 p "create #{r2.id} regional committee"
 
 # Create Pension insurance
@@ -150,8 +145,10 @@ pension_insurance = {
   address:"11 allée Vauban",
   phone:"03 03 03 03 03",
   fax:"03 03 03 03 03",
+  company: Company.first
 }
-r3 = PensionInsurance.create(address: pension_insurance[:address], phone: pension_insurance[:phone], fax: pension_insurance[:fax])
+r3 = PensionInsurance.create(address: pension_insurance[:address], phone: pension_insurance[:phone], fax: pension_insurance[:fax],
+company:pension_insurance[:company])
 p "create #{r3.id} pension insurance"
 
 
@@ -160,20 +157,21 @@ work_medecine = {
   address:"7 avenue du Général de Gaulle",
   phone:"03 03 03 03 03",
   fax:"03 03 03 03 03",
+  company: Company.first
 }
-r4 = WorkMedecine.create(address: work_medecine[:address], phone: work_medecine[:phone], fax: work_medecine[:fax])
+r4 = WorkMedecine.create(address: work_medecine[:address], phone: work_medecine[:phone], fax: work_medecine[:fax], company:work_medecine[:company])
 p "create #{r4.id} work medecine"
 
 # Create demining
-demining = Demining.create(name: "Deminage Arras", phone: "03 03 03 03 03", address: "Rue du déminage")
+demining = Demining.create(name: "Deminage Arras", phone: "03 03 03 03 03", address: "Rue du déminage", company: Company.first)
 p "create #{demining.id} déminage"
 
 # Create sos hands
-sos_hand = SosHand.create(name: "Clinique Lille Sud", phone: "03 03 03 03 03", address: "Rue du Sos Mains")
+sos_hand = SosHand.create(name: "Clinique Lille Sud", phone: "03 03 03 03 03", address: "Rue du Sos Mains", company: Company.first)
 p "create #{sos_hand.id} sos hand"
 
 # Create sos hands
-anti_poison = AntiPoison.create(name: "Clinique Lille Sud", phone: "03 03 03 03 03", address: "Rue du anti poison")
+anti_poison = AntiPoison.create(name: "Clinique Lille Sud", phone: "03 03 03 03 03", address: "Rue du anti poison", company: Company.first)
 p "create #{anti_poison.id} anti poison"
 
 # Create hospitals
@@ -184,6 +182,7 @@ CSV.foreach('./Database_hospitals.csv', headers: true, encoding:'iso-8859-1:utf-
     name: hospital['Nom'], 
     address: "#{hospital['Adresse']}, #{hospital['Ville']}, #{hospital['Code postal']}",
     phone: hospital['Telephone'],
+    company: Company.find_by(name: hospital['Entreprise'])
     )
   p "Create #{h.id} hospital"
 end
@@ -198,100 +197,39 @@ CSV.foreach('./Database_security_coordinators.csv', headers: true, encoding:'iso
     phone: security_coordinator['Telephone'],
     email: security_coordinator['Mail'],
     representative: security_coordinator['Nom du representant'],
+    company: Company.find_by(name: security_coordinator['Entreprise'])
     )
   p "Create #{sc.id} security coordinators"
 end
 
 # Create PPSP
-ppsps = [{
-  address: "test_1 address",
-  start_date: DateTime.new(2020,9,1,17),
-  end_date: DateTime.new(2020,9,10,19),
-  nature: "test_1 nature",
-  workforce: "test_1 workforce",
-  agglomeration: Ppsp::AGGLOMERATIONS.first,
-  street_impact: Ppsp::STREET_IMPACTS[1],
-  river_guidance: Ppsp::RIVER_GUIDANCES[1],
-  user_id: 1,
-  moa_id: 1,
-  moe_id: 1,
-  project_information_id: 2,
-  pension_insurance_id: 1,
-  direcct_id: 1,
-  work_medecine_id: 1,
-  regional_committee_id: 1,
-  security_coordinator_id: 7,
-  demining_id: 1,
-  sos_hand_id: 1,
-  anti_poison_id: 1,
-  hospital_id: 1,
-}, {
-  address: "test_2 address",
-  start_date: DateTime.new(2020,9,1,17),
-  end_date: DateTime.new(2020,9,10,19),
-  nature: "test_2 nature",
-  workforce: "test_2 workforce",
-  agglomeration: Ppsp::AGGLOMERATIONS.last,
-  street_impact: Ppsp::STREET_IMPACTS[2],
-  river_guidance: Ppsp::RIVER_GUIDANCES.first,
-  user_id: 1,
-  moa_id: 2,
-  moe_id: 7,
-  project_information_id: 1,
-  pension_insurance_id: 1,
-  direcct_id: 1,
-  work_medecine_id: 1,
-  regional_committee_id: 1,
-  security_coordinator_id: nil,
-  demining_id: 1,
-  sos_hand_id: 1,
-  anti_poison_id: 1,
-  hospital_id: 3,
-}, {
-  address: "test_3 address",
-  start_date: DateTime.new(2020,9,1,17),
-  end_date: DateTime.new(2020,9,10,19),
-  nature: "test_3 nature",
-  workforce: "test_3 workforce",
-  agglomeration: Ppsp::AGGLOMERATIONS.first,
-  street_impact: Ppsp::STREET_IMPACTS.last,
-  river_guidance: Ppsp::RIVER_GUIDANCES[2],
-  user_id: 2,
-  moa_id: 4,
-  moe_id: 9,
-  project_information_id: 3,
-  pension_insurance_id: 1,
-  direcct_id: 1,
-  work_medecine_id: 1,
-  regional_committee_id: 1,
-  security_coordinator_id: nil,
-  demining_id: 1,
-  sos_hand_id: 1,
-  anti_poison_id: 1, 
-  hospital_id: 4,
-}, {
-  address: "test_3 address",
-  start_date: DateTime.new(2020,9,1,17),
-  end_date: DateTime.new(2020,9,10,19),
-  nature: "test_3 nature",
-  workforce: "test_3 workforce",
-  agglomeration: Ppsp::AGGLOMERATIONS.first,
-  street_impact: Ppsp::STREET_IMPACTS.last,
-  river_guidance: Ppsp::RIVER_GUIDANCES[2],
-  user_id: 3,
-  moa_id: 3,
-  moe_id: 5,
-  project_information_id: 3,
-  pension_insurance_id: 1,
-  direcct_id: 1,
-  work_medecine_id: 1,
-  regional_committee_id: 1,
-  security_coordinator_id: 3,
-  demining_id: 1,
-  sos_hand_id: 1,
-  anti_poison_id: 1, 
-  hospital_id: 5,
-}]
+ppsps = []
+30.times do |n|
+  ppsp = {
+    address: Faker::Address.street_address,
+    start_date: DateTime.new(2020,9,1,17),
+    end_date: DateTime.new(2020,9,10,19),
+    nature: "test_#{n+1} nature",
+    workforce: "test_#{n+1} workforce",
+    agglomeration: Ppsp::AGGLOMERATIONS.sample,
+    street_impact: Ppsp::STREET_IMPACTS.sample,
+    river_guidance: Ppsp::RIVER_GUIDANCES.sample,
+    user_id: rand(User.count) + 1,
+    moa_id: rand(Moa.count) + 1,
+    moe_id: rand(Moe.count) + 1,
+    project_information_id: n+1,
+    pension_insurance_id: rand(PensionInsurance.count) + 1,
+    direcct_id: rand(Direcct.count) + 1,
+    work_medecine_id: rand(WorkMedecine.count) + 1,
+    regional_committee_id: rand(RegionalCommittee.count) + 1,
+    security_coordinator_id: rand(SecurityCoordinator.count) + 1,
+    demining_id: rand(Demining.count) + 1,
+    sos_hand_id: rand(SosHand.count) + 1,
+    anti_poison_id: rand(AntiPoison.count) + 1,
+    hospital_id: rand(Hospital.count) + 1,
+  }
+  ppsps.append(ppsp)
+end
 
 ppsps.each do |ppsp|
   p = Ppsp.create(address: ppsp[:address], start_date: ppsp[:start_date], end_date: ppsp[:end_date], nature: ppsp[:nature], 

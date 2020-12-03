@@ -4,7 +4,7 @@
   <%= f.input :representative, label: 'Représentant' %>
   <%= f.input :phone, label: 'Téléphone' %>
   <%= f.input :email, label: 'Email' %>
-  <% if params[:action] == 'new' %>
+  <% if params[:action] == 'new' || params[:action] == 'index' %>
     <%= f.submit 'Créer un MOA', class: 'btn-blue', id: "MoaBtn" %>
   <% else %>
     <%= f.submit 'Modifier ce MOA', class: 'btn-blue', id: "MoaBtn" %>

@@ -4,6 +4,7 @@ class PagesController < ApplicationController
   def home
   end
 
-  def database   
+  def database
+    authorize Page
   end
 end

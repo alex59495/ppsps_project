@@ -5,3 +5,11 @@
     color: #ec4558;
   }
 }
+
+#loading {
+  background-image: url('gif-loading.gif');
+  height: 150px;
+  width: 200px;
+  margin: auto;
+  display: none;
+}

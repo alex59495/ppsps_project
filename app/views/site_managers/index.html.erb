@@ -1,7 +1,0 @@
-<% @site_managers.each do |site_manager| %>
-  <div class="card-database">
-    <%= link_to site_manager, site_manager_path(site_manager) %>
-    <%= link_to "Edit", edit_site_manager_path(site_manager) %>
-    <%= link_to "x", site_manager_path(site_manager), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
-  </div>
-<% end %>

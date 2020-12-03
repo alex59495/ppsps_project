@@ -2,11 +2,8 @@ class SecurityCoordinatorsController < ApplicationController
   before_action :find_security_coordinator, only: [ :update, :show, :destroy, :edit ]
 
   def index
+    authorize SecurityCoordinator
     @security_coordinators = policy_scope(SecurityCoordinator)
-  end
-
-  def show
-    authorize @security_coordinator
   end
 
   def new
@@ -16,6 +13,7 @@ class SecurityCoordinatorsController < ApplicationController
 
   def create
     @security_coordinator = SecurityCoordinator.new(params_security_coordinator)
+    @security_coordinator.company = current_user.company
     authorize @security_coordinator
     if @security_coordinator.save
       # Create an ordered list to use in the view 'security_coordinator/_form_field_security_coordinator'
@@ -47,7 +45,7 @@ class SecurityCoordinatorsController < ApplicationController
 
   private
   def params_security_coordinator
-    params.require(:security_coordinator).permit(:address, :name, :representative, :email, :phone)
+    params.require(:security_coordinator).permit(:address, :name, :representative, :email, :phone, :company)
   end
 
   def find_security_coordinator

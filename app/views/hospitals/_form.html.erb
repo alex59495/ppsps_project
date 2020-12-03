@@ -2,7 +2,7 @@
   <%= f.input :name, label: 'Nom' %>
   <%= f.input :address, label: 'Adresse' %>
   <%= f.input :phone, label: 'Téléphone' %>
-  <% if params[:action] == 'new' %>
+  <% if params[:action] == 'new' || params[:action] == 'index' %>
     <%= f.submit 'Créer un hôpital', class: 'btn-blue' %>
   <% else %>
     <%= f.submit 'Modifier cet hôpital', class: 'btn-blue' %>

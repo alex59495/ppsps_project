@@ -2,16 +2,14 @@ class PensionInsurancesController < ApplicationController
   before_action :find_pension_insurance, only: [ :update, :show, :destroy, :edit ]
 
   def index
+    authorize PensionInsurance
     @pension_insurances = policy_scope(PensionInsurance)
     @pension_insurance = PensionInsurance.new
   end
 
-  def show
-    authorize @pensions_insurance
-  end
-
   def create
     @pension_insurance = PensionInsurance.new(params_pension_insurance)
+    @pension_insurance.company = current_user.company
     authorize @pension_insurance
     if @pension_insurance.save
       # Create an ordered list to use in the view 'pension_insurance/_form_field_pension_insurance'
@@ -49,7 +47,7 @@ class PensionInsurancesController < ApplicationController
 
   private
   def params_pension_insurance
-    params.require(:pension_insurance).permit(:address, :phone, :fax)
+    params.require(:pension_insurance).permit(:address, :phone, :fax, :company)
   end
 
   def find_pension_insurance

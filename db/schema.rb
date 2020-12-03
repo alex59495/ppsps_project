@@ -25,8 +25,10 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.string "name"
     t.string "address"
     t.string "phone"
+    t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_anti_poisons_on_company_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -41,24 +43,30 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.string "name"
     t.string "address"
     t.string "phone"
+    t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_deminings_on_company_id"
   end
 
   create_table "direccts", force: :cascade do |t|
     t.string "address"
     t.string "phone"
     t.string "fax"
+    t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_direccts_on_company_id"
   end
 
   create_table "hospitals", force: :cascade do |t|
     t.string "name"
     t.string "address"
     t.string "phone"
+    t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_hospitals_on_company_id"
   end
 
   create_table "moas", force: :cascade do |t|
@@ -67,8 +75,10 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.string "representative"
     t.string "phone"
     t.string "email"
+    t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_moas_on_company_id"
   end
 
   create_table "moes", force: :cascade do |t|
@@ -77,21 +87,20 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.string "representative"
     t.string "phone"
     t.string "email"
+    t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "pages", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_moes_on_company_id"
   end
 
   create_table "pension_insurances", force: :cascade do |t|
     t.string "address"
     t.string "phone"
     t.string "fax"
+    t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_pension_insurances_on_company_id"
   end
 
   create_table "ppsps", force: :cascade do |t|
@@ -151,8 +160,10 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.string "address"
     t.string "phone"
     t.string "fax"
+    t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_regional_committees_on_company_id"
   end
 
   create_table "risks", force: :cascade do |t|
@@ -167,8 +178,10 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.string "representative"
     t.string "phone"
     t.string "email"
+    t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_security_coordinators_on_company_id"
   end
 
   create_table "selected_altitudes", force: :cascade do |t|
@@ -218,8 +231,10 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.string "name"
     t.string "address"
     t.string "phone"
+    t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_sos_hands_on_company_id"
   end
 
   create_table "subcontractors", force: :cascade do |t|
@@ -264,10 +279,19 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.string "address"
     t.string "phone"
     t.string "fax"
+    t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_work_medecines_on_company_id"
   end
 
+  add_foreign_key "anti_poisons", "companies"
+  add_foreign_key "deminings", "companies"
+  add_foreign_key "direccts", "companies"
+  add_foreign_key "hospitals", "companies"
+  add_foreign_key "moas", "companies"
+  add_foreign_key "moes", "companies"
+  add_foreign_key "pension_insurances", "companies"
   add_foreign_key "ppsps", "anti_poisons"
   add_foreign_key "ppsps", "deminings"
   add_foreign_key "ppsps", "direccts"
@@ -283,8 +307,12 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
   add_foreign_key "ppsps", "work_medecines"
   add_foreign_key "project_informations", "site_managers"
   add_foreign_key "project_informations", "team_managers"
+  add_foreign_key "regional_committees", "companies"
+  add_foreign_key "security_coordinators", "companies"
   add_foreign_key "selected_risks", "ppsps"
   add_foreign_key "selected_risks", "risks"
+  add_foreign_key "sos_hands", "companies"
   add_foreign_key "subcontractors", "ppsps"
   add_foreign_key "users", "companies"
+  add_foreign_key "work_medecines", "companies"
 end

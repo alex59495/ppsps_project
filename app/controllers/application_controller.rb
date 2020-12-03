@@ -9,11 +9,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # To hanndle the current_user in React
-  def this_user
-    current_user ? current_user.email : "No"
-  end
-
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end
@@ -22,7 +17,7 @@ class ApplicationController < ActionController::Base
     { host: ENV["DOMAIN"] || "localhost:3000" }
   end
 
-
+  # Reidrect to ppsps page after log in
   def after_sign_in_path_for(resource)
     ppsps_path(resource)
   end

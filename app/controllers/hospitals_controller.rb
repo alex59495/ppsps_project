@@ -1,17 +1,15 @@
 class HospitalsController < ApplicationController
   before_action :find_hospital, only: [ :update, :show, :destroy, :edit ]
-
-  def show
-    authorize @hospital
-  end
-
+  
   def index
+    authorize Hospital
     @hospitals = policy_scope(Hospital)
     @hospital = Hospital.new
   end
 
   def create
     @hospital = Hospital.new(params_hospital)
+    @hospital.company = current_user.company
     authorize @hospital
     if @hospital.save
       # Create an ordered list to use in the view 'hospital/_form_field_hospital'
@@ -49,7 +47,7 @@ class HospitalsController < ApplicationController
 
   private
   def params_hospital
-    params.require(:hospital).permit(:address, :name, :phone)
+    params.require(:hospital).permit(:address, :name, :phone, :company)
   end
 
   def find_hospital

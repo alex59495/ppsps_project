@@ -3,59 +3,62 @@
 }
 
 .card-ppsp {
-  z-index: -1;
   width: 300px;
+  min-height: 180px;
   padding: 10px;
   color: black;
   margin: 6px;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;;
   box-shadow: 1px 1px 2px 2px $blue-light;
   &:hover {
     cursor: pointer;
     box-shadow: 1px 1px 2px 2px $blue-dark;
   }
-}
-
-.card-reference {
-  text-align: center;
-  font-weight: 700;
-  font-size: 20px;
-}
-
-.card-body {
-  font-size: 14px;
-}
-
-.card-ppsp-footer {
-  font-style: italic;
-  font-size: 12px;
-}
-
-.card-ppsp-delete {
-  position: relative;
-  float: right;
-  border: none;
-  font-size: 18px;
-  color: $blue-dark;
-  font-weight: 700;
-  margin-left: 6px;
-  &:hover{
-    color: black;
-    text-decoration: none;
+  .card-ppsp-reference {
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
   }
-}
-
-.card-ppsp-edit {
-  z-index: 9999;
-  position: relative;
-  float: right;
-  border: none;
-  font-size: 18px;
-  color: $blue-dark;
-  font-weight: 700;
-  &:hover{
-    color: black;
-    text-decoration: none;
+  .card-ppsp-body {
+    font-size: 14px;
+  }
+  .card-ppsp-footer {
+    font-style: italic;
+    font-size: 12px;
+  }
+  .card-ppsp-delete {
+    position: relative;
+    float: right;
+    border: none;
+    font-size: 18px;
+    color: $blue-dark;
+    font-weight: 700;
+    margin-left: 6px;
+    &:hover{
+      color: black;
+      text-decoration: none;
+    }
+  } 
+  .card-ppsp-edit {
+    position: relative;
+    float: right;
+    border: none;
+    font-size: 18px;
+    color: $blue-dark;
+    font-weight: 700;
+    &:hover{
+      color: black;
+      text-decoration: none;
+    }
+  }
+  .card-ppsp-link {
+    color: $blue-dark;
+    &:hover {
+      color: black;
+    }
   }
 }
 
@@ -63,14 +66,20 @@
   box-shadow:  2px 3px 10px 2px $blue-dark-shadow;
   padding: 8px;
   border-radius: 8px;
-  .card-info-title{
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  max-width: 330px;
+  .card-info-title {
     font-size: 20px;
     font-weight: 500;
   }
   .card-info-selected {
     display: flex;
+    align-items: center;
   }
-  .card-info-delete {
+  .card-info-delete a {
     float: right;
     border: none;
     color: $blue-dark;
@@ -92,6 +101,55 @@
   }
 }
 
+.card-profile {
+  background-color: rgb(245, 245, 245);
+  box-shadow:  2px 3px 15px 2px gray;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 3em;
+}
+
+.card-database {
+  width: 300px;
+  padding: 4px;
+  color: black;
+  margin: 6px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 1px 1px 2px 2px $blue-light;
+  &:hover {
+    box-shadow: 1px 1px 2px 2px $blue-dark;
+  }
+  .card-db-delete {
+    border: none;
+    font-size: 18px;
+    color: $blue-dark;
+    font-weight: 700;
+    margin-left: 6px;
+    &:hover{
+      color: black;
+      text-decoration: none;
+    }
+  }
+  .card-db-edit {
+    border: none;
+    font-size: 18px;
+    color: $blue-dark;
+    font-weight: 700;
+    &:hover{
+      color: black;
+      text-decoration: none;
+    }
+  }
+  .card-db-header {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
 .active {
   background-color: $blue-dark-shadow;
 }
+

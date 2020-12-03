@@ -12,7 +12,7 @@ class SearchBar extends Component {
 
   render () {
     return (
-      <input type="text" placeholder="Chercher une référence" className="form-control" onChange={this.handleChange}/>
+      <input type="text" placeholder="Chercher une référence..." className="form-control search-ppsp" onChange={this.handleChange}/>
     )
   }
 }
