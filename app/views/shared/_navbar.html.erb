@@ -1,5 +1,5 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-ppsp">
-  <%= link_to ppsps_path, class:"icon-home", data: { turbolinks: false } do %>
+  <%= link_to ppsps_path, class:"icon-home" do %>
     <%= image_tag('logo-ppsp.png', width: 80, height: 80) %>
   <% end %>
 
@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="d-flex align-items-center">
-      <%= link_to "Mon profil", user_path(current_user), class: 'btn-blue-ext mr-2', data: { turbolinks: false } %>
+      <%= link_to "Mon profil", user_path(current_user), class: 'btn-blue-ext mr-2' %>
       <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn-blue"%>
     </div>
   <% else %>
