@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-6">
           <div class="form-group select required ppsp_moa_id">
-            <div class="d-flex align-items-start">
+            <div class="container-header-form">
               <label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
               <% if policy(Moa).new? %>
                 <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalMoa">
@@ -35,7 +35,7 @@
         </div>
         <div class="col-6">
           <div class="form-group select required ppsp_moe_id">
-            <div class="d-flex align-items-start">
+            <div class="container-header-form">
               <label class="select required" for="ppsp_moe_id">MOE <abbr title="required">*</abbr></label>
               <% if policy(Moe).new? %>
                 <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalMoe">
@@ -86,7 +86,7 @@
       <div class="row">
         <div class="col-4">
           <div class="form-group select required ppsp_regional_committee_id">
-            <div class="d-flex align-items-start">
+            <div class="container-header-form">
               <label class="select required" for="ppsp_regional_committee_id">Comité régional de l'OPPBTP <abbr title="required">*</abbr></label>
               <% if policy(RegionalCommittee).new? %>
                 <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalRegionalCommittee">
@@ -99,7 +99,7 @@
         </div>
         <div class="col-4">
           <div class="form-group select required ppsp_pension_insurance_id">
-            <div class="d-flex align-items-start">
+            <div class="container-header-form">
               <label class="select required" for="ppsp_pension_insurance_id">Caisse d'assurance retraite <abbr title="required">*</abbr></label>
               <% if policy(PensionInsurance).new? %>
                 <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalPensionInsurance">
@@ -112,7 +112,7 @@
         </div>
         <div class="col-4">
           <div class="form-group select required ppsp_direcct_id">
-            <div class="d-flex align-items-start">
+            <div class="container-header-form">
               <label class="select required" for="ppsp_direcct_id">DIRECCT <abbr title="required">*</abbr></label>
               <% if policy(Direcct).new? %>
                 <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalDirecct">
@@ -125,7 +125,7 @@
         </div>
         <div class="col-4">
           <div class="form-group select required ppsp_work_medecine_id">
-            <div class="d-flex align-items-start">
+            <div class="container-header-form">
               <label class="select required" for="ppsp_work_medecine_id">Médecine du travail <abbr title="required">*</abbr></label>
               <% if policy(WorkMedecine).new? %>
                 <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalWorkMedecine">
@@ -138,7 +138,7 @@
         </div>
         <div class="col-4">
           <div class="form-group select required ppsp_demining_id">
-            <div class="d-flex align-items-start">
+            <div class="container-header-form">
               <label class="select required" for="ppsp_demining_id">Centre de déminage <abbr title="required">*</abbr></label>
               <% if policy(Demining).new? %>
                 <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalDemining">
@@ -151,7 +151,7 @@
         </div>
         <div class="col-4">
           <div class="form-group select required ppsp_sos_hand_id">
-            <div class="d-flex align-items-start">
+            <div class="container-header-form">
               <label class="select required" for="ppsp_sos_hand_id">Centre SOS Mains et Doigts<abbr title="required">*</abbr></label>
               <% if policy(SosHand).new? %>
                 <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSosHand">
@@ -164,7 +164,7 @@
         </div>
         <div class="col-4 offset-4">
           <div class="form-group select required ppsp_anti_poison_id">
-            <div class="d-flex align-items-start">
+            <div class="container-header-form">
               <label class="select required" for="ppsp_anti_poison_id">Centre anti-poison <abbr title="required">*</abbr></label>
               <% if policy(AntiPoison).new? %>
                 <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalAntiPoison">
@@ -178,7 +178,7 @@
       </div>
       <div class="col-6 offset-3">
         <div class="form-group select required ppsp_hospital_id">
-          <div class="d-flex align-items-start">
+          <div class="container-header-form">
             <label class="select required" for="ppsp_hospital_id">Hôpital le plus proche <abbr title="required">*</abbr></label>
             <% if policy(Hospital).new? %>
               <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalHospital">
@@ -191,7 +191,7 @@
       </div>
       <div class="col-6 offset-3">
         <div class="form-group select required ppsp_security_coordinator_id">
-          <div class="d-flex align-items-start">
+          <div class="container-header-form">
             <label class="select required" for="ppsp_security_coordinator_id">Coordinateur sécurité</label>
             <% if policy(SecurityCoordinator).new? %>
               <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSecurityCoordinator">
