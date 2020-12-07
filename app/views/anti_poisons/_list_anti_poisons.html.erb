@@ -4,7 +4,7 @@
       <%= link_to edit_anti_poison_path(anti_poison), class: "card-db-edit", target: '_blank' do %>
         <i class='fas fa-pencil-alt'></i>
       <% end %>
-      <%= link_to "x", anti_poison_path(anti_poison), class: "card-db-delete", method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+      <%= link_to "x", destroy_anti_poison_path(anti_poison), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
     </div>
     <div class="db-element">
       <%= anti_poison.name %>

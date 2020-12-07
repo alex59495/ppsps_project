@@ -8,16 +8,12 @@ class PensionInsurancePolicy < ApplicationPolicy
   def index?
     user.admin
   end
-  
-  def new?
+
+  def create?
     user.admin
   end
 
-  def create?
-    new?
-  end
-
-  def destroy?
+  def destroyed?
     user.admin
   end
 

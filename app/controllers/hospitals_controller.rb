@@ -1,9 +1,9 @@
 class HospitalsController < ApplicationController
-  before_action :find_hospital, only: [ :update, :show, :destroy, :edit ]
+  before_action :find_hospital, only: [ :update, :show, :destroyed, :edit ]
   
   def index
     authorize Hospital
-    @hospitals = policy_scope(Hospital)
+    @hospitals = policy_scope(Hospital.where(is_destroyed: false))
     @hospital = Hospital.new
   end
 
@@ -39,10 +39,14 @@ class HospitalsController < ApplicationController
     end
   end
 
-  def destroy
+  def destroyed
     authorize @hospital
-    @hospital.destroy
-    redirect_to hospitals_path
+    @hospital.is_destroyed = true
+    if @hospital.save
+      redirect_to hospitals_path
+    else
+      flash.now[:error] = "L'élément n'a pas pu être supprimé"
+    end
   end
 
   private

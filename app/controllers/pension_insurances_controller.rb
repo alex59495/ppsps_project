@@ -1,9 +1,9 @@
 class PensionInsurancesController < ApplicationController
-  before_action :find_pension_insurance, only: [ :update, :show, :destroy, :edit ]
+  before_action :find_pension_insurance, only: [ :update, :show, :destroyed, :edit ]
 
   def index
     authorize PensionInsurance
-    @pension_insurances = policy_scope(PensionInsurance)
+    @pension_insurances = policy_scope(PensionInsurance.where(is_destroyed: false))
     @pension_insurance = PensionInsurance.new
   end
 
@@ -39,10 +39,14 @@ class PensionInsurancesController < ApplicationController
     end
   end
 
-  def destroy
+  def destroyed
     authorize @pension_insurance
-    @pension_insurance.destroy
-    redirect_to pension_insurances_path
+    @pension_insurance.is_destroyed = true
+    if @pension_insurance.save
+      redirect_to pension_insurances_path
+    else
+      flash.now[:error] = "L'élément n'a pas pu être supprimé"
+    end
   end
 
   private

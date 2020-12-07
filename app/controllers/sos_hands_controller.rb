@@ -1,9 +1,9 @@
 class SosHandsController < ApplicationController
-  before_action :find_sos_hand, only: [ :update, :show, :destroy, :edit ]
+  before_action :find_sos_hand, only: [ :update, :show, :destroyed, :edit ]
 
   def index
     authorize SosHand
-    @sos_hands = policy_scope(SosHand)
+    @sos_hands = policy_scope(SosHand.where(is_destroyed: false))
     @sos_hand = SosHand.new
   end
 
@@ -39,10 +39,14 @@ class SosHandsController < ApplicationController
     end
   end
 
-  def destroy
+  def destroyed
     authorize @sos_hand
-    @sos_hand.destroy
-    redirect_to sos_hands_path
+    @sos_hand.is_destroyed = true
+    if @sos_hand.save
+      redirect_to sos_hands_path
+    else
+      flash.now[:error] = "L'élément n'a pas pu être supprimé"
+    end
   end
 
   private

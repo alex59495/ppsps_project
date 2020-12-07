@@ -1,9 +1,9 @@
 class RegionalCommitteesController < ApplicationController
-  before_action :find_regional_committee, only: [ :update, :show, :destroy, :edit ]
+  before_action :find_regional_committee, only: [ :update, :show, :destroyed, :edit ]
 
   def index
     authorize RegionalCommittee
-    @regional_committees = policy_scope(RegionalCommittee)
+    @regional_committees = policy_scope(RegionalCommittee.where(is_destroyed: false))
     @regional_committee = RegionalCommittee.new
   end
 
@@ -39,10 +39,14 @@ class RegionalCommitteesController < ApplicationController
     end
   end
 
-  def destroy
+  def destroyed
     authorize @regional_committee
-    @regional_committee.destroy
-    redirect_to regional_committees_path
+    @regional_committee.is_destroyed = true
+    if @regional_committee.save
+      redirect_to regional_committees_path
+    else
+      flash.now[:error] = "L'élément n'a pas pu être supprimé"
+    end
   end
 
   private

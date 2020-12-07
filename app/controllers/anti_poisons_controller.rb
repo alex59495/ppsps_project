@@ -1,9 +1,9 @@
 class AntiPoisonsController < ApplicationController
-  before_action :find_anti_poison, only: [ :update, :show, :destroy, :edit ]
+  before_action :find_anti_poison, only: [ :update, :show, :destroyed, :edit ]
 
   def index
     authorize AntiPoison
-    @anti_poisons = policy_scope(AntiPoison)
+    @anti_poisons = policy_scope(AntiPoison.where(is_destroyed: false))
     @anti_poison = AntiPoison.new
   end
 
@@ -40,10 +40,14 @@ class AntiPoisonsController < ApplicationController
     end
   end
 
-  def destroy
+  def destroyed
     authorize @anti_poison
-    @anti_poison.destroy
-    redirect_to anti_poisons_path
+    @anti_poison.is_destroyed = true
+    if @anti_poison.save
+      redirect_to anti_poisons_path
+    else
+      flash.now[:error] = "L'élément n'a pas pu être supprimé"
+    end
   end
 
   private

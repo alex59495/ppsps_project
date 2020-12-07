@@ -4,7 +4,7 @@
       <%= link_to edit_pension_insurance_path(pension_insurance), class: "card-db-edit", target: '_blank' do %>
         <i class='fas fa-pencil-alt'></i>
       <% end %>
-      <%= link_to "x", pension_insurance_path(pension_insurance), class: "card-db-delete", method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+      <%= link_to "x", destroy_pension_insurance_path(pension_insurance), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
     </div>
     <div class="db-element">
       <%= pension_insurance.address %>

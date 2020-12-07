@@ -8,13 +8,9 @@ class ProjectInformationPolicy < ApplicationPolicy
   def index?
     user.admin
   end
-  
-  def new?
-    user.admin
-  end
 
   def create?
-    new?
+    user.admin
   end
   
   def destroy?

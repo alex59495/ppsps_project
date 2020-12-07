@@ -8,20 +8,16 @@ class SecurityCoordinatorPolicy < ApplicationPolicy
   def index?
     user.admin
   end
-  
-  def new?
-    user.admin
-  end
 
   def create?
-    new?
-  end
-
-  def destroy?
     user.admin
   end
 
   def edit?
+    user.admin
+  end
+
+  def destroyed?
     user.admin
   end
 

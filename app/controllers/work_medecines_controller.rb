@@ -1,9 +1,9 @@
 class WorkMedecinesController < ApplicationController
-  before_action :find_work_medecine, only: [ :update, :show, :destroy, :edit ]
+  before_action :find_work_medecine, only: [ :update, :show, :destroyed, :edit ]
 
   def index
     authorize WorkMedecine
-    @work_medecines = policy_scope(WorkMedecine)
+    @work_medecines = policy_scope(WorkMedecine.where(is_destroyed: false))
     @work_medecine = WorkMedecine.new
   end
 
@@ -39,10 +39,14 @@ class WorkMedecinesController < ApplicationController
     end
   end
 
-  def destroy
+  def destroyed
     authorize @work_medecine
-    @work_medecine.destroy
-    redirect_to work_medecines_path
+    @work_medecine.is_destroyed = true
+    if @work_medecine.save
+      redirect_to work_medecines_path
+    else
+      flash.now[:error] = "L'élément n'a pas pu être supprimé"
+    end
   end
 
   private

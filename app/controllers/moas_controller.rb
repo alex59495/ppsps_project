@@ -1,9 +1,9 @@
 class MoasController < ApplicationController
-  before_action :find_moa, only: [ :update, :show, :destroy, :edit ]
+  before_action :find_moa, only: [ :update, :show, :destroyed, :edit ]
 
   def index
     authorize Moa
-    @moas = policy_scope(Moa)
+    @moas = policy_scope(Moa.where(is_destroyed: false))
     @moa = Moa.new
   end
 
@@ -39,12 +39,15 @@ class MoasController < ApplicationController
     end
   end
 
-  def destroy
+  def destroyed
     authorize @moa
-    @moa.destroy
-    redirect_to moas_path
+    @moa.is_destroyed = true
+    if @moa.save
+      redirect_to moas_path
+    else
+      flash.now[:error] = "L'élément n'a pas pu être supprimé"
+    end
   end
-
 
   private
   def params_moa

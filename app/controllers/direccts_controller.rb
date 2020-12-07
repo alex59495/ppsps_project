@@ -1,9 +1,9 @@
 class DirecctsController < ApplicationController
-  before_action :find_direcct, only: [ :update, :show, :destroy, :edit ]
+  before_action :find_direcct, only: [ :update, :show, :destroyed, :edit ]
 
   def index
     authorize Direcct
-    @direccts = policy_scope(Direcct)
+    @direccts = policy_scope(Direcct.where(is_destroyed: false))
     @direcct = Direcct.new
   end
 
@@ -39,10 +39,14 @@ class DirecctsController < ApplicationController
     end
   end
 
-  def destroy
+  def destroyed
     authorize @direcct
-    @direcct.destroy
-    redirect_to direccts_path
+    @direcct.is_destroyed = true
+    if @direcct.save
+      redirect_to direccts_path
+    else
+      flash.now[:error] = "L'élément n'a pas pu être supprimé"
+    end
   end
 
   private

@@ -14,7 +14,7 @@ require("channels")
 import "bootstrap";
 
 // Import react elements
-import '../ppsp-react/index'
+import '../react-ppsp/index'
 
 // import { AutoCompleteGeocoding } from "../components/autocomplete"
 // La clé API pour l'utilisation de l'autocomplete Geocoding se trouve dans config/application.yml

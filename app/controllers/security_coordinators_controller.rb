@@ -1,14 +1,10 @@
 class SecurityCoordinatorsController < ApplicationController
-  before_action :find_security_coordinator, only: [ :update, :show, :destroy, :edit ]
+  before_action :find_security_coordinator, only: [ :update, :show, :destroyed, :edit ]
 
   def index
     authorize SecurityCoordinator
-    @security_coordinators = policy_scope(SecurityCoordinator)
-  end
-
-  def new
+    @security_coordinators = policy_scope(SecurityCoordinator.where(is_destroyed: false))
     @security_coordinator = SecurityCoordinator.new
-    authorize @security_coordinator
   end
 
   def create
@@ -40,6 +36,16 @@ class SecurityCoordinatorsController < ApplicationController
       redirect_to security_coordinators_path
     else
       render :edit
+    end
+  end
+
+  def destroyed
+    authorize @security_coordinator
+    @security_coordinator.is_destroyed = true
+    if @security_coordinator.save
+      redirect_to security_coordinators_path
+    else
+      flash.now[:error] = "L'élément n'a pas pu être supprimé"
     end
   end
 

@@ -1,7 +1,45 @@
-<% @security_coordinators.each do |security_coordinator| %>
-  <div class="card-database">
-    <%= link_to security_coordinator, security_coordinator_path(security_coordinator) %>
-    <%= link_to "Edit", edit_security_coordinator_path(security_coordinator) %>
-    <%= link_to "x", security_coordinator_path(security_coordinator), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+<div class="container">
+  <div class="link-db">
+    <%= link_to "Revenir aux bases de données", database_path %>
   </div>
-<% end %>
+  <% if policy(SecurityCoordinator).new? %>
+    <div>
+      <button type="button" class="btn-blue" data-toggle="modal" data-target="#ModalSecurityCoordinator">
+        Ajouter un Coordinateur Sécurité
+      </button>
+    </div>
+  <% end %>
+  <%# Modal Regional Committee %>
+  <% if policy(SecurityCoordinator).new? %>
+    <div class="modal fade" id="ModalSecurityCoordinator" tabindex="-1" role="dialog" aria-labelledby="ModalSecurityCoordinator" aria-hidden="true">
+      <%= render 'ppsps/modal_security_coordinator' %>
+    </div>
+  <% end %>
+  <div class="container-database">
+    <% @security_coordinators.each do |security_coordinator| %>
+      <div class="card-database">
+        <div class="card-db-header">
+          <%= link_to edit_security_coordinator_path(security_coordinator), class: "card-db-edit", target: '_blank' do %>
+            <i class='fas fa-pencil-alt'></i>
+          <% end %>
+          <%= link_to "x", destroy_security_coordinator_path(security_coordinator), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+        </div>
+        <div class="db-element">
+          <%= security_coordinator.name %>
+        </div>
+        <div class="db-element">
+          <%= security_coordinator.address %>
+        </div>
+        <div class="db-element">
+          <%= security_coordinator.representative %>
+        </div>
+        <div class="db-element">
+        <%= security_coordinator.phone %>
+        </div>
+        <div class="db-element">
+          <%= security_coordinator.email %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -22,7 +22,7 @@
           <%= link_to edit_work_medecine_path(work_medecine), class: "card-db-edit", target: '_blank' do %>
             <i class='fas fa-pencil-alt'></i>
           <% end %>
-          <%= link_to "x", work_medecine_path(work_medecine), class: "card-db-delete", method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+          <%= link_to "x", destroy_work_medecine_path(work_medecine), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
         </div>
         <div class="db-element">
           <%= work_medecine.address %>

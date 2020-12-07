@@ -1,9 +1,9 @@
 class MoesController < ApplicationController
-  before_action :find_moe, only: [ :update, :show, :destroy, :edit ]
+  before_action :find_moe, only: [ :update, :show, :destroyed, :edit ]
 
   def index
     authorize Moe
-    @moes = policy_scope(Moe)
+    @moes = policy_scope(Moe.where(is_destroyed: false))
     @moe = Moe.new
   end
 
@@ -39,10 +39,14 @@ class MoesController < ApplicationController
     end
   end
 
-  def destroy
+  def destroyed
     authorize @moe
-    @moe.destroy
-    redirect_to moes_path
+    @moe.is_destroyed = true
+    if @moe.save
+      redirect_to moes_path
+    else
+      flash.now[:error] = "L'élément n'a pas pu être supprimé"
+    end
   end
 
   private

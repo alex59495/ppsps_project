@@ -1,9 +1,9 @@
 class DeminingsController < ApplicationController
-  before_action :find_demining, only: [ :update, :show, :destroy, :edit ]
+  before_action :find_demining, only: [ :update, :show, :destroyed, :edit ]
 
   def index
     authorize Demining
-    @deminings = policy_scope(Demining)
+    @deminings = policy_scope(Demining.where(is_destroyed: false))
     @demining = Demining.new
   end
 
@@ -39,10 +39,14 @@ class DeminingsController < ApplicationController
     end
   end
 
-  def destroy
+  def destroyed
     authorize @demining
-    @demining.destroy
-    redirect_to deminings_path
+    @demining.is_destroyed = true
+    if @demining.save
+      redirect_to deminings_path
+    else
+      flash.now[:error] = "L'élément n'a pas pu être supprimé"
+    end
   end
 
   private

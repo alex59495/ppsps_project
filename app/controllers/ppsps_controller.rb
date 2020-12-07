@@ -32,6 +32,19 @@ class PpspsController < ApplicationController
     @demining = Demining.new
     @sos_hand = SosHand.new
     @anti_poison = AntiPoison.new
+
+    # Select the databases present in the select lists
+    @moas = Moa.where(company: current_user.company, is_destroyed: false)
+    @moes = Moe.where(company: current_user.company, is_destroyed: false)
+    @regional_committees = RegionalCommittee.where(company: current_user.company, is_destroyed: false)
+    @pension_insurances = PensionInsurance.where(company: current_user.company, is_destroyed: false)
+    @direccts = Direcct.where(company: current_user.company, is_destroyed: false)
+    @work_medecines = WorkMedecine.where(company: current_user.company, is_destroyed: false)
+    @deminings = Demining.where(company: current_user.company, is_destroyed: false)
+    @sos_hands = SosHand.where(company: current_user.company, is_destroyed: false)
+    @anti_poisons = AntiPoison.where(company: current_user.company, is_destroyed: false)
+    @hospitals = Hospital.where(company: current_user.company, is_destroyed: false)
+    @security_coordinators = SecurityCoordinator.where(company: current_user.company, is_destroyed: false)
   end
 
   def show
@@ -123,6 +136,19 @@ class PpspsController < ApplicationController
     @demining = Demining.new
     @sos_hand = SosHand.new
     @anti_poison = AntiPoison.new
+
+    # Select the databases present in the select lists
+    @moas = Moa.where(company: current_user.company, is_destroyed: false)
+    @moes = Moe.where(company: current_user.company, is_destroyed: false)
+    @regional_committees = RegionalCommittee.where(company: current_user.company, is_destroyed: false)
+    @pension_insurances = PensionInsurance.where(company: current_user.company, is_destroyed: false)
+    @direccts = Direcct.where(company: current_user.company, is_destroyed: false)
+    @work_medecines = WorkMedecine.where(company: current_user.company, is_destroyed: false)
+    @deminings = Demining.where(company: current_user.company, is_destroyed: false)
+    @sos_hands = SosHand.where(company: current_user.company, is_destroyed: false)
+    @anti_poisons = AntiPoison.where(company: current_user.company, is_destroyed: false)
+    @hospitals = Hospital.where(company: current_user.company, is_destroyed: false)
+    @security_coordinators = SecurityCoordinator.where(company: current_user.company, is_destroyed: false)
   end
 
   def update

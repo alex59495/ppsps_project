@@ -1,6 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe "AntiPoisons Controller", type: :request do
+  context "Normal User" do
+    before do
+      user_uber = create(:user_uber)
+      login_as(user_uber)
+    end
+
+    it "Can't access the anti_poisons index" do
+      expect{get anti_poisons_path}.to raise_error(Pundit::NotAuthorizedError)
+    end
+  end
+
+
   context 'Logged as User Admin' do
     before do
       user = create(:user_admin)
@@ -10,11 +22,15 @@ RSpec.describe "AntiPoisons Controller", type: :request do
     let(:params_anti_poison) { attributes_for(:anti_poison)}
     let(:params_anti_poison_update) { attributes_for(:anti_poison_update)}
 
-  
+    it "Can access the anti_poison index page" do
+      get anti_poisons_path
+      expect(response).to have_http_status(200)
+    end
+
     context 'Action Destroy' do
-      let(:destroy_action) { delete anti_poison_path(@anti_poison) }
+      let(:destroy_action) { post destroy_anti_poison_path(@anti_poison) }
       it 'Delete 1 instance of anti_poison when using action destroy' do
-        expect { destroy_action }.to change(AntiPoison, :count).by(-1)
+        expect { destroy_action }.to change(AntiPoison.where(is_destroyed: true), :count).by(1)
       end
   
       it 'Redirect after destroy' do

@@ -1,6 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe "Deminings Controller", type: :request do
+  context 'Logged as Normal User' do
+    before do
+      user_uber = create(:user_uber)
+      login_as(user_uber)
+    end
+    
+    it "Can't access the demings index" do
+      expect{get deminings_path}.to raise_error(Pundit::NotAuthorizedError)
+    end
+  end
+
   context 'Logged as User Admin' do
     before do
       user = create(:user_admin)
@@ -10,12 +21,15 @@ RSpec.describe "Deminings Controller", type: :request do
     let(:params_demining) { attributes_for(:demining)}
     let(:params_demining_update) { attributes_for(:demining_update)}
 
-
+    it "Can access the demining index page" do
+      get deminings_path
+      expect(response).to have_http_status(200)
+    end
   
     context 'Action Destroy' do
-      let(:destroy_action) { delete demining_path(@demining) }
+      let(:destroy_action) { post destroy_demining_path(@demining) }
       it 'Delete 1 instance of demining when using action destroy' do
-        expect { destroy_action }.to change(Demining, :count).by(-1)
+        expect { destroy_action }.to change(Demining.where(is_destroyed: true), :count).by(1)
       end
   
       it 'Redirect after destroy' do

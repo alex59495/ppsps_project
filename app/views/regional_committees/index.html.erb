@@ -22,7 +22,7 @@
           <%= link_to edit_regional_committee_path(regional_committee), class: "card-db-edit", target: '_blank' do %>
             <i class='fas fa-pencil-alt'></i>
           <% end %>
-          <%= link_to "x", regional_committee_path(regional_committee), class: "card-db-delete", method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+          <%= link_to "x", destroy_regional_committee_path(regional_committee), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
         </div>
         <div class="db-element">
           <%= regional_committee.name %>
