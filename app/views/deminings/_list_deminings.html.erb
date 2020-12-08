@@ -1,19 +1,35 @@
-<% @deminings.each do |demining| %>
-  <div class="card-database">
-    <div class="card-db-header">
-      <%= link_to edit_demining_path(demining), class: "card-db-edit", target: '_blank' do %>
-        <i class='fas fa-pencil-alt'></i>
-      <% end %>
-      <%= link_to "x", destroy_demining_path(demining), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
-    </div>
-    <div class="db-element">
-      <%= demining.name %>
-    </div>
-    <div class="db-element">
-      <%= demining.address %>
-    </div>
-    <div class="db-element">
-      <%= demining.phone %>
-    </div>
+<%= form_with url: deminings_path, class: "d-flex mt-2 justify-content-center", method: :get do |f| %>
+  <%= f.text_field :query, params: :query, class: "form-control search-db", placeholder: "Rechercher un mot-clé..." %>
+  <%= f.submit 'Go', class: "btn-orange-right" %>
+<% end %>
+<form class="d-flex justify-content-center mt-1" method="get" action=<%= deminings_path %> data-remote="true">
+  <input class="btn-orange-ext" type="submit" value="Database complète">
+  <input type="hidden" name="query" value="">
+</form>
+<% if @deminings.length > 0 %>
+  <div class="d-flex flex-wrap mt-2 justify-content-center">
+    <% @deminings.each do |demining| %>
+      <div class="card-database">
+        <div class="card-db-header">
+          <%= link_to edit_demining_path(demining), class: "card-db-edit", target: '_blank' do %>
+            <i class='fas fa-pencil-alt'></i>
+          <% end %>
+          <%= link_to "x", destroy_demining_path(demining), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+        </div>
+        <div class="db-element">
+          <%= demining.name %>
+        </div>
+        <div class="db-element">
+          <%= demining.address %>
+        </div>
+        <div class="db-element">
+          <%= demining.phone %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="container-db-vide">
+    Votre recherche n'a retourné aucun résultat
   </div>
 <% end %>

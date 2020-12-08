@@ -3,7 +3,20 @@ class WorkMedecinesController < ApplicationController
 
   def index
     authorize WorkMedecine
-    @work_medecines = policy_scope(WorkMedecine.where(is_destroyed: false))
+    if params[:query]
+      sql_query = "fax ILIKE :query OR address ILIKE :query OR phone ILIKE :query"
+      @work_medecines = policy_scope(WorkMedecine.where(sql_query, query: "%#{params[:query]}%", is_destroyed: false))
+      # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
+      respond_to do |format|
+        # Respond with the index.js.erb
+        format.js {}
+      end
+    else
+      @work_medecines = policy_scope(WorkMedecine.where(is_destroyed: false))
+      respond_to do |format|
+        format.html {}
+      end
+    end
     @work_medecine = WorkMedecine.new
   end
 

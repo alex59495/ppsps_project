@@ -202,7 +202,6 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       expect(page).to have_selector('.card-info')
       accept_confirm { find('.card-info-delete').click }
       visit current_path
-      binding.pry
       expect(page).not_to have_selector('.card-info')
     end
 

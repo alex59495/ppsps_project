@@ -38,6 +38,20 @@ $btn-add-size: 18px;
   }
 }
 
+.btn-orange-right {
+  padding: 8px 16px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background-color: $orange;
+  color: black;
+  border: none;
+  &:hover {
+    background-color: $orange-dark;
+    text-decoration: none;
+    color: black;
+  }
+}
+
 .btn-orange-ext {
   padding: 4px 8px;
   border-radius: 8px;
