@@ -17,9 +17,7 @@ class ListPpsp extends Component {
 
   // Test if we are at the bottom of the page
   isBottom(el) {
-    if($('.container-ppsp')) {
-      return el.getBoundingClientRect().bottom <= window.innerHeight;
-    }  
+    return el.getBoundingClientRect().bottom <= window.innerHeight; 
   }
 
   // Active the Loading Gif and charge more Ppsps
@@ -42,12 +40,15 @@ class ListPpsp extends Component {
   }
 
   trackScrolling = () => {
-    const wrappedElement = document.getElementById('contPpsps');
-    if (this.isBottom(wrappedElement) && (this.props.selectedPpsps.length < this.props.ppsps.length)) {
-      // Show the Loading element + remove and charge the Ppsps in the callback
-      this.chargeLoad(this.removeLoad, this.props.loadMore)
-      document.removeEventListener('scroll', this.trackScrolling);
-    }
+    
+    if(document.getElementById('ppsps-react')) {
+      const wrappedElement = document.getElementById('contPpsps');
+      if (this.isBottom(wrappedElement) && (this.props.selectedPpsps.length < this.props.ppsps.length)) {
+        // Show the Loading element + remove and charge the Ppsps in the callback
+        this.chargeLoad(this.removeLoad, this.props.loadMore)
+        document.removeEventListener('scroll', this.trackScrolling);
+      }
+    } 
   };
 
   render () {

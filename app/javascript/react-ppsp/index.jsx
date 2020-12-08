@@ -46,7 +46,6 @@ export { initialState }
 // });
 
 const reactPpsp = () => {
-  console.log(document.getElementById('ppsps-react'));
   if(document.getElementById('ppsps-react')) {
   // render an instance of the component in the DOM
     ReactDOM.render(
