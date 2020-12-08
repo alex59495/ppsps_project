@@ -5,14 +5,14 @@ class AntiPoisonsController < ApplicationController
     authorize AntiPoison
     if params[:query]
       sql_query = "name ILIKE :query OR address ILIKE :query OR phone ILIKE :query"
-      @anti_poisons = policy_scope(AntiPoison.where(sql_query, query: "%#{params[:query]}%", is_destroyed: false))
+      @anti_poisons = policy_scope(AntiPoison.where(sql_query, query: "%#{params[:query]}%"))
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
         # Respond with the index.js.erb
         format.js {}
       end
     else
-      @anti_poisons = policy_scope(AntiPoison.where(is_destroyed: false))
+      @anti_poisons = policy_scope(AntiPoison.all)
       respond_to do |format|
         format.html {}
       end

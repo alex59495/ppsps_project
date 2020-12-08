@@ -5,14 +5,14 @@ class SosHandsController < ApplicationController
     authorize SosHand
     if params[:query]
       sql_query = "name ILIKE :query OR address ILIKE :query OR phone ILIKE :query"
-      @sos_hands = policy_scope(SosHand.where(sql_query, query: "%#{params[:query]}%", is_destroyed: false))
+      @sos_hands = policy_scope(SosHand.where(sql_query, query: "%#{params[:query]}%"))
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
         # Respond with the index.js.erb
         format.js {}
       end
     else
-      @sos_hands = policy_scope(SosHand.where(is_destroyed: false))
+      @sos_hands = policy_scope(SosHand.all)
       respond_to do |format|
         format.html {}
       end

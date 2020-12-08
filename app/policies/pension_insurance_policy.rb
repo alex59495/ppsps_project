@@ -1,7 +1,7 @@
 class PensionInsurancePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all
+      scope.where(company: user.company, is_destroyed: false)
     end
   end
 

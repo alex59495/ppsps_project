@@ -11,8 +11,10 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
   feature 'Logged as normal User' do
     before do
       user_uber = create(:user_uber)
-      @ppsp_1 = create(:ppsp, user: user_uber)
-      @ppsp_2 = create(:ppsp, user: user_uber)
+      project_info1 = create(:project_information, reference: "AABB130")
+      project_info2 = create(:project_information, reference: "AABB120")
+      @ppsp_1 = create(:ppsp, project_information: project_info1, user: user_uber)
+      @ppsp_2 = create(:ppsp, project_information: project_info2, user: user_uber)
       @ppsp_3 = create(:ppsp_google)
       login_as(user_uber)
     end
@@ -26,6 +28,13 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       visit(ppsps_path)
       expect(page).to have_css('.card-ppsp', count: 2)
     end
+
+    scenario "The search bar is working" do
+      visit(ppsps_path)
+      find('.search-ppsp').set("AABB130")
+      expect(page).to have_css('.card-ppsp', count: 1)
+    end
+
   end
 
 
@@ -217,7 +226,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       expect(page).not_to have_selector('.card-info')
     end
 
-    scenario 'Can delete aite installation' do
+    scenario 'Can delete site installation' do
       site_installations
       visit informations_supplementaires_ppsp_path(@ppsp)
       find('#CheckSiteInstallation').click

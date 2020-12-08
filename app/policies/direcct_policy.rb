@@ -1,7 +1,7 @@
 class DirecctPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.where(company: user.company)
+      scope.where(company: user.company, is_destroyed: false)
     end
   end
 
