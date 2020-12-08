@@ -45,14 +45,17 @@ export { initialState }
 //   selectedPpsps: reducerPpsps
 // });
 
-if(document.getElementById('ppsps-react')) {
-  document.addEventListener('turbolinks:load', () => {
-    // render an instance of the component in the DOM
+const reactPpsp = () => {
+  console.log(document.getElementById('ppsps-react'));
+  if(document.getElementById('ppsps-react')) {
+  // render an instance of the component in the DOM
     ReactDOM.render(
       <Provider store={createStore(reducerPpsps, initialState, middlewares)}>
         <ReactApp />
       </Provider>,
       document.getElementById('ppsps-react')
     )
-  })
-}
+  };
+};
+
+export { reactPpsp };
