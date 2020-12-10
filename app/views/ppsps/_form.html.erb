@@ -7,10 +7,10 @@
       </div>
       <div class="row">
         <div class="col-6">
-          <%= f.input :start_date, label: "Date de début"  %>
+          <%= f.input :start_date, label: "Date de début", as: :string, input_html: {class: "datepicker", id: "startDate"} %>
         </div>
         <div class="col-6">
-          <%= f.input :end_date, label: "Date de fin"  %>
+          <%= f.input :end_date, label: "Date de fin", as: :string, input_html: {class: "datepicker", id: "endDate"} %>
         </div>
       </div>
       <div class="col-6 offset-3">
@@ -30,7 +30,7 @@
                 </button>
               <% end %>
             </div>
-            <%= f.input :moa_id, as: :select, label: false, collection: @moas, label_method: lambda {|x| "#{x.name} - #{x.representative}"} %>
+            <%= f.input :moa_id, as: :select, label: false, collection: @moas, label_method: lambda {|x| "#{x.name} - #{x.representative}"}, input_html: {class: "select-2"} %>
           </div>
         </div>
         <div class="col-6">
@@ -43,7 +43,7 @@
                 </button>
               <% end %>
             </div>
-            <%= f.input :moe_id, as: :select, label: false, collection: @moes, label_method: lambda {|x| "#{x.name} - #{x.representative}"} %>
+            <%= f.input :moe_id, as: :select, label: false, collection: @moes, label_method: lambda {|x| "#{x.name} - #{x.representative}"}, input_html: {class: "select-2"} %>
           </div>
         </div>
       </div>
@@ -94,7 +94,7 @@
                 </button>
               <% end %>
             </div>
-            <%= f.input :regional_committee_id, as: :select, label: false, collection: @regional_committees, label_method: lambda {|x| "#{x.name}"} %>
+            <%= f.input :regional_committee_id, as: :select, label: false, collection: @regional_committees, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
           </div>
         </div>
         <div class="col-4">
@@ -107,7 +107,7 @@
                 </button>
               <% end %>
             </div>
-            <%= f.input :pension_insurance_id, as: :select, label: false, collection: @pension_insurances, label_method: lambda {|x| "#{x.address} - #{x.phone}"} %>
+            <%= f.input :pension_insurance_id, as: :select, label: false, collection: @pension_insurances, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
           </div>
         </div>
         <div class="col-4">
@@ -120,7 +120,7 @@
                 </button>
               <% end %>
             </div>
-            <%= f.input :direcct_id, as: :select, label: false, collection: @direccts, label_method: lambda {|x| "#{x.address} - #{x.phone}"} %>
+            <%= f.input :direcct_id, as: :select, label: false, collection: @direccts, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
           </div>
         </div>
         <div class="col-4">
@@ -133,7 +133,7 @@
                 </button>
               <% end %>
             </div>
-            <%= f.input :work_medecine_id, as: :select, label: false, collection: @work_medecines, label_method: lambda {|x| "#{x.address} - #{x.phone}"} %>
+            <%= f.input :work_medecine_id, as: :select, label: false, collection: @work_medecines, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
           </div>
         </div>
         <div class="col-4">
@@ -146,7 +146,7 @@
                 </button>
               <% end %>
             </div>
-            <%= f.input :demining_id, as: :select, label: false, collection: @deminings, label_method: lambda {|x| "#{x.name}"} %>
+            <%= f.input :demining_id, as: :select, label: false, collection: @deminings, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
           </div>
         </div>
         <div class="col-4">
@@ -159,7 +159,7 @@
                 </button>
               <% end %>
             </div>
-              <%= f.input :sos_hand_id, as: :select, label: false, collection: @sos_hands, label_method: lambda {|x| "#{x.name}"} %>
+              <%= f.input :sos_hand_id, as: :select, label: false, collection: @sos_hands, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
           </div>
         </div>
         <div class="col-4 offset-4">
@@ -172,7 +172,7 @@
                 </button>
               <% end %>
             </div>
-            <%= f.input :anti_poison_id, as: :select, label: false, collection: @anti_poisons, label_method: lambda {|x| "#{x.name}"} %>
+            <%= f.input :anti_poison_id, as: :select, label: false, collection: @anti_poisons, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
           </div>
         </div>
       </div>
@@ -186,7 +186,7 @@
               </button>
             <% end %>
           </div>
-          <%= f.input :hospital_id, as: :select, collection: @hospitals, label: false, label_method: lambda { |x| "#{x.name}"} %>
+          <%= f.input :hospital_id, as: :select, collection: @hospitals, label: false, label_method: lambda { |x| "#{x.name}"}, input_html: {class: "select-2"} %>
         </div>
       </div>
       <div class="col-6 offset-3">
@@ -199,7 +199,7 @@
               </button>
             <% end %>
           </div>
-          <%= f.input :security_coordinator_id, as: :select, collection: @security_coordinators, label: false, label_method: lambda { |x| "#{x.name} - #{x.representative}" } %>
+          <%= f.input :security_coordinator_id, as: :select, collection: @security_coordinators, label: false, label_method: lambda { |x| "#{x.name} - #{x.representative}" }, input_html: {class: "select-2"} %>
         </div>
       </div>
       <div class="row">
