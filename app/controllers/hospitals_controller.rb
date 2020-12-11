@@ -4,8 +4,7 @@ class HospitalsController < ApplicationController
   def index
     authorize Hospital
     if params[:query]
-      sql_query = "name ILIKE :query OR address ILIKE :query OR phone ILIKE :query"
-      @hospitals = policy_scope(Hospital.where(sql_query, query: "%#{params[:query]}%"))
+      @hospitals = policy_scope(Hospital.search_hospital(params[:query]))
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
         # Respond with the index.js.erb
@@ -13,10 +12,18 @@ class HospitalsController < ApplicationController
       end
     else
       @hospitals = policy_scope(Hospital.all)
+      # Must be able to respond in HTML (when load the page) and JS (when click on button Show all databse)
       respond_to do |format|
         format.html {}
+        format.js {}
       end
     end
+
+    # Useful for the infinite scroll
+    @hospitals_page = @hospitals.page
+    @endpoint = pagination_hospitals_path
+    @page_amount = @hospitals_page.total_pages
+
     @hospital = Hospital.new
   end
 
@@ -60,6 +67,17 @@ class HospitalsController < ApplicationController
     else
       flash.now[:error] = "L'élément n'a pas pu être supprimé"
     end
+  end
+
+  def pagination
+    if params[:query]
+      @hospitals = policy_scope(Hospital.search_hospital(params[:query]))
+    else
+      @hospitals = policy_scope(Hospital.all)
+    end
+    authorize @hospitals
+    @hospitals_page = @hospitals.page(params[:page])
+    render 'hospitals/_element', collection: @hospitals_page, layout: false
   end
 
   private

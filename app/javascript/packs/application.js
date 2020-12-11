@@ -15,14 +15,16 @@ import "bootstrap";
 
 // Import react elements
 // import '../react-ppsp/index'
-import { reactPpsp } from '../react-ppsp/index';
+import { reactPpsp } from '../components/react-ppsp/index';
 
 // import { AutoCompleteGeocoding } from "../components/autocomplete"
 // La clé API pour l'utilisation de l'autocomplete Geocoding se trouve dans config/application.yml
 import { hideForm } from "../components/hide-form";
 import { cardForm } from "../components/card-form";
 import flat_picker from "../components/flat-pickr";
-import { select_2 } from "../components/select-2"
+import { select_2 } from "../components/select-2";
+import { infiniteScroll } from "../components/infinite-scroll-db";
+
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -36,7 +38,8 @@ document.addEventListener('turbolinks:load', () => {
   flat_picker();
   hideForm();
   cardForm();
-  reactPpsp()
+  reactPpsp();
+  infiniteScroll();
 })
 // Support component names relative to this directory:
 var componentRequireContext = require.context("components", true);

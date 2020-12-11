@@ -4,8 +4,7 @@ class AntiPoisonsController < ApplicationController
   def index
     authorize AntiPoison
     if params[:query]
-      sql_query = "name ILIKE :query OR address ILIKE :query OR phone ILIKE :query"
-      @anti_poisons = policy_scope(AntiPoison.where(sql_query, query: "%#{params[:query]}%"))
+      @anti_poisons = policy_scope(AntiPoison.anti_poison_search(params[:query]))
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
         # Respond with the index.js.erb
@@ -13,8 +12,10 @@ class AntiPoisonsController < ApplicationController
       end
     else
       @anti_poisons = policy_scope(AntiPoison.all)
+      # Must be able to respond in HTML (when load the page) and JS (when click on button Show all databse)
       respond_to do |format|
         format.html {}
+        format.js {}
       end
     end
     @anti_poison = AntiPoison.new

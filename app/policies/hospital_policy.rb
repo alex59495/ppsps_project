@@ -24,4 +24,8 @@ class HospitalPolicy < ApplicationPolicy
   def update?
     edit?
   end
+
+  def pagination?
+    user.admin
+  end
 end

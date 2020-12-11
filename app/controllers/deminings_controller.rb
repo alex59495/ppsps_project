@@ -4,8 +4,7 @@ class DeminingsController < ApplicationController
   def index
     authorize Demining
     if params[:query]
-      sql_query = "name ILIKE :query OR address ILIKE :query OR phone ILIKE :query"
-      @deminings = policy_scope(Demining.where(sql_query, query: "%#{params[:query]}%"))
+      @deminings = policy_scope(Demining.search_demining(params[:query]))
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
         # Respond with the index.js.erb
@@ -13,8 +12,10 @@ class DeminingsController < ApplicationController
       end
     else
       @deminings = policy_scope(Demining.all)
+      # Must be able to respond in HTML (when load the page) and JS (when click on button Show all databse)
       respond_to do |format|
         format.html {}
+        format.js {}
       end
     end
     @demining = Demining.new

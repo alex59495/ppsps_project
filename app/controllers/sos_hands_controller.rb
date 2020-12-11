@@ -4,8 +4,7 @@ class SosHandsController < ApplicationController
   def index
     authorize SosHand
     if params[:query]
-      sql_query = "name ILIKE :query OR address ILIKE :query OR phone ILIKE :query"
-      @sos_hands = policy_scope(SosHand.where(sql_query, query: "%#{params[:query]}%"))
+      @sos_hands = policy_scope(SosHand.search_sos_hand(params[:query]))
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
         # Respond with the index.js.erb
@@ -13,8 +12,10 @@ class SosHandsController < ApplicationController
       end
     else
       @sos_hands = policy_scope(SosHand.all)
+      # Must be able to respond in HTML (when load the page) and JS (when click on button Show all databse)
       respond_to do |format|
         format.html {}
+        format.js {}
       end
     end
     @sos_hand = SosHand.new

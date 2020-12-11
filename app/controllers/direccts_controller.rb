@@ -4,8 +4,7 @@ class DirecctsController < ApplicationController
   def index
     authorize Direcct
     if params[:query]
-      sql_query = "fax ILIKE :query OR address ILIKE :query OR phone ILIKE :query"
-      @direccts = policy_scope(Direcct.where(sql_query, query: "%#{params[:query]}%"))
+      @direccts = policy_scope(Direcct.search_direcct(params[:query]))
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
         # Respond with the index.js.erb
@@ -13,8 +12,10 @@ class DirecctsController < ApplicationController
       end
     else
       @direccts = policy_scope(Direcct.all)
+      # Must be able to respond in HTML (when load the page) and JS (when click on button Show all databse)
       respond_to do |format|
         format.html {}
+        format.js {}
       end
     end
     @direcct = Direcct.new

@@ -4,8 +4,7 @@ class RegionalCommitteesController < ApplicationController
   def index
     authorize RegionalCommittee
     if params[:query]
-      sql_query = "name ILIKE :query OR address ILIKE :query OR phone ILIKE :query OR fax ILIKE :query"
-      @regional_committees = policy_scope(RegionalCommittee.where(sql_query, query: "%#{params[:query]}%"))
+      @regional_committees = policy_scope(RegionalCommittee.search_regional_committee(params[:query]))
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
         # Respond with the index.js.erb
@@ -13,8 +12,10 @@ class RegionalCommitteesController < ApplicationController
       end
     else
       @regional_committees = policy_scope(RegionalCommittee.all)
+      # Must be able to respond in HTML (when load the page) and JS (when click on button Show all databse)
       respond_to do |format|
         format.html {}
+        format.js {}
       end
     end
     @regional_committee = RegionalCommittee.new

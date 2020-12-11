@@ -22,34 +22,18 @@
     <% end %>
     <form class="d-flex justify-content-center mt-1" method="get" action=<%= hospitals_path %> data-remote="true">
       <input class="btn-orange-ext" type="submit" value="Database complète">
-      <input type="hidden" name="query" value="">
     </form>
     <% if @hospitals.length > 0 %>
-      <div class="d-flex flex-wrap mt-2 justify-content-center">
-        <% @hospitals.each do |hospital| %>
-          <div class="card-database">
-            <div class="card-db-header">
-              <%= link_to edit_hospital_path(hospital), class: "card-db-edit", target: '_blank' do %>
-                <i class='fas fa-pencil-alt'></i>
-              <% end %>
-              <%= link_to "x", destroy_hospital_path(hospital), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
-            </div>
-            <div class="db-element">
-              <%= hospital.name %>
-            </div>
-            <div class="db-element">
-              <%= hospital.address %>
-            </div>
-            <div class="db-element">
-              <%= hospital.phone %>
-            </div>
-          </div>
-        <% end %>
+      <div class="flex-database d-flex flex-wrap mt-2 justify-content-center">
+        <%= render 'element', collection: @hospitals_page %>
       </div>
     <% else %>
       <div class="container-db-vide">
         Votre recherche n'a retourné aucun résultat
       </div>
     <% end %>
+    <div class="pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %>>
+      <div id="loading"></div>
+    </div>
   </div>
 </div>

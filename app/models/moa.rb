@@ -6,4 +6,11 @@ class Moa < ApplicationRecord
   validates :address, presence: true
   validates :phone, presence: true, phone: true
   validates :email, presence: true, email: true
+
+  include PgSearch::Model
+  pg_search_scope :search_moa,
+    against: [ :name, :address, :phone, :email, :representative ],
+    using: {
+      tsearch: { prefix: true } # <-- allow the fact to search various words incomplete
+    }
 end

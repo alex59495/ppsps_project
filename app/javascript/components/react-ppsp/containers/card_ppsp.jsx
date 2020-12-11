@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import { fetchPpsps } from '../actions/index'
+import { fetchPpsps } from '../actions/index';
 
 
 class CardPpsp extends Component {
@@ -45,6 +46,7 @@ class CardPpsp extends Component {
   }
 
   render() {
+    const { address, start_date, end_date, user_first_name, user_last_name, reference } = this.props;
     // If the user if the owner of the PPSP he can edit and delete the PPSP, eles he can't
     if(this.props.currentUser == this.props.user.id) {
       return (
@@ -56,16 +58,16 @@ class CardPpsp extends Component {
                 <i className='fas fa-pencil-alt'></i>
               </div>
               <div className="card-ppsp-reference">
-                {`Reference ${this.props.reference}`}
+                {`Reference ${reference}`}
               </div>
             </div>
             <div className="card-ppsp-body row">
-              <div className="col-7">Lieu du chantier: </div><div className="col-5">{this.props.address}</div>
-              <div className="col-7">Date de début: </div><div className="col-5">{ this.props.start_date }</div>
-              <div className="col-7">Date de fin: </div><div className="col-5">{ this.props.end_date }</div>
+              <div className="col-7">Lieu du chantier: </div><div className="col-5">{address}</div>
+              <div className="col-7">Date de début: </div><div className="col-5">{ start_date }</div>
+              <div className="col-7">Date de fin: </div><div className="col-5">{ end_date }</div>
             </div> 
             <div className="card-ppsp-footer">
-              Créé par <span className="card-ppsp-link" onClick={this.handleClickUser}>{`${this.props.user_first_name} ${this.props.user_last_name}`}</span>
+              Créé par <span className="card-ppsp-link" onClick={this.handleClickUser}>{`${user_first_name} ${user_last_name}`}</span>
             </div>   
           </div>
         </React.Fragment>
@@ -75,15 +77,15 @@ class CardPpsp extends Component {
         <React.Fragment>
           <div className="card-ppsp" onClick={this.handleCard}>
             <div className="card-ppsp-reference">
-              {`Reference ${this.props.reference}`}
+              {`Reference ${reference}`}
             </div>
             <div className="card-ppsp-body row">
-              <div className="col-7">Lieu du chantier: </div><div className="col-5">{this.props.address}</div>
-              <div className="col-7">Date de début: </div><div className="col-5">{ this.props.start_date }</div>
-              <div className="col-7">Date de fin: </div><div className="col-5">{ this.props.end_date }</div>
+              <div className="col-7">Lieu du chantier: </div><div className="col-5">{address}</div>
+              <div className="col-7">Date de début: </div><div className="col-5">{ start_date }</div>
+              <div className="col-7">Date de fin: </div><div className="col-5">{ end_date }</div>
             </div> 
             <div className="card-ppsp-footer">
-              Créé par <span className="card-ppsp-link" onClick={this.handleClickUser}>{`${this.props.user_first_name} ${this.props.user_last_name}`}</span>`
+              Créé par <span className="card-ppsp-link" onClick={this.handleClickUser}>{`${user_first_name} ${user_last_name}`}</span>`
             </div>   
           </div>
         </React.Fragment>
@@ -104,6 +106,16 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchPpsps: (showUser) => dispatch(fetchPpsps(showUser)),
   }
+}
+
+// Validations
+CardPpsp.propTypes = {
+  reference: PropTypes.string.isRequired,
+  address: PropTypes.string.isRequired,
+  start_date: PropTypes.string.isRequired,
+  end_date: PropTypes.string.isRequired,
+  user_first_name: PropTypes.string.isRequired,
+  user_last_name: PropTypes.string.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardPpsp);

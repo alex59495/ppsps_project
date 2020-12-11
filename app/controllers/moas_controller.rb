@@ -4,8 +4,7 @@ class MoasController < ApplicationController
   def index
     authorize Moa
     if params[:query]
-      sql_query = "name ILIKE :query OR address ILIKE :query OR phone ILIKE :query OR representative ILIKE :query OR email ILIKE :query"
-      @moas = policy_scope(Moa.where(sql_query, query: "%#{params[:query]}%"))
+      @moas = policy_scope(Moa.search_moa(params[:query]))
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
         # Respond with the index.js.erb
@@ -13,8 +12,10 @@ class MoasController < ApplicationController
       end
     else
       @moas = policy_scope(Moa.all)
+      # Must be able to respond in HTML (when load the page) and JS (when click on button Show all databse)
       respond_to do |format|
         format.html {}
+        format.js {}
       end
     end
     @moa = Moa.new

@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-// import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 
 import CardPpsp from './card_ppsp'
 import { fetchPpsps, loadMore } from '../actions/index'
@@ -52,10 +53,11 @@ class ListPpsp extends Component {
   };
 
   render () {
+    const { selectedPpsps } = this.props
     return (
       <React.Fragment>
         <div className="container-ppsp" id="contPpsps">
-          {this.props.selectedPpsps.map((ppsp) => {
+          {selectedPpsps.map((ppsp) => {
             return <CardPpsp 
               key={ppsp.id} id={ppsp.id} reference={ppsp.project_information.reference} 
               user_first_name = {ppsp.user.first_name} user_last_name = {ppsp.user.last_name}
@@ -84,6 +86,11 @@ const mapDispatchToProps = (dispatch) => {
     fetchPpsps: (showUser) => dispatch(fetchPpsps(showUser)),
     loadMore: (showUser, page) => dispatch(loadMore(showUser, page))
   }
+}
+
+// Validations
+ListPpsp.propTypes = {
+  selectedPpsps: PropTypes.array.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListPpsp);

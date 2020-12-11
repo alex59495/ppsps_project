@@ -21,7 +21,6 @@
       <%= f.submit 'Go', class: "btn-orange-right" %>
     <% end %>
     <form class="d-flex justify-content-center mt-1" method="get" action=<%= anti_poisons_path %> data-remote="true">
-      <input type="hidden" name="query" value="">
       <input class="btn-orange-ext" type="submit" value="Database complète">
     </form>
     <% if @anti_poisons.length > 0 %>

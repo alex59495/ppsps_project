@@ -45,6 +45,9 @@ Rails.application.routes.draw do
     member do
       post :destroyed, as: :destroy
     end
+    collection do
+      get :pagination, as: :pagination
+    end
   end
   resources :anti_poisons, except: [:new, :show, :destroy] do
     member do
