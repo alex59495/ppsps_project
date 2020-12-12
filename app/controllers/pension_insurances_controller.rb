@@ -18,6 +18,12 @@ class PensionInsurancesController < ApplicationController
         format.js {}
       end
     end
+
+    # Useful for the infinite scroll
+    @pension_insurances_page = @pension_insurances.page
+    @endpoint = pagination_pension_insurances_path
+    @page_amount = @pension_insurances_page.total_pages
+
     @pension_insurance = PensionInsurance.new
   end
 
@@ -61,6 +67,18 @@ class PensionInsurancesController < ApplicationController
     else
       flash.now[:error] = "L'élément n'a pas pu être supprimé"
     end
+  end
+
+  # Useful for the infinite loop
+  def pagination
+    if params[:query]
+      @pension_insurances = policy_scope(PensiosnInsurance.search_pensiosn_insurance(params[:query]))
+    else
+      @pension_insurances = policy_scope(PensiosnInsurance.all)
+    end
+    authorize @pension_insurances
+    @pension_insurances_page = @pension_insurances.page(params[:page])
+    render 'pension_insurances/_element', collection: @pension_insurances_page, layout: false
   end
 
   private

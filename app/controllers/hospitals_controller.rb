@@ -69,6 +69,7 @@ class HospitalsController < ApplicationController
     end
   end
 
+  # Useful for the infinite loop
   def pagination
     if params[:query]
       @hospitals = policy_scope(Hospital.search_hospital(params[:query]))

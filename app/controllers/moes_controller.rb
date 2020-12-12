@@ -18,6 +18,12 @@ class MoesController < ApplicationController
         format.js {}
       end
     end
+
+    # Useful for the infinite scroll
+    @moes_page = @moes.page
+    @endpoint = pagination_moes_path
+    @page_amount = @moes_page.total_pages
+
     @moe = Moe.new
   end
 
@@ -61,6 +67,18 @@ class MoesController < ApplicationController
     else
       flash.now[:error] = "L'élément n'a pas pu être supprimé"
     end
+  end
+
+  # Useful for the infinite loop
+  def pagination
+    if params[:query]
+      @moes = policy_scope(Moe.search_moe(params[:query]))
+    else
+      @moes = policy_scope(Moe.all)
+    end
+    authorize @moes
+    @moes_page = @moes.page(params[:page])
+    render 'moes/_element', collection: @moes_page, layout: false
   end
 
   private

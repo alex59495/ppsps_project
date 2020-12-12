@@ -18,6 +18,12 @@ class RegionalCommitteesController < ApplicationController
         format.js {}
       end
     end
+
+    # Useful for the infinite scroll
+    @regional_committees_page = @regional_committees.page
+    @endpoint = pagination_regional_committees_path
+    @page_amount = @regional_committees_page.total_pages
+    
     @regional_committee = RegionalCommittee.new
   end
 
@@ -61,6 +67,18 @@ class RegionalCommitteesController < ApplicationController
     else
       flash.now[:error] = "L'élément n'a pas pu être supprimé"
     end
+  end
+
+  # Useful for the infinite loop
+  def pagination
+    if params[:query]
+      @regional_committees = policy_scope(RegionalCommittee.search_regional_committee(params[:query]))
+    else
+      @regional_committees = policy_scope(RegionalCommittee.all)
+    end
+    authorize @regional_committees
+    @regional_committees_page = @regional_committees.page(params[:page])
+    render 'regional_committees/_element', collection: @regional_committees_page, layout: false
   end
 
   private

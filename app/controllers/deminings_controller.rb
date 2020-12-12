@@ -18,6 +18,12 @@ class DeminingsController < ApplicationController
         format.js {}
       end
     end
+
+    # Useful for the infinite scroll
+    @deminings_page = @deminings.page
+    @endpoint = pagination_deminings_path
+    @page_amount = @deminings_page.total_pages
+
     @demining = Demining.new
   end
 
@@ -61,6 +67,18 @@ class DeminingsController < ApplicationController
     else
       flash.now[:error] = "L'élément n'a pas pu être supprimé"
     end
+  end
+
+  # Useful for the infinite loop
+  def pagination
+    if params[:query]
+      @deminings = policy_scope(Demining.search_demining(params[:query]))
+    else
+      @deminings = policy_scope(Demining.all)
+    end
+    authorize @deminings
+    @deminings_page = @deminings.page(params[:page])
+    render 'deminings/_element', collection: @deminings_page, layout: false
   end
 
   private

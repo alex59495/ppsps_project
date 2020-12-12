@@ -24,4 +24,8 @@ class SecurityCoordinatorPolicy < ApplicationPolicy
   def update?
     edit?
   end
+
+  def pagination?
+    index?
+  end
 end

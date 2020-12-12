@@ -26,6 +26,6 @@ class HospitalPolicy < ApplicationPolicy
   end
 
   def pagination?
-    user.admin
+    index?
   end
 end

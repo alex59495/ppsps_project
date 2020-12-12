@@ -6,26 +6,8 @@
   <input class="btn-orange-ext" type="submit" value="Database complète">
 </form>
 <% if @direccts.length > 0 %>
-  <div class="d-flex flex-wrap mt-2 justify-content-center">
-    <% @direccts.each do |direcct| %>
-      <div class="card-database">
-        <div class="card-db-header">
-          <%= link_to edit_direcct_path(direcct), class: "card-db-edit", target: '_blank' do %>
-            <i class='fas fa-pencil-alt'></i>
-          <% end %>
-          <%= link_to "x", destroy_direcct_path(direcct), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
-        </div>
-        <div class="db-element">
-          <%= direcct.address %>
-        </div>
-        <div class="db-element">
-          <%= direcct.phone %>
-        </div>
-        <div class="db-element">
-          <%= direcct.fax %>
-        </div>
-      </div>
-    <% end %>
+  <div class="flex-database d-flex flex-wrap mt-2 justify-content-center">
+    <%= render 'element', collection: @hdireccts_page %>
   </div>
 <% else %>
   <div class="container-db-vide">

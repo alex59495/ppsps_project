@@ -18,6 +18,12 @@ class MoasController < ApplicationController
         format.js {}
       end
     end
+
+    # Useful for the infinite scroll
+    @moas_page = @moas.page
+    @endpoint = pagination_moas_path
+    @page_amount = @moas_page.total_pages
+
     @moa = Moa.new
   end
 
@@ -61,6 +67,18 @@ class MoasController < ApplicationController
     else
       flash.now[:error] = "L'élément n'a pas pu être supprimé"
     end
+  end
+
+  # Useful for the infinite loop
+  def pagination
+    if params[:query]
+      @moas = policy_scope(Moa.search_moa(params[:query]))
+    else
+      @moas = policy_scope(Moa.all)
+    end
+    authorize @moas
+    @moas_page = @moas.page(params[:page])
+    render 'moas/_element', collection: @moas_page, layout: false
   end
 
   private

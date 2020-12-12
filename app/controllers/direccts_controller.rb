@@ -18,6 +18,12 @@ class DirecctsController < ApplicationController
         format.js {}
       end
     end
+
+    # Useful for the infinite scroll
+    @direccts_page = @direccts.page
+    @endpoint = pagination_direccts_path
+    @page_amount = @direccts_page.total_pages
+
     @direcct = Direcct.new
   end
 
@@ -61,6 +67,18 @@ class DirecctsController < ApplicationController
     else
       flash.now[:error] = "L'élément n'a pas pu être supprimé"
     end
+  end
+
+  # Useful for the infinite loop
+  def pagination
+    if params[:query]
+      @direccts = policy_scope(Direcct.search_direcct(params[:query]))
+    else
+      @direccts = policy_scope(Direcct.all)
+    end
+    authorize @direccts
+    @direccts_page = @direccts.page(params[:page])
+    render 'direccts/_element', collection: @direccts_page, layout: false
   end
 
   private

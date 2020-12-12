@@ -18,6 +18,12 @@ class SecurityCoordinatorsController < ApplicationController
         format.js {}
       end
     end
+
+    # Useful for the infinite scroll
+    @security_coordinators_page = @security_coordinators.page
+    @endpoint = pagination_security_coordinators_path
+    @page_amount = @security_coordinators_page.total_pages
+
     @security_coordinator = SecurityCoordinator.new
   end
 
@@ -61,6 +67,18 @@ class SecurityCoordinatorsController < ApplicationController
     else
       flash.now[:error] = "L'élément n'a pas pu être supprimé"
     end
+  end
+
+  # Useful for the infinite loop
+  def pagination
+    if params[:query]
+      @security_coordinators = policy_scope(SecurityCoordinator.search_security_coordinator(params[:query]))
+    else
+      @security_coordinators = policy_scope(SecurityCoordinator.all)
+    end
+    authorize @security_coordinators
+    @security_coordinators_page = @security_coordinators.page(params[:page])
+    render 'security_coordinators/_element', collection: @security_coordinators_page, layout: false
   end
 
   private

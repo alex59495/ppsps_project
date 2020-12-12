@@ -18,6 +18,12 @@ class AntiPoisonsController < ApplicationController
         format.js {}
       end
     end
+
+    # Useful for the infinite scroll
+    @anti_poisons_page = @anti_poisons.page
+    @endpoint = pagination_anti_poisons_path
+    @page_amount = @anti_poisons_page.total_pages
+
     @anti_poison = AntiPoison.new
   end
 
@@ -62,6 +68,18 @@ class AntiPoisonsController < ApplicationController
     else
       flash.now[:error] = "L'élément n'a pas pu être supprimé"
     end
+  end
+
+  # Useful for the infinite loop
+  def pagination
+    if params[:query]
+      @anti_poisons = policy_scope(AntiPoison.search_anti_poison(params[:query]))
+    else
+      @anti_poisons = policy_scope(AntiPoison.all)
+    end
+    authorize @anti_poisons
+    @anti_poisons_page = @anti_poisons.page(params[:page])
+    render 'anti_poisons/_element', collection: @anti_poisons_page, layout: false
   end
 
   private

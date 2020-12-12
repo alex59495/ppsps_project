@@ -18,6 +18,12 @@ class SosHandsController < ApplicationController
         format.js {}
       end
     end
+
+    # Useful for the infinite scroll
+    @sos_hands_page = @sos_hands.page
+    @endpoint = pagination_sos_hands_path
+    @page_amount = @sos_hands_page.total_pages
+
     @sos_hand = SosHand.new
   end
 
@@ -61,6 +67,18 @@ class SosHandsController < ApplicationController
     else
       flash.now[:error] = "L'élément n'a pas pu être supprimé"
     end
+  end
+
+  # Useful for the infinite loop
+  def pagination
+    if params[:query]
+      @sos_hands = policy_scope(SosHand.search_sos_hand(params[:query]))
+    else
+      @sos_hands = policy_scope(SosHand.all)
+    end
+    authorize @sos_hands
+    @sos_hands_page = @sos_hands.page(params[:page])
+    render 'sos_hands/_element', collection: @sos_hands_page, layout: false
   end
 
   private

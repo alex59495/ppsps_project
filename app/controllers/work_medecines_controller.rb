@@ -19,6 +19,12 @@ class WorkMedecinesController < ApplicationController
       end
     end
     @work_medecine = WorkMedecine.new
+
+    # Useful for the infinite scroll
+    @work_medecines_page = @work_medecines.page
+    @endpoint = pagination_work_medecines_path
+    @page_amount = @work_medecines_page.total_pages
+
   end
 
   def create
@@ -61,6 +67,18 @@ class WorkMedecinesController < ApplicationController
     else
       flash.now[:error] = "L'élément n'a pas pu être supprimé"
     end
+  end
+
+  # Useful for the infinite loop
+  def pagination
+    if params[:query]
+      @work_medecines = policy_scope(WorkMedecine.search_work_medecine(params[:query]))
+    else
+      @work_medecines = policy_scope(WorkMedecine.all)
+    end
+    authorize @work_medecines
+    @work_medecines_page = @work_medecines.page(params[:page])
+    render 'work_medecines/_element', collection: @work_medecines_page, layout: false
   end
 
   private

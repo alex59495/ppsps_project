@@ -24,31 +24,16 @@
       <input class="btn-orange-ext" type="submit" value="Database complète">
     </form>
     <% if @anti_poisons.length > 0 %>
-      <div class="d-flex flex-wrap mt-2 justify-content-center">
-        <% @anti_poisons.each do |anti_poison| %>
-          <div class="card-database">
-            <div class="card-db-header">
-              <%= link_to edit_anti_poison_path(anti_poison), class: "card-db-edit", target: '_blank' do %>
-                <i class='fas fa-pencil-alt'></i>
-              <% end %>
-              <%= link_to "x", destroy_anti_poison_path(anti_poison), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
-            </div>
-            <div class="db-element">
-              <%= anti_poison.name %>
-            </div>
-            <div class="db-element">
-              <%= anti_poison.address %>
-            </div>
-            <div class="db-element">
-              <%= anti_poison.phone %>
-            </div>
-          </div>
-        <% end %>
+      <div class="flex-database d-flex flex-wrap mt-2 justify-content-center">
+        <%= render 'element', collection: @anti_poisons_page %>
       </div>
     <% else %>
       <div class="container-db-vide">
         Votre recherche n'a retourné aucun résultat
       </div>
     <% end %>
+    <div class="container-pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %>>
+      <%= image_tag('gif-loading.gif') %>
+    </div>
   </div>
 </div>
