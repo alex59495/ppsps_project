@@ -32,8 +32,8 @@
         Votre recherche n'a retourné aucun résultat
       </div>
     <% end %>
-    <div class="pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %>>
-      <div id="loading"></div>
+    <div class="container-pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %>>
+      <%= image_tag('gif-loading.gif') %>
     </div>
   </div>
 </div>

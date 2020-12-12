@@ -1,7 +1,7 @@
 const infiniteScroll = () => {
   if(document.querySelector('.container-database')){
     const THRESHOLD = 30;
-    const paginationElem = $('.pagination');
+    const paginationElem = $('.container-pagination');
     const window_screen = $(window);
     const document_screen = $(document);
     const paginationUrl = paginationElem.attr('data-pagination-endpoint');
