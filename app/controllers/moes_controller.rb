@@ -19,10 +19,7 @@ class MoesController < ApplicationController
       end
     end
 
-    # Useful for the infinite scroll
-    @moes_page = @moes.page
-    @endpoint = pagination_moes_path
-    @page_amount = @moes_page.total_pages
+    init_infinite_loop
 
     @moe = Moe.new
   end
@@ -32,12 +29,14 @@ class MoesController < ApplicationController
     @moe.company = current_user.company
     authorize @moe
     if @moe.save
-      # Create an ordered list to use in the view 'moe/_form_field_moe'
-      @moes = Moe.all.sort_by { |moe| moe.name.downcase }
+      # Create an ordered list to put the last one in first
+      @moes = Moe.all.sort_by { |moe| moe.created_at }
       # Respond with the view moe/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
       end
+      # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
+      init_infinite_loop
     else
       # Respond with the .js.erb to print the modal with errors
       respond_to do |format|
@@ -82,6 +81,14 @@ class MoesController < ApplicationController
   end
 
   private
+
+  def init_infinite_loop
+    # Useful for the infinite scroll
+    @moes_page = Kaminari.paginate_array(@moes).page
+    @endpoint = pagination_moes_path
+    @page_amount = @moes_page.total_pages
+  end
+
   def params_moe
     params.require(:moe).permit(:address, :name, :phone, :email, :representative, :company)
   end

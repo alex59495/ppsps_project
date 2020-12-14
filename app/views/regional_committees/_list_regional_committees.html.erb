@@ -1,13 +1,13 @@
-<%= form_with url: pension_insurances_path, class: "d-flex mt-2 justify-content-center", method: :get do |f| %>
+<%= form_with url: regional_committees_path, class: "d-flex mt-2 justify-content-center", method: :get do |f| %>
   <%= f.text_field :query, params: :query, class: "form-control search-db", placeholder: "Rechercher un mot-clé..." %>
   <%= f.submit 'Go', class: "btn-orange-right" %>
 <% end %>
-<form class="d-flex justify-content-center mt-1" method="get" action=<%= pension_insurances_path %> data-remote="true">
+<form class="d-flex justify-content-center mt-1" method="get" action=<%= regional_committees_path %> data-remote="true">
   <input class="btn-orange-ext" type="submit" value="Database complète">
 </form>
-<% if @pension_insurances.length > 0 %>
+<% if @regional_committees.length > 0 %>
   <div class="flex-database d-flex flex-wrap mt-2 justify-content-center">
-    <%= render 'element', collection: @pension_insurances_page %>
+    <%= render 'element', collection: @regional_committees_page %>
   </div>
 <% else %>
   <div class="container-db-vide">

@@ -19,10 +19,7 @@ class DirecctsController < ApplicationController
       end
     end
 
-    # Useful for the infinite scroll
-    @direccts_page = @direccts.page
-    @endpoint = pagination_direccts_path
-    @page_amount = @direccts_page.total_pages
+    init_infinite_loop
 
     @direcct = Direcct.new
   end
@@ -32,12 +29,14 @@ class DirecctsController < ApplicationController
     @direcct.company = current_user.company
     authorize @direcct
     if @direcct.save
-      # Create an ordered list to use in the view 'direcct/_form_field_direcct'
-      @direccts = Direcct.all.sort_by { |direcct| direcct.address }
+      # Create an ordered list to put the last one in first
+      @direccts = Direcct.all.sort_by { |direcct| direcct.created_at }
       # Respond with the view direcct/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
       end
+      #  Useful for the infinite scroll, wh have to do it because we re-render the page after the action
+      init_infinite_loop
     else
       # Respond with the .js.erb to print the modal with errors
       respond_to do |format|
@@ -82,6 +81,14 @@ class DirecctsController < ApplicationController
   end
 
   private
+
+  def init_infinite_loop
+    # Useful for the infinite scroll
+    @direccts_page = Kaminari.paginate_array(@direccts).page
+    @endpoint = pagination_direccts_path
+    @page_amount = @direccts_page.total_pages
+  end
+
   def params_direcct
     params.require(:direcct).permit(:address, :phone, :fax, :company)
   end

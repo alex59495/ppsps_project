@@ -19,10 +19,7 @@ class SosHandsController < ApplicationController
       end
     end
 
-    # Useful for the infinite scroll
-    @sos_hands_page = @sos_hands.page
-    @endpoint = pagination_sos_hands_path
-    @page_amount = @sos_hands_page.total_pages
+    init_infinite_loop
 
     @sos_hand = SosHand.new
   end
@@ -32,12 +29,14 @@ class SosHandsController < ApplicationController
     @sos_hand.company = current_user.company
     authorize @sos_hand
     if @sos_hand.save
-      # Create an ordered list to use in the view 'sos_hand/_form_field_sos_hand'
-      @sos_hands = SosHand.all.sort_by { |sos_hand| sos_hand.name }
+      # Create an ordered list to put the last one in first
+      @sos_hands = SosHand.all.sort_by { |sos_hand| sos_hand.created_at }
       # Respond with the view sos_hand/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
       end
+      # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
+      init_infinite_loop
     else
       # Respond with the .js.erb to print the modal with errors
       respond_to do |format|
@@ -82,6 +81,14 @@ class SosHandsController < ApplicationController
   end
 
   private
+
+  def init_infinite_loop
+    # Useful for the infinite scroll
+    @sos_hands_page = Kaminari.paginate_array(@sos_hands).page
+    @endpoint = pagination_sos_hands_path
+    @page_amount = @sos_hands_page.total_pages
+  end
+
   def params_sos_hand
     params.require(:sos_hand).permit(:address, :name, :phone, :company)
   end

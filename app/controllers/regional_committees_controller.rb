@@ -19,10 +19,7 @@ class RegionalCommitteesController < ApplicationController
       end
     end
 
-    # Useful for the infinite scroll
-    @regional_committees_page = @regional_committees.page
-    @endpoint = pagination_regional_committees_path
-    @page_amount = @regional_committees_page.total_pages
+    init_infinite_loop
     
     @regional_committee = RegionalCommittee.new
   end
@@ -32,12 +29,14 @@ class RegionalCommitteesController < ApplicationController
     @regional_committee.company = current_user.company
     authorize @regional_committee
     if @regional_committee.save
-      # Create an ordered list to use in the view 'regional_committee/_form_field_regional_committee'
-      @regional_committees = RegionalCommittee.all.sort_by { |regional_committee| regional_committee.name }
+      # Create an ordered list to put the last one in first
+      @regional_committees = RegionalCommittee.all.sort_by { |regional_committee| regional_committee.created_at }
       # Respond with the view regional_committee/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
       end
+      # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
+      init_infinite_loop
     else
       # Respond with the .js.erb to print the modal with errors
       respond_to do |format|
@@ -82,6 +81,15 @@ class RegionalCommitteesController < ApplicationController
   end
 
   private
+  
+  def init_infinite_loop
+    # Useful for the infinite scroll
+    @regional_committees_page = Kaminari.paginate_array(@regional_committees).page
+    @endpoint = pagination_regional_committees_path
+    @page_amount = @regional_committees_page.total_pages
+  end
+
+
   def params_regional_committee
     params.require(:regional_committee).permit(:address, :name, :phone, :fax, :company)
   end

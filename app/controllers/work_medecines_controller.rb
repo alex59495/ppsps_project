@@ -20,10 +20,7 @@ class WorkMedecinesController < ApplicationController
     end
     @work_medecine = WorkMedecine.new
 
-    # Useful for the infinite scroll
-    @work_medecines_page = @work_medecines.page
-    @endpoint = pagination_work_medecines_path
-    @page_amount = @work_medecines_page.total_pages
+    init_infinite_loop
 
   end
 
@@ -32,12 +29,14 @@ class WorkMedecinesController < ApplicationController
     @work_medecine.company = current_user.company
     authorize @work_medecine
     if @work_medecine.save
-      # Create an ordered list to use in the view 'work_medecine/_form_field_work_medecine'
-      @work_medecines = WorkMedecine.all.sort_by { |work_medecine| work_medecine.address }
+      # Create an ordered list to put the last one in first
+      @work_medecines = WorkMedecine.all.sort_by { |work_medecine| work_medecine.created_at }
       # Respond with the view work_medecine/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
       end
+      # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
+      init_infinite_loop
     else
       # Respond with the .js.erb to print the modal with errors
       respond_to do |format|
@@ -82,6 +81,14 @@ class WorkMedecinesController < ApplicationController
   end
 
   private
+  
+  def init_infinite_loop
+    # Useful for the infinite scroll
+    @work_medecines_page = Kaminari.paginate_array(@work_medecines).page
+    @endpoint = pagination_work_medecines_path
+    @page_amount = @work_medecines_page.total_pages
+  end
+
   def params_work_medecine
     params.require(:work_medecine).permit(:address, :fax, :phone, :company)
   end

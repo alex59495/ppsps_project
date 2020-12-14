@@ -34,6 +34,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(anti_poisons_path)
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
+      expect(page).to have_current_path(anti_poisons_path)
       expect(page).to have_css('.card-database', count: 1)
     end
 
@@ -41,6 +42,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(deminings_path)
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
+      expect(page).to have_current_path(deminings_path)
       expect(page).to have_css('.card-database', count: 1)
     end
 
@@ -48,6 +50,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(hospitals_path)
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
+      expect(page).to have_current_path(hospitals_path)
       expect(page).to have_css('.card-database', count: 1)
     end
 
@@ -55,6 +58,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(moas_path)
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
+      expect(page).to have_current_path(moas_path)
       expect(page).to have_css('.card-database', count: 1)
     end
 
@@ -62,6 +66,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(moes_path)
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
+      expect(page).to have_current_path(moes_path)
       expect(page).to have_css('.card-database', count: 1)
     end
 
@@ -69,6 +74,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(pension_insurances_path)
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
+      expect(page).to have_current_path(pension_insurances_path)
       expect(page).to have_css('.card-database', count: 1)
     end
 
@@ -76,6 +82,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(regional_committees_path)
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
+      expect(page).to have_current_path(regional_committees_path)
       expect(page).to have_css('.card-database', count: 1)
     end
 
@@ -83,6 +90,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(security_coordinators_path)
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
+      expect(page).to have_current_path(security_coordinators_path)
       expect(page).to have_css('.card-database', count: 1)
     end
 
@@ -90,6 +98,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(work_medecines_path)
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
+      expect(page).to have_current_path(work_medecines_path)
       expect(page).to have_css('.card-database', count: 1)
     end
 
@@ -97,6 +106,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(sos_hands_path)
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
+      expect(page).to have_current_path(sos_hands_path)
       expect(page).to have_css('.card-database', count: 1)
     end
 
@@ -104,6 +114,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(direccts_path)
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
+      expect(page).to have_current_path(direccts_path)
       expect(page).to have_css('.card-database', count: 1)
     end
 

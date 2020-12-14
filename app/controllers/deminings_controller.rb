@@ -19,10 +19,7 @@ class DeminingsController < ApplicationController
       end
     end
 
-    # Useful for the infinite scroll
-    @deminings_page = @deminings.page
-    @endpoint = pagination_deminings_path
-    @page_amount = @deminings_page.total_pages
+    init_infinite_loop
 
     @demining = Demining.new
   end
@@ -32,12 +29,14 @@ class DeminingsController < ApplicationController
     @demining.company = current_user.company
     authorize @demining
     if @demining.save
-      # Create an ordered list to use in the view 'demining/_form_field_demining'
-      @deminings = Demining.all.sort_by { |demining| demining.name }
+      # Create an ordered list to put the last one in first
+      @deminings = Demining.all.sort_by { |demining| demining.created_at }
       # Respond with the view demining/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
       end
+      # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
+      init_infinite_loop
     else
       # Respond with the .js.erb to print the modal with errors
       respond_to do |format|
@@ -82,6 +81,14 @@ class DeminingsController < ApplicationController
   end
 
   private
+
+  def init_infinite_loop
+    # Useful for the infinite scroll
+    @deminings_page = Kaminari.paginate_array(@deminings).page
+    @endpoint = pagination_deminings_path
+    @page_amount = @deminings_page.total_pages
+  end
+
   def params_demining
     params.require(:demining).permit(:address, :name, :phone, :company)
   end

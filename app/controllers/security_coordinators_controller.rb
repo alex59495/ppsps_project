@@ -19,10 +19,7 @@ class SecurityCoordinatorsController < ApplicationController
       end
     end
 
-    # Useful for the infinite scroll
-    @security_coordinators_page = @security_coordinators.page
-    @endpoint = pagination_security_coordinators_path
-    @page_amount = @security_coordinators_page.total_pages
+    init_infinite_loop
 
     @security_coordinator = SecurityCoordinator.new
   end
@@ -32,12 +29,14 @@ class SecurityCoordinatorsController < ApplicationController
     @security_coordinator.company = current_user.company
     authorize @security_coordinator
     if @security_coordinator.save
-      # Create an ordered list to use in the view 'security_coordinator/_form_field_security_coordinator'
-      @security_coordinators = SecurityCoordinator.all.sort_by { |s| s.name.downcase }
+      # Create an ordered list to put the last one in first
+      @security_coordinators = SecurityCoordinator.all.sort_by { |s| s.created_at }
       # Respond with the view security_coordinator/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
       end
+      # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
+      init_infinite_loop
     else
       # Respond with the .js.erb to print the modal with errors
       respond_to do |format|
@@ -82,6 +81,14 @@ class SecurityCoordinatorsController < ApplicationController
   end
 
   private
+
+  def init_infinite_loop
+    # Useful for the infinite scroll
+    @security_coordinators_page = Kaminari.paginate_array(@security_coordinators).page
+    @endpoint = pagination_security_coordinators_path
+    @page_amount = @security_coordinators_page.total_pages
+  end
+
   def params_security_coordinator
     params.require(:security_coordinator).permit(:address, :name, :representative, :email, :phone, :company)
   end

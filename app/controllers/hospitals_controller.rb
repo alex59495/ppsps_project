@@ -19,10 +19,7 @@ class HospitalsController < ApplicationController
       end
     end
 
-    # Useful for the infinite scroll
-    @hospitals_page = @hospitals.page
-    @endpoint = pagination_hospitals_path
-    @page_amount = @hospitals_page.total_pages
+    init_infinite_loop
 
     @hospital = Hospital.new
   end
@@ -32,12 +29,14 @@ class HospitalsController < ApplicationController
     @hospital.company = current_user.company
     authorize @hospital
     if @hospital.save
-      # Create an ordered list to use in the view 'hospital/_form_field_hospital'
-      @hospitals = Hospital.all.sort_by { |hospital| hospital.name.downcase }
+      # Create an ordered list to put the last one in first
+      @hospitals = Hospital.all.sort_by { |hospital| hospital.created_at }
       # Respond with the view hospital/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
       end
+       # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
+      init_infinite_loop
     else
       # Respond with the .js.erb to print the modal with errors
       respond_to do |format|
@@ -82,6 +81,13 @@ class HospitalsController < ApplicationController
   end
 
   private
+  def init_infinite_loop
+    # Useful for the infinite scroll
+    @hospitals_page = Kaminari.paginate_array(@hospitals).page
+    @endpoint = pagination_hospitals_path
+    @page_amount = @hospitals_page.total_pages
+  end
+
   def params_hospital
     params.require(:hospital).permit(:address, :name, :phone, :company)
   end
