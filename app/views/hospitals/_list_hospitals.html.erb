@@ -14,6 +14,7 @@
     Votre recherche n'a retourné aucun résultat
   </div>
 <% end %>
-<div class="container-pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %>>
+<%# Insert a data-search in order to add in tje infinite scroll js an element which knows that this is the result of the "search" to reset the currentPage counter %>
+<div class="container-pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %> data-search="result">
   <%= image_tag('gif-loading.gif') %>
 </div>
