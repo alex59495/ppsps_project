@@ -5,6 +5,7 @@ class RegionalCommitteesController < ApplicationController
     authorize RegionalCommittee
     if params[:query]
       @regional_committees = policy_scope(RegionalCommittee.search_regional_committee(params[:query]))
+      @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
         # Respond with the index.js.erb
@@ -12,6 +13,7 @@ class RegionalCommitteesController < ApplicationController
       end
     else
       @regional_committees = policy_scope(RegionalCommittee.all)
+      @search = 'none'
       # Must be able to respond in HTML (when load the page) and JS (when click on button Show all databse)
       respond_to do |format|
         format.html {}
@@ -77,7 +79,7 @@ class RegionalCommitteesController < ApplicationController
     end
     authorize @regional_committees
     @regional_committees_page = @regional_committees.page(params[:page])
-    render 'regional_committees/_element', collection: @regional_committees_page, layout: false
+    render 'regional_committees/_elements', collection: @regional_committees_page, layout: false
   end
 
   private

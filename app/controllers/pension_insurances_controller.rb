@@ -5,6 +5,7 @@ class PensionInsurancesController < ApplicationController
     authorize PensionInsurance
     if params[:query]
       @pension_insurances = policy_scope(PensionInsurance.search_pension_insurance(params[:query]))
+      @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
         # Respond with the index.js.erb
@@ -12,6 +13,7 @@ class PensionInsurancesController < ApplicationController
       end
     else
       @pension_insurances = policy_scope(PensionInsurance.all)
+      @search = 'none'
       # Must be able to respond in HTML (when load the page) and JS (when click on button Show all databse)
       respond_to do |format|
         format.html {}
@@ -77,7 +79,7 @@ class PensionInsurancesController < ApplicationController
     end
     authorize @pension_insurances
     @pension_insurances_page = @pension_insurances.page(params[:page])
-    render 'pension_insurances/_element', collection: @pension_insurances_page, layout: false
+    render 'pension_insurances/_elements', collection: @pension_insurances_page, layout: false
   end
 
   private

@@ -5,6 +5,7 @@ class DeminingsController < ApplicationController
     authorize Demining
     if params[:query]
       @deminings = policy_scope(Demining.search_demining(params[:query]))
+      @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
         # Respond with the index.js.erb
@@ -12,6 +13,7 @@ class DeminingsController < ApplicationController
       end
     else
       @deminings = policy_scope(Demining.all)
+      @search = 'none'
       # Must be able to respond in HTML (when load the page) and JS (when click on button Show all databse)
       respond_to do |format|
         format.html {}
@@ -77,7 +79,7 @@ class DeminingsController < ApplicationController
     end
     authorize @deminings
     @deminings_page = @deminings.page(params[:page])
-    render 'deminings/_element', collection: @deminings_page, layout: false
+    render 'deminings/_elements', collection: @deminings_page, layout: false
   end
 
   private

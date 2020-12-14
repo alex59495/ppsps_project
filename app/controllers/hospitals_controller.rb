@@ -5,6 +5,7 @@ class HospitalsController < ApplicationController
     authorize Hospital
     if params[:query]
       @hospitals = policy_scope(Hospital.search_hospital(params[:query]))
+      @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
         # Respond with the index.js.erb
@@ -12,6 +13,7 @@ class HospitalsController < ApplicationController
       end
     else
       @hospitals = policy_scope(Hospital.all)
+      @search = 'none'
       # Must be able to respond in HTML (when load the page) and JS (when click on button Show all databse)
       respond_to do |format|
         format.html {}
@@ -77,7 +79,7 @@ class HospitalsController < ApplicationController
     end
     authorize @hospitals
     @hospitals_page = @hospitals.page(params[:page])
-    render 'hospitals/_element', collection: @hospitals_page, layout: false
+    render 'hospitals/_elements', collection: @hospitals_page, layout: false
   end
 
   private

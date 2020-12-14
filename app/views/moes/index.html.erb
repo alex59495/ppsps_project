@@ -18,22 +18,21 @@
   <div class="container-database">
     <%= form_with url: moes_path, class: "d-flex mt-2 justify-content-center", method: :get do |f| %>
       <%= f.text_field :query, params: :query, class: "form-control search-db", placeholder: "Rechercher un mot-clé..." %>
-      <%= f.submit 'Go', class: "btn-orange-right" %>
+      <%= f.submit 'Go', class: "btn-orange-right", id: "btn-search" %>
     <% end %>
     <form class="d-flex justify-content-center mt-1" method="get" action=<%= moes_path %> data-remote="true">
-      <input class="btn-orange-ext" type="submit" value="Database complète">
+      <input class="btn-orange-ext" id="btn-database" type="submit" value="Database complète">
     </form>
-    <% if @moes.length > 0 %>
-      <div class="flex-database d-flex flex-wrap mt-2 justify-content-center">
-        <%= render 'element', collection: @moes_page %>
+    <div class="content-db">
+      <div class="flex-database">
+        <%= render 'elements', collection: @moes_page %>
       </div>
-    <% else %>
-      <div class="container-db-vide">
+      <div class="container-db-vide" style="display:none">
         Votre recherche n'a retourné aucun résultat
       </div>
-    <% end %>
-    <div class="container-pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %>>
-      <%= image_tag('gif-loading.gif') %>
+      <div class="container-pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %> data-search= <%= @search %> data-number = <%= @moes_page.count %>>
+        <%= image_tag('gif-loading.gif') %>
+      </div>
     </div>
   </div>
 </div>

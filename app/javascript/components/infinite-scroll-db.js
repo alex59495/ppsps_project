@@ -17,7 +17,7 @@ const infiniteScroll = () => {
     }
   
     // Initialize pagination
-    paginationElem.hide()
+    paginationElem.hide();
     let isPaginating = false
   
     const appendResult = (resultat) => {
@@ -34,6 +34,28 @@ const infiniteScroll = () => {
         paginationElem.hide();
       }, 100)
     };
+
+    const handleDisplaying = () => {
+      paginationElem = $('.container-pagination');
+      const numberElements = paginationElem.attr('data-number');
+      if(numberElements < 25) {
+        paginationElem.hide();
+      }
+      const dbVide = $('.container-db-vide')[0]
+      if(numberElements == 0) {
+        dbVide.style.display = ''
+      } else {
+        dbVide.style.display = 'none'
+      }
+    }
+
+    // Call the function when click on the search button or database btn
+    document.getElementById('btn-database').addEventListener('click', () => {
+      setTimeout(handleDisplaying, 200)
+    })
+    document.getElementById('btn-search').addEventListener('click', () => {
+      setTimeout(handleDisplaying, 200)
+    })
   
     // Listen to scrolling
     window_screen.on('scroll', () => {

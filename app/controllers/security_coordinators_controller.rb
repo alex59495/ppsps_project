@@ -5,6 +5,7 @@ class SecurityCoordinatorsController < ApplicationController
     authorize SecurityCoordinator
     if params[:query]
       @security_coordinators = policy_scope(SecurityCoordinator.search_security_coordinator(params[:query]))
+      @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
         # Respond with the index.js.erb
@@ -12,6 +13,7 @@ class SecurityCoordinatorsController < ApplicationController
       end
     else
       @security_coordinators = policy_scope(SecurityCoordinator.all)
+      @search = 'none'
       # Must be able to respond in HTML (when load the page) and JS (when click on button Show all databse)
       respond_to do |format|
         format.html {}
@@ -77,7 +79,7 @@ class SecurityCoordinatorsController < ApplicationController
     end
     authorize @security_coordinators
     @security_coordinators_page = @security_coordinators.page(params[:page])
-    render 'security_coordinators/_element', collection: @security_coordinators_page, layout: false
+    render 'security_coordinators/_elements', collection: @security_coordinators_page, layout: false
   end
 
   private
