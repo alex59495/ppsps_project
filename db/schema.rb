@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_09_185711) do
+ActiveRecord::Schema.define(version: 2020_12_07_192957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_destroyed", default: false
     t.index ["company_id"], name: "index_anti_poisons_on_company_id"
   end
 
@@ -46,6 +47,7 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_destroyed", default: false
     t.index ["company_id"], name: "index_deminings_on_company_id"
   end
 
@@ -56,6 +58,7 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_destroyed", default: false
     t.index ["company_id"], name: "index_direccts_on_company_id"
   end
 
@@ -66,6 +69,7 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_destroyed", default: false
     t.index ["company_id"], name: "index_hospitals_on_company_id"
   end
 
@@ -78,6 +82,7 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_destroyed", default: false
     t.index ["company_id"], name: "index_moas_on_company_id"
   end
 
@@ -90,6 +95,7 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_destroyed", default: false
     t.index ["company_id"], name: "index_moes_on_company_id"
   end
 
@@ -100,6 +106,7 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_destroyed", default: false
     t.index ["company_id"], name: "index_pension_insurances_on_company_id"
   end
 
@@ -163,6 +170,7 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_destroyed", default: false
     t.index ["company_id"], name: "index_regional_committees_on_company_id"
   end
 
@@ -181,6 +189,7 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_destroyed", default: false
     t.index ["company_id"], name: "index_security_coordinators_on_company_id"
   end
 
@@ -234,6 +243,7 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_destroyed", default: false
     t.index ["company_id"], name: "index_sos_hands_on_company_id"
   end
 
@@ -282,6 +292,7 @@ ActiveRecord::Schema.define(version: 2020_11_09_185711) do
     t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_destroyed", default: false
     t.index ["company_id"], name: "index_work_medecines_on_company_id"
   end
 

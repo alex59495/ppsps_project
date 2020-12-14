@@ -1,23 +1,19 @@
 class HospitalPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.where(company: user.company)                                                                                                                                                                                                  
+      scope.where(company: user.company, is_destroyed: false)                                                                                                                                                                                                  
     end
   end
 
   def index?
     user.admin
   end
-  
-  def new?
+
+  def create?
     user.admin
   end
 
-  def create?
-    new?
-  end
-
-  def destroy?
+  def destroyed?
     user.admin
   end
 
@@ -27,5 +23,9 @@ class HospitalPolicy < ApplicationPolicy
 
   def update?
     edit?
+  end
+
+  def pagination?
+    index?
   end
 end

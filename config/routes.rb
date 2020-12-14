@@ -21,18 +21,109 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :companies, only: [:create, :destroy]
-  resources :security_coordinators, except: [:new, :show]
-  resources :moas, except: [:new, :show]
-  resources :moes, except: [:new, :show]
-  resources :hospitals, except: [:new, :show]
-  resources :anti_poisons, except: [:new, :show]
-  resources :sos_hands, except: [:new, :show]
-  resources :deminings, except: [:new, :show]
-  resources :work_medecines, except: [:new, :show]
-  resources :direccts, except: [:new, :show]
-  resources :pension_insurances, except: [:new, :show]
-  resources :regional_committees, except: [:new, :show]
+  # Utilisateurs
   resources :users, only: [:show, :edit, :update]
+
+  # Database
+  resources :companies, only: [:create, :destroy]
+
+  resources :security_coordinators, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
+    end
+  end
+
+  resources :moas, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
+    end
+  end
+
+  resources :moes, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
+    end
+  end
+
+  resources :hospitals, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
+    end
+  end
+
+  resources :anti_poisons, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
+    end
+  end
+
+  resources :sos_hands, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
+    end
+  end
+
+  resources :deminings, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
+    end
+  end
+
+  resources :work_medecines, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
+    end
+  end
+
+  resources :direccts, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
+    end
+  end
+
+  resources :pension_insurances, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
+    end
+  end
+
+  resources :regional_committees, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
+    end
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

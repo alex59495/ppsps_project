@@ -5,4 +5,11 @@ class RegionalCommittee < ApplicationRecord
   validates :address, presence: true
   validates :phone, presence: true, phone: true
   validates :fax, presence: true
+
+  include PgSearch::Model
+  pg_search_scope :search_regional_committee,
+    against: [ :fax, :address, :phone, :name ],
+    using: {
+      tsearch: { prefix: true } # <-- allow the fact to search various words incomplete
+    }
 end

@@ -1,23 +1,15 @@
 class SecurityCoordinatorPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.where(company: user.company)
+      scope.where(company: user.company, is_destroyed: false)
     end
   end
 
   def index?
     user.admin
   end
-  
-  def new?
-    user.admin
-  end
 
   def create?
-    new?
-  end
-
-  def destroy?
     user.admin
   end
 
@@ -25,7 +17,15 @@ class SecurityCoordinatorPolicy < ApplicationPolicy
     user.admin
   end
 
+  def destroyed?
+    user.admin
+  end
+
   def update?
     edit?
+  end
+
+  def pagination?
+    index?
   end
 end

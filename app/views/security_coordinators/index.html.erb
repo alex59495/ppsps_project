@@ -1,7 +1,38 @@
-<% @security_coordinators.each do |security_coordinator| %>
-  <div class="card-database">
-    <%= link_to security_coordinator, security_coordinator_path(security_coordinator) %>
-    <%= link_to "Edit", edit_security_coordinator_path(security_coordinator) %>
-    <%= link_to "x", security_coordinator_path(security_coordinator), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+<div class="container">
+  <div class="link-db">
+    <%= link_to "Revenir aux bases de données", database_path %>
   </div>
-<% end %>
+  <% if policy(SecurityCoordinator).new? %>
+    <div>
+      <button type="button" class="btn-blue" data-toggle="modal" data-target="#ModalSecurityCoordinator">
+        Ajouter un Coordinateur Sécurité
+      </button>
+    </div>
+  <% end %>
+  <%# Modal Regional Committee %>
+  <% if policy(SecurityCoordinator).new? %>
+    <div class="modal fade" id="ModalSecurityCoordinator" tabindex="-1" role="dialog" aria-labelledby="ModalSecurityCoordinator" aria-hidden="true">
+      <%= render 'ppsps/modal_security_coordinator' %>
+    </div>
+  <% end %>
+  <div class="container-database">
+    <%= form_with url: security_coordinators_path, class: "d-flex mt-2 justify-content-center", method: :get do |f| %>
+      <%= f.text_field :query, params: :query, class: "form-control search-db", placeholder: "Rechercher un mot-clé..." %>
+      <%= f.submit 'Go', class: "btn-orange-right", id: "btn-search" %>
+    <% end %>
+    <form class="d-flex justify-content-center mt-1" method="get" action=<%= security_coordinators_path %> data-remote="true">
+      <input class="btn-orange-ext" id="btn-database" type="submit" value="Database complète">
+    </form>
+    <div class="content-db">
+      <div class="flex-database">
+        <%= render 'elements', collection: @security_coordinators_page %>
+      </div>
+      <div class="container-db-vide" style="display:none">
+        Votre recherche n'a retourné aucun résultat
+      </div>
+      <div class="container-pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %> data-search= <%= @search %> data-number = <%= @security_coordinators_page.count %>>
+        <%= image_tag('gif-loading.gif') %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -55,6 +55,9 @@ gem 'devise'
 # Authorization
 gem 'pundit'
 
+# Advanced search
+gem 'pg_search'
+
 # Handle PDF
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'

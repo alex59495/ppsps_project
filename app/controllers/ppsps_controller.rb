@@ -32,6 +32,19 @@ class PpspsController < ApplicationController
     @demining = Demining.new
     @sos_hand = SosHand.new
     @anti_poison = AntiPoison.new
+
+    # Select the databases present in the select lists
+    @moas = Moa.where(company: current_user.company, is_destroyed: false)
+    @moes = Moe.where(company: current_user.company, is_destroyed: false)
+    @regional_committees = RegionalCommittee.where(company: current_user.company, is_destroyed: false)
+    @pension_insurances = PensionInsurance.where(company: current_user.company, is_destroyed: false)
+    @direccts = Direcct.where(company: current_user.company, is_destroyed: false)
+    @work_medecines = WorkMedecine.where(company: current_user.company, is_destroyed: false)
+    @deminings = Demining.where(company: current_user.company, is_destroyed: false)
+    @sos_hands = SosHand.where(company: current_user.company, is_destroyed: false)
+    @anti_poisons = AntiPoison.where(company: current_user.company, is_destroyed: false)
+    @hospitals = Hospital.where(company: current_user.company, is_destroyed: false)
+    @security_coordinators = SecurityCoordinator.where(company: current_user.company, is_destroyed: false)
   end
 
   def show
@@ -73,6 +86,20 @@ class PpspsController < ApplicationController
     @sos_hand = SosHand.new
     @anti_poison = AntiPoison.new
     @ppsp.user = current_user
+
+    # Select the databases present in the select lists
+    @moas = Moa.where(company: current_user.company, is_destroyed: false)
+    @moes = Moe.where(company: current_user.company, is_destroyed: false)
+    @regional_committees = RegionalCommittee.where(company: current_user.company, is_destroyed: false)
+    @pension_insurances = PensionInsurance.where(company: current_user.company, is_destroyed: false)
+    @direccts = Direcct.where(company: current_user.company, is_destroyed: false)
+    @work_medecines = WorkMedecine.where(company: current_user.company, is_destroyed: false)
+    @deminings = Demining.where(company: current_user.company, is_destroyed: false)
+    @sos_hands = SosHand.where(company: current_user.company, is_destroyed: false)
+    @anti_poisons = AntiPoison.where(company: current_user.company, is_destroyed: false)
+    @hospitals = Hospital.where(company: current_user.company, is_destroyed: false)
+    @security_coordinators = SecurityCoordinator.where(company: current_user.company, is_destroyed: false)
+
     authorize @ppsp
     if @ppsp.save
       redirect_to informations_supplementaires_ppsp_path(@ppsp)
@@ -111,7 +138,7 @@ class PpspsController < ApplicationController
     @site_manager = @ppsp.project_information.site_manager
     @team_manager = @ppsp.project_information.team_manager
     
-    # Info to add the possibility to create a new element through a modal form
+    # Info to add the possibility to create a new element through a modal form!
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
     @moa = Moa.new
@@ -123,6 +150,19 @@ class PpspsController < ApplicationController
     @demining = Demining.new
     @sos_hand = SosHand.new
     @anti_poison = AntiPoison.new
+
+    # Select the databases present in the select lists
+    @moas = Moa.where(company: current_user.company, is_destroyed: false)
+    @moes = Moe.where(company: current_user.company, is_destroyed: false)
+    @regional_committees = RegionalCommittee.where(company: current_user.company, is_destroyed: false)
+    @pension_insurances = PensionInsurance.where(company: current_user.company, is_destroyed: false)
+    @direccts = Direcct.where(company: current_user.company, is_destroyed: false)
+    @work_medecines = WorkMedecine.where(company: current_user.company, is_destroyed: false)
+    @deminings = Demining.where(company: current_user.company, is_destroyed: false)
+    @sos_hands = SosHand.where(company: current_user.company, is_destroyed: false)
+    @anti_poisons = AntiPoison.where(company: current_user.company, is_destroyed: false)
+    @hospitals = Hospital.where(company: current_user.company, is_destroyed: false)
+    @security_coordinators = SecurityCoordinator.where(company: current_user.company, is_destroyed: false)
   end
 
   def update
@@ -144,6 +184,19 @@ class PpspsController < ApplicationController
     @demining = Demining.new
     @sos_hand = SosHand.new
     @anti_poison = AntiPoison.new
+
+    # Select the databases present in the select lists
+    @moas = Moa.where(company: current_user.company, is_destroyed: false)
+    @moes = Moe.where(company: current_user.company, is_destroyed: false)
+    @regional_committees = RegionalCommittee.where(company: current_user.company, is_destroyed: false)
+    @pension_insurances = PensionInsurance.where(company: current_user.company, is_destroyed: false)
+    @direccts = Direcct.where(company: current_user.company, is_destroyed: false)
+    @work_medecines = WorkMedecine.where(company: current_user.company, is_destroyed: false)
+    @deminings = Demining.where(company: current_user.company, is_destroyed: false)
+    @sos_hands = SosHand.where(company: current_user.company, is_destroyed: false)
+    @anti_poisons = AntiPoison.where(company: current_user.company, is_destroyed: false)
+    @hospitals = Hospital.where(company: current_user.company, is_destroyed: false)
+    @security_coordinators = SecurityCoordinator.where(company: current_user.company, is_destroyed: false)
 
     if @ppsp.update(params_ppsp)
       redirect_to informations_supplementaires_ppsp_path(@ppsp)

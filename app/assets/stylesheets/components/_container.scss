@@ -13,13 +13,28 @@
   margin-right: 20px;
 }
 
-.container-database {
+.container-installations {
+  width: 100%;
+}
+
+.container-header-form {
+  display: flex;
+  align-items: start;
+}
+
+.container-pagination {
+  display:flex;
+  justify-content: center;
+}
+
+.container-db-vide {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-database {
   display: flex;
   flex-wrap: wrap;
   margin-top: 2em;
   justify-content: center;
-}
-
-.container-installations {
-  width: 100%;
 }

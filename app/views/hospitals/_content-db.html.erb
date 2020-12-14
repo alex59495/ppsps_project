@@ -1,0 +1,9 @@
+<div class="flex-database d-flex flex-wrap mt-2 justify-content-center">
+  <%= render 'elements', collection: @hospitals_page %>
+</div>
+<div class="container-db-vide" style='display: none'>
+  Votre recherche n'a retourné aucun résultat
+</div>
+<div class="container-pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %> data-number = <%= @hospitals_page.count %>>
+  <%= image_tag('gif-loading.gif') %>
+</div>

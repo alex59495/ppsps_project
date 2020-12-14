@@ -1,0 +1,9 @@
+<div class="flex-database">
+  <%= render 'elements', collection: @anti_poisons_page %>
+</div>
+<div class="container-db-vide" style='display: none'>
+  Votre recherche n'a retourné aucun résultat
+</div>
+<div class="container-pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %> data-search= <%= @search %> data-number = <%= @anti_poisons_page.count %>>
+  <%= image_tag('gif-loading.gif') %>
+</div>

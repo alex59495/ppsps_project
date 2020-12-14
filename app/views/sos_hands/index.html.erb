@@ -16,24 +16,23 @@
     </div>
   <% end %>
   <div class="container-database">
-    <% @sos_hands.each do |sos_hand| %>
-      <div class="card-database">
-        <div class="card-db-header">
-          <%= link_to edit_sos_hand_path(sos_hand), class: "card-db-edit", target: '_blank' do %>
-            <i class='fas fa-pencil-alt'></i>
-          <% end %>
-          <%= link_to "x", sos_hand_path(sos_hand), class: "card-db-delete", method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
-        </div>
-        <div class="db-element">
-          <%= sos_hand.name %>
-        </div>
-        <div class="db-element">
-          <%= sos_hand.address %>
-        </div>
-        <div class="db-element">
-          <%= sos_hand.phone %>
-        </div>
-      </div>
+    <%= form_with url: sos_hands_path, class: "d-flex mt-2 justify-content-center", method: :get do |f| %>
+      <%= f.text_field :query, params: :query, class: "form-control search-db", placeholder: "Rechercher un mot-clé..." %>
+      <%= f.submit 'Go', class: "btn-orange-right", id: "btn-search" %>
     <% end %>
+    <form class="d-flex justify-content-center mt-1" method="get" action=<%= sos_hands_path %> data-remote="true">
+      <input class="btn-orange-ext" id="btn-database" type="submit" value="Database complète">
+    </form>
+    <div class="content-db">
+      <div class="flex-database">
+        <%= render 'elements', collection: @sos_hands_page %>
+      </div>
+      <div class="container-db-vide" style="display:none">
+        Votre recherche n'a retourné aucun résultat
+      </div>
+      <div class="container-pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %> data-search= <%= @search %> data-number = <%= @sos_hands_page.count %>>
+        <%= image_tag('gif-loading.gif') %>
+      </div>
+    </div>
   </div>
 </div>
