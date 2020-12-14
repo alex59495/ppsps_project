@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class ProfilesController < ApplicationController
   before_action :find_user
 
   def show
@@ -18,5 +18,4 @@ class UsersController < ApplicationController
   def find_user
     @user = User.find(params[:id])
   end
-  
 end

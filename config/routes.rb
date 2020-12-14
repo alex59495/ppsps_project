@@ -33,6 +33,6 @@ Rails.application.routes.draw do
   resources :direccts, except: [:new, :show]
   resources :pension_insurances, except: [:new, :show]
   resources :regional_committees, except: [:new, :show]
-  resources :users, only: [:show, :edit, :update]
+  resources :profiles, only: [:show, :edit, :update]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

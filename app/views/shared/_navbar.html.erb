@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="d-flex align-items-center">
-      <%= link_to "Mon profil", user_path(current_user), class: 'btn-blue-ext mr-2', data: { turbolinks: false } %>
+      <%= link_to "Mon profil", profile_path(current_user), class: 'btn-blue-ext mr-2', data: { turbolinks: false } %>
       <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn-blue"%>
     </div>
   <% else %>
