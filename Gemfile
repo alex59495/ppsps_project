@@ -62,6 +62,10 @@ gem 'pg_search'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
+# Faker
+gem 'faker'
+
+
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'
@@ -72,7 +76,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'factory_bot_rails'
-  gem 'faker'
   gem 'selenium-webdriver'
   gem 'webdrivers'
   gem 'launchy'
