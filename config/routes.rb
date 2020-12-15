@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   end
 
   # Utilisateurs
-  resources :users, only: [:show, :edit, :update]
+  resources :profiles, only: [:show, :edit, :update]
 
   # Database
   resources :companies, only: [:create, :destroy]
