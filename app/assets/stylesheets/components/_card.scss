@@ -160,7 +160,7 @@
   &:hover {
     color: $orange-dark;
     text-decoration: none;
-    box-shadow: 0 4px 30px 0px $orange;
+    box-shadow: 0 4px 30px 0px $orange-light;
   }
   img {
     margin-right: 8px;
@@ -168,6 +168,13 @@
   p {
     margin-bottom: 0;
     font-size: 18px;
+  }
+  .infos-popup {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: gray;
+    font-size: 14px;
   }
 }
 

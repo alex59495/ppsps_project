@@ -1,0 +1,21 @@
+.pop-up {
+  padding: 10px;
+  background-color: white;
+  color: black;
+  position: absolute;
+  bottom: 110%;
+  right: -40%;
+  left: 50%;
+  font-size: 12px;
+  text-align: center;
+  &:before {
+    content: " ";
+    bottom: 15px;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border-right : 10px solid transparent;
+    border-top : 16px solid white;
+    border-left : 8px solid transparent;
+  }
+}

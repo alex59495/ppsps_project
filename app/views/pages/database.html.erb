@@ -11,7 +11,9 @@
       <p>Centres de déminages</p>
     <% end %>
     <%= link_to direccts_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12" do %>
-      <p>DIRECCT</p>
+      <p class='infos-popup'>?</p>
+      <%= image_tag 'logo-direcct.svg', width: 50, height: 50  %>
+      <p>DIRECCTE</p>
     <% end %>
     <%= link_to hospitals_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12" do %>
       <%= image_tag 'logo-hospital.svg', width: 50, height: 50  %>
@@ -33,7 +35,9 @@
       <%= image_tag 'logo-pension.svg', width: 50, height: 50 %>
       <p>Caisses d'assurances retraite et de santé au travail</p>
     <% end %>
-      <%= link_to regional_committees_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12" do %>
+    <%= link_to regional_committees_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12" do %>
+      <p class='infos-popup'>?</p>
+      <%= image_tag 'logo-committee.svg', width: 50, height: 50  %>
       <p>Comités régionaux de l'OPPBTP</p>
     <% end %>
       <%= link_to sos_hands_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12" do %>

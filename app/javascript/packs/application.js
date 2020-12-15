@@ -24,6 +24,7 @@ import { cardForm } from "../components/card-form";
 import flat_picker from "../components/flat-pickr";
 import { select_2 } from "../components/select-2";
 import { infiniteScroll } from "../components/infinite-scroll-db";
+import { popUp } from "../components/popup";
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -40,6 +41,7 @@ document.addEventListener('turbolinks:load', () => {
   cardForm();
   reactPpsp();
   infiniteScroll();
+  popUp();
 })
 // Support component names relative to this directory:
 var componentRequireContext = require.context("components", true);
