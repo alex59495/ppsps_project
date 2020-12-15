@@ -1,4 +1,4 @@
-const HideForm = () => {
+const hideForm = () => {
   if ($('#siteInstallationType')[0]) {
     const siteInstallationType = $('#siteInstallationType')[0];
     const checkSiteInstallation = $('#checkSiteInstallation')[0];
@@ -32,4 +32,4 @@ const HideForm = () => {
   }
 }
 
-export { HideForm };
+export { hideForm };

@@ -1,6 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe "Moas Controller", type: :request do
+  context 'Logged as Normal User' do
+    before do
+      user_uber = create(:user_uber)
+      login_as(user_uber)
+    end
+    
+    it "Can't access the moas index" do
+      expect{get moas_path}.to raise_error(Pundit::NotAuthorizedError)
+    end
+  end
+
   context 'Logged as User Admin' do
     before do
       user = create(:user_admin)
@@ -10,12 +21,15 @@ RSpec.describe "Moas Controller", type: :request do
     let(:params_moa) { attributes_for(:moa)}
     let(:params_moa_update) { attributes_for(:moa_update)}
 
-
+    it "Can access the moa index page" do
+      get moas_path
+      expect(response).to have_http_status(200)
+    end
   
     context 'Action Destroy' do
-      let(:destroy_action) { delete moa_path(@moa) }
+      let(:destroy_action) { post destroy_moa_path(@moa) }
       it 'Delete 1 instance of moa when using action destroy' do
-        expect { destroy_action }.to change(Moa, :count).by(-1)
+        expect { destroy_action }.to change(Moa.where(is_destroyed: true), :count).by(1)
       end
   
       it 'Redirect after destroy' do

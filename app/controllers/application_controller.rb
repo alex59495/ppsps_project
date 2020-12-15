@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   # Reidrect to ppsps page after log in
   def after_sign_in_path_for(resource)
-    ppsps_path(resource)
+    ppsps_path
   end
 
 end

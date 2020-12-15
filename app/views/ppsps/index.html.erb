@@ -1,5 +1,5 @@
 <div class="container">
-  <%= link_to "Créer un nouveau PPSP", new_ppsp_path, class: 'btn-blue', data: { turbolinks: false } %>
+  <%= link_to "Créer un nouveau PPSP", new_ppsp_path, class: 'btn-blue' %>
     <% if policy(Page).database? %>
       <%= link_to "Modifier les bases de données", database_path, class: 'btn-orange' %>
     <% end %>

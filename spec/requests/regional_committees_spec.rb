@@ -1,6 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe "RegionalCommittees Controller", type: :request do
+  context 'Logged as Normal User' do
+    before do
+      user_uber = create(:user_uber)
+      login_as(user_uber)
+    end
+    
+    it "Can't access the regional_committees index" do
+      expect{get regional_committees_path}.to raise_error(Pundit::NotAuthorizedError)
+    end
+  end
+
   context 'Logged as User Admin' do
     before do
       user = create(:user_admin)
@@ -10,10 +21,15 @@ RSpec.describe "RegionalCommittees Controller", type: :request do
     let(:params_regional_committee) { attributes_for(:regional_committee)}
     let(:params_regional_committee_update) { attributes_for(:regional_committee_update)}
   
+    it "Can access the regional_committee index page" do
+      get regional_committees_path
+      expect(response).to have_http_status(200)
+    end
+    
     context 'Action Destroy' do
-      let(:destroy_action) { delete regional_committee_path(@regional_committee) }
+      let(:destroy_action) { post destroy_regional_committee_path(@regional_committee) }
       it 'Delete 1 instance of regional_committee when using action destroy' do
-        expect { destroy_action }.to change(RegionalCommittee, :count).by(-1)
+        expect { destroy_action }.to change(RegionalCommittee.where(is_destroyed: true), :count).by(1)
       end
   
       it 'Redirect after destroy' do
@@ -33,7 +49,7 @@ RSpec.describe "RegionalCommittees Controller", type: :request do
     context 'Action Update' do
       let(:update_action) { patch regional_committee_path(@regional_committee), params: { regional_committee: params_regional_committee_update } }
 
-      it 'Update the attributes of AntiPoison' do
+      it 'Update the attributes of RegionalCommittee' do
         update_action
         @regional_committee.reload
         expect(@regional_committee.name).to eq(params_regional_committee_update[:name])

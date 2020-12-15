@@ -6,5 +6,14 @@ FactoryBot.define do
     phone { '0300000000' }
     email { Faker::Internet.email }
     company
+
+    factory :security_coordinator_update do
+      name { 'Name updated'}
+      address { 'Address updated'}
+      phone { '0328282828' }
+      representative { 'Representative updated' }
+      email { 'upadte@update.com' }
+      company
+    end
   end
 end

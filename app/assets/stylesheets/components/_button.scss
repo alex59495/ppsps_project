@@ -1,4 +1,4 @@
-$btn-add-size: 25px;
+$btn-add-size: 18px;
 
 .btn-blue {
   padding: 8px 16px;
@@ -38,6 +38,20 @@ $btn-add-size: 25px;
   }
 }
 
+.btn-orange-right {
+  padding: 8px 16px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background-color: $orange;
+  color: black;
+  border: none;
+  &:hover {
+    background-color: $orange-dark;
+    text-decoration: none;
+    color: black;
+  }
+}
+
 .btn-orange-ext {
   padding: 4px 8px;
   border-radius: 8px;
@@ -55,7 +69,9 @@ $btn-add-size: 25px;
   cursor: pointer;
   position: relative;
   border: 0.1px solid $orange;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: $btn-add-size;
   height: $btn-add-size;
   margin-left: $btn-add-size/2;
@@ -76,7 +92,6 @@ $btn-add-size: 25px;
       position: relative;
       color: rgb(59, 59, 59);
       font-size: $btn-add-size/2;
-      margin-top: $btn-add-size/4;
       transition: all 0.25s ease;
     }
   }

@@ -14,12 +14,17 @@ require("channels")
 import "bootstrap";
 
 // Import react elements
-import '../ppsp-react/index'
+// import '../react-ppsp/index'
+import { reactPpsp } from '../components/react-ppsp/index';
 
 // import { AutoCompleteGeocoding } from "../components/autocomplete"
 // La clé API pour l'utilisation de l'autocomplete Geocoding se trouve dans config/application.yml
-import { HideForm } from "../components/hide-form"
-import { cardForm } from "../components/card-form"
+import { hideForm } from "../components/hide-form";
+import { cardForm } from "../components/card-form";
+import flat_picker from "../components/flat-pickr";
+import { select_2 } from "../components/select-2";
+import { infiniteScroll } from "../components/infinite-scroll-db";
+
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -29,8 +34,12 @@ import { cardForm } from "../components/card-form"
 // const imagePath = (name) => images(name, true)
 
 document.addEventListener('turbolinks:load', () => {
-  HideForm();
+  select_2();
+  flat_picker();
+  hideForm();
   cardForm();
+  reactPpsp();
+  infiniteScroll();
 })
 // Support component names relative to this directory:
 var componentRequireContext = require.context("components", true);

@@ -1,7 +1,7 @@
 class DeminingPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.where(company: user.company)
+      scope.where(company: user.company, is_destroyed: false)
     end
   end
 
@@ -9,15 +9,11 @@ class DeminingPolicy < ApplicationPolicy
     user.admin
   end
 
-  def new?
+  def create?
     user.admin
   end
-
-  def create?
-    new?
-  end
   
-  def destroy?
+  def destroyed?
     user.admin
   end
 
@@ -27,5 +23,9 @@ class DeminingPolicy < ApplicationPolicy
 
   def update?
     edit?
+  end
+
+  def pagination?
+    index?
   end
 end

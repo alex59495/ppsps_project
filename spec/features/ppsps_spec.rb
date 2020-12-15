@@ -11,8 +11,10 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
   feature 'Logged as normal User' do
     before do
       user_uber = create(:user_uber)
-      @ppsp_1 = create(:ppsp, user: user_uber)
-      @ppsp_2 = create(:ppsp, user: user_uber)
+      project_info1 = create(:project_information, reference: "AABB130")
+      project_info2 = create(:project_information, reference: "AABB120")
+      @ppsp_1 = create(:ppsp, project_information: project_info1, user: user_uber)
+      @ppsp_2 = create(:ppsp, project_information: project_info2, user: user_uber)
       @ppsp_3 = create(:ppsp_google)
       login_as(user_uber)
     end
@@ -26,6 +28,13 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       visit(ppsps_path)
       expect(page).to have_css('.card-ppsp', count: 2)
     end
+
+    scenario "The search bar is working" do
+      visit(ppsps_path)
+      find('.search-ppsp').set("AABB130")
+      expect(page).to have_css('.card-ppsp', count: 1)
+    end
+
   end
 
 
@@ -85,9 +94,9 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       fill_in('ppsp_address', with: 'Test adresse')
       fill_in('ppsp_nature', with: 'Test de nature')
       fill_in('ppsp_workforce', with: 'Test de personnel')
-      # Select an end_date after start_date
-      find('#ppsp_start_date_3i').find(:xpath, 'option[3]').select_option
-      find('#ppsp_end_date_3i').find(:xpath, 'option[4]').select_option
+      # complete the flatpickr date
+      page.execute_script("$('#startDate').val('21/12/2019')")
+      page.execute_script("$('#endDate').val('21/12/2020')")
       find('#ppsp_moa_id').find(:xpath, 'option[2]').select_option
       find('#ppsp_moe_id').find(:xpath, 'option[2]').select_option
       fill_in('ppsp_project_information_attributes_reference', with: "ABRFH78")
@@ -217,7 +226,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       expect(page).not_to have_selector('.card-info')
     end
 
-    scenario 'Can delete aite installation' do
+    scenario 'Can delete site installation' do
       site_installations
       visit informations_supplementaires_ppsp_path(@ppsp)
       find('#CheckSiteInstallation').click

@@ -1,9 +1,28 @@
 class PensionInsurancesController < ApplicationController
-  before_action :find_pension_insurance, only: [ :update, :show, :destroy, :edit ]
+  before_action :find_pension_insurance, only: [ :update, :show, :destroyed, :edit ]
 
   def index
     authorize PensionInsurance
-    @pension_insurances = policy_scope(PensionInsurance)
+    if params[:query]
+      @pension_insurances = policy_scope(PensionInsurance.search_pension_insurance(params[:query]))
+      @search = 'search'
+      # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
+      respond_to do |format|
+        # Respond with the index.js.erb
+        format.js {}
+      end
+    else
+      @pension_insurances = policy_scope(PensionInsurance.all)
+      @search = 'none'
+      # Must be able to respond in HTML (when load the page) and JS (when click on button Show all databse)
+      respond_to do |format|
+        format.html {}
+        format.js {}
+      end
+    end
+
+    init_infinite_loop
+
     @pension_insurance = PensionInsurance.new
   end
 
@@ -12,12 +31,14 @@ class PensionInsurancesController < ApplicationController
     @pension_insurance.company = current_user.company
     authorize @pension_insurance
     if @pension_insurance.save
-      # Create an ordered list to use in the view 'pension_insurance/_form_field_pension_insurance'
-      @pension_insurances = PensionInsurance.all.sort_by { |pension_insurance| pension_insurance.address }
+      # Create an ordered list to put the last one in first
+      @pension_insurances = PensionInsurance.all.sort_by { |pension_insurance| pension_insurance.created_at }
       # Respond with the view pension_insurance/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
       end
+      # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
+      init_infinite_loop
     else
       # Respond with the .js.erb to print the modal with errors
       respond_to do |format|
@@ -39,13 +60,37 @@ class PensionInsurancesController < ApplicationController
     end
   end
 
-  def destroy
+  def destroyed
     authorize @pension_insurance
-    @pension_insurance.destroy
-    redirect_to pension_insurances_path
+    @pension_insurance.is_destroyed = true
+    if @pension_insurance.save
+      redirect_to pension_insurances_path
+    else
+      flash.now[:error] = "L'élément n'a pas pu être supprimé"
+    end
+  end
+
+  # Useful for the infinite loop
+  def pagination
+    if params[:query]
+      @pension_insurances = policy_scope(PensionInsurance.search_pension_insurance(params[:query]))
+    else
+      @pension_insurances = policy_scope(PensionInsurance.all)
+    end
+    authorize @pension_insurances
+    @pension_insurances_page = @pension_insurances.page(params[:page])
+    render 'pension_insurances/_elements', collection: @pension_insurances_page, layout: false
   end
 
   private
+
+  def init_infinite_loop
+    # Useful for the infinite scroll
+    @pension_insurances_page = Kaminari.paginate_array(@pension_insurances).page
+    @endpoint = pagination_pension_insurances_path
+    @page_amount = @pension_insurances_page.total_pages
+  end
+
   def params_pension_insurance
     params.require(:pension_insurance).permit(:address, :phone, :fax, :company)
   end

@@ -1,9 +1,28 @@
 class RegionalCommitteesController < ApplicationController
-  before_action :find_regional_committee, only: [ :update, :show, :destroy, :edit ]
+  before_action :find_regional_committee, only: [ :update, :show, :destroyed, :edit ]
 
   def index
     authorize RegionalCommittee
-    @regional_committees = policy_scope(RegionalCommittee)
+    if params[:query]
+      @regional_committees = policy_scope(RegionalCommittee.search_regional_committee(params[:query]))
+      @search = 'search'
+      # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
+      respond_to do |format|
+        # Respond with the index.js.erb
+        format.js {}
+      end
+    else
+      @regional_committees = policy_scope(RegionalCommittee.all)
+      @search = 'none'
+      # Must be able to respond in HTML (when load the page) and JS (when click on button Show all databse)
+      respond_to do |format|
+        format.html {}
+        format.js {}
+      end
+    end
+
+    init_infinite_loop
+    
     @regional_committee = RegionalCommittee.new
   end
 
@@ -12,12 +31,14 @@ class RegionalCommitteesController < ApplicationController
     @regional_committee.company = current_user.company
     authorize @regional_committee
     if @regional_committee.save
-      # Create an ordered list to use in the view 'regional_committee/_form_field_regional_committee'
-      @regional_committees = RegionalCommittee.all.sort_by { |regional_committee| regional_committee.name }
+      # Create an ordered list to put the last one in first
+      @regional_committees = RegionalCommittee.all.sort_by { |regional_committee| regional_committee.created_at }
       # Respond with the view regional_committee/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
       end
+      # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
+      init_infinite_loop
     else
       # Respond with the .js.erb to print the modal with errors
       respond_to do |format|
@@ -39,13 +60,38 @@ class RegionalCommitteesController < ApplicationController
     end
   end
 
-  def destroy
+  def destroyed
     authorize @regional_committee
-    @regional_committee.destroy
-    redirect_to regional_committees_path
+    @regional_committee.is_destroyed = true
+    if @regional_committee.save
+      redirect_to regional_committees_path
+    else
+      flash.now[:error] = "L'élément n'a pas pu être supprimé"
+    end
+  end
+
+  # Useful for the infinite loop
+  def pagination
+    if params[:query]
+      @regional_committees = policy_scope(RegionalCommittee.search_regional_committee(params[:query]))
+    else
+      @regional_committees = policy_scope(RegionalCommittee.all)
+    end
+    authorize @regional_committees
+    @regional_committees_page = @regional_committees.page(params[:page])
+    render 'regional_committees/_elements', collection: @regional_committees_page, layout: false
   end
 
   private
+  
+  def init_infinite_loop
+    # Useful for the infinite scroll
+    @regional_committees_page = Kaminari.paginate_array(@regional_committees).page
+    @endpoint = pagination_regional_committees_path
+    @page_amount = @regional_committees_page.total_pages
+  end
+
+
   def params_regional_committee
     params.require(:regional_committee).permit(:address, :name, :phone, :fax, :company)
   end
