@@ -3,11 +3,9 @@ const popUp = () => {
     if(index == 0) {
       const text = "<div class='pop-up' id='pop-direcct'>Directions régionales des entreprises, de la concurrence, de la consommation, du travail et de l'emploi</div>"
       pop.addEventListener('mouseover', () => {
-        console.log('entre')
         pop.insertAdjacentHTML('beforebegin', text)
       })
       pop.addEventListener('mouseleave', () => {
-        console.log('sort')
         document.getElementById('pop-direcct').remove()
       })
     }

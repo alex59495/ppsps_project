@@ -85,7 +85,7 @@ class CardPpsp extends Component {
               <div className="col-7">Date de fin: </div><div className="col-5">{ end_date }</div>
             </div> 
             <div className="card-ppsp-footer">
-              Créé par <span className="card-ppsp-link" onClick={this.handleClickUser}>{`${user_first_name} ${user_last_name}`}</span>`
+              Créé par <span className="card-ppsp-link" onClick={this.handleClickUser}>{`${user_first_name} ${user_last_name}`}</span>
             </div>   
           </div>
         </React.Fragment>
