@@ -125,6 +125,5 @@ Rails.application.routes.draw do
       get :pagination, as: :pagination
     end
   end
->>>>>>> 9bd1f4254fd1a81135de076233ab9cd41b29b65a
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
