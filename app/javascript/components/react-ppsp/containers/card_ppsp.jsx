@@ -62,9 +62,9 @@ class CardPpsp extends Component {
               </div>
             </div>
             <div className="card-ppsp-body row">
-              <div className="col-7">Lieu du chantier: </div><div className="col-5">{address}</div>
-              <div className="col-7">Date de début: </div><div className="col-5">{ start_date }</div>
-              <div className="col-7">Date de fin: </div><div className="col-5">{ end_date }</div>
+              <div className="col-6">Lieu du chantier: </div><div className="col-6">{address}</div>
+              <div className="col-6">Date de début: </div><div className="col-6">{ start_date }</div>
+              <div className="col-6">Date de fin: </div><div className="col-6">{ end_date }</div>
             </div> 
             <div className="card-ppsp-footer">
               Créé par <span className="card-ppsp-link" onClick={this.handleClickUser}>{`${user_first_name} ${user_last_name}`}</span>
@@ -80,9 +80,9 @@ class CardPpsp extends Component {
               {`Reference ${reference}`}
             </div>
             <div className="card-ppsp-body row">
-              <div className="col-7">Lieu du chantier: </div><div className="col-5">{address}</div>
-              <div className="col-7">Date de début: </div><div className="col-5">{ start_date }</div>
-              <div className="col-7">Date de fin: </div><div className="col-5">{ end_date }</div>
+              <div className="col-6">Lieu du chantier: </div><div className="col-6">{address}</div>
+              <div className="col-6">Date de début: </div><div className="col-6">{ start_date }</div>
+              <div className="col-6">Date de fin: </div><div className="col-6">{ end_date }</div>
             </div> 
             <div className="card-ppsp-footer">
               Créé par <span className="card-ppsp-link" onClick={this.handleClickUser}>{`${user_first_name} ${user_last_name}`}</span>
