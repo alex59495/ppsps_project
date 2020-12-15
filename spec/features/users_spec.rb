@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Users View", type: :feature, js: true  do
+RSpec.feature "Users View", type: :feature, js: true do
   feature "Users View" do
     before do
       company = create(:company_uber)
@@ -15,7 +15,7 @@ RSpec.feature "Users View", type: :feature, js: true  do
       @user_google = create(:user_google)
     end
 
-    scenario "Can see my PPSPs" do 
+    scenario "Can see my PPSPs" do
       visit profile_path(@user_uber_1)
       expect(page).to have_css('.card-ppsp', count: 3)
     end
