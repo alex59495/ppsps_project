@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col-6 offset-3">
-    <%= simple_form_for @user do |f| %>
+    <%= simple_form_for @user, url: profile_path(@user), html: { method: :put } do |f| %>
       <%= f.input :first_name, label: "Prénom" %>
       <%= f.input :last_name, label: "Nom de famille" %>
       <%= f.input :email, label: "Email" %>
       <%= f.submit "Ëditer les informations", class: 'btn-blue' %>
     <% end %>
-    <%= link_to "Revenir au profil", user_path(@user), class: 'link', data: { turbolinks: false } %>
+    <%= link_to "Revenir au profil", profile_path(@user), class: 'link', data: { turbolinks: false } %>
   </div>
 </div>

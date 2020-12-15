@@ -1,21 +1,25 @@
 <div class="container">
-  <h1><%= @user == current_user ? "Bonjour #{current_user.first_name}" : "La page de #{@user.first_name}" %></h1>
-  <div class="d-flex flex-column align-items-center">
-    <div class="card-profile">
-      <%= "<h2>Vos infos</h2>".html_safe if @user == current_user %>
-      <p><u>Nom</u> : <%= @user.first_name %> <%= @user.last_name %></p>
-      <p><u>Email</u> : <%= @user.email %></p>
-      <p><u>Entreprise</u> : <%= @user.company.name %></p>
-      <% if @user == current_user %>
-        <p>
-          <%= @user.admin ? "Votre compte est configuré en tant qu'<b>Admin</b>".html_safe : "Votre compte n'est <b>pas</b> un compte <b>Admin</b>".html_safe %>
-        </p>
-      <% end %>
-      <% if policy(@user).edit? %>
-        <div class="d-flex justify-content-center">
-          <%= link_to "Éditer les informations", edit_profile_path(@user), class: 'btn-blue-ext' %>
-        </div>
-      <% end %>
+  <h1 class="d-flex justify-content-center"><div class="title-profile"><%= @user == current_user ? "Bonjour #{current_user.first_name}" : "La page de #{@user.first_name}" %></div></h1>
+  <div class="card-profile">
+    <div class="card-profile-info">
+      <div class="info-profile"><i class="fas fa-signature tag-profile"></i> <%= @user.full_name %></div>
+      <div class="info-profile"><i class="fas fa-envelope tag-profile"></i> <%= @user.email %></div>
+      <div class="info-profile"><i class="fas fa-industry tag-profile"></i> <%= @user.company.name %></div>
+      </div>
+      <div class="card-profile-stat">
+        <% if @user == current_user %>
+          <%= @user.admin ? "<div><i class='fas fa-check green-color'></i> Admin</div>".html_safe : "<i class='fas fa-times red-color'></i> Admin</div>".html_safe %> 
+        <% end %>
+        <div><span class="pin-profile"><%= @user.ppsps.count %></span> PPSPS</div>
+        <% if policy(@user).edit? %>
+          <div class="card-edit">
+            <%= link_to edit_profile_path(@user), class: "without-decoration" do %>
+              <i class="fas fa-pencil-alt"></i>
+              Modifier le profil
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
     <h2><%= @user == current_user ? 'Vos PPSPS' : "Les PPSP de #{@user.first_name}" %></h2>
     <div id="ppsps-react" class="show-user" data-current=<%= current_user.id %> data-usershow=<%= @user.id %>></div>

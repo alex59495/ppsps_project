@@ -102,11 +102,29 @@
 }
 
 .card-profile {
-  background-color: rgb(245, 245, 245);
-  box-shadow:  2px 3px 15px 2px gray;
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
   border-radius: 8px;
   padding: 8px;
   margin-bottom: 3em;
+  min-height: 120px;
+  .card-profile-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .info-profile {
+      display: flex;
+      align-items: center;
+      margin-top: 2px;
+      margin-bottom: 2px;
+    }
+  }
+  .card-profile-stat {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 }
 
 .card-database {
@@ -151,5 +169,17 @@
 
 .active {
   background-color: $blue-dark-shadow;
+}
+
+.card-edit {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+@media (max-width: 992px){
+  .card-edit{
+    position: static;
+  }
 }
 
