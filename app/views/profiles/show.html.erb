@@ -13,7 +13,7 @@
       <% end %>
       <% if policy(@user).edit? %>
         <div class="d-flex justify-content-center">
-          <%= link_to "Éditer les informations", edit_user_path(@user), class: 'btn-blue-ext' %>
+          <%= link_to "Éditer les informations", edit_profile_path(@user), class: 'btn-blue-ext' %>
         </div>
       <% end %>
     </div>
