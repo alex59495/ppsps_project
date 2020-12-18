@@ -15,12 +15,12 @@ import { reactPpsp } from '../components/react-ppsp/index';
 
 // import { AutoCompleteGeocoding } from "../components/autocomplete"
 // La clé API pour l'utilisation de l'autocomplete Geocoding se trouve dans config/application.yml
-import { hideForm } from "../components/hide-form";
-import { cardForm } from "../components/card-form";
-import flat_picker from "../components/flat-pickr";
-import { select_2 } from "../components/select-2";
-import { infiniteScroll } from "../components/infinite-scroll-db";
-import { popUp } from "../components/popup";
+import { hideForm } from '../components/hide-form';
+import { cardForm } from '../components/card-form';
+import flatPicker from '../components/flat-pickr';
+import select2 from '../components/select-2';
+import { infiniteScroll } from '../components/infinite-scroll-db';
+import { popUp } from '../components/popup';
 
 require('@rails/ujs').start();
 require('turbolinks').start();
@@ -42,7 +42,7 @@ document.addEventListener('turbolinks:load', () => {
   reactPpsp();
   infiniteScroll();
   popUp();
-})
+});
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true);
 const ReactRailsUJS = require('react_ujs');
