@@ -1,19 +1,19 @@
 <% @deminings_page.each do |demining| %>
   <div class="card-database">
+    <div class="db-element col-30">
+      <%= demining.name %>
+    </div>
+    <div class="db-element col-20">
+      <%= demining.address %>
+    </div>
+    <div class="db-element col-40">
+      <%= demining.phone %>
+    </div>
     <div class="card-db-header">
       <%= link_to edit_demining_path(demining), class: "card-db-edit", target: '_blank' do %>
         <i class='fas fa-pencil-alt'></i>
       <% end %>
       <%= link_to "x", destroy_demining_path(demining), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
-    </div>
-    <div class="db-element">
-      <%= demining.name %>
-    </div>
-    <div class="db-element">
-      <%= demining.address %>
-    </div>
-    <div class="db-element">
-      <%= demining.phone %>
     </div>
   </div>
 <% end %>

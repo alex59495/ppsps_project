@@ -56,7 +56,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         demining: demining, anti_poison: anti_poison, regional_committee: regional_committee, sos_hand: sos_hand, security_coordinator: security_coordinator)
       login_as(user)
     end
-   
+
     scenario 'Visit Ppsp index' do
       visit(ppsps_path)
       expect(page).to have_current_path(ppsps_path)
@@ -65,16 +65,14 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
     scenario 'Can access and modify some databases' do
       visit(ppsps_path)
       click_link 'Modifier les bases de données'
-      click_link "Voir la liste des maitres d'ouvrage"
+      find('#moa').click
       # Open a new window
-      new_window = window_opened_by { first('.card-database').find('.card-db-edit').click }
-      within_window new_window do
-        fill_in('moa_name', with: 'Update the name')
-        click_button('MoaBtn')
-        moas = Moa.all.order(updated_at: :desc)
-        expect(page).to have_current_path(moas_path)
-        expect(moas.first.name).to eq('Update the name')
-      end
+      first('.card-database').find('.card-db-edit').click
+      fill_in('moa_name', with: 'Update the name')
+      click_button('MoaBtn')
+      moas = Moa.all.order(updated_at: :desc)
+      expect(page).to have_current_path(moas_path)
+      expect(moas.first.name).to eq('Update the name')
     end
 
     scenario 'Click on the Edit link' do
@@ -200,7 +198,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find("#label_selected_risk_risk_id_#{@risks.first.id}").click
       find("#label_selected_risk_risk_id_#{@risks.second.id}").click
       find('#FormSelectedRisk').click
-      expect(page).to have_selector('.card-info')  
+      expect(page).to have_selector('.card-info')
     end
 
     scenario 'Can delete risk' do
