@@ -4,6 +4,7 @@ RSpec.describe Ppsp, type: :model do
   it 'Work if all attributes are completed' do
     ppsp = create(:ppsp)
     expect(ppsp).to be_valid
+    ppsp.destroy
   end
 
   # it "Doesn't work if address isn't completed" do
@@ -27,12 +28,12 @@ RSpec.describe Ppsp, type: :model do
   #   ppsp.valid?
   #   expect(ppsp.errors[:moe]).to include("doit exister")
   # end
-  it { should validate_presence_of(:start_date)}
-  it { should validate_presence_of(:end_date)}
-  it { should validate_presence_of(:nature)}
-  it { should validate_presence_of(:agglomeration)}
-  it { should validate_presence_of(:street_impact)}
-  it { should validate_presence_of(:river_guidance)}
+  it { should validate_presence_of(:start_date) }
+  it { should validate_presence_of(:end_date) }
+  it { should validate_presence_of(:nature) }
+  it { should validate_presence_of(:agglomeration) }
+  it { should validate_presence_of(:street_impact) }
+  it { should validate_presence_of(:river_guidance) }
 
   it { should belong_to(:moe) }
   it { should belong_to(:moa) }
@@ -50,5 +51,6 @@ RSpec.describe Ppsp, type: :model do
   it "Can work if security_coordinator doesn't exist" do
     ppsp = create(:ppsp, security_coordinator: nil)
     expect(ppsp).to be_valid
+    ppsp.destroy
   end
 end
