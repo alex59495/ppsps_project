@@ -208,7 +208,6 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#FormSelectedRisk').click
       expect(page).to have_selector('.card-info')
       accept_confirm { find('.card-info-delete').click }
-      visit current_path
       expect(page).not_to have_selector('.card-info')
     end
 
@@ -220,7 +219,6 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#FormAltitudeWork').click
       expect(page).to have_selector('.card-info')
       accept_confirm { find('.card-info-delete').click }
-      visit current_path
       expect(page).not_to have_selector('.card-info')
     end
 
@@ -233,7 +231,6 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#FormSiteInstallation').click
       expect(page).to have_selector('.card-info')
       accept_confirm { find('.card-info-delete').click }
-      visit current_path
       expect(page).not_to have_selector('.card-info')
     end
   end
