@@ -8,6 +8,28 @@
 
 
 # Create company
+Ppsp.destroy_all
+Moe.destroy_all
+Moa.destroy_all
+Hospital.destroy_all
+Demining.destroy_all
+ProjectInformation.destroy_all
+RegionalCommittee.destroy_all
+RegionalCommittee.destroy_all
+WorkMedecine.destroy_all
+Risk.destroy_all
+SecurityCoordinator.destroy_all
+SiteInstallation.destroy_all
+SiteManager.destroy_all
+SosHand.destroy_all
+TeamManager.destroy_all
+Direcct.destroy_all
+AntiPoison.destroy_all
+AltitudeWork.destroy_all
+PensionInsurance.destroy_all
+User.destroy_all
+Company.destroy_all
+
 c = Company.create(name: "Company Angelique", address: 'Test adress', phone: '0300000000')
 p "create #{c.id} company"
 2.times do 
