@@ -13,6 +13,7 @@ require 'capybara/rspec'
 # a separate helper file that requires the additional dependencies and performs
 # the additional setup, and require it from the spec files that actually need
 # it.
+#
 # Capybara Chrome Headless
 Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new app, browser: :chrome,
