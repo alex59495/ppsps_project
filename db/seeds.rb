@@ -47,9 +47,9 @@ users.each do |user|
 end
 
 # Create MOA
-CSV.foreach('./Database_MOA.csv', headers: true, encoding:'iso-8859-1:utf-8', col_sep: ";") do |row|
+CSV.foreach('./Database_MOA.csv', headers: true, encoding:'utf-8', col_sep: ";") do |row|
   # Create a hash for each MOA with the header of the CSV file
-  moa = row.to_h
+  moa = row.to_h  
   m = Moa.create(
     name: moa["Maitre Ouvrage"], 
     address: moa['Adresse'],
@@ -62,7 +62,7 @@ CSV.foreach('./Database_MOA.csv', headers: true, encoding:'iso-8859-1:utf-8', co
 end
 
 # Create MOE
-CSV.foreach('./Database_MOE.csv', headers: true, encoding:'iso-8859-1:utf-8', col_sep: ";") do |row|
+CSV.foreach('./Database_MOE.csv', headers: true, encoding:'utf-8', col_sep: ";") do |row|
   # Create a hash for each MOE with the header of the CSV file
   moe = row.to_h
   mo = Moe.create(
