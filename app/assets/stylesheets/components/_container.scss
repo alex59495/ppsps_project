@@ -18,11 +18,11 @@
 
 .container-header-form {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .container-pagination {
-  display:flex;
+  display: flex;
   justify-content: center;
 }
 
@@ -31,7 +31,7 @@
   justify-content: center;
 }
 
-@media(max-width: 1019px) {
+@media (max-width: 1019px) {
   .flex-database {
     display: flex;
     flex-wrap: wrap;
@@ -40,7 +40,7 @@
   }
 }
 
-@media(min-width: 1019px) {
+@media (min-width: 1019px) {
   .flex-database {
     display: flex;
     flex-direction: column;
