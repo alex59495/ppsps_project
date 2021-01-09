@@ -11,7 +11,17 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :admin, inclusion: { in: [ true, false ] }
-  validate :secure_password
+  attr_accessor :user_update
+
+  validate :secure_password, unless: :user_update?
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  def user_update?
+    user_update == true
+  end
 
   def secure_password
     if (password =~ /[a-z]/).blank? || (password =~ /[A-Z]/).blank? || (password =~ /[0-9]/).blank? || (password =~ /[^A-Za-z0-9]/).blank?

@@ -21,7 +21,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
     scenario "Can't access the Database" do
       visit(ppsps_path)
-      expect{ find('a', text: 'Modifier les bases de données') }.to raise_error(Capybara::ElementNotFound)
+      expect { find('a', text: 'Modifier les bases de données') }.to raise_error(Capybara::ElementNotFound)
     end
 
     scenario "Only the see the Ppsp of his company" do
@@ -34,9 +34,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('.search-ppsp').set("AABB130")
       expect(page).to have_css('.card-ppsp', count: 1)
     end
-
   end
-
 
   feature 'Logged as User Admin' do
     before do
@@ -53,7 +51,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       sos_hand = create(:sos_hand, company: user.company)
       security_coordinator = create(:security_coordinator, company: user.company)
       @ppsp = create(:ppsp, user: user, moa: moa, moe: moe, direcct: direcct, work_medecine: work_medecine, hospital: hospital, pension_insurance: pension_insurance,
-        demining: demining, anti_poison: anti_poison, regional_committee: regional_committee, sos_hand: sos_hand, security_coordinator: security_coordinator)
+                            demining: demining, anti_poison: anti_poison, regional_committee: regional_committee, sos_hand: sos_hand, security_coordinator: security_coordinator)
       login_as(user)
     end
 
@@ -64,7 +62,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
     scenario 'Can access and modify some databases' do
       visit(ppsps_path)
-      click_link 'Modifier les bases de données'
+      click_on 'Modifier les bases de données'
       find('#moa').click
       # Open a new window
       first('.card-database').find('.card-db-edit').click
@@ -102,10 +100,12 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       fill_in('ppsp_project_information_attributes_phone', with: Faker::PhoneNumber.cell_phone_in_e164)
       fill_in('ppsp_project_information_attributes_email', with: Faker::Internet.email)
       fill_in('ppsp_project_information_attributes_site_manager_attributes_name', with: 'Test de chef de chantier')
-      fill_in('ppsp_project_information_attributes_site_manager_attributes_phone', with: Faker::PhoneNumber.cell_phone_in_e164)
+      fill_in('ppsp_project_information_attributes_site_manager_attributes_phone',
+              with: Faker::PhoneNumber.cell_phone_in_e164)
       fill_in('ppsp_project_information_attributes_site_manager_attributes_email', with: Faker::Internet.email)
       fill_in("ppsp_project_information_attributes_team_manager_attributes_name", with: "Test de chef d'équipe")
-      fill_in("ppsp_project_information_attributes_team_manager_attributes_phone", with: Faker::PhoneNumber.cell_phone_in_e164)
+      fill_in("ppsp_project_information_attributes_team_manager_attributes_phone",
+              with: Faker::PhoneNumber.cell_phone_in_e164)
       fill_in("ppsp_project_information_attributes_team_manager_attributes_email", with: Faker::Internet.email)
       find('#ppsp_direcct_id').find(:xpath, 'option[2]').select_option
       find('#ppsp_work_medecine_id').find(:xpath, 'option[2]').select_option
@@ -138,14 +138,14 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
     scenario 'Change the field when update' do
       visit(edit_ppsp_path(@ppsp))
       fill_in('ppsp_project_information_attributes_site_manager_attributes_name', with: 'Update chef de chantier')
-      expect{click_button('Mettre à jour le PPSP')}.to change{ @ppsp.reload.project_information.site_manager.name }
+      expect { click_button('Mettre à jour le PPSP') }.to change { @ppsp.reload.project_information.site_manager.name }
         .from('Test de chef de chantier')
         .to('Update chef de chantier')
     end
 
     scenario 'Confirmation message when delete a Ppsp' do
       visit(ppsps_path)
-      # Accept the data: { confirm: } in the view 
+      # Accept the data: { confirm: } in the view
       msg = accept_confirm { find('.card-ppsp-delete').click }
       expect(msg).to eq('Êtes-vous sûr de vouloir supprimer cet élément ?')
     end
@@ -153,7 +153,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
     scenario 'Delete a Ppsp when click on "x" on the Index page' do
       visit(ppsps_path)
       count = Ppsp.count
-      # Accept the data: { confirm: } in the view 
+      # Accept the data: { confirm: } in the view
       accept_confirm { find('.card-ppsp-delete').click }
       # Had to refresh the page so that the modification is Ok
       visit current_path
@@ -168,9 +168,9 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       login_as(user)
     end
 
-    let(:risks) {@risks = create_list(:risk, 5)}
-    let(:site_installations) {@site_installations = create_list(:site_installation, 5)}
-    let(:altitude_works) {@altitude_works = create_list(:altitude_work_select, 5)}
+    let(:risks) { @risks = create_list(:risk, 5) }
+    let(:site_installations) { @site_installations = create_list(:site_installation, 5) }
+    let(:altitude_works) { @altitude_works = create_list(:altitude_work_select, 5) }
 
     scenario 'Can add some site installations' do
       site_installations
@@ -208,7 +208,6 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#FormSelectedRisk').click
       expect(page).to have_selector('.card-info')
       accept_confirm { find('.card-info-delete').click }
-      visit current_path
       expect(page).not_to have_selector('.card-info')
     end
 
@@ -220,7 +219,6 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#FormAltitudeWork').click
       expect(page).to have_selector('.card-info')
       accept_confirm { find('.card-info-delete').click }
-      visit current_path
       expect(page).not_to have_selector('.card-info')
     end
 
@@ -233,9 +231,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#FormSiteInstallation').click
       expect(page).to have_selector('.card-info')
       accept_confirm { find('.card-info-delete').click }
-      visit current_path
       expect(page).not_to have_selector('.card-info')
     end
-
   end
 end
