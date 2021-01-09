@@ -3,6 +3,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 10px;
+  border: 2px solid rgba($orange-dark, 0.5);
+  margin-bottom: 10px;
   input {
     background: transparent;
     border: none;
