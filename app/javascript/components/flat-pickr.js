@@ -8,7 +8,6 @@ const flatPicker = () => {
     // eslint-disable-next-line new-cap
     plugins: [new rangePlugin({ input: '#range_end' })],
     disableMobile: 'true',
-    altInput: true,
     locale: French,
     allowInput: false,
   });
