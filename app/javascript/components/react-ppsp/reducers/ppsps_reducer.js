@@ -1,8 +1,6 @@
 import { SEARCH_QUERY, FETCH_PPSPS, LOAD_MORE } from '../actions/index';
 
-import { initialState } from '../index';
-
-const reducerPpsps = (state = initialState, action) => {
+const reducerPpsps = (state, action) => {
   switch (action.type) {
     case FETCH_PPSPS:
       return {
