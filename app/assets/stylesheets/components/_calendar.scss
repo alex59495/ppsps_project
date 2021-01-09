@@ -57,3 +57,25 @@
     }
   }
 }
+
+@media (max-width: 650px) {
+  .calendar-box {
+    .title {
+      font-size: 10px;
+    }
+    .date {
+      .day {
+        font-size: 48px;
+      }
+      .month {
+        font-size: 10px;
+        i {
+          position: absolute;
+          top: 30px;
+          left: 0px;
+          padding-top: 8px;
+        }
+      }
+    }
+  }
+}
