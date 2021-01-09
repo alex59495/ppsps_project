@@ -96,7 +96,7 @@ p "create #{team_manager1.id} team manager"
 
 # Create Project Informations
 infos = []
-30.times do |n|
+100.times do |n|
   project_info = {
     reference: "AABB1#{n+10}",
     responsible: "Responsible Test-#{n}",
@@ -204,7 +204,7 @@ end
 
 # Create PPSP
 ppsps = []
-30.times do |n|
+100.times do |n|
   ppsp = {
     address: Faker::Address.street_address,
     start_date: DateTime.new(2020,9,1,17),

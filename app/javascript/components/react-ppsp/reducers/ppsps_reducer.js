@@ -25,15 +25,15 @@ const reducerPpsps = (state = initialState, action) => {
       const selected = state.ppsps.filter(
         (ppsp) =>
           // Select the Ppsps which reference correspond to the value of search
-          ppsp.project_information.reference
+          (ppsp.project_information.reference
             .toLowerCase()
             .includes(action.search.toLowerCase()) ||
-          // Select the Ppsps which user first name correspond to the value of search
-          (ppsp.user.full_name
-            .toLowerCase()
-            .includes(action.search.toLowerCase()) &&
-            // Limit the result to 12 max
-            count++ < 12)
+            // Select the Ppsps which user first name + last_name correspond to the value of search
+            ppsp.user.full_name
+              .toLowerCase()
+              .includes(action.search.toLowerCase())) &&
+          // Limit the result to 12 max
+          count++ < 12
       );
       return {
         ...state,
