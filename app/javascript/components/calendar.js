@@ -1,4 +1,4 @@
-const calendarPat = () => {
+const calendar = () => {
   const calendarBox = document.querySelector('.calendar-box');
   if (calendarBox) {
     const startInput = document.querySelector('#range_start');
@@ -8,7 +8,7 @@ const calendarPat = () => {
     const endMonthCalendar = document.getElementById('end-month-calendar');
     startInput.addEventListener('change', () => {
       const endInput = document.querySelector('#range_end');
-      const dateStart = new Date(startInput.value);
+      const dateStart = new Date(startInput.value.split(' ')[0]);
       if (!isNaN(dateStart.getTime())){
         startMonthCalendar.firstChild.innerText = dateStart.toString().split(" ")[1];
         startDayCalendar.innerText = dateStart.toString().split(" ")[2];
@@ -22,4 +22,4 @@ const calendarPat = () => {
   }
 }
 
-export { calendarPat }
+export { calendar };

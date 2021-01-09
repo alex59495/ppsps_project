@@ -10,7 +10,7 @@ const flatPicker = () => {
     disableMobile: 'true',
     altInput: true,
     locale: French,
-    allowInput: document.body.dataset.markerEnv === 'test' ? 'true' : 'false',
+    allowInput: false,
   });
 };
 

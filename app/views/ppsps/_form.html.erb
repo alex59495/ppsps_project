@@ -5,10 +5,10 @@
       <div class="col-6 offset-3">
         <%= f.input :address, label: "Adresse", placeholder: "Indiquez une adresse..." %>
       </div>
-      <div class="calendar-form">
-        <div class="calendar-container">
-          <div class="calendar-box border-right">
-            <%= date_field :start_date, params[:start_at], required: false, id: "range_start" %>
+      <div class="row">
+        <div class="col-3 offset-3">
+          <div class="calendar-box">
+            <%= date_field :start_date, params[:start_date], required: false, id: "range_start" %>
             <div class="title">
               Début
             </div>
@@ -22,8 +22,10 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="col-3">
           <div class="calendar-box">
-            <%= date_field :end_date, params[:end_at], required: false, id: "range_end", type: :text, class:"flatpickr-input" %>
+            <%= date_field :end_date, params[:end_date], required: false, id: "range_end", type: :text, class:"flatpickr-input" %>
             <div class="title">
               Fin
             </div>
