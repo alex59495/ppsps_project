@@ -5,12 +5,38 @@
       <div class="col-6 offset-3">
         <%= f.input :address, label: "Adresse", placeholder: "Indiquez une adresse..." %>
       </div>
-      <div class="row">
-        <div class="col-6">
-          <%= f.input :start_date, label: "Date de début", as: :string, input_html: {class: "datepicker", id: "startDate"} %>
-        </div>
-        <div class="col-6">
-          <%= f.input :end_date, label: "Date de fin", as: :string, input_html: {class: "datepicker", id: "endDate"} %>
+      <div class="calendar-form">
+        <div class="calendar-container">
+          <div class="calendar-box border-right">
+            <%= date_field :start_date, params[:start_at], required: false, id: "range_start" %>
+            <div class="title">
+              Début
+            </div>
+            <div class="date">
+              <div id="start-day-calendar" class="day">
+                <%= Date.today.to_formatted_s(:short).split(" ").first %>
+              </div>
+              <div id="start-month-calendar" class="month">
+              <%= Date.today.to_formatted_s(:short).split(" ").last %>
+                <i class="fas fa-chevron-down fa-xs"></i>
+              </div>
+            </div>
+          </div>
+          <div class="calendar-box">
+            <%= date_field :end_date, params[:end_at], required: false, id: "range_end", type: :text, class:"flatpickr-input" %>
+            <div class="title">
+              Fin
+            </div>
+            <div class="date">
+              <div id="end-day-calendar" class="day">
+                <%= Date.today.to_formatted_s(:short).split(" ").first %>
+              </div>
+              <div id="end-month-calendar" class="month">
+              <%= Date.today.to_formatted_s(:short).split(" ").last %>
+                <i class="fas fa-chevron-down fa-xs"></i>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-6 offset-3">

@@ -21,6 +21,7 @@ import flatPicker from '../components/flat-pickr';
 import select2 from '../components/select-2';
 import { infiniteScroll } from '../components/infinite-scroll-db';
 import { popUp } from '../components/popup';
+import { calendar } from '../components/calendar';
 
 require('@rails/ujs').start();
 require('turbolinks').start();
@@ -42,6 +43,7 @@ document.addEventListener('turbolinks:load', () => {
   reactPpsp();
   infiniteScroll();
   popUp();
+  calendar();
 });
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true);
