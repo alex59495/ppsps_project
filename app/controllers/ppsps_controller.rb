@@ -100,10 +100,6 @@ class PpspsController < ApplicationController
     @hospitals = Hospital.where(company: current_user.company, is_destroyed: false)
     @security_coordinators = SecurityCoordinator.where(company: current_user.company, is_destroyed: false)
 
-    start_date = params[:start_at] == [""] ? Date.today : Date.parse(params[:start_date].first)
-    end_date = params[:end_at] == [""] ? Date.today : Date.parse(params[:end_date].first)
-    @ppsp.start_date = start_date
-    @ppsp.end_date = end_date
     authorize @ppsp
     if @ppsp.save
       redirect_to informations_supplementaires_ppsp_path(@ppsp)

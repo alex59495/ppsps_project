@@ -6,6 +6,10 @@
   border-radius: 10px;
   border: 2px solid rgba($orange-dark, 0.5);
   margin-bottom: 10px;
+  .form-control[readonly] {
+    background: transparent;
+    color: transparent;
+  }
   input {
     background: transparent;
     border: none;

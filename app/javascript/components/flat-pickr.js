@@ -9,7 +9,7 @@ const flatPicker = () => {
     plugins: [new rangePlugin({ input: '#range_end' })],
     disableMobile: 'true',
     locale: French,
-    allowInput: false,
+    allowInput: document.body.dataset.markerEnv === 'test' ? 'true' : 'false',
   });
 };
 

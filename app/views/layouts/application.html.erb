@@ -19,7 +19,7 @@
     <%# <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?libraries=places&key=#{ENV['GOOGLE_API_SERVER_KEY']}" %>
   </head>
 
-  <body>
+  <body data-marker-env = "<%= Rails.env %>">
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
     <%= yield %>

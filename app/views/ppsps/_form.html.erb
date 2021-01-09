@@ -7,7 +7,7 @@
       </div>
       <div class="col-6 col-md-3 offset-md-3">
         <div class="calendar-box">
-          <%= date_field :start_date, params[:start_date], required: false, id: "range_start" %>
+          <%= f.input :start_date, label: false, as: :string, input_html: {id: 'range_start'}, require: true %>
           <div class="title">
             Début
           </div>
@@ -24,7 +24,7 @@
       </div>
       <div class="col-6 col-md-3">
         <div class="calendar-box">
-          <%= date_field :end_date, params[:end_date], required: false, id: "range_end", type: :text, class:"flatpickr-input" %>
+          <%= f.input :end_date, label: false, as: :string, input_html: {id: 'range_end'}, require: true %>
           <div class="title">
             Fin
           </div>
