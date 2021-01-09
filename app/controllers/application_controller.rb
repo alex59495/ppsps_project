@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   include Pundit
 
@@ -8,6 +9,11 @@ class ApplicationController < ActionController::Base
   after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
 
   private
+
+  def configure_permitted_parameters
+    # For additional in app/views/devise/registrations/edit.html.erb
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[first_name last_name email])
+  end
 
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
@@ -18,8 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Reidrect to ppsps page after log in
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(_resource)
     ppsps_path
   end
-
 end
