@@ -28,4 +28,8 @@ class User < ApplicationRecord
       errors.add(:password, 'doit contenir au moins une lettre miniscule, une lettre majuscule, un numéro et un caractère spécial')
     end
   end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end

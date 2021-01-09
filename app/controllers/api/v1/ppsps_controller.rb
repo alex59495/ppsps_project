@@ -1,6 +1,6 @@
 class Api::V1::PpspsController < Api::V1::BaseController
-  before_action :find_ppsp, only: [:show, :destroy]
-  
+  before_action :find_ppsp, only: %i[show destroy]
+
   def index
     # Receive a params from the Fetch request (javascript/ppsp-react/actions/index.js) in order to know if we are :
     # - On the show page (in this case show_user exist and it has the value of the user.id of the show page we are looking at)
@@ -12,6 +12,9 @@ class Api::V1::PpspsController < Api::V1::BaseController
     end
     # Use the Kaminari gem to handle the pagination request to limit the number of element we display
     params[:page] ? @ppsps = policy_scope(Ppsp.where(user: users).page(params[:page]).per(12).order(updated_at: :desc)) : @ppsps = policy_scope(Ppsp.where(user: users).order(updated_at: :desc))
+
+    # If params search exist then will filter with reference and/or user first and last names
+    params[:search] ? @ppsps = @ppsps.includes(:user, :project_information).where('users.first_name = ? or users.last_name = ? or project_informations.reference = ?', params[:search], params[:search], params[:search]).references(:user, :project_information) : @ppsps
   end
 
   def show
@@ -26,6 +29,7 @@ class Api::V1::PpspsController < Api::V1::BaseController
   end
 
   private
+
   def find_ppsp
     @ppsp = Ppsp.find(params[:id])
   end

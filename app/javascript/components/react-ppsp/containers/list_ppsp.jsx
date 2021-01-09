@@ -23,12 +23,11 @@ class ListPpsp extends Component {
   // Active the Loading Gif and charge more Ppsps
   chargeLoad(removeLoad, loadMore) {
     // Had to divide into constantes because, can't call the arguments this.props inside the fcallback setTimeout function
-    const { showUser } = this.props;
-    const { page } = this.props;
+    const { showUser, page, search } = this.props;
     document.getElementById('loading').style.display = 'block';
     document.getElementById('not-loading').style.display = 'none';
     setTimeout(() => {
-      loadMore(showUser, page);
+      loadMore(showUser, page, search);
       removeLoad();
     }, 1000);
   }
@@ -55,23 +54,31 @@ class ListPpsp extends Component {
 
   render() {
     const { selectedPpsps } = this.props;
-    return (
-      <>
-        <div className="container-ppsp" id="contPpsps">
-          {selectedPpsps.map((ppsp) => (
-            <CardPpsp
-            key={ppsp.id}
-              id={ppsp.id}
-              reference={ppsp.project_information.reference}
-            user_first_name={ppsp.user.first_name} user_last_name={ppsp.user.last_name}
-            start_date={ppsp.start_date} end_date={ppsp.end_date} address={ppsp.address}
-            user={ppsp.user}
-          />))}
+    if(selectedPpsps.length > 0) {
+      return (
+        <>
+          <div className="container-ppsp" id="contPpsps">
+            {selectedPpsps.map((ppsp) => (
+              <CardPpsp
+              key={ppsp.id}
+                id={ppsp.id}
+                reference={ppsp.project_information.reference}
+              user_first_name={ppsp.user.first_name} user_last_name={ppsp.user.last_name}
+              start_date={ppsp.start_date} end_date={ppsp.end_date} address={ppsp.address}
+              user={ppsp.user}
+            />))}
+          </div>
+          <div className="loading" id="loading" />
+          <div className="not-loading" id="not-loading" />
+        </>
+      )
+    } {
+      return (
+        <div className="container-db-vide">
+          Votre recherche n'a retourné aucun résultat...
         </div>
-        <div className="loading" id="loading" />
-        <div className="not-loading" id="not-loading" />
-      </>
-    );
+      )
+    };
   }
 }
 
@@ -80,11 +87,12 @@ const mapStateToProps = (state) => ({
   selectedPpsps: state.selectedPpsps,
   showUser: state.showUser,
   page: state.page,
+  search : state.search
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchPpsps: (showUser) => dispatch(fetchPpsps(showUser)),
-  loadMore: (showUser, page) => dispatch(loadMore(showUser, page)),
+  loadMore: (showUser, page, search) => dispatch(loadMore(showUser, page, search)),
 });
 
 // Validations
