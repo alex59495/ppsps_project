@@ -1,7 +1,10 @@
 class ErrorsController < ApplicationController
   skip_after_action :verify_authorized
+  before_action :error?
 
-  @navbar = false
+  def error?
+    @navbar = true
+  end
 
   def not_found
     respond_to do |format|
