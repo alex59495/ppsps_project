@@ -31,6 +31,12 @@
   justify-content: center;
 }
 
+.container-calendar {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1em 0;
+}
+
 @media (max-width: 1019px) {
   .flex-database {
     display: flex;
