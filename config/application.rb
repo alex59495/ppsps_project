@@ -8,6 +8,9 @@ Bundler.require(*Rails.groups)
 
 module PpspsProject
   class Application < Rails::Application
+    # Autorize to rewrite the errors page
+    config.exceptions_app = self.routes
+
     config.generators do |generate|
       # generate.assets false
       # generate.helper false

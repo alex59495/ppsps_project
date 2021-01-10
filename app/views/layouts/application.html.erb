@@ -20,7 +20,9 @@
   </head>
 
   <body data-marker-env = "<%= Rails.env %>">
-    <%= render 'shared/navbar' %>
+    <% unless @navbar %>
+      <%= render 'shared/navbar' %>
+    <% end %>
     <%= render 'shared/flashes' %>
     <%= yield %>
   </body>
