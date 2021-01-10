@@ -23,6 +23,7 @@ import { infiniteScroll } from '../components/infinite-scroll-db';
 import { popUp } from '../components/popup';
 import calendar from '../components/calendar';
 import error from '../components/errors';
+import ReactDOM from 'react-dom';
 
 require('@rails/ujs').start();
 require('turbolinks').start();
@@ -52,3 +53,8 @@ const componentRequireContext = require.context('components', true);
 const ReactRailsUJS = require('react_ujs');
 
 ReactRailsUJS.useContext(componentRequireContext);
+ReactRailsUJS.handleEvent('turbolinks:before-render', () => {
+  if (document.getElementById('ppsps-react')) {
+    ReactDOM.unmountComponentAtNode(document.getElementById('ppsps-react'));
+  }
+});
