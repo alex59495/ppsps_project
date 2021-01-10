@@ -5,26 +5,27 @@ const calendar = () => {
   const startMonthCalendar = document.getElementById('start-month-calendar');
   const endDayCalendar = document.getElementById('end-day-calendar');
   const endMonthCalendar = document.getElementById('end-month-calendar');
+  const endInput = document.querySelector('#range_end');
 
   const changeDate = () => {
-    const endInput = document.querySelector('#range_end');
     const dateStart = new Date(startInput.value);
     if (!Number.isNaN(dateStart.getTime())) {
-      startMonthCalendar.firstChild.innerText = dateStart
+      startMonthCalendar.firstChild.textContent = dateStart
         .toString()
         .split(' ')[1];
       startDayCalendar.innerText = dateStart.toString().split(' ')[2];
     }
     const dateEnd = new Date(endInput.value);
     if (!Number.isNaN(dateEnd.getTime())) {
-      endMonthCalendar.firstChild.innerText = dateEnd.toString().split(' ')[1];
+      endMonthCalendar.firstChild.textContent = dateEnd
+        .toString()
+        .split(' ')[1];
       endDayCalendar.innerText = dateEnd.toString().split(' ')[2];
     }
   };
 
   const calendarBox = document.querySelector('.calendar-box');
   if (calendarBox) {
-    changeDate();
     startInput.addEventListener('change', () => {
       changeDate();
     });

@@ -72,7 +72,6 @@ class PpspsController < ApplicationController
 
   def create
     @ppsp = Ppsp.new(params_ppsp)
-
     # Info to add the possibility to create a new element through a modal form
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
