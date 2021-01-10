@@ -11,6 +11,11 @@ module PpspsProject
     # Autorize to rewrite the errors page
     config.exceptions_app = self.routes
 
+    # Define the path for the video
+    config.assets.paths << "#{Rails.root}/app/assets/videos"
+
+    config.assets.enabled = true
+
     config.generators do |generate|
       # generate.assets false
       # generate.helper false
