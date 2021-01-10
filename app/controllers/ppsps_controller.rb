@@ -1,8 +1,8 @@
 class PpspsController < ApplicationController
-  before_action :find_ppsp, only: [ :update, :show, :ppsp_pdf, :destroy, :edit, :informations_supplementaires ]
+  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit informations_supplementaires]
 
   def index
-    #Handled by react :) (app/assets/javascript/ppsp-react)
+    # Handled by react :) (app/assets/javascript/ppsp-react)
     # In order to search on direct
     users = User.where(company: current_user.company)
     @ppsps = policy_scope(Ppsp.where(user: users))
@@ -11,7 +11,7 @@ class PpspsController < ApplicationController
   def new
     @ppsp = Ppsp.new
     authorize @ppsp
-    #Create the fields for the project_information, site_manager and team_manager => Nested form in the view
+    # Create the fields for the project_information, site_manager and team_manager => Nested form in the view
     # This way they are created in the DB if the @ppsp is saved
     # We used the 'accepts_nested_attributes_for' in the models
     # We used the projection_information_attributes in the params
@@ -20,7 +20,7 @@ class PpspsController < ApplicationController
     @team_manager = @ppsp.build_project_information.build_team_manager
 
     # Info to add the possibility to create a new element through a modal form
-    @project_information = ProjectInformation.new 
+    @project_information = ProjectInformation.new
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
     @moa = Moa.new
@@ -64,7 +64,7 @@ class PpspsController < ApplicationController
             html: {
               template: 'ppsps/footer.html.erb'
             }
-          },
+          }
         )
       end
     end
@@ -72,7 +72,6 @@ class PpspsController < ApplicationController
 
   def create
     @ppsp = Ppsp.new(params_ppsp)
-    
     # Info to add the possibility to create a new element through a modal form
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
@@ -128,7 +127,7 @@ class PpspsController < ApplicationController
     @selected_risk_active = SelectedRisk.where(ppsp_id: @ppsp.id)
     # Input of the option of subcontractors for the form
     @subcontractor = Subcontractor.new
-    (@selected_installation_active.count > 0 || @selected_altitude_active.count > 0 || @selected_risk_active.count > 0 || @ppsp.subcontractors.count > 0) ? @show_select = true : @show_select = false
+    @selected_installation_active.count > 0 || @selected_altitude_active.count > 0 || @selected_risk_active.count > 0 || @ppsp.subcontractors.count > 0 ? @show_select = true : @show_select = false
   end
 
   def edit
@@ -137,7 +136,7 @@ class PpspsController < ApplicationController
     @project_information = @ppsp.project_information
     @site_manager = @ppsp.project_information.site_manager
     @team_manager = @ppsp.project_information.team_manager
-    
+
     # Info to add the possibility to create a new element through a modal form!
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
@@ -206,18 +205,19 @@ class PpspsController < ApplicationController
   end
 
   private
+
   def params_ppsp
-    params.require(:ppsp).permit(:address, :start_date, :end_date, :nature, :workforce, :agglomeration, 
-    :street_impact, :river_guidance, :moa_id, :moe_id, :subcontractor_ids, :security_coordinator_id,
-    :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
-    :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, 
-    project_information_attributes: [:ppsp_id, :reference, :responsible, 
-    :phone, :email, site_manager_attributes: [:name, :email, :phone], 
-    team_manager_attributes: [:name, :email, :phone]])
+    params.require(:ppsp).permit(:address, :start_date, :end_date, :nature, :workforce, :agglomeration,
+                                 :street_impact, :river_guidance, :moa_id, :moe_id, :subcontractor_ids, :security_coordinator_id,
+                                 :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
+                                 :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id,
+                                 project_information_attributes: [:ppsp_id, :reference, :responsible,
+                                                                  :phone, :email, { site_manager_attributes: %i[name email phone],
+                                                                                    team_manager_attributes: %i[name
+                                                                                                                email phone] }])
   end
 
   def find_ppsp
     @ppsp = Ppsp.find(params[:id])
   end
-
 end

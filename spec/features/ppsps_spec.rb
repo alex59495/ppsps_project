@@ -37,6 +37,8 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
   end
 
   feature 'Logged as User Admin' do
+    let!(:next_day) { Date.today.next_day }
+
     before do
       user = create(:user_admin)
       moa = create(:moa, company: user.company)
@@ -85,14 +87,28 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       expect(page).to have_current_path(new_ppsp_path)
     end
 
+    describe 'FlatPickr' do
+      it 'Create Form should handle a date change' do
+        visit(new_ppsp_path)
+        fill_in('range_start', with: Date.today.next_month.prev_day.to_s)
+        fill_in('range_end', with: next_day.next_month.next_month.to_s)
+        fill_in('range_start', with: Date.today.next_month.to_s)
+        fill_in('range_end', with: next_day.next_month.next_month.to_s)
+        expect(page).to have_css('.flatpickr-month')
+        expect(find('#start-month-calendar')).to have_content(Date::ABBR_MONTHNAMES[Date.today.month + 1].to_s)
+        expect(find('#end-month-calendar')).to have_content(Date::ABBR_MONTHNAMES[next_day.month + (next_day == 1 ? 3 : 2)].to_s)
+        expect(find('#end-day-calendar')).to have_content(next_day.next_month.next_month.day.to_s)
+      end
+    end
+
     scenario 'Complete and Sumbit the PPSP' do
       visit(new_ppsp_path)
       fill_in('ppsp_address', with: 'Test adresse')
       fill_in('ppsp_nature', with: 'Test de nature')
       fill_in('ppsp_workforce', with: 'Test de personnel')
       # complete the flatpickr date
-      page.execute_script("$('#startDate').val('21/12/2019')")
-      page.execute_script("$('#endDate').val('21/12/2020')")
+      page.execute_script("$('#range_start').val('2020-12-12')")
+      fill_in('range_end', with: next_day.next_month.next_month.to_s)
       find('#ppsp_moa_id').find(:xpath, 'option[2]').select_option
       find('#ppsp_moe_id').find(:xpath, 'option[2]').select_option
       fill_in('ppsp_project_information_attributes_reference', with: "ABRFH78")

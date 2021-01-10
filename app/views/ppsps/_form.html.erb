@@ -1,182 +1,204 @@
 <div class="container mb-3">
   <%= link_to "Revenir à mes PPSP", ppsps_path, class: 'link' %>
-  <div class="row justify-content-center">
-    <%= simple_form_for @ppsp do |f| %>
-      <div class="col-6 offset-3">
+  <%= simple_form_for @ppsp do |f| %>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
         <%= f.input :address, label: "Adresse", placeholder: "Indiquez une adresse..." %>
       </div>
-      <div class="row">
-        <div class="col-6">
-          <%= f.input :start_date, label: "Date de début", as: :string, input_html: {class: "datepicker", id: "startDate"} %>
-        </div>
-        <div class="col-6">
-          <%= f.input :end_date, label: "Date de fin", as: :string, input_html: {class: "datepicker", id: "endDate"} %>
+      <div class="col-6 col-md-3 offset-md-3">
+        <div class="calendar-box">
+          <%= f.input :start_date, label: false, as: :string, input_html: {id: 'range_start'}, require: true %>
+          <div class="title">
+            Début
+          </div>
+          <div class="date">
+            <div id="start-day-calendar" class="day">
+              <%= Date.today.to_formatted_s(:short).split(" ").first %>
+            </div>
+            <div id="start-month-calendar" class="month">
+            <%= Date.today.to_formatted_s(:short).split(" ").last %>
+              <i class="fas fa-chevron-down fa-xs"></i>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-6 offset-3">
+      <div class="col-6 col-md-3">
+        <div class="calendar-box">
+          <%= f.input :end_date, label: false, as: :string, input_html: {id: 'range_end'}, require: true %>
+          <div class="title">
+            Fin
+          </div>
+          <div class="date">
+            <div id="end-day-calendar" class="day">
+              <%= Date.today.to_formatted_s(:short).split(" ").first %>
+            </div>
+            <div id="end-month-calendar" class="month">
+            <%= Date.today.to_formatted_s(:short).split(" ").last %>
+              <i class="fas fa-chevron-down fa-xs"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 offset-md-3">
         <%= f.input :nature, label: "Nature du travail", placeholder: "Description des travaux..." %>
       </div>
-      <div class="col-6 offset-3">
+      <div class="col-md-6 offset-md-3">
         <%= f.input :workforce, label: "Personnel impliqué", placeholder: "1 Chef de chantier, 2 ouvriers..." %>
       </div>
-      <div class="row">
-        <div class="col-6">
-          <div class="form-group select required ppsp_moa_id">
-            <div class="container-header-form">
-              <label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
-              <% if policy(Moa).new? %>
-                <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalMoa">
-                  <i class="fas fa-plus"></i>
-                </button>
-              <% end %>
-            </div>
-            <%= f.input :moa_id, as: :select, label: false, collection: @moas, label_method: lambda {|x| "#{x.name} - #{x.representative}"}, input_html: {class: "select-2"} %>
+      <div class="col-6">
+        <div class="form-group select required ppsp_moa_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
+            <% if policy(Moa).new? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalMoa">
+                <i class="fas fa-plus"></i>
+              </button>
+            <% end %>
           </div>
+          <%= f.input :moa_id, as: :select, label: false, collection: @moas, label_method: lambda {|x| "#{x.name} - #{x.representative}"}, input_html: {class: "select-2"} %>
         </div>
-        <div class="col-6">
-          <div class="form-group select required ppsp_moe_id">
-            <div class="container-header-form">
-              <label class="select required" for="ppsp_moe_id">MOE <abbr title="required">*</abbr></label>
-              <% if policy(Moe).new? %>
-                <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalMoe">
-                  <i class="fas fa-plus"></i>
-                </button>
-              <% end %>
-            </div>
-            <%= f.input :moe_id, as: :select, label: false, collection: @moes, label_method: lambda {|x| "#{x.name} - #{x.representative}"}, input_html: {class: "select-2"} %>
+      </div>
+      <div class="col-6">
+        <div class="form-group select required ppsp_moe_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_moe_id">MOE <abbr title="required">*</abbr></label>
+            <% if policy(Moe).new? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalMoe">
+                <i class="fas fa-plus"></i>
+              </button>
+            <% end %>
           </div>
+          <%= f.input :moe_id, as: :select, label: false, collection: @moes, label_method: lambda {|x| "#{x.name} - #{x.representative}"}, input_html: {class: "select-2"} %>
         </div>
       </div>
       <%= f.simple_fields_for :project_information, @project_information do |h| %>
-        <div class="col-6 offset-3">
+        <div class="col-md-6 offset-md-3">
           <%= h.input :reference, label: "Référence du projet", placeholder: "B 484..." %>
         </div>
-        <div class="col-6 offset-3">
+        <div class="col-md-6 offset-md-3">
           <%= h.input :responsible, label: "Responsable", placeholder: "Entrez le nom du responsable..." %>
         </div>
-        <div class="col-6 offset-3">
+        <div class="col-md-6 offset-md-3">
           <%= h.input :phone, label: "Téléphone", placeholder: "Entrez le numéro de téléphone du responsable..." %>
         </div>
-        <div class="col-6 offset-3">
+        <div class="col-md-6 offset-md-3">
           <%= h.input :email, label: "Email", placeholder: "Entrez l'email du responsable..."  %>
         </div>
         <%= h.simple_fields_for :site_manager, @site_manager do |j| %>
-          <div class="col-6 offset-3">
+          <div class="col-md-6 offset-md-3">
             <%= j.input :name, label: "Chef de chantier", placeholder: "Entrez le nom du chef de chantier..."  %>
           </div>
-          <div class="col-6 offset-3">
+          <div class="col-md-6 offset-md-3">
             <%= j.input :phone, label: "Téléphone", placeholder: "Entrez le numéro de téléphone du chef de chantier..."  %>
           </div>
-          <div class="col-6 offset-3">  
+          <div class="col-md-6 offset-md-3">  
             <%= j.input :email, label: "Email", placeholder: "Entrez l'email du chef de chantier..."  %>
           </div>
         <% end %>
         <%= h.simple_fields_for :team_manager, @team_manager do |k| %>
-        <div class="col-6 offset-3">
+        <div class="col-md-6 offset-md-3">
           <%= k.input :name, label: "Chef d'équipe", placeholder: "Entrez le nom du chef d'équipe..." %>
         </div>
-        <div class="col-6 offset-3">
+        <div class="col-md-6 offset-md-3">
           <%= k.input :phone, label: "Téléphone", placeholder: "Entrez le numéro de téléphone du chef d'équipe..."  %>
         </div>
-        <div class="col-6 offset-3">
+        <div class="col-md-6 offset-md-3">
           <%= k.input :email, label: "Email", placeholder: "Entrez l'email du chef d'équipe..." %>
         </div>
         <% end %>
       <% end %>
-      <div class="row">
-        <div class="col-4">
-          <div class="form-group select required ppsp_regional_committee_id">
-            <div class="container-header-form">
-              <label class="select required" for="ppsp_regional_committee_id">Comité régional de l'OPPBTP <abbr title="required">*</abbr></label>
-              <% if policy(RegionalCommittee).new? %>
-                <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalRegionalCommittee">
-                  <i class="fas fa-plus"></i>
-                </button>
-              <% end %>
-            </div>
-            <%= f.input :regional_committee_id, as: :select, label: false, collection: @regional_committees, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
+      <div class="col-6 col-md-4">
+        <div class="form-group select required ppsp_regional_committee_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_regional_committee_id">Comité régional de l'OPPBTP <abbr title="required">*</abbr></label>
+            <% if policy(RegionalCommittee).new? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalRegionalCommittee">
+                <i class="fas fa-plus"></i>
+              </button>
+            <% end %>
           </div>
-        </div>
-        <div class="col-4">
-          <div class="form-group select required ppsp_pension_insurance_id">
-            <div class="container-header-form">
-              <label class="select required" for="ppsp_pension_insurance_id">Caisse d'assurance retraite <abbr title="required">*</abbr></label>
-              <% if policy(PensionInsurance).new? %>
-                <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalPensionInsurance">
-                  <i class="fas fa-plus"></i>
-                </button>
-              <% end %>
-            </div>
-            <%= f.input :pension_insurance_id, as: :select, label: false, collection: @pension_insurances, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="form-group select required ppsp_direcct_id">
-            <div class="container-header-form">
-              <label class="select required" for="ppsp_direcct_id">DIRECCT <abbr title="required">*</abbr></label>
-              <% if policy(Direcct).new? %>
-                <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalDirecct">
-                  <i class="fas fa-plus"></i>
-                </button>
-              <% end %>
-            </div>
-            <%= f.input :direcct_id, as: :select, label: false, collection: @direccts, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="form-group select required ppsp_work_medecine_id">
-            <div class="container-header-form">
-              <label class="select required" for="ppsp_work_medecine_id">Médecine du travail <abbr title="required">*</abbr></label>
-              <% if policy(WorkMedecine).new? %>
-                <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalWorkMedecine">
-                  <i class="fas fa-plus"></i>
-                </button>
-              <% end %>
-            </div>
-            <%= f.input :work_medecine_id, as: :select, label: false, collection: @work_medecines, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="form-group select required ppsp_demining_id">
-            <div class="container-header-form">
-              <label class="select required" for="ppsp_demining_id">Centre de déminage <abbr title="required">*</abbr></label>
-              <% if policy(Demining).new? %>
-                <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalDemining">
-                  <i class="fas fa-plus"></i>
-                </button>
-              <% end %>
-            </div>
-            <%= f.input :demining_id, as: :select, label: false, collection: @deminings, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="form-group select required ppsp_sos_hand_id">
-            <div class="container-header-form">
-              <label class="select required" for="ppsp_sos_hand_id">Centre SOS Mains et Doigts<abbr title="required">*</abbr></label>
-              <% if policy(SosHand).new? %>
-                <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSosHand">
-                  <i class="fas fa-plus"></i>
-                </button>
-              <% end %>
-            </div>
-              <%= f.input :sos_hand_id, as: :select, label: false, collection: @sos_hands, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
-          </div>
-        </div>
-        <div class="col-4 offset-4">
-          <div class="form-group select required ppsp_anti_poison_id">
-            <div class="container-header-form">
-              <label class="select required" for="ppsp_anti_poison_id">Centre anti-poison <abbr title="required">*</abbr></label>
-              <% if policy(AntiPoison).new? %>
-                <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalAntiPoison">
-                  <i class="fas fa-plus"></i>
-                </button>
-              <% end %>
-            </div>
-            <%= f.input :anti_poison_id, as: :select, label: false, collection: @anti_poisons, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
-          </div>
+          <%= f.input :regional_committee_id, as: :select, label: false, collection: @regional_committees, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
         </div>
       </div>
-      <div class="col-6 offset-3">
+      <div class="col-6 col-md-4">
+        <div class="form-group select required ppsp_pension_insurance_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_pension_insurance_id">Caisse d'assurance retraite <abbr title="required">*</abbr></label>
+            <% if policy(PensionInsurance).new? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalPensionInsurance">
+                <i class="fas fa-plus"></i>
+              </button>
+            <% end %>
+          </div>
+          <%= f.input :pension_insurance_id, as: :select, label: false, collection: @pension_insurances, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="form-group select required ppsp_direcct_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_direcct_id">DIRECCT <abbr title="required">*</abbr></label>
+            <% if policy(Direcct).new? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalDirecct">
+                <i class="fas fa-plus"></i>
+              </button>
+            <% end %>
+          </div>
+          <%= f.input :direcct_id, as: :select, label: false, collection: @direccts, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="form-group select required ppsp_work_medecine_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_work_medecine_id">Médecine du travail <abbr title="required">*</abbr></label>
+            <% if policy(WorkMedecine).new? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalWorkMedecine">
+                <i class="fas fa-plus"></i>
+              </button>
+            <% end %>
+          </div>
+          <%= f.input :work_medecine_id, as: :select, label: false, collection: @work_medecines, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="form-group select required ppsp_demining_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_demining_id">Centre de déminage <abbr title="required">*</abbr></label>
+            <% if policy(Demining).new? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalDemining">
+                <i class="fas fa-plus"></i>
+              </button>
+            <% end %>
+          </div>
+          <%= f.input :demining_id, as: :select, label: false, collection: @deminings, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="form-group select required ppsp_sos_hand_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_sos_hand_id">Centre SOS Mains et Doigts<abbr title="required">*</abbr></label>
+            <% if policy(SosHand).new? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSosHand">
+                <i class="fas fa-plus"></i>
+              </button>
+            <% end %>
+          </div>
+            <%= f.input :sos_hand_id, as: :select, label: false, collection: @sos_hands, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="form-group select required ppsp_anti_poison_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_anti_poison_id">Centre anti-poison <abbr title="required">*</abbr></label>
+            <% if policy(AntiPoison).new? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalAntiPoison">
+                <i class="fas fa-plus"></i>
+              </button>
+            <% end %>
+          </div>
+          <%= f.input :anti_poison_id, as: :select, label: false, collection: @anti_poisons, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
         <div class="form-group select required ppsp_hospital_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_hospital_id">Hôpital le plus proche <abbr title="required">*</abbr></label>
@@ -189,7 +211,7 @@
           <%= f.input :hospital_id, as: :select, collection: @hospitals, label: false, label_method: lambda { |x| "#{x.name}"}, input_html: {class: "select-2"} %>
         </div>
       </div>
-      <div class="col-6 offset-3">
+      <div class="col-6 col-md-4">
         <div class="form-group select required ppsp_security_coordinator_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_security_coordinator_id">Coordinateur sécurité</label>
@@ -202,18 +224,16 @@
           <%= f.input :security_coordinator_id, as: :select, collection: @security_coordinators, label: false, label_method: lambda { |x| "#{x.name} - #{x.representative}" }, input_html: {class: "select-2"} %>
         </div>
       </div>
-      <div class="row">
-        <div class="col-4">
-          <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
-        </div>
-        <div class="col-4">
-          <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>
-        </div>
-        <div class="col-4">
-          <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
-        </div>
+      <div class="col-6 col-md-4">
+        <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
       </div>
-      <div class="d-flex justify-content-center">
+      <div class="col-6 col-md-4">
+        <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>
+      </div>
+      <div class="col-6 col-md-4">
+        <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
+      </div>
+      <div class="col-6 col-md-4 offset-3 offset-md-5">
         <% if params[:action] == 'new' %>
           <%= f.submit "Créer un nouveau PPSP", class: 'btn-blue' %>
         <% else %>
@@ -287,6 +307,6 @@
       <div class="modal fade" id="ModalDemining" tabindex="-1" role="dialog" aria-labelledby="ModalDemining" aria-hidden="true">
         <%= render 'ppsps/modal_demining' %>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>

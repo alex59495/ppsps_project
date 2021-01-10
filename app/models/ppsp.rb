@@ -47,6 +47,7 @@ class Ppsp < ApplicationRecord
   def start_date_cant_be_after_end_date
     if start_date.present? && end_date.present? && start_date >= end_date
       errors.add(:end_date, "ne peut pas être avant ou égale à la date de début de chantier")
+      errors.add(:start_date, "ne peut pas être après ou égale à la date de fin de chantier")
     end
   end
 end
