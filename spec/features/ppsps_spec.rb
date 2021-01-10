@@ -91,13 +91,15 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       it 'Create Form should handle a date change' do
         visit(new_ppsp_path)
         fill_in('range_start', with: Date.today.next_month.prev_day.to_s)
-        fill_in('range_end', with: next_day.next_month.next_month.to_s)
+        fill_in('range_end', with: next_day.next_year.next_month.next_month.to_s)
         fill_in('range_start', with: Date.today.next_month.to_s)
-        fill_in('range_end', with: next_day.next_month.next_month.to_s)
+        fill_in('range_end', with: next_day.next_year.next_month.next_month.to_s)
         expect(page).to have_css('.flatpickr-month')
+        expect(find('#start-year-calendar')).to have_content(Date.today.next_month.year.to_s)
+        expect(find('#end-year-calendar')).to have_content(next_day.next_year.next_month.next_month.year.to_s)
         expect(find('#start-month-calendar')).to have_content(Date::ABBR_MONTHNAMES[Date.today.month + 1].to_s)
         expect(find('#end-month-calendar')).to have_content(Date::ABBR_MONTHNAMES[next_day.month + (next_day == 1 ? 3 : 2)].to_s)
-        expect(find('#end-day-calendar')).to have_content(next_day.next_month.next_month.day.to_s)
+        expect(find('#end-day-calendar')).to have_content(next_day.next_year.next_month.next_month.day.to_s)
       end
     end
 
