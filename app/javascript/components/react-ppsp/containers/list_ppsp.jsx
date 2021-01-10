@@ -17,7 +17,9 @@ class ListPpsp extends Component {
 
   // Test if we are at the bottom of the page
   isBottom(el) {
-    return el.getBoundingClientRect().bottom <= window.innerHeight;
+    if(el) {
+      return el.getBoundingClientRect().bottom <= window.innerHeight;
+    }
   }
 
   // Active the Loading Gif and charge more Ppsps
@@ -53,7 +55,7 @@ class ListPpsp extends Component {
   }
 
   render() {
-    const { selectedPpsps } = this.props;
+    const { selectedPpsps, search } = this.props;
     if(selectedPpsps.length > 0) {
       return (
         <>
@@ -72,7 +74,9 @@ class ListPpsp extends Component {
           <div className="not-loading" id="not-loading" />
         </>
       )
-    } {
+    } else if(search === '') {
+      return <div className="loading" id="loading" style={{display: "block"}}/>
+    } else {
       return (
         <div className="container-db-vide">
           Votre recherche n'a retourné aucun résultat...

@@ -14,7 +14,7 @@ class Api::V1::PpspsController < Api::V1::BaseController
     params[:page] ? @ppsps = policy_scope(Ppsp.where(user: users).page(params[:page]).per(12).order(updated_at: :desc)) : @ppsps = policy_scope(Ppsp.where(user: users).order(updated_at: :desc))
 
     # If params search exist then will filter with reference and/or user first and last names
-    params[:search] ? @ppsps = @ppsps.includes(:user, :project_information).where('users.first_name = ? or users.last_name = ? or project_informations.reference = ?', params[:search], params[:search], params[:search]).references(:user, :project_information) : @ppsps
+    params[:search].present? ? @ppsps = @ppsps.includes(:user, :project_information).where("CONCAT_WS(' ', users.first_name, users.last_name) ILIKE :query or project_informations.reference ILIKE :query", query: "%#{params[:search]}%").references(:users, :project_informations) : @ppsps
   end
 
   def show
