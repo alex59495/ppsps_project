@@ -5,15 +5,37 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+puts "Destroying all data ..."
 
+Ppsp.destroy_all
+Moe.destroy_all
+Moa.destroy_all
+Hospital.destroy_all
+Demining.destroy_all
+ProjectInformation.destroy_all
+RegionalCommittee.destroy_all
+RegionalCommittee.destroy_all
+WorkMedecine.destroy_all
+Risk.destroy_all
+SecurityCoordinator.destroy_all
+SiteInstallation.destroy_all
+SiteManager.destroy_all
+SosHand.destroy_all
+TeamManager.destroy_all
+Direcct.destroy_all
+AntiPoison.destroy_all
+AltitudeWork.destroy_all
+PensionInsurance.destroy_all
+User.destroy_all
+Company.destroy_all
 
 # Create company
-c = Company.create(name: "Company Angelique", address: 'Test adress', phone: '0300000000')
-p "create #{c.id} company"
-2.times do 
-  c = Company.create(name: Faker::Company.name, address: Faker::Address.street_address, phone: Faker::PhoneNumber.cell_phone_in_e164)
-  p "create #{c.id} company"
-end
+c1 = Company.create(name: "Company Angelique", address: 'Test adress', phone: '0300000000')
+p "create #{c1.id} company"
+c2 = Company.create(name: Faker::Company.name, address: Faker::Address.street_address, phone: Faker::PhoneNumber.cell_phone_in_e164)
+p "create #{c2.id} company"
+c3 = Company.create(name: Faker::Company.name, address: Faker::Address.street_address, phone: Faker::PhoneNumber.cell_phone_in_e164)
+p "create #{c3.id} company"
 
 # Create users
 users = [{
@@ -22,14 +44,14 @@ users = [{
   email: "test1@gmail.com",
   password: "@leX1s",
   admin: true,
-  company_id: 1,
+  company: c1,
 }, {
   first_name: "Jean",
   last_name: "Michel",
   email: "test2@gmail.com",
   password: "@leX1s",
   admin: false,
-  company_id: 1,
+  company: c1,
 },
 {
   first_name: "Luc",
@@ -37,19 +59,19 @@ users = [{
   email: "test3@gmail.com",
   password: "@leX1s",
   admin: false,
-  company_id: 2,
+  company: c2,
 }]
 
 users.each do |user|
-  u = User.create(email: user[:email], password: user[:password], admin: user[:admin], 
-  company_id: user[:company_id], first_name: user[:first_name], last_name: user[:last_name])
+  u = User.create!(email: user[:email], password: user[:password], admin: user[:admin], 
+  company: user[:company], first_name: user[:first_name], last_name: user[:last_name])
   p "create #{u.id} users"
 end
 
 # Create MOA
-CSV.foreach('./Database_MOA.csv', headers: true, encoding:'iso-8859-1:utf-8', col_sep: ";") do |row|
+CSV.foreach('./Database_MOA.csv', headers: true, encoding:'utf-8', col_sep: ";") do |row|
   # Create a hash for each MOA with the header of the CSV file
-  moa = row.to_h
+  moa = row.to_h  
   m = Moa.create(
     name: moa["Maitre Ouvrage"], 
     address: moa['Adresse'],
@@ -62,7 +84,7 @@ CSV.foreach('./Database_MOA.csv', headers: true, encoding:'iso-8859-1:utf-8', co
 end
 
 # Create MOE
-CSV.foreach('./Database_MOE.csv', headers: true, encoding:'iso-8859-1:utf-8', col_sep: ";") do |row|
+CSV.foreach('./Database_MOE.csv', headers: true, encoding:'utf-8', col_sep: ";") do |row|
   # Create a hash for each MOE with the header of the CSV file
   moe = row.to_h
   mo = Moe.create(
@@ -102,15 +124,15 @@ infos = []
     responsible: "Responsible Test-#{n}",
     phone: "0300000000",
     email: "project-#{n}@gmail.com",
-    site_manager_id: 1,
-    team_manager_id: 1
+    site_manager_id: SiteManager.first.id,
+    team_manager_id: TeamManager.first.id
   }
   infos.append(project_info)
 end
 
 
 infos.each do |project|
-  project_information1 = ProjectInformation.create(
+  project_information1 = ProjectInformation.create!(
     reference: project[:reference], phone:project[:phone],
     responsible:project[:responsible], email:project[:email], 
     site_manager_id:project[:site_manager_id],
@@ -214,25 +236,25 @@ ppsps = []
     agglomeration: Ppsp::AGGLOMERATIONS.sample,
     street_impact: Ppsp::STREET_IMPACTS.sample,
     river_guidance: Ppsp::RIVER_GUIDANCES.sample,
-    user_id: rand(User.count) + 1,
-    moa_id: rand(Moa.count) + 1,
-    moe_id: rand(Moe.count) + 1,
-    project_information_id: n+1,
-    pension_insurance_id: rand(PensionInsurance.count) + 1,
-    direcct_id: rand(Direcct.count) + 1,
-    work_medecine_id: rand(WorkMedecine.count) + 1,
-    regional_committee_id: rand(RegionalCommittee.count) + 1,
-    security_coordinator_id: rand(SecurityCoordinator.count) + 1,
-    demining_id: rand(Demining.count) + 1,
-    sos_hand_id: rand(SosHand.count) + 1,
-    anti_poison_id: rand(AntiPoison.count) + 1,
-    hospital_id: rand(Hospital.count) + 1,
+    user_id: User.all.sample.id,
+    moa_id: Moa.all.sample.id,
+    moe_id: Moe.all.sample.id,
+    project_information_id: ProjectInformation.all[n-1].id,
+    pension_insurance_id: PensionInsurance.all.sample.id,
+    direcct_id: Direcct.all.sample.id,
+    work_medecine_id: WorkMedecine.all.sample.id,
+    regional_committee_id: RegionalCommittee.all.sample.id,
+    security_coordinator_id: SecurityCoordinator.all.sample.id,
+    demining_id: Demining.all.sample.id,
+    sos_hand_id: SosHand.all.sample.id,
+    anti_poison_id: AntiPoison.all.sample.id,
+    hospital_id: Hospital.all.sample.id,
   }
   ppsps.append(ppsp)
 end
 
 ppsps.each do |ppsp|
-  p = Ppsp.create(address: ppsp[:address], start_date: ppsp[:start_date], end_date: ppsp[:end_date], nature: ppsp[:nature], 
+  p = Ppsp.create!(address: ppsp[:address], start_date: ppsp[:start_date], end_date: ppsp[:end_date], nature: ppsp[:nature], 
   workforce: ppsp[:workforce], user_id: ppsp[:user_id], moa_id: ppsp[:moa_id],
   moe_id: ppsp[:moe_id], project_information_id: ppsp[:project_information_id], agglomeration: ppsp[:agglomeration],
   street_impact: ppsp[:street_impact], river_guidance: ppsp[:river_guidance], security_coordinator_id: ppsp[:security_coordinator_id],
@@ -251,7 +273,7 @@ subcontractor = {
   responsible_name: "Alexis Responsable",
   responsible_phone: "03 28 26 18 63",
   responsible_email: "alexis@gmail.com",
-  ppsp_id: 1,
+  ppsp_id: Ppsp.first.id,
 }
 subcontractor1 = Subcontractor.create(name: subcontractor[:name], address: subcontractor[:address], 
 work: subcontractor[:work], responsible_name: subcontractor[:responsible_name], responsible_phone: subcontractor[:responsible_phone],
