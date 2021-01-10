@@ -41,7 +41,7 @@ class CardPpsp extends Component {
   handleClickUser = (e) => {
     // Avoid to trigger the parent link
     e.stopPropagation();
-    const win = window.open(`/users/${this.props.user.id}`, '_blank');
+    const win = window.open(`/profiles/${this.props.user.id}`, '_blank');
     win.focus();
   }
 
