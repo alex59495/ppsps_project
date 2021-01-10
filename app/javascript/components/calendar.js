@@ -3,8 +3,10 @@ const calendar = () => {
   const startInput = document.querySelector('#range_start');
   const startDayCalendar = document.getElementById('start-day-calendar');
   const startMonthCalendar = document.getElementById('start-month-calendar');
+  const startYearCalendar = document.getElementById('start-year-calendar');
   const endDayCalendar = document.getElementById('end-day-calendar');
   const endMonthCalendar = document.getElementById('end-month-calendar');
+  const endYearCalendar = document.getElementById('end-year-calendar');
   const endInput = document.querySelector('#range_end');
 
   const changeDate = () => {
@@ -14,6 +16,7 @@ const calendar = () => {
         .toString()
         .split(' ')[1];
       startDayCalendar.innerText = dateStart.toString().split(' ')[2];
+      startYearCalendar.innerText = dateStart.toString().split(' ')[3];
     }
     const dateEnd = new Date(endInput.value);
     if (!Number.isNaN(dateEnd.getTime())) {
@@ -21,6 +24,7 @@ const calendar = () => {
         .toString()
         .split(' ')[1];
       endDayCalendar.innerText = dateEnd.toString().split(' ')[2];
+      endYearCalendar.innerText = dateEnd.toString().split(' ')[3];
     }
   };
 

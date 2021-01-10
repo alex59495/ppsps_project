@@ -5,36 +5,44 @@
       <div class="col-md-6 offset-md-3">
         <%= f.input :address, label: "Adresse", placeholder: "Indiquez une adresse..." %>
       </div>
-      <div class="col-6 col-md-3 offset-md-3">
-        <div class="calendar-box">
-          <%= f.input :start_date, label: false, as: :string, input_html: {id: 'range_start'}, require: true %>
-          <div class="title">
-            Début
-          </div>
-          <div class="date">
-            <div id="start-day-calendar" class="day">
-              <%= Date.today.to_formatted_s(:short).split(" ").first %>
+      <div class="col-md-6 offset-md-3">
+        <div class="container-calendar">
+          <div class="calendar-box">
+            <div class="title">
+              Début
             </div>
-            <div id="start-month-calendar" class="month">
-            <%= Date.today.to_formatted_s(:short).split(" ").last %>
-              <i class="fas fa-chevron-down fa-xs"></i>
+            <div class="date">
+            <%= f.input :start_date, label: false, as: :string, input_html: {id: 'range_start'}, require: true %>
+              <div class="date-day-month">
+                <div id="start-day-calendar" class="day">
+                  <%= Date.today.to_formatted_s(:short).split(" ").first %>
+                </div>
+                <div id="start-month-calendar" class="month">
+                  <%= Date.today.to_formatted_s(:short).split(" ").last %>
+                </div>
+              </div>
+              <div id="start-year-calendar" class="year">
+                <%= Date.today.to_formatted_s(:long).split(" ").last%>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="calendar-box">
-          <%= f.input :end_date, label: false, as: :string, input_html: {id: 'range_end'}, require: true %>
-          <div class="title">
-            Fin
-          </div>
-          <div class="date">
-            <div id="end-day-calendar" class="day">
-              <%= Date.today.to_formatted_s(:short).split(" ").first %>
+          <div class="calendar-box">
+            <div class="title">
+              Fin
             </div>
-            <div id="end-month-calendar" class="month">
-            <%= Date.today.to_formatted_s(:short).split(" ").last %>
-              <i class="fas fa-chevron-down fa-xs"></i>
+            <div class="date">
+            <%= f.input :end_date, label: false, as: :string, input_html: {id: 'range_end'}, require: true %>
+              <div class="date-day-month">
+                <div id="end-day-calendar" class="day">
+                  <%= Date.today.to_formatted_s(:short).split(" ").first %>
+                </div>
+                <div id="end-month-calendar" class="month">
+                  <%= Date.today.to_formatted_s(:short).split(" ").last %>
+                </div>
+              </div>
+              <div id="end-year-calendar" class="year">
+                <%= Date.today.to_formatted_s(:long).split(" ").last%>
+              </div>
             </div>
           </div>
         </div>
