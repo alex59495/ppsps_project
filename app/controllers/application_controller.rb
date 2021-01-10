@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   after_action :verify_authorized, except: :index, unless: :skip_pundit?
   after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
 
+  @navbar = true
+
   private
 
   def configure_permitted_parameters
