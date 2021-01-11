@@ -11,7 +11,7 @@
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;;
+  justify-content: space-between;
   box-shadow: 1px 1px 2px 2px $blue-shadow;
   &:hover {
     cursor: pointer;
@@ -37,11 +37,11 @@
     color: $blue-dark;
     font-weight: 700;
     margin-left: 6px;
-    &:hover{
+    &:hover {
       color: black;
       text-decoration: none;
     }
-  } 
+  }
   .card-ppsp-edit {
     position: relative;
     float: right;
@@ -49,7 +49,7 @@
     font-size: 18px;
     color: $blue-dark;
     font-weight: 700;
-    &:hover{
+    &:hover {
       color: black;
       text-decoration: none;
     }
@@ -63,12 +63,9 @@
 }
 
 .card-info {
-  box-shadow:  2px 3px 10px 2px $blue-dark-shadow;
+  box-shadow: 2px 3px 10px 2px $blue-dark-shadow;
   padding: 8px;
   border-radius: 8px;
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
   background-color: rgba(255, 255, 255, 0.9);
   max-width: 330px;
   .card-info-title {
@@ -84,10 +81,21 @@
     border: none;
     color: $blue-dark;
     margin-left: 6px;
-    &:hover{
+    &:hover {
       color: black;
       text-decoration: none;
     }
+  }
+  #card-info-close {
+    position: absolute;
+    right: 8px;
+    cursor: pointer;
+  }
+}
+
+.card-info.pointer {
+  &:hover {
+    cursor: pointer;
   }
 }
 
@@ -127,7 +135,7 @@
   }
 }
 
-@media(max-width: 1019px) {
+@media (max-width: 1019px) {
   .card-database {
     width: 300px;
     padding: 4px;
@@ -145,7 +153,7 @@
       color: $blue-dark;
       font-weight: 700;
       margin-left: 6px;
-      &:hover{
+      &:hover {
         color: black;
         text-decoration: none;
       }
@@ -155,7 +163,7 @@
       font-size: 18px;
       color: $blue-dark;
       font-weight: 700;
-      &:hover{
+      &:hover {
         color: black;
         text-decoration: none;
       }
@@ -170,14 +178,14 @@
     }
 
     #spacer {
-      width: 20px; 
-      height: 25px; 
+      width: 20px;
+      height: 25px;
       float: right;
     }
   }
 }
 
-@media(min-width: 1019px) {
+@media (min-width: 1019px) {
   .card-database {
     width: 100%;
     padding: 4px;
@@ -194,7 +202,7 @@
       color: $blue-dark;
       font-weight: 700;
       margin-left: 6px;
-      &:hover{
+      &:hover {
         color: black;
         text-decoration: none;
       }
@@ -204,12 +212,12 @@
       font-size: 18px;
       color: $blue-dark;
       font-weight: 700;
-      &:hover{
+      &:hover {
         color: black;
         text-decoration: none;
       }
     }
-    .card-db-action{
+    .card-db-action {
       display: flex;
       justify-content: flex-end;
       flex-grow: 1;
@@ -225,7 +233,6 @@
     }
   }
 }
-
 
 .card-selec-db {
   margin-bottom: 10px;
@@ -266,9 +273,8 @@
   right: 5px;
 }
 
-@media (max-width: 992px){
-  .card-edit{
+@media (max-width: 992px) {
+  .card-edit {
     position: static;
   }
 }
-

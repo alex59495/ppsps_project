@@ -1,30 +1,42 @@
-<div class="container-home">
-  <h1>Créer votre Plan Particulier de Sécurité et de Protection de la Santé en toute simplicité avec</h1>
-  <h1 style='font-size: 48px'>Obras</h1>
-  <%= image_tag('logo-ppsp.png') %>
-  <div class="row align-items-center">
-    <div class="col-lg-6 col-md-12">
-      <%= image_tag('home_PDF.png', width: '95%', height: 500) %>
+<div class="container-home-page">
+  <div class="home-banner">
+    <%= link_to "Se connecter", new_user_session_path, class: "btn-orange-ext" %>
+    <h1>Obras</h1>
+    <%# <%= image_tag('logo-ppsp.png') %>
+    <h2>Créez votre Plan Particulier de Sécurité et de Protection de la Santé en toute simplicité</h2>
+    <%= link_to "Demander une démo", "mailto:alexis.lenoir60@gmail.com", class: "btn-orange" %>
+  </div>
+  <div class="home-container-card">
+    <div class="home-card">
+      <div class="desc">
+        Création de PPSP au format PDF en toute simplicité
+      </div>
+      <div class="container-media">
+        <%= image_tag('home_PDF.png', width: '100%', height: '100%') %>
+      </div>
     </div>
-    <div class="col-lg-6 col-md-12">
-      <h1>Créér des PPSPS au format PDF en toute simplicité</h1>
+    <div class="home-card">
+      <div class="desc">
+        Stockage centralisé de tous vos documents
+      </div>
+      <div class="container-media">
+        <%= video_tag('video-ppsp.mp4', width: '100%', height: '100%' ,autoplay: true, loop: true, muted: 'muted') %>
+      </div>
+    </div>
+    <div class="home-card">
+      <div class="desc">
+        Bases de données modifiables selon vos besoin
+      </div>
+      <div class="container-media">
+        <%= image_tag('logo-ppsp.png',  width: '100%', height: '100%') %>
+      </div>
     </div>
   </div>
-  <div class="row align-items-center">
-    <div class="col-lg-6 col-md-12">
-      <h1>Possibilité d'accéder à tous les documents créés par son entreprise avec un système de recherche rapide</h1>
+  <div class="end-homepage">
+    <div class="separator">
     </div>
-    <div class="col-lg-6 col-md-12">
-      <%= video_tag('video-ppsp.mp4', width: "95%", height: "300", autoplay: true, loop: true, muted: 'muted') %>
-    </div>
-  </div>
-  <div class="row align-items-center">
-    <div class="col-lg-6 col-md-12">
-      <%= image_tag('logo-ppsp.png', width: 400, height: 300) %>
-    </div>
-    <div class="col-lg-6 col-md-12">
-      <h1>Une base de données modifiable selon vos besoins</h1>
-    </div>
+    <h2>
+      Ne perdez plus de temps avec la paperasse, laissez-nous nous en charger
+    </h2>
   </div>
 </div>
-

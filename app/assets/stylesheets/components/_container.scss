@@ -16,6 +16,11 @@
   width: 100%;
 }
 
+.container-btn {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .container-header-form {
   display: flex;
   align-items: flex-start;
@@ -35,6 +40,15 @@
   display: flex;
   justify-content: space-evenly;
   margin: 1em 0;
+}
+
+.container-bottom-right {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @media (max-width: 1019px) {

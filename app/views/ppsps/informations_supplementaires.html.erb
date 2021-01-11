@@ -117,68 +117,77 @@
       <%= render 'modal_subcontractor' %>
     </div>
 
-    <div id="cardSelect">
-      <% if @show_select %>
-        <div class="card-info">
-          <h2><b>Selection</b></h2>
-          <% if @selected_installation_active.count > 0 %>
-            <h3 class='card-info-title'>Installations</h3>
-            <% @selected_installation_active.each do |select_installation| %>
-              <div class="card-info-selected">
-                <div class="card-info-name">
-                  <%= "#{select_installation.site_installation.name} <i style='font-size: 12px'>(#{select_installation.site_installation.mobile ? "mobile" : "fixe"})</i>".html_safe %>
-                </div>
-                <div class="card-info-delete">
-                  <%= link_to "x",  ppsp_selected_installation_path(@ppsp.id, select_installation.id), method: :delete, remote: true, data: {confirm: "Êtes-vous sûr de vouloir supprimer ?"} %>
-                </div>
-              </div>
-            <% end %>
-          <% end %>
-          <% if @selected_altitude_active.count > 0 %>
-            <h3 class='card-info-title'>Travail en hauteur</h3>
-            <% @selected_altitude_active.each do |select_altitude| %>
-              <div class="card-info-selected">
-                <div class="card-info-name">
-                  <% if select_altitude.other %>
-                    <%= select_altitude.altitude_work.name %>, <%= select_altitude.other %>
-                  <% else %>
-                    <%= select_altitude.altitude_work.name %>
-                  <% end %>
-                </div>
-                <div class="card-info-delete">
-                  <%= link_to "x",  ppsp_selected_altitude_path(select_altitude.ppsp.id, select_altitude.id), method: :delete, remote: true, data: {confirm: "Êtes-vous sûr de vouloir supprimer ?"} %>
-                </div>
-              </div>
-            <% end %>
-          <% end %>
-          <% if @selected_risk_active.count > 0 %>
-            <h3 class="card-info-title">Risques</h3>
-            <% @selected_risk_active.each do |select_risk| %>
-              <div class="card-info-selected">
-                <div class="card-info-name">
-                  <%= select_risk.risk.name %>
-                </div>
-                <div class="card-info-delete">
-                  <%= link_to "x",  ppsp_selected_risk_path(select_risk.ppsp.id, select_risk.id), method: :delete, remote: true, data: {confirm: "Êtes-vous sûr de vouloir supprimer ?"} %>
-                </div>
-              </div>
-            <% end %>
-          <% end %>
-          <% if @ppsp.subcontractors.count > 0 %>
-            <h3 class="card-info-title">Sous Traitants</h3>
-            <% @ppsp.subcontractors.each do |subcontract| %>
-              <div class="card-info-selected">
-                <div class="card-info-body">
+    <div class="container-bottom-right">
+      <div id="cardSelect">
+        <% if @num_info_select > 0 %>
+          <div class="card-info hidden">
+            <div id="card-info-close">x</div>
+            <h2><b>Selection</b></h2>
+            <% if @selected_installation_active.count > 0 %>
+              <h3 class='card-info-title'>Installations</h3>
+              <% @selected_installation_active.each do |select_installation| %>
+                <div class="card-info-selected">
                   <div class="card-info-name">
-                    <%= subcontract.name %> - <%= subcontract.responsible_name %>
+                    <%= "#{select_installation.site_installation.name} <i style='font-size: 12px'>(#{select_installation.site_installation.mobile ? "mobile" : "fixe"})</i>".html_safe %>
+                  </div>
+                  <div class="card-info-delete">
+                    <%= link_to "x",  ppsp_selected_installation_path(@ppsp.id, select_installation.id), method: :delete, remote: true, data: {confirm: "Êtes-vous sûr de vouloir supprimer ?"} %>
                   </div>
                 </div>
-                <div class="card-info-delete">
-                  <%= link_to "x", ppsp_subcontractor_path(@ppsp, subcontract), method: :delete, remote: true, data: {confirm: "Êtes-vous sûr de vouloir supprimer ?"} %>
-                </div>
-              </div>
+              <% end %>
             <% end %>
-          <% end %>
+            <% if @selected_altitude_active.count > 0 %>
+              <h3 class='card-info-title'>Travail en hauteur</h3>
+              <% @selected_altitude_active.each do |select_altitude| %>
+                <div class="card-info-selected">
+                  <div class="card-info-name">
+                    <% if select_altitude.other %>
+                      <%= select_altitude.altitude_work.name %>, <%= select_altitude.other %>
+                    <% else %>
+                      <%= select_altitude.altitude_work.name %>
+                    <% end %>
+                  </div>
+                  <div class="card-info-delete">
+                    <%= link_to "x",  ppsp_selected_altitude_path(select_altitude.ppsp.id, select_altitude.id), method: :delete, remote: true, data: {confirm: "Êtes-vous sûr de vouloir supprimer ?"} %>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+            <% if @selected_risk_active.count > 0 %>
+              <h3 class="card-info-title">Risques</h3>
+              <% @selected_risk_active.each do |select_risk| %>
+                <div class="card-info-selected">
+                  <div class="card-info-name">
+                    <%= select_risk.risk.name %>
+                  </div>
+                  <div class="card-info-delete">
+                    <%= link_to "x",  ppsp_selected_risk_path(select_risk.ppsp.id, select_risk.id), method: :delete, remote: true, data: {confirm: "Êtes-vous sûr de vouloir supprimer ?"} %>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+            <% if @ppsp.subcontractors.count > 0 %>
+              <h3 class="card-info-title">Sous Traitants</h3>
+              <% @ppsp.subcontractors.each do |subcontract| %>
+                <div class="card-info-selected">
+                  <div class="card-info-body">
+                    <div class="card-info-name">
+                      <%= subcontract.name %> - <%= subcontract.responsible_name %>
+                    </div>
+                  </div>
+                  <div class="card-info-delete">
+                    <%= link_to "x", ppsp_subcontractor_path(@ppsp, subcontract), method: :delete, remote: true, data: {confirm: "Êtes-vous sûr de vouloir supprimer ?"} %>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <% if @num_info_select > 0 %>
+        <div id="btn-mes-infos" class="card-info pointer">
+          Voir <%= @num_info_select > 1 ? "vos" : "votre" %> <%= @num_info_select > 1 ? @num_info_select : "" %> ajout<%= @num_info_select > 1 ? "s" : "" %>
         </div>
       <% end %>
     </div>
