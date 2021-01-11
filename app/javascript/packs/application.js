@@ -8,6 +8,7 @@
 //= require turbolinks
 //= require_tree .
 import 'bootstrap';
+import ReactDOM from 'react-dom';
 
 // Import react elements
 // import '../react-ppsp/index'
@@ -52,3 +53,8 @@ const componentRequireContext = require.context('components', true);
 const ReactRailsUJS = require('react_ujs');
 
 ReactRailsUJS.useContext(componentRequireContext);
+ReactRailsUJS.handleEvent('turbolinks:before-render', () => {
+  if (document.getElementById('ppsps-react')) {
+    ReactDOM.unmountComponentAtNode(document.getElementById('ppsps-react'));
+  }
+});
