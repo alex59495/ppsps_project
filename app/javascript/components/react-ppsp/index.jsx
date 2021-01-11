@@ -14,12 +14,6 @@ import reducerPpsps from './reducers/ppsps_reducer';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const middlewares = composeEnhancers(applyMiddleware(logger, reduxPromise));
 
-// Identifiy currentUser
-let current = '';
-if (document.getElementById('ppsps-react')) {
-  current = document.getElementById('ppsps-react').dataset.current;
-}
-
 // State and reducers
 // const reducers = combineReducers({
 //   ppsps: reducerPpsps,
@@ -28,6 +22,12 @@ if (document.getElementById('ppsps-react')) {
 // });
 
 const reactPpsp = () => {
+  // Identifiy currentUser
+  let current = '';
+  if (document.getElementById('ppsps-react')) {
+    current = document.getElementById('ppsps-react').dataset.current;
+  }
+
   let show = '';
   if (document.querySelector('.show-user')) {
     show = document.querySelector('.show-user').dataset.usershow;
@@ -55,4 +55,4 @@ const reactPpsp = () => {
   }
 };
 
-export { reactPpsp };
+export default reactPpsp;
