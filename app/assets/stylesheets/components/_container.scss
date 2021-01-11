@@ -37,6 +37,15 @@
   margin: 1em 0;
 }
 
+.container-bottom-right {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 @media (max-width: 1019px) {
   .flex-database {
     display: flex;

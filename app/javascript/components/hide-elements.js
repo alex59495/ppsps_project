@@ -40,4 +40,22 @@ const hideForm = () => {
   }
 };
 
-export { hideForm };
+const hideInfosSelect = () => {
+  if (document.getElementById('cardSelect')) {
+    const cardInfo = document.querySelector('.card-info');
+    const btnMesInfos = document.getElementById('btn-mes-infos');
+    const cardInfoClose = document.getElementById('card-info-close');
+    if (btnMesInfos) {
+      btnMesInfos.addEventListener('click', () => {
+        cardInfo.classList.toggle('hidden');
+      });
+    }
+    if (cardInfoClose) {
+      cardInfoClose.addEventListener('click', () => {
+        cardInfo.classList.toggle('hidden');
+      });
+    }
+  }
+};
+
+export { hideForm, hideInfosSelect };
