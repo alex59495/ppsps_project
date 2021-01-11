@@ -1,4 +1,4 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-ppsp">
+<div class="navbar-expand-sm navbar-light navbar-ppsp">
   <%= link_to ppsps_path, class:"icon-home" do %>
     <%= image_tag('logo-ppsp.png', width: 80, height: 80) %>
   <% end %>
@@ -12,12 +12,19 @@
         <%= "#{current_user.first_name} #{current_user.last_name}" %>
       </div>
     </div>
-    <div class="d-flex align-items-center">
-      <%= link_to "Mon profil", profile_path(current_user), class: 'btn-blue-ext mr-2'%>
-      <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn-blue"%>
+    <div class="dropdown-ppsp">
+      <div class="nav-icon">
+        <%= image_tag 'navbar-icon.png', width: 25, height: 25 %>
+      </div>
+      <div class="dropdown-ppsp-content">
+        <%= link_to "Mon profil", profile_path(current_user), class: 'nav-btn-blue-ext' %>
+        <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: 'nav-btn-blue' %>
+      </div>
     </div>
   <% else %>
-    <a href="mailto:alexis.lenoir60@gmail.com" class="btn-orange">Demander une démo</a>
-    <%= link_to "Se connecter", new_user_session_path, class: "btn-orange-ext" %>
+    <div class="btn-orange-animated">
+      <a href="mailto:alexis.lenoir60@gmail.com">Demander une démo</a>
+    </div>
+    <%= link_to "Se connecter", new_user_session_path, class: "btn-orange-ext mr-3" %>
   <% end %>
 </div>

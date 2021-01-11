@@ -242,7 +242,7 @@
         <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
       </div>
       <div class="col-6 col-md-4 offset-3 offset-md-5">
-        <% if params[:action] == 'new' %>
+        <% if params[:action] == 'new' || params[:action] == 'create'  %>
           <%= f.submit "Créer un nouveau PPSP", class: 'btn-blue' %>
         <% else %>
           <%= f.submit "Mettre à jour le PPSP", class: 'btn-blue' %>
