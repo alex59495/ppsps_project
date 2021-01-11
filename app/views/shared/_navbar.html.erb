@@ -17,7 +17,9 @@
       <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn-blue"%>
     </div>
   <% else %>
-    <a href="mailto:alexis.lenoir60@gmail.com" class="btn-orange">Demander une démo</a>
+    <div class="btn-orange-animated">
+      <a href="mailto:alexis.lenoir60@gmail.com">Demander une démo</a>
+    </div>
     <%= link_to "Se connecter", new_user_session_path, class: "btn-orange-ext" %>
   <% end %>
 </div>

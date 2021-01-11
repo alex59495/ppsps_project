@@ -28,15 +28,132 @@ $btn-add-size: 18px;
 .btn-orange {
   padding: 8px 16px;
   border-radius: 8px;
-  background-color: $orange;
+  background-color: $orange-soft;
   color: black;
   border: none;
   &:hover {
-    background-color: $orange-dark;
+    background-color: $orange;
     text-decoration: none;
     color: black;
   }
 }
+
+// Button with animated border
+.btn-orange-animated {
+  a {
+    position: relative;
+    background-color: $orange-soft;
+    text-decoration: none;
+  /*   border: 2px solid #f00; */
+    text-align: center;
+    display: inline-block;
+    color: #262626;
+    padding: 8px 16px;
+  }
+  
+  a:before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  /*   width: 100%;
+    height: 100%; */
+    width: 0;
+    height: 0;
+    background: transparent;
+  /*   border: 2px solid #262626; */
+    border: 2px solid transparent;
+  }
+  
+  a:hover:before {
+    animation: animate-border 0.5s linear forwards;
+  }
+
+  a:after {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  /*   width: 100%;
+    height: 100%; */
+    width: 0;
+    height: 0;
+    background: transparent;
+  /*   border: 2px solid #262626; */
+    border: 2px solid transparent;
+  }
+  
+  a:hover:after {
+    animation: animate-border-2 0.5s linear forwards;
+    animation-delay: 0.5s;
+  }
+}
+
+
+@keyframes animate-border {
+  0% {
+    width: 0;
+    height: 0;
+/*     border: 2px solid transparent; */
+    border-top-color: $orange-dark;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  50% {
+    width: 100%;
+    height: 0;
+/*     border: 2px solid $orange-dark; */
+    border-top-color: $orange-dark;
+    border-right-color: $orange-dark;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }  
+  100% {
+    width: 100%;
+    height: 100%;
+/*     border: 2px solid #262626; */
+    border-top-color: $orange-dark;
+    border-right-color: $orange-dark;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+}
+
+/*****************************/
+
+@keyframes animate-border-2 {
+  0% {
+    width: 0;
+    height: 0;
+/*     border: 2px solid transparent; */
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: $orange-dark;
+  }
+  50% {
+    width: 0;
+    height: 100%;
+/*     border: 2px solid #262626; */
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: $orange-dark;
+    border-left-color: $orange-dark;
+  }  
+  100% {
+    width: 100%;
+    height: 100%;
+/*     border: 2px solid $orange-dark; */
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: $orange-dark;
+    border-left-color: $orange-dark;
+  }
+}
+
+
+
 
 .btn-orange-right {
   padding: 8px 16px;
