@@ -9,11 +9,11 @@ import Spinner from '../components/Spinner';
 class ListPpsp extends Component {
   componentDidMount() {
     this.props.fetchPpsps(this.props.showUser);
-    document.addEventListener('scroll', this.trackScrolling);
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.selectedPpsps !== this.props.selectedPpsps){
+    console.log('prevProps:', prevProps)
+    if (prevProps.selectedPpsps.length - this.props.selectedPpsps.length !== 0){
       document.addEventListener('scroll', this.trackScrolling);
     }
   }
