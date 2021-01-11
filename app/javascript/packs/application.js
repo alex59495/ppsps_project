@@ -23,6 +23,7 @@ import { infiniteScroll } from '../components/infinite-scroll-db';
 import { popUp } from '../components/popup';
 import calendar from '../components/calendar';
 import error from '../components/errors';
+import navbarDropdown from '../components/navbar-dropdown';
 
 require('@rails/ujs').start();
 require('turbolinks').start();
@@ -37,6 +38,7 @@ require('../channels');
 // const imagePath = (name) => images(name, true)
 
 document.addEventListener('turbolinks:load', () => {
+  navbarDropdown();
   error();
   select2();
   flatPicker();
