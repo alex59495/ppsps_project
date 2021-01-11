@@ -8,6 +8,7 @@
 //= require turbolinks
 //= require_tree .
 import 'bootstrap';
+import ReactDOM from 'react-dom';
 
 // Import react elements
 // import '../react-ppsp/index'
@@ -23,7 +24,6 @@ import { infiniteScroll } from '../components/infinite-scroll-db';
 import { popUp } from '../components/popup';
 import calendar from '../components/calendar';
 import error from '../components/errors';
-import ReactDOM from 'react-dom';
 
 require('@rails/ujs').start();
 require('turbolinks').start();
