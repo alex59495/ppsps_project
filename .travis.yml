@@ -1,14 +1,10 @@
 language: ruby
-dist: trusty
-cache:
-  bundler: true
-  yarn: true
 services:
   - redis-server
 sudo: required
 before_install:
-- sudo apt-get update
-- sudo apt-get install google-chrome-stable
+  - sudo apt-get update
+  - sudo apt-get install google-chrome-stable
 addons:
   postgresql: '9.6'
 before_script:
@@ -26,7 +22,7 @@ install:
   - node -v
   - npm i -g yarn
   - yarn
-  
+
 script:
   - bundle exec rake db:schema:load
   - bundle exec rake db:test:prepare
