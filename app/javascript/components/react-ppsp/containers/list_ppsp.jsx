@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -12,8 +14,7 @@ class ListPpsp extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log('prevProps:', prevProps)
-    if (prevProps.selectedPpsps.length - this.props.selectedPpsps.length !== 0){
+    if (!_.isEqual(prevProps.selectedPpsps, this.props.selectedPpsps)){
       document.addEventListener('scroll', this.trackScrolling);
     }
   }
