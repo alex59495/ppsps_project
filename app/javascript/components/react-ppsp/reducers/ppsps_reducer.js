@@ -1,4 +1,4 @@
-import { SEARCH_QUERY, FETCH_PPSPS, LOAD_MORE } from '../actions/index';
+import { SEARCH_QUERY, FETCH_PPSPS, LOAD_MORE, LOADING_TRUE } from '../actions/index';
 
 const reducerPpsps = (state, action) => {
   switch (action.type) {
@@ -17,6 +17,7 @@ const reducerPpsps = (state, action) => {
         // If the list is not empty before the first search action
         selectedPpsps: state.selectedPpsps.concat(action.payload),
         page: state.page + 1,
+        loading: false,
       };
     case SEARCH_QUERY:
       let count = 0;
@@ -25,11 +26,11 @@ const reducerPpsps = (state, action) => {
           // Select the Ppsps which reference correspond to the value of search
           (ppsp.project_information.reference
             .toLowerCase()
-            .includes(action.search.toLowerCase()) ||
+            .includes(action.payload.toLowerCase()) ||
             // Select the Ppsps which user first name + last_name correspond to the value of search
             ppsp.user.full_name
               .toLowerCase()
-              .includes(action.search.toLowerCase())) &&
+              .includes(action.payload.toLowerCase())) &&
           // Limit the result to 12 max
           count++ < 12
       );
@@ -37,9 +38,17 @@ const reducerPpsps = (state, action) => {
         ...state,
         // Reinitialize the infinite scroll when use the search bar
         page: 2,
-        search: action.search,
+        search: action.payload,
         selectedPpsps: selected,
       };
+    case LOADING_TRUE:
+      if (state.loading === false) {
+        return {
+          ...state,
+          loading: action.payload,
+        };
+      }
+      return state;
     default:
       return state;
   }
