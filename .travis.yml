@@ -1,4 +1,5 @@
 language: ruby
+dist: trusty
 cache:
   bundler: true
   yarn: true
@@ -34,4 +35,3 @@ script:
   - bundle exec rake spec:features
   - bundle exec rake spec:models
   - bundle exec rake spec:requests
-  
