@@ -3,13 +3,13 @@
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = '1.0'
 
+# Define video path
+Rails.application.config.assets.paths << "#{Rails.root}/app/assets/videos"
+
 # Add additional assets to the asset load path.
 # Rails.application.config.assets.paths << Emoji.images_path
 # Add Yarn node_modules folder to the asset load path.
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
-
-# Define video path
-Rails.application.config.assets.paths << "#{Rails.root}/app/assets/videos"
 
 
 # Precompile additional assets.
