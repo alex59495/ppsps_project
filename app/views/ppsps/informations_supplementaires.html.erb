@@ -186,8 +186,9 @@
       </div>
 
       <% if @num_info_select > 0 %>
-        <div id="btn-mes-infos" class="card-info pointer">
-          Voir <%= @num_info_select > 1 ? "vos" : "votre" %> <%= @num_info_select > 1 ? @num_info_select : "" %> ajout<%= @num_info_select > 1 ? "s" : "" %>
+        <div id="btn-mes-infos">
+          <div class='btn-num'><%= @num_info_select %> </div>
+          <div>ajout<%= @num_info_select > 1 ? "s" : "" %></div>
         </div>
       <% end %>
     </div>

@@ -48,11 +48,13 @@ const hideInfosSelect = () => {
     if (btnMesInfos) {
       btnMesInfos.addEventListener('click', () => {
         cardInfo.classList.toggle('hidden');
+        btnMesInfos.classList.toggle('hidden');
       });
     }
     if (cardInfoClose) {
       cardInfoClose.addEventListener('click', () => {
         cardInfo.classList.toggle('hidden');
+        btnMesInfos.classList.remove('hidden');
       });
     }
   }
