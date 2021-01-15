@@ -89,7 +89,9 @@
 
   <div class="risks">
     <h1>Types de travaux associés au projet</h1>
-    <form class="simple_form new_selected_risk" id="new_selected_risk" novalidate="novalidate" action=<%= ppsp_selected_risks_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
+    <div class="d-flex flex-column align-items-center">
+      <label for="checkRisks" id="checkRisks" class="btn-orange-ext">Ajouter</label>
+      <form class="simple_form new_selected_risk hidden" id="new_selected_risk" novalidate="novalidate" action=<%= ppsp_selected_risks_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
         <fieldset class="form-group check_boxes required selected_risk_risk">
           <input type="hidden" name="selected_risk[risk_id][]" value="">
           <div class="form-check d-flex flex-wrap justify-content-center">
@@ -99,10 +101,11 @@
             <% end %>
           </div>
           <div class="d-flex justify-content-center">
-            <input type="submit" name="commit" value="Ajouter" data-disable-with="Ajouter" class="btn-orange-ext" id="FormSelectedRisk">
+            <input type="submit" name="commit" value="Ajouter" data-disable-with="Ajouter" class="btn-orange" id="FormSelectedRisk">
           </div>
         </fieldset>
-    </form>
+      </form>
+    </div>
   </div>
 
   <div class="subcontractor mb-2">
