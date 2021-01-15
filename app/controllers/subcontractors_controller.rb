@@ -27,7 +27,8 @@ class SubcontractorsController < ApplicationController
   def destroy
     authorize @subcontractor
     @subcontractor.destroy
-    redirect_to informations_supplementaires_ppsp_path(@ppsp)
+    # Add a params to know if we are coming back to the info supp page from a destroy action
+    redirect_to informations_supplementaires_ppsp_path(@ppsp, destroy: true)
   end
 
   private

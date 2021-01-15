@@ -54,7 +54,7 @@ const hideInfosSelect = () => {
     const btnMesInfos = document.getElementById('btn-mes-infos');
     const cardInfoClose = document.getElementById('card-info-close');
     // Remove button if card info exists (example : after adding a subcontractor)
-    if (!cardInfo.classList.contains('hidden')) {
+    if (cardInfo && !cardInfo.classList.contains('hidden')) {
       btnMesInfos.classList.remove('hidden');
     }
     if (btnMesInfos) {
@@ -68,6 +68,11 @@ const hideInfosSelect = () => {
         cardInfo.classList.toggle('hidden');
         btnMesInfos.classList.remove('hidden');
       });
+    }
+    // Verify if we are coming back on the infos supp page from a destroy action
+    if (cardInfo && cardInfo.dataset.show === 'true') {
+      cardInfo.classList.remove('hidden');
+      btnMesInfos.classList.add('hidden');
     }
   }
 };
