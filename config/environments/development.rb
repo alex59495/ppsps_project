@@ -35,13 +35,12 @@ Rails.application.configure do
   # Setup the mail sending on MailTrap
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    from: 'from@example.com',
-    user_name: '78122ac1a8d2b1',
-    password: 'a53987a325016c',
-    address: 'smtp.mailtrap.io',
-    domain: 'smtp.mailtrap.io',
-    port: '2525',
-    authentication: :cram_md5,
+    domain:         'http://localhost:3000',
+    address:        "smtp.sendgrid.net",
+    port:            587,
+    authentication: :plain,
+    user_name:      'apikey',
+    password:       ENV['SENDGRID_API_KEY']
   }
 
   # Don't care if the mailer can't send.
