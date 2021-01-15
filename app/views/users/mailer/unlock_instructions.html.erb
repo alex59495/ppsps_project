@@ -1,7 +1,0 @@
-<p>Bonjour <%= @resource.email %>!</p>
-
-<p>Votre mail a été bloqué dû à un nombre de tentative trop élévé de tentatives.</p>
-
-<p>Cliquer sur le lien ci-dessous pour débloquer votre compte:</p>
-
-<p><%= link_to 'Débloquer mon compte', unlock_url(@resource, unlock_token: @token) %></p>
