@@ -96,10 +96,20 @@
 .card-form {
   padding: 4px 8px;
   border-radius: 4px;
-  border: 1px solid $blue-dark;
   margin: 4px;
+  font-size: 18px;
   &:hover {
     cursor: pointer;
+  }
+  &:before {
+    content: "O";
+    margin-right: 8px;
+  }
+  &.active {
+    &:before {
+      content: "X";
+      margin-right: 8px;
+    }
   }
 }
 
@@ -255,10 +265,6 @@
     color: gray;
     font-size: 14px;
   }
-}
-
-.active {
-  background-color: $blue-dark-shadow;
 }
 
 .card-edit {

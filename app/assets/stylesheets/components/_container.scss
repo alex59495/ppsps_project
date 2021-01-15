@@ -12,8 +12,36 @@
   margin-right: 20px;
 }
 
+.container-infos-supp {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
 .container-installations {
   width: 100%;
+  margin-bottom: 2em;
+  background-color: rgba(255, 167, 167, 0.411);
+  border-radius: 8px;
+}
+
+.container-risks {
+  width: 100%;
+  background-color: rgba(167, 198, 255, 0.411);
+  margin-bottom: 2em;
+}
+
+.container-altitude-work {
+  width: 100%;
+  background-color: rgba(214, 255, 167, 0.411);
+  margin-bottom: 2em;
+}
+
+.container-subcontractor {
+  width: 100%;
+  background-color: rgba(255, 246, 167, 0.411);
+  margin-bottom: 2em;
 }
 
 .container-btn {
@@ -68,4 +96,10 @@
     margin-top: 2em;
     justify-content: center;
   }
+}
+
+.container-btn-centered {
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
