@@ -4,9 +4,9 @@
     <h1>Obras</h1>
     <%# <%= image_tag('logo-ppsp.png') %>
     <h2>Créez votre Plan Particulier de Sécurité et de Protection de la Santé en toute simplicité</h2>
-   <button type="button" class="btn-orange" data-toggle="modal" data-target="#modal-contact">
+   <a type="button" class="btn-orange" data-toggle="modal" data-target="#modal-contact">
       Demander une démo
-    </button>
+    </a>
   </div>
   <div class="home-container-card">
     <div class="home-card">
@@ -48,9 +48,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Saisir les informations ci-dessous</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <a type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+        </a>
       </div>
       <div class="modal-body">
         <%= render 'contact/mailer/form' %>
