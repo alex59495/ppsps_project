@@ -1,6 +1,7 @@
 <div class="container d-flex flex-column align-items-center mb-2">
+  <h1>Ajouter des informations supplémentaires si nécessaire</h1>
   <div class="container-installations">
-    <h1>Installations chantier</h1>
+    <h3>Installations chantier</h3>
     <div class="row justify-content-center">
       <div class="col-12 d-flex justify-content-center">
         <input type="checkbox" class="hidden" id="checkSiteInstallation" name="siteInstallation">
@@ -63,7 +64,7 @@
   </div>
 
   <div class="altitude-work">
-    <h1>Travaux en hauteur</h1>
+    <h3>Travaux en hauteur</h3>
     <div class="d-flex flex-column align-items-center">
       <input type="checkbox" class="hidden" id="checkAltitudeWork" name="altitudeWork">
       <label for="checkAltitudeWork" id="CheckAltitudeWork" class="btn-orange-ext">Ajouter</label>
@@ -88,7 +89,7 @@
   </div>
 
   <div class="risks">
-    <h1>Types de travaux associés au projet</h1>
+    <h3>Types de travaux associés au projet</h3>
     <div class="d-flex flex-column align-items-center">
       <label for="checkRisks" id="checkRisks" class="btn-orange-ext">Ajouter</label>
       <form class="simple_form new_selected_risk hidden" id="new_selected_risk" novalidate="novalidate" action=<%= ppsp_selected_risks_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
@@ -109,7 +110,7 @@
   </div>
 
   <div class="subcontractor mb-2">
-    <h1>Sous-traitants</h1>
+    <h3>Sous-traitants</h3>
     <div class="d-flex justify-content-center mb-2">
       <button type="button" class="btn-orange-ext" data-toggle="modal" data-target="#ModalSubcontractor">
         Ajouter un sous-traitant
@@ -125,7 +126,7 @@
         <% if @num_info_select > 0 %>
           <div class="card-info hidden">
             <div id="card-info-close">x</div>
-            <h2><b>Selection</b></h2>
+            <h3><b>Selection</b></h3>
             <% if @selected_installation_active.count > 0 %>
               <h3 class='card-info-title'>Installations</h3>
               <% @selected_installation_active.each do |select_installation| %>

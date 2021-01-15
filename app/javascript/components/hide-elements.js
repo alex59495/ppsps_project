@@ -53,6 +53,10 @@ const hideInfosSelect = () => {
     const cardInfo = document.querySelector('.card-info');
     const btnMesInfos = document.getElementById('btn-mes-infos');
     const cardInfoClose = document.getElementById('card-info-close');
+    // Remove button if card info exists (example : after adding a subcontractor)
+    if (!cardInfo.classList.contains('hidden')) {
+      btnMesInfos.classList.remove('hidden');
+    }
     if (btnMesInfos) {
       btnMesInfos.addEventListener('click', () => {
         cardInfo.classList.toggle('hidden');
