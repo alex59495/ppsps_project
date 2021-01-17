@@ -3,10 +3,11 @@ export const SEARCH_QUERY = 'SEARCH_QUERY';
 export const LOAD_MORE = 'LOAD_MORE';
 export const LOADING_TRUE = 'LOADING_TRUE';
 
-export const fetchPpsps = (showUser) => {
-  const promise = fetch(
+export const fetchPpsps = async (showUser) => {
+  const response = await fetch(
     `/api/v1/ppsps?show_user=${showUser}`
-  ).then((response) => response.json());
+  )
+  const promise = response.json();
   return {
     type: FETCH_PPSPS,
     payload: promise,
