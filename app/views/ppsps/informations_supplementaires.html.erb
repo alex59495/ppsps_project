@@ -1,115 +1,113 @@
 <h1 class='mb-5'>Ajouter des informations supplémentaires si nécessaire</h1>
-<div class="container-infos-supp mb-2 row">
-  <div class="container-installations col-lg-3">
+<div class="container-infos-supp mb-2">
+  <div class="container-info">
     <h3 class='title-infos'>Installations chantier</h3>
-    <div class="row justify-content-center">
-      <div class="col-12 d-flex justify-content-center">
-        <input type="checkbox" class="hidden" id="checkSiteInstallation" name="siteInstallation">
-        <label for="checkSiteInstallation" id="CheckSiteInstallation" class="btn-orange-ext">Ajouter</label>
-      </div>
-      <div class="hidden-form hidden col-12" id="siteInstallationType">
-        <div class="mobile">
-          <input type="checkbox" style="display: none" id="checkSiteInstallationMobile" name="siteInstallationMobile">
-          <label for="checkSiteInstallationMobile" class="card-form" id="SiteInstallationMobile">Mobile</label>
-        </div>
-        <div class="mobile-select">
-          <div class="hidden-form hidden" id="siteInstallationMobile">
-            <form class="simple_form new_selected_installation" id="new_selected_installation" novalidate="novalidate" action=<%= ppsp_selected_installations_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
-              <fieldset class="form-group check_boxes required selected_installation_site_installation">
-                <div class="form-check">
-                  <input type="hidden" name="selected_installation[site_installation_id][]" value="">
-                  <% SiteInstallation.where(mobile: true).each do |site| %>
-                    <div class="form-check">
-                      <input class="form-check-input check_boxes required hidden" type="checkbox" value=<%= site.id %> name="selected_installation[site_installation_id][]" id=<%= "selected_installation_site_installation_id_#{site.id}"%>>
-                      <label class="form-check-label collection_check_boxes card-form" id=<%= "label_selected_installation_site_installation_id_#{site.id}"%> for= <%="selected_installation_site_installation_id_#{site.id}"%>><%= site.name %></label>
-                    </div>
-                  <% end %>
-                </div>
-              </fieldset>
-              <div class="d-flex justify-content-center">
-                <input type="submit" name="commit" value="Ajouter" class="btn-orange" data-disable-with="Ajouter" id="FormSiteInstallation">
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class="fixe">
-          <input type="checkbox" style="display: none" id="checkSiteInstallationFix" name="siteInstallationFix">
-          <label for="checkSiteInstallationFix" class="card-form" id="SiteInstallationFix">Fixe</label>
-        </div>
-        <div class="fixe-select">
-        <%# Not to have a double id with the other form %>
-          <div class="hidden-form hidden" id="siteInstallationFix">
-            <form class="simple_form new_selected_installation" id="new_selected_installation" novalidate="novalidate" action=<%= ppsp_selected_installations_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
-              <fieldset class="form-group check_boxes required selected_installation_site_installation">
-                <div class="form-check">
-                  <input type="hidden" name="selected_installation[site_installation_id][]" value="">
-                  <% SiteInstallation.where(mobile: false).each do |site| %>
-                    <div class="form-check">
-                      <input class="form-check-input check_boxes required hidden" type="checkbox" value=<%= site.id%> name="selected_installation[site_installation_id][]" id=<%="selected_installation_site_installation_id_#{site.id}"%>>
-                      <label class="form-check-label collection_check_boxes card-form" for= <%= "selected_installation_site_installation_id_#{site.id}"%>><%= site.name %></label>
-                    </div>
-                  <% end %>
-                </div>
-              </fieldset>
-              <div class="d-flex justify-content-center">
-                <input type="submit" name="commit" value="Ajouter" class="btn-orange" data-disable-with="Ajouter">
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+    <input type="checkbox" class="hidden" id="checkSiteInstallation" name="siteInstallation">
+    <div class="d-flex justify-content-center">
+      <label for="checkSiteInstallation" id="CheckSiteInstallation" class="btn-orange-ext">Ajouter</label>
     </div>
-  </div>
-
-  <div class="container-altitude-work col-lg-3">
-    <h3 class='title-infos'>Travaux en hauteur</h3>
-    <div class="d-flex flex-column align-items-center">
-      <input type="checkbox" class="hidden" id="checkAltitudeWork" name="altitudeWork">
-      <label for="checkAltitudeWork" id="CheckAltitudeWork" class="btn-orange-ext">Ajouter</label>
-
-      <form class="simple_form new_selected_altitude hidden-form hidden" id="altitudeWork" novalidate="novalidate" action=<%= ppsp_selected_altitudes_path(@ppsp) %> data-remote="true" accept-charset="UTF-8" method="post">
-        <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-        <fieldset class="form-group check_boxes required selected_altitude_altitude_work">
-          <input type="hidden" name="selected_altitude[altitude_work_id][]" value="">
-          <% @work_altitudes.each do |work| %>
-            <div class="form-check">
-              <input class="form-check-input check_boxes required hidden" type="checkbox" value="<%= work.id %>" name="selected_altitude[altitude_work_id][]" id="selected_altitude_altitude_work_id_<%= work.id %>">
-              <label class="form-check-label collection_check_boxes card-form" id="label_selected_altitude_altitude_work_id_<%= work.id %>" for="selected_altitude_altitude_work_id_<%= work.id %>"><%= work.name %></label>
+    <div class="hidden-form hidden" id="siteInstallationType">
+      <div class="container-installation">
+        <input type="checkbox" style="display: none" id="checkSiteInstallationMobile" name="siteInstallationMobile">
+        <label for="checkSiteInstallationMobile" class="card-form" id="SiteInstallationMobile">Mobile</label>
+      </div>
+      <div class="container-installation">
+        <div class="hidden-form hidden" id="siteInstallationMobile">
+          <form class="simple_form new_selected_installation" id="new_selected_installation" novalidate="novalidate" action=<%= ppsp_selected_installations_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
+            <fieldset class="form-group check_boxes required selected_installation_site_installation">
+              <div class="form-check">
+                <input type="hidden" name="selected_installation[site_installation_id][]" value="">
+                <% SiteInstallation.where(mobile: true).each do |site| %>
+                  <div class="form-check">
+                    <input class="form-check-input check_boxes required hidden" type="checkbox" value=<%= site.id %> name="selected_installation[site_installation_id][]" id=<%= "selected_installation_site_installation_id_#{site.id}"%>>
+                    <label class="form-check-label collection_check_boxes card-form" id=<%= "label_selected_installation_site_installation_id_#{site.id}"%> for= <%="selected_installation_site_installation_id_#{site.id}"%>><%= site.name %></label>
+                  </div>
+                <% end %>
+              </div>
+            </fieldset>
+            <div class="d-flex justify-content-center">
+              <input type="submit" name="commit" value="Ajouter" class="btn-orange" data-disable-with="Ajouter" id="FormSiteInstallation">
             </div>
-          <% end %>
-          <div class="d-flex justify-content-center">
-            <input class="form-control string form-altitude-other" type="text" placeholder="Autres..." name="selected_altitude[altitude_work_id][]" id="selected_altitude_altitude_work_id_<%= AltitudeWork.last.id + 1 %>">
-          </div>
-          <div class="d-flex justify-content-center mt-1">
-            <input type="submit" name="commit" class="btn-orange" value="Ajouter" data-disable-with="Ajouter" id="FormAltitudeWork">
-          </div>
-        </fieldset>
-      </form>
+          </form>
+        </div>
+      </div>
+      <div class="container-installation">
+        <input type="checkbox" style="display: none" id="checkSiteInstallationFix" name="siteInstallationFix">
+        <label for="checkSiteInstallationFix" class="card-form" id="SiteInstallationFix">Fixe</label>
+      </div>
+      <div class="container-installation">
+      <%# Not to have a double id with the other form %>
+        <div class="hidden-form hidden" id="siteInstallationFix">
+          <form class="simple_form new_selected_installation" id="new_selected_installation" novalidate="novalidate" action=<%= ppsp_selected_installations_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
+            <fieldset class="form-group check_boxes required selected_installation_site_installation">
+              <div class="form-check">
+                <input type="hidden" name="selected_installation[site_installation_id][]" value="">
+                <% SiteInstallation.where(mobile: false).each do |site| %>
+                  <div class="form-check">
+                    <input class="form-check-input check_boxes required hidden" type="checkbox" value=<%= site.id%> name="selected_installation[site_installation_id][]" id=<%="selected_installation_site_installation_id_#{site.id}"%>>
+                    <label class="form-check-label collection_check_boxes card-form" for= <%= "selected_installation_site_installation_id_#{site.id}"%>><%= site.name %></label>
+                  </div>
+                <% end %>
+              </div>
+            </fieldset>
+            <div class="d-flex justify-content-center">
+              <input type="submit" name="commit" value="Ajouter" class="btn-orange" data-disable-with="Ajouter">
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="container-risks col-lg-3">
-    <h3 class='title-infos'>Types de travaux associés au projet</h3>
-    <div class="d-flex flex-column align-items-center">
-      <label for="checkRisks" id="checkRisks" class="btn-orange-ext">Ajouter</label>
-      <form class="simple_form new_selected_risk hidden" id="new_selected_risk" novalidate="novalidate" action=<%= ppsp_selected_risks_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
-        <fieldset class="form-group check_boxes required selected_risk_risk">
-          <input type="hidden" name="selected_risk[risk_id][]" value="">
+  <div class="container-info">
+    <h3 class='title-infos'>Travaux en hauteur</h3>
+    <input type="checkbox" class="hidden" id="checkAltitudeWork" name="altitudeWork">
+    <div class="d-flex justify-content-center">
+      <label for="checkAltitudeWork" id="CheckAltitudeWork" class="btn-orange-ext">Ajouter</label>
+    </div>
+
+    <form class="simple_form new_selected_altitude hidden-form hidden" id="altitudeWork" novalidate="novalidate" action=<%= ppsp_selected_altitudes_path(@ppsp) %> data-remote="true" accept-charset="UTF-8" method="post">
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+      <fieldset class="form-group check_boxes required selected_altitude_altitude_work">
+        <input type="hidden" name="selected_altitude[altitude_work_id][]" value="">
+        <% @work_altitudes.each do |work| %>
           <div class="form-check">
-            <% Risk.all.each do |risk| %>
-              <input class="form-check-input check_boxes required hidden" type="checkbox" value= <%= risk.id %> name="selected_risk[risk_id][]" id=<%= "selected_risk_risk_id_#{risk.id}" %>>
-              <label class="form-check-label collection_check_boxes card-form" for=<%= "selected_risk_risk_id_#{risk.id}"%> id=<%= "label_selected_risk_risk_id_#{risk.id}" %>><%= risk.name %></label>
-            <% end %>
+            <input class="form-check-input check_boxes required hidden" type="checkbox" value="<%= work.id %>" name="selected_altitude[altitude_work_id][]" id="selected_altitude_altitude_work_id_<%= work.id %>">
+            <label class="form-check-label collection_check_boxes card-form" id="label_selected_altitude_altitude_work_id_<%= work.id %>" for="selected_altitude_altitude_work_id_<%= work.id %>"><%= work.name %></label>
           </div>
-          <div class="d-flex justify-content-center">
-            <input type="submit" name="commit" value="Ajouter" data-disable-with="Ajouter" class="btn-orange" id="FormSelectedRisk">
-          </div>
-        </fieldset>
-      </form>
-    </div>
+        <% end %>
+        <div class="d-flex justify-content-center">
+          <input class="form-control string form-altitude-other" type="text" placeholder="Autres..." name="selected_altitude[altitude_work_id][]" id="selected_altitude_altitude_work_id_<%= AltitudeWork.last.id + 1 %>">
+        </div>
+        <div class="d-flex justify-content-center mt-1">
+          <input type="submit" name="commit" class="btn-orange" value="Ajouter" data-disable-with="Ajouter" id="FormAltitudeWork">
+        </div>
+      </fieldset>
+    </form>
   </div>
 
-  <div class="container-subcontractor col-lg-3">
+  <div class="container-info">
+  <h3 class='title-infos'>Types de travaux associés au projet</h3>
+    <div class="d-flex justify-content-center">
+      <label for="checkRisks" id="checkRisks" class="btn-orange-ext">Ajouter</label>
+    </div>
+    <form class="simple_form new_selected_risk hidden" id="new_selected_risk" novalidate="novalidate" action=<%= ppsp_selected_risks_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
+      <fieldset class="form-group check_boxes required selected_risk_risk">
+        <input type="hidden" name="selected_risk[risk_id][]" value="">
+        <div class="form-check infos-col">
+          <% Risk.all.each do |risk| %>
+            <input class="form-check-input check_boxes required hidden" type="checkbox" value= <%= risk.id %> name="selected_risk[risk_id][]" id=<%= "selected_risk_risk_id_#{risk.id}" %>>
+            <label class="form-check-label collection_check_boxes card-form" for=<%= "selected_risk_risk_id_#{risk.id}"%> id=<%= "label_selected_risk_risk_id_#{risk.id}" %>><%= risk.name %></label>
+          <% end %>
+        </div>
+        <div class="d-flex justify-content-center">
+          <input type="submit" name="commit" value="Ajouter" data-disable-with="Ajouter" class="btn-orange" id="FormSelectedRisk">
+        </div>
+      </fieldset>
+    </form>
+  </div>
+
+  <div class="container-info">
     <h3 class='title-infos'>Sous-traitants</h3>
     <div class="d-flex justify-content-center mb-2">
       <button type="button" class="btn-orange-ext" data-toggle="modal" data-target="#ModalSubcontractor">
@@ -198,8 +196,8 @@
     </div>
     
   </div>
-  
-  <div class="container-btn-centered">
-    <%= link_to "J'ai terminé !", ppsps_path, class: 'btn-blue' %>
-  </div>
+</div>
+
+<div class="container-btn-centered">
+  <%= link_to "J'ai terminé !", ppsps_path, class: 'btn-blue' %>
 </div>

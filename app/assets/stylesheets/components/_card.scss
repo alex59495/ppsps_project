@@ -102,14 +102,29 @@
     cursor: pointer;
   }
   &:before {
-    content: "O";
+    content: "\f0c8";
+    font-family: 'Font Awesome\ 5 Free';
     margin-right: 8px;
+    font-size: 12px;
   }
   &.active {
     &:before {
-      content: "X";
+      content: "\f00c";
+      font-family: 'Font Awesome\ 5 Free';
       margin-right: 8px;
+      font-size: 12px;
+      color: green;
+      font-weight: 900;
     }
+  }
+}
+
+@media(max-width: 1019px) {
+  .card-form {
+    position: relative;
+    left: 33%;
+    margin-right: -33%;
+    width: 50%;
   }
 }
 

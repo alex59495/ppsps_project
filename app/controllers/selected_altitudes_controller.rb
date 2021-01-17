@@ -39,7 +39,7 @@ class SelectedAltitudesController < ApplicationController
 
   def params_selected_altitudes
     array = params.require(:selected_altitude).require(:altitude_work_id)
-    array_clean = array.reject { |c| c.empty? }
+    array.reject { |c| c.empty? }
   end
 
   def id?(value)
