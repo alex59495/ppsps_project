@@ -246,13 +246,26 @@ $btn-add-size: 18px;
   text-align: center;
   border-radius: 50%;
   border: solid 1px black;
-  padding: 8px;
+  padding: 6px;
   box-shadow: 1px 1px 2px 2px $blue-shadow;
+  min-width: 50px;
   .btn-num {
     font-weight: 800;
+    margin-bottom: -8px;
+  }
+  .btn-text {
+    margin-bottom: -4px;
   }
   &:hover {
     cursor: pointer;
     box-shadow: 1px 1px 4px 4px $blue-shadow;
+  }
+}
+
+@media(max-width: 700px) {
+  #btn-mes-infos {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
   }
 }

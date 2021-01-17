@@ -68,6 +68,7 @@
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.9);
   max-width: 330px;
+  position: absolute;
   .card-info-title {
     font-size: 20px;
     font-weight: 500;
@@ -90,6 +91,21 @@
     position: absolute;
     right: 8px;
     cursor: pointer;
+  }
+}
+
+@media(min-width: 700px) {
+  .card-info {
+    top: 80px;
+  }
+}
+
+@media(max-width: 701px) {
+  .card-info {
+    position: absolute;
+    bottom: 70px;
+    right: 10px;
+    top: auto;
   }
 }
 

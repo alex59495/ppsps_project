@@ -60,19 +60,16 @@ const hideInfosSelect = () => {
     if (btnMesInfos) {
       btnMesInfos.addEventListener('click', () => {
         cardInfo.classList.toggle('hidden');
-        btnMesInfos.classList.toggle('hidden');
       });
     }
     if (cardInfoClose) {
       cardInfoClose.addEventListener('click', () => {
         cardInfo.classList.toggle('hidden');
-        btnMesInfos.classList.remove('hidden');
       });
     }
     // Verify if we are coming back on the infos supp page from a destroy action
     if (cardInfo && cardInfo.dataset.show === 'true') {
       cardInfo.classList.remove('hidden');
-      btnMesInfos.classList.add('hidden');
     }
   }
 };

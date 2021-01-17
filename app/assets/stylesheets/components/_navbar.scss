@@ -5,26 +5,19 @@
   background-color: $gray-light;
   margin-bottom: 20px;
   border-bottom: solid 0.5px #cfcfcf;
-  // Utile pour décaler un peu le texte et le centrer par rapport à la flexbox de la navbar
-  // comme il y a plusieurs éléments parfois celui du centre n'est pas totalement centré
-  .navbar-text {
-  position: relative;
-  left: 5%;
-  transform: translateX(-5%);
-    .navbar-company {
-      font-weight: 700;
-      font-size: 20px;
-      text-align: center;
-    }
-    .navbar-user {
-      font-weight: 400;
-      font-size: 14px;
-      text-align: center;
-    }
+  .navbar-company {
+    font-weight: 700;
+    font-size: 20px;
+    text-align: center;
+  }
+  .navbar-user {
+    font-weight: 400;
+    font-size: 14px;
+    text-align: center;
   }
 }
 
-@media (min-width: 601px) {
+@media (min-width: 701px) {
   .nav-icon {
     display: none;
   }
@@ -60,7 +53,7 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .navbar-ppsp {
     font-size: 12px;
   }
