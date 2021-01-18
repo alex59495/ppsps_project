@@ -1,8 +1,9 @@
+/* eslint-disable no-undef */
 const infiniteScroll = () => {
   if (document.querySelector('.container-database')) {
     const THRESHOLD = 30;
-    const window_screen = $(window);
-    const document_screen = $(document);
+    const windowScreen = $(window);
+    const documentScreen = $(document);
     let paginationElem = $('.container-pagination');
     const paginationUrl = paginationElem.attr('data-pagination-endpoint');
     const pagesAmount = paginationElem.attr('data-pagination-pages');
@@ -10,7 +11,7 @@ const infiniteScroll = () => {
     let baseEndpoint;
 
     // validates if pagination URL has query params
-    if (paginationUrl.indexOf('?') != -1) {
+    if (paginationUrl.endsWith('?')) {
       baseEndpoint = `${paginationUrl}&page=`;
     } else {
       baseEndpoint = `${paginationUrl}?page=`;
@@ -41,7 +42,7 @@ const infiniteScroll = () => {
         paginationElem.hide();
       }
       const dbVide = $('.container-db-vide')[0];
-      if (numberElements == 0) {
+      if (numberElements === 0) {
         dbVide.style.display = '';
       } else {
         dbVide.style.display = 'none';
@@ -57,10 +58,10 @@ const infiniteScroll = () => {
     });
 
     // Listen to scrolling
-    window_screen.on('scroll', () => {
+    windowScreen.on('scroll', async () => {
       // Handle the search, in this case we reset the variable - CurrentPage - to 1
       const paginationElem = $('.container-pagination');
-      if (paginationElem.attr('data-search') == 'result') {
+      if (paginationElem.attr('data-search') === 'result') {
         currentPage = 1;
         paginationElem.attr('data-search', 'scroll');
       }
@@ -72,17 +73,19 @@ const infiniteScroll = () => {
       if (
         !isPaginating &&
         currentPage < pagesAmount &&
-        window_screen.scrollTop() >
-          document_screen.height() - window_screen.height() - THRESHOLD
+        windowScreen.scrollTop() >
+          documentScreen.height() - windowScreen.height() - THRESHOLD
       ) {
         isPaginating = true;
-        currentPage++;
+        currentPage += 1;
         paginationElem.show();
         $.ajax({
           url: baseEndpoint + currentPage,
         }).then((resultat) => {
-          appendResult(resultat);
-        });
+          if (window.location.href.endsWith(baseEndpoint.split('/')[1])) {
+            appendResult(resultat);
+          }
+        })
       }
     });
   }
