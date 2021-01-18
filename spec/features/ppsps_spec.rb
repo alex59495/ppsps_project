@@ -198,7 +198,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find("#label_selected_installation_site_installation_id_#{@site_installations.first.id}").click
       find("#label_selected_installation_site_installation_id_#{@site_installations.second.id}").click
       find('#FormSiteInstallation').click
-      expect(page).to have_selector('.card-info')
+      expect(page).to have_selector('#btn-mes-infos')
     end
 
     scenario 'Can add one altitude work' do
@@ -207,27 +207,29 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#CheckAltitudeWork').click
       find("#label_selected_altitude_altitude_work_id_#{@altitude_works.sample.id}").click
       find('#FormAltitudeWork').click
-      expect(page).to have_selector('.card-info')
+      expect(page).to have_selector('#btn-mes-infos')
     end
 
     scenario 'Can add some risks' do
       risks
       visit informations_supplementaires_ppsp_path(@ppsp)
+      find('#checkRisks').click
       find("#label_selected_risk_risk_id_#{@risks.first.id}").click
       find("#label_selected_risk_risk_id_#{@risks.second.id}").click
       find('#FormSelectedRisk').click
-      expect(page).to have_selector('.card-info')
+      expect(page).to have_selector('#btn-mes-infos')
     end
 
     scenario 'Can delete risk' do
       risks
       visit informations_supplementaires_ppsp_path(@ppsp)
+      find('#checkRisks').click
       find("#label_selected_risk_risk_id_#{@risks.first.id}").click
       find('#FormSelectedRisk').click
-      expect(page).to have_selector('.card-info')
-      find('.card-info').click
-      accept_confirm { find('.card-info-delete').click }
-      expect(page).not_to have_selector('.card-info')
+      expect(page).to have_selector('#btn-mes-infos')
+      find('#btn-mes-infos').click
+      find('.card-info-delete').click
+      expect(page).not_to have_selector('#btn-mes-infos')
     end
 
     scenario 'Can delete altitude work' do
@@ -236,10 +238,10 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#CheckAltitudeWork').click
       find("#label_selected_altitude_altitude_work_id_#{@altitude_works.sample.id}").click
       find('#FormAltitudeWork').click
-      expect(page).to have_selector('.card-info')
-      find('.card-info').click
-      accept_confirm { find('.card-info-delete').click }
-      expect(page).not_to have_selector('.card-info')
+      expect(page).to have_selector('#btn-mes-infos')
+      find('#btn-mes-infos').click
+      find('.card-info-delete').click
+      expect(page).not_to have_selector('#btn-mes-infos')
     end
 
     scenario 'Can delete site installation' do
@@ -249,10 +251,10 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#SiteInstallationMobile').click
       find("#label_selected_installation_site_installation_id_#{@site_installations.first.id}").click
       find('#FormSiteInstallation').click
-      expect(page).to have_selector('.card-info')
-      find('.card-info').click
-      accept_confirm { find('.card-info-delete').click }
-      expect(page).not_to have_selector('.card-info')
+      expect(page).to have_selector('#btn-mes-infos')
+      find('#btn-mes-infos').click
+      find('.card-info-delete').click
+      expect(page).not_to have_selector('#btn-mes-infos')
     end
   end
 end
