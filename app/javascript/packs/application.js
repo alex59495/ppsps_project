@@ -20,7 +20,7 @@ import { hideForm, hideInfosSelect } from '../components/hide-elements';
 import { cardForm } from '../components/card-form';
 import flatPicker from '../components/flat-pickr';
 import select2 from '../components/select-2';
-import { infiniteScroll } from '../components/infinite-scroll-db';
+import infiniteScroll from '../components/infinite-scroll-db';
 import { popUp } from '../components/popup';
 import calendar from '../components/calendar';
 import error from '../components/errors';

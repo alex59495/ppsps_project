@@ -17,10 +17,10 @@ export const loadingTrue = () => ({
   payload: true,
 });
 
-export const loadMore = (showUser, page, search) => {
-  const promise = fetch(
-    `/api/v1/ppsps?show_user=${showUser}&page=${page}&search=${search}`
-  ).then((response) => response.json());
+export const loadMore = async (showUser, page, search) => {
+  const response = await fetch(`
+  /api/v1/ppsps?show_user=${showUser}&page=${page}&search=${search}`);
+  const promise = response.json();
   return {
     type: LOAD_MORE,
     payload: promise,

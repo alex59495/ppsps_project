@@ -60,14 +60,14 @@ const infiniteScroll = () => {
     // Listen to scrolling
     windowScreen.on('scroll', async () => {
       // Handle the search, in this case we reset the variable - CurrentPage - to 1
-      const paginationElem = $('.container-pagination');
-      if (paginationElem.attr('data-search') === 'result') {
+      const paginationElemt = $('.container-pagination');
+      if (paginationElemt.attr('data-search') === 'result') {
         currentPage = 1;
-        paginationElem.attr('data-search', 'scroll');
+        paginationElemt.attr('data-search', 'scroll');
       }
       if (currentPage >= pagesAmount) {
         setTimeout(() => {
-          paginationElem.hide();
+          paginationElemt.hide();
         }, 1000);
       }
       if (
@@ -78,17 +78,17 @@ const infiniteScroll = () => {
       ) {
         isPaginating = true;
         currentPage += 1;
-        paginationElem.show();
+        paginationElemt.show();
         $.ajax({
           url: baseEndpoint + currentPage,
         }).then((resultat) => {
           if (window.location.href.endsWith(baseEndpoint.split('/')[1])) {
             appendResult(resultat);
           }
-        })
+        });
       }
     });
   }
 };
 
-export { infiniteScroll };
+export default infiniteScroll;
