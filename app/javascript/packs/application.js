@@ -25,6 +25,7 @@ import { popUp } from '../components/popup';
 import calendar from '../components/calendar';
 import error from '../components/errors';
 import navbarDropdown from '../components/navbar-dropdown';
+import sweetAlertMail from '../components/sweetAlert';
 
 require('@rails/ujs').start();
 require('turbolinks').start();
@@ -50,6 +51,7 @@ document.addEventListener('turbolinks:load', () => {
   infiniteScroll();
   popUp();
   calendar();
+  sweetAlertMail();
 });
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true);
