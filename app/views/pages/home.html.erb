@@ -4,7 +4,7 @@
     <h1>Obras</h1>
     <%# <%= image_tag('logo-ppsp.png') %>
     <h2>Créez votre Plan Particulier de Sécurité et de Protection de la Santé en toute simplicité</h2>
-   <a type="button" class="btn-orange" data-toggle="modal" data-target="#modal-contact">
+   <a type="button" id="mail-sender" class="btn-orange" data-toggle="modal" data-target="#modal-contact">
       Demander une démo
     </a>
   </div>
@@ -58,3 +58,7 @@
     </div>
   </div>
 </div>
+
+<% if sent %>
+  <span id="message-sent"></span>
+<% end %>

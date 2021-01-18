@@ -20,11 +20,12 @@ import { hideForm, hideInfosSelect } from '../components/hide-elements';
 import { cardForm } from '../components/card-form';
 import flatPicker from '../components/flat-pickr';
 import select2 from '../components/select-2';
-import { infiniteScroll } from '../components/infinite-scroll-db';
+import infiniteScroll from '../components/infinite-scroll-db';
 import { popUp } from '../components/popup';
 import calendar from '../components/calendar';
 import error from '../components/errors';
 import navbarDropdown from '../components/navbar-dropdown';
+import sweetAlertMail from '../components/sweetAlert';
 
 require('@rails/ujs').start();
 require('turbolinks').start();
@@ -50,6 +51,7 @@ document.addEventListener('turbolinks:load', () => {
   infiniteScroll();
   popUp();
   calendar();
+  sweetAlertMail();
 });
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true);

@@ -14,7 +14,10 @@ class PagesController < ApplicationController
     email = params[:email]
     description = params[:description]
     contact = { name: name, email: email, description: description }
-    ContactMailer.contact(contact).deliver_now
-    redirect_to root_path
+    if ContactMailer.contact(contact).deliver_now
+      redirect_to root_path, sent: "ok"
+    else
+      redirect_to root_path
+    end
   end
 end

@@ -51,21 +51,10 @@
   justify-content: center;
 }
 
-@media (max-width: 1019px) {
-  .flex-database {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 2em;
-    justify-content: center;
-  }
-}
-
-@media (min-width: 1019px) {
-  .flex-database {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    margin-top: 2em;
-    justify-content: center;
-  }
+.flex-database {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 2em;
+  justify-content: center;
 }
