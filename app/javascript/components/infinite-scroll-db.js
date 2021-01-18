@@ -25,7 +25,7 @@ const infiniteScroll = () => {
       setTimeout(() => {
         clearTimeout();
         paginationElem.hide();
-      }, 100);
+      }, 1000);
     };
 
     const appendResult = (resultat) => {
@@ -58,7 +58,7 @@ const infiniteScroll = () => {
     });
 
     // Listen to scrolling
-    windowScreen.on('scroll', async () => {
+    windowScreen.on('scroll', () => {
       // Handle the search, in this case we reset the variable - CurrentPage - to 1
       const paginationElemt = $('.container-pagination');
       if (paginationElemt.attr('data-search') === 'result') {
@@ -73,7 +73,7 @@ const infiniteScroll = () => {
       if (
         !isPaginating &&
         currentPage < pagesAmount &&
-        windowScreen.scrollTop() >
+        windowScreen.scrollTop() >=
           documentScreen.height() - windowScreen.height() - THRESHOLD
       ) {
         isPaginating = true;
