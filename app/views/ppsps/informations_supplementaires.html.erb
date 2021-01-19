@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-app">
   <h1 class='mb-5'>Ajouter des informations supplémentaires si nécessaire</h1>
   <div class="container-infos-supp mb-5">
     <div class="container-info">
@@ -14,7 +14,7 @@
         </div>
         <div class="container-installation">
           <div class="hidden-form hidden" id="siteInstallationMobile">
-            <form class="simple_form new_selected_installation" id="new_selected_installation" novalidate="novalidate" action=<%= ppsp_selected_installations_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
+            <form class="simple_form new_selected_installation_fixe" id="new_selected_installation_fixe" novalidate="novalidate" action=<%= ppsp_selected_installations_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
               <fieldset class="form-group check_boxes required selected_installation_site_installation">
                 <div class="form-check">
                   <input type="hidden" name="selected_installation[site_installation_id][]" value="">
@@ -39,7 +39,7 @@
         <div class="container-installation">
         <%# Not to have a double id with the other form %>
           <div class="hidden-form hidden" id="siteInstallationFix">
-            <form class="simple_form new_selected_installation" id="new_selected_installation" novalidate="novalidate" action=<%= ppsp_selected_installations_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
+            <form class="simple_form new_selected_installation_mobile" id="new_selected_installation_mobile" novalidate="novalidate" action=<%= ppsp_selected_installations_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
               <fieldset class="form-group check_boxes required selected_installation_site_installation">
                 <div class="form-check">
                   <input type="hidden" name="selected_installation[site_installation_id][]" value="">
@@ -108,11 +108,11 @@
       </form>
     </div>
 
-    <div class="container-info">
+    <div class="container-info container-small">
       <h3 class='title-infos'>Sous-traitants</h3>
       <div class="d-flex justify-content-center mb-2">
         <a type="button" class="btn-orange-ext" data-toggle="modal" data-target="#ModalSubcontractor">
-          Ajouter un sous-traitant
+          Ajouter
         </a>
       </div>
       <!-- Modal -->
