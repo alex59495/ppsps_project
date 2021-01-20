@@ -3,10 +3,9 @@ export const SEARCH_QUERY = 'SEARCH_QUERY';
 export const LOAD_MORE = 'LOAD_MORE';
 export const LOADING_TRUE = 'LOADING_TRUE';
 
-export const fetchPpsps = (showUser) => {
-  const promise = fetch(
-    `/api/v1/ppsps?show_user=${showUser}`
-  ).then((response) => response.json());
+export const fetchPpsps = async (showUser) => {
+  const response = await fetch(`/api/v1/ppsps?show_user=${showUser}`);
+  const promise = response.json();
   return {
     type: FETCH_PPSPS,
     payload: promise,
@@ -18,10 +17,10 @@ export const loadingTrue = () => ({
   payload: true,
 });
 
-export const loadMore = (showUser, page, search) => {
-  const promise = fetch(
-    `/api/v1/ppsps?show_user=${showUser}&page=${page}&search=${search}`
-  ).then((response) => response.json());
+export const loadMore = async (showUser, page, search) => {
+  const response = await fetch(`
+  /api/v1/ppsps?show_user=${showUser}&page=${page}&search=${search}`);
+  const promise = response.json();
   return {
     type: LOAD_MORE,
     payload: promise,
