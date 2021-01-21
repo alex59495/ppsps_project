@@ -19,7 +19,7 @@ class SelectedAltitudesController < ApplicationController
         @selected_altitude.save
       end
     end
-    redirect_to informations_supplementaires_ppsp_path(@ppsp)
+    redirect_to informations_supplementaires_ppsp_path(@ppsp, ajout: true)
     # A CORRIGER CETTE PARTIE
     #   redirect_to ppsp_selected_altitude_path
     # else

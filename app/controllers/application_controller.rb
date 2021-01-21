@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
-  add_flash_types :sent
+  add_flash_types :sent, :destroy_info
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   include Pundit

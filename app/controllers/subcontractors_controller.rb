@@ -14,7 +14,7 @@ class SubcontractorsController < ApplicationController
     authorize @subcontractor
     if @subcontractor.save
       respond_to do |format|
-        format.html { redirect_to informations_supplementaires_ppsp_path(@ppsp) }
+        format.html { redirect_to informations_supplementaires_ppsp_path(@ppsp, ajout: true) }
       end
     else
       # Respond with the .js.erb to print the modal with errors

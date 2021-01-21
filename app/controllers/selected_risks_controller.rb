@@ -9,7 +9,7 @@ class SelectedRisksController < ApplicationController
       authorize @selected_risk
       @selected_risk.save
     end
-    redirect_to informations_supplementaires_ppsp_path(@ppsp)
+    redirect_to informations_supplementaires_ppsp_path(@ppsp, ajout: true)
     # A CORRIGER CETTE PARTIE
     #   redirect_to ppsp_selected_risk_path
     # else

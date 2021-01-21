@@ -18,7 +18,7 @@
         <div class="container-cart-info">
           <div id="cardSelect">
             <% if @num_info_select > 0 %>
-              <div class="card-info hidden" data-show=<%= params[:destroy] ? 'true' : 'false' %>>
+              <div class="card-info hidden" data-show=<%= params[:destroy] || params[:ajout] ? 'true' : 'false' %>>
                 <div id="card-info-close">x</div>
                 <h4><b>Selection</b></h4>
                 <% if @selected_installation_active.count > 0 %>
@@ -29,7 +29,7 @@
                         <%= "#{select_installation.site_installation.name} <i style='font-size: 12px'>(#{select_installation.site_installation.mobile ? "mobile" : "fixe"})</i>".html_safe %>
                       </div>
                       <div class="card-info-delete">
-                        <%= link_to "x",  ppsp_selected_installation_path(@ppsp.id, select_installation.id), method: :delete %>
+                        <%= link_to "x",  ppsp_selected_installation_path(@ppsp.id, select_installation.id), method: :delete, remote: true %>
                       </div>
                     </div>
                   <% end %>
