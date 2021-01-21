@@ -1,26 +1,23 @@
 <% @security_coordinators_page.each do |security_coordinator| %>
-  <div class="card-database">
-    <div id="spacer"></div>
-    <div class="db-element col-15">
-      <%= security_coordinator.name %>
+  <div class="card-bdd">
+    <div class="front">
+      <div class="card-bdd-container">
+        <div class="text-center"><%= security_coordinator.name %></div>
+        <div class="line"><i class="fas fa-user"></i><%= security_coordinator.representative %></div>
+      </div>
     </div>
-    <div class="db-element col-30">
-      <%= security_coordinator.address %>
-    </div>
-    <div class="db-element col-15">
-      <%= security_coordinator.representative %>
-    </div>
-    <div class="db-element col-15">
-    <%= security_coordinator.phone %>
-    </div>
-    <div class="db-element word-break col-20">
-      <%= security_coordinator.email %>
-    </div>
-    <div class="card-db-action">
-      <%= link_to edit_security_coordinator_path(security_coordinator), class: "card-db-edit" do %>
-        <i class='fas fa-pencil-alt'></i>
-      <% end %>
-      <%= link_to "x", destroy_security_coordinator_path(security_coordinator), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+    <div class="back">
+      <div class="card-bdd-container">
+        <div class="line"><i class="fas fa-map-marker-alt"></i><%= security_coordinator.address %></div>
+        <div class="line"><i class="fas fa-phone-alt"></i><%= security_coordinator.phone %></div>
+        <div class="mail"><i class="fas fa-envelope"></i><%= security_coordinator.email %></div>
+        <div class="card-db-action">
+          <%= link_to edit_security_coordinator_path(security_coordinator), class: "card-db-edit" do %>
+            <i class='fas fa-pencil-alt'></i>
+          <% end %>
+          <%= link_to "x", destroy_security_coordinator_path(security_coordinator), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+        </div>
+      </div>
     </div>
   </div>
 <% end %>

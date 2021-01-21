@@ -9,7 +9,7 @@ $btn-add-size: 18px;
   &:hover {
     background-color: $blue-dark;
     text-decoration: none;
-    color: white
+    color: white;
   }
 }
 
@@ -45,27 +45,27 @@ $btn-add-size: 18px;
     position: relative;
     background-color: $orange-soft;
     text-decoration: none;
-  /*   border: 2px solid #f00; */
+    /*   border: 2px solid #f00; */
     text-align: center;
     display: inline-block;
     color: #262626;
     padding: 8px 16px;
   }
-  
+
   a:before {
     content: '';
     position: absolute;
     top: 0px;
     left: 0px;
-  /*   width: 100%;
+    /*   width: 100%;
     height: 100%; */
     width: 0;
     height: 0;
     background: transparent;
-  /*   border: 2px solid #262626; */
+    /*   border: 2px solid #262626; */
     border: 2px solid transparent;
   }
-  
+
   a:hover:before {
     animation: animate-border 0.5s linear forwards;
   }
@@ -75,27 +75,26 @@ $btn-add-size: 18px;
     position: absolute;
     top: 0px;
     left: 0px;
-  /*   width: 100%;
+    /*   width: 100%;
     height: 100%; */
     width: 0;
     height: 0;
     background: transparent;
-  /*   border: 2px solid #262626; */
+    /*   border: 2px solid #262626; */
     border: 2px solid transparent;
   }
-  
+
   a:hover:after {
     animation: animate-border-2 0.5s linear forwards;
     animation-delay: 0.5s;
   }
 }
 
-
 @keyframes animate-border {
   0% {
     width: 0;
     height: 0;
-/*     border: 2px solid transparent; */
+    /*     border: 2px solid transparent; */
     border-top-color: $orange-dark;
     border-right-color: transparent;
     border-bottom-color: transparent;
@@ -104,16 +103,16 @@ $btn-add-size: 18px;
   50% {
     width: 100%;
     height: 0;
-/*     border: 2px solid $orange-dark; */
+    /*     border: 2px solid $orange-dark; */
     border-top-color: $orange-dark;
     border-right-color: $orange-dark;
     border-bottom-color: transparent;
     border-left-color: transparent;
-  }  
+  }
   100% {
     width: 100%;
     height: 100%;
-/*     border: 2px solid #262626; */
+    /*     border: 2px solid #262626; */
     border-top-color: $orange-dark;
     border-right-color: $orange-dark;
     border-bottom-color: transparent;
@@ -127,7 +126,7 @@ $btn-add-size: 18px;
   0% {
     width: 0;
     height: 0;
-/*     border: 2px solid transparent; */
+    /*     border: 2px solid transparent; */
     border-top-color: transparent;
     border-right-color: transparent;
     border-bottom-color: transparent;
@@ -136,25 +135,22 @@ $btn-add-size: 18px;
   50% {
     width: 0;
     height: 100%;
-/*     border: 2px solid #262626; */
+    /*     border: 2px solid #262626; */
     border-top-color: transparent;
     border-right-color: transparent;
     border-bottom-color: $orange-dark;
     border-left-color: $orange-dark;
-  }  
+  }
   100% {
     width: 100%;
     height: 100%;
-/*     border: 2px solid $orange-dark; */
+    /*     border: 2px solid $orange-dark; */
     border-top-color: transparent;
     border-right-color: transparent;
     border-bottom-color: $orange-dark;
     border-left-color: $orange-dark;
   }
 }
-
-
-
 
 .btn-orange-right {
   padding: 8px 16px;
@@ -175,6 +171,9 @@ $btn-add-size: 18px;
   border-radius: 8px;
   border: $orange solid 0.5px;
   color: black;
+  display: inline-block;
+  text-align: center;
+  align-items: flex-start;
   &:hover {
     border: $orange-dark solid 0.5px;
     text-decoration: none;
@@ -183,7 +182,7 @@ $btn-add-size: 18px;
   }
 }
 
-.btn-round{
+.btn-round {
   cursor: pointer;
   position: relative;
   border: 0.1px solid $orange;
@@ -194,41 +193,41 @@ $btn-add-size: 18px;
   height: $btn-add-size;
   margin-left: $btn-add-size/2;
   margin-right: $btn-add-size/5;
-  border-radius: $btn-add-size*0.5;
+  border-radius: $btn-add-size * 0.5;
   overflow: hidden;
-    &::before, &::after{
+  &::before,
+  &::after {
     content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      transition: all 0.25s ease;
-      border-radius: $btn-add-size*0.5;
-    }
-    i{
-      position: relative;
-      color: rgb(59, 59, 59);
-      font-size: $btn-add-size/2;
-      transition: all 0.25s ease;
-    }
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transition: all 0.25s ease;
+    border-radius: $btn-add-size * 0.5;
   }
+  i {
+    position: relative;
+    color: rgb(59, 59, 59);
+    font-size: $btn-add-size/2;
+    transition: all 0.25s ease;
+  }
+}
 
-  .btn-fill{
-    &::before{
-      transition-duration: 0.5s;
-      box-shadow: inset 0 0 0 1px $orange;
-    }
-    &:hover::before{
-      box-shadow: inset 0 0 0 $btn-add-size $orange;
-    }
+.btn-fill {
+  &::before {
+    transition-duration: 0.5s;
+    box-shadow: inset 0 0 0 1px $orange;
   }
-  
+  &:hover::before {
+    box-shadow: inset 0 0 0 $btn-add-size $orange;
+  }
+}
 
 .link {
   color: $orange;
-  &:hover{
-    color: $orange-dark
+  &:hover {
+    color: $orange-dark;
   }
 }
 
@@ -236,8 +235,8 @@ $btn-add-size: 18px;
   margin-bottom: 10px;
   a {
     color: $orange;
-    &:hover{
-      color: $orange-dark
+    &:hover {
+      color: $orange-dark;
     }
   }
 }

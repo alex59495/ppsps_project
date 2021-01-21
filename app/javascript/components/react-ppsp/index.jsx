@@ -41,6 +41,7 @@ const reactPpsp = () => {
     currentUser: current,
     showUser: show,
     page: 2,
+    loading: false,
   };
 
   // Identify the user you're visiting (show page) = currrent_user

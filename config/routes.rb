@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
   get 'database', to: 'pages#database', as: :database
+  get 'contact', to: 'pages#contact', as: :contact
 
   # Ppsp
   resources :ppsps, except: [:destroy] do

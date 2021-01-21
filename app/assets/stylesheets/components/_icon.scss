@@ -1,6 +1,6 @@
 .icon-home {
   font-size: 32px;
-  color: #FF495F;
+  color: #ff495f;
   &:hover {
     color: #ec4558;
   }
@@ -23,7 +23,9 @@
   height: 150px;
   width: 200px;
   margin: auto;
-  display: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 #not-loading {

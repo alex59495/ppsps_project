@@ -65,7 +65,6 @@ gem 'wkhtmltopdf-binary'
 # Faker
 gem 'faker'
 
-
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'

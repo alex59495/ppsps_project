@@ -1,19 +1,21 @@
 <% @direccts_page.each do |direcct| %>
-  <div class="card-database">
-    <div class="db-element col-40">
-      <%= direcct.address %>
+  <div class="card-bdd">
+    <div class="front">
+      <div class="card-bdd-container">
+        <div class="text-center"><%= direcct.fax %></div>
+      </div>
     </div>
-    <div class="db-element col-20">
-      <%= direcct.phone %>
-    </div>
-    <div class="db-element col-20">
-      <%= direcct.fax %>
-    </div>
-    <div class="card-db-action">
-      <%= link_to edit_direcct_path(direcct), class: "card-db-edit", target: '_blank' do %>
-        <i class='fas fa-pencil-alt'></i>
-      <% end %>
-      <%= link_to "x", destroy_direcct_path(direcct), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+    <div class="back">
+      <div class="card-bdd-container">
+        <div class="line"><i class="fas fa-map-marker-alt"></i><%= direcct.address %></div>
+        <div class="line"><i class="fas fa-phone-alt"></i><%= direcct.phone %></div>
+        <div class="card-db-action">
+          <%= link_to edit_direcct_path(direcct), class: "card-db-edit", target: '_blank' do %>
+            <i class='fas fa-pencil-alt'></i>
+          <% end %>
+          <%= link_to "x", destroy_direcct_path(direcct), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+        </div>
+      </div>
     </div>
   </div>
 <% end %>

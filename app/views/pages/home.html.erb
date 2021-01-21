@@ -4,7 +4,9 @@
     <h1>Obras</h1>
     <%# <%= image_tag('logo-ppsp.png') %>
     <h2>Créez votre Plan Particulier de Sécurité et de Protection de la Santé en toute simplicité</h2>
-    <%= link_to "Demander une démo", "mailto:alexis.lenoir60@gmail.com", class: "btn-orange" %>
+   <a type="button" id="mail-sender" class="btn-orange" data-toggle="modal" data-target="#modal-contact">
+      Demander une démo
+    </a>
   </div>
   <div class="home-container-card">
     <div class="home-card">
@@ -40,3 +42,23 @@
     </h2>
   </div>
 </div>
+
+<div class="modal fade rounded" id="modal-contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Saisir les informations ci-dessous</h5>
+        <a type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+        <%= render 'contact/mailer/form' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if sent %>
+  <span id="message-sent"></span>
+<% end %>
