@@ -32,7 +32,7 @@ class DeminingsController < ApplicationController
     authorize @demining
     if @demining.save
       # Create an ordered list to put the last one in first
-      @deminings = Demining.all.sort_by { |demining| demining.created_at }
+      @deminings = policy_scope(Demining.all).sort_by { |demining| demining.created_at }
       # Respond with the view demining/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}

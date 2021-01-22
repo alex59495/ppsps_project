@@ -1,5 +1,5 @@
 class MoasController < ApplicationController
-  before_action :find_moa, only: [ :update, :show, :destroyed, :edit ]
+  before_action :find_moa, only: %i[update show destroyed edit]
 
   def index
     authorize Moa
@@ -21,7 +21,7 @@ class MoasController < ApplicationController
       end
     end
 
-   init_infinite_loop
+    init_infinite_loop
 
     @moa = Moa.new
   end
@@ -32,7 +32,7 @@ class MoasController < ApplicationController
     authorize @moa
     if @moa.save
       # Create an ordered list to put the last one in first
-      @moas = Moa.all.sort_by { |moa| moa.created_at }
+      @moas = policy_scope(Moa.all).sort_by { |moa| moa.created_at }
       # Respond with the view moa/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
@@ -85,10 +85,10 @@ class MoasController < ApplicationController
   private
 
   def init_infinite_loop
-     # Useful for the infinite scroll
-     @moas_page = Kaminari.paginate_array(@moas).page
-     @endpoint = pagination_moas_path
-     @page_amount = @moas_page.total_pages
+    # Useful for the infinite scroll
+    @moas_page = Kaminari.paginate_array(@moas).page
+    @endpoint = pagination_moas_path
+    @page_amount = @moas_page.total_pages
   end
 
   def params_moa

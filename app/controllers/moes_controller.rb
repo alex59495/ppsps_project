@@ -32,7 +32,7 @@ class MoesController < ApplicationController
     authorize @moe
     if @moe.save
       # Create an ordered list to put the last one in first
-      @moes = Moe.all.sort_by { |moe| moe.created_at }
+      @moes = policy_scope(Moe.all).sort_by { |moe| moe.created_at }
       # Respond with the view moe/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}

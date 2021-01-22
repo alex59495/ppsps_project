@@ -32,7 +32,7 @@ class SosHandsController < ApplicationController
     authorize @sos_hand
     if @sos_hand.save
       # Create an ordered list to put the last one in first
-      @sos_hands = SosHand.all.sort_by { |sos_hand| sos_hand.created_at }
+      @sos_hands = policy_scope(SosHand.all).sort_by { |sos_hand| sos_hand.created_at }
       # Respond with the view sos_hand/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}

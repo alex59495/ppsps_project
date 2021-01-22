@@ -31,7 +31,7 @@ class AntiPoisonsController < ApplicationController
     authorize @anti_poison
     if @anti_poison.save
       # Create an ordered list to put the last one in first
-      @anti_poisons = AntiPoison.all.sort_by { |anti_poison| anti_poison.created_at }
+      @anti_poisons = policy_scope(AntiPoison.all).sort_by { |anti_poison| anti_poison.created_at }
       # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
       init_infinite_loop
       # Respond with the view anti_poison/create.js.erb to close the modal and come back to the form

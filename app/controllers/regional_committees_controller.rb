@@ -32,7 +32,7 @@ class RegionalCommitteesController < ApplicationController
     authorize @regional_committee
     if @regional_committee.save
       # Create an ordered list to put the last one in first
-      @regional_committees = RegionalCommittee.all.sort_by { |regional_committee| regional_committee.created_at }
+      @regional_committees = policy_scope(RegionalCommittee.all).sort_by { |regional_committee| regional_committee.created_at }
       # Respond with the view regional_committee/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}

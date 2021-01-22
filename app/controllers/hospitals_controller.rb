@@ -32,7 +32,7 @@ class HospitalsController < ApplicationController
     authorize @hospital
     if @hospital.save
       # Create an ordered list to put the last one in first
-      @hospitals = Hospital.all.sort_by { |hospital| hospital.created_at }
+      @hospitals = policy_scope(Hospital.all).sort_by { |hospital| hospital.created_at }
       # Respond with the view hospital/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}

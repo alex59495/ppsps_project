@@ -30,6 +30,121 @@ RSpec.feature "Databases", type: :feature, js: true do
       login_as(user)
     end
 
+    scenario "Can see the addition of moa in live" do
+      visit(moas_path)
+      find('.btn-blue').click
+      count = page.all('.card-bdd').count
+      fill_in('moa_name', with: 'Test Moa')
+      fill_in('moa_address', with: 'Test Moa')
+      fill_in('moa_representative', with: 'Test Moa')
+      fill_in('moa_email', with: 'test_moa@gmail.com')
+      fill_in('moa_phone', with: '0600000000')
+      find('#MoaBtn').click
+      expect(page).to have_css('.card-bdd', count: count + 1)
+    end
+
+    scenario "Can see the addition of moe in live" do
+      visit(moes_path)
+      find('.btn-blue').click
+      count = page.all('.card-bdd').count
+      fill_in('moe_name', with: 'Test moe')
+      fill_in('moe_address', with: 'Test moe')
+      fill_in('moe_representative', with: 'Test moe')
+      fill_in('moe_email', with: 'test_moe@gmail.com')
+      fill_in('moe_phone', with: '0600000000')
+      find('#MoeBtn').click
+      expect(page).to have_css('.card-bdd', count: count + 1)
+    end
+
+    scenario "Can see the addition of anti_poison in live" do
+      visit(anti_poisons_path)
+      find('.btn-blue').click
+      count = page.all('.card-bdd').count
+      fill_in('anti_poison_name', with: 'Test anti_poison')
+      fill_in('anti_poison_address', with: 'Test anti_poison')
+      fill_in('anti_poison_phone', with: '0600000000')
+      find('#AntiPoisonBtn').click
+      expect(page).to have_css('.card-bdd', count: count + 1)
+    end
+
+    scenario "Can see the addition of demining in live" do
+      visit(deminings_path)
+      find('.btn-blue').click
+      count = page.all('.card-bdd').count
+      fill_in('demining_name', with: 'Test demining')
+      fill_in('demining_address', with: 'Test demining')
+      fill_in('demining_phone', with: '0600000000')
+      find('#DeminingBtn').click
+      expect(page).to have_css('.card-bdd', count: count + 1)
+    end
+
+    scenario "Can see the addition of sos_hand in live" do
+      visit(sos_hands_path)
+      find('.btn-blue').click
+      count = page.all('.card-bdd').count
+      fill_in('sos_hand_name', with: 'Test sos_hand')
+      fill_in('sos_hand_address', with: 'Test sos_hand')
+      fill_in('sos_hand_phone', with: '0600000000')
+      find('#SosBtn').click
+      expect(page).to have_css('.card-bdd', count: count + 1)
+    end
+
+    scenario "Can see the addition of hospital in live" do
+      visit(hospitals_path)
+      find('.btn-blue').click
+      count = page.all('.card-bdd').count
+      fill_in('hospital_name', with: 'Test hospital')
+      fill_in('hospital_address', with: 'Test hospital')
+      fill_in('hospital_phone', with: '0600000000')
+      find('#HospitalBtn').click
+      expect(page).to have_css('.card-bdd', count: count + 1)
+    end
+
+    scenario "Can see the addition of direcct in live" do
+      visit(direccts_path)
+      find('.btn-blue').click
+      count = page.all('.card-bdd').count
+      fill_in('direcct_fax', with: '0600000000')
+      fill_in('direcct_address', with: 'Test direcct')
+      fill_in('direcct_phone', with: '0600000000')
+      find('#DirecctBtn').click
+      expect(page).to have_css('.card-bdd', count: count + 1)
+    end
+
+    scenario "Can see the addition of regional_committee in live" do
+      visit(regional_committees_path)
+      find('.btn-blue').click
+      count = page.all('.card-bdd').count
+      fill_in('regional_committee_name', with: 'Test regional_committee')
+      fill_in('regional_committee_address', with: 'Test regional_committee')
+      fill_in('regional_committee_phone', with: '0600000000')
+      fill_in('regional_committee_fax', with: '0600000000')
+      find('#RegionalBtn').click
+      expect(page).to have_css('.card-bdd', count: count + 1)
+    end
+
+    scenario "Can see the addition of pension_insurance in live" do
+      visit(pension_insurances_path)
+      find('.btn-blue').click
+      count = page.all('.card-bdd').count
+      fill_in('pension_insurance_address', with: 'Test pension_insurance')
+      fill_in('pension_insurance_phone', with: '0600000000')
+      fill_in('pension_insurance_fax', with: '0600000000')
+      find('#PensionBtn').click
+      expect(page).to have_css('.card-bdd', count: count + 1)
+    end
+
+    scenario "Can see the addition of work_medecine in live" do
+      visit(work_medecines_path)
+      find('.btn-blue').click
+      count = page.all('.card-bdd').count
+      fill_in('work_medecine_address', with: 'Test work_medecine')
+      fill_in('work_medecine_phone', with: '0600000000')
+      fill_in('work_medecine_fax', with: '0600000000')
+      find('#WorkMedecineBtn').click
+      expect(page).to have_css('.card-bdd', count: count + 1)
+    end
+
     scenario "Search bar is working for anti_poison" do
       visit(anti_poisons_path)
       find('.search-db').set("Test1")

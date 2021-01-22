@@ -1,5 +1,5 @@
 class DirecctsController < ApplicationController
-  before_action :find_direcct, only: [ :update, :show, :destroyed, :edit ]
+  before_action :find_direcct, only: %i[update show destroyed edit]
 
   def index
     authorize Direcct
@@ -32,7 +32,7 @@ class DirecctsController < ApplicationController
     authorize @direcct
     if @direcct.save
       # Create an ordered list to put the last one in first
-      @direccts = Direcct.all.sort_by { |direcct| direcct.created_at }
+      @direccts = policy_scope(Direcct.all).sort_by { |direcct| direcct.created_at }
       # Respond with the view direcct/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}

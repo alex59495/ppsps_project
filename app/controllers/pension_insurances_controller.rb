@@ -32,7 +32,7 @@ class PensionInsurancesController < ApplicationController
     authorize @pension_insurance
     if @pension_insurance.save
       # Create an ordered list to put the last one in first
-      @pension_insurances = PensionInsurance.all.sort_by { |pension_insurance| pension_insurance.created_at }
+      @pension_insurances = policy_scope(PensionInsurance.all).sort_by { |pension_insurance| pension_insurance.created_at }
       # Respond with the view pension_insurance/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}

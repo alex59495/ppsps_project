@@ -1,5 +1,5 @@
 class SecurityCoordinatorsController < ApplicationController
-  before_action :find_security_coordinator, only: [ :update, :show, :destroyed, :edit ]
+  before_action :find_security_coordinator, only: %i[update show destroyed edit]
 
   def index
     authorize SecurityCoordinator
@@ -32,7 +32,7 @@ class SecurityCoordinatorsController < ApplicationController
     authorize @security_coordinator
     if @security_coordinator.save
       # Create an ordered list to put the last one in first
-      @security_coordinators = SecurityCoordinator.all.sort_by { |s| s.created_at }
+      @security_coordinators = policy_scope(SecurityCoordinator.all).sort_by { |s| s.created_at }
       # Respond with the view security_coordinator/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}

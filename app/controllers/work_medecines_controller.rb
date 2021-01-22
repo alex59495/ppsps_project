@@ -1,5 +1,5 @@
 class WorkMedecinesController < ApplicationController
-  before_action :find_work_medecine, only: [ :update, :show, :destroyed, :edit ]
+  before_action :find_work_medecine, only: %i[update show destroyed edit]
 
   def index
     authorize WorkMedecine
@@ -23,7 +23,6 @@ class WorkMedecinesController < ApplicationController
     @work_medecine = WorkMedecine.new
 
     init_infinite_loop
-
   end
 
   def create
@@ -32,7 +31,7 @@ class WorkMedecinesController < ApplicationController
     authorize @work_medecine
     if @work_medecine.save
       # Create an ordered list to put the last one in first
-      @work_medecines = WorkMedecine.all.sort_by { |work_medecine| work_medecine.created_at }
+      @work_medecines = policy_scope(WorkMedecine.all).sort_by { |work_medecine| work_medecine.created_at }
       # Respond with the view work_medecine/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
@@ -83,7 +82,7 @@ class WorkMedecinesController < ApplicationController
   end
 
   private
-  
+
   def init_infinite_loop
     # Useful for the infinite scroll
     @work_medecines_page = Kaminari.paginate_array(@work_medecines).page
