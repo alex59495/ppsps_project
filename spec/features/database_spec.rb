@@ -30,7 +30,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       login_as(user)
     end
 
-    scenario "Can see the addition of moa in live" do
+    scenario "Can see the addition of moa live (AJAX)" do
       visit(moas_path)
       find('.btn-blue').click
       count = page.all('.card-bdd').count
@@ -43,7 +43,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
-    scenario "Can see the addition of moe in live" do
+    scenario "Can see the addition of moe live (AJAX)" do
       visit(moes_path)
       find('.btn-blue').click
       count = page.all('.card-bdd').count
@@ -56,7 +56,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
-    scenario "Can see the addition of anti_poison in live" do
+    scenario "Can see the addition of anti_poison live (AJAX)" do
       visit(anti_poisons_path)
       find('.btn-blue').click
       count = page.all('.card-bdd').count
@@ -67,7 +67,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
-    scenario "Can see the addition of demining in live" do
+    scenario "Can see the addition of demining live (AJAX)" do
       visit(deminings_path)
       find('.btn-blue').click
       count = page.all('.card-bdd').count
@@ -78,7 +78,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
-    scenario "Can see the addition of sos_hand in live" do
+    scenario "Can see the addition of sos_hand live (AJAX)" do
       visit(sos_hands_path)
       find('.btn-blue').click
       count = page.all('.card-bdd').count
@@ -89,7 +89,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
-    scenario "Can see the addition of hospital in live" do
+    scenario "Can see the addition of hospital live (AJAX)" do
       visit(hospitals_path)
       find('.btn-blue').click
       count = page.all('.card-bdd').count
@@ -100,7 +100,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
-    scenario "Can see the addition of direcct in live" do
+    scenario "Can see the addition of direcct live (AJAX)" do
       visit(direccts_path)
       find('.btn-blue').click
       count = page.all('.card-bdd').count
@@ -111,7 +111,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
-    scenario "Can see the addition of regional_committee in live" do
+    scenario "Can see the addition of regional_committee live (AJAX)" do
       visit(regional_committees_path)
       find('.btn-blue').click
       count = page.all('.card-bdd').count
@@ -123,7 +123,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
-    scenario "Can see the addition of pension_insurance in live" do
+    scenario "Can see the addition of pension_insurance live (AJAX)" do
       visit(pension_insurances_path)
       find('.btn-blue').click
       count = page.all('.card-bdd').count
@@ -134,7 +134,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
-    scenario "Can see the addition of work_medecine in live" do
+    scenario "Can see the addition of work_medecine live (AJAX)" do
       visit(work_medecines_path)
       find('.btn-blue').click
       count = page.all('.card-bdd').count
@@ -142,6 +142,19 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('work_medecine_phone', with: '0600000000')
       fill_in('work_medecine_fax', with: '0600000000')
       find('#WorkMedecineBtn').click
+      expect(page).to have_css('.card-bdd', count: count + 1)
+    end
+
+    scenario "Can see the addition of security_coordinator live (AJAX)" do
+      visit(security_coordinators_path)
+      find('.btn-blue').click
+      count = page.all('.card-bdd').count
+      fill_in('security_coordinator_name', with: 'Test security_coordinator')
+      fill_in('security_coordinator_address', with: 'Test address security_coordinator')
+      fill_in('security_coordinator_representative', with: 'Test rep security_coordinator')
+      fill_in('security_coordinator_phone', with: '0600000000')
+      fill_in('security_coordinator_email', with: 'test_representative@gmail.com')
+      find('#SecurityBtn').click
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
