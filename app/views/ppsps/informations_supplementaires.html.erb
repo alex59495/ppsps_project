@@ -1,26 +1,22 @@
-<div class="container d-flex flex-column align-items-center mb-2">
-  <div class="container-installations">
-    <h1>Installations chantier</h1>
-    <div class="row justify-content-center">
-      <div class="col-12 d-flex justify-content-center">
-        <input type="checkbox" class="hidden" id="checkSiteInstallation" name="siteInstallation">
+<div class="container-app">
+  <h1 class='mb-5'>Ajouter des informations supplémentaires si nécessaire</h1>
+  <div class="container-infos-supp mb-5">
+    <div class="container-info">
+      <h3 class='title-infos'>Installations chantier</h3>
+      <input type="checkbox" class="hidden" id="checkSiteInstallation" name="siteInstallation">
+      <div class="d-flex justify-content-center">
         <label for="checkSiteInstallation" id="CheckSiteInstallation" class="btn-orange-ext">Ajouter</label>
       </div>
-      <div class="hidden-form hidden col-12 row" id="siteInstallationType">
-        <div class="col-6 d-flex justify-content-center">
+      <div class="hidden-form hidden" id="siteInstallationType">
+        <div class="container-installation">
           <input type="checkbox" style="display: none" id="checkSiteInstallationMobile" name="siteInstallationMobile">
-          <label for="checkSiteInstallationMobile" class="btn-orange-ext" id="SiteInstallationMobile">Mobile</label>
+          <label for="checkSiteInstallationMobile" class="card-form" id="SiteInstallationMobile">Mobile</label>
         </div>
-        <div class="col-6 d-flex justify-content-center">
-          <input type="checkbox" style="display: none" id="checkSiteInstallationFix" name="siteInstallationFix">
-          <label for="checkSiteInstallationFix" class="btn-orange-ext" id="SiteInstallationFix">Fixe</label>
-        </div>
-
-        <div class="col-6">
+        <div class="container-installation">
           <div class="hidden-form hidden" id="siteInstallationMobile">
-            <form class="simple_form new_selected_installation" id="new_selected_installation" novalidate="novalidate" action=<%= ppsp_selected_installations_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
+            <form class="simple_form new_selected_installation_fixe" id="new_selected_installation_fixe" novalidate="novalidate" action=<%= ppsp_selected_installations_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
               <fieldset class="form-group check_boxes required selected_installation_site_installation">
-                <div class="form-check d-flex flex-wrap justify-content-start">
+                <div class="form-check">
                   <input type="hidden" name="selected_installation[site_installation_id][]" value="">
                   <% SiteInstallation.where(mobile: true).each do |site| %>
                     <div class="form-check">
@@ -36,13 +32,16 @@
             </form>
           </div>
         </div>
-
-        <div class="col-6">
+        <div class="container-installation">
+          <input type="checkbox" style="display: none" id="checkSiteInstallationFix" name="siteInstallationFix">
+          <label for="checkSiteInstallationFix" class="card-form" id="SiteInstallationFix">Fixe</label>
+        </div>
+        <div class="container-installation">
         <%# Not to have a double id with the other form %>
           <div class="hidden-form hidden" id="siteInstallationFix">
-            <form class="simple_form new_selected_installation" id="new_selected_installation" novalidate="novalidate" action=<%= ppsp_selected_installations_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
+            <form class="simple_form new_selected_installation_mobile" id="new_selected_installation_mobile" novalidate="novalidate" action=<%= ppsp_selected_installations_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
               <fieldset class="form-group check_boxes required selected_installation_site_installation">
-                <div class="form-check d-flex flex-wrap justify-content-start">
+                <div class="form-check">
                   <input type="hidden" name="selected_installation[site_installation_id][]" value="">
                   <% SiteInstallation.where(mobile: false).each do |site| %>
                     <div class="form-check">
@@ -60,13 +59,13 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="altitude-work">
-    <h1>Travaux en hauteur</h1>
-    <div class="d-flex flex-column align-items-center">
+    <div class="container-info">
+      <h3 class='title-infos'>Travaux en hauteur</h3>
       <input type="checkbox" class="hidden" id="checkAltitudeWork" name="altitudeWork">
-      <label for="checkAltitudeWork" id="CheckAltitudeWork" class="btn-orange-ext">Ajouter</label>
+      <div class="d-flex justify-content-center">
+        <label for="checkAltitudeWork" id="CheckAltitudeWork" class="btn-orange-ext">Ajouter</label>
+      </div>
 
       <form class="simple_form new_selected_altitude hidden-form hidden" id="altitudeWork" novalidate="novalidate" action=<%= ppsp_selected_altitudes_path(@ppsp) %> data-remote="true" accept-charset="UTF-8" method="post">
         <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
@@ -78,122 +77,52 @@
               <label class="form-check-label collection_check_boxes card-form" id="label_selected_altitude_altitude_work_id_<%= work.id %>" for="selected_altitude_altitude_work_id_<%= work.id %>"><%= work.name %></label>
             </div>
           <% end %>
-          <input class="form-control string required" type="text" placeholder="Autres..." name="selected_altitude[altitude_work_id][]" id="selected_altitude_altitude_work_id_<%= AltitudeWork.last.id + 1 %>">
+          <div class="d-flex justify-content-center">
+            <input class="form-control string form-altitude-other" type="text" placeholder="Autres..." name="selected_altitude[altitude_work_id][]" id="selected_altitude_altitude_work_id_<%= AltitudeWork.last.id + 1 %>">
+          </div>
           <div class="d-flex justify-content-center mt-1">
             <input type="submit" name="commit" class="btn-orange" value="Ajouter" data-disable-with="Ajouter" id="FormAltitudeWork">
           </div>
         </fieldset>
       </form>
     </div>
-  </div>
 
-  <div class="risks">
-    <h1>Types de travaux associés au projet</h1>
-    <form class="simple_form new_selected_risk" id="new_selected_risk" novalidate="novalidate" action=<%= ppsp_selected_risks_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
+    <div class="container-info">
+    <h3 class='title-infos'>Types de travaux associés au projet</h3>
+      <div class="d-flex justify-content-center">
+        <label for="checkRisks" id="checkRisks" class="btn-orange-ext">Ajouter</label>
+      </div>
+      <form class="simple_form new_selected_risk hidden" id="new_selected_risk" novalidate="novalidate" action=<%= ppsp_selected_risks_path(@ppsp.id)%> accept-charset="UTF-8" data-remote="true" method="post">
         <fieldset class="form-group check_boxes required selected_risk_risk">
           <input type="hidden" name="selected_risk[risk_id][]" value="">
-          <div class="form-check d-flex flex-wrap justify-content-center">
+          <div class="form-check infos-col">
             <% Risk.all.each do |risk| %>
               <input class="form-check-input check_boxes required hidden" type="checkbox" value= <%= risk.id %> name="selected_risk[risk_id][]" id=<%= "selected_risk_risk_id_#{risk.id}" %>>
               <label class="form-check-label collection_check_boxes card-form" for=<%= "selected_risk_risk_id_#{risk.id}"%> id=<%= "label_selected_risk_risk_id_#{risk.id}" %>><%= risk.name %></label>
             <% end %>
           </div>
           <div class="d-flex justify-content-center">
-            <input type="submit" name="commit" value="Ajouter" data-disable-with="Ajouter" class="btn-orange-ext" id="FormSelectedRisk">
+            <input type="submit" name="commit" value="Ajouter" data-disable-with="Ajouter" class="btn-orange" id="FormSelectedRisk">
           </div>
         </fieldset>
-    </form>
-  </div>
-
-  <div class="subcontractor mb-2">
-    <h1>Sous-traitants</h1>
-    <div class="d-flex justify-content-center mb-2">
-      <button type="button" class="btn-orange-ext" data-toggle="modal" data-target="#ModalSubcontractor">
-        Ajouter un sous-traitant
-      </button>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="ModalSubcontractor" tabindex="-1" role="dialog" aria-labelledby="ModalSubcontractor" aria-hidden="true">
-      <%= render 'modal_subcontractor' %>
+      </form>
     </div>
 
-    <div class="container-bottom-right">
-      <div id="cardSelect">
-        <% if @num_info_select > 0 %>
-          <div class="card-info hidden">
-            <div id="card-info-close">x</div>
-            <h2><b>Selection</b></h2>
-            <% if @selected_installation_active.count > 0 %>
-              <h3 class='card-info-title'>Installations</h3>
-              <% @selected_installation_active.each do |select_installation| %>
-                <div class="card-info-selected">
-                  <div class="card-info-name">
-                    <%= "#{select_installation.site_installation.name} <i style='font-size: 12px'>(#{select_installation.site_installation.mobile ? "mobile" : "fixe"})</i>".html_safe %>
-                  </div>
-                  <div class="card-info-delete">
-                    <%= link_to "x",  ppsp_selected_installation_path(@ppsp.id, select_installation.id), method: :delete, remote: true, data: {confirm: "Êtes-vous sûr de vouloir supprimer ?"} %>
-                  </div>
-                </div>
-              <% end %>
-            <% end %>
-            <% if @selected_altitude_active.count > 0 %>
-              <h3 class='card-info-title'>Travail en hauteur</h3>
-              <% @selected_altitude_active.each do |select_altitude| %>
-                <div class="card-info-selected">
-                  <div class="card-info-name">
-                    <% if select_altitude.other %>
-                      <%= select_altitude.altitude_work.name %>, <%= select_altitude.other %>
-                    <% else %>
-                      <%= select_altitude.altitude_work.name %>
-                    <% end %>
-                  </div>
-                  <div class="card-info-delete">
-                    <%= link_to "x",  ppsp_selected_altitude_path(select_altitude.ppsp.id, select_altitude.id), method: :delete, remote: true, data: {confirm: "Êtes-vous sûr de vouloir supprimer ?"} %>
-                  </div>
-                </div>
-              <% end %>
-            <% end %>
-            <% if @selected_risk_active.count > 0 %>
-              <h3 class="card-info-title">Risques</h3>
-              <% @selected_risk_active.each do |select_risk| %>
-                <div class="card-info-selected">
-                  <div class="card-info-name">
-                    <%= select_risk.risk.name %>
-                  </div>
-                  <div class="card-info-delete">
-                    <%= link_to "x",  ppsp_selected_risk_path(select_risk.ppsp.id, select_risk.id), method: :delete, remote: true, data: {confirm: "Êtes-vous sûr de vouloir supprimer ?"} %>
-                  </div>
-                </div>
-              <% end %>
-            <% end %>
-            <% if @ppsp.subcontractors.count > 0 %>
-              <h3 class="card-info-title">Sous Traitants</h3>
-              <% @ppsp.subcontractors.each do |subcontract| %>
-                <div class="card-info-selected">
-                  <div class="card-info-body">
-                    <div class="card-info-name">
-                      <%= subcontract.name %> - <%= subcontract.responsible_name %>
-                    </div>
-                  </div>
-                  <div class="card-info-delete">
-                    <%= link_to "x", ppsp_subcontractor_path(@ppsp, subcontract), method: :delete, remote: true, data: {confirm: "Êtes-vous sûr de vouloir supprimer ?"} %>
-                  </div>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-        <% end %>
+    <div class="container-info container-small">
+      <h3 class='title-infos'>Sous-traitants</h3>
+      <div class="d-flex justify-content-center mb-2">
+        <a type="button" class="btn-orange-ext" data-toggle="modal" data-target="#ModalSubcontractor">
+          Ajouter
+        </a>
       </div>
-
-      <% if @num_info_select > 0 %>
-        <div id="btn-mes-infos" class="card-info pointer">
-          Voir <%= @num_info_select > 1 ? "vos" : "votre" %> <%= @num_info_select > 1 ? @num_info_select : "" %> ajout<%= @num_info_select > 1 ? "s" : "" %>
-        </div>
-      <% end %>
+      <!-- Modal -->
+      <div class="modal fade" id="ModalSubcontractor" tabindex="-1" role="dialog" aria-labelledby="ModalSubcontractor" aria-hidden="true">
+        <%= render 'modal_subcontractor' %>
+      </div>    
     </div>
-    
   </div>
-  
 
-  <%= link_to "J'ai terminé !", ppsps_path, class: 'btn-blue' %>
+  <div class="container-btn-centered">
+    <%= link_to "J'ai terminé !", ppsps_path, class: 'btn-blue' %>
+  </div>
 </div>

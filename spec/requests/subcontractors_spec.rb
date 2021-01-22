@@ -8,14 +8,14 @@ RSpec.describe "Subcontractors", type: :request, js: true do
       @ppsp = create(:ppsp)
       login_as(user)
     end
-    let(:params_subcontractor) { attributes_for(:subcontractor)}
+    let(:params_subcontractor) { attributes_for(:subcontractor) }
 
     describe "Action create" do
-      it { expect{post ppsp_subcontractors_path(@ppsp), params: {subcontractor: params_subcontractor, format: 'js'}}.to change(Subcontractor, :count).by(1)}
+      it { expect { post ppsp_subcontractors_path(@ppsp), params: { subcontractor: params_subcontractor } }.to change(Subcontractor, :count).by(1) }
     end
-    
+
     describe "Action destroy" do
-      it { expect{delete ppsp_subcontractor_path(@ppsp, @subcontractor)}.to change(Subcontractor, :count).by(-1)}
+      it { expect { delete ppsp_subcontractor_path(@ppsp, @subcontractor) }.to change(Subcontractor, :count).by(-1) }
     end
   end
 end

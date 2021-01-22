@@ -9,32 +9,33 @@ class SubcontractorsController < ApplicationController
     @selected_installation_active = SelectedInstallation.where(ppsp_id: @ppsp.id)
     @selected_altitude_active = SelectedAltitude.where(ppsp_id: @ppsp.id)
     @selected_risk_active = SelectedRisk.where(ppsp_id: @ppsp.id)
-    (@selected_installation_active.count > 0 || @selected_altitude_active.count > 0 || @selected_risk_active.count > 0 || @ppsp.subcontractors.count > 0) ? @show_select = true : @show_select = false
+    @selected_installation_active.count > 0 || @selected_altitude_active.count > 0 || @selected_risk_active.count > 0 || @ppsp.subcontractors.count > 0 ? @show_select = true : @show_select = false
 
     authorize @subcontractor
-      if @subcontractor.save
-      # Respond with the view subcontractor/create.js.erb to close the modal and come back to the form
-        respond_to do |format|
-          format.js {}
-        end
-      else
-        # Respond with the .js.erb to print the modal with errors
-        respond_to do |format|
-          format.js { render 'ppsps/modal_subcontractor' }
-        end
+    if @subcontractor.save
+      respond_to do |format|
+        format.html { redirect_to informations_supplementaires_ppsp_path(@ppsp, ajout: true) }
       end
+    else
+      # Respond with the .js.erb to print the modal with errors
+      respond_to do |format|
+        format.js { render 'ppsps/modal_subcontractor' }
+      end
+    end
   end
 
   def destroy
     authorize @subcontractor
     @subcontractor.destroy
-    redirect_to informations_supplementaires_ppsp_path(@ppsp)
+    # Add a params to know if we are coming back to the info supp page from a destroy action
+    redirect_to informations_supplementaires_ppsp_path(@ppsp, destroy: true)
   end
 
   private
+
   def params_subcontractor
-    params.require(:subcontractor).permit(:address, :name, :work, 
-    :responsible_name, :responsible_phone, :responsible_email, :ppsp_id)
+    params.require(:subcontractor).permit(:address, :name, :work,
+                                          :responsible_name, :responsible_phone, :responsible_email, :ppsp_id)
   end
 
   def find_subcontractor

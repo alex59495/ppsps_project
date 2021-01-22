@@ -1,4 +1,10 @@
 const hideForm = () => {
+  const btnAddRisk = document.getElementById('checkRisks');
+  const btnAddAltitudeWork = document.getElementById('CheckAltitudeWork');
+  const btnAddSecurityCoordinator = document.getElementById(
+    'checkSecurityCoordinator'
+  );
+
   if ($('#siteInstallationType')[0]) {
     const siteInstallationType = $('#siteInstallationType')[0];
     const checkSiteInstallation = $('#checkSiteInstallation')[0];
@@ -22,20 +28,22 @@ const hideForm = () => {
       siteInstallationFix.classList.toggle('hidden');
     });
   }
-  if (document.getElementById('altitudeWork')) {
+  if (btnAddAltitudeWork) {
     const altitudeWork = document.getElementById('altitudeWork');
-    const checkAltitudeWork = document.getElementById('checkAltitudeWork');
-    checkAltitudeWork.addEventListener('click', () => {
+    btnAddAltitudeWork.addEventListener('click', () => {
       altitudeWork.classList.toggle('hidden');
     });
   }
-  if (document.getElementById('securityCoordinator')) {
+  if (btnAddSecurityCoordinator) {
     const securityCoordinator = document.getElementById('securityCoordinator');
-    const checkSecurityCoordinator = document.getElementById(
-      'checkSecurityCoordinator'
-    );
-    checkSecurityCoordinator.addEventListener('click', () => {
+    btnAddSecurityCoordinator.addEventListener('click', () => {
       securityCoordinator.classList.toggle('hidden');
+    });
+  }
+  if (btnAddRisk) {
+    const selectedRisks = document.getElementById('new_selected_risk');
+    btnAddRisk.addEventListener('click', () => {
+      selectedRisks.classList.toggle('hidden');
     });
   }
 };
@@ -45,6 +53,10 @@ const hideInfosSelect = () => {
     const cardInfo = document.querySelector('.card-info');
     const btnMesInfos = document.getElementById('btn-mes-infos');
     const cardInfoClose = document.getElementById('card-info-close');
+    // Remove button if card info exists (example : after adding a subcontractor)
+    if (cardInfo && !cardInfo.classList.contains('hidden')) {
+      btnMesInfos.classList.remove('hidden');
+    }
     if (btnMesInfos) {
       btnMesInfos.addEventListener('click', () => {
         cardInfo.classList.toggle('hidden');
@@ -54,6 +66,10 @@ const hideInfosSelect = () => {
       cardInfoClose.addEventListener('click', () => {
         cardInfo.classList.toggle('hidden');
       });
+    }
+    // Verify if we are coming back on the infos supp page from a destroy action
+    if (cardInfo && cardInfo.dataset.show === 'true') {
+      cardInfo.classList.remove('hidden');
     }
   }
 };
