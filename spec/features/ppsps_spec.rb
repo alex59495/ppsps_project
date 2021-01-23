@@ -137,7 +137,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#ppsp_agglomeration').find(:xpath, 'option[2]').select_option
       find('#ppsp_street_impact').find(:xpath, 'option[2]').select_option
       find('#ppsp_river_guidance').find(:xpath, 'option[2]').select_option
-      click_button 'Créer un nouveau PPSP'
+      click_button 'Accéder à la deuxième page'
       expect(page).to have_current_path(informations_supplementaires_ppsp_path(Ppsp.last))
     end
 
@@ -156,7 +156,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
     scenario 'Change the field when update' do
       visit(edit_ppsp_path(@ppsp))
       fill_in('ppsp_project_information_attributes_site_manager_attributes_name', with: 'Update chef de chantier')
-      expect { click_button('Mettre à jour le PPSP') }.to change { @ppsp.reload.project_information.site_manager.name }
+      expect { click_button('Accéder à la deuxième page') }.to change { @ppsp.reload.project_information.site_manager.name }
         .from('Test de chef de chantier')
         .to('Update chef de chantier')
     end
