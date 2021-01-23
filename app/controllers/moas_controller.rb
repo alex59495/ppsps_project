@@ -1,5 +1,6 @@
 class MoasController < ApplicationController
   before_action :find_moa, only: %i[update show destroyed edit]
+  skip_before_action :verify_authenticity_token
 
   def index
     authorize Moa
