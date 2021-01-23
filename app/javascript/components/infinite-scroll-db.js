@@ -49,7 +49,6 @@ const infiniteScroll = () => {
 
     // Listen to scrolling
     windowScreen.on('scroll', () => {
-      console.log(currentPage);
       // Handle the search, in this case we reset the variable - CurrentPage - to 1
       const paginationElemt = $('.container-pagination');
       if (paginationElemt.attr('data-search') === 'search') {

@@ -1,10 +1,10 @@
 class MoesController < ApplicationController
-  before_action :find_moe, only: [ :update, :show, :destroyed, :edit ]
+  before_action :find_moe, only: %i[update show destroyed edit]
 
   def index
     authorize Moe
     if params[:query]
-      @moes = policy_scope(Moe.search_moe(params[:query]))
+      @moes = policy_scope(Moe.search(params[:query]))
       @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
@@ -73,7 +73,7 @@ class MoesController < ApplicationController
   # Useful for the infinite loop
   def pagination
     if params[:query]
-      @moes = policy_scope(Moe.search_moe(params[:query]))
+      @moes = policy_scope(Moe.search(params[:query]))
     else
       @moes = policy_scope(Moe.all)
     end

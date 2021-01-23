@@ -4,7 +4,7 @@ class DirecctsController < ApplicationController
   def index
     authorize Direcct
     if params[:query]
-      @direccts = policy_scope(Direcct.search_direcct(params[:query]))
+      @direccts = policy_scope(Direcct.search(params[:query]))
       @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
@@ -73,7 +73,7 @@ class DirecctsController < ApplicationController
   # Useful for the infinite loop
   def pagination
     if params[:query]
-      @direccts = policy_scope(Direcct.search_direcct(params[:query]))
+      @direccts = policy_scope(Direcct.search(params[:query]))
     else
       @direccts = policy_scope(Direcct.all)
     end

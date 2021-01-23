@@ -4,7 +4,7 @@ class SecurityCoordinatorsController < ApplicationController
   def index
     authorize SecurityCoordinator
     if params[:query]
-      @security_coordinators = policy_scope(SecurityCoordinator.search_security_coordinator(params[:query]))
+      @security_coordinators = policy_scope(SecurityCoordinator.search(params[:query]))
       @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
@@ -73,7 +73,7 @@ class SecurityCoordinatorsController < ApplicationController
   # Useful for the infinite loop
   def pagination
     if params[:query]
-      @security_coordinators = policy_scope(SecurityCoordinator.search_security_coordinator(params[:query]))
+      @security_coordinators = policy_scope(SecurityCoordinator.search(params[:query]))
     else
       @security_coordinators = policy_scope(SecurityCoordinator.all)
     end

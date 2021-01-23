@@ -4,7 +4,7 @@ class WorkMedecinesController < ApplicationController
   def index
     authorize WorkMedecine
     if params[:query]
-      @work_medecines = policy_scope(WorkMedecine.search_work_medecine(params[:query]))
+      @work_medecines = policy_scope(WorkMedecine.search(params[:query]))
       @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
@@ -72,7 +72,7 @@ class WorkMedecinesController < ApplicationController
   # Useful for the infinite loop
   def pagination
     if params[:query]
-      @work_medecines = policy_scope(WorkMedecine.search_work_medecine(params[:query]))
+      @work_medecines = policy_scope(WorkMedecine.search(params[:query]))
     else
       @work_medecines = policy_scope(WorkMedecine.all)
     end

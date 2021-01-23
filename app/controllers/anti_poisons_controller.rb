@@ -1,10 +1,10 @@
 class AntiPoisonsController < ApplicationController
-  before_action :find_anti_poison, only: [ :update, :show, :destroyed, :edit ]
+  before_action :find_anti_poison, only: %i[update show destroyed edit]
 
   def index
     authorize AntiPoison
     if params[:query]
-      @anti_poisons = policy_scope(AntiPoison.search_anti_poison(params[:query]))
+      @anti_poisons = policy_scope(AntiPoison.search(params[:query]))
       @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
@@ -44,7 +44,6 @@ class AntiPoisonsController < ApplicationController
         format.js { render 'ppsps/modal_anti_poison' }
       end
     end
-
   end
 
   def edit
@@ -73,7 +72,7 @@ class AntiPoisonsController < ApplicationController
   # Useful for the infinite loop
   def pagination
     if params[:query]
-      @anti_poisons = policy_scope(AntiPoison.search_anti_poison(params[:query]))
+      @anti_poisons = policy_scope(AntiPoison.search(params[:query]))
     else
       @anti_poisons = policy_scope(AntiPoison.all)
     end

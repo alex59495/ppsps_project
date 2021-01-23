@@ -4,7 +4,7 @@ class RegionalCommitteesController < ApplicationController
   def index
     authorize RegionalCommittee
     if params[:query]
-      @regional_committees = policy_scope(RegionalCommittee.search_regional_committee(params[:query]))
+      @regional_committees = policy_scope(RegionalCommittee.search(params[:query]))
       @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
@@ -73,7 +73,7 @@ class RegionalCommitteesController < ApplicationController
   # Useful for the infinite loop
   def pagination
     if params[:query]
-      @regional_committees = policy_scope(RegionalCommittee.search_regional_committee(params[:query]))
+      @regional_committees = policy_scope(RegionalCommittee.search(params[:query]))
     else
       @regional_committees = policy_scope(RegionalCommittee.all)
     end

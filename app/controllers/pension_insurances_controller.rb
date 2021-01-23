@@ -1,10 +1,10 @@
 class PensionInsurancesController < ApplicationController
-  before_action :find_pension_insurance, only: [ :update, :show, :destroyed, :edit ]
+  before_action :find_pension_insurance, only: %i[update show destroyed edit]
 
   def index
     authorize PensionInsurance
     if params[:query]
-      @pension_insurances = policy_scope(PensionInsurance.search_pension_insurance(params[:query]))
+      @pension_insurances = policy_scope(PensionInsurance.search(params[:query]))
       @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
@@ -73,7 +73,7 @@ class PensionInsurancesController < ApplicationController
   # Useful for the infinite loop
   def pagination
     if params[:query]
-      @pension_insurances = policy_scope(PensionInsurance.search_pension_insurance(params[:query]))
+      @pension_insurances = policy_scope(PensionInsurance.search(params[:query]))
     else
       @pension_insurances = policy_scope(PensionInsurance.all)
     end

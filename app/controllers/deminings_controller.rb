@@ -4,7 +4,7 @@ class DeminingsController < ApplicationController
   def index
     authorize Demining
     if params[:query]
-      @deminings = policy_scope(Demining.search_demining(params[:query]))
+      @deminings = policy_scope(Demining.search(params[:query]))
       @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
@@ -73,7 +73,7 @@ class DeminingsController < ApplicationController
   # Useful for the infinite loop
   def pagination
     if params[:query]
-      @deminings = policy_scope(Demining.search_demining(params[:query]))
+      @deminings = policy_scope(Demining.search(params[:query]))
     else
       @deminings = policy_scope(Demining.all)
     end

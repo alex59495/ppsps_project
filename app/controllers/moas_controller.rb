@@ -5,7 +5,7 @@ class MoasController < ApplicationController
   def index
     authorize Moa
     if params[:query]
-      @moas = policy_scope(Moa.search_moa(params[:query]))
+      @moas = policy_scope(Moa.search(params[:query]))
       @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
@@ -74,7 +74,7 @@ class MoasController < ApplicationController
   # Useful for the infinite loop
   def pagination
     if params[:query]
-      @moas = policy_scope(Moa.search_moa(params[:query]))
+      @moas = policy_scope(Moa.search(params[:query]))
     else
       @moas = policy_scope(Moa.all)
     end

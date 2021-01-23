@@ -1,10 +1,10 @@
 class SosHandsController < ApplicationController
-  before_action :find_sos_hand, only: [ :update, :show, :destroyed, :edit ]
+  before_action :find_sos_hand, only: %i[update show destroyed edit]
 
   def index
     authorize SosHand
     if params[:query]
-      @sos_hands = policy_scope(SosHand.search_sos_hand(params[:query]))
+      @sos_hands = policy_scope(SosHand.search(params[:query]))
       @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
@@ -73,7 +73,7 @@ class SosHandsController < ApplicationController
   # Useful for the infinite loop
   def pagination
     if params[:query]
-      @sos_hands = policy_scope(SosHand.search_sos_hand(params[:query]))
+      @sos_hands = policy_scope(SosHand.search(params[:query]))
     else
       @sos_hands = policy_scope(SosHand.all)
     end
