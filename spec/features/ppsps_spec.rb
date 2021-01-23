@@ -192,6 +192,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         fill_in('moa_email', with: 'test_moa@gmail.com')
         fill_in('moa_phone', with: '0600000000')
         find('#MoaBtn').click
+        wait_for_ajax
         expect(page).to have_css('#ppsp_moa_id > option', count: count + 1)
       end
 
@@ -204,6 +205,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         fill_in('moe_email', with: 'test_moe@gmail.com')
         fill_in('moe_phone', with: '0600000000')
         find('#MoeBtn').click
+        wait_for_ajax
         expect(page).to have_css('#ppsp_moe_id > option', count: count + 1)
       end
 
@@ -214,6 +216,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         fill_in('anti_poison_address', with: 'Test anti_poison')
         fill_in('anti_poison_phone', with: '0600000000')
         find('#AntiPoisonBtn').click
+        wait_for_ajax
         expect(page).to have_css('#ppsp_anti_poison_id > option', count: count + 1)
       end
 
@@ -224,6 +227,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         fill_in('demining_address', with: 'Test demining')
         fill_in('demining_phone', with: '0600000000')
         find('#DeminingBtn').click
+        wait_for_ajax
         expect(page).to have_css('#ppsp_demining_id > option', count: count + 1)
       end
 
@@ -234,6 +238,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         fill_in('sos_hand_address', with: 'Test sos_hand')
         fill_in('sos_hand_phone', with: '0600000000')
         find('#SosBtn').click
+        wait_for_ajax
         expect(page).to have_css('#ppsp_sos_hand_id > option', count: count + 1)
       end
 
@@ -244,6 +249,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         fill_in('hospital_address', with: 'Test hospital')
         fill_in('hospital_phone', with: '0600000000')
         find('#HospitalBtn').click
+        wait_for_ajax
         expect(page).to have_css('#ppsp_hospital_id > option', count: count + 1)
       end
 
@@ -254,6 +260,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         fill_in('direcct_address', with: 'Test direcct')
         fill_in('direcct_phone', with: '0600000000')
         find('#DirecctBtn').click
+        wait_for_ajax
         expect(page).to have_css('#ppsp_direcct_id > option', count: count + 1)
       end
 
@@ -265,6 +272,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         fill_in('regional_committee_phone', with: '0600000000')
         fill_in('regional_committee_fax', with: '0600000000')
         find('#RegionalBtn').click
+        wait_for_ajax
         expect(page).to have_css('#ppsp_regional_committee_id > option', count: count + 1)
       end
 
@@ -275,6 +283,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         fill_in('pension_insurance_phone', with: '0600000000')
         fill_in('pension_insurance_fax', with: '0600000000')
         find('#PensionBtn').click
+        wait_for_ajax
         expect(page).to have_css('#ppsp_pension_insurance_id > option', count: count + 1)
       end
 
@@ -285,6 +294,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         fill_in('work_medecine_phone', with: '0600000000')
         fill_in('work_medecine_fax', with: '0600000000')
         find('#WorkMedecineBtn').click
+        wait_for_ajax
         expect(page).to have_css('#ppsp_work_medecine_id > option', count: count + 1)
       end
 
@@ -297,6 +307,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         fill_in('security_coordinator_phone', with: '0600000000')
         fill_in('security_coordinator_email', with: 'test_representative@gmail.com')
         find('#SecurityBtn').click
+        wait_for_ajax
         expect(page).to have_css('#ppsp_security_coordinator_id > option', count: count + 1)
       end
 
