@@ -32,8 +32,8 @@ RSpec.feature "Databases", type: :feature, js: true do
 
     scenario "Can see the addition of moa live (AJAX)" do
       visit(moas_path)
-      find('.btn-blue').click
       count = page.all('.card-bdd').count
+      find('.btn-blue').click
       fill_in('moa_name', with: 'Test Moa')
       fill_in('moa_address', with: 'Test Moa')
       fill_in('moa_representative', with: 'Test Moa')
@@ -45,8 +45,8 @@ RSpec.feature "Databases", type: :feature, js: true do
 
     scenario "Can see the addition of moe live (AJAX)" do
       visit(moes_path)
-      find('.btn-blue').click
       count = page.all('.card-bdd').count
+      find('.btn-blue').click
       fill_in('moe_name', with: 'Test moe')
       fill_in('moe_address', with: 'Test moe')
       fill_in('moe_representative', with: 'Test moe')
@@ -58,8 +58,8 @@ RSpec.feature "Databases", type: :feature, js: true do
 
     scenario "Can see the addition of anti_poison live (AJAX)" do
       visit(anti_poisons_path)
-      find('.btn-blue').click
       count = page.all('.card-bdd').count
+      find('.btn-blue').click
       fill_in('anti_poison_name', with: 'Test anti_poison')
       fill_in('anti_poison_address', with: 'Test anti_poison')
       fill_in('anti_poison_phone', with: '0600000000')
@@ -69,8 +69,8 @@ RSpec.feature "Databases", type: :feature, js: true do
 
     scenario "Can see the addition of demining live (AJAX)" do
       visit(deminings_path)
-      find('.btn-blue').click
       count = page.all('.card-bdd').count
+      find('.btn-blue').click
       fill_in('demining_name', with: 'Test demining')
       fill_in('demining_address', with: 'Test demining')
       fill_in('demining_phone', with: '0600000000')
@@ -80,8 +80,8 @@ RSpec.feature "Databases", type: :feature, js: true do
 
     scenario "Can see the addition of sos_hand live (AJAX)" do
       visit(sos_hands_path)
-      find('.btn-blue').click
       count = page.all('.card-bdd').count
+      find('.btn-blue').click
       fill_in('sos_hand_name', with: 'Test sos_hand')
       fill_in('sos_hand_address', with: 'Test sos_hand')
       fill_in('sos_hand_phone', with: '0600000000')
@@ -91,8 +91,8 @@ RSpec.feature "Databases", type: :feature, js: true do
 
     scenario "Can see the addition of hospital live (AJAX)" do
       visit(hospitals_path)
-      find('.btn-blue').click
       count = page.all('.card-bdd').count
+      find('.btn-blue').click
       fill_in('hospital_name', with: 'Test hospital')
       fill_in('hospital_address', with: 'Test hospital')
       fill_in('hospital_phone', with: '0600000000')
@@ -102,8 +102,8 @@ RSpec.feature "Databases", type: :feature, js: true do
 
     scenario "Can see the addition of direcct live (AJAX)" do
       visit(direccts_path)
-      find('.btn-blue').click
       count = page.all('.card-bdd').count
+      find('.btn-blue').click
       fill_in('direcct_fax', with: '0600000000')
       fill_in('direcct_address', with: 'Test direcct')
       fill_in('direcct_phone', with: '0600000000')
@@ -113,8 +113,8 @@ RSpec.feature "Databases", type: :feature, js: true do
 
     scenario "Can see the addition of regional_committee live (AJAX)" do
       visit(regional_committees_path)
-      find('.btn-blue').click
       count = page.all('.card-bdd').count
+      find('.btn-blue').click
       fill_in('regional_committee_name', with: 'Test regional_committee')
       fill_in('regional_committee_address', with: 'Test regional_committee')
       fill_in('regional_committee_phone', with: '0600000000')
@@ -125,8 +125,8 @@ RSpec.feature "Databases", type: :feature, js: true do
 
     scenario "Can see the addition of pension_insurance live (AJAX)" do
       visit(pension_insurances_path)
-      find('.btn-blue').click
       count = page.all('.card-bdd').count
+      find('.btn-blue').click
       fill_in('pension_insurance_address', with: 'Test pension_insurance')
       fill_in('pension_insurance_phone', with: '0600000000')
       fill_in('pension_insurance_fax', with: '0600000000')
@@ -136,8 +136,8 @@ RSpec.feature "Databases", type: :feature, js: true do
 
     scenario "Can see the addition of work_medecine live (AJAX)" do
       visit(work_medecines_path)
-      find('.btn-blue').click
       count = page.all('.card-bdd').count
+      find('.btn-blue').click
       fill_in('work_medecine_address', with: 'Test work_medecine')
       fill_in('work_medecine_phone', with: '0600000000')
       fill_in('work_medecine_fax', with: '0600000000')
@@ -147,8 +147,8 @@ RSpec.feature "Databases", type: :feature, js: true do
 
     scenario "Can see the addition of security_coordinator live (AJAX)" do
       visit(security_coordinators_path)
-      find('.btn-blue').click
       count = page.all('.card-bdd').count
+      find('.btn-blue').click
       fill_in('security_coordinator_name', with: 'Test security_coordinator')
       fill_in('security_coordinator_address', with: 'Test address security_coordinator')
       fill_in('security_coordinator_representative', with: 'Test rep security_coordinator')

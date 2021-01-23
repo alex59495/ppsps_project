@@ -58,7 +58,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
             <% if policy(Moa).new? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalMoa">
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalMoa" id="MoaDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -71,7 +71,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_moe_id">MOE <abbr title="required">*</abbr></label>
             <% if policy(Moe).new? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalMoe">
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalMoe" id="MoeDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -120,7 +120,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_regional_committee_id">Comité régional de l'OPPBTP <abbr title="required">*</abbr></label>
             <% if policy(RegionalCommittee).create? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalRegionalCommittee">
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalRegionalCommittee" id="RegionalDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -133,7 +133,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_pension_insurance_id">Caisse d'assurance retraite <abbr title="required">*</abbr></label>
             <% if policy(PensionInsurance).create? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalPensionInsurance">
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalPensionInsurance" id="PensionDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -146,7 +146,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_direcct_id">DIRECCT <abbr title="required">*</abbr></label>
             <% if policy(Direcct).create? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalDirecct">
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalDirecct" id="DirecctDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -159,7 +159,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_work_medecine_id">Médecine du travail <abbr title="required">*</abbr></label>
             <% if policy(WorkMedecine).create? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalWorkMedecine">
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalWorkMedecine" id="MedecineDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -172,7 +172,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_demining_id">Centre de déminage <abbr title="required">*</abbr></label>
             <% if policy(Demining).create? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalDemining">
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalDemining" id="DeminingDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -185,7 +185,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_sos_hand_id">Centre SOS Mains et Doigts<abbr title="required">*</abbr></label>
             <% if policy(SosHand).create? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSosHand">
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSosHand" id="SosDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -198,7 +198,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_anti_poison_id">Centre anti-poison <abbr title="required">*</abbr></label>
             <% if policy(AntiPoison).create? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalAntiPoison">
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalAntiPoison" id="AntiPoisonDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -211,7 +211,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_hospital_id">Hôpital le plus proche <abbr title="required">*</abbr></label>
             <% if policy(Hospital).create? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalHospital">
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalHospital" id="HospitalDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -224,7 +224,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_security_coordinator_id">Coordinateur sécurité</label>
             <% if policy(SecurityCoordinator).create? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSecurityCoordinator">
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSecurityCoordinator" id="SecurityDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
