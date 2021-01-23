@@ -4,6 +4,8 @@ class ContactMailer < ApplicationMailer
 
   def contact(contact)
     @contact = contact
+    return unless @contact.keys == %i[name email description]
+
     mail(to: @contact[:email], subject: 'Une nouvelle demande de test a été effectuée')
   end
 end
