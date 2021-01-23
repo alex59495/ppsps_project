@@ -1,10 +1,10 @@
 class HospitalsController < ApplicationController
-  before_action :find_hospital, only: [ :update, :show, :destroyed, :edit ]
-  
+  before_action :find_hospital, only: %i[update show destroyed edit]
+
   def index
     authorize Hospital
     if params[:query]
-      @hospitals = policy_scope(Hospital.search_hospital(params[:query]))
+      @hospitals = policy_scope(Hospital.search(params[:query]))
       @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
@@ -37,7 +37,7 @@ class HospitalsController < ApplicationController
       respond_to do |format|
         format.js {}
       end
-       # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
+      # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
       init_infinite_loop
     else
       # Respond with the .js.erb to print the modal with errors
@@ -73,7 +73,7 @@ class HospitalsController < ApplicationController
   # Useful for the infinite loop
   def pagination
     if params[:query]
-      @hospitals = policy_scope(Hospital.search_hospital(params[:query]))
+      @hospitals = policy_scope(Hospital.search(params[:query]))
     else
       @hospitals = policy_scope(Hospital.all)
     end
@@ -83,6 +83,7 @@ class HospitalsController < ApplicationController
   end
 
   private
+
   def init_infinite_loop
     # Useful for the infinite scroll
     @hospitals_page = Kaminari.paginate_array(@hospitals).page

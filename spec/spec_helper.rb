@@ -6,18 +6,6 @@ require 'capybara/rspec'
 # this file to always be loaded, without a need to explicitly require it in any
 # files.
 
-module WaitForAjax
-  def wait_for_ajax
-    Timeout.timeout(Capybara.default_max_wait_time) do
-      loop until finished_all_ajax_requests?
-    end
-  end
-
-  def finished_all_ajax_requests?
-    page.evaluate_script('jQuery.active').zero?
-  end
-end
-
 RSpec.configure do |config|
 end
 
@@ -44,9 +32,6 @@ RSpec.configure do |config|
   config.before(:suite) do
     FactoryBot.lint
   end
-
-  # Wait for Ajax request to be done
-  config.include WaitForAjax, type: :feature
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
