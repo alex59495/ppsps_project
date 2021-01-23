@@ -299,6 +299,101 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         find('#SecurityBtn').click
         expect(page).to have_css('#ppsp_security_coordinator_id > option', count: count + 1)
       end
+
+      scenario "Rerender MOA form when not filling right" do
+        find('#MoaDb').click
+        fill_in('moa_name', with: 'Test Moa')
+        fill_in('moa_representative', with: 'Test Moa')
+        fill_in('moa_email', with: 'test_moa@gmail.com')
+        fill_in('moa_phone', with: '0600000000')
+        find('#MoaBtn').click
+        expect(page).to have_css('.is-invalid')
+      end
+
+      scenario "Rerender MOE form when not filling right" do
+        find('#MoeDb').click
+        fill_in('moe_name', with: 'Test moe')
+        fill_in('moe_representative', with: 'Test moe')
+        fill_in('moe_email', with: 'test_moe@gmail.com')
+        fill_in('moe_phone', with: '0600000000')
+        find('#MoeBtn').click
+        expect(page).to have_css('.is-invalid')
+      end
+
+      scenario "Rerender AntiPoison when not filling right" do
+        find('#AntiPoisonDb').click
+        fill_in('anti_poison_address', with: 'Test anti_poison')
+        fill_in('anti_poison_phone', with: '0600000000')
+        find('#AntiPoisonBtn').click
+        expect(page).to have_css('.is-invalid')
+      end
+
+      scenario "Rerender Demining when not filling right" do
+        find('#DeminingDb').click
+        fill_in('demining_address', with: 'Test demining')
+        fill_in('demining_phone', with: '0600000000')
+        find('#DeminingBtn').click
+        expect(page).to have_css('.is-invalid')
+      end
+
+      scenario "Rerender Sos Hand when not filling right" do
+        find('#SosDb').click
+        fill_in('sos_hand_address', with: 'Test sos_hand')
+        fill_in('sos_hand_phone', with: '0600000000')
+        find('#SosBtn').click
+        expect(page).to have_css('.is-invalid')
+      end
+
+      scenario "Rerender Hospital when not filling right" do
+        find('#HospitalDb').click
+        fill_in('hospital_address', with: 'Test hospital')
+        fill_in('hospital_phone', with: '0600000000')
+        find('#HospitalBtn').click
+        expect(page).to have_css('.is-invalid')
+      end
+
+      scenario "Rerender Direcct when not filling right" do
+        find('#DirecctDb').click
+        fill_in('direcct_fax', with: '0600000000')
+        fill_in('direcct_phone', with: '0600000000')
+        find('#DirecctBtn').click
+        expect(page).to have_css('.is-invalid')
+      end
+
+      scenario "Rerender Regional Committee when not filling right" do
+        find('#RegionalDb').click
+        fill_in('regional_committee_name', with: 'Test regional_committee')
+        fill_in('regional_committee_phone', with: '0600000000')
+        fill_in('regional_committee_fax', with: '0600000000')
+        find('#RegionalBtn').click
+        expect(page).to have_css('.is-invalid')
+      end
+
+      scenario "Rerender Pension Inusrance when not filling right" do
+        find('#PensionDb').click
+        fill_in('pension_insurance_address', with: 'Test pension_insurance')
+        fill_in('pension_insurance_fax', with: '0600000000')
+        find('#PensionBtn').click
+        expect(page).to have_css('.is-invalid')
+      end
+
+      scenario "Rerender Work Medecine when not filling right" do
+        find('#MedecineDb').click
+        fill_in('work_medecine_address', with: 'Test work_medecine')
+        fill_in('work_medecine_fax', with: '0600000000')
+        find('#WorkMedecineBtn').click
+        expect(page).to have_css('.is-invalid')
+      end
+
+      scenario "Rerender Security Coordinator when not filling right" do
+        find('#SecurityDb').click
+        fill_in('security_coordinator_name', with: 'Test security_coordinator')
+        fill_in('security_coordinator_representative', with: 'Test rep security_coordinator')
+        fill_in('security_coordinator_phone', with: '0600000000')
+        fill_in('security_coordinator_email', with: 'test_representative@gmail.com')
+        find('#SecurityBtn').click
+        expect(page).to have_css('.is-invalid')
+      end
     end
   end
 
