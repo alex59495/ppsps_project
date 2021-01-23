@@ -9,7 +9,7 @@ class SelectedInstallationsController < ApplicationController
       authorize @selected_installation
       @selected_installation.save
     end
-    redirect_to informations_supplementaires_ppsp_path(@ppsp)
+    redirect_to informations_supplementaires_ppsp_path(@ppsp, ajout: true)
     # A CORRIGER CETTE PARTIE
     #   redirect_to ppsp_selected_installation_path
     # else
@@ -21,7 +21,8 @@ class SelectedInstallationsController < ApplicationController
     @selected_installation = SelectedInstallation.find(params[:id])
     authorize @selected_installation
     @selected_installation.destroy
-    redirect_to informations_supplementaires_ppsp_path(@ppsp)
+    # Add a params to know if we are coming back to the info supp page from a destroy action
+    redirect_to informations_supplementaires_ppsp_path(@ppsp, destroy: true)
   end
 
   private
