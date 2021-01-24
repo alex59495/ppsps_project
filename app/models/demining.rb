@@ -14,7 +14,7 @@ class Demining < ApplicationRecord
 
   def self.search(query)
     if query.present?
-      search_direcct(query).order(created_at: :asc)
+      search_demining(query).order(created_at: :asc)
     else
       # No query? Return all records, newest first.
       order("created_at ASC")
