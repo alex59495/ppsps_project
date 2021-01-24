@@ -4,6 +4,8 @@ class DatabaseController < ApplicationController
 
   def index
     authorize @model_name
+    @data = @model_name.new
+    instance_variable_creation(@data)
     if params[:query]
       @database = policy_scope(@model_name.search(params[:query]))
       @search = 'search'
@@ -23,17 +25,16 @@ class DatabaseController < ApplicationController
     end
     # Useful for the infinite scroll
     init_infinite_loop
-    @data = @model_name.new
-    instance_variable_creation(@data)
   end
 
   def create
-    data = @model_name.new(params_data)
-    data.company = current_user.company
-    authorize data
-    instance_variable_creation(data)
+    # We need an "@data" to render the correct partial in views
+    @data = @model_name.new(params_data)
+    @data.company = current_user.company
+    authorize @data
+    instance_variable_creation(@data)
     @search = "none"
-    if data.save
+    if @data.save
       # Create an ordered list to put the last one in first
       @database = policy_scope(@model_name.all).sort_by { |datab| datab.created_at }
       # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
@@ -59,10 +60,12 @@ class DatabaseController < ApplicationController
     authorize @data
     instance_variable_creation(@data)
     if @data.update(params_data)
+      # @path variable comes from child controller
       redirect_to @path
     else
       # render error is possible with remote true thanks to turbolinks-render
-      render :edit
+      # We render from an unique folder which is able to redirect to others folders
+      render 'database/edit'
     end
   end
 

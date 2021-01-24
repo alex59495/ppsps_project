@@ -6,7 +6,7 @@ $(document).ready(function() {
     document.getElementById("ppsp_pension_insurance_id").innerHTML = "<%= j(render 'form_field_pension_insurance') %>";
   }
   if (document.querySelector(".content-db")) {
-    document.querySelector(".content-db").innerHTML = "<%= j(render 'content-db') %>";
+    document.querySelector(".content-db").innerHTML = "<%= j(render 'database/content-db') %>";
   }
 })
 

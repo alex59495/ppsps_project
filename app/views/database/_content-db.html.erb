@@ -1,5 +1,5 @@
 <div class="flex-database">
-  <%= render 'elements', collection: @database_page %>
+  <%= render "#{@data.class.to_s.underscore.+'s'}/elements", collection: @database_page %>
 </div>
 <div class="container-db-vide" style='display:none'>
   Votre recherche n'a retourné aucun résultat
