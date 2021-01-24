@@ -3,4 +3,5 @@ class Company < ApplicationRecord
   validates :name, presence: true
   validates :address, presence: true
   validates :phone, presence: true, phone: true
+  has_one_attached :logo
 end
