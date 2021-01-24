@@ -36,4 +36,8 @@ class PpspPolicy < ApplicationPolicy
   def informations_supplementaires?
     record.user == user
   end
+
+  def destroy_logo_client?
+    record.user == user
+  end
 end

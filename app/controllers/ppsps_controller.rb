@@ -1,5 +1,5 @@
 class PpspsController < ApplicationController
-  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit informations_supplementaires]
+  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit informations_supplementaires destroy_logo_client]
 
   def index
     # Handled by react :) (app/assets/javascript/ppsp-react)
@@ -202,6 +202,12 @@ class PpspsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy_logo_client
+    authorize @ppsp
+    @ppsp.logo_client.purge
+    redirect_to edit_ppsp_path(@ppsp)
   end
 
   private

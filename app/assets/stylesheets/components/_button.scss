@@ -268,3 +268,13 @@ $btn-add-size: 18px;
     right: 10px;
   }
 }
+
+.btn-delete {
+  color: rgb(255, 108, 108);
+  width: fit-content;
+  font-weight: 600;
+  &:hover {
+    color: rgb(245, 62, 62);
+    text-decoration: none;
+  }
+}
