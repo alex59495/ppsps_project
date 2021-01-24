@@ -256,6 +256,12 @@
       <div class="col-md-6 offset-md-3">
         <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
       </div>
+      <div class="col-md-6 offset-md-3">
+        <% if @ppsp.logo_client.attached? %>
+          <%= cl_image_tag @ppsp.logo_client.key, class: 'icon-logo mb-3' %>
+        <% end %>
+        <%= f.input :logo_client, label: "Logo du client (si disponible)" %>
+      </div>
       <div class="col-md-6 offset-md-3 offset-3 offset-md-5">
         <%= f.submit "Accéder à la deuxième page", class: 'btn-blue' %>
       </div>

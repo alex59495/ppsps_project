@@ -1,10 +1,17 @@
 <div class="container">
   <div class="page-break">
-    <% if @ppsp.user.company.logo.attached? %>
-      <div class="logo">
-        <%= cl_image_tag @ppsp.user.company.logo.key, class: 'pdf-logo' %>
-      </div>
-    <% end %>
+    <div class="flexbox">
+      <% if @ppsp.user.company.logo.attached? %>
+        <div class="flex-div-50">
+          <%= cl_image_tag @ppsp.user.company.logo.key, class: 'pdf-logo' %>
+        </div>
+      <% end %>
+      <% if @ppsp.logo_client.attached? %>
+        <div class="flex-div-50" style='text-align: right;'>
+          <%= cl_image_tag @ppsp.user.company.logo.key, class: 'pdf-logo' %>
+        </div>
+      <% end %>
+    </div>
     <div class="pdf-banner my-3">
       <%= wicked_pdf_image_tag "PPSP.jpg", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))" %>
       <div class="banner-title">
