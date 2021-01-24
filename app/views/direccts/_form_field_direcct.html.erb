@@ -1,8 +1,14 @@
-<div class="form-group select required ppsp_direcct_id"><label class="select required" for="ppsp_direcct_id">DIRECCT <abbr title="required">*</abbr></label>
-  <select class="form-control select required" name="ppsp[direcct_id]" id="ppsp_direcct_id">
-    <option value=""></option>
-    <% @direccts.each do |direcct| %>
-      <%= "<option value=#{direcct.id}>#{direcct.address} - #{direcct.phone}</option>".html_safe %>
-    <% end %>
-  </select>
+<div class="container-header-form">
+  <label class="select required" for="ppsp_direcct_id">DIRECCT <abbr title="required">*</abbr></label>
+  <% if policy(Direcct).create? %>
+    <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalDirecct" id="DirecctDb">
+      <i class="fas fa-plus"></i>
+    </button>
+  <% end %>
 </div>
+<select class="form-control select required" name="ppsp[direcct_id]" id="ppsp_direcct_id">
+  <option value=""></option>
+  <% @direccts.each do |direcct| %>
+    <%= "<option value=#{direcct.id}>#{direcct.address} - #{direcct.phone}</option>".html_safe %>
+  <% end %>
+</select>

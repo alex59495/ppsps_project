@@ -1,8 +1,14 @@
-<div class="form-group select required ppsp_regional_committee_id"><label class="select required" for="ppsp_regional_committee_id">Comité régional de l'OPPBTP <abbr title="required">*</abbr></label>
-  <select class="form-control select required" name="ppsp[regional_committee_id]" id="ppsp_regional_committee_id">
-    <option value=""></option>
-    <% @regional_committees.each do |instance| %>
-      <%= "<option value=#{instance.id}>#{instance.name}</option>".html_safe %>
-    <% end %>
-  </select>
+<div class="container-header-form">
+  <label class="select required" for="ppsp_regional_committee_id">Comité régional de l'OPPBTP <abbr title="required">*</abbr></label>
+  <% if policy(RegionalCommittee).create? %>
+    <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalRegionalCommittee" id="RegionalDb">
+      <i class="fas fa-plus"></i>
+    </button>
+  <% end %>
 </div>
+<select class="form-control select required" name="ppsp[regional_committee_id]" id="ppsp_regional_committee_id">
+  <option value=""></option>
+  <% @regional_committees.each do |instance| %>
+    <%= "<option value=#{instance.id}>#{instance.name}</option>".html_safe %>
+  <% end %>
+</select>

@@ -1,8 +1,14 @@
-<div class="form-group select required ppsp_moe_id"><label class="select required" for="ppsp_moe_id">moe <abbr title="required">*</abbr></label>
-  <select class="form-control select required" name="ppsp[moe_id]" id="ppsp_moe_id">
-    <option value=""></option>
-    <% @moes.each do |moe| %>
-      <%= "<option value=#{moe.id}>#{moe.name} - #{moe.representative}</option>".html_safe %>
-    <% end %>
-  </select>
+<div class="container-header-form">
+  <label class="select required" for="ppsp_moe_id">MOE <abbr title="required">*</abbr></label>
+  <% if policy(Moe).new? %>
+    <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalMoe" id="MoeDb">
+      <i class="fas fa-plus"></i>
+    </button>
+  <% end %>
 </div>
+<select class="form-control select required" name="ppsp[moe_id]" id="ppsp_moe_id">
+  <option value=""></option>
+  <% @moes.each do |moe| %>
+    <%= "<option value=#{moe.id}>#{moe.name} - #{moe.representative}</option>".html_safe %>
+  <% end %>
+</select>

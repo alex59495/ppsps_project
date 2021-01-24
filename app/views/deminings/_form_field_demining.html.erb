@@ -1,8 +1,14 @@
-<div class="form-group select required ppsp_demining_id"><label class="select required" for="ppsp_demining_id">Médecine du travail <abbr title="required">*</abbr></label>
-  <select class="form-control select required" name="ppsp[demining_id]" id="ppsp_demining_id">
-    <option value=""></option>
-    <% @deminings.each do |demining| %>
-      <%= "<option value=#{demining.id}>#{demining.name}</option>".html_safe %>
-    <% end %>
-  </select>
+<div class="container-header-form">
+  <label class="select required" for="ppsp_demining_id">Centre de déminage <abbr title="required">*</abbr></label>
+  <% if policy(Demining).create? %>
+    <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalDemining" id="DeminingDb">
+      <i class="fas fa-plus"></i>
+    </button>
+  <% end %>
 </div>
+<select class="form-control select required" name="ppsp[demining_id]" id="ppsp_demining_id">
+  <option value=""></option>
+  <% @deminings.each do |demining| %>
+    <%= "<option value=#{demining.id}>#{demining.name}</option>".html_safe %>
+  <% end %>
+</select>
