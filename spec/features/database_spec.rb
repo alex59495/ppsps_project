@@ -40,8 +40,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('moa_email', with: 'test_moa@gmail.com')
       fill_in('moa_phone', with: '0600000000')
       find('#MoaBtn').click
-      # Add visible to wait for ajax call
-      expect(page).to have_css('.card-bdd', visible: :visible, count: count + 1)
+      expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
     scenario "Can see the addition of moe live (AJAX)" do
@@ -54,8 +53,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('moe_email', with: 'test_moe@gmail.com')
       fill_in('moe_phone', with: '0600000000')
       find('#MoeBtn').click
-      # Add visible to wait for ajax call
-      expect(page).to have_css('.card-bdd', visible: :visible, count: count + 1)
+      expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
     scenario "Can see the addition of anti_poison live (AJAX)" do
@@ -66,8 +64,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('anti_poison_address', with: 'Test anti_poison')
       fill_in('anti_poison_phone', with: '0600000000')
       find('#AntiPoisonBtn').click
-      # Add visible to wait for ajax call
-      expect(page).to have_css('.card-bdd', visible: :visible, count: count + 1)
+      expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
     scenario "Can see the addition of demining live (AJAX)" do
@@ -78,8 +75,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('demining_address', with: 'Test demining')
       fill_in('demining_phone', with: '0600000000')
       find('#DeminingBtn').click
-      # Add visible to wait for ajax call
-      expect(page).to have_css('.card-bdd', visible: :visible, count: count + 1)
+      expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
     scenario "Can see the addition of sos_hand live (AJAX)" do
@@ -90,8 +86,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('sos_hand_address', with: 'Test sos_hand')
       fill_in('sos_hand_phone', with: '0600000000')
       find('#SosBtn').click
-      # Add visible to wait for ajax call
-      expect(page).to have_css('.card-bdd', visible: :visible, count: count + 1)
+      expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
     scenario "Can see the addition of hospital live (AJAX)" do
@@ -102,8 +97,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('hospital_address', with: 'Test hospital')
       fill_in('hospital_phone', with: '0600000000')
       find('#HospitalBtn').click
-      # Add visible to wait for ajax call
-      expect(page).to have_css('.card-bdd', visible: :visible, count: count + 1)
+      expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
     scenario "Can see the addition of direcct live (AJAX)" do
@@ -114,8 +108,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('direcct_address', with: 'Test direcct')
       fill_in('direcct_phone', with: '0600000000')
       find('#DirecctBtn').click
-      # Add visible to wait for ajax call
-      expect(page).to have_css('.card-bdd', visible: :visible, count: count + 1)
+      expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
     scenario "Can see the addition of regional_committee live (AJAX)" do
@@ -127,8 +120,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('regional_committee_phone', with: '0600000000')
       fill_in('regional_committee_fax', with: '0600000000')
       find('#RegionalBtn').click
-      # Add visible to wait for ajax call
-      expect(page).to have_css('.card-bdd', visible: :visible, count: count + 1)
+      expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
     scenario "Can see the addition of pension_insurance live (AJAX)" do
@@ -139,8 +131,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('pension_insurance_phone', with: '0600000000')
       fill_in('pension_insurance_fax', with: '0600000000')
       find('#PensionBtn').click
-      # Add visible to wait for ajax call
-      expect(page).to have_css('.card-bdd', visible: :visible, count: count + 1)
+      expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
     scenario "Can see the addition of work_medecine live (AJAX)" do
@@ -151,8 +142,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('work_medecine_phone', with: '0600000000')
       fill_in('work_medecine_fax', with: '0600000000')
       find('#WorkMedecineBtn').click
-      # Add visible to wait for ajax call
-      expect(page).to have_css('.card-bdd', visible: :visible, count: count + 1)
+      expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
     scenario "Can see the addition of security_coordinator live (AJAX)" do
@@ -165,8 +155,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('security_coordinator_phone', with: '0600000000')
       fill_in('security_coordinator_email', with: 'test_representative@gmail.com')
       find('#SecurityBtn').click
-      # Add visible to wait for ajax call
-      expect(page).to have_css('.card-bdd', visible: :visible, count: count + 1)
+      expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
     scenario "Rerender MOA form when not filling right" do
@@ -280,7 +269,6 @@ RSpec.feature "Databases", type: :feature, js: true do
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
       expect(page).to have_current_path(anti_poisons_path)
-      # Add visible to wait for ajax call
       expect(page).to have_css('.card-bdd', count: 1)
     end
 
@@ -289,7 +277,6 @@ RSpec.feature "Databases", type: :feature, js: true do
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
       expect(page).to have_current_path(deminings_path)
-      # Add visible to wait for ajax call
       expect(page).to have_css('.card-bdd', count: 1)
     end
 
@@ -298,7 +285,6 @@ RSpec.feature "Databases", type: :feature, js: true do
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
       expect(page).to have_current_path(hospitals_path)
-      # Add visible to wait for ajax call
       expect(page).to have_css('.card-bdd', count: 1)
     end
 
@@ -307,7 +293,6 @@ RSpec.feature "Databases", type: :feature, js: true do
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
       expect(page).to have_current_path(moas_path)
-      # Add visible to wait for ajax call
       expect(page).to have_css('.card-bdd', count: 1)
     end
 
@@ -316,7 +301,6 @@ RSpec.feature "Databases", type: :feature, js: true do
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
       expect(page).to have_current_path(moes_path)
-      # Add visible to wait for ajax call
       expect(page).to have_css('.card-bdd', count: 1)
     end
 
@@ -325,7 +309,6 @@ RSpec.feature "Databases", type: :feature, js: true do
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
       expect(page).to have_current_path(pension_insurances_path)
-      # Add visible to wait for ajax call
       expect(page).to have_css('.card-bdd', count: 1)
     end
 
@@ -334,7 +317,6 @@ RSpec.feature "Databases", type: :feature, js: true do
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
       expect(page).to have_current_path(regional_committees_path)
-      # Add visible to wait for ajax call
       expect(page).to have_css('.card-bdd', count: 1)
     end
 
@@ -343,7 +325,6 @@ RSpec.feature "Databases", type: :feature, js: true do
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
       expect(page).to have_current_path(security_coordinators_path)
-      # Add visible to wait for ajax call
       expect(page).to have_css('.card-bdd', count: 1)
     end
 
@@ -352,7 +333,6 @@ RSpec.feature "Databases", type: :feature, js: true do
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
       expect(page).to have_current_path(work_medecines_path)
-      # Add visible to wait for ajax call
       expect(page).to have_css('.card-bdd', count: 1)
     end
 
@@ -361,7 +341,6 @@ RSpec.feature "Databases", type: :feature, js: true do
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
       expect(page).to have_current_path(sos_hands_path)
-      # Add visible to wait for ajax call
       expect(page).to have_css('.card-bdd', count: 1)
     end
 
@@ -370,7 +349,6 @@ RSpec.feature "Databases", type: :feature, js: true do
       find('.search-db').set("Test1")
       find('.btn-orange-right').click
       expect(page).to have_current_path(direccts_path)
-      # Add visible to wait for ajax call
       expect(page).to have_css('.card-bdd', count: 1)
     end
   end
