@@ -40,6 +40,8 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('moa_email', with: 'test_moa@gmail.com')
       fill_in('moa_phone', with: '0600000000')
       find('#MoaBtn').click
+      # Add sleeping time to wait ajax request
+      sleep(3)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -53,6 +55,8 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('moe_email', with: 'test_moe@gmail.com')
       fill_in('moe_phone', with: '0600000000')
       find('#MoeBtn').click
+      # Add sleeping time to wait ajax request
+      sleep(3)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -64,6 +68,8 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('anti_poison_address', with: 'Test anti_poison')
       fill_in('anti_poison_phone', with: '0600000000')
       find('#AntiPoisonBtn').click
+      # Add sleeping time to wait ajax request
+      sleep(3)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -75,6 +81,8 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('demining_address', with: 'Test demining')
       fill_in('demining_phone', with: '0600000000')
       find('#DeminingBtn').click
+      # Add sleeping time to wait ajax request
+      sleep(3)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -86,6 +94,8 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('sos_hand_address', with: 'Test sos_hand')
       fill_in('sos_hand_phone', with: '0600000000')
       find('#SosBtn').click
+      # Add sleeping time to wait ajax request
+      sleep(3)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -97,6 +107,8 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('hospital_address', with: 'Test hospital')
       fill_in('hospital_phone', with: '0600000000')
       find('#HospitalBtn').click
+      # Add sleeping time to wait ajax request
+      sleep(3)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -108,6 +120,8 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('direcct_address', with: 'Test direcct')
       fill_in('direcct_phone', with: '0600000000')
       find('#DirecctBtn').click
+      # Add sleeping time to wait ajax request
+      sleep(3)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -120,6 +134,8 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('regional_committee_phone', with: '0600000000')
       fill_in('regional_committee_fax', with: '0600000000')
       find('#RegionalBtn').click
+      # Add sleeping time to wait ajax request
+      sleep(3)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -131,6 +147,8 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('pension_insurance_phone', with: '0600000000')
       fill_in('pension_insurance_fax', with: '0600000000')
       find('#PensionBtn').click
+      # Add sleeping time to wait ajax request
+      sleep(3)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -142,6 +160,8 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('work_medecine_phone', with: '0600000000')
       fill_in('work_medecine_fax', with: '0600000000')
       find('#WorkMedecineBtn').click
+      # Add sleeping time to wait ajax request
+      sleep(3)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -155,6 +175,8 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('security_coordinator_phone', with: '0600000000')
       fill_in('security_coordinator_email', with: 'test_representative@gmail.com')
       find('#SecurityBtn').click
+      # Add sleeping time to wait ajax request
+      sleep(3)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
