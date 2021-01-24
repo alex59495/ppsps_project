@@ -126,7 +126,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_security_coordinator_id">Coordinateur sécurité <i style='font-size: 0.8em'>(laissez vide si il n'y en a pas)</i></label>
             <% if policy(SecurityCoordinator).new? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSecurityCoordinator">
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSecurityCoordinator" id="SecurityDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -242,19 +242,6 @@
             <% end %>
           </div>
           <%= f.input :hospital_id, as: :select, collection: @hospitals, label: false, label_method: lambda { |x| "#{x.name}"}, input_html: {class: "select-2"} %>
-        </div>
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <div class="form-group select required ppsp_security_coordinator_id">
-          <div class="container-header-form">
-            <label class="select required" for="ppsp_security_coordinator_id">Coordinateur sécurité</label>
-            <% if policy(SecurityCoordinator).create? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSecurityCoordinator" id="SecurityDb">
-                <i class="fas fa-plus"></i>
-              </button>
-            <% end %>
-          </div>
-          <%= f.input :security_coordinator_id, as: :select, collection: @security_coordinators, label: false, label_method: lambda { |x| "#{x.name} - #{x.representative}" }, input_html: {class: "select-2"} %>
         </div>
       </div>
       <div class="col-12 form-title">
