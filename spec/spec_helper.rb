@@ -6,9 +6,6 @@ require 'capybara/rspec'
 # this file to always be loaded, without a need to explicitly require it in any
 # files.
 
-RSpec.configure do |config|
-end
-
 module WaitForAjax
   def wait_for_ajax
     Timeout.timeout(Capybara.default_max_wait_time) do
@@ -36,7 +33,7 @@ Capybara.register_driver :chrome do |app|
 end
 
 Capybara.javascript_driver = :chrome
-Capybara.default_max_wait_time = 30
+Capybara.default_max_wait_time = 10
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
