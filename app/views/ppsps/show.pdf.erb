@@ -1,5 +1,8 @@
 <div class="container">
   <div class="page-break">
+    <div class="logo">
+      <%= wicked_pdf_image_tag "companies/#{@ppsp.user.company.name}/logo.png", class: 'pdf-logo'%>
+    </div>
     <div class="pdf-banner my-3">
       <%= wicked_pdf_image_tag "PPSP.jpg", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))" %>
       <div class="banner-title">
