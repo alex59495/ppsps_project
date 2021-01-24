@@ -1,28 +1,5 @@
 class CompaniesController < ApplicationController
-  before_action :find_company, only: %i[update show destroy edit]
-
-  def index
-    @companies = policy_scope(Company)
-  end
-
-  def new
-    @company = Company.new
-    authorize @company
-  end
-
-  def create
-    @company = Company.new(params_company)
-    authorize @company
-    if @company.save
-      redirect_to new_ppsp_path
-    else
-      render :new
-    end
-  end
-
-  def edit
-    authorize @company
-  end
+  before_action :find_company, only: %i[update]
 
   def update
     authorize @company

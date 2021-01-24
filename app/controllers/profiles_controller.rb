@@ -7,10 +7,17 @@ class ProfilesController < ApplicationController
 
   def edit
     authorize @user
+    @company = @user.company || @user.build_company
   end
 
   def update
     @user.user_update = true
+    @company = @user.company
+    # Verify if the company logo is entered, if yes update the logo
+    if params.key?(:company)
+      @company.logo = params.require(:user).require(:company).require(:logo)
+      @company.save!
+    end
     if @user.update!(user_params)
       redirect_to profile_path(@user)
     else

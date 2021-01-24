@@ -30,11 +30,11 @@ User.destroy_all
 Company.destroy_all
 
 # Create company
-c1 = Company.create(name: "Company Angelique", address: 'Test adress', phone: '0300000000')
+c1 = Company.create(name: "Company Angelique", address: 'Test adress', phone: '0300000000', representative: 'Chef de Company Angelique')
 p "create #{c1.id} company"
-c2 = Company.create(name: Faker::Company.name, address: Faker::Address.street_address, phone: Faker::PhoneNumber.cell_phone_in_e164)
+c2 = Company.create(name: Faker::Company.name, address: Faker::Address.street_address, phone: Faker::PhoneNumber.cell_phone_in_e164, representative: Faker::Name.name )
 p "create #{c2.id} company"
-c3 = Company.create(name: Faker::Company.name, address: Faker::Address.street_address, phone: Faker::PhoneNumber.cell_phone_in_e164)
+c3 = Company.create(name: Faker::Company.name, address: Faker::Address.street_address, phone: Faker::PhoneNumber.cell_phone_in_e164, representative: Faker::Name.name )
 p "create #{c3.id} company"
 
 # Create users

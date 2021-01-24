@@ -1,8 +1,10 @@
 <div class="container">
   <div class="page-break">
-    <div class="logo">
-      <%= cl_image_tag @ppsp.user.company.logo.key, class: 'pdf-logo' %>
-    </div>
+    <% if @ppsp.user.company.logo.attached? %>
+      <div class="logo">
+        <%= cl_image_tag @ppsp.user.company.logo.key, class: 'pdf-logo' %>
+      </div>
+    <% end %>
     <div class="pdf-banner my-3">
       <%= wicked_pdf_image_tag "PPSP.jpg", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))" %>
       <div class="banner-title">
@@ -92,7 +94,7 @@
           <div class="flexbox">
             <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= current_user.company.name %></div>
             <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= current_user.company.address %></div>
-            <div class="flex-div-40">Représentant :</div><div class="flex-div-60"><%= "#{current_user.first_name} #{current_user.last_name}" %></div>
+            <div class="flex-div-40">Représentant :</div><div class="flex-div-60"><%= "#{@ppsp.user.company.representative}" %></div>
             <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= current_user.company.phone %></div>
             <div class="flex-div-40">Email :</div><div class="flex-div-60"><%= current_user.email %></div>
           </div>

@@ -1,18 +1,21 @@
 <div class="row">
   <div class="col-6 offset-3">
+    <div class="mb-3">
+      <%= link_to "Revenir au profil", profile_path(@user), class: 'link' %>
+    </div>
     <%= simple_form_for @user, url: profile_path(@user), html: { method: :put } do |f| %>
       <%= f.input :first_name, label: "Prénom" %>
       <%= f.input :last_name, label: "Nom de famille" %>
       <%= f.input :email, label: "Email" %>
+      <% if @user.admin %>
+        <% if @user.company.logo.attached? %>
+          <%= cl_image_tag @user.company.logo.key, class: 'icon-logo mb-3' %>
+        <% end %>
+        <%= f.simple_fields_for :company, @company do |h| %>
+          <%= h.input :logo, label: "Modifier le logo" %>
+        <% end %>
+      <% end %>
       <%= f.submit "Éditer les informations", class: 'btn-blue' %>
     <% end %>
-    <% if current_user.admin && current_user == @user %>
-      <%= cl_image_tag @user.company.logo.key, height: 300, width: 400, crop: :fill %>
-      <%= simple_form_for @user.company, html: { method: :patch } do |f| %>
-        <%= f.input :logo, required: true %>
-        <%= f.submit "Ajouter/modifier le logo", class: "btn-blue"%>
-      <% end %>
-    <% end %>
-    <%= link_to "Revenir au profil", profile_path(@user), class: 'link' %>
   </div>
 </div>
