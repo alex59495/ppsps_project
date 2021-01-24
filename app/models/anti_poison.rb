@@ -6,7 +6,7 @@ class AntiPoison < ApplicationRecord
   validates :phone, presence: true, phone: true
 
   include PgSearch::Model
-  pg_search_scope :search_anti_poison,
+  pg_search_scope :search,
     against: [ :name, :address, :phone ],
     using: {
       tsearch: { prefix: true } # <-- allow the fact to search various words incomplete
