@@ -2,6 +2,9 @@
   <%= link_to "Revenir à mes PPSP", ppsps_path, class: 'link' %>
   <%= simple_form_for @ppsp do |f| %>
     <div class="row">
+      <div class="col-12 form-title">
+        Chantier
+      </div>
       <div class="col-md-6 offset-md-3">
         <%= f.input :address, label: "Adresse", placeholder: "Indiquez une adresse..." %>
       </div>
@@ -53,7 +56,10 @@
       <div class="col-md-6 offset-md-3">
         <%= f.input :workforce, label: "Personnel impliqué", placeholder: "1 Chef de chantier, 2 ouvriers..." %>
       </div>
-      <div class="col-6">
+      <div class="col-12 form-title">
+        Renseignements Administratifs
+      </div>
+      <div class="col-md-6">
         <div class="form-group select required ppsp_moa_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
@@ -66,7 +72,7 @@
           <%= f.input :moa_id, as: :select, label: false, collection: @moas, label_method: lambda {|x| "#{x.name} - #{x.representative}"}, input_html: {class: "select-2"} %>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <div class="form-group select required ppsp_moe_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_moe_id">MOE <abbr title="required">*</abbr></label>
@@ -115,7 +121,23 @@
         </div>
         <% end %>
       <% end %>
-      <div class="col-6 col-md-4">
+      <div class="col-md-6 offset-md-3">
+        <div class="form-group select required ppsp_security_coordinator_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_security_coordinator_id">Coordinateur sécurité <i style='font-size: 0.8em'>(laissez vide si il n'y en a pas)</i></label>
+            <% if policy(SecurityCoordinator).new? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSecurityCoordinator">
+                <i class="fas fa-plus"></i>
+              </button>
+            <% end %>
+          </div>
+          <%= f.input :security_coordinator_id, as: :select, collection: @security_coordinators, label: false, label_method: lambda { |x| "#{x.name} - #{x.representative}" }, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+      <div class="col-12 form-title">
+        Organismes de prévention
+      </div>
+      <div class="col-md-6 offset-md-3">
         <div class="form-group select required ppsp_regional_committee_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_regional_committee_id">Comité régional de l'OPPBTP <abbr title="required">*</abbr></label>
@@ -128,7 +150,7 @@
           <%= f.input :regional_committee_id, as: :select, label: false, collection: @regional_committees, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
         </div>
       </div>
-      <div class="col-6 col-md-4">
+      <div class="col-md-6 offset-md-3">
         <div class="form-group select required ppsp_pension_insurance_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_pension_insurance_id">Caisse d'assurance retraite <abbr title="required">*</abbr></label>
@@ -141,7 +163,7 @@
           <%= f.input :pension_insurance_id, as: :select, label: false, collection: @pension_insurances, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
         </div>
       </div>
-      <div class="col-6 col-md-4">
+      <div class="col-md-6 offset-md-3">
         <div class="form-group select required ppsp_direcct_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_direcct_id">DIRECCT <abbr title="required">*</abbr></label>
@@ -154,7 +176,7 @@
           <%= f.input :direcct_id, as: :select, label: false, collection: @direccts, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
         </div>
       </div>
-      <div class="col-6 col-md-4">
+      <div class="col-md-6 offset-md-3">
         <div class="form-group select required ppsp_work_medecine_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_work_medecine_id">Médecine du travail <abbr title="required">*</abbr></label>
@@ -167,7 +189,10 @@
           <%= f.input :work_medecine_id, as: :select, label: false, collection: @work_medecines, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
         </div>
       </div>
-      <div class="col-6 col-md-4">
+      <div class="col-12 form-title">
+        Services extérieurs
+      </div>
+      <div class="col-md-6 offset-md-3">
         <div class="form-group select required ppsp_demining_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_demining_id">Centre de déminage <abbr title="required">*</abbr></label>
@@ -180,7 +205,7 @@
           <%= f.input :demining_id, as: :select, label: false, collection: @deminings, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
         </div>
       </div>
-      <div class="col-6 col-md-4">
+      <div class="col-md-6 offset-md-3">
         <div class="form-group select required ppsp_sos_hand_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_sos_hand_id">Centre SOS Mains et Doigts<abbr title="required">*</abbr></label>
@@ -193,7 +218,7 @@
             <%= f.input :sos_hand_id, as: :select, label: false, collection: @sos_hands, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
         </div>
       </div>
-      <div class="col-6 col-md-4">
+      <div class="col-md-6 offset-md-3">
         <div class="form-group select required ppsp_anti_poison_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_anti_poison_id">Centre anti-poison <abbr title="required">*</abbr></label>
@@ -206,7 +231,7 @@
           <%= f.input :anti_poison_id, as: :select, label: false, collection: @anti_poisons, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
         </div>
       </div>
-      <div class="col-6 col-md-4">
+      <div class="col-md-6 offset-md-3">
         <div class="form-group select required ppsp_hospital_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_hospital_id">Hôpital le plus proche <abbr title="required">*</abbr></label>
@@ -219,34 +244,20 @@
           <%= f.input :hospital_id, as: :select, collection: @hospitals, label: false, label_method: lambda { |x| "#{x.name}"}, input_html: {class: "select-2"} %>
         </div>
       </div>
-      <div class="col-6 col-md-4">
-        <div class="form-group select required ppsp_security_coordinator_id">
-          <div class="container-header-form">
-            <label class="select required" for="ppsp_security_coordinator_id">Coordinateur sécurité</label>
-            <% if policy(SecurityCoordinator).new? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSecurityCoordinator">
-                <i class="fas fa-plus"></i>
-              </button>
-            <% end %>
-          </div>
-          <%= f.input :security_coordinator_id, as: :select, collection: @security_coordinators, label: false, label_method: lambda { |x| "#{x.name} - #{x.representative}" }, input_html: {class: "select-2"} %>
-        </div>
+      <div class="col-12 form-title">
+        Signalisation
       </div>
-      <div class="col-6 col-md-4">
+      <div class="col-md-6 offset-md-3">
         <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
       </div>
-      <div class="col-6 col-md-4">
+      <div class="col-md-6 offset-md-3">
         <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>
       </div>
-      <div class="col-6 col-md-4">
+      <div class="col-md-6 offset-md-3">
         <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
       </div>
-      <div class="col-6 col-md-4 offset-3 offset-md-5">
-        <% if params[:action] == 'new' || params[:action] == 'create'  %>
-          <%= f.submit "Créer un nouveau PPSP", class: 'btn-blue' %>
-        <% else %>
-          <%= f.submit "Mettre à jour le PPSP", class: 'btn-blue' %>
-        <% end %>
+      <div class="col-md-6 offset-md-3 offset-3 offset-md-5">
+        <%= f.submit "Accéder à la deuxième page", class: 'btn-blue' %>
       </div>
     <% end %>
 
