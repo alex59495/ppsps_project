@@ -7,8 +7,17 @@ class SosHand < ApplicationRecord
 
   include PgSearch::Model
   pg_search_scope :search_sos_hand,
-    against: [ :name, :address, :phone ],
-    using: {
-      tsearch: { prefix: true } # <-- allow the fact to search various words incomplete
-    }
+                  against: %i[name address phone],
+                  using: {
+                    tsearch: { prefix: true } # <-- allow the fact to search various words incomplete
+                  }
+
+  def self.search(query)
+    if query.present?
+      search_sos_hand(query).order(created_at: :asc)
+    else
+      # No query? Return all records, newest first.
+      order("created_at ASC")
+    end
+  end
 end

@@ -6,6 +6,18 @@ require 'capybara/rspec'
 # this file to always be loaded, without a need to explicitly require it in any
 # files.
 
+module WaitForAjax
+  def wait_for_ajax
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      loop until finished_all_ajax_requests?
+    end
+  end
+
+  def finished_all_ajax_requests?
+    page.evaluate_script('jQuery.active').zero?
+  end
+end
+
 # Given that it is always loaded, you are encouraged to keep this file as
 # light-weight as possible. Requiring heavyweight dependencies from this file
 # will add to the boot time of your test suite on EVERY test run, even for an
@@ -28,6 +40,10 @@ RSpec.configure do |config|
   # FactoryBot Lint
   config.before(:suite) do
     FactoryBot.lint
+  end
+
+  RSpec.configure do |config|
+    config.include WaitForAjax, type: :feature
   end
 
   # rspec-expectations config goes here. You can use an alternate

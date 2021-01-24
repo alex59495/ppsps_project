@@ -1,10 +1,10 @@
 class PensionInsurancesController < ApplicationController
-  before_action :find_pension_insurance, only: [ :update, :show, :destroyed, :edit ]
+  before_action :find_pension_insurance, only: %i[update show destroyed edit]
 
   def index
     authorize PensionInsurance
     if params[:query]
-      @pension_insurances = policy_scope(PensionInsurance.search_pension_insurance(params[:query]))
+      @pension_insurances = policy_scope(PensionInsurance.search(params[:query]))
       @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
@@ -32,7 +32,7 @@ class PensionInsurancesController < ApplicationController
     authorize @pension_insurance
     if @pension_insurance.save
       # Create an ordered list to put the last one in first
-      @pension_insurances = PensionInsurance.all.sort_by { |pension_insurance| pension_insurance.created_at }
+      @pension_insurances = policy_scope(PensionInsurance.all).sort_by { |pension_insurance| pension_insurance.created_at }
       # Respond with the view pension_insurance/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
@@ -73,7 +73,7 @@ class PensionInsurancesController < ApplicationController
   # Useful for the infinite loop
   def pagination
     if params[:query]
-      @pension_insurances = policy_scope(PensionInsurance.search_pension_insurance(params[:query]))
+      @pension_insurances = policy_scope(PensionInsurance.search(params[:query]))
     else
       @pension_insurances = policy_scope(PensionInsurance.all)
     end

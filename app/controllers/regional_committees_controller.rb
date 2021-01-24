@@ -4,7 +4,7 @@ class RegionalCommitteesController < ApplicationController
   def index
     authorize RegionalCommittee
     if params[:query]
-      @regional_committees = policy_scope(RegionalCommittee.search_regional_committee(params[:query]))
+      @regional_committees = policy_scope(RegionalCommittee.search(params[:query]))
       @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
@@ -32,7 +32,7 @@ class RegionalCommitteesController < ApplicationController
     authorize @regional_committee
     if @regional_committee.save
       # Create an ordered list to put the last one in first
-      @regional_committees = RegionalCommittee.all.sort_by { |regional_committee| regional_committee.created_at }
+      @regional_committees = policy_scope(RegionalCommittee.all).sort_by { |regional_committee| regional_committee.created_at }
       # Respond with the view regional_committee/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
@@ -73,7 +73,7 @@ class RegionalCommitteesController < ApplicationController
   # Useful for the infinite loop
   def pagination
     if params[:query]
-      @regional_committees = policy_scope(RegionalCommittee.search_regional_committee(params[:query]))
+      @regional_committees = policy_scope(RegionalCommittee.search(params[:query]))
     else
       @regional_committees = policy_scope(RegionalCommittee.all)
     end

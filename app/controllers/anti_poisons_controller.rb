@@ -1,10 +1,10 @@
 class AntiPoisonsController < ApplicationController
-  before_action :find_anti_poison, only: [ :update, :show, :destroyed, :edit ]
+  before_action :find_anti_poison, only: %i[update show destroyed edit]
 
   def index
     authorize AntiPoison
     if params[:query]
-      @anti_poisons = policy_scope(AntiPoison.search_anti_poison(params[:query]))
+      @anti_poisons = policy_scope(AntiPoison.search(params[:query]))
       @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
@@ -31,7 +31,7 @@ class AntiPoisonsController < ApplicationController
     authorize @anti_poison
     if @anti_poison.save
       # Create an ordered list to put the last one in first
-      @anti_poisons = AntiPoison.all.sort_by { |anti_poison| anti_poison.created_at }
+      @anti_poisons = policy_scope(AntiPoison.all).sort_by { |anti_poison| anti_poison.created_at }
       # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
       init_infinite_loop
       # Respond with the view anti_poison/create.js.erb to close the modal and come back to the form
@@ -44,7 +44,6 @@ class AntiPoisonsController < ApplicationController
         format.js { render 'ppsps/modal_anti_poison' }
       end
     end
-
   end
 
   def edit
@@ -73,7 +72,7 @@ class AntiPoisonsController < ApplicationController
   # Useful for the infinite loop
   def pagination
     if params[:query]
-      @anti_poisons = policy_scope(AntiPoison.search_anti_poison(params[:query]))
+      @anti_poisons = policy_scope(AntiPoison.search(params[:query]))
     else
       @anti_poisons = policy_scope(AntiPoison.all)
     end

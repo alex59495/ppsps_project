@@ -64,7 +64,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
             <% if policy(Moa).new? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalMoa">
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalMoa" id="MoaDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -77,7 +77,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_moe_id">MOE <abbr title="required">*</abbr></label>
             <% if policy(Moe).new? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalMoe">
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalMoe" id="MoeDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -141,8 +141,8 @@
         <div class="form-group select required ppsp_regional_committee_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_regional_committee_id">Comité régional de l'OPPBTP <abbr title="required">*</abbr></label>
-            <% if policy(RegionalCommittee).new? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalRegionalCommittee">
+            <% if policy(RegionalCommittee).create? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalRegionalCommittee" id="RegionalDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -154,8 +154,8 @@
         <div class="form-group select required ppsp_pension_insurance_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_pension_insurance_id">Caisse d'assurance retraite <abbr title="required">*</abbr></label>
-            <% if policy(PensionInsurance).new? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalPensionInsurance">
+            <% if policy(PensionInsurance).create? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalPensionInsurance" id="PensionDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -167,8 +167,8 @@
         <div class="form-group select required ppsp_direcct_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_direcct_id">DIRECCT <abbr title="required">*</abbr></label>
-            <% if policy(Direcct).new? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalDirecct">
+            <% if policy(Direcct).create? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalDirecct" id="DirecctDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -180,8 +180,8 @@
         <div class="form-group select required ppsp_work_medecine_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_work_medecine_id">Médecine du travail <abbr title="required">*</abbr></label>
-            <% if policy(WorkMedecine).new? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalWorkMedecine">
+            <% if policy(WorkMedecine).create? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalWorkMedecine" id="MedecineDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -196,8 +196,8 @@
         <div class="form-group select required ppsp_demining_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_demining_id">Centre de déminage <abbr title="required">*</abbr></label>
-            <% if policy(Demining).new? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalDemining">
+            <% if policy(Demining).create? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalDemining" id="DeminingDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -209,8 +209,8 @@
         <div class="form-group select required ppsp_sos_hand_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_sos_hand_id">Centre SOS Mains et Doigts<abbr title="required">*</abbr></label>
-            <% if policy(SosHand).new? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSosHand">
+            <% if policy(SosHand).create? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSosHand" id="SosDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -222,8 +222,8 @@
         <div class="form-group select required ppsp_anti_poison_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_anti_poison_id">Centre anti-poison <abbr title="required">*</abbr></label>
-            <% if policy(AntiPoison).new? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalAntiPoison">
+            <% if policy(AntiPoison).create? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalAntiPoison" id="AntiPoisonDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
@@ -235,13 +235,26 @@
         <div class="form-group select required ppsp_hospital_id">
           <div class="container-header-form">
             <label class="select required" for="ppsp_hospital_id">Hôpital le plus proche <abbr title="required">*</abbr></label>
-            <% if policy(Hospital).new? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalHospital">
+            <% if policy(Hospital).create? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalHospital" id="HospitalDb">
                 <i class="fas fa-plus"></i>
               </button>
             <% end %>
           </div>
           <%= f.input :hospital_id, as: :select, collection: @hospitals, label: false, label_method: lambda { |x| "#{x.name}"}, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="form-group select required ppsp_security_coordinator_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_security_coordinator_id">Coordinateur sécurité</label>
+            <% if policy(SecurityCoordinator).create? %>
+              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSecurityCoordinator" id="SecurityDb">
+                <i class="fas fa-plus"></i>
+              </button>
+            <% end %>
+          </div>
+          <%= f.input :security_coordinator_id, as: :select, collection: @security_coordinators, label: false, label_method: lambda { |x| "#{x.name} - #{x.representative}" }, input_html: {class: "select-2"} %>
         </div>
       </div>
       <div class="col-12 form-title">
@@ -259,73 +272,61 @@
       <div class="col-md-6 offset-md-3 offset-3 offset-md-5">
         <%= f.submit "Accéder à la deuxième page", class: 'btn-blue' %>
       </div>
-    <% end %>
-
-    <%# Modal Security Coordinator %>
-    <% if policy(SecurityCoordinator).new? %>
-      <div class="modal fade" id="ModalSecurityCoordinator" tabindex="-1" role="dialog" aria-labelledby="ModalSecurityCoordinator" aria-hidden="true">
-        <%= render 'ppsps/modal_security_coordinator' %>
-      </div>
-    <% end %>
-    <%# Modal Hospital %>
-    <% if policy(Hospital).new? %>
-      <div class="modal fade" id="ModalHospital" tabindex="-1" role="dialog" aria-labelledby="ModalHospital" aria-hidden="true">
-        <%= render 'ppsps/modal_hospital' %>
-      </div>
-    <% end %>
-    <%# Modal Moa %>
-    <% if policy(Moa).new? %>
-      <div class="modal fade" id="ModalMoa" tabindex="-1" role="dialog" aria-labelledby="ModalMoa" aria-hidden="true">
-        <%= render 'ppsps/modal_moa' %>
-      </div>
-    <% end %>
-    <%# Modal Moe %>
-    <% if policy(Moe).new? %>
-      <div class="modal fade" id="ModalMoe" tabindex="-1" role="dialog" aria-labelledby="ModalMoe" aria-hidden="true">
-        <%= render 'ppsps/modal_moe' %>
-      </div>
-    <% end %>
-    <%# Modal Direcct %>
-    <% if policy(Direcct).new? %>
-      <div class="modal fade" id="ModalDirecct" tabindex="-1" role="dialog" aria-labelledby="ModalDirecct" aria-hidden="true">
-        <%= render 'ppsps/modal_direcct' %>
-      </div>
-    <% end %>
-    <%# Modal Pension Insurance %>
-    <% if policy(PensionInsurance).new? %>
-      <div class="modal fade" id="ModalPensionInsurance" tabindex="-1" role="dialog" aria-labelledby="ModalPensionInsurance" aria-hidden="true">
-        <%= render 'ppsps/modal_pension_insurance' %>
-      </div>
-    <% end %>
-    <%# Modal Regional Committee %>
-    <% if policy(RegionalCommittee).new? %>
-      <div class="modal fade" id="ModalRegionalCommittee" tabindex="-1" role="dialog" aria-labelledby="ModalRegionalCommittee" aria-hidden="true">
-        <%= render 'ppsps/modal_regional_committee' %>
-      </div>
-    <% end %>
-    <%# Modal Anti_Poison %>
-    <% if policy(AntiPoison).new? %>
-      <div class="modal fade" id="ModalAntiPoison" tabindex="-1" role="dialog" aria-labelledby="ModalAntiPoison" aria-hidden="true">
-        <%= render 'ppsps/modal_anti_poison' %>
-      </div>
-    <% end %>
-    <%# Modal Work Medecine %>
-    <% if policy(WorkMedecine).new? %>
-      <div class="modal fade" id="ModalWorkMedecine" tabindex="-1" role="dialog" aria-labelledby="ModalWorkMedecine" aria-hidden="true">
-        <%= render 'ppsps/modal_work_medecine' %>
-      </div>
-    <% end %>
-    <%# Modal Sos Hand %>
-    <% if policy(SosHand).new? %>
-      <div class="modal fade" id="ModalSosHand" tabindex="-1" role="dialog" aria-labelledby="ModalSosHand" aria-hidden="true">
-        <%= render 'ppsps/modal_sos_hand' %>
-      </div>
-    <% end %>
-    <%# Modal Demining %>
-    <% if policy(Demining).new? %>
-      <div class="modal fade" id="ModalDemining" tabindex="-1" role="dialog" aria-labelledby="ModalDemining" aria-hidden="true">
-        <%= render 'ppsps/modal_demining' %>
-      </div>
+    </div>
+  <% end %>
+  <% if policy(SecurityCoordinator).create? %>
+    <div class="modal fade" id="ModalSecurityCoordinator" tabindex="-1" role="dialog" aria-labelledby="ModalSecurityCoordinator" aria-hidden="true">
+      <%= render 'ppsps/modal_security_coordinator' %>
+    </div>
+  <% end %>
+  <% if policy(Hospital).create? %>
+    <div class="modal fade" id="ModalHospital" tabindex="-1" role="dialog" aria-labelledby="ModalHospital" aria-hidden="true">
+      <%= render 'ppsps/modal_hospital' %>
+    </div>
+  <% end %>
+  <% if policy(Moa).create? %>
+    <div class="modal fade" id="ModalMoa" tabindex="-1" role="dialog" aria-labelledby="ModalMoa" aria-hidden="true">
+      <%= render 'ppsps/modal_moa' %>
+    </div>
+  <% end %>
+  <% if policy(Moe).create? %>
+    <div class="modal fade" id="ModalMoe" tabindex="-1" role="dialog" aria-labelledby="ModalMoe" aria-hidden="true">
+      <%= render 'ppsps/modal_moe' %>
+    </div>
+  <% end %>
+  <% if policy(Direcct).create? %>
+    <div class="modal fade" id="ModalDirecct" tabindex="-1" role="dialog" aria-labelledby="ModalDirecct" aria-hidden="true">
+      <%= render 'ppsps/modal_direcct' %>
+    </div>
+  <% end %>
+  <% if policy(PensionInsurance).create? %>
+    <div class="modal fade" id="ModalPensionInsurance" tabindex="-1" role="dialog" aria-labelledby="ModalPensionInsurance" aria-hidden="true">
+      <%= render 'ppsps/modal_pension_insurance' %>
+    </div>
+  <% end %>
+  <% if policy(RegionalCommittee).create? %>
+    <div class="modal fade" id="ModalRegionalCommittee" tabindex="-1" role="dialog" aria-labelledby="ModalRegionalCommittee" aria-hidden="true">
+      <%= render 'ppsps/modal_regional_committee' %>
+    </div>
+  <% end %>
+  <% if policy(AntiPoison).create? %>
+    <div class="modal fade" id="ModalAntiPoison" tabindex="-1" role="dialog" aria-labelledby="ModalAntiPoison" aria-hidden="true">
+      <%= render 'ppsps/modal_anti_poison' %>
+    </div>
+  <% end %>
+  <% if policy(WorkMedecine).create? %>
+    <div class="modal fade" id="ModalWorkMedecine" tabindex="-1" role="dialog" aria-labelledby="ModalWorkMedecine" aria-hidden="true">
+      <%= render 'ppsps/modal_work_medecine' %>
+    </div>
+  <% end %>
+  <% if policy(SosHand).create? %>
+    <div class="modal fade" id="ModalSosHand" tabindex="-1" role="dialog" aria-labelledby="ModalSosHand" aria-hidden="true">
+      <%= render 'ppsps/modal_sos_hand' %>
+    </div>
+  <% end %>
+  <% if policy(Demining).create? %>
+    <div class="modal fade" id="ModalDemining" tabindex="-1" role="dialog" aria-labelledby="ModalDemining" aria-hidden="true">
+      <%= render 'ppsps/modal_demining' %>
     </div>
   <% end %>
 </div>

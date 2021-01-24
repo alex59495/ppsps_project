@@ -3,8 +3,8 @@
   <%= f.input :phone, label: 'Téléphone' %>
   <%= f.input :fax, label: 'Fax' %>
   <% if params[:action] == 'new' || params[:action] == 'index' %>
-    <%= f.submit 'Créer un DIRECCT', class: 'btn-blue' %>
+    <%= f.submit 'Créer un DIRECCT', class: 'btn-blue', id: "DirecctBtn" %>
   <% else %>
-    <%= f.submit 'Modifier ce DIRECCT', class: 'btn-blue' %>
+    <%= f.submit 'Modifier ce DIRECCT', class: 'btn-blue', id: "DirecctBtn" %>
   <% end %>
 <% end %>

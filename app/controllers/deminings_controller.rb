@@ -4,7 +4,7 @@ class DeminingsController < ApplicationController
   def index
     authorize Demining
     if params[:query]
-      @deminings = policy_scope(Demining.search_demining(params[:query]))
+      @deminings = policy_scope(Demining.search(params[:query]))
       @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
@@ -32,7 +32,7 @@ class DeminingsController < ApplicationController
     authorize @demining
     if @demining.save
       # Create an ordered list to put the last one in first
-      @deminings = Demining.all.sort_by { |demining| demining.created_at }
+      @deminings = policy_scope(Demining.all).sort_by { |demining| demining.created_at }
       # Respond with the view demining/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
@@ -73,7 +73,7 @@ class DeminingsController < ApplicationController
   # Useful for the infinite loop
   def pagination
     if params[:query]
-      @deminings = policy_scope(Demining.search_demining(params[:query]))
+      @deminings = policy_scope(Demining.search(params[:query]))
     else
       @deminings = policy_scope(Demining.all)
     end

@@ -34,17 +34,17 @@ class PpspsController < ApplicationController
     @anti_poison = AntiPoison.new
 
     # Select the databases present in the select lists
-    @moas = Moa.where(company: current_user.company, is_destroyed: false)
-    @moes = Moe.where(company: current_user.company, is_destroyed: false)
-    @regional_committees = RegionalCommittee.where(company: current_user.company, is_destroyed: false)
-    @pension_insurances = PensionInsurance.where(company: current_user.company, is_destroyed: false)
-    @direccts = Direcct.where(company: current_user.company, is_destroyed: false)
-    @work_medecines = WorkMedecine.where(company: current_user.company, is_destroyed: false)
-    @deminings = Demining.where(company: current_user.company, is_destroyed: false)
-    @sos_hands = SosHand.where(company: current_user.company, is_destroyed: false)
-    @anti_poisons = AntiPoison.where(company: current_user.company, is_destroyed: false)
-    @hospitals = Hospital.where(company: current_user.company, is_destroyed: false)
-    @security_coordinators = SecurityCoordinator.where(company: current_user.company, is_destroyed: false)
+    @moas = policy_scope(Moa.all)
+    @moes = policy_scope(Moe.all)
+    @regional_committees = policy_scope(RegionalCommittee.all)
+    @pension_insurances = policy_scope(PensionInsurance.all)
+    @direccts = policy_scope(Direcct.all)
+    @work_medecines = policy_scope(WorkMedecine.all)
+    @deminings = policy_scope(Demining.all)
+    @sos_hands = policy_scope(SosHand.all)
+    @anti_poisons = policy_scope(AntiPoison.all)
+    @hospitals = policy_scope(Hospital.all)
+    @security_coordinators = policy_scope(SecurityCoordinator.all)
   end
 
   def show
@@ -87,17 +87,17 @@ class PpspsController < ApplicationController
     @ppsp.user = current_user
 
     # Select the databases present in the select lists
-    @moas = Moa.where(company: current_user.company, is_destroyed: false)
-    @moes = Moe.where(company: current_user.company, is_destroyed: false)
-    @regional_committees = RegionalCommittee.where(company: current_user.company, is_destroyed: false)
-    @pension_insurances = PensionInsurance.where(company: current_user.company, is_destroyed: false)
-    @direccts = Direcct.where(company: current_user.company, is_destroyed: false)
-    @work_medecines = WorkMedecine.where(company: current_user.company, is_destroyed: false)
-    @deminings = Demining.where(company: current_user.company, is_destroyed: false)
-    @sos_hands = SosHand.where(company: current_user.company, is_destroyed: false)
-    @anti_poisons = AntiPoison.where(company: current_user.company, is_destroyed: false)
-    @hospitals = Hospital.where(company: current_user.company, is_destroyed: false)
-    @security_coordinators = SecurityCoordinator.where(company: current_user.company, is_destroyed: false)
+    @moas = policy_scope(Moa.all)
+    @moes = policy_scope(Moe.all)
+    @regional_committees = policy_scope(RegionalCommittee.all)
+    @pension_insurances = policy_scope(PensionInsurance.all)
+    @direccts = policy_scope(Direcct.all)
+    @work_medecines = policy_scope(WorkMedecine.all)
+    @deminings = policy_scope(Demining.all)
+    @sos_hands = policy_scope(SosHand.all)
+    @anti_poisons = policy_scope(AntiPoison.all)
+    @hospitals = policy_scope(Hospital.all)
+    @security_coordinators = policy_scope(SecurityCoordinator.all)
 
     authorize @ppsp
     if @ppsp.save
@@ -151,17 +151,17 @@ class PpspsController < ApplicationController
     @anti_poison = AntiPoison.new
 
     # Select the databases present in the select lists
-    @moas = Moa.where(company: current_user.company, is_destroyed: false)
-    @moes = Moe.where(company: current_user.company, is_destroyed: false)
-    @regional_committees = RegionalCommittee.where(company: current_user.company, is_destroyed: false)
-    @pension_insurances = PensionInsurance.where(company: current_user.company, is_destroyed: false)
-    @direccts = Direcct.where(company: current_user.company, is_destroyed: false)
-    @work_medecines = WorkMedecine.where(company: current_user.company, is_destroyed: false)
-    @deminings = Demining.where(company: current_user.company, is_destroyed: false)
-    @sos_hands = SosHand.where(company: current_user.company, is_destroyed: false)
-    @anti_poisons = AntiPoison.where(company: current_user.company, is_destroyed: false)
-    @hospitals = Hospital.where(company: current_user.company, is_destroyed: false)
-    @security_coordinators = SecurityCoordinator.where(company: current_user.company, is_destroyed: false)
+    @moas = policy_scope(Moa.all)
+    @moes = policy_scope(Moe.all)
+    @regional_committees = policy_scope(RegionalCommittee.all)
+    @pension_insurances = policy_scope(PensionInsurance.all)
+    @direccts = policy_scope(Direcct.all)
+    @work_medecines = policy_scope(WorkMedecine.all)
+    @deminings = policy_scope(Demining.all)
+    @sos_hands = policy_scope(SosHand.all)
+    @anti_poisons = policy_scope(AntiPoison.all)
+    @hospitals = policy_scope(Hospital.all)
+    @security_coordinators = policy_scope(SecurityCoordinator.all)
   end
 
   def update
@@ -185,17 +185,17 @@ class PpspsController < ApplicationController
     @anti_poison = AntiPoison.new
 
     # Select the databases present in the select lists
-    @moas = Moa.where(company: current_user.company, is_destroyed: false)
-    @moes = Moe.where(company: current_user.company, is_destroyed: false)
-    @regional_committees = RegionalCommittee.where(company: current_user.company, is_destroyed: false)
-    @pension_insurances = PensionInsurance.where(company: current_user.company, is_destroyed: false)
-    @direccts = Direcct.where(company: current_user.company, is_destroyed: false)
-    @work_medecines = WorkMedecine.where(company: current_user.company, is_destroyed: false)
-    @deminings = Demining.where(company: current_user.company, is_destroyed: false)
-    @sos_hands = SosHand.where(company: current_user.company, is_destroyed: false)
-    @anti_poisons = AntiPoison.where(company: current_user.company, is_destroyed: false)
-    @hospitals = Hospital.where(company: current_user.company, is_destroyed: false)
-    @security_coordinators = SecurityCoordinator.where(company: current_user.company, is_destroyed: false)
+    @moas = policy_scope(Moa.all)
+    @moes = policy_scope(Moe.all)
+    @regional_committees = policy_scope(RegionalCommittee.all)
+    @pension_insurances = policy_scope(PensionInsurance.all)
+    @direccts = policy_scope(Direcct.all)
+    @work_medecines = policy_scope(WorkMedecine.all)
+    @deminings = policy_scope(Demining.all)
+    @sos_hands = policy_scope(SosHand.all)
+    @anti_poisons = policy_scope(AntiPoison.all)
+    @hospitals = policy_scope(Hospital.all)
+    @security_coordinators = policy_scope(SecurityCoordinator.all)
 
     if @ppsp.update(params_ppsp)
       redirect_to informations_supplementaires_ppsp_path(@ppsp)

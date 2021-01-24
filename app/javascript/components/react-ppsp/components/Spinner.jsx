@@ -8,7 +8,7 @@ const Spinner = ({ message }) => (
 );
 
 Spinner.defaultProps = {
-  message: 'Loading...',
+  message: 'Chargement...',
 };
 
 Spinner.propTypes = {

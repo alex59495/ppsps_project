@@ -5,8 +5,8 @@ $(document).ready(function() {
   if (document.getElementById("ppsp_moe_id")) {
     document.getElementById("ppsp_moe_id").innerHTML = "<%= j(render 'form_field_moe') %>";
   }
-  if (document.querySelector(".flexbox-database")) {
-    document.querySelector(".flexbox-database").innerHTML = "<%= j(render 'content-db') %>";
+  if (document.querySelector(".content-db")) {
+    document.querySelector(".content-db").innerHTML = "<%= j(render 'content-db') %>";
   }
 })
 

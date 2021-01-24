@@ -3,8 +3,8 @@
   <%= f.input :address, label: 'Adresse' %>
   <%= f.input :phone, label: 'Téléphone' %>
   <% if params[:action] == 'new' || params[:action] == 'index' %>
-    <%= f.submit 'Créer un centre', class: 'btn-blue' %>
+    <%= f.submit 'Créer un centre', class: 'btn-blue', id: "SosBtn" %>
   <% else %>
-    <%= f.submit 'Modifier ce centre', class: 'btn-blue' %>
+    <%= f.submit 'Modifier ce centre', class: 'btn-blue', id: "SosBtn" %>
   <% end %>
 <% end %>
