@@ -14,7 +14,9 @@ class ProfilesController < ApplicationController
     @user.user_update = true
     @company = @user.company
     # Verify if the company logo is entered, if yes update the logo
-    if params.key?(:company)
+    if params.require(:user).key?(:company)
+      # Delete the attached existing element (if there is one)
+      @company.logo.purge
       @company.logo = params.require(:user).require(:company).require(:logo)
       @company.save!
     end

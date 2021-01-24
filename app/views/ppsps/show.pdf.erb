@@ -8,7 +8,7 @@
       <% end %>
       <% if @ppsp.logo_client.attached? %>
         <div class="flex-div-50" style='text-align: right;'>
-          <%= cl_image_tag @ppsp.user.company.logo.key, class: 'pdf-logo' %>
+          <%= cl_image_tag @ppsp.logo_client.key, class: 'pdf-logo' %>
         </div>
       <% end %>
     </div>
