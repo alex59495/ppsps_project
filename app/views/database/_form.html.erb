@@ -1,10 +1,10 @@
-<%= simple_form_for @anti_poison, remote: true do |f| %>
+<%= simple_form_for @data, remote: true do |f| %>
   <%= f.input :name, label: 'Nom' %>
   <%= f.input :address, label: 'Adresse' %>
   <%= f.input :phone, label: 'Téléphone' %>
   <% if params[:action] == 'new' || params[:action] == 'index' %>
-    <%= f.submit 'Créer un centre anti-poison', class: 'btn-blue' %>
+    <%= f.submit 'Créer un hôpital', class: 'btn-blue' %>
   <% else %>
-    <%= f.submit 'Modifier ce centre anti-poison', class: 'btn-blue' %>
+    <%= f.submit 'Modifier cet hôpital', class: 'btn-blue' %>
   <% end %>
 <% end %>
