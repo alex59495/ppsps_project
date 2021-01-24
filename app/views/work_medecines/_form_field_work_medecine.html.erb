@@ -1,8 +1,8 @@
 <div class="form-group select required ppsp_work_medecine_id"><label class="select required" for="ppsp_work_medecine_id">Médecine du travail <abbr title="required">*</abbr></label>
   <select class="form-control select required" name="ppsp[work_medecine_id]" id="ppsp_work_medecine_id">
     <option value=""></option>
-    <% @work_medecines.each do |work| %>
-      <%= "<option value=#{work.id}>#{work.address} - #{work.phone}</option>".html_safe %>
+    <% @database.each do |data| %>
+      <%= "<option value=#{data.id}>#{data.address} - #{data.phone}</option>".html_safe %>
     <% end %>
   </select>
 </div>

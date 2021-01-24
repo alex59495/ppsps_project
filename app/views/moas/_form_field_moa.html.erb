@@ -1,8 +1,8 @@
 <div class="form-group select required ppsp_moa_id"><label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
   <select class="form-control select required" name="ppsp[moa_id]" id="ppsp_moa_id">
     <option value=""></option>
-    <% @moas.each do |moa| %>
-      <%= "<option value=#{moa.id}>#{moa.name} - #{moa.representative}</option>".html_safe %>
+    <% @database.each do |data| %>
+      <%= "<option value=#{data.id}>#{data.name} - #{data.representative}</option>".html_safe %>
     <% end %>
   </select>
 </div>

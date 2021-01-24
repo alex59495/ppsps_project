@@ -6,7 +6,7 @@ class AntiPoison < ApplicationRecord
   validates :phone, presence: true, phone: true
 
   include PgSearch::Model
-  pg_search_scope :search,
+  pg_search_scope :search_anti_poison,
                   against: %i[name address phone],
                   using: {
                     tsearch: { prefix: true } # <-- allow the fact to search various words incomplete
@@ -14,7 +14,7 @@ class AntiPoison < ApplicationRecord
 
   def self.search(query)
     if query.present?
-      search(query).order(created_at: :asc)
+      search_anti_poison(query).order(created_at: :asc)
     else
       # No query? Return all records, newest first.
       order("created_at ASC")

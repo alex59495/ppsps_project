@@ -1,8 +1,4 @@
 class HospitalsController < DatabaseController
-  def index
-    super
-    @hospital = @data
-  end
 
   def update
     @path = hospitals_path

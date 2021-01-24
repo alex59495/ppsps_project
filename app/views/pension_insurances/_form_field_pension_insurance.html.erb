@@ -1,8 +1,8 @@
 <div class="form-group select required ppsp_pension_insurance_id"><label class="select required" for="ppsp_pension_insurance_id">Caisse d'assurance retraite <abbr title="required">*</abbr></label>
   <select class="form-control select required" name="ppsp[pension_insurance_id]" id="ppsp_pension_insurance_id">
     <option value=""></option>
-    <% @pension_insurances.each do |instance| %>
-      <%= "<option value=#{instance.id}>#{instance.address} - #{instance.phone}</option>".html_safe %>
+    <% @database.each do |data| %>
+      <%= "<option value=#{data.id}>#{data.address} - #{data.phone}</option>".html_safe %>
     <% end %>
   </select>
 </div>
