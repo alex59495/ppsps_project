@@ -1,10 +1,10 @@
 class SosHandsController < ApplicationController
-  before_action :find_sos_hand, only: [ :update, :show, :destroyed, :edit ]
+  before_action :find_sos_hand, only: %i[update show destroyed edit]
 
   def index
     authorize SosHand
     if params[:query]
-      @sos_hands = policy_scope(SosHand.search_sos_hand(params[:query]))
+      @sos_hands = policy_scope(SosHand.search(params[:query]))
       @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
@@ -32,7 +32,7 @@ class SosHandsController < ApplicationController
     authorize @sos_hand
     if @sos_hand.save
       # Create an ordered list to put the last one in first
-      @sos_hands = SosHand.all.sort_by { |sos_hand| sos_hand.created_at }
+      @sos_hands = policy_scope(SosHand.all).sort_by { |sos_hand| sos_hand.created_at }
       # Respond with the view sos_hand/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
@@ -73,7 +73,7 @@ class SosHandsController < ApplicationController
   # Useful for the infinite loop
   def pagination
     if params[:query]
-      @sos_hands = policy_scope(SosHand.search_sos_hand(params[:query]))
+      @sos_hands = policy_scope(SosHand.search(params[:query]))
     else
       @sos_hands = policy_scope(SosHand.all)
     end

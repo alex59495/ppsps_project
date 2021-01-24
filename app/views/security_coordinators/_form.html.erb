@@ -5,8 +5,8 @@
   <%= f.input :phone, label: 'Téléphone' %>
   <%= f.input :email, label: 'Email' %>
   <% if params[:action] == 'new' || params[:action] == 'index' %>
-    <%= f.submit 'Créer un coordinateur', class: 'btn-blue' %>
+    <%= f.submit 'Créer un coordinateur', class: 'btn-blue', id: "SecurityBtn" %>
   <% else %>
-    <%= f.submit 'Modifier ce coordinateur', class: 'btn-blue' %>
+    <%= f.submit 'Modifier ce coordinateur', class: 'btn-blue', id: "SecurityBtn" %>
   <% end %>
 <% end %>

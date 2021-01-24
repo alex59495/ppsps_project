@@ -1,10 +1,10 @@
 class DirecctsController < ApplicationController
-  before_action :find_direcct, only: [ :update, :show, :destroyed, :edit ]
+  before_action :find_direcct, only: %i[update show destroyed edit]
 
   def index
     authorize Direcct
     if params[:query]
-      @direccts = policy_scope(Direcct.search_direcct(params[:query]))
+      @direccts = policy_scope(Direcct.search(params[:query]))
       @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
@@ -32,7 +32,7 @@ class DirecctsController < ApplicationController
     authorize @direcct
     if @direcct.save
       # Create an ordered list to put the last one in first
-      @direccts = Direcct.all.sort_by { |direcct| direcct.created_at }
+      @direccts = policy_scope(Direcct.all).sort_by { |direcct| direcct.created_at }
       # Respond with the view direcct/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
@@ -73,7 +73,7 @@ class DirecctsController < ApplicationController
   # Useful for the infinite loop
   def pagination
     if params[:query]
-      @direccts = policy_scope(Direcct.search_direcct(params[:query]))
+      @direccts = policy_scope(Direcct.search(params[:query]))
     else
       @direccts = policy_scope(Direcct.all)
     end

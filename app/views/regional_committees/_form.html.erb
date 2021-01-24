@@ -4,8 +4,8 @@
   <%= f.input :phone, label: 'Téléphone' %>
   <%= f.input :fax, label: 'Fax' %>
   <% if params[:action] == 'new' || params[:action] == 'index' %>
-    <%= f.submit 'Créer un comité régional', class: 'btn-blue' %>
+    <%= f.submit 'Créer un comité régional', class: 'btn-blue', id: "RegionalBtn" %>
   <% else %>
-    <%= f.submit 'Modifier ce comité régional', class: 'btn-blue' %>
+    <%= f.submit 'Modifier ce comité régional', class: 'btn-blue', id: "RegionalBtn" %>
   <% end %>
 <% end %>

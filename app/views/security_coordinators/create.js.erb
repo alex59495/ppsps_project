@@ -5,7 +5,7 @@ $(document).ready(function() {
   if (document.getElementById("ppsp_security_coordinator_id")) {
     document.getElementById("ppsp_security_coordinator_id").innerHTML = "<%= j(render 'form_field_security_coordinator') %>";
   }
-  if (document.querySelector(".flexbox-database")) {
-    document.querySelector(".flexbox-database").innerHTML = "<%= j(render 'content-db') %>";
+  if (document.querySelector(".content-db")) {
+    document.querySelector(".content-db").innerHTML = "<%= j(render 'content-db') %>";
   }
 })

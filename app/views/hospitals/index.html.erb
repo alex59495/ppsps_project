@@ -21,7 +21,8 @@
         <%= f.submit 'Go', class: "btn-orange-right", id: "btn-search" %>
     <% end %>
     <form class="d-flex justify-content-center mt-1" method="get" action=<%= hospitals_path %> data-remote="true">
-      <input class="btn-orange-ext" id="btn-database" type="submit" value="Database complète">
+      <input type="hidden" name='query' value=''>
+      <button class="btn-orange-ext" id="btn-database" type="submit">Database complète</button>
     </form>
     <div class="content-db">
       <div class="flex-database d-flex flex-wrap mt-2 justify-content-center">
@@ -30,7 +31,7 @@
       <div class="container-db-vide" style='display: none'>
         Votre recherche n'a retourné aucun résultat
       </div>
-      <div class="container-pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %> data-number = <%= @database_page.count %>>
+      <div class="container-pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %> data-search=<%=@search%> data-number = <%= @hospitals_page.count %>>
         <%= image_tag('gif-loading.gif') %>
       </div>
     </div>

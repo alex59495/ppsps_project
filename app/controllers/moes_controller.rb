@@ -1,10 +1,10 @@
 class MoesController < ApplicationController
-  before_action :find_moe, only: [ :update, :show, :destroyed, :edit ]
+  before_action :find_moe, only: %i[update show destroyed edit]
 
   def index
     authorize Moe
     if params[:query]
-      @moes = policy_scope(Moe.search_moe(params[:query]))
+      @moes = policy_scope(Moe.search(params[:query]))
       @search = 'search'
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
@@ -32,7 +32,7 @@ class MoesController < ApplicationController
     authorize @moe
     if @moe.save
       # Create an ordered list to put the last one in first
-      @moes = Moe.all.sort_by { |moe| moe.created_at }
+      @moes = policy_scope(Moe.all).sort_by { |moe| moe.created_at }
       # Respond with the view moe/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js {}
@@ -73,7 +73,7 @@ class MoesController < ApplicationController
   # Useful for the infinite loop
   def pagination
     if params[:query]
-      @moes = policy_scope(Moe.search_moe(params[:query]))
+      @moes = policy_scope(Moe.search(params[:query]))
     else
       @moes = policy_scope(Moe.all)
     end

@@ -4,6 +4,6 @@
 <div class="container-db-vide" style='display: none'>
   Votre recherche n'a retourné aucun résultat
 </div>
-<div class="container-pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %> data-number = <%= @database_page.count %>>
+<div class="container-pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %> data-search=<%=@search%> data-number = <%= @hospitals_page.count %>>
   <%= image_tag('gif-loading.gif') %>
 </div>

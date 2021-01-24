@@ -8,24 +8,14 @@ const infiniteScroll = () => {
     const paginationUrl = paginationElem.attr('data-pagination-endpoint');
     const pagesAmount = paginationElem.attr('data-pagination-pages');
     let currentPage = 1;
-    let baseEndpoint;
-
-    // validates if pagination URL has query params
-    if (paginationUrl.endsWith('?')) {
-      baseEndpoint = `${paginationUrl}&page=`;
-    } else {
-      baseEndpoint = `${paginationUrl}?page=`;
-    }
 
     // Initialize pagination
     paginationElem.hide();
     let isPaginating = false;
 
     const clearResult = () => {
-      setTimeout(() => {
-        clearTimeout();
-        paginationElem.hide();
-      }, 1000);
+      clearTimeout();
+      paginationElem.hide();
     };
 
     const appendResult = (resultat) => {
@@ -37,7 +27,7 @@ const infiniteScroll = () => {
     };
     const handleDisplaying = () => {
       paginationElem = $('.container-pagination');
-      const numberElements = paginationElem.attr('data-number');
+      const numberElements = parseInt(paginationElem.attr('data-number'), 10);
       if (numberElements < 25) {
         paginationElem.hide();
       }
@@ -61,7 +51,7 @@ const infiniteScroll = () => {
     windowScreen.on('scroll', () => {
       // Handle the search, in this case we reset the variable - CurrentPage - to 1
       const paginationElemt = $('.container-pagination');
-      if (paginationElemt.attr('data-search') === 'result') {
+      if (paginationElemt.attr('data-search') === 'search') {
         currentPage = 1;
         paginationElemt.attr('data-search', 'scroll');
       }
@@ -78,11 +68,13 @@ const infiniteScroll = () => {
       ) {
         isPaginating = true;
         currentPage += 1;
+        const query = document.getElementById('query').value;
         paginationElemt.show();
         $.ajax({
-          url: baseEndpoint + currentPage,
+          url: `${paginationUrl}?page=${currentPage}&query=${query}`,
         }).then((resultat) => {
-          if (window.location.href.endsWith(baseEndpoint.split('/')[1])) {
+          // Verify that we are on the good page
+          if (window.location.href.endsWith(paginationUrl.split('/')[1])) {
             appendResult(resultat);
           }
         });
