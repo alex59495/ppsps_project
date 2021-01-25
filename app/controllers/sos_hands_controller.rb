@@ -9,7 +9,7 @@ class SosHandsController < DatabaseController
     super
   end
 
-  def init_infinite_loop
+  def init_infinite_scroll
     @pagination_path = pagination_sos_hands_path
     super
   end

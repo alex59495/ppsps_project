@@ -9,7 +9,7 @@ class SecurityCoordinatorsController < DatabaseController
     super
   end
 
-  def init_infinite_loop
+  def init_infinite_scroll
     @pagination_path = pagination_security_coordinators_path
     super
   end

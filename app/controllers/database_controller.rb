@@ -9,7 +9,7 @@ class DatabaseController < ApplicationController
 
     if params[:query]
       @database = policy_scope(@model_name.search(params[:query]))
-      init_infinite_loop
+      init_infinite_scroll
 
       @search = 'search'
 
@@ -20,7 +20,7 @@ class DatabaseController < ApplicationController
       end
     else
       @database = policy_scope(@model_name.all)
-      init_infinite_loop
+      init_infinite_scroll
 
       @search = 'none'
       # Must be able to respond in HTML (when load the page) and JS (when click on button Show all databse)
@@ -43,7 +43,7 @@ class DatabaseController < ApplicationController
       # Create an ordered list to put the last one in first
       @database = policy_scope(@model_name.all).sort_by { |datab| datab.created_at }
       # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
-      init_infinite_loop
+      init_infinite_scroll
       # Respond with the view anti_poison/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js { render "#{controller_name}/create.js.erb" }
@@ -84,7 +84,7 @@ class DatabaseController < ApplicationController
     end
   end
 
-  # Useful for the infinite loop
+  # Useful for the infinite scroll
   def pagination
     if params[:query]
       @database = policy_scope(@model_name.search(params[:query]))
@@ -98,7 +98,7 @@ class DatabaseController < ApplicationController
 
   private
 
-  def init_infinite_loop
+  def init_infinite_scroll
     # Useful for the infinite scroll
     @database_page = Kaminari.paginate_array(@database).page.per(20)
     @endpoint = @pagination_path

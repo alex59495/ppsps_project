@@ -9,7 +9,7 @@ class RegionalCommitteesController < DatabaseController
     super
   end
 
-  def init_infinite_loop
+  def init_infinite_scroll
     @pagination_path = pagination_regional_committees_path
     super
   end

@@ -9,7 +9,7 @@ class WorkMedecinesController < DatabaseController
     super
   end
 
-  def init_infinite_loop
+  def init_infinite_scroll
     @pagination_path = pagination_work_medecines_path
     super
   end

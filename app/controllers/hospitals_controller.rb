@@ -10,7 +10,7 @@ class HospitalsController < DatabaseController
     super
   end
 
-  def init_infinite_loop
+  def init_infinite_scroll
     @pagination_path = pagination_hospitals_path
     super
   end

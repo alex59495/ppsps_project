@@ -9,7 +9,7 @@ class DirecctsController < DatabaseController
     super
   end
 
-  def init_infinite_loop
+  def init_infinite_scroll
     @pagination_path = pagination_direccts_path
     super
   end

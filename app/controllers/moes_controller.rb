@@ -9,7 +9,7 @@ class MoesController < DatabaseController
     super
   end
 
-  def init_infinite_loop
+  def init_infinite_scroll
     @pagination_path = pagination_moes_path
     super
   end

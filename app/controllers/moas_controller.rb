@@ -9,7 +9,7 @@ class MoasController < DatabaseController
     super
   end
 
-  def init_infinite_loop
+  def init_infinite_scroll
     @pagination_path = pagination_moas_path
     super
   end

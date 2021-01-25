@@ -9,7 +9,7 @@ class AntiPoisonsController < DatabaseController
     super
   end
 
-  def init_infinite_loop
+  def init_infinite_scroll
     @pagination_path = pagination_anti_poisons_path
     super
   end

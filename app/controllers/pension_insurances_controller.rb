@@ -9,7 +9,7 @@ class PensionInsurancesController < DatabaseController
     super
   end
 
-  def init_infinite_loop
+  def init_infinite_scroll
     @pagination_path = pagination_pension_insurances_path
     super
   end
