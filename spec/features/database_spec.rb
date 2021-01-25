@@ -34,13 +34,12 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(moas_path)
       count = page.all('.card-bdd').count
       find('.btn-blue').click
-      fill_in('moa_name', with: 'Test Moa')
-      fill_in('moa_address', with: 'Test Moa')
-      fill_in('moa_representative', with: 'Test Moa')
-      fill_in('moa_email', with: 'test_moa@gmail.com')
-      fill_in('moa_phone', with: '0600000000')
+      page.execute_script("$('#moa_name').val('Test moa')")
+      page.execute_script("$('#moa_address').val('Test moa')")
+      page.execute_script("$('#moa_representative').val('Test moa')")
+      page.execute_script("$('#moa_email').val('test_moa@gmail.com')")
+      page.execute_script("$('#moa_phone').val('0600000000')")
       find('#MoaBtn').click
-      sleep(3.second)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -48,13 +47,12 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(moes_path)
       count = page.all('.card-bdd').count
       find('.btn-blue').click
-      fill_in('moe_name', with: 'Test moe')
-      fill_in('moe_address', with: 'Test moe')
-      fill_in('moe_representative', with: 'Test moe')
-      fill_in('moe_email', with: 'test_moe@gmail.com')
-      fill_in('moe_phone', with: '0600000000')
+      page.execute_script("$('#moe_name').val('Test moe')")
+      page.execute_script("$('#moe_address').val('Test moe')")
+      page.execute_script("$('#moe_representative').val('Test moe')")
+      page.execute_script("$('#moe_email').val('test_moe@gmail.com')")
+      page.execute_script("$('#moe_phone').val('0600000000')")
       find('#MoeBtn').click
-      sleep(3.second)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -62,11 +60,10 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(anti_poisons_path)
       count = page.all('.card-bdd').count
       find('.btn-blue').click
-      fill_in('anti_poison_name', with: 'Test anti_poison')
-      fill_in('anti_poison_address', with: 'Test anti_poison')
-      fill_in('anti_poison_phone', with: '0600000000')
+      page.execute_script("$('#anti_poison_name').val('Test anti_poison')")
+      page.execute_script("$('#anti_poison_address').val('Test anti_poison')")
+      page.execute_script("$('#anti_poison_phone').val('0600000000')")
       find('#AntiPoisonBtn').click
-      sleep(3.second)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -74,11 +71,10 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(deminings_path)
       count = page.all('.card-bdd').count
       find('.btn-blue').click
-      fill_in('demining_name', with: 'Test demining')
-      fill_in('demining_address', with: 'Test demining')
-      fill_in('demining_phone', with: '0600000000')
+      page.execute_script("$('#demining_name').val('Test demining')")
+      page.execute_script("$('#demining_address').val('Test demining')")
+      page.execute_script("$('#demining_phone').val('0600000000')")
       find('#DeminingBtn').click
-      sleep(3.second)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -86,11 +82,10 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(sos_hands_path)
       count = page.all('.card-bdd').count
       find('.btn-blue').click
-      fill_in('sos_hand_name', with: 'Test sos_hand')
-      fill_in('sos_hand_address', with: 'Test sos_hand')
-      fill_in('sos_hand_phone', with: '0600000000')
+      page.execute_script("$('#sos_hand_name').val('Test sos_hand')")
+      page.execute_script("$('#sos_hand_address').val('Test sos_hand')")
+      page.execute_script("$('#sos_hand_phone').val('0600000000')")
       find('#SosBtn').click
-      sleep(3.second)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -98,11 +93,10 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(hospitals_path)
       count = page.all('.card-bdd').count
       find('.btn-blue').click
-      fill_in('hospital_name', with: 'Test hospital')
-      fill_in('hospital_address', with: 'Test hospital')
-      fill_in('hospital_phone', with: '0600000000')
+      page.execute_script("$('#hospital_name').val('Test hospital')")
+      page.execute_script("$('#hospital_address').val('Test hospital')")
+      page.execute_script("$('#hospital_phone').val('0600000000')")
       find('#HospitalBtn').click
-      sleep(3.second)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -110,11 +104,10 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(direccts_path)
       count = page.all('.card-bdd').count
       find('.btn-blue').click
-      fill_in('direcct_fax', with: '0600000000')
-      fill_in('direcct_address', with: 'Test direcct')
-      fill_in('direcct_phone', with: '0600000000')
+      page.execute_script("$('#direcct_fax').val('0600000000')")
+      page.execute_script("$('#direcct_address').val('Test direcct')")
+      page.execute_script("$('#direcct_phone').val('0600000000')")
       find('#DirecctBtn').click
-      sleep(3.second)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -122,12 +115,11 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(regional_committees_path)
       count = page.all('.card-bdd').count
       find('.btn-blue').click
-      fill_in('regional_committee_name', with: 'Test regional_committee')
-      fill_in('regional_committee_address', with: 'Test regional_committee')
-      fill_in('regional_committee_phone', with: '0600000000')
-      fill_in('regional_committee_fax', with: '0600000000')
+      page.execute_script("$('#regional_committee_name').val('Test regional_committee')")
+      page.execute_script("$('#regional_committee_fax').val('0600000000')")
+      page.execute_script("$('#regional_committee_address').val('Test regional_committee')")
+      page.execute_script("$('#regional_committee_phone').val('0600000000')")
       find('#RegionalBtn').click
-      sleep(3.second)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -135,11 +127,10 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(pension_insurances_path)
       count = page.all('.card-bdd').count
       find('.btn-blue').click
-      fill_in('pension_insurance_address', with: 'Test pension_insurance')
-      fill_in('pension_insurance_phone', with: '0600000000')
-      fill_in('pension_insurance_fax', with: '0600000000')
+      page.execute_script("$('#pension_insurance_fax').val('0600000000')")
+      page.execute_script("$('#pension_insurance_address').val('Test pension_insurance')")
+      page.execute_script("$('#pension_insurance_phone').val('0600000000')")
       find('#PensionBtn').click
-      sleep(3.second)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -147,11 +138,10 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(work_medecines_path)
       count = page.all('.card-bdd').count
       find('.btn-blue').click
-      fill_in('work_medecine_address', with: 'Test work_medecine')
-      fill_in('work_medecine_phone', with: '0600000000')
-      fill_in('work_medecine_fax', with: '0600000000')
+      page.execute_script("$('#work_medecine_fax').val('0600000000')")
+      page.execute_script("$('#work_medecine_address').val('Test work_medecine')")
+      page.execute_script("$('#work_medecine_phone').val('0600000000')")
       find('#WorkMedecineBtn').click
-      sleep(3.second)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -159,13 +149,12 @@ RSpec.feature "Databases", type: :feature, js: true do
       visit(security_coordinators_path)
       count = page.all('.card-bdd').count
       find('.btn-blue').click
-      fill_in('security_coordinator_name', with: 'Test security_coordinator')
-      fill_in('security_coordinator_address', with: 'Test address security_coordinator')
-      fill_in('security_coordinator_representative', with: 'Test rep security_coordinator')
-      fill_in('security_coordinator_phone', with: '0600000000')
-      fill_in('security_coordinator_email', with: 'test_representative@gmail.com')
+      page.execute_script("$('#security_coordinator_name').val('Test security_coordinator')")
+      page.execute_script("$('#security_coordinator_address').val('Test security_coordinator')")
+      page.execute_script("$('#security_coordinator_representative').val('Test security_coordinator')")
+      page.execute_script("$('#security_coordinator_email').val('test_representative@gmail.com')")
+      page.execute_script("$('#security_coordinator_phone').val('0600000000')")
       find('#SecurityBtn').click
-      sleep(3.second)
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
