@@ -14,13 +14,13 @@ class ProfilesController < ApplicationController
     @user.user_update = true
     @company = @user.company
     # Verify if the company logo is entered, if yes update the logo
-    if params.require(:user).key?(:company)
+    if params.require(:user).require(:company).key?(:logo)
       # Delete the attached existing element (if there is one)
       @company.logo.purge
-      @company.logo = params.require(:user).require(:company).require(:logo)
-      @company.save!
+      @company.update(company_params)
     end
-    if @user.update!(user_params)
+    @company.update(company_params) if params.require(:user).require(:company).key?(:content_secu)
+    if @user.update(user_params)
       redirect_to profile_path(@user)
     else
       render :edit
@@ -36,5 +36,9 @@ class ProfilesController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email)
+  end
+
+  def company_params
+    params.require(:user).require(:company).permit(:logo, :content_secu)
   end
 end

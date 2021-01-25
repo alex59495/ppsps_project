@@ -269,7 +269,7 @@
         Les informations sécurité de l'entreprise
       </div>
       <div class="col-md-10 offset-md-1">
-        <%= f.rich_text_area :content_secu %>
+        <%= f.rich_text_area :content_secu, 'data-content_secu': current_user.company.content_secu.body.to_html %>
       </div>
       <div class="col-md-6 offset-md-3 offset-3 offset-md-5 mt-5">
         <%= f.submit "Accéder à la deuxième page", class: 'btn-blue' %>

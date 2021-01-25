@@ -361,7 +361,7 @@
     </div>
   <% end %>
   
-  <div class="page-break">
+  <div class=<%= @ppsp.content_secu.present? ? "page-break" : "last-page" %> >
     <div class="pdf-text-container my-3">
       <div class="pdf-title">
         Signalisation
@@ -418,88 +418,9 @@
       </div>
     <% end %>
   </div>
-  
-  <div class="page-break">
-    <div class="pdf-text-container my-3">
-      <div class="pdf-title">
-        Port des EPIS
-      </div>
-      <div class="container-text">
-          <div class="content-title">
-            Protection de la tête :
-          </div>
-          <ul>
-            <li>Le port du casque est obligatoire en permanance sur chantier</li>
-            <li>Le port des lunettes de protection est obligatoire lors des travaux provoquant des projections : découpes, de démolition, de battage, perçage, soudure…</li>
-            <li>Port de masques adaptés aux travaux (FFP2 ou FFP3)</li>
-            <li>Bouchons d'oreilles et casques anti-bruit (lors d'utilisation de matériels bruyants ou dans un contexte de chantier bruyant (bip de recul, engins vibrants…)</li>
-          </ul>
-      </div>
-      <%= wicked_pdf_image_tag 'ouvrier_ppsp.png', height: '300px' %>
-      <div class="container-text">
-        <div class="content-title">
-          Protection du corps : 
-        </div>
-        <ul>
-          <li>Pantalon et veste de travail sont obligatoires sur chantier</li>
-          <li>Le port des gants est obligatoire en permanence sur le </li>
-          <li>Le port du baudrier fluorescent propre et en bon état est obligatoire en permanence sur chantier</li>
-          <li>Le port des chaussures ou des bottes de sécurité est obligatoire en permanance sur chantier</li>
-          <li>Des waeders ou des cuissardes sont également fournies aux salariés par l'entreprise pour les travaux en milieu aquatique</li>
-          <li>Des vêtements de pluie sont également fournis par l'entreprise</li>
-        </ul>
-      </div>
-      <div class="container-text">
-        <div class="content-title">
-          Équipements spéciaux 
-        </div>
-        <ul>
-          <li>Harnais de sécurité pour travaux en hauteur</li>
-          <li>Casque et gants de soudeur</li>
-          <li>Masque respiratoire à cartouche</li>
-          <li>Combinaison jetable et cagoule pour l'atelier de projetage…</li>
-        </ul>
-      </div>
+  <% if @ppsp.content_secu.present? %>
+    <div class="last-page">
+      <%= @ppsp.content_secu %>
     </div>
-  </div>
-  
-
-  <div class="last-page">
-    <div class="pdf-text-container my-3">
-      <div class="pdf-title">
-        Manoeuvre et accès de chantier
-      </div>
-      <div class="container-text">
-        <div class="pdf-alert">
-          Tout chauffeur doit obligatoirement se faire guider sur chantier
-        </div>
-        <div class="content-text">
-          Le guide de manœuvres du chantier est (sauf délégation contraire de sa part) : le chef d'équipe.
-          Il est le signaleur pour guider les manœuvres des camions d'appro du chantier interne et externe.
-          Il doit :
-        </div>
-        <ul>
-          <li>Se faire connaître du conducteur de camion</li>
-          <li>Interdire toute présence de piéton dans l'aire d'évolution des camions</li>
-          <li>Se placer toujours à la vue du conducteur et connaître ses angles morts</li>
-          <li>Respecter les consignes conventionnelles</li>
-        </ul>
-        <%= image_tag 'camion_ppsp.png' %>
-        <div class="content-text">
-          Le chauffeur doit : 
-        </div>
-        <ul>
-          <li>S'assurer de la propreté des vitres et rétroviseurs de son véhicule et de la bonne visibilité</li>
-          <li>Suivre les indications du signaleur désigné</li>
-          <li>S'assurer que ses rétroviseurs extérieurs (obligatoires) soient propres et adaptés</li>
-          <li>S'assurer de la présence des rétroviseurs intérieurs (si possible)</li>
-          <li>S'assurer du bon fonctionnement des systèmes d'aide au recul (caméra ou radar de recul)</li>
-          <li>Suivre la gestuelle du signaleur</li>
-        </ul>
-        <%= wicked_pdf_image_tag 'signes_ppsp.png' %>
-        Remarque pour les camions toupies : Un espace dédié au nettoyage sera installé sur site est indiqué par le chef d'équipe avant sa manœuvre de coulage
-      </div>
-      <%= wicked_pdf_image_tag 'camion-toupie_ppsp.png' %>
-    </div>
-  </div>
+  <% end %>
 </div>

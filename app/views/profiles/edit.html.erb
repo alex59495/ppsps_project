@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-6 offset-3">
+  <div class="col-10 offset-1">
     <div class="mb-3">
       <%= link_to "Revenir au profil", profile_path(@user), class: 'link' %>
     </div>
@@ -9,10 +9,15 @@
       <%= f.input :email, label: "Email" %>
       <% if @user.admin %>
         <% if @user.company.logo.attached? %>
+          <p>Logo de l'entreprise</p>
           <%= cl_image_tag @user.company.logo.key, class: 'icon-logo mb-3' %>
         <% end %>
         <%= f.simple_fields_for :company, @company do |h| %>
-          <%= h.input :logo, label: "Modifier le logo" %>
+          <%= h.input :logo, label: false %>
+        <% end %>
+        Texte de sécurité de l'entreprise
+        <%= f.simple_fields_for :company, @company do |h| %>
+          <%= h.rich_text_area :content_secu %>
         <% end %>
       <% end %>
       <%= f.submit "Éditer les informations", class: 'btn-blue' %>

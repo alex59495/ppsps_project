@@ -11,6 +11,8 @@
 .trix-content {
 
   background-color: white;
+  height: 500px;
+  overflow: auto;
 
   .attachment-gallery {
     > action-text-attachment,

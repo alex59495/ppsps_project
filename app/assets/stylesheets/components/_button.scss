@@ -278,3 +278,7 @@ $btn-add-size: 18px;
     text-decoration: none;
   }
 }
+
+input[type=file]::-webkit-file-upload-button {
+  background-color: red
+}

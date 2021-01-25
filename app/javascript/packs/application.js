@@ -26,6 +26,7 @@ import calendar from '../components/calendar';
 import error from '../components/errors';
 import navbarDropdown from '../components/navbar-dropdown';
 import sweetAlertMail from '../components/sweetAlert';
+import trixEditor from '../components/trix-editor';
 
 require('@rails/ujs').start();
 require('turbolinks').start();
@@ -54,6 +55,7 @@ document.addEventListener('turbolinks:load', () => {
   popUp();
   calendar();
   sweetAlertMail();
+  trixEditor();
 });
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true);
