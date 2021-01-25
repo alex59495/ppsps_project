@@ -48,7 +48,7 @@ gem 'kaminari'
 gem 'react-rails'
 
 # Text Editor in rails
-gem 'tinymce-rails'
+gem 'tinymce-rails', '~> 5.6.2.1'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

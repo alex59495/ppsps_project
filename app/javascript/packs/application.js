@@ -45,7 +45,7 @@ require('../channels');
 document.addEventListener('turbolinks:load', () => {
   // Have to add those two lines in order to force the rerender of tinyMCE with turbolinks
   tinymce.remove();
-  tinymce.init({ selector: '.tinymce' });
+  tinymce.init({ selector: '.tinymce' }).then(() => ShowCompanySecuContent());
   navbarDropdown();
   error();
   select2();
@@ -58,7 +58,6 @@ document.addEventListener('turbolinks:load', () => {
   popUp();
   calendar();
   sweetAlertMail();
-  ShowCompanySecuContent();
 });
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true);

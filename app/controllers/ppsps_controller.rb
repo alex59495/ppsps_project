@@ -1,6 +1,5 @@
 class PpspsController < ApplicationController
   before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit informations_supplementaires destroy_logo_client]
-  before_action :ppsp_content_secu?, only: %i[edit new]
 
   def index
     # Handled by react :) (app/assets/javascript/ppsp-react)
@@ -46,6 +45,8 @@ class PpspsController < ApplicationController
     @anti_poisons = policy_scope(AntiPoison.all)
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
+
+    ppsp_content_secu?
   end
 
   def show
@@ -163,6 +164,8 @@ class PpspsController < ApplicationController
     @anti_poisons = policy_scope(AntiPoison.all)
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
+
+    ppsp_content_secu?
   end
 
   def update
@@ -219,7 +222,7 @@ class PpspsController < ApplicationController
 
   # Add in the dataset of the view a indicator which show if the PPSP already have a content_secu or not
   def ppsp_content_secu?
-    params[:action] == 'new' ? @ppsp_content_secu = false : @ppsp_content_secu = @ppsp.content_secu.present?
+    @ppsp_content_secu = @ppsp.content_secu.present?
   end
 
   def params_ppsp
