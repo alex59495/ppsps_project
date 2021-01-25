@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
 
   def edit
     authorize @user
-    @company = @user.company || @user.build_company
+    @company = @user.company
   end
 
   def update

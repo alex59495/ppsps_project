@@ -1,5 +1,6 @@
 class PpspsController < ApplicationController
   before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit informations_supplementaires destroy_logo_client]
+  before_action :ppsp_content_secu?, only: %i[edit new]
 
   def index
     # Handled by react :) (app/assets/javascript/ppsp-react)
@@ -212,6 +213,15 @@ class PpspsController < ApplicationController
 
   private
 
+  def find_ppsp
+    @ppsp = Ppsp.find(params[:id])
+  end
+
+  # Add in the dataset of the view a indicator which show if the PPSP already have a content_secu or not
+  def ppsp_content_secu?
+    params[:action] == 'new' ? @ppsp_content_secu = false : @ppsp_content_secu = @ppsp.content_secu.present?
+  end
+
   def params_ppsp
     params.require(:ppsp).permit(:address, :start_date, :end_date, :nature, :workforce, :agglomeration,
                                  :street_impact, :river_guidance, :moa_id, :moe_id, :subcontractor_ids, :security_coordinator_id,
@@ -221,9 +231,5 @@ class PpspsController < ApplicationController
                                                                   :phone, :email, { site_manager_attributes: %i[name email phone],
                                                                                     team_manager_attributes: %i[name
                                                                                                                 email phone] }])
-  end
-
-  def find_ppsp
-    @ppsp = Ppsp.find(params[:id])
   end
 end

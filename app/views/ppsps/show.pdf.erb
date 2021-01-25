@@ -420,7 +420,7 @@
   </div>
   <% if @ppsp.content_secu.present? %>
     <div class="last-page">
-      <%= @ppsp.content_secu %>
+      <%= @ppsp.content_secu.html_safe %>
     </div>
   <% end %>
 </div>

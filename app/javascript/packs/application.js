@@ -7,6 +7,8 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
+//= require tinymce
+
 import 'bootstrap';
 import ReactDOM from 'react-dom';
 
@@ -26,14 +28,12 @@ import calendar from '../components/calendar';
 import error from '../components/errors';
 import navbarDropdown from '../components/navbar-dropdown';
 import sweetAlertMail from '../components/sweetAlert';
-import trixEditor from '../components/trix-editor';
+import ShowCompanySecuContent from '../components/tinymce-editor';
 
 require('@rails/ujs').start();
 require('turbolinks').start();
 require('@rails/activestorage').start();
 require('../channels');
-require('trix');
-require('@rails/actiontext');
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -43,6 +43,9 @@ require('@rails/actiontext');
 // const imagePath = (name) => images(name, true)
 
 document.addEventListener('turbolinks:load', () => {
+  // Have to add those two lines in order to force the rerender of tinyMCE with turbolinks
+  tinymce.remove();
+  tinymce.init({ selector: '.tinymce' });
   navbarDropdown();
   error();
   select2();
@@ -55,7 +58,7 @@ document.addEventListener('turbolinks:load', () => {
   popUp();
   calendar();
   sweetAlertMail();
-  trixEditor();
+  ShowCompanySecuContent();
 });
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true);

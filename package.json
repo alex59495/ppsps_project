@@ -28,7 +28,6 @@
     "select2": "^4.0.13",
     "serialize-javascript": ">=3.1.0",
     "sweetalert2": "^10.13.0",
-    "trix": "^1.2.0",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",
