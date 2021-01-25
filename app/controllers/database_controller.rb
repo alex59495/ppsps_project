@@ -6,25 +6,30 @@ class DatabaseController < ApplicationController
     authorize @model_name
     @data = @model_name.new
     instance_variable_creation(@data)
+
     if params[:query]
       @database = policy_scope(@model_name.search(params[:query]))
+      init_infinite_loop
+
       @search = 'search'
+
       # We are using form_with in the index view so it respond with ajax, to handle the response we have to activate a format response
       respond_to do |format|
         # Respond with the index.js.erb
-        format.js
+        format.js { render "database/index" }
       end
     else
       @database = policy_scope(@model_name.all)
+      init_infinite_loop
+
       @search = 'none'
       # Must be able to respond in HTML (when load the page) and JS (when click on button Show all databse)
       respond_to do |format|
         format.html
-        format.js
+        format.js { render "database/index" }
       end
     end
     # Useful for the infinite scroll
-    init_infinite_loop
   end
 
   def create
@@ -87,7 +92,7 @@ class DatabaseController < ApplicationController
       @database = policy_scope(@model_name.all)
     end
     authorize @database
-    @database_page = @database.page(params[:page])
+    @database_page = @database.page(params[:page]).per(20)
     render "#{controller_name}/_elements", collection: @database_page, layout: false
   end
 
@@ -95,7 +100,7 @@ class DatabaseController < ApplicationController
 
   def init_infinite_loop
     # Useful for the infinite scroll
-    @database_page = Kaminari.paginate_array(@database).page
+    @database_page = Kaminari.paginate_array(@database).page.per(20)
     @endpoint = @pagination_path
     @page_amount = @database_page.total_pages
   end
