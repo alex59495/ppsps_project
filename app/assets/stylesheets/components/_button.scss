@@ -194,8 +194,8 @@ $btn-add-size: 24px;
   overflow: hidden;
   position: relative;
   transition: width 0.2s ease-in-out;
-  border: 1px solid $orange;
-  background-color: white;
+  background: linear-gradient(134.17deg, #EEF0F5 4.98%, #E6E9EF 94.88%);
+  box-shadow: -2px -2px 5px rgba(255, 255, 255, 0.8), 2px 2px 5px rgba(166, 180, 200, 0.7);
 }
 .add-btn:hover {
   width: $btn-add-size * 2.5;
@@ -250,12 +250,12 @@ $btn-add-size: 24px;
   overflow: hidden;
 }
 .add-icon::before {
-  left: 10px;
+  left: 11px;
   border-top-left-radius: 1px;
   border-bottom-left-radius: 1px;
 }
 .add-icon::after {
-  right: 10px;
+  right: 11px;
   border-top-right-radius: 1px;
   border-bottom-right-radius: 1px;
 }
