@@ -11,11 +11,16 @@
         <div class="d-flex flex-column align-items-center">
           <% if @user.company.logo.attached? %>
             <h2>Logo de l'entreprise</h2>
-            <%= cl_image_tag @user.company.logo.key, class: 'icon-logo mb-3' %>
+            <div class="d-flex align-items-center">
+              <%= cl_image_tag @user.company.logo.key, class: 'icon-logo mb-3' %>
+              <i class="fas fa-long-arrow-alt-right mx-4" style='font-size: 40px; display: none;'></i>
+              <img id="newLogo" width="200" class='icon-logo'>
+            </div>
           <% end %>
           <%= f.simple_fields_for :company, @company do |h| %>
-            <%= h.input :logo, label: false %>
+            <%= h.input :logo, label: false, input_html: {:onchange => "loadLogo(event)"} %>
           <% end %>
+          <div class='btn-delete' id="removeUpload" style='dislpay: none;'></div>
         </div>
         <h2 class="text-center">Texte de sécurité de l'entreprise</h2>
         <%= f.simple_fields_for :company, @company do |h| %>
@@ -28,3 +33,18 @@
     <% end %>
   </div>
 </div>
+<script>
+  const loadLogo = (event) => {
+    const image = document.getElementById('newLogo');
+    const arrow = document.querySelector('.fa-long-arrow-alt-right');
+    const btnDelete = document.getElementById('removeUpload')
+    if(event.target.files[0]) {
+      arrow.style.display = 'block';
+      return image.src = URL.createObjectURL(event.target.files[0]);
+      btnDelete.style.display = 'block'
+    } {
+      arrow.style.display = 'none';
+      image.style.display = 'none';
+    }
+  };
+</script>
