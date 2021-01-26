@@ -229,7 +229,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
       scenario "Can add Sos Hand from PPSP new page" do
         count = find('#ppsp_sos_hand_id').all('option').size
-        find('#SosDb').click
+        find('#SosHandDb').click
         page.execute_script("$('#sos_hand_name').val('Test sos_hand')")
         page.execute_script("$('#sos_hand_address').val('Test sos_hand')")
         page.execute_script("$('#sos_hand_phone').val('0600000000')")
@@ -259,7 +259,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
       scenario "Can add Regional Committee from PPSP new page" do
         count = find('#ppsp_regional_committee_id').all('option').size
-        find('#RegionalDb').click
+        find('#RegionalCommitteeDb').click
         page.execute_script("$('#regional_committee_name').val('Test regional_committee')")
         page.execute_script("$('#regional_committee_fax').val('0600000000')")
         page.execute_script("$('#regional_committee_address').val('Test regional_committee')")
@@ -270,7 +270,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
       scenario "Can add Pension Insurance from PPSP new page" do
         count = find('#ppsp_pension_insurance_id').all('option').size
-        find('#PensionDb').click
+        find('#PensionInsuranceDb').click
         page.execute_script("$('#pension_insurance_fax').val('0600000000')")
         page.execute_script("$('#pension_insurance_address').val('Test pension_insurance')")
         page.execute_script("$('#pension_insurance_phone').val('0600000000')")
@@ -280,7 +280,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
       scenario "Can add Work Medecine from PPSP new page" do
         count = find('#ppsp_work_medecine_id').all('option').size
-        find('#MedecineDb').click
+        find('#WorkMedecineDb').click
         page.execute_script("$('#work_medecine_fax').val('0600000000')")
         page.execute_script("$('#work_medecine_address').val('Test work_medecine')")
         page.execute_script("$('#work_medecine_phone').val('0600000000')")
@@ -290,7 +290,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
       scenario "Can add Security Coordinator from PPSP new page" do
         count = find('#ppsp_security_coordinator_id').all('option').size
-        find('#SecurityDb').click
+        find('#SecurityCoordinatorDb').click
         page.execute_script("$('#security_coordinator_name').val('Test security_coordinator')")
         page.execute_script("$('#security_coordinator_address').val('Test security_coordinator')")
         page.execute_script("$('#security_coordinator_representative').val('Test security_coordinator')")
@@ -337,7 +337,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       end
 
       scenario "Rerender Sos Hand when not filling right" do
-        find('#SosDb').click
+        find('#SosHandDb').click
         fill_in('sos_hand_address', with: 'Test sos_hand')
         fill_in('sos_hand_phone', with: '0600000000')
         find('#SosBtn').click
@@ -361,7 +361,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       end
 
       scenario "Rerender Regional Committee when not filling right" do
-        find('#RegionalDb').click
+        find('#RegionalCommitteeDb').click
         fill_in('regional_committee_name', with: 'Test regional_committee')
         fill_in('regional_committee_phone', with: '0600000000')
         fill_in('regional_committee_fax', with: '0600000000')
@@ -370,7 +370,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       end
 
       scenario "Rerender Pension Insurance when not filling right" do
-        find('#PensionDb').click
+        find('#PensionInsuranceDb').click
         fill_in('pension_insurance_address', with: 'Test pension_insurance')
         fill_in('pension_insurance_fax', with: '0600000000')
         find('#PensionBtn').click
@@ -378,7 +378,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       end
 
       scenario "Rerender Work Medecine when not filling right" do
-        find('#MedecineDb').click
+        find('#WorkMedecineDb').click
         fill_in('work_medecine_address', with: 'Test work_medecine')
         fill_in('work_medecine_fax', with: '0600000000')
         find('#WorkMedecineBtn').click
@@ -386,7 +386,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       end
 
       scenario "Rerender Security Coordinator when not filling right" do
-        find('#SecurityDb').click
+        find('#SecurityCoordinatorDb').click
         fill_in('security_coordinator_name', with: 'Test security_coordinator')
         fill_in('security_coordinator_representative', with: 'Test rep security_coordinator')
         fill_in('security_coordinator_phone', with: '0600000000')

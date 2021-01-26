@@ -213,7 +213,9 @@ class PpspsController < ApplicationController
   def destroy_logo_client
     authorize @ppsp
     @ppsp.logo_client.purge
-    redirect_to edit_ppsp_path(@ppsp)
+    respond_to do |format|
+      format.js { render 'ppsps/destroy_logo_client' }
+    end
   end
 
   private
