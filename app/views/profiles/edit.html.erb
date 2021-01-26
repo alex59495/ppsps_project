@@ -8,15 +8,18 @@
       <%= f.input :last_name, label: "Nom de famille" %>
       <%= f.input :email, label: "Email" %>
       <% if @user.admin %>
-        <% if @user.company.logo.attached? %>
-          <p>Logo de l'entreprise</p>
-          <%= cl_image_tag @user.company.logo.key, class: 'icon-logo mb-3' %>
-        <% end %>
+        <div class="d-flex flex-column align-items-center">
+          <% if @user.company.logo.attached? %>
+            <h2>Logo de l'entreprise</h2>
+            <%= cl_image_tag @user.company.logo.key, class: 'icon-logo mb-3' %>
+          <% end %>
+          <%= f.simple_fields_for :company, @company do |h| %>
+            <%= h.input :logo, label: false %>
+          <% end %>
+        </div>
+        <h2 class="text-center">Texte de sécurité de l'entreprise</h2>
         <%= f.simple_fields_for :company, @company do |h| %>
-          <%= h.input :logo, label: false %>
-        <% end %>
-        Texte de sécurité de l'entreprise
-        <%= f.simple_fields_for :company, @company do |h| %>
+          <input class='hidden' name=image type=file id="upload" onchange="">
           <%= h.text_area :content_secu, class: 'tinymce' %>
           <%= tinymce %>
         <% end %>

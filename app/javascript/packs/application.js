@@ -7,7 +7,6 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
-//= require tinymce
 
 import 'bootstrap';
 import ReactDOM from 'react-dom';
@@ -28,7 +27,7 @@ import calendar from '../components/calendar';
 import error from '../components/errors';
 import navbarDropdown from '../components/navbar-dropdown';
 import sweetAlertMail from '../components/sweetAlert';
-import ShowCompanySecuContent from '../components/tinymce-editor';
+import InitializeTinyMce from '../components/tinymce-editor';
 
 require('@rails/ujs').start();
 require('turbolinks').start();
@@ -44,8 +43,7 @@ require('../channels');
 
 document.addEventListener('turbolinks:load', () => {
   // Have to add those two lines in order to force the rerender of tinyMCE with turbolinks
-  tinymce.remove();
-  tinymce.init({ selector: '.tinymce' }).then(() => ShowCompanySecuContent());
+  InitializeTinyMce();
   navbarDropdown();
   error();
   select2();

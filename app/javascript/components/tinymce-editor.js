@@ -11,4 +11,34 @@ const ShowCompanySecuContent = () => {
   }
 };
 
-export default ShowCompanySecuContent;
+const InitializeTinyMce = () => {
+  tinymce.remove();
+  tinymce
+    .init({
+      selector: '.tinymce',
+      plugins: ['image imagetools', 'paste'],
+      height: 600,
+      image_advtab: true,
+      // We can copy/paste images from desktop
+      paste_data_images: true,
+      // Add a button to search images from the desktop
+      file_picker_callback(callback, value, meta) {
+        if (meta.filetype == 'image') {
+          $('#upload').trigger('click');
+          $('#upload').on('change', function () {
+            const file = this.files[0];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              callback(e.target.result, {
+                alt: '',
+              });
+            };
+            reader.readAsDataURL(file);
+          });
+        }
+      },
+    })
+    .then(() => ShowCompanySecuContent());
+};
+
+export default InitializeTinyMce;

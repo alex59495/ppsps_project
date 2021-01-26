@@ -269,6 +269,7 @@
         Les informations sécurité de l'entreprise
       </div>
       <div class="col-md-10 offset-md-1">
+        <input class='hidden' name=image type=file id="upload" onchange="">
         <%= f.text_area :content_secu, class: 'tinymce', 'data-company_secu': current_user.company.content_secu, 'data-ppsp_secu': @ppsp_content_secu %>
         <%= tinymce %>
       </div>
