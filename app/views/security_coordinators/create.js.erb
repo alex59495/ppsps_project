@@ -6,6 +6,6 @@ $(document).ready(function() {
     document.getElementById("ppsp_security_coordinator_id").innerHTML = "<%= j(render 'form_field_security_coordinator') %>";
   }
   if (document.querySelector(".content-db")) {
-    document.querySelector(".content-db").innerHTML = "<%= j(render 'content-db') %>";
+    document.querySelector(".content-db").innerHTML = "<%= j(render 'database/content-db') %>";
   }
 })

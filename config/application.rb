@@ -9,6 +9,7 @@ Bundler.require(*Rails.groups)
 module PpspsProject
   class Application < Rails::Application
     # Autorize to rewrite the errors page
+    config.action_view.embed_authenticity_token_in_remote_forms = true
     config.exceptions_app = self.routes
 
     config.generators do |generate|

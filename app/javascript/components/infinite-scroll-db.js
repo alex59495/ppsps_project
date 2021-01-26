@@ -19,16 +19,15 @@ const infiniteScroll = () => {
     };
 
     const appendResult = (resultat) => {
-      setTimeout(() => {
-        $('.flex-database').append(resultat);
-        isPaginating = false;
-        clearResult();
-      }, 1000);
+      $('.flex-database').append(resultat);
+      isPaginating = false;
+      clearResult();
     };
+
     const handleDisplaying = () => {
       paginationElem = $('.container-pagination');
       const numberElements = parseInt(paginationElem.attr('data-number'), 10);
-      if (numberElements < 25) {
+      if (numberElements < 20) {
         paginationElem.hide();
       }
       const dbVide = $('.container-db-vide')[0];
@@ -41,6 +40,7 @@ const infiniteScroll = () => {
 
     // Call the function when click on the search button or database btn
     document.getElementById('btn-database').addEventListener('click', () => {
+      document.getElementById('query').value = '';
       setTimeout(handleDisplaying, 200);
     });
     document.getElementById('btn-search').addEventListener('click', () => {
@@ -56,9 +56,7 @@ const infiniteScroll = () => {
         paginationElemt.attr('data-search', 'scroll');
       }
       if (currentPage >= pagesAmount) {
-        setTimeout(() => {
-          paginationElemt.hide();
-        }, 1000);
+        paginationElemt.hide();
       }
       if (
         !isPaginating &&

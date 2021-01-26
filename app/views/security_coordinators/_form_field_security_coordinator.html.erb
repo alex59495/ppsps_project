@@ -9,8 +9,8 @@
     </div>
     <select class="form-control select optional" name="ppsp[security_coordinator_id]" id="ppsp_security_coordinator_id">
     <option value=""></option>
-    <% @security_coordinators.each do |secu| %>
-      <%= "<option value=#{secu.id}>#{secu.name} - #{secu.representative}</option>".html_safe %>
+    <% @database.each do |data| %>
+      <%= "<option value=#{data.id}>#{data.name} - #{data.representative}</option>".html_safe %>
     <% end %>
   </select>
 </div>
