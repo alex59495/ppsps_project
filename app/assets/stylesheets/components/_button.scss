@@ -365,12 +365,14 @@ $btn-add-size: 24px;
   &:hover {
     color: rgb(245, 62, 62);
     text-decoration: none;
+    cursor: pointer;
   }
 }
 
 input[type=file]::-webkit-file-upload-button {
   border-radius: 8px;
   border: 1px solid $orange;
+  outline: none;
   &:hover {
     cursor: pointer;
     box-shadow: 0.5px 0.5px 0.5px 0.5px $orange;

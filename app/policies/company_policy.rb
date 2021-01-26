@@ -4,24 +4,16 @@ class CompanyPolicy < ApplicationPolicy
       scope.all
     end
   end
-  
-  def new?
-    user.admin
-  end
 
   def create?
-    new?
-  end
-
-  def destroy?
-    user.admin
-  end
-
-  def edit?
     user.admin
   end
 
   def update?
-    edit?
+    user.admin
+  end
+
+  def destroy_logo?
+    user.admin
   end
 end
