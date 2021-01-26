@@ -16,7 +16,7 @@ const InitializeTinyMce = () => {
   tinymce
     .init({
       selector: '.tinymce',
-      plugins: ['image imagetools', 'paste'],
+      plugins: ['image imagetools', 'paste', 'cloudinaryimage'],
       height: 600,
       image_advtab: true,
       // We can copy/paste images from desktop

@@ -46,6 +46,7 @@ gem 'kaminari'
 
 # React
 gem 'react-rails'
+gem 'turbolinks_render'
 
 # Text Editor in rails
 gem 'tinymce-rails', '~> 5.6.2.1'

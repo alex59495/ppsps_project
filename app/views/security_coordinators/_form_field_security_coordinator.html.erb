@@ -1,14 +1,16 @@
-<div class="container-header-form">
-  <label class="select required" for="ppsp_security_coordinator_id">Coordinateur sécurité <i style='font-size: 0.8em'>(laissez vide si il n'y en a pas)</i></label>
-  <% if policy(SecurityCoordinator).new? %>
-    <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSecurityCoordinator">
-      <i class="fas fa-plus"></i>
-    </button>
-  <% end %>
+<div class="form-group select optional ppsp_security_coordinator_id">
+    <div class="d-flex align-items-start">
+      <label class="select required" for="ppsp_security_coordinator_id">Coordinateur sécurité<i style='font-size: 0.8em'>(laissez vide si il n'y en a pas)</i></label>
+      <% if policy(SecurityCoordinator).new? %>
+        <button type="button" class="btn-add btn-fill" data-toggle="modal" data-target="#ModalSecurityCoordinator">
+          <i class="fas fa-plus"></i>
+        </button>
+      <% end %>
+    </div>
+    <select class="form-control select optional" name="ppsp[security_coordinator_id]" id="ppsp_security_coordinator_id">
+    <option value=""></option>
+    <% @database.each do |data| %>
+      <%= "<option value=#{data.id}>#{data.name} - #{data.representative}</option>".html_safe %>
+    <% end %>
+  </select>
 </div>
-<select class="form-control select optional" name="ppsp[security_coordinator_id]" id="ppsp_security_coordinator_id">
-  <option value=""></option>
-  <% @security_coordinators.each do |secu| %>
-    <%= "<option value=#{secu.id}>#{secu.name} - #{secu.representative}</option>".html_safe %>
-  <% end %>
-</select>
