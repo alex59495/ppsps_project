@@ -280,5 +280,10 @@ $btn-add-size: 18px;
 }
 
 input[type=file]::-webkit-file-upload-button {
-  background-color: red
+  border-radius: 8px;
+  border: 1px solid $orange;
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0.5px 0.5px 0.5px 0.5px $orange;
+  } 
 }
