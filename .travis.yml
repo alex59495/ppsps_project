@@ -26,6 +26,7 @@ install:
 script:
   - bundle exec rake db:schema:load
   - bundle exec rake db:test:prepare
+  - yarn run test
   - SECRET_KEY_BASE=a RAILS_ENV=production bundle exec rake assets:precompile
   - bundle exec rake spec:features
   - bundle exec rake spec:models
