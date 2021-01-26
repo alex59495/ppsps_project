@@ -29,6 +29,9 @@ gem 'bootstrap', '~> 5.0.0.alpha1'
 # Handle nested form
 gem "cocoon"
 
+# Cloudinary
+gem 'cloudinary'
+
 # Internationalization gem
 gem 'i18n'
 gem 'rails-i18n'
@@ -44,6 +47,9 @@ gem 'kaminari'
 # React
 gem 'react-rails'
 gem 'turbolinks_render'
+
+# Text Editor in rails
+gem 'tinymce-rails', '~> 5.6.2.1'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -69,7 +75,7 @@ gem 'faker'
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'
-group :development, :test do  
+group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'dotenv-rails'
@@ -81,7 +87,7 @@ group :development, :test do
   gem 'launchy'
   gem 'shoulda-matchers'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
@@ -104,4 +110,4 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

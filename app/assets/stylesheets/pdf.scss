@@ -56,8 +56,12 @@
 
 .pdf-text-container {
   padding: 8px;
-  box-shadow: 2px 2px 4px 4px rgba(204, 204, 204, 0.5);
-  text-align: center;  
+  text-align: center;
+  margin: 3em 0;
+}
+
+.pdf-align-left {
+  text-align: left;
 }
 
 .container-50 {
@@ -151,4 +155,9 @@
   margin-left: 10px;
   width: 95%;
   vertical-align: bottom
+}
+
+.pdf-logo {
+  height: 150px;
+  object-fit: fill; 
 }

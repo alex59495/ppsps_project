@@ -257,7 +257,24 @@
       <div class="col-md-6 offset-md-3">
         <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
       </div>
-      <div class="col-md-6 offset-md-3 offset-3 offset-md-5">
+      <div class="col-md-6 offset-md-3">
+        <%= f.input :logo_client, label: "Logo du client (si disponible)" %>
+        <% if @ppsp.logo_client.attached? %>
+          <div class="logo">
+            <%= cl_image_tag @ppsp.logo_client.key, class: 'icon-logo mb-3' %>
+          </div>
+          <%= link_to "Supprimer", destroy_logo_client_ppsp_path(@ppsp), class: 'btn-delete' %>
+        <% end %>
+      </div>
+      <div class="col-12 form-title">
+        Les informations sécurité de l'entreprise
+      </div>
+      <div class="col-md-10 offset-md-1">
+        <input class='hidden' name=image type=file id="upload" onchange="">
+        <%= f.text_area :content_secu, class: 'tinymce', 'data-company_secu': current_user.company.content_secu, 'data-ppsp_secu': @ppsp_content_secu %>
+        <%= tinymce %>
+      </div>
+      <div class="col-md-6 offset-md-3 offset-3 offset-md-5 mt-5">
         <%= f.submit "Accéder à la deuxième page", class: 'btn-blue' %>
       </div>
     </div>

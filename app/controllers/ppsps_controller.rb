@@ -1,5 +1,5 @@
 class PpspsController < ApplicationController
-  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit informations_supplementaires]
+  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit informations_supplementaires destroy_logo_client]
 
   def index
     # Handled by react :) (app/assets/javascript/ppsp-react)
@@ -45,6 +45,8 @@ class PpspsController < ApplicationController
     @anti_poisons = policy_scope(AntiPoison.all)
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
+
+    ppsp_content_secu?
   end
 
   def show
@@ -60,6 +62,8 @@ class PpspsController < ApplicationController
           encoding: 'utf8',
           template: 'ppsps/show.pdf.erb',
           layout: 'pdf.html.erb',
+          # Display number of pages
+          header: { right: '[page] of [topage]' },
           footer: {
             html: {
               template: 'ppsps/footer.html.erb'
@@ -162,6 +166,8 @@ class PpspsController < ApplicationController
     @anti_poisons = policy_scope(AntiPoison.all)
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
+
+    ppsp_content_secu?
   end
 
   def update
@@ -204,20 +210,31 @@ class PpspsController < ApplicationController
     end
   end
 
+  def destroy_logo_client
+    authorize @ppsp
+    @ppsp.logo_client.purge
+    redirect_to edit_ppsp_path(@ppsp)
+  end
+
   private
+
+  def find_ppsp
+    @ppsp = Ppsp.find(params[:id])
+  end
+
+  # Add in the dataset of the view a indicator which show if the PPSP already have a content_secu or not
+  def ppsp_content_secu?
+    @ppsp_content_secu = @ppsp.content_secu.present?
+  end
 
   def params_ppsp
     params.require(:ppsp).permit(:address, :start_date, :end_date, :nature, :workforce, :agglomeration,
                                  :street_impact, :river_guidance, :moa_id, :moe_id, :subcontractor_ids, :security_coordinator_id,
                                  :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
-                                 :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id,
+                                 :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, :logo_client, :content_secu,
                                  project_information_attributes: [:ppsp_id, :reference, :responsible,
                                                                   :phone, :email, { site_manager_attributes: %i[name email phone],
                                                                                     team_manager_attributes: %i[name
                                                                                                                 email phone] }])
-  end
-
-  def find_ppsp
-    @ppsp = Ppsp.find(params[:id])
   end
 end

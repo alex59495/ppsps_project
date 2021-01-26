@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :selected_altitudes, only: [ :create, :destroy ]
     resources :selected_risks, only: [ :create, :destroy ]
     member do
+      get :destroy_logo_client
       get :informations_supplementaires
     end
   end
@@ -26,7 +27,7 @@ Rails.application.routes.draw do
   resources :profiles, only: [:show, :edit, :update]
 
   # Database
-  resources :companies, only: [:create, :destroy]
+  resources :companies, only: [:update]
 
   resources :security_coordinators, except: [:new, :show, :destroy] do
     member do

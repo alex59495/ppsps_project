@@ -1,11 +1,30 @@
 <div class="row">
-  <div class="col-6 offset-3">
+  <div class="col-10 offset-1">
+    <div class="mb-3">
+      <%= link_to "Revenir au profil", profile_path(@user), class: 'link' %>
+    </div>
     <%= simple_form_for @user, url: profile_path(@user), html: { method: :put } do |f| %>
       <%= f.input :first_name, label: "Prénom" %>
       <%= f.input :last_name, label: "Nom de famille" %>
       <%= f.input :email, label: "Email" %>
+      <% if @user.admin %>
+        <div class="d-flex flex-column align-items-center">
+          <% if @user.company.logo.attached? %>
+            <h2>Logo de l'entreprise</h2>
+            <%= cl_image_tag @user.company.logo.key, class: 'icon-logo mb-3' %>
+          <% end %>
+          <%= f.simple_fields_for :company, @company do |h| %>
+            <%= h.input :logo, label: false %>
+          <% end %>
+        </div>
+        <h2 class="text-center">Texte de sécurité de l'entreprise</h2>
+        <%= f.simple_fields_for :company, @company do |h| %>
+          <input class='hidden' name=image type=file id="upload" onchange="">
+          <%= h.text_area :content_secu, class: 'tinymce' %>
+          <%= tinymce %>
+        <% end %>
+      <% end %>
       <%= f.submit "Éditer les informations", class: 'btn-blue' %>
     <% end %>
-    <%= link_to "Revenir au profil", profile_path(@user), class: 'link' %>
   </div>
 </div>

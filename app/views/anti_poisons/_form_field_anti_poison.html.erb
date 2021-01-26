@@ -1,7 +1,7 @@
-<div class="d-flex align-items-start">
+<div class="container-header-form">
   <label class="select required" for="ppsp_anti_poison_id">Centre anti-poison <abbr title="required">*</abbr></label>
-  <% if policy(AntiPoison).new? %>
-    <button type="button" class="btn-add btn-fill" data-toggle="modal" data-target="#ModalAntiPoison">
+  <% if policy(AntiPoison).create? %>
+    <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalAntiPoison" id="AntiPoisonDb">
       <i class="fas fa-plus"></i>
     </button>
   <% end %>

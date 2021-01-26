@@ -6,18 +6,29 @@
       <div class="info-profile"><i class="fas fa-envelope tag-profile"></i> <%= @user.email %></div>
       <div class="info-profile"><i class="fas fa-industry tag-profile"></i> <%= @user.company.name %></div>
       </div>
+      <% if @user.company.logo.attached? %>
+        <div class="card-logo-company">
+          <%= cl_image_tag @user.company.logo.key, class: 'icon-logo' %>
+        </div>
+      <% else %>
+        <div class="card-logo-empty">
+          <i style='font-size: 40px;'class="fas fa-question-circle mb-4"></i>
+          <p>Vous n'avez pas encore de logo d'entreprise</p>
+          <% if @user.admin && @user == current_user %>
+            <i style='font-size: 0.8em'>Vous pouvez modifier ça dans "modifier les informations"</i>
+          <% end %>
+        </div>
+      <% end %>
       <div class="card-profile-stat">
         <% if @user == current_user %>
-          <%= @user.admin ? "<div><i class='fas fa-check green-color'></i> Admin</div>".html_safe : "<i class='fas fa-times red-color'></i> Admin</div>".html_safe %> 
+          <%= @user.admin ? "<div><i class='fas fa-check green-color'></i> Admin</div>".html_safe : "<div><i class='fas fa-times red-color'></i> Admin</div>".html_safe %> 
         <% end %>
         <div><span class="pin-profile"><%= @user.ppsps.count %></span> PPSPS</div>
         <% if policy(@user).edit? %>
-          <div class="card-edit">
-            <%= link_to edit_profile_path(@user), class: "without-decoration" do %>
-              <i class="fas fa-pencil-alt"></i>
-              Modifier le profil
-            <% end %>
-          </div>
+          <%= link_to edit_profile_path(@user), class: "link" do %>
+            <i class="fas fa-pencil-alt"></i>
+            Modifier les informations
+          <% end %>
         <% end %>
       </div>
     </div>
