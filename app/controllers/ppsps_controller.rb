@@ -62,6 +62,8 @@ class PpspsController < ApplicationController
           encoding: 'utf8',
           template: 'ppsps/show.pdf.erb',
           layout: 'pdf.html.erb',
+          # Display number of pages
+          header: { right: '[page] of [topage]' },
           footer: {
             html: {
               template: 'ppsps/footer.html.erb'

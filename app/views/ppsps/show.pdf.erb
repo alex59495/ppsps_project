@@ -21,7 +21,7 @@
         Si tu veux écrire un sous-titre c'est ici
       </div>
     </div>
-    <div class="pdf-text-container my-3">
+    <div class="pdf-text-container">
       <div class="pdf-title">
         Informations générales
       </div>
@@ -53,7 +53,7 @@
     </div>
   </div>
   <div class="page-break">
-    <div class="pdf-text-container my-3">
+    <div class="pdf-text-container">
       <div class="pdf-title">
         Renseignements Administratifs
       </div>
@@ -89,7 +89,7 @@
   </div>
   
   <div class="page-break">
-    <div class="pdf-text-container my-3">
+    <div class="pdf-text-container">
       <div class="pdf-title">
         Organigramme du chantier
       </div>
@@ -152,7 +152,7 @@
       </div>
     </div>
     <% if @ppsp.security_coordinator %>
-      <div class="pdf-text-container my-3">
+      <div class="pdf-text-container">
         <div class="pdf-title">
           Coordinateur Sécurité
         </div>
@@ -170,7 +170,7 @@
   </div>
 
   <div class="page-break">
-    <div class="pdf-text-container my-3">
+    <div class="pdf-text-container">
       <div class="pdf-title mb-2">
         Organisation des secours
       </div>
@@ -338,7 +338,7 @@
 
   <% if @ppsp.subcontractors.count > 0 %>
     <div class="page-break">
-      <div class="pdf-text-container my-3">
+      <div class="pdf-text-container">
         <% @ppsp.subcontractors.each do |subcontract| %>
           <div class="pdf-subcontractor">
             <div class="pdf-title">
@@ -362,7 +362,7 @@
   <% end %>
   
   <div class=<%= @ppsp.content_secu.present? ? "page-break" : "last-page" %> >
-    <div class="pdf-text-container my-3">
+    <div class="pdf-text-container">
       <div class="pdf-title">
         Signalisation
       </div>
@@ -376,7 +376,7 @@
     </div>
 
     <% if @ppsp.site_installations != [] %>
-      <div class="pdf-text-container my-3">
+      <div class="pdf-text-container">
         <div class="pdf-title">
           Installations de chantier
         </div>
@@ -388,7 +388,7 @@
       </div>
     <% end %>
     <% if @ppsp.altitude_works != [] %>
-      <div class="pdf-text-container my-3">
+      <div class="pdf-text-container">
         <div class="pdf-title">
           Travail en hauteur
         </div>
@@ -406,7 +406,7 @@
       </div>
     <% end %>
     <% if @ppsp.risks != [] %>
-      <div class="pdf-text-container my-3">
+      <div class="pdf-text-container">
         <div class="pdf-title">
           Risques
         </div>
@@ -420,7 +420,12 @@
   </div>
   <% if @ppsp.content_secu.present? %>
     <div class="last-page">
-      <%= @ppsp.content_secu.html_safe %>
+      <div class="pdf-text-container pdf-align-left">
+        <div class="pdf-title">
+          Spécificité du chantier
+        </div>
+        <%= @ppsp.content_secu.html_safe %>
+      </div>
     </div>
   <% end %>
 </div>
