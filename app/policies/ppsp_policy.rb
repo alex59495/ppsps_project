@@ -9,12 +9,8 @@ class PpspPolicy < ApplicationPolicy
     record.user.company.name == user.company.name
   end
 
-  def new?
-    true
-  end
-
   def create?
-    new?
+    true
   end
 
   def destroy?
@@ -39,5 +35,9 @@ class PpspPolicy < ApplicationPolicy
 
   def destroy_logo_client?
     record.user == user
+  end
+
+  def duplicate?
+    true
   end
 end

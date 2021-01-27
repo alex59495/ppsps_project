@@ -44,6 +44,11 @@ class CardPpsp extends Component {
     window.location.href = `/profiles/${this.props.user.id}`;
   }
 
+  handleDuplicate = (e) => {
+    e.stopPropagation();
+    window.location.href = `/ppsps/${this.props.id}/duplicate`;
+  }
+
   render() {
     const { address, start_date, end_date, user_first_name, user_last_name, reference } = this.props;
     // If the user if the owner of the PPSP he can edit and delete the PPSP, eles he can't
@@ -52,6 +57,9 @@ class CardPpsp extends Component {
         <React.Fragment>
           <div className="card-ppsp" onClick={this.handleCard}>
             <div className="card-ppsp-header">
+              <div className="card-ppsp-duplicate" onClick={this.handleDuplicate}>
+                <i className="fas fa-copy"></i>
+              </div>
               <div className="card-ppsp-delete" onClick={this.handleDelete}>x</div>
               <div className='card-ppsp-edit' onClick={this.handleEdit}>
                 <i className='fas fa-pencil-alt'></i>
@@ -75,8 +83,13 @@ class CardPpsp extends Component {
       return (
         <React.Fragment>
           <div className="card-ppsp" onClick={this.handleCard}>
-            <div className="card-ppsp-reference">
-              {`Reference ${reference}`}
+            <div className="card-ppsp-header">
+              <div className="card-ppsp-duplicate" onClick={this.handleDuplicate}>
+                <i className="fas fa-copy"></i>
+              </div>
+              <div className="card-ppsp-reference">
+                {`Reference ${reference}`}
+              </div>
             </div>
             <div className="card-ppsp-body row">
               <div className="col-6">Lieu du chantier: </div><div className="col-6">{address}</div>
