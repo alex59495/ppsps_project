@@ -1,5 +1,5 @@
 class PpspsController < ApplicationController
-  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit informations_supplementaires destroy_logo_client]
+  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit informations_supplementaires destroy_logo_client destroy_annexe]
 
   def index
     # Handled by react :) (app/assets/javascript/ppsp-react)
@@ -52,15 +52,7 @@ class PpspsController < ApplicationController
   def show
     authorize @ppsp
     @n = 0
-    if @ppsp.annexes.attached?
-      @annexes = {}
-      @ppsp.annexes.each_with_index do |annexe, index|
-        @annexes[index] = {
-          pages: Cloudinary::Api.resource(annexe.key, :pages => true)["pages"],
-          key: annexe.key
-        }
-      end
-    end
+    handle_annexes
     respond_to do |format|
       # Two response for the show method depending on the format we call
       format.html
@@ -225,6 +217,13 @@ class PpspsController < ApplicationController
     redirect_to edit_ppsp_path(@ppsp)
   end
 
+  def destroy_annexe
+    authorize @ppsp
+    blob = ActiveStorage::Blob.find_by(key: params[:public_id])
+    ActiveStorage::Attachment.find_by(blob: blob).purge
+    redirect_to edit_ppsp_path(@ppsp)
+  end
+
   private
 
   def find_ppsp
@@ -234,6 +233,18 @@ class PpspsController < ApplicationController
   # Add in the dataset of the view a indicator which show if the PPSP already have a content_secu or not
   def ppsp_content_secu?
     @ppsp_content_secu = @ppsp.content_secu.present?
+  end
+
+  def handle_annexes
+    return unless @ppsp.annexes.attached?
+
+    @annexes = {}
+    @ppsp.annexes.each_with_index do |annexe, index|
+      @annexes[index] = {
+        pages: Cloudinary::Api.resource(annexe.key, pages: true)["pages"],
+        key: annexe.key
+      }
+    end
   end
 
   def params_ppsp

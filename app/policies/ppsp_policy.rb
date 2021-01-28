@@ -40,4 +40,8 @@ class PpspPolicy < ApplicationPolicy
   def destroy_logo_client?
     record.user == user
   end
+
+  def destroy_annexe?
+    record.user == user
+  end
 end

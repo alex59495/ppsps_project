@@ -280,6 +280,16 @@
       <div class="col-md-6 offset-md-3">
         <%= f.input :annexes, label: "Annexes (si besoin)", input_html: { multiple: true } %>
       </div>
+      <% if @ppsp.annexes.attached? %>
+        <div class="d-flex flex-wrap justify-content-center w-100">
+          <% @ppsp.annexes.each do |annexe| %>
+            <div class="container-annexe">
+              <%= cl_image_tag(annexe.key + '.jpg', width: 200, height: 300, class: "mx-4") %>
+              <%= link_to "Supprimer", destroy_annexe_ppsp_path(public_id: annexe.key), class: 'btn-delete' %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   <% end %>
   <% if policy(SecurityCoordinator).create? %>

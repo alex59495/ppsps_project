@@ -431,7 +431,9 @@
   <% if @ppsp.annexes.attached? %>
     <% @annexes.each do |_key, value| %>
       <% for i in (1..value[:pages]) %>
-        <%= cl_image_tag(value[:key] + '.jpg', page: i, crop: "scale") %>
+        <div>
+          <%= cl_image_tag(value[:key] + '.jpg', page: i, crop: "scale") %>
+        </div>
       <% end %>
     <% end %>
   <% end %>
