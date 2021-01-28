@@ -277,6 +277,9 @@
       <div class="col-md-6 offset-md-3 offset-3 offset-md-5 mt-5">
         <%= f.submit "Accéder à la deuxième page", class: 'btn-blue' %>
       </div>
+      <div class="col-md-6 offset-md-3">
+        <%= f.input :annexes, label: "Annexes (si besoin)", input_html: { multiple: true } %>
+      </div>
     </div>
   <% end %>
   <% if policy(SecurityCoordinator).create? %>
