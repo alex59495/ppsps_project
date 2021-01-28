@@ -9,14 +9,18 @@
       <%= f.input :email, label: "Email" %>
       <% if @user.admin %>
         <div class="d-flex flex-column align-items-center">
-          <h2>Logo de l'entreprise</h2>
-          <div class="container-home render-logo">
-            <%= render 'render_logo' %>
-          </div>
-          <%= f.simple_fields_for :company, @company do |h| %>
-            <%= h.input :logo, label: false, input_html: {onchange: "loadLogo(event)"} %>
+          <% if @user.company.logo.attached? %>
+            <h2>Logo de l'entreprise</h2>
+            <div class="d-flex align-items-center">
+              <%= cl_image_tag @user.company.logo.key, class: 'icon-logo mb-3' %>
+              <i class="fas fa-long-arrow-alt-right mx-4" style='font-size: 40px; display: none;'></i>
+              <img id="newLogo" width="200" class='icon-logo'>
+            </div>
           <% end %>
-          <div class='btn-delete' id="removeUpload" style='display: none;'>Annuler</div>
+          <%= f.simple_fields_for :company, @company do |h| %>
+            <%= h.input :logo, label: false, input_html: {:onchange => "loadLogo(event)"} %>
+          <% end %>
+          <div class='btn-delete' id="removeUpload" style='dislpay: none;'></div>
         </div>
         <h2 class="text-center">Texte de sécurité de l'entreprise</h2>
         <%= f.simple_fields_for :company, @company do |h| %>
