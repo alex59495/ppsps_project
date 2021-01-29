@@ -12,6 +12,9 @@ module PpspsProject
     config.action_view.embed_authenticity_token_in_remote_forms = true
     config.exceptions_app = self.routes
 
+    # Set up tinymce
+    config.tinymce.install = :compile
+
     config.generators do |generate|
       # generate.assets false
       # generate.helper false

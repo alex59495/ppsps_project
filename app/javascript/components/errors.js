@@ -9,9 +9,8 @@ const error = () => {
     let counter = stackContainer.children.length;
 
     // function to generate random number
-    function randomIntFromInterval(min, max) {
-      return Math.floor(Math.random() * (max - min + 1) + min);
-    }
+    const randomIntFromInterval = (min, max) =>
+      Math.floor(Math.random() * (max - min + 1) + min);
 
     // after tilt animation, fire the explode animation
     card.addEventListener('animationend', () => {
