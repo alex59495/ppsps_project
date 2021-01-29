@@ -1,0 +1,9 @@
+<% if @ppsp.subcontractors.any? %>
+  Les sous-traitants déjà intégrés à mon PPSPS
+    <% @ppsp.subcontractors.each do |subcontract| %>
+      <li>
+        <%= "#{subcontract.name} - #{subcontract.responsible_name} - #{subcontract.work}" %>
+        <%= link_to 'x', ppsp_selected_subcontractor_path(@ppsp.id, sub_id: subcontract.id), remote: true, method: :delete %>
+      </li>
+    <% end %>
+  <% end %>

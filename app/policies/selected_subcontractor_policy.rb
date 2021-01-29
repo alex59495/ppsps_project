@@ -5,15 +5,11 @@ class SelectedSubcontractorPolicy < ApplicationPolicy
     end
   end
 
-  def new?
-    true
-  end
-
   def create?
-    true
+    user == record.ppsp.user || user.admin
   end
 
   def destroy?
-    true
+    user == record.ppsp.user || user.admin
   end
 end

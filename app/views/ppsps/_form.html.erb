@@ -245,17 +245,30 @@
       <div class="col-12 form-title">
         Les sous-traitants
       </div>
-      <div class="container-header-form">
-        <label class="select required" for="ppsp_hospital_id">Les sous-traitants<abbr title="required">*</abbr></label>
-        <% if policy(Subcontractor).create? %>
-          <%= render 'btn_add_database', data: 'Subcontractor' %>
-        <% end %>
-      </div>
+      <div class="col-md-6 offset-md-3">
+        <div class="container-header-form">
+          Ajouter des sous-traitants
+          <% if policy(Subcontractor).create? %>
+            <%= render 'btn_add_database', data: 'Subcontractor' %>
+          <% end %>
+        </div>
 
-      <div class="render-subcontractors">
-        <%= f.input :subcontractors, as: :check_boxes, collection: @subcontractors %>
+          <ul id='containerSelectedSubcontractors'>
+            <% if @ppsp.subcontractors.any? %>
+            Les sous-traitants déjà intégrés à mon PPSPS
+              <% @ppsp.subcontractors.each do |subcontract| %>
+                <li>
+                  <%= "#{subcontract.name} - #{subcontract.responsible_name} - #{subcontract.work}" %>
+                  <%= link_to 'x', ppsp_selected_subcontractor_path(@ppsp.id, sub_id: subcontract.id), remote: true, method: :delete %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+
+        <div class="render-subcontractors">
+          <%= f.input :subcontractors, as: :check_boxes, collection: @subcontractors, label: '', label_method: lambda { |x| "#{x.name} - #{x.responsible_name} - #{x.work}"} %>
+        </div>
       </div>
-      Mes sous-traitants selectionnés
 
       <div class="col-12 form-title">
         Les informations sécurité de l'entreprise

@@ -107,11 +107,7 @@ class PpspsController < ApplicationController
     @security_coordinators = policy_scope(SecurityCoordinator.all)
     @subcontractors = policy_scope(Subcontractor.all)
 
-    if subcontractors = params.require(:ppsp).require(:subcontractors)
-      subcontractors.shift.each do |subcontractor_id|
-        SelectedSubcontractors.create(@ppsp.id, subcontractor_id)
-      end
-    end
+    create_selected_subcontractors
 
     authorize @ppsp
     if @ppsp.save
@@ -177,6 +173,7 @@ class PpspsController < ApplicationController
     @anti_poisons = policy_scope(AntiPoison.all)
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
+    @subcontractors = policy_scope(Subcontractor.all)
 
     ppsp_content_secu?
   end
@@ -216,12 +213,7 @@ class PpspsController < ApplicationController
     @security_coordinators = policy_scope(SecurityCoordinator.all)
     @subcontractors = policy_scope(Subcontractor.all)
 
-    if subcontractors = params.require(:ppsp).require(:subcontractors)
-      subcontractors.shift
-      subcontractors.each do |subcontractor_id|
-        SelectedSubcontractor.create(ppsp_id: @ppsp.id, subcontractor_id: subcontractor_id)
-      end
-    end
+    create_selected_subcontractors
 
     if @ppsp.update(params_ppsp)
       redirect_to informations_supplementaires_ppsp_path(@ppsp)
@@ -239,6 +231,15 @@ class PpspsController < ApplicationController
   end
 
   private
+
+  def create_selected_subcontractors
+    if subcontractors = params.require(:ppsp).require(:subcontractors)
+      subcontractors.shift
+      subcontractors.each do |subcontractor_id|
+        SelectedSubcontractor.create(ppsp_id: @ppsp.id, subcontractor_id: subcontractor_id)
+      end
+    end
+  end
 
   def find_ppsp
     @ppsp = Ppsp.find(params[:id])
