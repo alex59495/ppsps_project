@@ -57,7 +57,7 @@ document.addEventListener('turbolinks:load', () => {
   popUp();
   calendar();
   sweetAlertMail();
-  initMapbox();
+  // initMapbox(); Pas nécessaire pour le moment
 });
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true);
