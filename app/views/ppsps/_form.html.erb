@@ -238,8 +238,8 @@
       <%= f.input :logo_client, label: "Logo du client (si disponible)", disabled: @ppsp.logo_client.attached? %>
       <img id="newLogo" class='icon-logo' style='display: none'>
       <div class='btn-delete' id="removeUpload" style='display: none;'>Annuler</div>
-      <div class="render-logo">
-          <%= render 'render_logo_client'%>
+        <div class="render-logo">
+          <%= render 'render_logo_client' %>
         </div>
       </div>
       <div class="col-12 form-title">
@@ -257,13 +257,8 @@
         <%= f.input :annexes, label: "Annexes (si besoin)", input_html: { multiple: true } %>
       </div>
       <% if @ppsp.annexes.attached? %>
-        <div class="d-flex flex-wrap justify-content-center w-100">
-          <% @ppsp.annexes.each do |annexe| %>
-            <div class="container-annexe">
-              <%= cl_image_tag(annexe.key + '.jpg', width: 200, height: 300, class: "mx-4") %>
-              <%= link_to "Supprimer", destroy_annexe_ppsp_path(public_id: annexe.key), class: 'btn-delete', remote: true %>
-            </div>
-          <% end %>
+        <div class="d-flex flex-wrap justify-content-center w-100" id='container-annexes'>
+          <%= render 'render_annexes' %>
         </div>
       <% end %>
     </div>

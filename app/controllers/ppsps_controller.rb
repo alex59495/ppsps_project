@@ -224,7 +224,7 @@ class PpspsController < ApplicationController
     blob = ActiveStorage::Blob.find_by(key: params[:public_id])
     ActiveStorage::Attachment.find_by(blob: blob).purge
     respond_to do |format|
-      format.js { render 'ppsps/destroy_destroy_annexe' }
+      format.js { render 'ppsps/destroy_annexe' }
     end
   end
 
