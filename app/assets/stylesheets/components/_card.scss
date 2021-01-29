@@ -29,6 +29,18 @@
     font-style: italic;
     font-size: 12px;
   }
+  .card-ppsp-duplicate {
+    position: relative;
+    float: left;
+    font-size: 18px;
+    color: $blue-dark;
+    font-weight: 700;
+    margin-left: 6px;
+    &:hover {
+      color: black;
+      text-decoration: none;
+    }
+  }
   .card-ppsp-delete {
     position: relative;
     float: right;
@@ -171,13 +183,13 @@
   }
 }
 
-@media(min-width: 700px) {
+@media (min-width: 700px) {
   .card-info {
     top: 80px;
   }
 }
 
-@media(max-width: 701px) {
+@media (max-width: 701px) {
   .card-info {
     position: absolute;
     bottom: 70px;
@@ -195,14 +207,14 @@
     cursor: pointer;
   }
   &:before {
-    content: "\f0c8";
+    content: '\f0c8';
     font-family: 'Font Awesome\ 5 Free';
     margin-right: 8px;
     font-size: 12px;
   }
   &.active {
     &:before {
-      content: "\f00c";
+      content: '\f00c';
       font-family: 'Font Awesome\ 5 Free';
       margin-right: 8px;
       font-size: 12px;
@@ -212,7 +224,7 @@
   }
 }
 
-@media(max-width: 1019px) {
+@media (max-width: 1019px) {
   .card-form {
     position: relative;
     left: 33%;
@@ -248,7 +260,7 @@
   }
 }
 
-@media(max-width: 767px) {
+@media (max-width: 767px) {
   .card-profile {
     flex-direction: column;
     gap: 30px;

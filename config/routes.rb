@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     member do
       get :destroy_logo_client
       get :informations_supplementaires
+      get :duplicate
     end
   end
 
