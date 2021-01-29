@@ -2,6 +2,10 @@ $(document).ready(function() {
   $(".modal-backdrop").hide();
   $("#ModalSubcontractor").hide();
   $(".modal-open").css({overflow: 'scroll'});
-  $('#cardSelect')[0].innerHTML = "<%= escape_javascript(render 'ppsps/info_supp_selected') %>";
+  if (document.getElementById("ppsp_subcontractor_id")) {
+    document.getElementById("ppsp_subcontractor_id").innerHTML = "<%= j(render 'form_field_subcontractor') %>";
+  }
+  if (document.querySelector(".content-db")) {
+    document.querySelector(".content-db").innerHTML = "<%= j(render 'database/content-db') %>";
+  }
 })
-

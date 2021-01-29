@@ -1,4 +1,4 @@
-<%= simple_form_for [@ppsp, @subcontractor], remote: true do |f| %>
+<%= simple_form_for @subcontractor, remote: true do |f| %>
   <%= f.input :name, label: "Nom" %>
   <%= f.input :address, label: "Adresse"  %>
   <%= f.input :work, label: "Travail effectué"  %>

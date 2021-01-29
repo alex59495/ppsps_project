@@ -6,7 +6,6 @@ Rails.application.routes.draw do
 
   # Ppsp
   resources :ppsps, except: [:destroy] do
-    resources :subcontractors, only: [:create, :destroy]
     resources :selected_installations, only: [ :create, :destroy ]
     resources :selected_altitudes, only: [ :create, :destroy ]
     resources :selected_risks, only: [ :create, :destroy ]
@@ -33,6 +32,14 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :subcontractors, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
+    end
+  end
 
   resources :security_coordinators, except: [:new, :show, :destroy] do
     member do

@@ -32,6 +32,7 @@ class PpspsController < ApplicationController
     @demining = Demining.new
     @sos_hand = SosHand.new
     @anti_poison = AntiPoison.new
+    @subcontractor = Subcontractor.new
 
     # Select the databases present in the select lists
     @moas = policy_scope(Moa.all)
@@ -45,6 +46,7 @@ class PpspsController < ApplicationController
     @anti_poisons = policy_scope(AntiPoison.all)
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
+    @subcontractors = policy_scope(Subcontractor.all)
 
     ppsp_content_secu?
   end
@@ -88,6 +90,7 @@ class PpspsController < ApplicationController
     @demining = Demining.new
     @sos_hand = SosHand.new
     @anti_poison = AntiPoison.new
+    @subcontractor = Subcontractor.new
     @ppsp.user = current_user
 
     # Select the databases present in the select lists
@@ -102,6 +105,13 @@ class PpspsController < ApplicationController
     @anti_poisons = policy_scope(AntiPoison.all)
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
+    @subcontractors = policy_scope(Subcontractor.all)
+
+    if subcontractors = params.require(:ppsp).require(:subcontractors)
+      subcontractors.shift.each do |subcontractor_id|
+        SelectedSubcontractors.create(@ppsp.id, subcontractor_id)
+      end
+    end
 
     authorize @ppsp
     if @ppsp.save
@@ -131,7 +141,7 @@ class PpspsController < ApplicationController
     @selected_risk_active = SelectedRisk.where(ppsp_id: @ppsp.id)
     # Input of the option of subcontractors for the form
     @subcontractor = Subcontractor.new
-    @num_info_select = @selected_installation_active.count + @selected_altitude_active.count + @selected_risk_active.count + @ppsp.subcontractors.count
+    @num_info_select = @selected_installation_active.count + @selected_altitude_active.count + @selected_risk_active.count
   end
 
   def edit
@@ -153,6 +163,7 @@ class PpspsController < ApplicationController
     @demining = Demining.new
     @sos_hand = SosHand.new
     @anti_poison = AntiPoison.new
+    @subcontractor = Subcontractor.new
 
     # Select the databases present in the select lists
     @moas = policy_scope(Moa.all)
@@ -166,6 +177,8 @@ class PpspsController < ApplicationController
     @anti_poisons = policy_scope(AntiPoison.all)
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
+
+    @subcontractors = Subcontractor.includes(:selected_subcontractors).where('selected_subcontractors.ppsp.id = ?', @ppsp.id)
 
     ppsp_content_secu?
   end
@@ -189,6 +202,7 @@ class PpspsController < ApplicationController
     @demining = Demining.new
     @sos_hand = SosHand.new
     @anti_poison = AntiPoison.new
+    @subcontractor = Subcontractor.new
 
     # Select the databases present in the select lists
     @moas = policy_scope(Moa.all)
@@ -202,6 +216,14 @@ class PpspsController < ApplicationController
     @anti_poisons = policy_scope(AntiPoison.all)
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
+    @subcontractors = policy_scope(Subcontractor.all)
+
+    if subcontractors = params.require(:ppsp).require(:subcontractors)
+      subcontractors.shift
+      subcontractors.each do |subcontractor_id|
+        SelectedSubcontractor.create(ppsp_id: @ppsp.id, subcontractor_id: subcontractor_id)
+      end
+    end
 
     if @ppsp.update(params_ppsp)
       redirect_to informations_supplementaires_ppsp_path(@ppsp)
@@ -231,7 +253,7 @@ class PpspsController < ApplicationController
 
   def params_ppsp
     params.require(:ppsp).permit(:address, :start_date, :end_date, :nature, :workforce, :agglomeration,
-                                 :street_impact, :river_guidance, :moa_id, :moe_id, :subcontractor_ids, :security_coordinator_id,
+                                 :street_impact, :river_guidance, :moa_id, :moe_id, :security_coordinator_id,
                                  :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
                                  :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, :logo_client, :content_secu,
                                  project_information_attributes: [:ppsp_id, :reference, :responsible,

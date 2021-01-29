@@ -64,21 +64,6 @@
                     </div>
                   <% end %>
                 <% end %>
-                <% if @ppsp.subcontractors.count > 0 %>
-                  <h3 class="card-info-title">Sous Traitants</h3>
-                  <% @ppsp.subcontractors.each do |subcontract| %>
-                    <div class="card-info-selected">
-                      <div class="card-info-body">
-                        <div class="card-info-name">
-                          <%= subcontract.name %> - <%= subcontract.responsible_name %>
-                        </div>
-                      </div>
-                      <div class="card-info-delete">
-                        <%= link_to "x", ppsp_subcontractor_path(@ppsp, subcontract), method: :delete, remote: true %>
-                      </div>
-                    </div>
-                  <% end %>
-                <% end %>
               </div>
             <% end %>
           </div>

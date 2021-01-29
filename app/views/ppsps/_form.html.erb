@@ -243,6 +243,22 @@
         </div>
       </div>
       <div class="col-12 form-title">
+        Les sous-traitants
+      </div>
+      <div class="container-header-form">
+        <label class="select required" for="ppsp_hospital_id">Les sous-traitants<abbr title="required">*</abbr></label>
+        <% if policy(Subcontractor).create? %>
+          <%= render 'btn_add_database', data: 'Subcontractor' %>
+        <% end %>
+      </div>
+      <%= f.input :subcontractors, as: :check_boxes, collection: @subcontractors %>
+        Mes sous-traitants selectionnés
+        <ul>
+          <% @ppsp.subcontractors.each do |subcontractor| %>
+            <li><%= subcontractor.name %></li>
+          <% end %>
+        </ul>
+      <div class="col-12 form-title">
         Les informations sécurité de l'entreprise
       </div>
       <div class="col-md-10 offset-md-1">
@@ -308,6 +324,11 @@
   <% if policy(Demining).create? %>
     <div class="modal fade" id="ModalDemining" tabindex="-1" role="dialog" aria-labelledby="ModalDemining" aria-hidden="true">
       <%= render 'ppsps/modal_demining' %>
+    </div>
+  <% end %>
+  <% if policy(Subcontractor).create? %>
+    <div class="modal fade" id="ModalSubcontractor" tabindex="-1" role="dialog" aria-labelledby="ModalSubcontractor" aria-hidden="true">
+      <%= render 'ppsps/modal_subcontractor' %>
     </div>
   <% end %>
 </div>

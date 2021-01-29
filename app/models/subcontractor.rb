@@ -1,5 +1,5 @@
 class Subcontractor < ApplicationRecord
-  belongs_to :ppsp
+  has_many :selected_subcontractors
   validates :name, presence: true
   validates :address, presence: true
   validates :work, presence: true
