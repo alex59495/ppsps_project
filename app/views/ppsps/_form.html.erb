@@ -251,13 +251,12 @@
           <%= render 'btn_add_database', data: 'Subcontractor' %>
         <% end %>
       </div>
-      <%= f.input :subcontractors, as: :check_boxes, collection: @subcontractors %>
-        Mes sous-traitants selectionnés
-        <ul>
-          <% @ppsp.subcontractors.each do |subcontractor| %>
-            <li><%= subcontractor.name %></li>
-          <% end %>
-        </ul>
+
+      <div class="render-subcontractors">
+        <%= f.input :subcontractors, as: :check_boxes, collection: @subcontractors %>
+      </div>
+      Mes sous-traitants selectionnés
+
       <div class="col-12 form-title">
         Les informations sécurité de l'entreprise
       </div>

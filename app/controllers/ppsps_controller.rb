@@ -178,8 +178,6 @@ class PpspsController < ApplicationController
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
 
-    @subcontractors = Subcontractor.includes(:selected_subcontractors).where('selected_subcontractors.ppsp.id = ?', @ppsp.id)
-
     ppsp_content_secu?
   end
 

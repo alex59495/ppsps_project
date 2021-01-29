@@ -1,0 +1,10 @@
+<fieldset class="form-group check_boxes optional ppsp_subcontractors">
+  <legend class="col-form-label pt-0">Subcontractors</legend>
+  <input type="hidden" name="ppsp[subcontractors][]" value="">
+  <% policy_scope(Subcontractor).each do |subcontractor| %>
+    <div class="form-check">
+      <input class="form-check-input check_boxes optional" type="checkbox" value=<%= subcontractor.id%> name="ppsp[subcontractors][]" id= <%="ppsp_subcontractors_#{subcontractor.id}"%>>
+      <label class="form-check-label collection_check_boxes" for= <%="ppsp_subcontractors_#{subcontractor.id}"%>><%= "#{subcontractor.name} - #{subcontractor.responsible_name}" %></label>
+    </div>
+  <% end %>
+</fieldset>

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :selected_installations, only: [ :create, :destroy ]
     resources :selected_altitudes, only: [ :create, :destroy ]
     resources :selected_risks, only: [ :create, :destroy ]
+    resources :selected_subcontractors, only: [ :create, :destroy ]
     member do
       get :destroy_logo_client
       get :informations_supplementaires

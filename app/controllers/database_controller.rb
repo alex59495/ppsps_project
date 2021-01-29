@@ -36,7 +36,7 @@ class DatabaseController < ApplicationController
     # We need an "@data" to render the correct partial in views
     @data = @model_name.new(params_data)
     # In the case of selected_tables we don't have the instance, only the id so we add the 'OR'
-    @data.company || @dara.company_id = current_user.company
+    @data.company = current_user.company
     authorize @data
     instance_variable_creation(@data)
     @search = "none"
