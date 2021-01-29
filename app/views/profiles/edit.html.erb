@@ -24,12 +24,13 @@
         </div>
         <h2 class="text-center">Texte de sécurité de l'entreprise</h2>
         <%= f.simple_fields_for :company, @company do |h| %>
-          <input class='hidden' name=image type=file id="upload" onchange="">
           <%= h.text_area :content_secu, class: 'tinymce' %>
           <%= tinymce %>
         <% end %>
       <% end %>
-      <%= f.submit "Éditer les informations", class: 'btn-blue' %>
+      <div class="d-flex justify-content-center my-4">
+        <%= f.submit "Valider mes modifications", class: 'btn-blue' %>
+      </div>
     <% end %>
   </div>
 </div>
@@ -37,14 +38,31 @@
   const loadLogo = (event) => {
     const image = document.getElementById('newLogo');
     const arrow = document.querySelector('.fa-long-arrow-alt-right');
-    const btnDelete = document.getElementById('removeUpload')
+    const btnCancelUpload = document.getElementById('removeUpload');
+    const btnDeleteLogo = document.getElementById('removeLogo');
+    // Si il exite un fichier à uploader
     if(event.target.files[0]) {
       arrow.style.display = 'block';
+      btnCancelUpload.style.display = 'block'
+      // Si l'entreprise n'a pas encore de logo le bouton n'exitse pas
+      if(btnDeleteLogo) {
+        btnDeleteLogo.style.display = 'none'
+      }
+      btnCancelUpload.addEventListener('click', (e) => {
+        // Si il exite un fichier à uploader
+        event.target.value = null
+        btnCancelUpload.style.display = 'none'
+        loadLogo(event)
+      })
+      image.style.display = 'block';
       return image.src = URL.createObjectURL(event.target.files[0]);
-      btnDelete.style.display = 'block'
     } {
       arrow.style.display = 'none';
       image.style.display = 'none';
+      // Si l'entreprise n'a pas encore de logo le bouton n'exitse pas
+      if(btnDeleteLogo) {
+        btnDeleteLogo.style.display = 'block'
+      }
     }
   };
 </script>

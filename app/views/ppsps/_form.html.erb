@@ -1,6 +1,6 @@
 <div class="container mb-3">
   <%= link_to "Revenir à mes PPSP", ppsps_path, class: 'link' %>
-  <%= simple_form_for @ppsp do |f| %>
+  <%= simple_form_for @ppsp, remote: true do |f| %>
     <div class="row">
       <div class="col-12 form-title">
         Chantier
@@ -64,10 +64,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
             <% if policy(Moa).new? %>
-              <button type="button" class="icon-btn add-btn" data-toggle="modal" data-target="#ModalMoa" id="MoaDb">
-                <div class="add-icon"></div>
-                <div class="btn-txt">Ajouter</div>
-              </button>
+              <%= render 'btn_add_database', data: 'Moa' %>
             <% end %>
           </div>
           <%= f.input :moa_id, as: :select, label: false, collection: @moas, label_method: lambda {|x| "#{x.name} - #{x.representative}"}, input_html: {class: "select-2"} %>
@@ -78,9 +75,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_moe_id">MOE <abbr title="required">*</abbr></label>
             <% if policy(Moe).new? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalMoe" id="MoeDb">
-                <i class="fas fa-plus"></i>
-              </button>
+              <%= render 'btn_add_database', data: 'Moe' %>
             <% end %>
           </div>
           <%= f.input :moe_id, as: :select, label: false, collection: @moes, label_method: lambda {|x| "#{x.name} - #{x.representative}"}, input_html: {class: "select-2"} %>
@@ -127,9 +122,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_security_coordinator_id">Coordinateur sécurité <i style='font-size: 0.8em'>(laissez vide si il n'y en a pas)</i></label>
             <% if policy(SecurityCoordinator).new? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSecurityCoordinator" id="SecurityDb">
-                <i class="fas fa-plus"></i>
-              </button>
+              <%= render 'btn_add_database', data: 'SecurityCoordinator' %>
             <% end %>
           </div>
           <%= f.input :security_coordinator_id, as: :select, collection: @security_coordinators, label: false, label_method: lambda { |x| "#{x.name} - #{x.representative}" }, input_html: {class: "select-2"} %>
@@ -143,9 +136,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_regional_committee_id">Comité régional de l'OPPBTP <abbr title="required">*</abbr></label>
             <% if policy(RegionalCommittee).create? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalRegionalCommittee" id="RegionalDb">
-                <i class="fas fa-plus"></i>
-              </button>
+               <%= render 'btn_add_database', data: 'RegionalCommittee' %>
             <% end %>
           </div>
           <%= f.input :regional_committee_id, as: :select, label: false, collection: @regional_committees, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
@@ -156,9 +147,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_pension_insurance_id">Caisse d'assurance retraite <abbr title="required">*</abbr></label>
             <% if policy(PensionInsurance).create? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalPensionInsurance" id="PensionDb">
-                <i class="fas fa-plus"></i>
-              </button>
+              <%= render 'btn_add_database', data: 'PensionInsurance' %>
             <% end %>
           </div>
           <%= f.input :pension_insurance_id, as: :select, label: false, collection: @pension_insurances, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
@@ -169,9 +158,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_direcct_id">DIRECCT <abbr title="required">*</abbr></label>
             <% if policy(Direcct).create? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalDirecct" id="DirecctDb">
-                <i class="fas fa-plus"></i>
-              </button>
+              <%= render 'btn_add_database', data: 'Direcct' %>
             <% end %>
           </div>
           <%= f.input :direcct_id, as: :select, label: false, collection: @direccts, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
@@ -182,9 +169,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_work_medecine_id">Médecine du travail <abbr title="required">*</abbr></label>
             <% if policy(WorkMedecine).create? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalWorkMedecine" id="MedecineDb">
-                <i class="fas fa-plus"></i>
-              </button>
+              <%= render 'btn_add_database', data: 'WorkMedecine' %>
             <% end %>
           </div>
           <%= f.input :work_medecine_id, as: :select, label: false, collection: @work_medecines, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
@@ -198,9 +183,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_demining_id">Centre de déminage <abbr title="required">*</abbr></label>
             <% if policy(Demining).create? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalDemining" id="DeminingDb">
-                <i class="fas fa-plus"></i>
-              </button>
+              <%= render 'btn_add_database', data: 'Demining' %>
             <% end %>
           </div>
           <%= f.input :demining_id, as: :select, label: false, collection: @deminings, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
@@ -211,9 +194,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_sos_hand_id">Centre SOS Mains et Doigts<abbr title="required">*</abbr></label>
             <% if policy(SosHand).create? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalSosHand" id="SosDb">
-                <i class="fas fa-plus"></i>
-              </button>
+              <%= render 'btn_add_database', data: 'SosHand' %>
             <% end %>
           </div>
             <%= f.input :sos_hand_id, as: :select, label: false, collection: @sos_hands, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
@@ -224,9 +205,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_anti_poison_id">Centre anti-poison <abbr title="required">*</abbr></label>
             <% if policy(AntiPoison).create? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalAntiPoison" id="AntiPoisonDb">
-                <i class="fas fa-plus"></i>
-              </button>
+              <%= render 'btn_add_database', data: 'AntiPoison' %>
             <% end %>
           </div>
           <%= f.input :anti_poison_id, as: :select, label: false, collection: @anti_poisons, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
@@ -237,9 +216,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_hospital_id">Hôpital le plus proche <abbr title="required">*</abbr></label>
             <% if policy(Hospital).create? %>
-              <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalHospital" id="HospitalDb">
-                <i class="fas fa-plus"></i>
-              </button>
+              <%= render 'btn_add_database', data: 'Hospital' %>
             <% end %>
           </div>
           <%= f.input :hospital_id, as: :select, collection: @hospitals, label: false, label_method: lambda { |x| "#{x.name}"}, input_html: {class: "select-2"} %>
@@ -258,13 +235,12 @@
         <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
       </div>
       <div class="col-md-6 offset-md-3">
-        <%= f.input :logo_client, label: "Logo du client (si disponible)" %>
-        <% if @ppsp.logo_client.attached? %>
-          <div class="logo">
-            <%= cl_image_tag @ppsp.logo_client.key, class: 'icon-logo mb-3' %>
-          </div>
-          <%= link_to "Supprimer", destroy_logo_client_ppsp_path(@ppsp), class: 'btn-delete' %>
-        <% end %>
+        <%= f.input :logo_client, label: "Logo du client (si disponible)", input_html: {onchange: "loadLogoClient(event)"} %>
+        <img id="newLogo" class='icon-logo' style='display: none'>
+        <div class='btn-delete' id="removeUpload" style='display: none;'>Annuler</div>
+        <div class="render-logo">
+          <%= render 'render_logo_client' %>
+        </div>
       </div>
       <div class="col-12 form-title">
         Les informations sécurité de l'entreprise
@@ -335,3 +311,31 @@
     </div>
   <% end %>
 </div>
+<script>
+  const loadLogoClient = (event) => {
+    const image = document.getElementById('newLogo');
+    const oldLogo = document.getElementById('oldLogo');
+    const btnCancelUpload = document.getElementById('removeUpload');
+    // Si il exite un fichier à uploader
+    if(event.target.files[0]) {
+      btnCancelUpload.style.display = 'block'
+      // Si il existe un ancien logo client
+      if(oldLogo) {
+        oldLogo.style.display = 'none'
+      }
+      btnCancelUpload.addEventListener('click', (e) => {
+        // Si il exite un fichier à uploader
+        event.target.value = null
+        btnCancelUpload.style.display = 'none'
+        loadLogoClient(event)
+      });
+      image.style.display = 'block'
+      return image.src = URL.createObjectURL(event.target.files[0]);
+    } {
+      image.style.display = 'none';
+      if(oldLogo) {
+        oldLogo.style.display = 'block'
+      }
+    }
+  };
+</script>

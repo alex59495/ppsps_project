@@ -27,7 +27,12 @@ Rails.application.routes.draw do
   resources :profiles, only: [:show, :edit, :update]
 
   # Database
-  resources :companies, only: [:update]
+  resources :companies, only: [:update] do
+    member do      
+      get :destroy_logo
+    end
+  end
+
 
   resources :security_coordinators, except: [:new, :show, :destroy] do
     member do

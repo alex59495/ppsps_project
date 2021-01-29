@@ -8,7 +8,33 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
     end
   end
 
-  feature 'Logged as normal User' do
+  featu 'Logged as normal User' do
+    before do
+      user_uber = create(:user_uber)
+      project_info1 = create(:project_information, reference: "AABB130")
+      project_info2 = create(:project_information, reference: "AABB120")
+      @ppsp_1 = create(:ppsp, project_information: project_info1, user: user_uber)
+      @ppsp_2 = create(:ppsp, project_information: project_info2, user: user_uber)
+      @ppsp_3 = create(:ppsp_google)
+      login_as(user_uber)
+    end
+
+    scenario "Can't access the Database" do
+      visit(ppsps_path)
+      expect { find('a', text: 'Modifier les bases de données') }.to raise_error(Capybara::ElementNotFound)
+    end
+
+    scenario "Only the see the Ppsp of his company" do
+      visit(ppsps_path)
+      expect(page).to have_css('.card-ppsp', count: 2)
+    end
+
+    scenario "The search bar is working" do
+      visit(ppsps_path)
+      find('.search-ppsp').set("AABB130")
+      expect(page).to have_css('.card-ppsp', count: 1)
+    end
+  endre 'Logged as normal User' do
     before do
       user_uber = create(:user_uber)
       project_info1 = create(:project_information, reference: "AABB130")
@@ -103,7 +129,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       end
     end
 
-    scenario 'Complete and Sumbit the PPSP' do
+    scenario 'Complete and Submit the PPSP' do
       visit(new_ppsp_path)
       fill_in('ppsp_address', with: 'Test adresse')
       fill_in('ppsp_nature', with: 'Test de nature')
@@ -138,6 +164,8 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#ppsp_street_impact').find(:xpath, 'option[2]').select_option
       find('#ppsp_river_guidance').find(:xpath, 'option[2]').select_option
       click_button 'Accéder à la deuxième page'
+      # A refacto
+      sleep 2
       expect(page).to have_current_path(informations_supplementaires_ppsp_path(Ppsp.last))
     end
 
@@ -156,9 +184,10 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
     scenario 'Change the field when update' do
       visit(edit_ppsp_path(@ppsp))
       fill_in('ppsp_project_information_attributes_site_manager_attributes_name', with: 'Update chef de chantier')
-      expect { click_button('Accéder à la deuxième page') }.to change { @ppsp.reload.project_information.site_manager.name }
-        .from('Test de chef de chantier')
-        .to('Update chef de chantier')
+      click_button('Accéder à la deuxième page')
+      # A refacto
+      sleep 2
+      expect(@ppsp.reload.project_information.site_manager.name).to eq('Update chef de chantier')
     end
 
     scenario 'Confirmation message when delete a Ppsp' do
@@ -229,7 +258,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
       scenario "Can add Sos Hand from PPSP new page" do
         count = find('#ppsp_sos_hand_id').all('option').size
-        find('#SosDb').click
+        find('#SosHandDb').click
         page.execute_script("$('#sos_hand_name').val('Test sos_hand')")
         page.execute_script("$('#sos_hand_address').val('Test sos_hand')")
         page.execute_script("$('#sos_hand_phone').val('0600000000')")
@@ -259,7 +288,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
       scenario "Can add Regional Committee from PPSP new page" do
         count = find('#ppsp_regional_committee_id').all('option').size
-        find('#RegionalDb').click
+        find('#RegionalCommitteeDb').click
         page.execute_script("$('#regional_committee_name').val('Test regional_committee')")
         page.execute_script("$('#regional_committee_fax').val('0600000000')")
         page.execute_script("$('#regional_committee_address').val('Test regional_committee')")
@@ -270,7 +299,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
       scenario "Can add Pension Insurance from PPSP new page" do
         count = find('#ppsp_pension_insurance_id').all('option').size
-        find('#PensionDb').click
+        find('#PensionInsuranceDb').click
         page.execute_script("$('#pension_insurance_fax').val('0600000000')")
         page.execute_script("$('#pension_insurance_address').val('Test pension_insurance')")
         page.execute_script("$('#pension_insurance_phone').val('0600000000')")
@@ -280,7 +309,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
       scenario "Can add Work Medecine from PPSP new page" do
         count = find('#ppsp_work_medecine_id').all('option').size
-        find('#MedecineDb').click
+        find('#WorkMedecineDb').click
         page.execute_script("$('#work_medecine_fax').val('0600000000')")
         page.execute_script("$('#work_medecine_address').val('Test work_medecine')")
         page.execute_script("$('#work_medecine_phone').val('0600000000')")
@@ -290,7 +319,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
       scenario "Can add Security Coordinator from PPSP new page" do
         count = find('#ppsp_security_coordinator_id').all('option').size
-        find('#SecurityDb').click
+        find('#SecurityCoordinatorDb').click
         page.execute_script("$('#security_coordinator_name').val('Test security_coordinator')")
         page.execute_script("$('#security_coordinator_address').val('Test security_coordinator')")
         page.execute_script("$('#security_coordinator_representative').val('Test security_coordinator')")
@@ -337,7 +366,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       end
 
       scenario "Rerender Sos Hand when not filling right" do
-        find('#SosDb').click
+        find('#SosHandDb').click
         fill_in('sos_hand_address', with: 'Test sos_hand')
         fill_in('sos_hand_phone', with: '0600000000')
         find('#SosBtn').click
@@ -361,7 +390,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       end
 
       scenario "Rerender Regional Committee when not filling right" do
-        find('#RegionalDb').click
+        find('#RegionalCommitteeDb').click
         fill_in('regional_committee_name', with: 'Test regional_committee')
         fill_in('regional_committee_phone', with: '0600000000')
         fill_in('regional_committee_fax', with: '0600000000')
@@ -370,7 +399,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       end
 
       scenario "Rerender Pension Insurance when not filling right" do
-        find('#PensionDb').click
+        find('#PensionInsuranceDb').click
         fill_in('pension_insurance_address', with: 'Test pension_insurance')
         fill_in('pension_insurance_fax', with: '0600000000')
         find('#PensionBtn').click
@@ -378,7 +407,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       end
 
       scenario "Rerender Work Medecine when not filling right" do
-        find('#MedecineDb').click
+        find('#WorkMedecineDb').click
         fill_in('work_medecine_address', with: 'Test work_medecine')
         fill_in('work_medecine_fax', with: '0600000000')
         find('#WorkMedecineBtn').click
@@ -386,7 +415,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       end
 
       scenario "Rerender Security Coordinator when not filling right" do
-        find('#SecurityDb').click
+        find('#SecurityCoordinatorDb').click
         fill_in('security_coordinator_name', with: 'Test security_coordinator')
         fill_in('security_coordinator_representative', with: 'Test rep security_coordinator')
         fill_in('security_coordinator_phone', with: '0600000000')

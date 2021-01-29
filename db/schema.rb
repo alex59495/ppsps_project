@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 2021_01_25_163016) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "representative"
-    t.text "content_secu"
+    t.text "content_secu", default: ""
   end
 
   create_table "deminings", force: :cascade do |t|
@@ -157,7 +157,7 @@ ActiveRecord::Schema.define(version: 2021_01_25_163016) do
     t.bigint "anti_poison_id", null: false
     t.bigint "hospital_id", null: false
     t.bigint "security_coordinator_id"
-    t.text "content_secu"
+    t.text "content_secu", default: ""
     t.index ["anti_poison_id"], name: "index_ppsps_on_anti_poison_id"
     t.index ["demining_id"], name: "index_ppsps_on_demining_id"
     t.index ["direcct_id"], name: "index_ppsps_on_direcct_id"
