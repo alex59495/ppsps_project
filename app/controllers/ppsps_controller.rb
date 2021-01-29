@@ -213,7 +213,7 @@ class PpspsController < ApplicationController
 
   def destroy_logo_client
     authorize @ppsp
-    @ppsp.logo_client.purge
+    @purge = true if @ppsp.logo_client.purge
     respond_to do |format|
       format.js { render 'ppsps/destroy_logo_client' }
     end
@@ -223,7 +223,9 @@ class PpspsController < ApplicationController
     authorize @ppsp
     blob = ActiveStorage::Blob.find_by(key: params[:public_id])
     ActiveStorage::Attachment.find_by(blob: blob).purge
-    redirect_to edit_ppsp_path(@ppsp)
+    respond_to do |format|
+      format.js { render 'ppsps/destroy_destroy_annexe' }
+    end
   end
 
   private

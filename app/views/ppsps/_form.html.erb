@@ -235,11 +235,11 @@
         <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
       </div>
       <div class="col-md-6 offset-md-3">
-        <%= f.input :logo_client, label: "Logo du client (si disponible)", input_html: {onchange: "loadLogoClient(event)"} %>
-        <img id="newLogo" class='icon-logo' style='display: none'>
-        <div class='btn-delete' id="removeUpload" style='display: none;'>Annuler</div>
-        <div class="render-logo">
-          <%= render 'render_logo_client' %>
+      <%= f.input :logo_client, label: "Logo du client (si disponible)", disabled: @ppsp.logo_client.attached? %>
+      <img id="newLogo" class='icon-logo' style='display: none'>
+      <div class='btn-delete' id="removeUpload" style='display: none;'>Annuler</div>
+      <div class="render-logo">
+          <%= render 'render_logo_client'%>
         </div>
       </div>
       <div class="col-12 form-title">
@@ -261,7 +261,7 @@
           <% @ppsp.annexes.each do |annexe| %>
             <div class="container-annexe">
               <%= cl_image_tag(annexe.key + '.jpg', width: 200, height: 300, class: "mx-4") %>
-              <%= link_to "Supprimer", destroy_annexe_ppsp_path(public_id: annexe.key), class: 'btn-delete' %>
+              <%= link_to "Supprimer", destroy_annexe_ppsp_path(public_id: annexe.key), class: 'btn-delete', remote: true %>
             </div>
           <% end %>
         </div>
@@ -324,31 +324,3 @@
     </div>
   <% end %>
 </div>
-<script>
-  const loadLogoClient = (event) => {
-    const image = document.getElementById('newLogo');
-    const oldLogo = document.getElementById('oldLogo');
-    const btnCancelUpload = document.getElementById('removeUpload');
-    // Si il exite un fichier à uploader
-    if(event.target.files[0]) {
-      btnCancelUpload.style.display = 'block'
-      // Si il existe un ancien logo client
-      if(oldLogo) {
-        oldLogo.style.display = 'none'
-      }
-      btnCancelUpload.addEventListener('click', (e) => {
-        // Si il exite un fichier à uploader
-        event.target.value = null
-        btnCancelUpload.style.display = 'none'
-        loadLogoClient(event)
-      });
-      image.style.display = 'block'
-      return image.src = URL.createObjectURL(event.target.files[0]);
-    } {
-      image.style.display = 'none';
-      if(oldLogo) {
-        oldLogo.style.display = 'block'
-      }
-    }
-  };
-</script>
