@@ -8,7 +8,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
     end
   end
 
-  featu 'Logged as normal User' do
+  feature 'Logged as normal User' do
     before do
       user_uber = create(:user_uber)
       project_info1 = create(:project_information, reference: "AABB130")
@@ -34,7 +34,9 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('.search-ppsp').set("AABB130")
       expect(page).to have_css('.card-ppsp', count: 1)
     end
-  endre 'Logged as normal User' do
+  end
+  
+  feature 'Logged as normal User' do
     before do
       user_uber = create(:user_uber)
       project_info1 = create(:project_information, reference: "AABB130")
