@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_25_163016) do
+ActiveRecord::Schema.define(version: 2021_01_29_184909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,6 +158,8 @@ ActiveRecord::Schema.define(version: 2021_01_25_163016) do
     t.bigint "hospital_id", null: false
     t.bigint "security_coordinator_id"
     t.text "content_secu", default: ""
+    t.float "latitude"
+    t.float "longitude"
     t.index ["anti_poison_id"], name: "index_ppsps_on_anti_poison_id"
     t.index ["demining_id"], name: "index_ppsps_on_demining_id"
     t.index ["direcct_id"], name: "index_ppsps_on_direcct_id"

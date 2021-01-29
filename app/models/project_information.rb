@@ -8,4 +8,6 @@ class ProjectInformation < ApplicationRecord
   validates :responsible, presence: true
   validates :phone, presence: true, phone: true
   validates :email, presence: true, email: true
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
 end

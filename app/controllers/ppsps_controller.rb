@@ -52,6 +52,7 @@ class PpspsController < ApplicationController
   def show
     authorize @ppsp
     @n = 0
+    @marker = { lat: @ppsp.latitude, lng: @ppsp.longitude }
     respond_to do |format|
       # Two response for the show method depending on the format we call
       format.html
@@ -62,6 +63,7 @@ class PpspsController < ApplicationController
           encoding: 'utf8',
           template: 'ppsps/show.pdf.erb',
           layout: 'pdf.html.erb',
+          view_as_html: true,
           # Display number of pages
           header: { right: '[page] of [topage]' },
           footer: {
