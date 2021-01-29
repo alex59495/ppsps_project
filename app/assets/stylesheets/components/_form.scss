@@ -9,3 +9,25 @@
   margin-top: 2em;
   margin-bottom: 1em;
 }
+
+.form-flex {
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 700px) {
+  .form-flex {
+    flex-direction: column;
+  }
+}
+
+.form-flex-element {
+  min-width: 300px;
+  margin: 20px;
+  box-shadow: 1px 1px 2px 2px $blue-shadow;
+  padding: 8px;
+  border-radius: 12px;
+  height: fit-content;
+  max-height: 300px;
+  overflow: auto;
+}

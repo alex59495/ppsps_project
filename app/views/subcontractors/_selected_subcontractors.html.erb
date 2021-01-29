@@ -1,9 +1,12 @@
 <% if @ppsp.subcontractors.any? %>
-  Les sous-traitants déjà intégrés à mon PPSPS
-    <% @ppsp.subcontractors.each do |subcontract| %>
-      <li>
-        <%= "#{subcontract.name} - #{subcontract.responsible_name} - #{subcontract.work}" %>
+  <% @ppsp.subcontractors.each do |subcontract| %>
+    <div class='card-form-selected'>
+      <div class="card-form-delete">
         <%= link_to 'x', ppsp_selected_subcontractor_path(@ppsp.id, sub_id: subcontract.id), remote: true, method: :delete %>
-      </li>
-    <% end %>
+      </div>
+      <div class="line"><i class="fas fa-hard-hat mr-2"></i><%= subcontract.name %></div>
+      <div class="line"><i class="fas fa-user mr-2"></i><%= subcontract.responsible_name %></div>
+      <div class="line"><i class="fas fa-tools mr-2"></i><%= subcontract.work %></div>
+    </div>
   <% end %>
+<% end %>

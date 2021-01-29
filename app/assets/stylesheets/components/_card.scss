@@ -171,13 +171,13 @@
   }
 }
 
-@media(min-width: 700px) {
+@media (min-width: 700px) {
   .card-info {
     top: 80px;
   }
 }
 
-@media(max-width: 701px) {
+@media (max-width: 701px) {
   .card-info {
     position: absolute;
     bottom: 70px;
@@ -195,14 +195,14 @@
     cursor: pointer;
   }
   &:before {
-    content: "\f0c8";
+    content: '\f0c8';
     font-family: 'Font Awesome\ 5 Free';
     margin-right: 8px;
     font-size: 12px;
   }
   &.active {
     &:before {
-      content: "\f00c";
+      content: '\f00c';
       font-family: 'Font Awesome\ 5 Free';
       margin-right: 8px;
       font-size: 12px;
@@ -212,7 +212,7 @@
   }
 }
 
-@media(max-width: 1019px) {
+@media (max-width: 1019px) {
   .card-form {
     position: relative;
     left: 33%;
@@ -248,7 +248,7 @@
   }
 }
 
-@media(max-width: 767px) {
+@media (max-width: 767px) {
   .card-profile {
     flex-direction: column;
     gap: 30px;
@@ -379,4 +379,16 @@
 
 .card-logo-empty {
   text-align: center;
+}
+
+.card-form-selected {
+  padding: 8px;
+  padding-right: 16px;
+  box-shadow: 1px 1px 2px 2px $blue-shadow;
+  border-radius: 8px;
+  width: 200px;
+  .card-form-delete {
+    position: relative;
+    float: right;
+  }
 }

@@ -22,6 +22,7 @@ class SubcontractorsController < DatabaseController
     authorize @data
     instance_variable_creation(@data)
     @search = "none"
+    @subcontractors = policy_scope(Subcontractor.all)
     if @data.save
       # Create an ordered list to put the last one in first
       @database = policy_scope(@model_name.all).sort_by { |datab| datab.created_at }
