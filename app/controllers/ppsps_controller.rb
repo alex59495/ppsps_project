@@ -1,5 +1,5 @@
 class PpspsController < ApplicationController
-  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit informations_supplementaires destroy_logo_client destroy_annexe]
+  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit informations_supplementaires destroy_logo_client destroy_annexe duplicate]
 
   def index
     # Handled by react :) (app/assets/javascript/ppsp-react)
@@ -226,6 +226,14 @@ class PpspsController < ApplicationController
     respond_to do |format|
       format.js { render 'ppsps/destroy_annexe' }
     end
+  end
+
+  def duplicate
+    @ppsp_duplicate = @ppsp.dup
+    authorize @ppsp_duplicate
+    @ppsp_duplicate.user = current_user
+    @ppsp_duplicate.save
+    redirect_to edit_ppsp_path(@ppsp_duplicate)
   end
 
   private

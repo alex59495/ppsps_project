@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       get 'destroy_annexe/:public_id', to: 'ppsps#destroy_annexe', as: :destroy_annexe 
       get :destroy_logo_client
       get :informations_supplementaires
+      get :duplicate
     end
   end
 
