@@ -6,6 +6,7 @@ import SavedChoices from './SavedChoices';
 const App = () => {
   const [formList, setFormList] = useState([]);
   const [addList, setAddList] = useState([]);
+  const [savedChoices, setSavedChoices] = useState([]);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -35,8 +36,30 @@ const App = () => {
     }
   };
 
+  const url = 'http://localhost:3000';
+
+  const ppspsId = document.getElementById('render-subcontractors').dataset
+    .ppsps_id;
+
+  const handleRemove = async (subcontractor) => {
+    await fetch(
+      `${url}/api/v1/subcontractors/${subcontractor.id}/?ppsps_id=${ppspsId}`,
+      {
+        method: 'DELETE',
+      }
+    );
+  };
+
   useEffect(() => {
-    fetch(`api/v1/subcontractors`, {
+    fetch(`${url}/api/v1/selected_subcontractors?ppsps_id=${ppspsId}`, {
+      method: 'GET',
+    })
+      .then((response) => response.json())
+      .then((data) => setSavedChoices(data));
+  }, [formList]);
+
+  useEffect(() => {
+    fetch(`${url}/api/v1/subcontractors?ppsps_id=${ppspsId}`, {
       method: 'GET',
     })
       .then((response) => response.json())
@@ -45,9 +68,11 @@ const App = () => {
 
   return (
     <>
-      <SavedChoices />
-      <FormList subcontractors={formList} handleClick={handleClick} />
-      <ListSelected subcontractors={addList} handleClick={handleClick} />
+      <SavedChoices subcontractors={savedChoices} handleRemove={handleRemove} />
+      <div className="form-flex" id="form-subcontractors">
+        <FormList subcontractors={formList} handleClick={handleClick} />
+        <ListSelected subcontractors={addList} handleClick={handleClick} />
+      </div>
     </>
   );
 };

@@ -1,6 +1,6 @@
 <div class="container mb-3">
   <%= link_to "Revenir à mes PPSP", ppsps_path, class: 'link' %>
-  <%= simple_form_for @ppsp, remote: true, html: {'data-id': @ppsp.id, class: 'ppsp-id'} do |f| %>
+  <%= simple_form_for @ppsp, remote: true do |f| %>
     <div class="row">
       <div class="col-12 form-title">
         Chantier
@@ -253,7 +253,7 @@
           <% end %>
         </div>
 
-        <div id="render-subcontractors">
+        <div id="render-subcontractors" data-ppsps_id=<%=@ppsp.id%>>
           <div class="subcontractors">
             <% if @ppsp.subcontractors.any? %>
               <p class='text-center'>Les sous-traitants déjà intégrés à mon PPSPS</p>
@@ -274,8 +274,6 @@
             </div>
           </div>
         </div>
-
-        <div class="form-flex" id="form-subcontractors"></div>
       </div>
 
       <div class="col-12 form-title">

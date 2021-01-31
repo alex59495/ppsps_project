@@ -14,9 +14,9 @@ import App from './components/App';
 
 const FormSubcontractors = () => {
   // Identify the user you're visiting (show page) = currrent_user
-  if (document.getElementById('form-subcontractors')) {
+  if (document.getElementById('render-subcontractors')) {
     // render an instance of the component in the DOM
-    ReactDOM.render(<App />, document.getElementById('form-subcontractors'));
+    ReactDOM.render(<App />, document.getElementById('render-subcontractors'));
   }
 };
 

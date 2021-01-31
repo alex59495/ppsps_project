@@ -239,7 +239,6 @@ class PpspsController < ApplicationController
   def create_selected_subcontractors
     if params.require(:ppsp).key?(:subcontractors)
       subcontractors = params.require(:ppsp).require(:subcontractors)
-      subcontractors.shift
       subcontractors.each do |subcontractor_id|
         SelectedSubcontractor.create(ppsp_id: @ppsp.id, subcontractor_id: subcontractor_id)
       end

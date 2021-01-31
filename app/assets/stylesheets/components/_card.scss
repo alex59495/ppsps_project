@@ -390,5 +390,11 @@
   .card-form-delete {
     position: relative;
     float: right;
+    color: $blue-dark;
+    &:hover {
+      cursor: pointer;
+      color: black;
+      text-decoration: none;
+    }
   }
 }

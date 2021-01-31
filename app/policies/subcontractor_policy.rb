@@ -25,11 +25,15 @@ class SubcontractorPolicy < ApplicationPolicy
     edit?
   end
 
+  def destroy?
+    true
+  end
+
   def pagination?
     index?
   end
 
   def selected_subcontractors?
-    user.admin
+    true
   end
 end

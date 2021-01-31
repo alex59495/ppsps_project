@@ -29,7 +29,6 @@ import error from '../components/errors';
 import navbarDropdown from '../components/navbar-dropdown';
 import sweetAlertMail from '../components/sweetAlert';
 import InitializeTinyMce from '../components/tinymce-editor';
-import SelectSubcontractor from '../components/select-subcontractors';
 
 require('@rails/ujs').start();
 require('turbolinks').start();
@@ -45,7 +44,6 @@ require('../channels');
 
 document.addEventListener('turbolinks:load', () => {
   InitializeTinyMce();
-  SelectSubcontractor();
   navbarDropdown();
   error();
   select2();

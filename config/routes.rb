@@ -14,20 +14,20 @@ Rails.application.routes.draw do
       get :destroy_logo_client
       get :informations_supplementaires
     end
-
-    # Use to display the subcontractors form
-    namespace :api, defaults: { format: :json } do
-      namespace :v1 do
-        resources :subcontractors, only: [ :index ]
-        get 'selected_subcontractors', to: 'subcontractors#selected_subcontractors'
-      end
-    end
   end
 
   # API
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :ppsps, only: [ :destroy, :index, :show ]
+    end
+  end
+  
+  # Use to display the subcontractors form
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :subcontractors, only: [ :index, :destroy ]
+      get 'selected_subcontractors', to: 'subcontractors#selected_subcontractors'
     end
   end
 
