@@ -14,6 +14,7 @@ import ReactDOM from 'react-dom';
 // Import react elements
 // import '../react-ppsp/index'
 import reactPpsp from '../components/react-ppsp/index';
+import FormSubcontractors from '../components/form-subcontractors/index';
 
 // import { AutoCompleteGeocoding } from "../components/autocomplete"
 // La clé API pour l'utilisation de l'autocomplete Geocoding se trouve dans config/application.yml
@@ -52,11 +53,14 @@ document.addEventListener('turbolinks:load', () => {
   hideForm();
   hideInfosSelect();
   cardForm();
-  reactPpsp();
   infiniteScroll();
   popUp();
   calendar();
   sweetAlertMail();
+
+  // React
+  reactPpsp();
+  FormSubcontractors();
 });
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true);
@@ -66,5 +70,10 @@ ReactRailsUJS.useContext(componentRequireContext);
 ReactRailsUJS.handleEvent('turbolinks:before-render', () => {
   if (document.getElementById('ppsps-react')) {
     ReactDOM.unmountComponentAtNode(document.getElementById('ppsps-react'));
+  }
+  if (document.getElementById('form-subcontractors')) {
+    ReactDOM.unmountComponentAtNode(
+      document.getElementById('form-subcontractors')
+    );
   }
 });

@@ -1,7 +1,7 @@
 class SubcontractorPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all
+      scope.where(company: user.company, is_destroyed: false)
     end
   end
 
@@ -27,5 +27,9 @@ class SubcontractorPolicy < ApplicationPolicy
 
   def pagination?
     index?
+  end
+
+  def selected_subcontractors?
+    user.admin
   end
 end

@@ -1,6 +1,6 @@
 <div class="container mb-3">
   <%= link_to "Revenir à mes PPSP", ppsps_path, class: 'link' %>
-  <%= simple_form_for @ppsp, remote: true do |f| %>
+  <%= simple_form_for @ppsp, remote: true, html: {'data-id': @ppsp.id, class: 'ppsp-id'} do |f| %>
     <div class="row">
       <div class="col-12 form-title">
         Chantier
@@ -253,9 +253,11 @@
           <% end %>
         </div>
 
-        <div class="render-subcontractors">
+        <div id="render-subcontractors">
           <div class="subcontractors">
-            <p class='text-center'>Les sous-traitants déjà intégrés à mon PPSPS</p>
+            <% if @ppsp.subcontractors.any? %>
+              <p class='text-center'>Les sous-traitants déjà intégrés à mon PPSPS</p>
+            <% end %>
             <div class='flex-database' id='containerSelectedSubcontractors'>
               <% if @ppsp.subcontractors.any? %>
                 <% @ppsp.subcontractors.each do |subcontract| %>
@@ -271,28 +273,9 @@
               <% end %>
             </div>
           </div>
-
-          <div class="form-flex form-subcontractors">
-            <div class="form-subcontractors-list form-flex-element">
-              <p>Les sous-traitans disponibles</p>
-              <fieldset class="form-group check_boxes optional ppsp_subcontractors">
-                <legend class="col-form-label pt-0"></legend>
-                <input type="hidden" name="ppsp[subcontractors][]" value="">
-                <% @subcontractors.sort_by(&:name).each do |subcontract| %>
-                  <div class="form-check" id=<%= "check_ppsp_subcontractors_#{subcontract.id}"%>>
-                    <input class="form-check-input check_boxes optional" type="checkbox" value=<%= subcontract.id%> name="ppsp[subcontractors][]" id= <%= "ppsp_subcontractors_#{subcontract.id}" %>>
-                    <label class="form-check-label collection_check_boxes" for=<%="ppsp_subcontractors_#{subcontract.id}"%>><%= "#{subcontract.name} - #{subcontract.responsible_name} - #{subcontract.work}" %></label>
-                  </div>
-                <% end %>
-              </fieldset>
-            </div>
-            <div class="form-selected-subcontractor form-flex-element">
-              <p>Mes ajouts</p>
-              <div class="selected-subcontractors">
-              </div>
-            </div>
-          </div>
         </div>
+
+        <div class="form-flex" id="form-subcontractors"></div>
       </div>
 
       <div class="col-12 form-title">

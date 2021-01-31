@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Internal modules
-import ReactApp from './components/react_app';
+import App from './components/App';
 
 // State and reducers
 // const reducers = combineReducers({
@@ -12,15 +12,12 @@ import ReactApp from './components/react_app';
 //   selectedPpsps: reducerPpsps
 // });
 
-const reactPpsp = () => {
+const FormSubcontractors = () => {
   // Identify the user you're visiting (show page) = currrent_user
-  if (document.getElementById('render-subcontractors')) {
+  if (document.getElementById('form-subcontractors')) {
     // render an instance of the component in the DOM
-    ReactDOM.render(
-        <ReactApp />
-      document.getElementById('render-subcontractors')
-    );
+    ReactDOM.render(<App />, document.getElementById('form-subcontractors'));
   }
 };
 
-export default reactPpsp;
+export default FormSubcontractors;
