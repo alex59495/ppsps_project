@@ -5,9 +5,5 @@
   <%= f.input :responsible_name, label: "Responsable" %>
   <%= f.input :responsible_phone, label: "Téléphone"%>
   <%= f.input :responsible_email, label: "Email" %>
-  <% if params[:action] == 'informations_supplementaires' || params[:action] == 'create'  %>
-    <%= f.submit 'Créer un sous-traitant', class: 'btn-blue' %>
-  <% else %>
-    <%= f.submit 'Modifier ce sous-traitant', class: 'btn-blue' %>
-  <% end %>
+  <%= f.submit 'Ajouter', class: 'btn-blue', id: 'SubcontractorBtn' %>
 <% end %>

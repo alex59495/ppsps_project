@@ -173,7 +173,11 @@ class PpspsController < ApplicationController
     @anti_poisons = policy_scope(AntiPoison.all)
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
-    @subcontractors = policy_scope(Subcontractor.all)
+    # @subcontractors = policy_scope(Subcontractor.all)
+
+    # Modifier la liste des sous-traitants affichés en fonction des sous-traitants déjà sélectionnés
+    selected_subcontractors = SelectedSubcontractor.where(ppsp_id: params[:id])
+    @subcontractors = Subcontractor.where.not(id: selected_subcontractors.map(&:subcontractor_id))
 
     ppsp_content_secu?
   end

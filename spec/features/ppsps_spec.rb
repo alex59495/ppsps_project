@@ -331,6 +331,21 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         expect(page).to have_css('#ppsp_security_coordinator_id > option', count: count + 1)
       end
 
+      scenario "Can add Security Coordinators from PPSP new page" do
+        count = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('input').size
+        find('#SubcontractorDb').click
+        page.execute_script("$('#subcontractor_name').val('Test subcontractor')")
+        page.execute_script("$('#subcontractor_address').val('Test subcontractor')")
+        page.execute_script("$('#subcontractor_work').val('Test work')")
+        page.execute_script("$('#subcontractor_responsible_email').val('test_responsible@gmail.com')")
+        page.execute_script("$('#subcontractor_responsible_name').val('Test name')")
+        page.execute_script("$('#subcontractor_responsible_phone').val('0600000000')")
+        find('#SubcontractorBtn').click
+        expect(page).to have_css('.form-group.check_boxes.optional.ppsp_subcontractors input', count: count + 1)
+        # count_end = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('input').size
+        # expect(count_end).to eq(count + 1)
+      end
+
       scenario "Rerender MOA form when not filling right" do
         find('#MoaDb').click
         fill_in('moa_name', with: 'Test Moa')

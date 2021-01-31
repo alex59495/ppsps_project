@@ -1,18 +1,12 @@
 const SelectSubcontractor = () => {
   if (document.querySelector('.form-selected-subcontractor')) {
-    const options = {
-      root: document.querySelector('.form-subcontractors'),
-      rootMargin: '0px',
-      threshold: 1.0,
-    };
-
     const activateJS = () => {
       // On recupere une liste d'élément dont l'id commence par ppsp_subcontractors
       const listSubcontractors = document.querySelectorAll(
         '[id^="check_ppsp_subcontractors"]'
       );
 
-      const listAjout = document.querySelector('.form-selected-subcontractor');
+      const listAjout = document.querySelector('.selected-subcontractors');
       const listInitial = document.querySelector(
         '.ppsp_subcontractors.check_boxes.form-group'
       );
@@ -32,16 +26,25 @@ const SelectSubcontractor = () => {
           const list = subcontractor.classList.contains('addlist')
             ? listAjout
             : listInitial;
-          list.appendChild(subcontractor);
+          const { firstChild } = list;
+          list.insertBefore(subcontractor, firstChild);
         });
       });
+    };
+
+    const options = {
+      root: document.querySelector('.subcontractors'),
+      rootMargin: '0px',
+      threshold: 0.1,
     };
 
     // Those lines are using Intersection Observer : https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#creating_an_intersection_observer
     // This allow JS to reload when an element of the DOM is re-render
     const observer = new IntersectionObserver(activateJS, options);
-    const target = document.querySelector('.form-subcontractors-list');
+    const target = document.querySelector('.form-subcontractors');
+    const target2 = document.getElementById('containerSelectedSubcontractors');
     observer.observe(target);
+    observer.observe(target2);
   }
 };
 
