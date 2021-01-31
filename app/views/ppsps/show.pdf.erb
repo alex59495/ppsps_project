@@ -55,14 +55,9 @@
       </div>
     </div>
     <div class="page-break">
-    <div id="map"
-      style="width: 100%; height: 600px;"
-      data-markers="<%= @markers.to_json %>"
-      data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
       <% unless @marker[:lng].nil? || @marker[:lat].nil? %>
         <div class="d-flex justify-content-center">
-        
-          <img src="https://api.mapbox.com/styles/v1/mapbox/light-v10/static/pin-s+000(<%= @marker[:lng] %>,<%= @marker[:lat] %>)/<%= @marker[:lng] %>,<%= @marker[:lat] %>,13/860x400?access_token=pk.eyJ1IjoibWF4ZW5jZWxlbm9pciIsImEiOiJja2RhNG9iMG8wZXY2MnptaDUzeDhidThpIn0.uNEuinv9hVcuU9VvtlOOsg" alt="map">
+          <img src="https://api.mapbox.com/styles/v1/mapbox/light-v10/static/pin-s+000(<%= @marker[:lng] %>,<%= @marker[:lat] %>)/<%= @marker[:lng] %>,<%= @marker[:lat] %>,13/860x400?access_token=pk.eyJ1IjoibWF4ZW5jZWxlbm9pciIsImEiOiJja2RhNG9iMG8wZXY2MnptaDUzeDhidThpIn0.uNEuinv9hVcuU9VvtlOOsg" alt="map" id="map-mapbox">
         </div>
       <% end %>
       <div class="pdf-text-container">

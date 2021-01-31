@@ -44,6 +44,8 @@ class Ppsp < ApplicationRecord
   validates :hospital_id, presence: true
   validate :start_date_cant_be_after_end_date
   has_one_attached :logo_client
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
 
   def start_date_cant_be_after_end_date
     if start_date.present? && end_date.present? && start_date >= end_date
