@@ -1,10 +1,16 @@
-<fieldset class="form-group check_boxes optional ppsp_subcontractors">
-  <legend class="col-form-label pt-0"></legend>
-  <input type="hidden" name="ppsp[subcontractors][]" value="">
-  <% @subcontractors.sort_by(&:name).each do |subcontract| %>
-    <div class="form-check" id=<%= "check_ppsp_subcontractors_#{subcontract.id}"%>>
-      <input class="form-check-input check_boxes optional" type="checkbox" value=<%= subcontract.id%> name="ppsp[subcontractors][]" id= <%= "ppsp_subcontractors_#{subcontract.id}" %>>
-      <label class="form-check-label collection_check_boxes" for=<%="ppsp_subcontractors_#{subcontract.id}"%>><%= "#{subcontract.name} - #{subcontract.responsible_name} - #{subcontract.work}" %></label>
-    </div>
-  <% end %>
-</fieldset>
+<div class="form-subcontractors-list form-flex-element">
+  <p>Les sous-traitans disponibles</p>
+  <fieldset class="form-group check_boxes optional ppsp_subcontractors">
+    <legend class="col-form-label pt-0"></legend>
+    <input type="hidden" name="ppsp[subcontractors][]" value="">
+    <% @subcontractors.sort_by(&:name).each do |subcontract| %>
+      <div class="form-check" id=<%= "check_ppsp_subcontractors_#{subcontract.id}"%>>
+        <input class="form-check-input check_boxes optional" type="checkbox" value=<%= subcontract.id%> name="ppsp[subcontractors][]" id= <%= "ppsp_subcontractors_#{subcontract.id}" %>>
+        <label class="form-check-label collection_check_boxes" for=<%="ppsp_subcontractors_#{subcontract.id}"%>><%= "#{subcontract.name} - #{subcontract.responsible_name} - #{subcontract.work}" %></label>
+      </div>
+    <% end %>
+  </fieldset>
+</div>
+<div class="form-selected-subcontractor form-flex-element">
+  <p>Mes ajouts</p>
+</div>

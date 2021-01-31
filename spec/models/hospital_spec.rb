@@ -11,4 +11,6 @@ RSpec.describe Hospital, type: :model do
   it { should validate_presence_of(:phone)}
 
   it { should have_many(:ppsps)}
+  
+  it { should belong_to(:company) }
 end
