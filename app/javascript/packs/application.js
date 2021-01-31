@@ -28,6 +28,7 @@ import error from '../components/errors';
 import navbarDropdown from '../components/navbar-dropdown';
 import sweetAlertMail from '../components/sweetAlert';
 import InitializeTinyMce from '../components/tinymce-editor';
+import logoClient from '../components/displayLogoClient';
 
 require('@rails/ujs').start();
 require('turbolinks').start();
@@ -56,6 +57,7 @@ document.addEventListener('turbolinks:load', () => {
   popUp();
   calendar();
   sweetAlertMail();
+  logoClient();
 });
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true);

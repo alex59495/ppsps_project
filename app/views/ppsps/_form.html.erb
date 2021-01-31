@@ -235,9 +235,9 @@
         <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
       </div>
       <div class="col-md-6 offset-md-3">
-        <%= f.input :logo_client, label: "Logo du client (si disponible)", input_html: {onchange: "loadLogoClient(event)"} %>
-        <img id="newLogo" class='icon-logo' style='display: none'>
-        <div class='btn-delete' id="removeUpload" style='display: none;'>Annuler</div>
+      <%= f.input :logo_client, label: "Logo du client (si disponible)", disabled: @ppsp.logo_client.attached? %>
+      <img id="newLogo" class='icon-logo' style='display: none'>
+      <div class='btn-delete' id="removeUpload" style='display: none;'>Annuler</div>
         <div class="render-logo">
           <%= render 'render_logo_client' %>
         </div>
@@ -253,6 +253,14 @@
       <div class="col-md-6 offset-md-3 offset-3 offset-md-5 mt-5">
         <%= f.submit "Accéder à la deuxième page", class: 'btn-blue' %>
       </div>
+      <div class="col-md-6 offset-md-3">
+        <%= f.input :annexes, label: "Annexes (si besoin)", input_html: { multiple: true } %>
+      </div>
+      <% if @ppsp.annexes.attached? %>
+        <div class="d-flex flex-wrap justify-content-center w-100" id='container-annexes'>
+          <%= render 'render_annexes' %>
+        </div>
+      <% end %>
     </div>
   <% end %>
   <% if policy(SecurityCoordinator).create? %>
@@ -311,31 +319,3 @@
     </div>
   <% end %>
 </div>
-<script>
-  const loadLogoClient = (event) => {
-    const image = document.getElementById('newLogo');
-    const oldLogo = document.getElementById('oldLogo');
-    const btnCancelUpload = document.getElementById('removeUpload');
-    // Si il exite un fichier à uploader
-    if(event.target.files[0]) {
-      btnCancelUpload.style.display = 'block'
-      // Si il existe un ancien logo client
-      if(oldLogo) {
-        oldLogo.style.display = 'none'
-      }
-      btnCancelUpload.addEventListener('click', (e) => {
-        // Si il exite un fichier à uploader
-        event.target.value = null
-        btnCancelUpload.style.display = 'none'
-        loadLogoClient(event)
-      });
-      image.style.display = 'block'
-      return image.src = URL.createObjectURL(event.target.files[0]);
-    } {
-      image.style.display = 'none';
-      if(oldLogo) {
-        oldLogo.style.display = 'block'
-      }
-    }
-  };
-</script>

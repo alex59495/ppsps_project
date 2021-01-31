@@ -1,5 +1,5 @@
 class PpspsController < ApplicationController
-  before_action :find_ppsp, only: %i[duplicate update show ppsp_pdf destroy edit informations_supplementaires destroy_logo_client]
+  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit informations_supplementaires destroy_logo_client destroy_annexe duplicate]
 
   def index
     # Handled by react :) (app/assets/javascript/ppsp-react)
@@ -52,6 +52,7 @@ class PpspsController < ApplicationController
   def show
     authorize @ppsp
     @n = 0
+    handle_annexes
     respond_to do |format|
       # Two response for the show method depending on the format we call
       format.html
@@ -212,9 +213,18 @@ class PpspsController < ApplicationController
 
   def destroy_logo_client
     authorize @ppsp
-    @ppsp.logo_client.purge
+    @purge = true if @ppsp.logo_client.purge
     respond_to do |format|
       format.js { render 'ppsps/destroy_logo_client' }
+    end
+  end
+
+  def destroy_annexe
+    authorize @ppsp
+    blob = ActiveStorage::Blob.find_by(key: params[:public_id])
+    ActiveStorage::Attachment.find_by(blob: blob).purge
+    respond_to do |format|
+      format.js { render 'ppsps/destroy_annexe' }
     end
   end
 
@@ -237,11 +247,23 @@ class PpspsController < ApplicationController
     @ppsp_content_secu = @ppsp.content_secu.present?
   end
 
+  def handle_annexes
+    return unless @ppsp.annexes.attached?
+
+    @annexes = {}
+    @ppsp.annexes.each_with_index do |annexe, index|
+      @annexes[index] = {
+        pages: Cloudinary::Api.resource(annexe.key, pages: true)["pages"],
+        key: annexe.key
+      }
+    end
+  end
+
   def params_ppsp
     params.require(:ppsp).permit(:address, :start_date, :end_date, :nature, :workforce, :agglomeration,
                                  :street_impact, :river_guidance, :moa_id, :moe_id, :subcontractor_ids, :security_coordinator_id,
                                  :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
-                                 :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, :logo_client, :content_secu,
+                                 :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, :logo_client, :content_secu, annexes: [],
                                  project_information_attributes: [:ppsp_id, :reference, :responsible,
                                                                   :phone, :email, { site_manager_attributes: %i[name email phone],
                                                                                     team_manager_attributes: %i[name
