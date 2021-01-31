@@ -38,8 +38,16 @@ const App = () => {
 
   const url = 'http://localhost:3000';
 
-  const ppspsId = document.getElementById('render-subcontractors').dataset
+  const ppspsId = document.getElementById('react-render-subcontractors').dataset
     .ppsps_id;
+
+  const fetchSubcontractorsFormList = () => {
+    fetch(`${url}/api/v1/subcontractors?ppsps_id=${ppspsId}`, {
+      method: 'GET',
+    })
+      .then((response) => response.json())
+      .then((data) => setFormList(data));
+  };
 
   const handleRemove = async (subcontractor) => {
     await fetch(
@@ -48,6 +56,7 @@ const App = () => {
         method: 'DELETE',
       }
     );
+    fetchSubcontractorsFormList();
   };
 
   useEffect(() => {
@@ -59,11 +68,7 @@ const App = () => {
   }, [formList]);
 
   useEffect(() => {
-    fetch(`${url}/api/v1/subcontractors?ppsps_id=${ppspsId}`, {
-      method: 'GET',
-    })
-      .then((response) => response.json())
-      .then((data) => setFormList(data));
+    fetchSubcontractorsFormList();
   }, []);
 
   return (

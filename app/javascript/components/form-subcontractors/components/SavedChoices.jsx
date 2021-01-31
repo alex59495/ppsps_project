@@ -10,11 +10,19 @@ const SavedChoices = ({ subcontractors, handleRemove }) => {
     />
   ));
 
+  const renderTitle = (subcontractors) => {
+    if (subcontractors.length > 0) {
+      return (
+        <p className="text-center">
+          Les sous-traitants déjà intégrés à mon PPSPS
+        </p>
+      );
+    }
+  };
+
   return (
     <div className="subcontractors">
-      <p className="text-center">
-        Les sous-traitants déjà intégrés à mon PPSPS
-      </p>
+      {renderTitle(subcontractors)}
       <div className="flex-database" id="containerSelectedSubcontractors">
         {renderSavedItem}
       </div>
