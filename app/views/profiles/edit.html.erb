@@ -42,9 +42,10 @@
     const btnDeleteLogo = document.getElementById('removeLogo');
     // Si il exite un fichier à uploader
     if(event.target.files[0]) {
+
       arrow.style.display = 'block';
       btnCancelUpload.style.display = 'block'
-      // Si l'entreprise n'a pas encore de logo le bouton n'exitse pas
+      // Si l'entreprise n'a pas encore de logo le bouton n'existe pas
       if(btnDeleteLogo) {
         btnDeleteLogo.style.display = 'none'
       }
@@ -55,11 +56,12 @@
         loadLogo(event)
       })
       image.style.display = 'block';
+      console.log('coucou')
       return image.src = URL.createObjectURL(event.target.files[0]);
     } {
       arrow.style.display = 'none';
       image.style.display = 'none';
-      // Si l'entreprise n'a pas encore de logo le bouton n'exitse pas
+      // Si l'entreprise n'a pas encore de logo le bouton n'existe pas
       if(btnDeleteLogo) {
         btnDeleteLogo.style.display = 'block'
       }

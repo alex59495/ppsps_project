@@ -1,5 +1,4 @@
 <body class="bg-white" onload="initMapBox()">
-<script>document.getElementById('map').classList.add('bg-danger')</script>
   <div class="container">
     <div class="page-break">
       <div class="flexbox">
@@ -435,5 +434,25 @@
         </div>
       </div>
     <% end %>
+    <% if @ppsp.content_secu.present? %>
+      <div class="last-page">
+        <div class="pdf-text-container pdf-align-left">
+          <div class="pdf-title">
+            Spécificité du chantier
+          </div>
+          <%= @ppsp.content_secu.html_safe %>
+        </div>
+      </div>
+    <% end %>
+    <% if @ppsp.annexes.attached? %>
+      <% @annexes.each do |_key, value| %>
+        <% for i in (1..value[:pages]) %>
+          <div>
+            <%= cl_image_tag(value[:key] + '.jpg', page: i, crop: "scale") %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
   </div>
 </body>
+
