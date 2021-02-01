@@ -53,6 +53,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       regional_committee = create(:regional_committee, company: @user.company)
       sos_hand = create(:sos_hand, company: @user.company)
       security_coordinator = create(:security_coordinator, company: @user.company)
+      create_list(:subcontractor, 3, company: @user.company)
       @ppsp = create(:ppsp, user: @user, moa: moa, moe: moe, direcct: direcct, work_medecine: work_medecine, hospital: hospital, pension_insurance: pension_insurance,
                             demining: demining, anti_poison: anti_poison, regional_committee: regional_committee, sos_hand: sos_hand, security_coordinator: security_coordinator)
     end
@@ -92,6 +93,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
     end
 
     scenario 'Complete and Submit the PPSP' do
+      count = Ppsp.includes(:user).where(users: { company: @user.company }).count
       visit(new_ppsp_path)
       fill_in('ppsp_address', with: 'Test adresse')
       fill_in('ppsp_nature', with: 'Test de nature')
@@ -125,10 +127,10 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#ppsp_agglomeration').find(:xpath, 'option[2]').select_option
       find('#ppsp_street_impact').find(:xpath, 'option[2]').select_option
       find('#ppsp_river_guidance').find(:xpath, 'option[2]').select_option
-      click_button 'Accéder à la deuxième page'
+      click_button "J'ai terminé"
       # A refacto
-      sleep 2
-      expect(page).to have_current_path(informations_supplementaires_ppsp_path(Ppsp.last))
+      sleep 5
+      expect(Ppsp.includes(:user).where(users: { company: @user.company }).count).to eq(count + 1)
     end
 
     scenario 'Show Page have content' do
@@ -146,7 +148,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
     scenario 'Change the field when update' do
       visit(edit_ppsp_path(@ppsp))
       fill_in('ppsp_project_information_attributes_site_manager_attributes_name', with: 'Update chef de chantier')
-      click_button('Accéder à la deuxième page')
+      click_button("J'ai terminé")
       # A refacto
       sleep 2
       expect(@ppsp.reload.project_information.site_manager.name).to eq('Update chef de chantier')
@@ -319,7 +321,8 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         page.execute_script("$('#subcontractor_responsible_phone').val('0600000000')")
         find('#SubcontractorBtn').click
         sleep 2
-        expect(page).to have_css('.form-group.check_boxes.optional.ppsp_subcontractors input', count: count + 1)
+        count_end = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('input').size
+        expect(count_end).to eq(count + 1)
       end
 
       scenario "Rerender MOA form when not filling right" do
@@ -425,82 +428,6 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         fill_in('security_coordinator_email', with: 'test_representative@gmail.com')
         find('#SecurityBtn').click
         expect(page).to have_css('.is-invalid')
-      end
-    end
-  end
-
-  feature 'Informations Supplémentaires' do
-    before :all do
-      @user_info = create(:user_admin)
-      @risks = create_list(:risk, 5)
-      @site_installations = create_list(:site_installation, 5)
-      @altitude_works = create_list(:altitude_work_select, 5)
-      @risk_add = create(:risk)
-      @altitude_work_add = create(:altitude_work)
-      @site_installation_add = create(:site_installation)
-      @ppsp_info = create(:ppsp, user: @user_info, risks: @risks, site_installations: @site_installations, altitude_works: @altitude_works)
-    end
-
-    before do
-      login_as(@user_info)
-      visit informations_supplementaires_ppsp_path(@ppsp_info)
-    end
-
-    scenario 'Can add om site installation' do
-      count = SelectedInstallation.where(ppsp_id: @ppsp_info.id).count
-      find('#CheckSiteInstallation').click
-      find('#SiteInstallationMobile').click
-      find("#label_selected_installation_site_installation_id_#{@site_installation_add.id}").click
-      find('#FormSiteInstallation').click
-      sleep 2
-      expect(SelectedInstallation.where(ppsp_id: @ppsp_info.id).count).to eq(count + 1)
-    end
-
-    scenario 'Can add one altitude work' do
-      count = SelectedAltitude.where(ppsp_id: @ppsp_info.id).count
-      find('#CheckAltitudeWork').click
-      find("#label_selected_altitude_altitude_work_id_#{@altitude_work_add.id}").click
-      find('#FormAltitudeWork').click
-      sleep 2
-      expect(SelectedAltitude.where(ppsp_id: @ppsp_info.id).count).to eq(count + 1)
-    end
-
-    scenario 'Can add one risk' do
-      count = SelectedRisk.where(ppsp_id: @ppsp_info.id).count
-      find('#checkRisks').click
-      find("#label_selected_risk_risk_id_#{@risk_add.id}").click
-      find('#FormSelectedRisk').click
-      sleep 3
-      expect(SelectedRisk.where(ppsp_id: @ppsp_info.id).count).to eq(count + 1)
-    end
-
-    feature 'Delete selected' do
-      before do
-        find('#btn-mes-infos').click
-      end
-
-      scenario 'Can delete risk' do
-        count = SelectedRisk.where(ppsp_id: @ppsp_info.id).count
-        first('.selected_risk > .card-info-delete').click
-        sleep 2
-        expect(SelectedRisk.where(ppsp_id: @ppsp_info.id).count).to eq(count - 1)
-        # expect { first('.selected_risk > .card-info-delete').click }.to change(SelectedRisk.where(ppsp_id: @ppsp_info.id), :count).by(-1)
-      end
-
-      scenario 'Can delete altitude work' do
-        count = SelectedAltitude.where(ppsp_id: @ppsp_info.id).count
-        first('.selected_altitude > .card-info-delete').click
-        sleep 2
-        expect(SelectedAltitude.where(ppsp_id: @ppsp_info.id).count).to eq(count - 1)
-        # expect { first('.selected_altitude > .card-info-delete').click }.to change(SelectedAltitude.where(ppsp_id: @ppsp_info.id), :count).by(-1)
-      end
-
-      scenario 'Can delete site installation' do
-        count = SelectedInstallation.where(ppsp_id: @ppsp_info.id).count
-        first('.selected_installation > .card-info-delete').click
-        sleep 2
-        expect(SelectedInstallation.where(ppsp_id: @ppsp_info.id).count).to eq(count - 1)
-        # expect { first('.selected_installation > .card-info-delete').click }.to change(SelectedInstallation.where(ppsp_id: @ppsp_info.id), :count).by(-1)
       end
     end
   end

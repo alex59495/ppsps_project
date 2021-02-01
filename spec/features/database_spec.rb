@@ -161,6 +161,20 @@ RSpec.feature "Databases", type: :feature, js: true do
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
+    scenario "Can see the addition of subcontractor live (AJAX)" do
+      visit(subcontractors_path)
+      count = page.all('.card-bdd').count
+      find('.btn-blue').click
+      page.execute_script("$('#subcontractor_name').val('Test subcontractor')")
+      page.execute_script("$('#subcontractor_address').val('Test subcontractor')")
+      page.execute_script("$('#subcontractor_work').val('Test subcontractor')")
+      page.execute_script("$('#subcontractor_responsible_name').val('Test responsible')")
+      page.execute_script("$('#subcontractor_responsible_email').val('test_responsible@gmail.com')")
+      page.execute_script("$('#subcontractor_responsible_phone').val('0600000000')")
+      find('#SubcontractorBtn').click
+      expect(page).to have_css('.card-bdd', count: count + 1)
+    end
+
     scenario "Rerender MOA form when not filling right" do
       visit(moas_path)
       find('.btn-blue').click
@@ -264,6 +278,15 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('security_coordinator_phone', with: '0600000000')
       fill_in('security_coordinator_email', with: 'test_representative@gmail.com')
       find('#SecurityBtn').click
+      expect(page).to have_css('.is-invalid')
+    end
+
+    scenario "Rerender Subcontractor when not filling right" do
+      visit(subcontractors_path)
+      find('.btn-blue').click
+      fill_in('subcontractor_name', with: 'Test subcontractor')
+      fill_in('subcontractor_work', with: 'Test work')
+      find('#SubcontractorBtn').click
       expect(page).to have_css('.is-invalid')
     end
 

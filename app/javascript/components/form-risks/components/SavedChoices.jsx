@@ -19,7 +19,7 @@ const SavedChoices = ({ risks, handleRemove }) => {
   return (
     <div className="risks">
       {renderTitle(risks)}
-      <div className="flex-database" id="containerSelectedrisks">
+      <div className="flex-database" id="containerSelectedRisks">
         {renderSavedItem}
       </div>
     </div>
