@@ -3,6 +3,6 @@
     <div class="logo">
       <%= cl_image_tag @ppsp.logo_client.key, class: 'icon-logo mb-3' %>
     </div>
-    <%= link_to "Supprimer", destroy_logo_client_ppsp_path(@ppsp), class: 'btn-delete', remote: true %>
+    <%= link_to "Supprimer", destroy_logo_client_ppsp_path(@ppsp), class: 'btn-delete', id: 'btn-destroy-logo', remote: true %>
   </div>
 <% end %>

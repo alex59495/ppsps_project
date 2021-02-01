@@ -32,6 +32,8 @@ import error from '../components/errors';
 import navbarDropdown from '../components/navbar-dropdown';
 import sweetAlertMail from '../components/sweetAlert';
 import InitializeTinyMce from '../components/tinymce-editor';
+import { initMapbox } from '../components/mapbox';
+import logoClient from '../components/displayLogoClient';
 
 require('@rails/ujs').start();
 require('turbolinks').start();
@@ -58,6 +60,7 @@ document.addEventListener('turbolinks:load', () => {
   popUp();
   calendar();
   sweetAlertMail();
+  logoClient();
 
   // React
   reactPpsp();
@@ -65,6 +68,8 @@ document.addEventListener('turbolinks:load', () => {
   FormRisks();
   FormAltitudeWorks();
   FormSiteInstallations();
+
+  // initMapbox(); Pas nécessaire pour le moment
 });
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true);

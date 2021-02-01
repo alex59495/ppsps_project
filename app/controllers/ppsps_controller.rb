@@ -54,6 +54,8 @@ class PpspsController < ApplicationController
   def show
     authorize @ppsp
     @n = 0
+    @marker = { lat: @ppsp.latitude, lng: @ppsp.longitude }
+    handle_annexes
     respond_to do |format|
       # Two response for the show method depending on the format we call
       format.html
@@ -64,6 +66,7 @@ class PpspsController < ApplicationController
           encoding: 'utf8',
           template: 'ppsps/show.pdf.erb',
           layout: 'pdf.html.erb',
+          view_as_html: true,
           # Display number of pages
           header: { right: '[page] of [topage]' },
           footer: {
@@ -214,10 +217,27 @@ class PpspsController < ApplicationController
 
   def destroy_logo_client
     authorize @ppsp
-    @ppsp.logo_client.purge
+    @purge = true if @ppsp.logo_client.purge
     respond_to do |format|
       format.js { render 'ppsps/destroy_logo_client' }
     end
+  end
+
+  def destroy_annexe
+    authorize @ppsp
+    blob = ActiveStorage::Blob.find_by(key: params[:public_id])
+    ActiveStorage::Attachment.find_by(blob: blob).purge
+    respond_to do |format|
+      format.js { render 'ppsps/destroy_annexe' }
+    end
+  end
+
+  def duplicate
+    @ppsp_duplicate = @ppsp.dup
+    authorize @ppsp_duplicate
+    @ppsp_duplicate.user = current_user
+    @ppsp_duplicate.save
+    redirect_to edit_ppsp_path(@ppsp_duplicate)
   end
 
   private
@@ -270,11 +290,23 @@ class PpspsController < ApplicationController
     @ppsp_content_secu = @ppsp.content_secu.present?
   end
 
+  def handle_annexes
+    return unless @ppsp.annexes.attached?
+
+    @annexes = {}
+    @ppsp.annexes.each_with_index do |annexe, index|
+      @annexes[index] = {
+        pages: Cloudinary::Api.resource(annexe.key, pages: true)["pages"],
+        key: annexe.key
+      }
+    end
+  end
+
   def params_ppsp
     params.require(:ppsp).permit(:address, :start_date, :end_date, :nature, :workforce, :agglomeration,
                                  :street_impact, :river_guidance, :moa_id, :moe_id, :security_coordinator_id,
                                  :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
-                                 :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, :logo_client, :content_secu,
+                                 :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, :logo_client, :content_secu, annexes: [],
                                  project_information_attributes: [:ppsp_id, :reference, :responsible,
                                                                   :phone, :email, { site_manager_attributes: %i[name email phone],
                                                                                     team_manager_attributes: %i[name

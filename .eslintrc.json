@@ -21,5 +21,6 @@
     ],
     "rules": {
       "prettier/prettier": "error"
-    }
+    },
+    "parser": "eslint-babel"
 }

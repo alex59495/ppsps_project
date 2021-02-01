@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   get 'database', to: 'pages#database', as: :database
   get 'contact', to: 'pages#contact', as: :contact
-
+  
   # Ppsp
   resources :ppsps, except: [:destroy] do
     resources :selected_installations, only: [ :create, :destroy ]
@@ -11,7 +11,9 @@ Rails.application.routes.draw do
     resources :selected_risks, only: [ :create, :destroy ]
     resources :selected_subcontractors, only: [ :create, :destroy ]
     member do
+      get 'destroy_annexe/:public_id', to: 'ppsps#destroy_annexe', as: :destroy_annexe 
       get :destroy_logo_client
+      get :duplicate
     end
   end
 
