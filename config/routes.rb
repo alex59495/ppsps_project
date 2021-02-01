@@ -29,6 +29,11 @@ Rails.application.routes.draw do
       resources :machines, only: [ :index ]
     end
   end
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :workers, only: [ :index ]
+    end
+  end
 
   # Utilisateurs
   resources :profiles, only: [:show, :edit, :update]

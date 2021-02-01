@@ -18,13 +18,23 @@ const App = () => {
     }).then(response => response.json()).then(data => setListMachines(data))
   }
 
+  const fetcWorkers = () => {
+    fetch(`${url}/api/v1/workers`, {
+      method: 'GET',
+      'Content-Type': 'application/json'
+    }).then(response => response.json()).then(data => setListWorkers(data))
+  }
+
   useEffect(() => {
-    fetchMachines()
+    fetchMachines(),
+    fetcWorkers()
   }, [])
 
   return (
     <div>
       <MachinesList listMachines={listMachines} />
+      <WorkersList listWorkers={listWorkers}/>
+      <Submit />
     </div>
   )
 }
