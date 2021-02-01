@@ -320,7 +320,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         page.execute_script("$('#subcontractor_responsible_name').val('Test name')")
         page.execute_script("$('#subcontractor_responsible_phone').val('0600000000')")
         find('#SubcontractorBtn').click
-        sleep 2
+        sleep 5
         count_end = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('input').size
         expect(count_end).to eq(count + 1)
       end
