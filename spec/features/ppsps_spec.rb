@@ -10,7 +10,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
   feature 'Logged as normal User' do
     before :all do
-      @user_uber = create(:user_uber)41e2
+      @user_uber = create(:user_uber)
       project_info1 = create(:project_information, reference: "AABB130")
       project_info2 = create(:project_information, reference: "AABB120")
       ppsp_1 = create(:ppsp, project_information: project_info1, user: @user_uber)
@@ -18,7 +18,6 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       ppsp_3 = create(:ppsp_google)
     end
 
-  feature 'Logged as normal User' do
     before do
       login_as(@user_uber)
     end
