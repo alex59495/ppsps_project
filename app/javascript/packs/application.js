@@ -28,6 +28,7 @@ import error from '../components/errors';
 import navbarDropdown from '../components/navbar-dropdown';
 import sweetAlertMail from '../components/sweetAlert';
 import InitializeTinyMce from '../components/tinymce-editor';
+import { initMapbox } from '../components/mapbox';
 import logoClient from '../components/displayLogoClient';
 
 require('@rails/ujs').start();
@@ -57,6 +58,7 @@ document.addEventListener('turbolinks:load', () => {
   popUp();
   calendar();
   sweetAlertMail();
+  // initMapbox(); Pas nécessaire pour le moment
   logoClient();
 });
 // Support component names relative to this directory:

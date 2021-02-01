@@ -35,7 +35,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       expect(page).to have_css('.card-ppsp', count: 1)
     end
   end
-  
+
   feature 'Logged as normal User' do
     before do
       user_uber = create(:user_uber)
