@@ -295,3 +295,10 @@ Risk::RISKS.each do |risk|
   r = Risk.create(name: risk)
   p "Create #{r.id} risks"
 end
+
+# Create workers
+30.times do
+  worker = Worker.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, 
+    lifesaver: [true, false].sample, conductor: [true, false].sample, company: Company.all.sample)
+  p "Create #{worker.id} worker"
+end

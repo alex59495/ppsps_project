@@ -1,0 +1,9 @@
+<% @database.each do |worker| %>
+  <div class="card-bdd">
+    <div class="front">
+      <div class="card-bdd-container">
+        <div class="text-center"><%= "#{worker.first_name} #{worker.last_name}" %></div>
+      </div>
+    </div>
+  </div>
+<% end %>

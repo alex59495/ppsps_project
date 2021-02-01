@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_29_184909) do
+ActiveRecord::Schema.define(version: 2021_02_01_162126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,17 @@ ActiveRecord::Schema.define(version: 2021_01_29_184909) do
     t.text "content_secu", default: ""
   end
 
+  create_table "conductors", force: :cascade do |t|
+    t.bigint "ppsp_id", null: false
+    t.bigint "machine_id", null: false
+    t.bigint "worker_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["machine_id"], name: "index_conductors_on_machine_id"
+    t.index ["ppsp_id"], name: "index_conductors_on_ppsp_id"
+    t.index ["worker_id"], name: "index_conductors_on_worker_id"
+  end
+
   create_table "deminings", force: :cascade do |t|
     t.string "name"
     t.string "address"
@@ -94,6 +105,12 @@ ActiveRecord::Schema.define(version: 2021_01_29_184909) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "is_destroyed", default: false
     t.index ["company_id"], name: "index_hospitals_on_company_id"
+  end
+
+  create_table "machines", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "moas", force: :cascade do |t|
@@ -322,8 +339,23 @@ ActiveRecord::Schema.define(version: 2021_01_29_184909) do
     t.index ["company_id"], name: "index_work_medecines_on_company_id"
   end
 
+  create_table "workers", force: :cascade do |t|
+    t.boolean "lifesaver"
+    t.boolean "conductor"
+    t.boolean "is_destroyed"
+    t.bigint "company_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.index ["company_id"], name: "index_workers_on_company_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "anti_poisons", "companies"
+  add_foreign_key "conductors", "machines"
+  add_foreign_key "conductors", "ppsps"
+  add_foreign_key "conductors", "workers"
   add_foreign_key "deminings", "companies"
   add_foreign_key "direccts", "companies"
   add_foreign_key "hospitals", "companies"
@@ -353,4 +385,5 @@ ActiveRecord::Schema.define(version: 2021_01_29_184909) do
   add_foreign_key "subcontractors", "ppsps"
   add_foreign_key "users", "companies"
   add_foreign_key "work_medecines", "companies"
+  add_foreign_key "workers", "companies"
 end

@@ -17,7 +17,6 @@ import reactPpsp from '../components/react-ppsp/index';
 
 // import { AutoCompleteGeocoding } from "../components/autocomplete"
 // La clé API pour l'utilisation de l'autocomplete Geocoding se trouve dans config/application.yml
-import { hideForm, hideInfosSelect } from '../components/hide-elements';
 import { cardForm } from '../components/card-form';
 import flatPicker from '../components/flat-pickr';
 import select2 from '../components/select-2';
@@ -50,8 +49,6 @@ document.addEventListener('turbolinks:load', () => {
   error();
   select2();
   flatPicker();
-  hideForm();
-  hideInfosSelect();
   cardForm();
   reactPpsp();
   infiniteScroll();

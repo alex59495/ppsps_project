@@ -1,0 +1,12 @@
+$(document).ready(function() {
+  $(".modal-backdrop").hide();
+  $("#ModalAntiPoison").hide();
+  $(".modal-open").css({overflow: 'scroll'});
+  if (document.querySelector(".ppsp_worker_id")) {
+    document.querySelector(".ppsp_worker_id").innerHTML = "<%= j(render 'form_field_worker') %>";
+  }
+  if (document.querySelector(".content-db")) {
+    document.querySelector(".content-db").innerHTML = "<%= j(render 'database/content-db') %>";
+  }
+})
+

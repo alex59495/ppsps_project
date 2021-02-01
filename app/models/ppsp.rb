@@ -17,6 +17,7 @@ class Ppsp < ApplicationRecord
   belongs_to :demining
   belongs_to :hospital
   belongs_to :security_coordinator, optional: true
+  has_many :conductors
   has_many :subcontractors, dependent: :destroy
   has_many :selected_installations, dependent: :destroy
   has_many :site_installations, through: :selected_installations

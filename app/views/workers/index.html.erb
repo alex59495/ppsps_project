@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="link-db">
+    <%= link_to "Revenir aux bases de données", database_path %>
+  </div>
+  <% if policy(Worker).new? %>
+    <div>
+      <button type="button" class="btn-blue" data-toggle="modal" data-target="#ModalWorker">
+        Ajouter un Compagnon
+      </button>
+    </div>
+  <% end %>
+  <%# Modal worker %>
+  <% if policy(Worker).new? %>
+    <div class="modal fade" id="ModalWorker" tabindex="-1" role="dialog" aria-labelledby="ModalWorker" aria-hidden="true">
+      <%= render 'ppsps/modal_worker' %>
+    </div>
+  <% end %>
+  <div class="container-database">
+    <%= form_with url: workers_path, class: "d-flex mt-2 justify-content-center", method: :get do |f| %>
+      <%= f.text_field :query, params: :query, class: "form-control search-db", placeholder: "Rechercher un mot-clé..." %>
+      <%= f.submit 'Go', class: "btn-orange-right", id: "btn-search" %>
+    <% end %>
+    <form class="d-flex justify-content-center mt-1" method="get" action=<%= workers_path %> data-remote="true">
+      <input type="hidden" name='query' value=''>
+      <button class="btn-orange-ext" id="btn-database" type="submit">Database complète</button>    
+    </form>
+    <div class="content-db">
+      <div class="flex-database">
+        <%= render 'elements', collection: @database_page %>
+      </div>
+      <div class="container-db-vide" style='display: none'>
+        Votre recherche n'a retourné aucun résultat
+      </div>
+      <div class="container-pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %> data-search= <%= @search %> data-number = <%= @database_page.count %>>
+        <%= image_tag('gif-loading.gif') %>
+      </div>
+    </div>
+  </div>
+</div>

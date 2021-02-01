@@ -45,6 +45,15 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :workers, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
+    end
+  end
+
   resources :moas, except: [:new, :show, :destroy] do
     member do
       post :destroyed, as: :destroy
