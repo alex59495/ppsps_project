@@ -23,11 +23,17 @@ Rails.application.routes.draw do
     end
   end
   
-  # Use to display the subcontractors form
+  # Use to display the selected forms
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :subcontractors, only: [ :index, :destroy ]
       get 'selected_subcontractors', to: 'subcontractors#selected_subcontractors'
+    end
+  end
+   namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :risks, only: [ :index, :destroy ]
+      get 'selected_risks', to: 'risks#selected_risks'
     end
   end
 
@@ -49,6 +55,16 @@ Rails.application.routes.draw do
       get :pagination, as: :pagination
     end
   end
+
+  resources :risks, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
+    end
+  end
+
 
   resources :security_coordinators, except: [:new, :show, :destroy] do
     member do

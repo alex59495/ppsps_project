@@ -6,32 +6,36 @@ RSpec.describe "WorkMedecines Controller", type: :request do
       user_uber = create(:user_uber)
       login_as(user_uber)
     end
-    
+
     it "Can't access the work_medecines index" do
-      expect{get work_medecines_path}.to raise_error(Pundit::NotAuthorizedError)
+      expect { get work_medecines_path }.to raise_error(Pundit::NotAuthorizedError)
     end
   end
 
   context 'Logged as User Admin' do
-    before do
-      user = create(:user_admin)
+    before :all do
+      @user = create(:user_admin)
       @work_medecine = create(:work_medecine)
-      login_as(user)
     end
-    let(:params_work_medecine) { attributes_for(:work_medecine)}
-    let(:params_work_medecine_update) { attributes_for(:work_medecine_update)}
+
+    before do
+      login_as(@user)
+    end
+
+    let(:params_work_medecine) { attributes_for(:work_medecine) }
+    let(:params_work_medecine_update) { attributes_for(:work_medecine_update) }
 
     it "Can access the work_medecine index page" do
       get work_medecines_path
       expect(response).to have_http_status(200)
     end
-  
+
     context 'Action Destroy' do
       let(:destroy_action) { post destroy_work_medecine_path(@work_medecine) }
       it 'Delete 1 instance of work_medecine when using action destroy' do
         expect { destroy_action }.to change(WorkMedecine.where(is_destroyed: true), :count).by(1)
       end
-  
+
       it 'Redirect after destroy' do
         destroy_action
         expect(response).to have_http_status(302)
@@ -45,7 +49,7 @@ RSpec.describe "WorkMedecines Controller", type: :request do
         expect { create_action }.to change(WorkMedecine, :count).by(1)
       end
     end
-    
+
     context 'Action Update' do
       let(:update_action) { patch work_medecine_path(@work_medecine), params: { work_medecine: params_work_medecine_update } }
 
@@ -58,5 +62,4 @@ RSpec.describe "WorkMedecines Controller", type: :request do
       end
     end
   end
-  
 end

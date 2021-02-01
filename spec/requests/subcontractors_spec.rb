@@ -13,11 +13,15 @@ RSpec.describe "Subcontractors Controller", type: :request do
   end
 
   context 'Logged as User Admin' do
-    before do
-      user = create(:user_admin)
+    before :all do
+      @user = create(:user_admin)
       @subcontractor = create(:subcontractor)
-      login_as(user)
     end
+
+    before do
+      login_as(@user)
+    end
+
     let(:params_subcontractor) { attributes_for(:subcontractor) }
     let(:params_subcontractor_update) { attributes_for(:subcontractor_update) }
 

@@ -13,11 +13,15 @@ RSpec.describe "SecurityCoordinators Controller", type: :request do
   end
 
   context 'Logged as User Admin' do
-    before do
-      user = create(:user_admin)
+    before :all do
+      @user = create(:user_admin)
       @security_coordinator = create(:security_coordinator)
-      login_as(user)
     end
+
+    before do
+      login_as(@user)
+    end
+
     let(:params_security_coordinator) { attributes_for(:security_coordinator)}
     let(:params_security_coordinator_update) { attributes_for(:security_coordinator_update)}
   

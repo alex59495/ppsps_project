@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.feature "Databases", type: :feature, js: true do
   feature 'Logged as admin User' do
-    before do
+    before :all do
       company = create(:company)
-      user = create(:user_admin, company: company)
+      @user = create(:user_admin, company: company)
       moa_1 = create(:moa, company: company, name: "Test1")
       moe_1 = create(:moe, company: company, name: "Test1")
       security_coordinator_1 = create(:security_coordinator, company: company, name: "Test1")
@@ -27,7 +27,10 @@ RSpec.feature "Databases", type: :feature, js: true do
       anti_poison_2 = create(:anti_poison, company: company, name: "Test2")
       sos_hand_2 = create(:sos_hand, company: company, name: "Test2")
       hospital_2 = create(:hospital, company: company, name: "Test2")
-      login_as(user)
+    end
+
+    before do
+      login_as(@user)
     end
 
     scenario "Can see the addition of moa live (AJAX)" do
