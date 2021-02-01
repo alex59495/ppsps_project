@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 2021_02_01_162126) do
   end
 
   create_table "conductors", force: :cascade do |t|
-    t.bigint "ppsp_id", null: false
+    t.bigint "ppsp_id"
     t.bigint "machine_id", null: false
     t.bigint "worker_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -342,7 +342,7 @@ ActiveRecord::Schema.define(version: 2021_02_01_162126) do
   create_table "workers", force: :cascade do |t|
     t.boolean "lifesaver"
     t.boolean "conductor"
-    t.boolean "is_destroyed"
+    t.boolean "is_destroyed", default: false
     t.bigint "company_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

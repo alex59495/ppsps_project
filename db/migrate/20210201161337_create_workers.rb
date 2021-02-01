@@ -3,7 +3,7 @@ class CreateWorkers < ActiveRecord::Migration[6.0]
     create_table :workers do |t|
       t.boolean :lifesaver
       t.boolean :conductor
-      t.boolean :is_destroyed
+      t.boolean :is_destroyed, default: false
       t.references :company, null: false, foreign_key: true
 
       t.timestamps

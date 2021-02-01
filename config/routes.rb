@@ -24,6 +24,11 @@ Rails.application.routes.draw do
       resources :ppsps, only: [ :destroy, :index, :show ]
     end
   end
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :machines, only: [ :index ]
+    end
+  end
 
   # Utilisateurs
   resources :profiles, only: [:show, :edit, :update]

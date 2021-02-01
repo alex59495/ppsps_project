@@ -295,6 +295,11 @@ Risk::RISKS.each do |risk|
   r = Risk.create(name: risk)
   p "Create #{r.id} risks"
 end
+# Create Machines
+Machine::MACHINES.each do |machine|
+  m = Machine.create!(name: machine)
+  p "Create #{m.id} machines"
+end
 
 # Create workers
 30.times do

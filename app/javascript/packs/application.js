@@ -14,6 +14,7 @@ import ReactDOM from 'react-dom';
 // Import react elements
 // import '../react-ppsp/index'
 import reactPpsp from '../components/react-ppsp/index';
+import reactFormMachines from '../components/machines-form/index';
 
 // import { AutoCompleteGeocoding } from "../components/autocomplete"
 // La clé API pour l'utilisation de l'autocomplete Geocoding se trouve dans config/application.yml
@@ -57,6 +58,8 @@ document.addEventListener('turbolinks:load', () => {
   sweetAlertMail();
   // initMapbox(); Pas nécessaire pour le moment
   logoClient();
+
+  reactFormMachines();
 });
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true);
