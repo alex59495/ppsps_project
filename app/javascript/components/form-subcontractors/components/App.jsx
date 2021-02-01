@@ -36,7 +36,7 @@ const App = () => {
     }
   };
 
-  const url = 'http://localhost:3000';
+  const url = window.location.protocol;
 
   const ppspsId = document.getElementById('react-render-subcontractors').dataset
     .ppsps_id;
