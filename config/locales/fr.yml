@@ -24,9 +24,9 @@ fr:
         anti_poison_id: Le centre anti-poison
         hospital_id: L'hôpital
         security_coordinator_id: Le coordinateur sécurité
-        agglomeration_id: Le champs
-        street_impact_id: Le champs
-        river_guidance_id: Le champs
+        agglomeration: Le champs
+        street_impact: Le champs
+        river_guidance: Le champs
       project_information:
         reference: La référence
         responsible: Le responsable

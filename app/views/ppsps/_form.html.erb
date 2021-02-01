@@ -254,6 +254,14 @@
         </div>
 
         <div id="react-render-subcontractors" data-ppsps_id=<%=@ppsp.id%>></div>
+
+        <div id="react-render-risks" data-ppsps_id=<%=@ppsp.id%>></div>
+
+        <div id="react-render-site-installations" data-ppsps_id=<%=@ppsp.id%>></div>
+
+        <div id="react-render-altitude-works" data-ppsps_id=<%=@ppsp.id%>></div>
+
+
       </div>
 
       <div class="col-12 form-title">
@@ -265,7 +273,7 @@
         <%= tinymce %>
       </div>
       <div class="col-md-6 offset-md-3 offset-3 offset-md-5 mt-5">
-        <%= f.submit "Accéder à la deuxième page", class: 'btn-blue' %>
+        <%= f.submit "J'ai terminé", class: 'btn-blue' %>
       </div>
     </div>
   <% end %>

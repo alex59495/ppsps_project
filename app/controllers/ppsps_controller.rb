@@ -1,5 +1,5 @@
 class PpspsController < ApplicationController
-  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit informations_supplementaires destroy_logo_client]
+  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit destroy_logo_client]
 
   def index
     # Handled by react :) (app/assets/javascript/ppsp-react)
@@ -107,37 +107,19 @@ class PpspsController < ApplicationController
     @security_coordinators = policy_scope(SecurityCoordinator.all)
     @subcontractors = policy_scope(Subcontractor.all)
 
-    create_selected_subcontractors
-
     authorize @ppsp
     if @ppsp.save
-      redirect_to informations_supplementaires_ppsp_path(@ppsp)
+      # Create the joint table if necessary
+      create_selected_subcontractors
+      create_selected_risks
+      create_selected_site_installations
+      create_selected_altitude_works
+
+      redirect_to ppsp_path(@ppsp, format: :pdf)
     else
       flash.now.alert = "Le formulaire n'a pas été rempli correctement, merci de réessayer !"
       render :new
     end
-  end
-
-  def informations_supplementaires
-    authorize @ppsp
-    @companies = Company.all
-    # Input of the option of installations for the form
-    @selected_installation = SelectedInstallation.new
-    # Selected installations already existing for this PPSP
-    @selected_installation_active = SelectedInstallation.where(ppsp_id: @ppsp.id)
-    # Show all the work altitudes except "Autre" which will be entered within a string field by the user
-    @work_altitudes = AltitudeWork.where.not(name: "Autre")
-    # Input of the option of altitude work for the form
-    @selected_altitude = SelectedAltitude.new
-    # Selected altitude work already existing for this PPSP
-    @selected_altitude_active = SelectedAltitude.where(ppsp_id: @ppsp.id)
-    # Input of the option of altitude work for the form
-    @selected_risk = SelectedRisk.new
-    # Selected altitude work already existing for this PPSP
-    @selected_risk_active = SelectedRisk.where(ppsp_id: @ppsp.id)
-    # Input of the option of subcontractors for the form
-    @subcontractor = Subcontractor.new
-    @num_info_select = @selected_installation_active.count + @selected_altitude_active.count + @selected_risk_active.count
   end
 
   def edit
@@ -217,10 +199,14 @@ class PpspsController < ApplicationController
     @security_coordinators = policy_scope(SecurityCoordinator.all)
     @subcontractors = policy_scope(Subcontractor.all)
 
-    create_selected_subcontractors
-
     if @ppsp.update(params_ppsp)
-      redirect_to informations_supplementaires_ppsp_path(@ppsp)
+      # Create the joint table if necessary
+      create_selected_subcontractors
+      create_selected_risks
+      create_selected_site_installations
+      create_selected_altitude_works
+
+      redirect_to ppsp_path(@ppsp, format: :pdf)
     else
       render :edit
     end
@@ -241,6 +227,36 @@ class PpspsController < ApplicationController
       subcontractors = params.require(:ppsp).require(:subcontractors)
       subcontractors.each do |subcontractor_id|
         SelectedSubcontractor.create(ppsp_id: @ppsp.id, subcontractor_id: subcontractor_id)
+      end
+    end
+  end
+
+  def create_selected_risks
+    if params.require(:ppsp).key?(:risks)
+      risks = params.require(:ppsp).require(:risks)
+      risks.shift
+      risks.each do |risk_id|
+        SelectedRisk.create(ppsp_id: @ppsp.id, risk_id: risk_id)
+      end
+    end
+  end
+
+  def create_selected_site_installations
+    if params.require(:ppsp).key?(:site_installations)
+      site_installations = params.require(:ppsp).require(:site_installations)
+      site_installations.shift
+      site_installations.each do |site_installation_id|
+        SelectedInstallation.create(ppsp_id: @ppsp.id, site_installation_id: site_installation_id)
+      end
+    end
+  end
+
+  def create_selected_altitude_works
+    if params.require(:ppsp).key?(:altitude_works)
+      altitude_works = params.require(:ppsp).require(:altitude_works)
+      altitude_works.shift
+      altitude_works.each do |altitude_work_id|
+        SelectedAltitude.create(ppsp_id: @ppsp.id, altitude_work_id: altitude_work_id)
       end
     end
   end

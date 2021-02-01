@@ -12,7 +12,6 @@ Rails.application.routes.draw do
     resources :selected_subcontractors, only: [ :create, :destroy ]
     member do
       get :destroy_logo_client
-      get :informations_supplementaires
     end
   end
 
@@ -30,10 +29,22 @@ Rails.application.routes.draw do
       get 'selected_subcontractors', to: 'subcontractors#selected_subcontractors'
     end
   end
-   namespace :api, defaults: { format: :json } do
+  namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :risks, only: [ :index, :destroy ]
       get 'selected_risks', to: 'risks#selected_risks'
+    end
+  end
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :altitude_works, only: [ :index, :destroy ]
+      get 'selected_altitude_works', to: 'altitude_works#selected_altitude_works'
+    end
+  end
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :site_installations, only: [ :index, :destroy ]
+      get 'selected_site_installations', to: 'site_installations#selected_site_installations'
     end
   end
 

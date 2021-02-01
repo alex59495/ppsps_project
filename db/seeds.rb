@@ -274,7 +274,7 @@ subcontractors = [{
   responsible_name: "Alexis Responsable",
   responsible_phone: "03 28 26 18 63",
   responsible_email: "alexis@gmail.com",
-  company_id: 1
+  company_id: c1.id
 }, {
   name: "Sous Traitant 2",
   address: "address subcontract 2",
@@ -282,7 +282,7 @@ subcontractors = [{
   responsible_name: "Maxence Responsable",
   responsible_phone: "03 28 26 18 63",
   responsible_email: "maxences@gmail.com",
-  company_id: 1
+  company_id: c1.id
 }]
 
 subcontractors.each do |subcontractor|
