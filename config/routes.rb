@@ -6,14 +6,13 @@ Rails.application.routes.draw do
   
   # Ppsp
   resources :ppsps, except: [:destroy] do
-    resources :subcontractors, only: [:create, :destroy]
     resources :selected_installations, only: [ :create, :destroy ]
     resources :selected_altitudes, only: [ :create, :destroy ]
     resources :selected_risks, only: [ :create, :destroy ]
+    resources :selected_subcontractors, only: [ :create, :destroy ]
     member do
       get 'destroy_annexe/:public_id', to: 'ppsps#destroy_annexe', as: :destroy_annexe 
       get :destroy_logo_client
-      get :informations_supplementaires
       get :duplicate
     end
   end
@@ -24,6 +23,32 @@ Rails.application.routes.draw do
       resources :ppsps, only: [ :destroy, :index, :show ]
     end
   end
+  
+  # Use to display the selected forms
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :subcontractors, only: [ :index, :destroy ]
+      get 'selected_subcontractors', to: 'subcontractors#selected_subcontractors'
+    end
+  end
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :risks, only: [ :index, :destroy ]
+      get 'selected_risks', to: 'risks#selected_risks'
+    end
+  end
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :altitude_works, only: [ :index, :destroy ]
+      get 'selected_altitude_works', to: 'altitude_works#selected_altitude_works'
+    end
+  end
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :site_installations, only: [ :index, :destroy ]
+      get 'selected_site_installations', to: 'site_installations#selected_site_installations'
+    end
+  end
 
   # Utilisateurs
   resources :profiles, only: [:show, :edit, :update]
@@ -32,6 +57,24 @@ Rails.application.routes.draw do
   resources :companies, only: [:update] do
     member do      
       get :destroy_logo
+    end
+  end
+
+  resources :subcontractors, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
+    end
+  end
+
+  resources :risks, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
     end
   end
 

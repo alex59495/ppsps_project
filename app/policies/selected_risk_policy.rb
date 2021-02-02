@@ -5,7 +5,7 @@ class SelectedRiskPolicy < ApplicationPolicy
     end
   end
 
-  def new?
+  def index?
     true
   end
 
@@ -14,6 +14,10 @@ class SelectedRiskPolicy < ApplicationPolicy
   end
 
   def destroy?
+    true
+  end
+
+  def selected_risks?
     true
   end
 end

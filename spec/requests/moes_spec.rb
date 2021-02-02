@@ -13,11 +13,15 @@ RSpec.describe "Moes Controller", type: :request do
   end
 
   context 'Logged as User Admin' do
-    before do
-      user = create(:user_admin)
+    before :all do
+      @user = create(:user_admin)
       @moe = create(:moe)
-      login_as(user)
     end
+
+    before do
+      login_as(@user)
+    end
+    
     let(:params_moe) { attributes_for(:moe)}
     let(:params_moe_update) { attributes_for(:moe_update)}
 

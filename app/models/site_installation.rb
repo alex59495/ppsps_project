@@ -1,31 +1,31 @@
 class SiteInstallation < ApplicationRecord
   SITE_INSTALLATIONS = [
     { name: "Container",
-    mobile: false },
+      mobile: false },
     { name: "Zone de Stockage",
-    mobile: false },
+      mobile: false },
     { name: "Bunglaow Réunion",
-    mobile: false },
+      mobile: false },
     { name: "Bungalow Vestiaire",
-    mobile: false },
+      mobile: false },
     { name: "Bungalow Réfectoire",
-    mobile: false },
+      mobile: false },
     { name: "Sanitaires",
-    mobile: false },
+      mobile: false },
     { name: "WC chimiques",
-    mobile: false },
+      mobile: false },
     { name: "Roulotte",
-    mobile: true },
+      mobile: true },
     { name: "Bungalow Ampiroll",
-    mobile: true },
+      mobile: true },
     { name: "WC chimiques",
-    mobile: true },
+      mobile: true },
     { name: "Container",
-    mobile: true },
+      mobile: true },
     { name: "Zone de Stockage",
-    mobile: true }
+      mobile: true }
   ]
   has_many :selected_installations
   validates :name, presence: true
-  validates :mobile, inclusion: {in: [true, false] }
+  validates :mobile, inclusion: { in: [true, false] }
 end

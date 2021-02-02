@@ -243,6 +243,28 @@
         </div>
       </div>
       <div class="col-12 form-title">
+        Les sous-traitants
+      </div>
+      <div class="col-md-10 offset-md-1">
+        <div class="container-header-form">
+          Ajouter des sous-traitants
+          <% if policy(Subcontractor).create? %>
+            <%= render 'btn_add_database', data: 'Subcontractor' %>
+          <% end %>
+        </div>
+
+        <div id="react-render-subcontractors" data-ppsps_id=<%=@ppsp.id%>></div>
+
+        <div id="react-render-risks" data-ppsps_id=<%=@ppsp.id%>></div>
+
+        <div id="react-render-site-installations" data-ppsps_id=<%=@ppsp.id%>></div>
+
+        <div id="react-render-altitude-works" data-ppsps_id=<%=@ppsp.id%>></div>
+
+
+      </div>
+
+      <div class="col-12 form-title">
         Les informations sécurité de l'entreprise
       </div>
       <div class="col-md-10 offset-md-1">
@@ -251,7 +273,7 @@
         <%= tinymce %>
       </div>
       <div class="col-md-6 offset-md-3 offset-3 offset-md-5 mt-5">
-        <%= f.submit "Accéder à la deuxième page", class: 'btn-blue' %>
+        <%= f.submit "J'ai terminé", class: 'btn-blue' %>
       </div>
       <div class="col-md-6 offset-md-3">
         <%= f.input :annexes, label: "Annexes (si besoin)", input_html: { multiple: true } %>
@@ -316,6 +338,11 @@
   <% if policy(Demining).create? %>
     <div class="modal fade" id="ModalDemining" tabindex="-1" role="dialog" aria-labelledby="ModalDemining" aria-hidden="true">
       <%= render 'ppsps/modal_demining' %>
+    </div>
+  <% end %>
+  <% if policy(Subcontractor).create? %>
+    <div class="modal fade" id="ModalSubcontractor" tabindex="-1" role="dialog" aria-labelledby="ModalSubcontractor" aria-hidden="true">
+      <%= render 'ppsps/modal_subcontractor' %>
     </div>
   <% end %>
 </div>

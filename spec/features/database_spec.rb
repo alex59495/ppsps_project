@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.feature "Databases", type: :feature, js: true do
   feature 'Logged as admin User' do
-    before do
+    before :all do
       company = create(:company)
-      user = create(:user_admin, company: company)
+      @user = create(:user_admin, company: company)
       moa_1 = create(:moa, company: company, name: "Test1")
       moe_1 = create(:moe, company: company, name: "Test1")
       security_coordinator_1 = create(:security_coordinator, company: company, name: "Test1")
@@ -27,7 +27,10 @@ RSpec.feature "Databases", type: :feature, js: true do
       anti_poison_2 = create(:anti_poison, company: company, name: "Test2")
       sos_hand_2 = create(:sos_hand, company: company, name: "Test2")
       hospital_2 = create(:hospital, company: company, name: "Test2")
-      login_as(user)
+    end
+
+    before do
+      login_as(@user)
     end
 
     scenario "Can see the addition of moa live (AJAX)" do
@@ -158,6 +161,21 @@ RSpec.feature "Databases", type: :feature, js: true do
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
+    scenario "Can see the addition of subcontractor live (AJAX)" do
+      visit(subcontractors_path)
+      count = page.all('.card-bdd').count
+      find('.btn-blue').click
+      page.execute_script("$('#subcontractor_name').val('Test subcontractor')")
+      page.execute_script("$('#subcontractor_address').val('Test subcontractor')")
+      page.execute_script("$('#subcontractor_work').val('Test subcontractor')")
+      page.execute_script("$('#subcontractor_responsible_name').val('Test responsible')")
+      page.execute_script("$('#subcontractor_responsible_email').val('test_responsible@gmail.com')")
+      page.execute_script("$('#subcontractor_responsible_phone').val('0600000000')")
+      find('#SubcontractorBtn').click
+      sleep 3
+      expect(page).to have_css('.card-bdd', count: count + 1)
+    end
+
     scenario "Rerender MOA form when not filling right" do
       visit(moas_path)
       find('.btn-blue').click
@@ -261,6 +279,15 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('security_coordinator_phone', with: '0600000000')
       fill_in('security_coordinator_email', with: 'test_representative@gmail.com')
       find('#SecurityBtn').click
+      expect(page).to have_css('.is-invalid')
+    end
+
+    scenario "Rerender Subcontractor when not filling right" do
+      visit(subcontractors_path)
+      find('.btn-blue').click
+      fill_in('subcontractor_name', with: 'Test subcontractor')
+      fill_in('subcontractor_work', with: 'Test work')
+      find('#SubcontractorBtn').click
       expect(page).to have_css('.is-invalid')
     end
 

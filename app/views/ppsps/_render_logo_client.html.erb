@@ -1,5 +1,5 @@
-<% if @ppsp.logo_client.attached? %>
-  <div id="oldLogo"%>
+<% if params[:action] != 'create' && @ppsp.logo_client.attached? %>
+  <div id="oldLogo">
     <div class="logo">
       <%= cl_image_tag @ppsp.logo_client.key, class: 'icon-logo mb-3' %>
     </div>

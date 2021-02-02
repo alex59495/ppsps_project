@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_29_184909) do
+ActiveRecord::Schema.define(version: 2021_01_31_110111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -247,6 +247,15 @@ ActiveRecord::Schema.define(version: 2021_01_29_184909) do
     t.index ["risk_id"], name: "index_selected_risks_on_risk_id"
   end
 
+  create_table "selected_subcontractors", force: :cascade do |t|
+    t.bigint "ppsp_id", null: false
+    t.bigint "subcontractor_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ppsp_id"], name: "index_selected_subcontractors_on_ppsp_id"
+    t.index ["subcontractor_id"], name: "index_selected_subcontractors_on_subcontractor_id"
+  end
+
   create_table "site_installations", force: :cascade do |t|
     t.string "name"
     t.boolean "mobile"
@@ -282,8 +291,9 @@ ActiveRecord::Schema.define(version: 2021_01_29_184909) do
     t.string "responsible_email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "ppsp_id", null: false
-    t.index ["ppsp_id"], name: "index_subcontractors_on_ppsp_id"
+    t.bigint "company_id", null: false
+    t.boolean "is_destroyed", default: false
+    t.index ["company_id"], name: "index_subcontractors_on_company_id"
   end
 
   create_table "team_managers", force: :cascade do |t|
@@ -349,8 +359,10 @@ ActiveRecord::Schema.define(version: 2021_01_29_184909) do
   add_foreign_key "security_coordinators", "companies"
   add_foreign_key "selected_risks", "ppsps"
   add_foreign_key "selected_risks", "risks"
+  add_foreign_key "selected_subcontractors", "ppsps"
+  add_foreign_key "selected_subcontractors", "subcontractors"
   add_foreign_key "sos_hands", "companies"
-  add_foreign_key "subcontractors", "ppsps"
+  add_foreign_key "subcontractors", "companies"
   add_foreign_key "users", "companies"
   add_foreign_key "work_medecines", "companies"
 end

@@ -9,42 +9,17 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
   end
 
   feature 'Logged as normal User' do
-    before do
-      user_uber = create(:user_uber)
+    before :all do
+      @user_uber = create(:user_uber)
       project_info1 = create(:project_information, reference: "AABB130")
       project_info2 = create(:project_information, reference: "AABB120")
-      @ppsp_1 = create(:ppsp, project_information: project_info1, user: user_uber)
-      @ppsp_2 = create(:ppsp, project_information: project_info2, user: user_uber)
-      @ppsp_3 = create(:ppsp_google)
-      login_as(user_uber)
+      ppsp_1 = create(:ppsp, project_information: project_info1, user: @user_uber)
+      ppsp_2 = create(:ppsp, project_information: project_info2, user: @user_uber)
+      ppsp_3 = create(:ppsp_google)
     end
 
-    scenario "Can't access the Database" do
-      visit(ppsps_path)
-      expect { find('a', text: 'Modifier les bases de données') }.to raise_error(Capybara::ElementNotFound)
-    end
-
-    scenario "Only the see the Ppsp of his company" do
-      visit(ppsps_path)
-      expect(page).to have_css('.card-ppsp', count: 2)
-    end
-
-    scenario "The search bar is working" do
-      visit(ppsps_path)
-      find('.search-ppsp').set("AABB130")
-      expect(page).to have_css('.card-ppsp', count: 1)
-    end
-  end
-
-  feature 'Logged as normal User' do
     before do
-      user_uber = create(:user_uber)
-      project_info1 = create(:project_information, reference: "AABB130")
-      project_info2 = create(:project_information, reference: "AABB120")
-      @ppsp_1 = create(:ppsp, project_information: project_info1, user: user_uber)
-      @ppsp_2 = create(:ppsp, project_information: project_info2, user: user_uber)
-      @ppsp_3 = create(:ppsp_google)
-      login_as(user_uber)
+      login_as(@user_uber)
     end
 
     scenario "Can't access the Database" do
@@ -65,24 +40,26 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
   end
 
   feature 'Logged as User Admin' do
-    let!(:next_day) { Date.today.next_day }
+    before :all do
+      @user = create(:user_admin)
+      moa = create(:moa, company: @user.company)
+      moe = create(:moe, company: @user.company)
+      direcct = create(:direcct, company: @user.company)
+      pension_insurance = create(:pension_insurance, company: @user.company)
+      work_medecine = create(:work_medecine, company: @user.company)
+      hospital = create(:hospital, company: @user.company)
+      demining = create(:demining, company: @user.company)
+      anti_poison = create(:anti_poison, company: @user.company)
+      regional_committee = create(:regional_committee, company: @user.company)
+      sos_hand = create(:sos_hand, company: @user.company)
+      security_coordinator = create(:security_coordinator, company: @user.company)
+      # create_list(:subcontractor, 3, company: @user.company)
+      @ppsp = create(:ppsp, user: @user, moa: moa, moe: moe, direcct: direcct, work_medecine: work_medecine, hospital: hospital, pension_insurance: pension_insurance,
+                            demining: demining, anti_poison: anti_poison, regional_committee: regional_committee, sos_hand: sos_hand, security_coordinator: security_coordinator)
+    end
 
     before do
-      user = create(:user_admin)
-      moa = create(:moa, company: user.company)
-      moe = create(:moe, company: user.company)
-      direcct = create(:direcct, company: user.company)
-      pension_insurance = create(:pension_insurance, company: user.company)
-      work_medecine = create(:work_medecine, company: user.company)
-      hospital = create(:hospital, company: user.company)
-      demining = create(:demining, company: user.company)
-      anti_poison = create(:anti_poison, company: user.company)
-      regional_committee = create(:regional_committee, company: user.company)
-      sos_hand = create(:sos_hand, company: user.company)
-      security_coordinator = create(:security_coordinator, company: user.company)
-      @ppsp = create(:ppsp, user: user, moa: moa, moe: moe, direcct: direcct, work_medecine: work_medecine, hospital: hospital, pension_insurance: pension_insurance,
-                            demining: demining, anti_poison: anti_poison, regional_committee: regional_committee, sos_hand: sos_hand, security_coordinator: security_coordinator)
-      login_as(user)
+      login_as(@user)
     end
 
     scenario 'Visit Ppsp index' do
@@ -115,30 +92,15 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       expect(page).to have_current_path(new_ppsp_path)
     end
 
-    describe 'FlatPickr' do
-      it 'Create Form should handle a date change' do
-        visit(new_ppsp_path)
-        fill_in('range_start', with: Date.today.next_month.prev_day.to_s)
-        fill_in('range_end', with: next_day.next_year.next_month.next_month.to_s)
-        fill_in('range_start', with: Date.today.next_month.to_s)
-        fill_in('range_end', with: next_day.next_year.next_month.next_month.to_s)
-        expect(page).to have_css('.flatpickr-month')
-        expect(find('#start-year-calendar')).to have_content(Date.today.next_month.year.to_s)
-        expect(find('#end-year-calendar')).to have_content(next_day.next_year.next_month.next_month.year.to_s)
-        expect(find('#start-month-calendar')).to have_content(Date::ABBR_MONTHNAMES[Date.today.month + 1].to_s)
-        expect(find('#end-month-calendar')).to have_content(Date::ABBR_MONTHNAMES[next_day.month + (next_day == 1 ? 3 : 2)].to_s)
-        expect(find('#end-day-calendar')).to have_content(next_day.next_year.next_month.next_month.day.to_s)
-      end
-    end
-
     scenario 'Complete and Submit the PPSP' do
+      count = Ppsp.includes(:user).where(users: { company: @user.company }).count
       visit(new_ppsp_path)
       fill_in('ppsp_address', with: 'Test adresse')
       fill_in('ppsp_nature', with: 'Test de nature')
       fill_in('ppsp_workforce', with: 'Test de personnel')
       # complete the flatpickr date
       page.execute_script("$('#range_start').val('2020-12-12')")
-      fill_in('range_end', with: next_day.next_month.next_month.to_s)
+      fill_in('range_end', with: Date.today.next_day.next_month.next_month.to_s)
       find('#ppsp_moa_id').find(:xpath, 'option[2]').select_option
       find('#ppsp_moe_id').find(:xpath, 'option[2]').select_option
       fill_in('ppsp_project_information_attributes_reference', with: "ABRFH78")
@@ -165,10 +127,10 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#ppsp_agglomeration').find(:xpath, 'option[2]').select_option
       find('#ppsp_street_impact').find(:xpath, 'option[2]').select_option
       find('#ppsp_river_guidance').find(:xpath, 'option[2]').select_option
-      click_button 'Accéder à la deuxième page'
+      click_button "J'ai terminé"
       # A refacto
-      sleep 2
-      expect(page).to have_current_path(informations_supplementaires_ppsp_path(Ppsp.last))
+      sleep 5
+      expect(Ppsp.includes(:user).where(users: { company: @user.company }).count).to eq(count + 1)
     end
 
     scenario 'Show Page have content' do
@@ -186,7 +148,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
     scenario 'Change the field when update' do
       visit(edit_ppsp_path(@ppsp))
       fill_in('ppsp_project_information_attributes_site_manager_attributes_name', with: 'Update chef de chantier')
-      click_button('Accéder à la deuxième page')
+      click_button("J'ai terminé")
       # A refacto
       sleep 2
       expect(@ppsp.reload.project_information.site_manager.name).to eq('Update chef de chantier')
@@ -209,8 +171,25 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       expect(Ppsp.count).to eq(count - 1)
     end
 
+    describe 'FlatPickr' do
+      it 'Create Form should handle a date change' do
+        visit(new_ppsp_path)
+        fill_in('range_start', with: Date.today.next_month.prev_day.to_s)
+        fill_in('range_end', with: Date.today.next_day.next_year.next_month.next_month.to_s)
+        fill_in('range_start', with: Date.today.next_month.to_s)
+        fill_in('range_end', with: Date.today.next_day.next_year.next_month.next_month.to_s)
+        expect(page).to have_css('.flatpickr-month')
+        expect(find('#start-year-calendar')).to have_content(Date.today.next_month.year.to_s)
+        expect(find('#end-year-calendar')).to have_content(Date.today.next_day.next_year.next_month.next_month.year.to_s)
+        expect(find('#start-month-calendar')).to have_content(Date::ABBR_MONTHNAMES[Date.today.month + 1].to_s)
+        expect(find('#end-month-calendar')).to have_content(Date::ABBR_MONTHNAMES[Date.today.next_day.month + (Date.today.next_day == 1 ? 3 : 2)].to_s)
+        expect(find('#end-day-calendar')).to have_content(Date.today.next_day.next_year.next_month.next_month.day.to_s)
+      end
+    end
+
     feature 'Databases from PPSP new page' do
       before do
+        login_as(@user)
         visit(new_ppsp_path)
       end
 
@@ -331,6 +310,21 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         expect(page).to have_css('#ppsp_security_coordinator_id > option', count: count + 1)
       end
 
+      scenario "Can add Subcontractors from PPSP new page" do
+        count = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('input').size
+        find('#SubcontractorDb').click
+        page.execute_script("$('#subcontractor_name').val('Test subcontractor')")
+        page.execute_script("$('#subcontractor_address').val('Test subcontractor')")
+        page.execute_script("$('#subcontractor_work').val('Test work')")
+        page.execute_script("$('#subcontractor_responsible_email').val('test_responsible@gmail.com')")
+        page.execute_script("$('#subcontractor_responsible_name').val('Test name')")
+        page.execute_script("$('#subcontractor_responsible_phone').val('0600000000')")
+        find('#SubcontractorBtn').click
+        count_end = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('input').size
+        sleep 3
+        expect(count_end).to eq(count + 1)
+      end
+
       scenario "Rerender MOA form when not filling right" do
         find('#MoaDb').click
         fill_in('moa_name', with: 'Test Moa')
@@ -391,6 +385,16 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         expect(page).to have_css('.is-invalid')
       end
 
+      scenario "Rerender Subcontractor when not filling right" do
+        find('#SubcontractorDb').click
+        fill_in('subcontractor_name', with: 'Test subcontractor')
+        fill_in('subcontractor_responsible_name', with: 'Test subcontractor')
+        fill_in('subcontractor_responsible_email', with: 'test_subcontractor@gmail.com')
+        fill_in('subcontractor_responsible_phone', with: '0600000000')
+        find('#SubcontractorBtn').click
+        expect(page).to have_css('.is-invalid')
+      end
+
       scenario "Rerender Regional Committee when not filling right" do
         find('#RegionalCommitteeDb').click
         fill_in('regional_committee_name', with: 'Test regional_committee')
@@ -425,82 +429,6 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         find('#SecurityBtn').click
         expect(page).to have_css('.is-invalid')
       end
-    end
-  end
-
-  feature 'Informations Supplémentaires' do
-    before do
-      user = create(:user)
-      @ppsp = create(:ppsp, user: user)
-      login_as(user)
-    end
-
-    let(:risks) { @risks = create_list(:risk, 5) }
-    let(:site_installations) { @site_installations = create_list(:site_installation, 5) }
-    let(:altitude_works) { @altitude_works = create_list(:altitude_work_select, 5) }
-
-    scenario 'Can add some site installations' do
-      site_installations
-      visit informations_supplementaires_ppsp_path(@ppsp)
-      find('#CheckSiteInstallation').click
-      find('#SiteInstallationMobile').click
-      find("#label_selected_installation_site_installation_id_#{@site_installations.first.id}").click
-      find("#label_selected_installation_site_installation_id_#{@site_installations.second.id}").click
-      find('#FormSiteInstallation').click
-      expect(page).to have_selector('#btn-mes-infos')
-    end
-
-    scenario 'Can add one altitude work' do
-      altitude_works
-      visit informations_supplementaires_ppsp_path(@ppsp)
-      find('#CheckAltitudeWork').click
-      find("#label_selected_altitude_altitude_work_id_#{@altitude_works.sample.id}").click
-      find('#FormAltitudeWork').click
-      expect(page).to have_selector('#btn-mes-infos')
-    end
-
-    scenario 'Can add some risks' do
-      risks
-      visit informations_supplementaires_ppsp_path(@ppsp)
-      find('#checkRisks').click
-      find("#label_selected_risk_risk_id_#{@risks.first.id}").click
-      find("#label_selected_risk_risk_id_#{@risks.second.id}").click
-      find('#FormSelectedRisk').click
-      expect(page).to have_selector('#btn-mes-infos')
-    end
-
-    scenario 'Can delete risk' do
-      risks
-      visit informations_supplementaires_ppsp_path(@ppsp)
-      find('#checkRisks').click
-      find("#label_selected_risk_risk_id_#{@risks.first.id}").click
-      find('#FormSelectedRisk').click
-      expect(page).to have_selector('#btn-mes-infos')
-      find('.card-info-delete').click
-      expect(page).not_to have_selector('#btn-mes-infos')
-    end
-
-    scenario 'Can delete altitude work' do
-      altitude_works
-      visit informations_supplementaires_ppsp_path(@ppsp)
-      find('#CheckAltitudeWork').click
-      find("#label_selected_altitude_altitude_work_id_#{@altitude_works.sample.id}").click
-      find('#FormAltitudeWork').click
-      expect(page).to have_selector('#btn-mes-infos')
-      find('.card-info-delete').click
-      expect(page).not_to have_selector('#btn-mes-infos')
-    end
-
-    scenario 'Can delete site installation' do
-      site_installations
-      visit informations_supplementaires_ppsp_path(@ppsp)
-      find('#CheckSiteInstallation').click
-      find('#SiteInstallationMobile').click
-      find("#label_selected_installation_site_installation_id_#{@site_installations.first.id}").click
-      find('#FormSiteInstallation').click
-      expect(page).to have_selector('#btn-mes-infos')
-      find('.card-info-delete').click
-      expect(page).not_to have_selector('#btn-mes-infos')
     end
   end
 end

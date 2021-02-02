@@ -49,6 +49,8 @@ RSpec.describe Ppsp, type: :model do
   it { should belong_to(:user) }
   it { should belong_to(:work_medecine) }
 
+  it { should have_many(:selected_subcontractors) }
+
   it "Can work if security_coordinator doesn't exist" do
     ppsp = create(:ppsp, security_coordinator: nil)
     expect(ppsp).to be_valid

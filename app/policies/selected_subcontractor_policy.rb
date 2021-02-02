@@ -5,7 +5,7 @@ class SelectedSubcontractorPolicy < ApplicationPolicy
     end
   end
 
-  def new?
+  def index?
     true
   end
 

@@ -5,7 +5,7 @@ class SelectedAltitudePolicy < ApplicationPolicy
     end
   end
 
-  def new?
+  def index?
     true
   end
 
