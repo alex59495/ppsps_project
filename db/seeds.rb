@@ -26,10 +26,10 @@ Direcct.destroy_all
 AntiPoison.destroy_all
 AltitudeWork.destroy_all
 PensionInsurance.destroy_all
+Conductor.destroy_all
 Machine.destroy_all
 Worker.destroy_all
 User.destroy_all
-Conductor.destroy_all
 Company.destroy_all
 
 # Create company
@@ -305,7 +305,7 @@ Machine::MACHINES.each do |machine|
 end
 
 # Create workers
-30.times do
+100.times do
   worker = Worker.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, 
     lifesaver: [true, false].sample, conductor: [true, false].sample, company: Company.all.sample)
   p "Create #{worker.id} worker"

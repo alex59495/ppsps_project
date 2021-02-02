@@ -20,9 +20,8 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :conductors, only: [:index]
+      resources :conductors, only: [:index, :destroy]
       post 'conductors/:machine_id/:worker_id', to: 'conductors#create'
-      delete 'conductors/:machine_id/:worker_id', to: 'conductors#destroy'
     end
   end
 

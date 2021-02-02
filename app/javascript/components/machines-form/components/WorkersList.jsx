@@ -10,8 +10,15 @@ const WorkersList = ({listWorkers, handleWorkers, selectWorkers}) => {
   
   return (
     <form className='chechboxes-workers' style={{display: 'none'}} onSubmit={handleWorkers}>
-      {renderList}
-      <button type='submit'>OK</button>
+      <div className="form-checkboxes-title">
+        Choisir un ou plusieurs compagnons
+      </div>
+      <div className="form-checkboxes">
+        {renderList}
+      </div>
+      <div className='d-flex justify-content-center'>
+        <button type='submit' class='btn-orange'>OK</button>
+      </div>
     </form>
   )
 }

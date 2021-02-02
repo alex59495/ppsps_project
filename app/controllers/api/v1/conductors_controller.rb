@@ -10,6 +10,9 @@ class Api::V1::ConductorsController < Api::V1::BaseController
   end
 
   def destroy
+    @conductor = Conductor.find(params[:id])
+    authorize @conductor
+    @conductor.destroy
     head :no_content
   end
 

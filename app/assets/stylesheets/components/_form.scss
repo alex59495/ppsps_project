@@ -9,3 +9,39 @@
   margin-top: 2em;
   margin-bottom: 1em;
 }
+
+.form-react-conductors {
+  height: 300px;
+  background-color: $blue-dark;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.form-checkboxes-title {
+  background-color: white;
+  padding: 10px 20px;
+  border-bottom: solid 1px gray;
+}
+
+.form-checkboxes {
+  height: 200px;
+  overflow-y: auto;
+  background: white;
+  padding: 20px 40px;
+  margin-bottom: 10px;
+}
+
+.form-conductors-selection {
+  border: 1px solid $blue-dark-shadow;
+  padding: 20px 0;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}

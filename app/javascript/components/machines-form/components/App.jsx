@@ -56,35 +56,33 @@ const App = () => {
 
   // C'est en cliquant sur ce bouton (form des workers) qu'on valide la création d'une instance dans la table conducteurs
   // On active donc le trigger ici pour relancer l'App
-  const handleWorkers = async (e) => {
+  const handleWorkers = (e) => {
     e.preventDefault()
-    await workersId.forEach(workerId => {
+    workersId.forEach(workerId => {
       fetch(`${url}/api/v1/conductors/${machineId}/${workerId}`, {
         method: 'POST'
+      }).then(response => {
+        formWorkers.style.display = 'none';
+        formListMachine.style.display = 'block';
+        // Clean the inputs of the form
+        formWorkers.reset()
+        let count = trigger
+        count += 1
+        setTrigger(count)
       })
     })
-    formWorkers.style.display = 'none';
-    formListMachine.style.display = 'block';
-    // Clean the inputs of the form
-    formWorkers.reset()
-    let count = trigger
-    count += 1
-    setTrigger(count)
   }
 
   const selectWorkers = (e) => {
     const value = e.currentTarget.value
-    if(workersId.includes(value)) {
-      const workers = workersId.filter(id => id != value)
-      setWorkersId(workers)
-    } else {
+    if(!workersId.includes(value)) {
       setWorkersId([...workersId, value])
     }
   }
 
-  // Conductors logic
-  const fetchConductors = async () => {
-    await fetch(`${url}/api/v1/conductors`, {
+// Conductors logic
+  const fetchConductors = () => {
+    fetch(`${url}/api/v1/conductors`, {
       method: 'GET',
       'Content-Type': 'application/json'
     }).then(response => response.json()).then(listConductors => {
@@ -107,23 +105,40 @@ const App = () => {
         }
       }
       setListSelected(groupedArray)
+      // On reset la selection des Workers
+      setWorkersId([])
+    })
+  }
+
+  const handleDelete = (id) => {
+    fetch(`${url}/api/v1/conductors/${id}`, {
+      method: 'DELETE'
+    }).then(response => {
+      let count = trigger
+      count += 1
+      setTrigger(count)
     })
   }
   
   // Start the App
   useEffect(() => {
-    fetchMachines(),
-    fetchWorkers(),
-    fetchConductors()
+    const fetchData = async () => {
+      await fetchWorkers(),
+      await fetchMachines(),
+      fetchConductors()
+    }
+    fetchData()
   }, [trigger])
 
 
   return (
-    <div>
-      <MachinesList listMachines={listMachines} handleMachine={handleMachine} selectMachine={selectMachine}/>
-      <WorkersList listWorkers={listWorkers} handleWorkers={handleWorkers} selectWorkers={selectWorkers}/>
-      <SelectedVehicules listSelected={listSelected}/>
-    </div>
+    <React.Fragment>
+      <div className="form-react-conductors">
+        <MachinesList listMachines={listMachines} handleMachine={handleMachine} selectMachine={selectMachine}/>
+        <WorkersList listWorkers={listWorkers} handleWorkers={handleWorkers} selectWorkers={selectWorkers}/>
+      </div>
+      <SelectedVehicules listSelected={listSelected} handleDelete={handleDelete}/>
+    </React.Fragment>
   )
 }
 
