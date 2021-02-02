@@ -1,19 +1,21 @@
 import React from 'react'
 import InputMachine from './InputMachine'
 
-const MachinesList = ({listMachines}) => {
+const MachinesList = ({listMachines, handleMachine, selectMachine}) => {
   const renderList = listMachines.map(machine => {
     return(
         <InputMachine key={machine.id} machine={machine}/>
     )
   })
+  
 
   return (
-    <div className='form-list-machines'>
-      <select className="form-select-machines">
+    <form className='form-list-machines' onSubmit={handleMachine}>
+      <select className="form-select-machines" onClick={selectMachine}>
         {renderList}
       </select>
-    </div>
+      <button type='submit' id='submit-machine' disabled>OK</button>
+    </form>
   )
 }
 

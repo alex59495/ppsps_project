@@ -26,7 +26,10 @@ Direcct.destroy_all
 AntiPoison.destroy_all
 AltitudeWork.destroy_all
 PensionInsurance.destroy_all
+Machine.destroy_all
+Worker.destroy_all
 User.destroy_all
+Conductor.destroy_all
 Company.destroy_all
 
 # Create company

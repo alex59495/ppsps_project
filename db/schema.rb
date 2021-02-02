@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_01_162126) do
+ActiveRecord::Schema.define(version: 2021_02_02_111623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,8 +69,10 @@ ActiveRecord::Schema.define(version: 2021_02_01_162126) do
     t.bigint "worker_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
     t.index ["machine_id"], name: "index_conductors_on_machine_id"
     t.index ["ppsp_id"], name: "index_conductors_on_ppsp_id"
+    t.index ["user_id"], name: "index_conductors_on_user_id"
     t.index ["worker_id"], name: "index_conductors_on_worker_id"
   end
 
@@ -323,6 +325,8 @@ ActiveRecord::Schema.define(version: 2021_02_01_162126) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "admin", default: false
     t.bigint "company_id", null: false
+    t.string "authentication_token", limit: 30
+    t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -355,6 +359,7 @@ ActiveRecord::Schema.define(version: 2021_02_01_162126) do
   add_foreign_key "anti_poisons", "companies"
   add_foreign_key "conductors", "machines"
   add_foreign_key "conductors", "ppsps"
+  add_foreign_key "conductors", "users"
   add_foreign_key "conductors", "workers"
   add_foreign_key "deminings", "companies"
   add_foreign_key "direccts", "companies"

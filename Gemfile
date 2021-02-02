@@ -69,13 +69,15 @@ gem 'pg_search'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
-# Faker
-gem 'faker'
+# Tokens for API
+gem 'simple_token_authentication'
 
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'
 group :development, :test do
+  # Faker
+  gem 'faker'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'dotenv-rails'

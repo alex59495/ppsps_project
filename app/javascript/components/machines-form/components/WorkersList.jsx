@@ -1,16 +1,18 @@
 import React from 'react'
 import InputWorker from './InputWorker'
 
-const WorkersList = ({listWorkers}) => {
+const WorkersList = ({listWorkers, handleWorkers, selectWorkers}) => {
   const renderList = listWorkers.map(worker => {
     return(
-      <InputWorker key={worker.id} worker={worker}/>
+      <InputWorker key={worker.id} worker={worker} selectWorkers={selectWorkers}/>
     )
   })
+  
   return (
-    <div className='chechboxes_workers'>
+    <form className='chechboxes-workers' style={{display: 'none'}} onSubmit={handleWorkers}>
       {renderList}
-    </div>
+      <button type='submit'>OK</button>
+    </form>
   )
 }
 
