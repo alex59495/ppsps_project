@@ -53,7 +53,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       regional_committee = create(:regional_committee, company: @user.company)
       sos_hand = create(:sos_hand, company: @user.company)
       security_coordinator = create(:security_coordinator, company: @user.company)
-      create_list(:subcontractor, 3, company: @user.company)
+      # create_list(:subcontractor, 3, company: @user.company)
       @ppsp = create(:ppsp, user: @user, moa: moa, moe: moe, direcct: direcct, work_medecine: work_medecine, hospital: hospital, pension_insurance: pension_insurance,
                             demining: demining, anti_poison: anti_poison, regional_committee: regional_committee, sos_hand: sos_hand, security_coordinator: security_coordinator)
     end
@@ -320,8 +320,8 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         page.execute_script("$('#subcontractor_responsible_name').val('Test name')")
         page.execute_script("$('#subcontractor_responsible_phone').val('0600000000')")
         find('#SubcontractorBtn').click
-        sleep 5
         count_end = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('input').size
+        sleep 3
         expect(count_end).to eq(count + 1)
       end
 
