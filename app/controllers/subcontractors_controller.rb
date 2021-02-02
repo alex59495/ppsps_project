@@ -1,48 +1,42 @@
-class SubcontractorsController < ApplicationController
-  before_action :find_subcontractor, only: :destroy
-  before_action :find_ppsp
+class SubcontractorsController < DatabaseController
+  def update
+    @path = subcontractors_path
+    super
+  end
+
+  def destroyed
+    @path = subcontractors_path
+    super
+  end
+
+  def init_infinite_scroll
+    @pagination_path = pagination_subcontractors_path
+    super
+  end
 
   def create
-    @subcontractor = Subcontractor.new(params_subcontractor)
-    @subcontractor.ppsp_id = @ppsp.id
-    # Add thos lines in order to re-render the selection card on the informations_supplementaires page
-    @selected_installation_active = SelectedInstallation.where(ppsp_id: @ppsp.id)
-    @selected_altitude_active = SelectedAltitude.where(ppsp_id: @ppsp.id)
-    @selected_risk_active = SelectedRisk.where(ppsp_id: @ppsp.id)
-    @selected_installation_active.count > 0 || @selected_altitude_active.count > 0 || @selected_risk_active.count > 0 || @ppsp.subcontractors.count > 0 ? @show_select = true : @show_select = false
-
-    authorize @subcontractor
-    if @subcontractor.save
+    # We need an "@data" to render the correct partial in views
+    @data = @model_name.new(params_data)
+    # In the case of selected_tables we don't have the instance, only the id so we add the 'OR'
+    @data.company_id = current_user.company.id
+    authorize @data
+    instance_variable_creation(@data)
+    @search = "none"
+    @subcontractors = policy_scope(Subcontractor.all)
+    if @data.save
+      # Create an ordered list to put the last one in first
+      @database = policy_scope(@model_name.all).sort_by { |datab| datab.created_at }
+      # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
+      init_infinite_scroll
+      # Respond with the view anti_poison/create.js.erb to close the modal and come back to the form
       respond_to do |format|
-        format.html { redirect_to informations_supplementaires_ppsp_path(@ppsp, ajout: true) }
+        format.js { render "#{controller_name}/create.js.erb" }
       end
     else
       # Respond with the .js.erb to print the modal with errors
       respond_to do |format|
-        format.js { render 'ppsps/modal_subcontractor' }
+        format.js { render "ppsps/modal_#{controller_name.chop}" }
       end
     end
-  end
-
-  def destroy
-    authorize @subcontractor
-    @subcontractor.destroy
-    # Add a params to know if we are coming back to the info supp page from a destroy action
-    redirect_to informations_supplementaires_ppsp_path(@ppsp, destroy: true)
-  end
-
-  private
-
-  def params_subcontractor
-    params.require(:subcontractor).permit(:address, :name, :work,
-                                          :responsible_name, :responsible_phone, :responsible_email, :ppsp_id)
-  end
-
-  def find_subcontractor
-    @subcontractor = Subcontractor.find(params[:id])
-  end
-
-  def find_ppsp
-    @ppsp = Ppsp.find(params[:ppsp_id])
   end
 end

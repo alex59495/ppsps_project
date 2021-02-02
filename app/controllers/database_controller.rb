@@ -35,6 +35,7 @@ class DatabaseController < ApplicationController
   def create
     # We need an "@data" to render the correct partial in views
     @data = @model_name.new(params_data)
+    # In the case of selected_tables we don't have the instance, only the id so we add the 'OR'
     @data.company = current_user.company
     authorize @data
     instance_variable_creation(@data)

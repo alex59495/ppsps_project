@@ -30,6 +30,7 @@ Conductor.destroy_all
 Machine.destroy_all
 Worker.destroy_all
 User.destroy_all
+Subcontractor.destroy_all
 Company.destroy_all
 
 # Create company
@@ -269,19 +270,30 @@ ppsps.each do |ppsp|
 end
 
 # Create Subcontractor
-subcontractor = {
+subcontractors = [{
   name: "Sous Traitant",
   address: "address subcontract",
   work: "work subcontract",
   responsible_name: "Alexis Responsable",
   responsible_phone: "03 28 26 18 63",
   responsible_email: "alexis@gmail.com",
-  ppsp_id: Ppsp.first.id,
-}
-subcontractor1 = Subcontractor.create(name: subcontractor[:name], address: subcontractor[:address], 
-work: subcontractor[:work], responsible_name: subcontractor[:responsible_name], responsible_phone: subcontractor[:responsible_phone],
-responsible_email: subcontractor[:responsible_email], ppsp_id: subcontractor[:ppsp_id])
-p "create #{subcontractor1.id} subcontractor"
+  company_id: c1.id
+}, {
+  name: "Sous Traitant 2",
+  address: "address subcontract 2",
+  work: "work subcontract 2",
+  responsible_name: "Maxence Responsable",
+  responsible_phone: "03 28 26 18 63",
+  responsible_email: "maxences@gmail.com",
+  company_id: c1.id
+}]
+
+subcontractors.each do |subcontractor|
+  subcontractor = Subcontractor.create(name: subcontractor[:name], address: subcontractor[:address], 
+  work: subcontractor[:work], responsible_name: subcontractor[:responsible_name], responsible_phone: subcontractor[:responsible_phone],
+  responsible_email: subcontractor[:responsible_email], company_id: subcontractor[:company_id])
+  p "create #{subcontractor.id} subcontractor"
+end
 
 # Create site_installations
 SiteInstallation::SITE_INSTALLATIONS.each do |site|

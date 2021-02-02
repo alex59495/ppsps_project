@@ -6,14 +6,13 @@ Rails.application.routes.draw do
   
   # Ppsp
   resources :ppsps, except: [:destroy] do
-    resources :subcontractors, only: [:create, :destroy]
     resources :selected_installations, only: [ :create, :destroy ]
     resources :selected_altitudes, only: [ :create, :destroy ]
     resources :selected_risks, only: [ :create, :destroy ]
+    resources :selected_subcontractors, only: [ :create, :destroy ]
     member do
       get 'destroy_annexe/:public_id', to: 'ppsps#destroy_annexe', as: :destroy_annexe 
       get :destroy_logo_client
-      get :informations_supplementaires
       get :duplicate
     end
   end
@@ -29,16 +28,16 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :ppsps, only: [ :destroy, :index, :show ]
-    end
-  end
-  namespace :api, defaults: { format: :json } do
-    namespace :v1 do
       resources :machines, only: [ :index ]
-    end
-  end
-  namespace :api, defaults: { format: :json } do
-    namespace :v1 do
+      resources :subcontractors, only: [ :index, :destroy ]
+      get 'selected_subcontractors', to: 'subcontractors#selected_subcontractors'
       resources :workers, only: [ :index ]
+      resources :risks, only: [ :index, :destroy ]
+      get 'selected_risks', to: 'risks#selected_risks'
+      resources :altitude_works, only: [ :index, :destroy ]
+      get 'selected_altitude_works', to: 'altitude_works#selected_altitude_works'
+      resources :site_installations, only: [ :index, :destroy ]
+      get 'selected_site_installations', to: 'site_installations#selected_site_installations'
     end
   end
 
@@ -49,6 +48,24 @@ Rails.application.routes.draw do
   resources :companies, only: [:update] do
     member do      
       get :destroy_logo
+    end
+  end
+
+  resources :subcontractors, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
+    end
+  end
+
+  resources :risks, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
     end
   end
 

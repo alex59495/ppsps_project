@@ -12,9 +12,12 @@ import 'bootstrap';
 import ReactDOM from 'react-dom';
 
 // Import react elements
-// import '../react-ppsp/index'
 import reactPpsp from '../components/react-ppsp/index';
 import reactFormMachines from '../components/machines-form/index';
+import FormSubcontractors from '../components/form-subcontractors/index';
+import FormRisks from '../components/form-risks/index';
+import FormAltitudeWorks from '../components/form-altitude-work/index';
+import FormSiteInstallations from '../components/form-site-installation/index';
 
 // import { AutoCompleteGeocoding } from "../components/autocomplete"
 // La clé API pour l'utilisation de l'autocomplete Geocoding se trouve dans config/application.yml
@@ -44,22 +47,27 @@ require('../channels');
 // const imagePath = (name) => images(name, true)
 
 document.addEventListener('turbolinks:load', () => {
-  // Have to add those two lines in order to force the rerender of tinyMCE with turbolinks
   InitializeTinyMce();
   navbarDropdown();
   error();
   select2();
   flatPicker();
   cardForm();
-  reactPpsp();
   infiniteScroll();
   popUp();
   calendar();
   sweetAlertMail();
-  // initMapbox(); Pas nécessaire pour le moment
   logoClient();
 
+  // React
   reactFormMachines();
+  reactPpsp();
+  FormSubcontractors();
+  FormRisks();
+  FormAltitudeWorks();
+  FormSiteInstallations();
+
+  // initMapbox(); Pas nécessaire pour le moment
 });
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true);
@@ -69,5 +77,10 @@ ReactRailsUJS.useContext(componentRequireContext);
 ReactRailsUJS.handleEvent('turbolinks:before-render', () => {
   if (document.getElementById('ppsps-react')) {
     ReactDOM.unmountComponentAtNode(document.getElementById('ppsps-react'));
+  }
+  if (document.getElementById('react-render-subcontractors')) {
+    ReactDOM.unmountComponentAtNode(
+      document.getElementById('react-render-subcontractors')
+    );
   }
 });

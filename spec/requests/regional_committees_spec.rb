@@ -13,11 +13,15 @@ RSpec.describe "RegionalCommittees Controller", type: :request do
   end
 
   context 'Logged as User Admin' do
-    before do
-      user = create(:user_admin)
+    before :all do
+      @user = create(:user_admin)
       @regional_committee = create(:regional_committee)
-      login_as(user)
     end
+
+    before do
+      login_as(@user)
+    end
+    
     let(:params_regional_committee) { attributes_for(:regional_committee)}
     let(:params_regional_committee_update) { attributes_for(:regional_committee_update)}
   

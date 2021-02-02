@@ -6,32 +6,36 @@ RSpec.describe "PensionInsurances Controller", type: :request do
       user_uber = create(:user_uber)
       login_as(user_uber)
     end
-    
+
     it "Can't access the pension_insurances index" do
-      expect{get pension_insurances_path}.to raise_error(Pundit::NotAuthorizedError)
+      expect { get pension_insurances_path }.to raise_error(Pundit::NotAuthorizedError)
     end
   end
 
   context 'Logged as User Admin' do
-    before do
-      user = create(:user_admin)
+    before :all do
+      @user = create(:user_admin)
       @pension_insurance = create(:pension_insurance)
-      login_as(user)
     end
-    let(:params_pension_insurance) { attributes_for(:pension_insurance)}
-    let(:params_pension_insurance_update) { attributes_for(:pension_insurance_update)}
+
+    before do
+      login_as(@user)
+    end
+
+    let(:params_pension_insurance) { attributes_for(:pension_insurance) }
+    let(:params_pension_insurance_update) { attributes_for(:pension_insurance_update) }
 
     it "Can access the pension_insurance index page" do
       get pension_insurances_path
       expect(response).to have_http_status(200)
     end
-  
+
     context 'Action Destroy' do
       let(:destroy_action) { post destroy_pension_insurance_path(@pension_insurance) }
       it 'Delete 1 instance of pension_insurance when using action destroy' do
         expect { destroy_action }.to change(PensionInsurance.where(is_destroyed: true), :count).by(1)
       end
-  
+
       it 'Redirect after destroy' do
         destroy_action
         expect(response).to have_http_status(302)
@@ -57,7 +61,5 @@ RSpec.describe "PensionInsurances Controller", type: :request do
         expect(@pension_insurance.phone).to eq(params_pension_insurance_update[:phone])
       end
     end
-    
   end
-  
 end

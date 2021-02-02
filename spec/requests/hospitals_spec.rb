@@ -14,10 +14,14 @@ RSpec.describe "Hospitals Controller", type: :request do
 
   context 'Logged as User Admin' do
     before do
-      user = create(:user_admin)
+      @user = create(:user_admin)
       @hospital = create(:hospital)
-      login_as(user)
     end
+
+    before do
+      login_as(@user)
+    end
+    
     let(:params_hospital) { attributes_for(:hospital)}
     let(:params_hospital_update) { attributes_for(:hospital_update)}
 

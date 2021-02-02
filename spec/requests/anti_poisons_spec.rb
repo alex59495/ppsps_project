@@ -8,19 +8,22 @@ RSpec.describe "AntiPoisons Controller", type: :request do
     end
 
     it "Can't access the anti_poisons index" do
-      expect{get anti_poisons_path}.to raise_error(Pundit::NotAuthorizedError)
+      expect { get anti_poisons_path }.to raise_error(Pundit::NotAuthorizedError)
     end
   end
 
-
   context 'Logged as User Admin' do
-    before do
-      user = create(:user_admin)
+    before :all do
+      @user = create(:user_admin)
       @anti_poison = create(:anti_poison)
-      login_as(user)
     end
-    let(:params_anti_poison) { attributes_for(:anti_poison)}
-    let(:params_anti_poison_update) { attributes_for(:anti_poison_update)}
+
+    before do
+      login_as(@user)
+    end
+
+    let(:params_anti_poison) { attributes_for(:anti_poison) }
+    let(:params_anti_poison_update) { attributes_for(:anti_poison_update) }
 
     it "Can access the anti_poison index page" do
       get anti_poisons_path
@@ -32,7 +35,7 @@ RSpec.describe "AntiPoisons Controller", type: :request do
       it 'Delete 1 instance of anti_poison when using action destroy' do
         expect { destroy_action }.to change(AntiPoison.where(is_destroyed: true), :count).by(1)
       end
-  
+
       it 'Redirect after destroy' do
         destroy_action
         expect(response).to have_http_status(302)
@@ -59,5 +62,4 @@ RSpec.describe "AntiPoisons Controller", type: :request do
       end
     end
   end
-  
 end
