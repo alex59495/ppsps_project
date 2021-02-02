@@ -259,6 +259,7 @@
       </div>
       <div class="col-md-6 offset-md-3">
         <%= f.input :annexes, label: "Annexes (si besoin)", input_html: { multiple: true } %>
+        <p class="text-alert">Vous pouvez maintenir la touche CTRL enfoncée lors de la sélection pour choisir plusieurs fichiers</p>
       </div>
       <% if @ppsp.annexes.attached? %>
         <div class="d-flex flex-wrap justify-content-center w-100" id='container-annexes'>

@@ -9,6 +9,7 @@ class User < ApplicationRecord
   acts_as_token_authenticatable
 
   has_many :ppsps
+  has_many :conductors
   belongs_to :company
   validates :first_name, presence: true
   validates :last_name, presence: true

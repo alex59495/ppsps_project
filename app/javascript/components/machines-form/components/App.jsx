@@ -34,7 +34,7 @@ const App = () => {
   const handleMachine = (e) => {
     e.preventDefault()
     formListMachine.style.display = 'none';
-    formWorkers.style.display = 'block';
+    formWorkers.style.display = 'flex';
     // Clean the inputs of the form
     formListMachine.reset()
     btnSubmitMachines.disabled = true
@@ -63,7 +63,7 @@ const App = () => {
         method: 'POST'
       }).then(response => {
         formWorkers.style.display = 'none';
-        formListMachine.style.display = 'block';
+        formListMachine.style.display = 'flex';
         // Clean the inputs of the form
         formWorkers.reset()
         let count = trigger

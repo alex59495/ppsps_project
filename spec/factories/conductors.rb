@@ -1,7 +1,8 @@
 FactoryBot.define do
   factory :conductor do
-    ppsp { nil }
-    machine { nil }
-    worker { nil }
+    ppsp
+    machine
+    worker
+    user
   end
 end

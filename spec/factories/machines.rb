@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :machine do
-    name { "MyString" }
+    name { SiteInstallation::SITE_INSTALLATIONS.sample[:name] }
   end
 end

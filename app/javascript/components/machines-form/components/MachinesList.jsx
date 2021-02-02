@@ -10,12 +10,15 @@ const MachinesList = ({listMachines, handleMachine, selectMachine}) => {
   
 
   return (
-    <form className='form-list-machines' onSubmit={handleMachine}>
+    <form className='container-center-column form-list-machines' onSubmit={handleMachine}>
+      <div className="form-select-machines-title">
+        Choisir un véhicule dans la liste ci-dessous si votre chantier implique la conduite d'engins
+      </div>
       <select className="form-select-machines" onClick={selectMachine}>
         {renderList}
       </select>
       <div className='d-flex justify-content-center mt-4'>
-        <button type='submit' class='btn-orange' id='submit-machine' disabled>OK</button>
+        <button type='submit' className='btn-orange' id='submit-machine' disabled>OK</button>
       </div>
     </form>
   )
