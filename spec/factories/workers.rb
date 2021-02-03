@@ -5,5 +5,10 @@ FactoryBot.define do
     conductor { [true, false].sample }
     lifesaver { [true, false].sample }
     company
+
+    factory :worker_update do
+      first_name { 'First name updated' }
+      last_name { 'Last name updated' }
+    end
   end
 end

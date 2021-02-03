@@ -18,10 +18,10 @@ class Api::V1::SubcontractorsController < Api::V1::BaseController
     authorize @subcontractors
   end
 
-  def destroy
-    @selected_subcontractor = SelectedSubcontractor.where(ppsp_id: params[:ppsps_id], subcontractor_id: params[:id]).first
+  def destroy_selected_subcontractors
+    @selected_subcontractor = SelectedSubcontractor.where(ppsp_id: params[:ppsps_id], subcontractor_id: params[:subcontractor_id]).first
     authorize @selected_subcontractor
     @selected_subcontractor.destroy
     head :no_content
-  end  
+  end
 end

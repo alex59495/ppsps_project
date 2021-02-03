@@ -21,22 +21,30 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :ppsps, only: [ :destroy, :index, :show ]
-      resources :machines, only: [ :index ]
-      resources :subcontractors, only: [ :index, :destroy ]
-      get 'selected_subcontractors', to: 'subcontractors#selected_subcontractors'
-      resources :risks, only: [ :index, :destroy ]
+      
+      resources :subcontractors, only: [ :index ]
+      get 'selected_subcontractors', to: 'subcontractors#selected_subcontractors'     
+      delete 'selected_subcontractors/:subcontractor_id', to: 'subcontractors#destroy_selected_subcontractors'
+      
+      resources :risks, only: [ :index ]
       get 'selected_risks', to: 'risks#selected_risks'
-      resources :altitude_works, only: [ :index, :destroy ]
+      delete 'selected_risks/:risk_id', to: 'risks#destroy_selected_risks'
+      
+      resources :altitude_works, only: [ :index ]
+      delete 'selected_altitudes/:altitude_id', to: 'altitude_works#destroy_selected_altitudes'
       get 'selected_altitude_works', to: 'altitude_works#selected_altitude_works'
-      resources :site_installations, only: [ :index, :destroy ]
+      
+      resources :site_installations, only: [ :index ]
       get 'selected_site_installations', to: 'site_installations#selected_site_installations'
-      resources :conductors, only: [:index, :destroy]
+      delete 'selected_installations/:installation_id', to: 'site_installations#destroy_selected_installations'
+      
+      resources :conductors, only: [:index, :destroy]      
+      resources :machines, only: [ :index ]
       post 'conductor/:machine_id/:worker_id', to: 'conductors#create'
-
-      resources :workers, only: [:destroy]
       get 'workers/conductors', to: 'workers#conductors'
       get 'workers/lifesavers', to: 'workers#lifesavers'
       get 'workers/selected_lifesavers', to: 'workers#selected_lifesavers'
+      delete 'selected_lifesavers/:lifesaver_id', to: 'workers#destroy_selected_lifesavers'
     end
   end
 

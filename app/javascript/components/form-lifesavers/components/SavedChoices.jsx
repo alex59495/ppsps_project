@@ -14,7 +14,7 @@ const SavedChoices = ({ lifesavers, handleRemove }) => {
     if (lifesavers.length > 0) {
       return (
         <p className="text-center">
-          Les types de travaux déjà intégrés à mon PPSPS
+          Les sauveteurs déjà intégrés à mon PPSPS
         </p>
       );
     }
@@ -23,7 +23,7 @@ const SavedChoices = ({ lifesavers, handleRemove }) => {
   return (
     <div className="lifesavers">
       {renderTitle(lifesavers)}
-      <div className="flex-database" id="containerSelectedAltitudeWorks">
+      <div className="flex-database" id="containerSelectedLifesavers">
         {renderSavedItem}
       </div>
     </div>

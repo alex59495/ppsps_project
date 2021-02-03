@@ -18,8 +18,8 @@ class Api::V1::AltitudeWorksController < Api::V1::BaseController
     authorize @altitude_works
   end
 
-  def destroy
-    @selected_altitude_work = SelectedAltitude.where(ppsp_id: params[:ppsps_id], altitude_work_id: params[:id]).first
+  def destroy_selected_altitudes
+    @selected_altitude_work = SelectedAltitude.where(ppsp_id: params[:ppsps_id], altitude_work_id: params[:altitude_id]).first
     authorize @selected_altitude_work
     @selected_altitude_work.destroy
     head :no_content

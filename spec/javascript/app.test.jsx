@@ -11,6 +11,6 @@ configure({ adapter: new Adapter() });
 
 test('App is rendering without error', () => {
   const app = shallow(<App />);
-  const searchBar = app.containsAllMatchingElements([<SearchBar />, <ListPpsp />]);
-  expect(searchBar).toEqual(true);
+  const ppsps = app.containsAllMatchingElements([<SearchBar />, <ListPpsp />]);
+  expect(ppsps).toEqual(true);
 })

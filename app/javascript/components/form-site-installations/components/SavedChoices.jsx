@@ -14,7 +14,7 @@ const SavedChoices = ({ site_installations, handleRemove }) => {
     if (site_installations.length > 0) {
       return (
         <p className="text-center">
-          Les types de travaux déjà intégrés à mon PPSPS
+          Les installations déjà intégrés à mon PPSPS
         </p>
       );
     }

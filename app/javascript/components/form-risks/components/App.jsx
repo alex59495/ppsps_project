@@ -50,21 +50,17 @@ const App = () => {
       .then((data) => setSavedChoices(data));
   }
 
-  const handleRemove = (risk) => {
-    fetch(`${url}/api/v1/risks/${risk.id}/?ppsps_id=${ppspsId}`, {
+  const handleRemove = async (risk) => {
+    await fetch(`${url}/api/v1/selected_risks/${risk.id}/?ppsps_id=${ppspsId}`, {
       method: 'DELETE',
     });
     let count = trigger
-    count =+ 1
-    setTrigger(count)
+    setTrigger(count + 1)
   };
 
   useEffect(() => {
-    fetchrisksFormList();
-  }, []);
-
-  useEffect(() => {
     fetchSavedRisks();
+    fetchrisksFormList();
   }, [trigger]);
 
   return (

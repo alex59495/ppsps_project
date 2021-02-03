@@ -4,24 +4,12 @@ RSpec.feature "React Handling", type: :feature, js: true do
   feature 'Logged as User Admin' do
     before :all do
       @user = create(:user_admin)
-      moa = create(:moa, company: @user.company)
-      moe = create(:moe, company: @user.company)
-      direcct = create(:direcct, company: @user.company)
-      pension_insurance = create(:pension_insurance, company: @user.company)
-      work_medecine = create(:work_medecine, company: @user.company)
-      hospital = create(:hospital, company: @user.company)
-      demining = create(:demining, company: @user.company)
-      anti_poison = create(:anti_poison, company: @user.company)
-      regional_committee = create(:regional_committee, company: @user.company)
-      sos_hand = create(:sos_hand, company: @user.company)
-      security_coordinator = create(:security_coordinator, company: @user.company)
       @subcontractors = create_list(:subcontractor, 5, company: @user.company)
       @risks = create_list(:risk, 5)
       @site_installations = create_list(:site_installation, 5)
       @altitude_works = create_list(:altitude_work, 5)
-      @ppsp = create(:ppsp, user: @user, moa: moa, moe: moe, direcct: direcct, work_medecine: work_medecine, hospital: hospital,
-                            pension_insurance: pension_insurance, demining: demining, anti_poison: anti_poison, regional_committee: regional_committee,
-                            sos_hand: sos_hand, security_coordinator: security_coordinator)
+      @lifesavers = create_list(:worker, 5, company: @user.company, lifesaver: true)
+      @ppsp = create(:ppsp, user: @user)
     end
 
     feature 'React within the form selected database' do
@@ -55,6 +43,13 @@ RSpec.feature "React Handling", type: :feature, js: true do
         count = @altitude_works.size
         find('.form-group.check_boxes.optional.ppsp_altitude_works').all('input').size
         expect(count).to eq(@altitude_works.size)
+      end
+
+      scenario "Can see the list of Lifesavers options" do
+        visit(new_ppsp_path)
+        count = @lifesavers.size
+        find('.form-group.check_boxes.optional.ppsp_lifesavers').all('input').size
+        expect(count).to eq(@lifesavers.size)
       end
 
       scenario 'When click on subcontractor option, actualize form list options + add in the addList' do
@@ -93,6 +88,15 @@ RSpec.feature "React Handling", type: :feature, js: true do
         expect(find('.form-selected-altitude_work').all('input').size).to eq(count_add_list + 1)
       end
 
+      scenario 'When click on lifesaver option, actualize form list options + add in the addList' do
+        visit(new_ppsp_path)
+        count_form_list = find('.form-group.check_boxes.optional.ppsp_lifesavers').all('input').size
+        count_add_list = find('.form-selected-lifesaver').all('input').size
+        find("#ppsp_lifesavers_#{@lifesavers.first.id}").click
+        expect(find('.form-group.check_boxes.optional.ppsp_lifesavers').all('input').size).to eq(count_form_list - 1)
+        expect(find('.form-selected-lifesaver').all('input').size).to eq(count_add_list + 1)
+      end
+
       feature 'When delete a selected subcontractor, actualize form list options' do
         before do
           @subcontractor_add = create_list(:subcontractor, 2, company: @user.company)
@@ -103,6 +107,8 @@ RSpec.feature "React Handling", type: :feature, js: true do
           @ppsp.altitude_works = @altitude_work_add
           @site_installation_add = create_list(:site_installation, 2)
           @ppsp.site_installations = @site_installation_add
+          @lifesavers_add = create_list(:worker, 2, lifesaver: true, company: @user.company)
+          @ppsp.workers = @lifesavers_add
         end
 
         scenario 'Actualize list subcontractors option when delete' do
@@ -135,6 +141,14 @@ RSpec.feature "React Handling", type: :feature, js: true do
           first('#containerSelectedAltitudeWorks > .card-form-selected > .card-form-delete').click
           sleep 2
           expect(find('#containerSelectedAltitudeWorks').all('.card-form-selected').size).to eq(count - 1)
+        end
+
+        scenario 'Actualize lifesaver list option when delete' do
+          visit(edit_ppsp_path(@ppsp))
+          count = find('#containerSelectedLifesavers').all('.card-form-selected').size
+          first('#containerSelectedLifesavers > .card-form-selected > .card-form-delete').click
+          sleep 2
+          expect(find('#containerSelectedLifesavers').all('.card-form-selected').size).to eq(count - 1)
         end
       end
     end

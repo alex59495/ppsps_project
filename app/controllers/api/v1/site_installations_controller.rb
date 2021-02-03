@@ -18,8 +18,8 @@ class Api::V1::SiteInstallationsController < Api::V1::BaseController
     authorize @site_installations
   end
 
-  def destroy
-    @selected_site_installation = SelectedInstallation.where(ppsp_id: params[:ppsps_id], site_installation_id: params[:id]).first
+  def destroy_selected_installations
+    @selected_site_installation = SelectedInstallation.where(ppsp_id: params[:ppsps_id], site_installation_id: params[:installation_id]).first
     authorize @selected_site_installation
     @selected_site_installation.destroy
     head :no_content

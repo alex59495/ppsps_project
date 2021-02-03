@@ -61,23 +61,19 @@ const App = () => {
       .then((data) => setSavedChoices(data));
   }
 
-  const handleRemove = (site_installation) => {
-    fetch(
-      `${url}/api/v1/site_installations/${site_installation.id}/?ppsps_id=${ppspsId}`,
+  const handleRemove = async (site_installation) => {
+    await fetch(
+      `${url}/api/v1/selected_installations/${site_installation.id}/?ppsps_id=${ppspsId}`,
       {
         method: 'DELETE',
       }
     )
     let count = trigger
-    count =+ 1
-    setTrigger(count)
+    setTrigger(count + 1)
   };
 
   useEffect(() => {
     fetchSiteInstallationsFormList();
-  }, []);
-
-  useEffect(() => {
     fetchSavedSiteInstallation()
   }, [trigger]);
 

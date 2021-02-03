@@ -36,4 +36,8 @@ class SubcontractorPolicy < ApplicationPolicy
   def selected_subcontractors?
     true
   end
+
+  def destroy_selected_subcontractors?
+    true
+  end
 end

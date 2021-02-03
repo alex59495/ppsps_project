@@ -6,6 +6,7 @@ RSpec.describe "Ppsps Controller", type: :request do
     let(:moe) { create(:moe) }
     let(:security_coordinator) { create(:security_coordinator) }
     let(:project_information) { create(:project_information) }
+    let(:worksite) { create(:worksite) }
     let(:site_manager) { create(:site_manager) }
     let(:team_manager) { create(:team_manager) }
     let(:direcct) { create(:moa) }
@@ -18,25 +19,27 @@ RSpec.describe "Ppsps Controller", type: :request do
     let(:user) { create(:user_admin) }
     let(:demining) { create(:demining) }
     let(:direcct) { create(:direcct) }
-    let(:params_ppsp) { attributes_for(:ppsp).merge({
-      security_coordinator_id: security_coordinator.id,
-      moa_id: moa.id,
-      moe_id: moe.id,
-      project_information_attributes: attributes_for(:project_information).merge({
-        site_manager_attributes: attributes_for(:site_manager),
-        team_manager_attributes: attributes_for(:team_manager)
-      }),
-      direcct_id: direcct.id,
-      regional_committee_id: regional_committee.id,
-      pension_insurance_id: pension_insurance.id,
-      work_medecine_id: work_medecine.id,
-      hospital_id: hospital.id,
-      sos_hand_id: sos_hand.id,
-      anti_poison_id: anti_poison.id,
-      user_id: user.id,
-      demining_id: demining.id
-      })
-    }
+    let(:params_ppsp) do
+      attributes_for(:ppsp).merge({
+                                    security_coordinator_id: security_coordinator.id,
+                                    moa_id: moa.id,
+                                    moe_id: moe.id,
+                                    project_information_attributes: attributes_for(:project_information).merge({
+                                                                                                                 site_manager_attributes: attributes_for(:site_manager),
+                                                                                                                 team_manager_attributes: attributes_for(:team_manager)
+                                                                                                               }),
+                                    worksite_attributes: attributes_for(:worksite),
+                                    direcct_id: direcct.id,
+                                    regional_committee_id: regional_committee.id,
+                                    pension_insurance_id: pension_insurance.id,
+                                    work_medecine_id: work_medecine.id,
+                                    hospital_id: hospital.id,
+                                    sos_hand_id: sos_hand.id,
+                                    anti_poison_id: anti_poison.id,
+                                    user_id: user.id,
+                                    demining_id: demining.id
+                                  })
+    end
 
     context 'Actions when you are the record owner' do
       before do
@@ -62,9 +65,9 @@ RSpec.describe "Ppsps Controller", type: :request do
         let(:update_action) { patch ppsp_path(@ppsp), params: { ppsp: params_ppsp } }
 
         it 'Update address of PPSP' do
-          params_ppsp[:address] = 'Update the address'
+          params_ppsp[:worksite_attributes][:address] = 'Update the address'
           update_action
-          expect(@ppsp.reload.address).to eq('Update the address')
+          expect(@ppsp.reload.worksite.address).to eq('Update the address')
         end
 
         it 'Redirect after update' do
@@ -83,7 +86,7 @@ RSpec.describe "Ppsps Controller", type: :request do
 
       let(:update_action) { patch ppsp_path(@ppsp), params: { ppsp: params_ppsp } }
 
-      it { expect{ update_action }.to raise_error(Pundit::NotAuthorizedError) }
+      it { expect { update_action }.to raise_error(Pundit::NotAuthorizedError) }
     end
   end
 end

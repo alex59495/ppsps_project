@@ -113,13 +113,12 @@ const App = () => {
     })
   }
 
-  const handleDelete = (id) => {
-    fetch(`${url}/api/v1/conductors/${id}`, {
+  const handleDelete = async (id) => {
+    await fetch(`${url}/api/v1/conductors/${id}`, {
       method: 'DELETE'
     }).then(response => {
       let count = trigger
-      count += 1
-      setTrigger(count)
+      setTrigger(count + 1)
     })
   }
   

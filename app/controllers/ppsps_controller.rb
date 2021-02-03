@@ -120,6 +120,7 @@ class PpspsController < ApplicationController
       create_selected_site_installations
       create_selected_altitude_works
       create_selected_conductors
+      create_selected_lifesavers
 
       redirect_to ppsp_path(@ppsp, format: :pdf)
     else
@@ -216,6 +217,7 @@ class PpspsController < ApplicationController
       create_selected_site_installations
       create_selected_altitude_works
       create_selected_conductors
+      create_selected_lifesavers
 
       redirect_to ppsp_path(@ppsp, format: :pdf)
     else
@@ -257,6 +259,16 @@ class PpspsController < ApplicationController
     @conductors.each do |conductor|
       conductor.ppsp = @ppsp
       conductor.save!
+    end
+  end
+
+  def create_selected_lifesavers
+    if params.require(:ppsp).key?(:lifesavers)
+      lifesavers = params.require(:ppsp).require(:lifesavers)
+      lifesavers.shift
+      lifesavers.each do |lifesaver_id|
+        SelectedLifesaver.create!(ppsp_id: @ppsp.id, worker_id: lifesaver_id)
+      end
     end
   end
 

@@ -24,10 +24,10 @@ class Api::V1::WorkersController < Api::V1::BaseController
     authorize @lifesavers
   end
 
-  def destroy
-    @selected_lifesavers_work = SelectedLifesaver.where(ppsp_id: params[:ppsps_id], lifesaver_id: params[:id]).first
-    authorize @selected_lifesavers_work
-    @selected_lifesavers_work.destroy
+  def destroy_selected_lifesavers
+    @selected_lifesavers = SelectedLifesaver.where(ppsp_id: params[:ppsps_id], worker_id: params[:lifesaver_id]).first
+    authorize @selected_lifesavers
+    @selected_lifesavers.destroy
     head :no_content
   end
 end

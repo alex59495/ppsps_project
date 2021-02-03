@@ -58,23 +58,19 @@ const App = () => {
       .then((data) => setSavedChoices(data));
   }
 
-  const handleRemove = (altitude_work) => {
-    fetch(
-      `${url}/api/v1/altitude_works/${altitude_work.id}/?ppsps_id=${ppspsId}`,
+  const handleRemove = async (altitude_work) => {
+    await fetch(
+      `${url}/api/v1/selected_altitudes/${altitude_work.id}/?ppsps_id=${ppspsId}`,
       {
         method: 'DELETE',
       }
     );
     let count = trigger
-    count =+ 1
-    setTrigger(count)
+    setTrigger(count + 1)
   };
-
+  
   useEffect(() => {
     fetchAltitudeWorksFormList();
-  }, []);
-
-  useEffect(() => {
     fetchSavedAltitudeWorks()
   }, [trigger]);
 

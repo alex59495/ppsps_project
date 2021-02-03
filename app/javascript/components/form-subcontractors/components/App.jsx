@@ -60,22 +60,18 @@ const App = () => {
 
   const handleRemove = async (subcontractor) => {
     await fetch(
-      `${url}/api/v1/subcontractors/${subcontractor.id}/?ppsps_id=${ppspsId}`,
+      `${url}/api/v1/selected_subcontractors/${subcontractor.id}/?ppsps_id=${ppspsId}`,
       {
         method: 'DELETE',
       }
     );
     let count = trigger
-    count =+ 1
-    setTrigger(count)
+    setTrigger(count + 1)
   };
 
   useEffect(() => {
     fetchSubcontractorsFormList();
-  }, []);
-
-  useEffect(() => {
-    fetchSavedSubcontractors
+    fetchSavedSubcontractors();
   }, [trigger]);
 
   return (

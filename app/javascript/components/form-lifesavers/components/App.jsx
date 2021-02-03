@@ -58,23 +58,19 @@ const App = () => {
       .then((data) => setSavedChoices(data));
   };
 
-  const handleRemove = (lifesaver) => {
-    fetch(
-      `${url}/api/v1/workers/lifesavers/${lifesaver.id}/?ppsps_id=${ppspsId}`,
+  const handleRemove = async (lifesaver) => {
+    await fetch(
+      `${url}/api/v1/selected_lifesavers/${lifesaver.id}/?ppsps_id=${ppspsId}`,
       {
         method: 'DELETE',
       }
     );
     let count = trigger
-    count =+ 1
-    setTrigger(count)
+    setTrigger(count + 1)
   };
-
+  
   useEffect(() => {
     fetchLifesaversFormList();
-  }, [])
-
-  useEffect(() => {
     fetchSavedLifesaver();
   }, [trigger]);
 

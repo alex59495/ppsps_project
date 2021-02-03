@@ -4,7 +4,6 @@ const FormInput = ({ name, id, responsible_name, work, handleClick, formList }) 
   <div
     className="form-check"
     id={`check_ppsp_subcontractors_${id}`}
-    key={id}
     onClick={(e) => handleClick(e)}
   >
     <input

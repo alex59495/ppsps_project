@@ -18,8 +18,8 @@ class Api::V1::RisksController < Api::V1::BaseController
     authorize @risks
   end
 
-  def destroy
-    @selected_risk = SelectedRisk.where(ppsp_id: params[:ppsps_id], risk_id: params[:id]).first
+  def destroy_selected_risks
+    @selected_risk = SelectedRisk.where(ppsp_id: params[:ppsps_id], risk_id: params[:risk_id]).first
     authorize @selected_risk
     @selected_risk.destroy
     head :no_content

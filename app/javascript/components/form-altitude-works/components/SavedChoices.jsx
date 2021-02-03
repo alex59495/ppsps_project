@@ -14,7 +14,7 @@ const SavedChoices = ({ altitude_works, handleRemove }) => {
     if (altitude_works.length > 0) {
       return (
         <p className="text-center">
-          Les types de travaux déjà intégrés à mon PPSPS
+          Les accès au chantier déjà intégrés à mon PPSPS
         </p>
       );
     }
