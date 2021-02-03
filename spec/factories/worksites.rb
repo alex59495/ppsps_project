@@ -7,6 +7,6 @@ FactoryBot.define do
     address { "MyString" }
     timetable_start { "MyString" }
     timetable_end { "MyString" }
-    electrical { false }
+    electrical { [true, false].sample }
   end
 end
