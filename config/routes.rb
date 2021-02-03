@@ -17,13 +17,6 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :api, defaults: { format: :json } do
-    namespace :v1 do
-      resources :conductors, only: [:index, :destroy]
-      post 'conductors/:machine_id/:worker_id', to: 'conductors#create'
-    end
-  end
-
   # API
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
@@ -31,13 +24,19 @@ Rails.application.routes.draw do
       resources :machines, only: [ :index ]
       resources :subcontractors, only: [ :index, :destroy ]
       get 'selected_subcontractors', to: 'subcontractors#selected_subcontractors'
-      resources :workers, only: [ :index ]
       resources :risks, only: [ :index, :destroy ]
       get 'selected_risks', to: 'risks#selected_risks'
       resources :altitude_works, only: [ :index, :destroy ]
       get 'selected_altitude_works', to: 'altitude_works#selected_altitude_works'
       resources :site_installations, only: [ :index, :destroy ]
       get 'selected_site_installations', to: 'site_installations#selected_site_installations'
+      resources :conductors, only: [:index, :destroy]
+      post 'conductor/:machine_id/:worker_id', to: 'conductors#create'
+
+      resources :workers, only: [:destroy]
+      get 'workers/conductors', to: 'workers#conductors'
+      get 'workers/lifesavers', to: 'workers#lifesavers'
+      get 'workers/selected_lifesavers', to: 'workers#selected_lifesavers'
     end
   end
 

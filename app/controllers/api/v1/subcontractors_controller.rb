@@ -1,8 +1,8 @@
 class Api::V1::SubcontractorsController < Api::V1::BaseController
   def index
-    # Renvois la liste des sous-traitants qui n'ont pas encore été sélectionnés
+    # Renvoie la liste des sous-traitants qui n'ont pas encore été sélectionnés
     if params[:ppsps_id] == ''
-      @subcontractors = policy_scope(Subcontractor.all)
+      @subcontractors = policy_scope(Subcontractor)
       authorize @subcontractors
     else
       selected_subcontractors = SelectedSubcontractor.where(ppsp_id: params[:ppsps_id])
@@ -23,5 +23,5 @@ class Api::V1::SubcontractorsController < Api::V1::BaseController
     authorize @selected_subcontractor
     @selected_subcontractor.destroy
     head :no_content
-  end
+  end  
 end

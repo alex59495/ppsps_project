@@ -13,11 +13,12 @@ import ReactDOM from 'react-dom';
 
 // Import react elements
 import reactPpsp from '../components/react-ppsp/index';
-import reactFormMachines from '../components/machines-form/index';
-import FormSubcontractors from '../components/form-subcontractors/index';
-import FormRisks from '../components/form-risks/index';
-import FormAltitudeWorks from '../components/form-altitude-work/index';
-import FormSiteInstallations from '../components/form-site-installation/index';
+import reactFromConductors from '../components/form-conductors/index';
+import reactFormSubcontractors from '../components/form-subcontractors/index';
+import reactFormRisks from '../components/form-risks/index';
+import reactFormAltitudeWorks from '../components/form-altitude-works/index';
+import reactFormSiteInstallations from '../components/form-site-installations/index';
+import reactFormLifesaver from '../components/form-lifesavers/index';
 
 // import { AutoCompleteGeocoding } from "../components/autocomplete"
 // La clé API pour l'utilisation de l'autocomplete Geocoding se trouve dans config/application.yml
@@ -60,12 +61,13 @@ document.addEventListener('turbolinks:load', () => {
   logoClient();
 
   // React
-  reactFormMachines();
+  reactFromConductors();
   reactPpsp();
-  FormSubcontractors();
-  FormRisks();
-  FormAltitudeWorks();
-  FormSiteInstallations();
+  reactFormSubcontractors();
+  reactFormRisks();
+  reactFormAltitudeWorks();
+  reactFormSiteInstallations();
+  reactFormLifesaver();
 
   // initMapbox(); Pas nécessaire pour le moment
 });

@@ -53,9 +53,9 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       regional_committee = create(:regional_committee, company: @user.company)
       sos_hand = create(:sos_hand, company: @user.company)
       security_coordinator = create(:security_coordinator, company: @user.company)
-      # create_list(:subcontractor, 3, company: @user.company)
       @ppsp = create(:ppsp, user: @user, moa: moa, moe: moe, direcct: direcct, work_medecine: work_medecine, hospital: hospital, pension_insurance: pension_insurance,
-                            demining: demining, anti_poison: anti_poison, regional_committee: regional_committee, sos_hand: sos_hand, security_coordinator: security_coordinator)
+                            demining: demining, anti_poison: anti_poison, regional_committee: regional_committee, sos_hand: sos_hand,
+                            security_coordinator: security_coordinator)
     end
 
     before do
@@ -95,12 +95,14 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
     scenario 'Complete and Submit the PPSP' do
       count = Ppsp.includes(:user).where(users: { company: @user.company }).count
       visit(new_ppsp_path)
-      fill_in('ppsp_address', with: 'Test adresse')
-      fill_in('ppsp_nature', with: 'Test de nature')
-      fill_in('ppsp_workforce', with: 'Test de personnel')
+      fill_in('ppsp_worksite_attributes_address', with: 'Test adresse')
+      fill_in('ppsp_worksite_attributes_nature', with: 'Test de nature')
+      fill_in('ppsp_worksite_attributes_workforce', with: 'Test de personnel')
       # complete the flatpickr date
       page.execute_script("$('#range_start').val('2020-12-12')")
       fill_in('range_end', with: Date.today.next_day.next_month.next_month.to_s)
+      fill_in('ppsp_worksite_attributes_timetable_start', with: '8h30')
+      fill_in('ppsp_worksite_attributes_timetable_end', with: '8h30')
       find('#ppsp_moa_id').find(:xpath, 'option[2]').select_option
       find('#ppsp_moe_id').find(:xpath, 'option[2]').select_option
       fill_in('ppsp_project_information_attributes_reference', with: "ABRFH78")
@@ -131,11 +133,6 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       # A refacto
       sleep 5
       expect(Ppsp.includes(:user).where(users: { company: @user.company }).count).to eq(count + 1)
-    end
-
-    scenario 'Show Page have content' do
-      visit(ppsp_path(@ppsp))
-      expect(page).to have_content('Plan Particulier de Sécurité et de Protection de la Santé')
     end
 
     scenario 'Open a new tab when click on PDF' do

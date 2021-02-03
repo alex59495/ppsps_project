@@ -12,7 +12,7 @@ import App from './components/App';
 //   selectedPpsps: reducerPpsps
 // });
 
-const FormSubcontractors = () => {
+const reactFormSubcontractors = () => {
   // Identify the user you're visiting (show page) = currrent_user
   if (document.getElementById('react-render-subcontractors')) {
     // render an instance of the component in the DOM
@@ -23,4 +23,4 @@ const FormSubcontractors = () => {
   }
 };
 
-export default FormSubcontractors;
+export default reactFormSubcontractors;

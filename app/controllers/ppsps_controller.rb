@@ -250,18 +250,22 @@ class PpspsController < ApplicationController
 
   private
 
+  # On regarde quels sont les Tables jointes des conducteurs (associé au current_user) qui n'ont pas encore de PPSP
+  # et on leur associe le PPSP qui vient d'être créé
   def create_selected_conductors
-    @conductors = policy_scope(Conductor.all)
+    @conductors = policy_scope(Conductor.all.where(ppsp_id: nil))
     @conductors.each do |conductor|
-      conductor.ppsp = @ppsp if @conductors.any?
+      conductor.ppsp = @ppsp
+      conductor.save!
     end
   end
 
   def create_selected_subcontractors
     if params.require(:ppsp).key?(:subcontractors)
       subcontractors = params.require(:ppsp).require(:subcontractors)
+      subcontractors.shift
       subcontractors.each do |subcontractor_id|
-        SelectedSubcontractor.create(ppsp_id: @ppsp.id, subcontractor_id: subcontractor_id)
+        SelectedSubcontractor.create!(ppsp_id: @ppsp.id, subcontractor_id: subcontractor_id)
       end
     end
   end
@@ -271,7 +275,7 @@ class PpspsController < ApplicationController
       risks = params.require(:ppsp).require(:risks)
       risks.shift
       risks.each do |risk_id|
-        SelectedRisk.create(ppsp_id: @ppsp.id, risk_id: risk_id)
+        SelectedRisk.create!(ppsp_id: @ppsp.id, risk_id: risk_id)
       end
     end
   end
@@ -281,7 +285,7 @@ class PpspsController < ApplicationController
       site_installations = params.require(:ppsp).require(:site_installations)
       site_installations.shift
       site_installations.each do |site_installation_id|
-        SelectedInstallation.create(ppsp_id: @ppsp.id, site_installation_id: site_installation_id)
+        SelectedInstallation.create!(ppsp_id: @ppsp.id, site_installation_id: site_installation_id)
       end
     end
   end
@@ -291,7 +295,7 @@ class PpspsController < ApplicationController
       altitude_works = params.require(:ppsp).require(:altitude_works)
       altitude_works.shift
       altitude_works.each do |altitude_work_id|
-        SelectedAltitude.create(ppsp_id: @ppsp.id, altitude_work_id: altitude_work_id)
+        SelectedAltitude.create!(ppsp_id: @ppsp.id, altitude_work_id: altitude_work_id)
       end
     end
   end
@@ -318,9 +322,8 @@ class PpspsController < ApplicationController
   end
 
   def params_ppsp
-    params.require(:ppsp).permit(:address, :start_date, :end_date, :nature, :workforce, :agglomeration,
-                                 :street_impact, :river_guidance, :moa_id, :moe_id, :security_coordinator_id,
-                                 :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
+    params.require(:ppsp).permit(:agglomeration, :river_guidance, :moa_id, :moe_id, :security_coordinator_id,
+                                 :street_impact, :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
                                  :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, :logo_client, :content_secu, annexes: [],
                                                                                                                          worksite_attributes: %i[address start_date end_date timetable_start timetable_end workforce electrical nature],
                                                                                                                          project_information_attributes: [:reference, :responsible, :phone, :email,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_03_084700) do
+ActiveRecord::Schema.define(version: 2021_02_03_130017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -252,6 +252,15 @@ ActiveRecord::Schema.define(version: 2021_02_03_084700) do
     t.index ["site_installation_id"], name: "index_selected_installations_on_site_installation_id"
   end
 
+  create_table "selected_lifesavers", force: :cascade do |t|
+    t.bigint "ppsp_id", null: false
+    t.bigint "worker_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ppsp_id"], name: "index_selected_lifesavers_on_ppsp_id"
+    t.index ["worker_id"], name: "index_selected_lifesavers_on_worker_id"
+  end
+
   create_table "selected_risks", force: :cascade do |t|
     t.bigint "ppsp_id", null: false
     t.bigint "risk_id", null: false
@@ -405,6 +414,8 @@ ActiveRecord::Schema.define(version: 2021_02_03_084700) do
   add_foreign_key "project_informations", "team_managers"
   add_foreign_key "regional_committees", "companies"
   add_foreign_key "security_coordinators", "companies"
+  add_foreign_key "selected_lifesavers", "ppsps"
+  add_foreign_key "selected_lifesavers", "workers"
   add_foreign_key "selected_risks", "ppsps"
   add_foreign_key "selected_risks", "risks"
   add_foreign_key "selected_subcontractors", "ppsps"

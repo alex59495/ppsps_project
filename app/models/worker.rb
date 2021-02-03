@@ -1,6 +1,7 @@
 class Worker < ApplicationRecord
   belongs_to :company
   has_many :conductors
+  has_many :selected_lifesavers
   validates :lifesaver, inclusion: { in: [true, false] }
   validates :conductor, inclusion: { in: [true, false] }
   validates :first_name, presence: true

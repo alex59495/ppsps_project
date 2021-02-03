@@ -1,8 +1,8 @@
 class Api::V1::AltitudeWorksController < Api::V1::BaseController
   def index
-    # Renvois la liste des sous-traitants qui n'ont pas encore été sélectionnés
+    # Renvoie la liste des altitude_works qui n'ont pas encore été sélectionnés
     if params[:ppsps_id] == ''
-      @altitude_works = policy_scope(AltitudeWork.all)
+      @altitude_works = policy_scope(AltitudeWork)
       authorize @altitude_works
     else
       selected_altitude_works = SelectedAltitude.where(ppsp_id: params[:ppsps_id])
@@ -12,7 +12,7 @@ class Api::V1::AltitudeWorksController < Api::V1::BaseController
   end
 
   def selected_altitude_works
-    # Renvois la liste des sous-traitants aui ont déjà été sĺectionnés
+    # Renvois la liste des altitude_works aui ont déjà été sĺectionnés
     selected_altitude_works = SelectedAltitude.where(ppsp_id: params[:ppsps_id])
     @altitude_works = policy_scope(AltitudeWork).where(id: selected_altitude_works.map(&:altitude_work_id))
     authorize @altitude_works

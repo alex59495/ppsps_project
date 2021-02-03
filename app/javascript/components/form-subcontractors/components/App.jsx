@@ -7,6 +7,7 @@ const App = () => {
   const [formList, setFormList] = useState([]);
   const [addList, setAddList] = useState([]);
   const [savedChoices, setSavedChoices] = useState([]);
+  const [trigger, setTrigger] = useState(0);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -49,6 +50,14 @@ const App = () => {
       .then((data) => setFormList(data));
   };
 
+  const fetchSavedSubcontractors = () => {
+    fetch(`${url}/api/v1/selected_subcontractors?ppsps_id=${ppspsId}`, {
+      method: 'GET',
+    })
+      .then((response) => response.json())
+      .then((data) => setSavedChoices(data));
+  }
+
   const handleRemove = async (subcontractor) => {
     await fetch(
       `${url}/api/v1/subcontractors/${subcontractor.id}/?ppsps_id=${ppspsId}`,
@@ -56,20 +65,18 @@ const App = () => {
         method: 'DELETE',
       }
     );
-    fetchSubcontractorsFormList();
+    let count = trigger
+    count =+ 1
+    setTrigger(count)
   };
-
-  useEffect(() => {
-    fetch(`${url}/api/v1/selected_subcontractors?ppsps_id=${ppspsId}`, {
-      method: 'GET',
-    })
-      .then((response) => response.json())
-      .then((data) => setSavedChoices(data));
-  }, [formList]);
 
   useEffect(() => {
     fetchSubcontractorsFormList();
   }, []);
+
+  useEffect(() => {
+    fetchSavedSubcontractors
+  }, [trigger]);
 
   return (
     <>

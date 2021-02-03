@@ -12,7 +12,7 @@ import App from './components/App';
 //   selectedPpsps: reducerPpsps
 // });
 
-const FormRisks = () => {
+const reactFormRisks = () => {
   // Identify the user you're visiting (show page) = currrent_user
   if (document.getElementById('react-render-risks')) {
     // render an instance of the component in the DOM
@@ -20,4 +20,4 @@ const FormRisks = () => {
   }
 };
 
-export default FormRisks;
+export default reactFormRisks;

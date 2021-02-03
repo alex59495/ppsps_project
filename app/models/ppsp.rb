@@ -19,7 +19,7 @@ class Ppsp < ApplicationRecord
   belongs_to :security_coordinator, optional: true
   belongs_to :worksite, inverse_of: :ppsps
   accepts_nested_attributes_for :worksite
-  has_many :conductors
+  has_many :conductors, dependent: :destroy
   has_many :selected_subcontractors, dependent: :destroy
   has_many :subcontractors, through: :selected_subcontractors
   has_many :selected_installations, dependent: :destroy
@@ -28,6 +28,8 @@ class Ppsp < ApplicationRecord
   has_many :altitude_works, through: :selected_altitudes
   has_many :selected_risks, dependent: :destroy
   has_many :risks, through: :selected_risks
+  has_many :selected_lifesavers, dependent: :destroy
+  has_many :workers, through: :lifesavers
   validates :agglomeration, presence: true
   validates :street_impact, presence: true
   validates :river_guidance, presence: true

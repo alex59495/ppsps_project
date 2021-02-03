@@ -16,7 +16,7 @@ class WorkerPolicy < ApplicationPolicy
   def destroyed?
     user.admin
   end
-  
+
   def edit?
     user.admin
   end
@@ -27,5 +27,17 @@ class WorkerPolicy < ApplicationPolicy
 
   def pagination?
     index?
+  end
+
+  def selected_lifesavers?
+    true
+  end
+
+  def conductors?
+    true
+  end
+
+  def lifesavers?
+    true
   end
 end

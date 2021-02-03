@@ -5,10 +5,146 @@
       <h2 class="col-12 form-title">
         Renseignements administratifs
       </h2>
+      <%= f.simple_fields_for :project_information, @project_information do |h| %>
+        <div class="col-md-6 offset-md-3">
+          <%= h.input :reference, label: "Référence du projet", placeholder: "B 484..." %>
+        </div>
+        <div class="col-md-6 offset-md-3">
+          <%= h.input :responsible, label: "Responsable", placeholder: "Entrez le nom du responsable..." %>
+        </div>
+        <div class="col-md-6 offset-md-3">
+          <%= h.input :phone, label: "Téléphone", placeholder: "Entrez le numéro de téléphone du responsable..." %>
+        </div>
+        <div class="col-md-6 offset-md-3">
+          <%= h.input :email, label: "Email", placeholder: "Entrez l'email du responsable..."  %>
+        </div>
+        <%= h.simple_fields_for :site_manager, @site_manager do |j| %>
+          <div class="col-md-6 offset-md-3">
+            <%= j.input :name, label: "Chef de chantier", placeholder: "Entrez le nom du chef de chantier..."  %>
+          </div>
+          <div class="col-md-6 offset-md-3">
+            <%= j.input :phone, label: "Téléphone", placeholder: "Entrez le numéro de téléphone du chef de chantier..."  %>
+          </div>
+          <div class="col-md-6 offset-md-3">  
+            <%= j.input :email, label: "Email", placeholder: "Entrez l'email du chef de chantier..."  %>
+          </div>
+        <% end %>
+        <%= h.simple_fields_for :team_manager, @team_manager do |k| %>
+        <div class="col-md-6 offset-md-3">
+          <%= k.input :name, label: "Chef d'équipe", placeholder: "Entrez le nom du chef d'équipe..." %>
+        </div>
+        <div class="col-md-6 offset-md-3">
+          <%= k.input :phone, label: "Téléphone", placeholder: "Entrez le numéro de téléphone du chef d'équipe..."  %>
+        </div>
+        <div class="col-md-6 offset-md-3">
+          <%= k.input :email, label: "Email", placeholder: "Entrez l'email du chef d'équipe..." %>
+        </div>
+        <% end %>
+      <% end %>
 
       <h3 class="col-12 form-subtitle">
-        Chantier
+        Les sous-traitants
       </h3>
+      <div class="col-md-10 offset-md-1">
+        <div class="container-header-form">
+          Ajouter des sous-traitants
+          <% if policy(Subcontractor).create? %>
+            <%= render 'btn_add_database', data: 'Subcontractor' %>
+          <% end %>
+        </div>
+        <div id="react-render-subcontractors" data-ppsps_id=<%=@ppsp.id%>></div>
+      </div>
+
+      <h3 class="col-12 form-subtitle">
+        Les correspondants
+      </h3>
+      <div class="col-md-6">
+        <div class="form-group select required ppsp_moa_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
+            <% if policy(Moa).new? %>
+              <%= render 'btn_add_database', data: 'Moa' %>
+            <% end %>
+          </div>
+          <%= f.input :moa_id, as: :select, label: false, collection: @moas, label_method: lambda {|x| "#{x.name} - #{x.representative}"}, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group select required ppsp_moe_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_moe_id">MOE <abbr title="required">*</abbr></label>
+            <% if policy(Moe).new? %>
+              <%= render 'btn_add_database', data: 'Moe' %>
+            <% end %>
+          </div>
+          <%= f.input :moe_id, as: :select, label: false, collection: @moes, label_method: lambda {|x| "#{x.name} - #{x.representative}"}, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+
+      <h3 class="col-12 form-subtitle container-header-for">
+        Le Coordonnateur Sécurité<i style='font-size: 0.7em; margin-left: 8px;'>(laissez vide si il n'y en a pas)</i>
+        <% if policy(SecurityCoordinator).new? %>
+          <%= render 'btn_add_database', data: 'SecurityCoordinator' %>
+        <% end %>
+      </h3>
+      <div class="col-md-6 offset-md-3">
+        <div class="form-group select required ppsp_security_coordinator_id">
+          <%= f.input :security_coordinator_id, as: :select, collection: @security_coordinators, label: false, label_method: lambda { |x| "#{x.name} - #{x.representative}" }, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+
+      <h3 class="col-12 form-subtitle">
+        Organismes de prévention
+      </h3>
+      <div class="col-md-6 offset-md-3">
+        <div class="form-group select required ppsp_regional_committee_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_regional_committee_id">Comité régional de l'OPPBTP <abbr title="required">*</abbr></label>
+            <% if policy(RegionalCommittee).create? %>
+               <%= render 'btn_add_database', data: 'RegionalCommittee' %>
+            <% end %>
+          </div>
+          <%= f.input :regional_committee_id, as: :select, label: false, collection: @regional_committees, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+      <div class="col-md-6 offset-md-3">
+        <div class="form-group select required ppsp_pension_insurance_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_pension_insurance_id">Caisse d'assurance retraite <abbr title="required">*</abbr></label>
+            <% if policy(PensionInsurance).create? %>
+              <%= render 'btn_add_database', data: 'PensionInsurance' %>
+            <% end %>
+          </div>
+          <%= f.input :pension_insurance_id, as: :select, label: false, collection: @pension_insurances, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+      <div class="col-md-6 offset-md-3">
+        <div class="form-group select required ppsp_direcct_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_direcct_id">DIRECCT <abbr title="required">*</abbr></label>
+            <% if policy(Direcct).create? %>
+              <%= render 'btn_add_database', data: 'Direcct' %>
+            <% end %>
+          </div>
+          <%= f.input :direcct_id, as: :select, label: false, collection: @direccts, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+      <div class="col-md-6 offset-md-3">
+        <div class="form-group select required ppsp_work_medecine_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_work_medecine_id">Médecine du travail <abbr title="required">*</abbr></label>
+            <% if policy(WorkMedecine).create? %>
+              <%= render 'btn_add_database', data: 'WorkMedecine' %>
+            <% end %>
+          </div>
+          <%= f.input :work_medecine_id, as: :select, label: false, collection: @work_medecines, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+
+
+      <h2 class="col-12 form-title">
+        Chantier
+      </h2>
       <%= f.simple_fields_for :worksite, @worksite do |w| %>
         <div class="col-md-6 offset-md-3">
           <%= w.input :address, label: "Adresse", placeholder: "Indiquez une adresse..." %>
@@ -71,124 +207,50 @@
           <%= w.input :electrical, label: "Installation électrique sur le chantier", placeholder: "1 Chef de chantier, 2 ouvriers..." %>
         </div>
       <% end %>
-      <div class="col-md-6">
-        <div class="form-group select required ppsp_moa_id">
-          <div class="container-header-form">
-            <label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
-            <% if policy(Moa).new? %>
-              <%= render 'btn_add_database', data: 'Moa' %>
-            <% end %>
-          </div>
-          <%= f.input :moa_id, as: :select, label: false, collection: @moas, label_method: lambda {|x| "#{x.name} - #{x.representative}"}, input_html: {class: "select-2"} %>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group select required ppsp_moe_id">
-          <div class="container-header-form">
-            <label class="select required" for="ppsp_moe_id">MOE <abbr title="required">*</abbr></label>
-            <% if policy(Moe).new? %>
-              <%= render 'btn_add_database', data: 'Moe' %>
-            <% end %>
-          </div>
-          <%= f.input :moe_id, as: :select, label: false, collection: @moes, label_method: lambda {|x| "#{x.name} - #{x.representative}"}, input_html: {class: "select-2"} %>
-        </div>
-      </div>
-      <%= f.simple_fields_for :project_information, @project_information do |h| %>
-        <div class="col-md-6 offset-md-3">
-          <%= h.input :reference, label: "Référence du projet", placeholder: "B 484..." %>
-        </div>
-        <div class="col-md-6 offset-md-3">
-          <%= h.input :responsible, label: "Responsable", placeholder: "Entrez le nom du responsable..." %>
-        </div>
-        <div class="col-md-6 offset-md-3">
-          <%= h.input :phone, label: "Téléphone", placeholder: "Entrez le numéro de téléphone du responsable..." %>
-        </div>
-        <div class="col-md-6 offset-md-3">
-          <%= h.input :email, label: "Email", placeholder: "Entrez l'email du responsable..."  %>
-        </div>
-        <%= h.simple_fields_for :site_manager, @site_manager do |j| %>
-          <div class="col-md-6 offset-md-3">
-            <%= j.input :name, label: "Chef de chantier", placeholder: "Entrez le nom du chef de chantier..."  %>
-          </div>
-          <div class="col-md-6 offset-md-3">
-            <%= j.input :phone, label: "Téléphone", placeholder: "Entrez le numéro de téléphone du chef de chantier..."  %>
-          </div>
-          <div class="col-md-6 offset-md-3">  
-            <%= j.input :email, label: "Email", placeholder: "Entrez l'email du chef de chantier..."  %>
-          </div>
-        <% end %>
-        <%= h.simple_fields_for :team_manager, @team_manager do |k| %>
-        <div class="col-md-6 offset-md-3">
-          <%= k.input :name, label: "Chef d'équipe", placeholder: "Entrez le nom du chef d'équipe..." %>
-        </div>
-        <div class="col-md-6 offset-md-3">
-          <%= k.input :phone, label: "Téléphone", placeholder: "Entrez le numéro de téléphone du chef d'équipe..."  %>
-        </div>
-        <div class="col-md-6 offset-md-3">
-          <%= k.input :email, label: "Email", placeholder: "Entrez l'email du chef d'équipe..." %>
-        </div>
-        <% end %>
-      <% end %>
-      <div class="col-md-6 offset-md-3">
-        <div class="form-group select required ppsp_security_coordinator_id">
-          <div class="container-header-form">
-            <label class="select required" for="ppsp_security_coordinator_id">Coordinateur sécurité <i style='font-size: 0.8em'>(laissez vide si il n'y en a pas)</i></label>
-            <% if policy(SecurityCoordinator).new? %>
-              <%= render 'btn_add_database', data: 'SecurityCoordinator' %>
-            <% end %>
-          </div>
-          <%= f.input :security_coordinator_id, as: :select, collection: @security_coordinators, label: false, label_method: lambda { |x| "#{x.name} - #{x.representative}" }, input_html: {class: "select-2"} %>
-        </div>
+      <div class="col-md-10 offset-md-1">
+        <div id="react-render-risks" data-ppsps_id=<%=@ppsp.id%>></div>
+
+        <div id="react-render-site-installations" data-ppsps_id=<%=@ppsp.id%>></div>
+
+        <div id="react-render-altitude-works" data-ppsps_id=<%=@ppsp.id%>></div>
+
+        <div class='col-12' id="conductors-form-react" data-ppsps_id=<%=@ppsp.id%>></div>
+
       </div>
 
       <h3 class="col-12 form-subtitle">
-        Organismes de prévention
-      </h3>
-      <div class="col-md-6 offset-md-3">
-        <div class="form-group select required ppsp_regional_committee_id">
-          <div class="container-header-form">
-            <label class="select required" for="ppsp_regional_committee_id">Comité régional de l'OPPBTP <abbr title="required">*</abbr></label>
-            <% if policy(RegionalCommittee).create? %>
-               <%= render 'btn_add_database', data: 'RegionalCommittee' %>
-            <% end %>
-          </div>
-          <%= f.input :regional_committee_id, as: :select, label: false, collection: @regional_committees, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
-        </div>
+        Signalisation
       </div>
       <div class="col-md-6 offset-md-3">
-        <div class="form-group select required ppsp_pension_insurance_id">
-          <div class="container-header-form">
-            <label class="select required" for="ppsp_pension_insurance_id">Caisse d'assurance retraite <abbr title="required">*</abbr></label>
-            <% if policy(PensionInsurance).create? %>
-              <%= render 'btn_add_database', data: 'PensionInsurance' %>
-            <% end %>
-          </div>
-          <%= f.input :pension_insurance_id, as: :select, label: false, collection: @pension_insurances, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
-        </div>
+        <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
       </div>
       <div class="col-md-6 offset-md-3">
-        <div class="form-group select required ppsp_direcct_id">
-          <div class="container-header-form">
-            <label class="select required" for="ppsp_direcct_id">DIRECCT <abbr title="required">*</abbr></label>
-            <% if policy(Direcct).create? %>
-              <%= render 'btn_add_database', data: 'Direcct' %>
-            <% end %>
-          </div>
-          <%= f.input :direcct_id, as: :select, label: false, collection: @direccts, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
-        </div>
+        <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>
       </div>
       <div class="col-md-6 offset-md-3">
-        <div class="form-group select required ppsp_work_medecine_id">
-          <div class="container-header-form">
-            <label class="select required" for="ppsp_work_medecine_id">Médecine du travail <abbr title="required">*</abbr></label>
-            <% if policy(WorkMedecine).create? %>
-              <%= render 'btn_add_database', data: 'WorkMedecine' %>
-            <% end %>
-          </div>
-          <%= f.input :work_medecine_id, as: :select, label: false, collection: @work_medecines, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
+        <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
+      </div>
+      <div class="col-md-6 offset-md-3">
+      <%= f.input :logo_client, label: "Logo du client (si disponible)", disabled: @ppsp.logo_client.attached? %>
+      <img id="newLogo" class='icon-logo' style='display: none'>
+      <div class='btn-delete' id="removeUpload" style='display: none;'>Annuler</div>
+        <div class="render-logo">
+          <%= render 'render_logo_client' %>
         </div>
       </div>
-      <h4 class="col-12 form-subtitle">
+
+
+      <h2 class="col-12 form-title">
+        Dispositifs en matière de secours et d'évacuation
+      </h2>
+
+      <h3 class="col-12 form-subtitle">
+        Liste des SSP
+      </h4>
+      
+      <div id="react-render-lifesavers" data-ppsps_id=<%=@ppsp.id%>></div>
+
+      <h3 class="col-12 form-subtitle">
         Services extérieurs
       </h4>
       <div class="col-md-6 offset-md-3">
@@ -235,50 +297,6 @@
           <%= f.input :hospital_id, as: :select, collection: @hospitals, label: false, label_method: lambda { |x| "#{x.name}"}, input_html: {class: "select-2"} %>
         </div>
       </div>
-      <div class="col-12 form-title">
-        Signalisation
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
-      </div>
-      <div class="col-md-6 offset-md-3">
-      <%= f.input :logo_client, label: "Logo du client (si disponible)", disabled: @ppsp.logo_client.attached? %>
-      <img id="newLogo" class='icon-logo' style='display: none'>
-      <div class='btn-delete' id="removeUpload" style='display: none;'>Annuler</div>
-        <div class="render-logo">
-          <%= render 'render_logo_client' %>
-        </div>
-      </div>
-
-      <div class='col-12' id="conductors-form-react"></div>
-
-
-      <div class="col-12 form-title">
-        Les sous-traitants
-      </div>
-      <div class="col-md-10 offset-md-1">
-        <div class="container-header-form">
-          Ajouter des sous-traitants
-          <% if policy(Subcontractor).create? %>
-            <%= render 'btn_add_database', data: 'Subcontractor' %>
-          <% end %>
-        </div>
-
-        <div id="react-render-subcontractors" data-ppsps_id=<%=@ppsp.id%>></div>
-
-        <div id="react-render-risks" data-ppsps_id=<%=@ppsp.id%>></div>
-
-        <div id="react-render-site-installations" data-ppsps_id=<%=@ppsp.id%>></div>
-
-        <div id="react-render-altitude-works" data-ppsps_id=<%=@ppsp.id%>></div>
-
-      </div>
 
       <div class="col-12 form-title">
         Les informations sécurité de l'entreprise
@@ -288,6 +306,8 @@
         <%= f.text_area :content_secu, class: 'tinymce', 'data-company_secu': current_user.company.content_secu, 'data-ppsp_secu': @ppsp_content_secu %>
         <%= tinymce %>
       </div>
+
+
       <div class="col-md-6 offset-md-3 mt-3">
         <%= f.input :annexes, label: "Annexes (si besoin)", input_html: { multiple: true } %>
         <p class="text-alert">Vous pouvez maintenir la touche CTRL enfoncée lors de la sélection pour choisir plusieurs fichiers</p>
@@ -297,6 +317,8 @@
           <%= render 'render_annexes' %>
         </div>
       <% end %>
+
+
       <div class="col-md-6 offset-md-3 offset-3 offset-md-5 mt-5">
         <%= f.submit "J'ai terminé", class: 'btn-blue' %>
       </div>
