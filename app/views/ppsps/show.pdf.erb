@@ -43,11 +43,11 @@
           </div>
           <div class="container-50 mb-2">
             <div class="flexbox">
-              <div class="flex-div-40">Lieu du chantier :</div><div class="flex-div-60"><%= @ppsp.address %></div>
-              <div class="flex-div-40">Date de début : </div><div class="flex-div-60"><%= @ppsp.start_date %></div>
-              <div class="flex-div-40">Date de fin : </div><div class="flex-div-60"><%= @ppsp.end_date %></div>
-              <div class="flex-div-40">Nature des travaux : </div><div class="flex-div-60"><%= @ppsp.nature %></div>
-              <div class="flex-div-40">Moyens humains : </div><div class="flex-div-60"><%= @ppsp.workforce %></div>
+              <div class="flex-div-40">Lieu du chantier :</div><div class="flex-div-60"><%= @ppsp.worksite.address %></div>
+              <div class="flex-div-40">Date de début : </div><div class="flex-div-60"><%= @ppsp.worksite.start_date %></div>
+              <div class="flex-div-40">Date de fin : </div><div class="flex-div-60"><%= @ppsp.worksite.end_date %></div>
+              <div class="flex-div-40">Nature des travaux : </div><div class="flex-div-60"><%= @ppsp.worksite.nature %></div>
+              <div class="flex-div-40">Moyens humains : </div><div class="flex-div-60"><%= @ppsp.worksite.workforce %></div>
             </div>
           </div>
         </div>

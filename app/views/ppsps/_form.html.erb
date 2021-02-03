@@ -2,63 +2,75 @@
   <%= link_to "Revenir à mes PPSP", ppsps_path, class: 'link' %>
   <%= simple_form_for @ppsp, remote: true do |f| %>
     <div class="row">
-      <div class="col-12 form-title">
+      <h2 class="col-12 form-title">
+        Renseignements administratifs
+      </h2>
+
+      <h3 class="col-12 form-subtitle">
         Chantier
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <%= f.input :address, label: "Adresse", placeholder: "Indiquez une adresse..." %>
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <div class="container-calendar">
-          <div class="calendar-box">
-            <div class="title">
-              Début
-            </div>
-            <div class="date">
-            <%= f.input :start_date, label: false, as: :string, input_html: {id: 'range_start'}, require: true %>
-              <div class="date-day-month">
-                <div id="start-day-calendar" class="day">
-                  <%= Date.today.to_formatted_s(:short).split(" ").first %>
+      </h3>
+      <%= f.simple_fields_for :worksite, @worksite do |w| %>
+        <div class="col-md-6 offset-md-3">
+          <%= w.input :address, label: "Adresse", placeholder: "Indiquez une adresse..." %>
+        </div>
+        <div class="col-md-6 offset-md-3">
+          <div class="container-calendar">
+            <div class="calendar-box">
+              <div class="title">
+                Début
+              </div>
+              <div class="date">
+              <%= w.input :start_date, label: false, as: :string, input_html: {id: 'range_start'}, require: true %>
+                <div class="date-day-month">
+                  <div id="start-day-calendar" class="day">
+                    <%= Date.today.to_formatted_s(:short).split(" ").first %>
+                  </div>
+                  <div id="start-month-calendar" class="month">
+                    <%= Date.today.to_formatted_s(:short).split(" ").last %>
+                  </div>
                 </div>
-                <div id="start-month-calendar" class="month">
-                  <%= Date.today.to_formatted_s(:short).split(" ").last %>
+                <div id="start-year-calendar" class="year">
+                  <%= Date.today.to_formatted_s(:long).split(" ").last%>
                 </div>
               </div>
-              <div id="start-year-calendar" class="year">
-                <%= Date.today.to_formatted_s(:long).split(" ").last%>
-              </div>
             </div>
-          </div>
-          <div class="calendar-box">
-            <div class="title">
-              Fin
-            </div>
-            <div class="date">
-            <%= f.input :end_date, label: false, as: :string, input_html: {id: 'range_end'}, require: true %>
-              <div class="date-day-month">
-                <div id="end-day-calendar" class="day">
-                  <%= Date.today.to_formatted_s(:short).split(" ").first %>
-                </div>
-                <div id="end-month-calendar" class="month">
-                  <%= Date.today.to_formatted_s(:short).split(" ").last %>
-                </div>
+            <div class="calendar-box">
+              <div class="title">
+                Fin
               </div>
-              <div id="end-year-calendar" class="year">
-                <%= Date.today.to_formatted_s(:long).split(" ").last%>
+              <div class="date">
+              <%= w.input :end_date, label: false, as: :string, input_html: {id: 'range_end'}, require: true %>
+                <div class="date-day-month">
+                  <div id="end-day-calendar" class="day">
+                    <%= Date.today.to_formatted_s(:short).split(" ").first %>
+                  </div>
+                  <div id="end-month-calendar" class="month">
+                    <%= Date.today.to_formatted_s(:short).split(" ").last %>
+                  </div>
+                </div>
+                <div id="end-year-calendar" class="year">
+                  <%= Date.today.to_formatted_s(:long).split(" ").last%>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <%= f.input :nature, label: "Nature du travail", placeholder: "Description des travaux..." %>
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <%= f.input :workforce, label: "Personnel impliqué", placeholder: "1 Chef de chantier, 2 ouvriers..." %>
-      </div>
-      <div class="col-12 form-title">
-        Renseignements Administratifs
-      </div>
+        <div class="col-md-6 offset-md-3">
+          <%= w.input :nature, label: "Nature du travail", placeholder: "Description des travaux..." %>
+        </div>
+        <div class="col-md-6 offset-md-3">
+          <%= w.input :workforce, label: "Personnel impliqué", placeholder: "1 Chef de chantier, 2 ouvriers..." %>
+        </div>
+        <div class="col-md-6 offset-md-3">
+          <%= w.input :timetable_start, label: "Horaires de début de chantier", placeholder: "1 Chef de chantier, 2 ouvriers..." %>
+        </div>
+        <div class="col-md-6 offset-md-3">
+          <%= w.input :timetable_end, label: "Horaires de fin de chantier", placeholder: "1 Chef de chantier, 2 ouvriers..." %>
+        </div>
+        <div class="col-md-6 offset-md-3">
+          <%= w.input :electrical, label: "Installation électrique sur le chantier", placeholder: "1 Chef de chantier, 2 ouvriers..." %>
+        </div>
+      <% end %>
       <div class="col-md-6">
         <div class="form-group select required ppsp_moa_id">
           <div class="container-header-form">
@@ -128,9 +140,10 @@
           <%= f.input :security_coordinator_id, as: :select, collection: @security_coordinators, label: false, label_method: lambda { |x| "#{x.name} - #{x.representative}" }, input_html: {class: "select-2"} %>
         </div>
       </div>
-      <div class="col-12 form-title">
+
+      <h3 class="col-12 form-subtitle">
         Organismes de prévention
-      </div>
+      </h3>
       <div class="col-md-6 offset-md-3">
         <div class="form-group select required ppsp_regional_committee_id">
           <div class="container-header-form">
@@ -175,9 +188,9 @@
           <%= f.input :work_medecine_id, as: :select, label: false, collection: @work_medecines, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
         </div>
       </div>
-      <div class="col-12 form-title">
+      <h4 class="col-12 form-subtitle">
         Services extérieurs
-      </div>
+      </h4>
       <div class="col-md-6 offset-md-3">
         <div class="form-group select required ppsp_demining_id">
           <div class="container-header-form">
@@ -264,7 +277,6 @@
         <div id="react-render-site-installations" data-ppsps_id=<%=@ppsp.id%>></div>
 
         <div id="react-render-altitude-works" data-ppsps_id=<%=@ppsp.id%>></div>
-
 
       </div>
 

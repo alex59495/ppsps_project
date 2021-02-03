@@ -69,7 +69,7 @@ class ListPpsp extends Component {
                 id={ppsp.id}
                 reference={ppsp.project_information.reference}
               user_first_name={ppsp.user.first_name} user_last_name={ppsp.user.last_name}
-              start_date={ppsp.start_date} end_date={ppsp.end_date} address={ppsp.address}
+              start_date={ppsp.worksite.start_date} end_date={ppsp.worksite.end_date} address={ppsp.worksite.address}
               user={ppsp.user}
             />))}
           </div>

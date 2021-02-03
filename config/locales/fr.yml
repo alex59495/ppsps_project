@@ -8,11 +8,6 @@ fr:
         password_confirmation: Confirmation du mot de passe
         remember_me: Se souvenir de moi
       ppsp:
-        address: L'adresse
-        start_date: La date de début
-        end_date: La date de fin
-        workforce: Le personnel impliqué
-        nature: La nature du travail
         moa_id: Le MOA
         moe_id: Le MOA
         regional_committee_id: Le comité
@@ -32,6 +27,15 @@ fr:
         responsible: Le responsable
         phone: Le téléphone
         email: L'email
+      worksite:
+        address: L'adresse
+        start_date: La date de début
+        end_date: La date de fin
+        workforce: Le personnel impliqué
+        nature: La nature du travail
+        timetable_start: L'horaire
+        timetable_end: L'horaire
+        electrical: Les installations électriques
       site_manager:
         name: Le nom
         email: L'email

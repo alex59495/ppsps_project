@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_02_111623) do
+ActiveRecord::Schema.define(version: 2021_02_03_084700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,11 +153,6 @@ ActiveRecord::Schema.define(version: 2021_02_02_111623) do
   end
 
   create_table "ppsps", force: :cascade do |t|
-    t.string "address"
-    t.date "start_date"
-    t.date "end_date"
-    t.string "nature"
-    t.string "workforce"
     t.string "agglomeration"
     t.string "street_impact"
     t.string "river_guidance"
@@ -177,8 +172,7 @@ ActiveRecord::Schema.define(version: 2021_02_02_111623) do
     t.bigint "hospital_id", null: false
     t.bigint "security_coordinator_id"
     t.text "content_secu", default: ""
-    t.float "latitude"
-    t.float "longitude"
+    t.bigint "worksite_id", null: false
     t.index ["anti_poison_id"], name: "index_ppsps_on_anti_poison_id"
     t.index ["demining_id"], name: "index_ppsps_on_demining_id"
     t.index ["direcct_id"], name: "index_ppsps_on_direcct_id"
@@ -192,6 +186,7 @@ ActiveRecord::Schema.define(version: 2021_02_02_111623) do
     t.index ["sos_hand_id"], name: "index_ppsps_on_sos_hand_id"
     t.index ["user_id"], name: "index_ppsps_on_user_id"
     t.index ["work_medecine_id"], name: "index_ppsps_on_work_medecine_id"
+    t.index ["worksite_id"], name: "index_ppsps_on_worksite_id"
   end
 
   create_table "project_informations", force: :cascade do |t|
@@ -365,6 +360,21 @@ ActiveRecord::Schema.define(version: 2021_02_02_111623) do
     t.index ["company_id"], name: "index_workers_on_company_id"
   end
 
+  create_table "worksites", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.string "nature"
+    t.string "workforce"
+    t.string "address"
+    t.string "timetable_start"
+    t.string "timetable_end"
+    t.boolean "electrical"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.float "latitude"
+    t.float "longitude"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "anti_poisons", "companies"
   add_foreign_key "conductors", "machines"
@@ -390,6 +400,7 @@ ActiveRecord::Schema.define(version: 2021_02_02_111623) do
   add_foreign_key "ppsps", "sos_hands"
   add_foreign_key "ppsps", "users"
   add_foreign_key "ppsps", "work_medecines"
+  add_foreign_key "ppsps", "worksites"
   add_foreign_key "project_informations", "site_managers"
   add_foreign_key "project_informations", "team_managers"
   add_foreign_key "regional_committees", "companies"

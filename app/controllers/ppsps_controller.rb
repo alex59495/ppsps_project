@@ -19,6 +19,8 @@ class PpspsController < ApplicationController
     @site_manager = @ppsp.build_project_information.build_site_manager
     @team_manager = @ppsp.build_project_information.build_team_manager
 
+    @worksite = @ppsp.build_worksite
+
     # Info to add the possibility to create a new element through a modal form
     @project_information = ProjectInformation.new
     @security_coordinator = SecurityCoordinator.new
@@ -54,7 +56,7 @@ class PpspsController < ApplicationController
   def show
     authorize @ppsp
     @n = 0
-    @marker = { lat: @ppsp.latitude, lng: @ppsp.longitude }
+    @marker = { lat: @ppsp.worksite.latitude, lng: @ppsp.worksite.longitude }
     handle_annexes
     respond_to do |format|
       # Two response for the show method depending on the format we call
@@ -133,6 +135,8 @@ class PpspsController < ApplicationController
     @site_manager = @ppsp.project_information.site_manager
     @team_manager = @ppsp.project_information.team_manager
 
+    @worksite = @ppsp.worksite
+
     # Info to add the possibility to create a new element through a modal form!
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
@@ -174,6 +178,8 @@ class PpspsController < ApplicationController
     @project_information = @ppsp.project_information
     @site_manager = @ppsp.project_information.site_manager
     @team_manager = @ppsp.project_information.team_manager
+
+    @worksite = @ppsp.worksite
 
     # Info to add the possibility to create a new element through a modal form
     @security_coordinator = SecurityCoordinator.new
@@ -316,9 +322,8 @@ class PpspsController < ApplicationController
                                  :street_impact, :river_guidance, :moa_id, :moe_id, :security_coordinator_id,
                                  :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
                                  :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, :logo_client, :content_secu, annexes: [],
-                                                                                                                         project_information_attributes: [:ppsp_id, :reference, :responsible,
-                                                                                                                                                          :phone, :email, { site_manager_attributes: %i[name email phone],
-                                                                                                                                                                            team_manager_attributes: %i[name
-                                                                                                                                                                                                        email phone] }])
+                                                                                                                         worksite_attributes: %i[address start_date end_date timetable_start timetable_end workforce electrical nature],
+                                                                                                                         project_information_attributes: [:reference, :responsible, :phone, :email,
+                                                                                                                                                          { site_manager_attributes: %i[name email phone], team_manager_attributes: %i[name email phone] }])
   end
 end

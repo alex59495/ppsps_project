@@ -228,15 +228,19 @@ CSV.foreach('./Database_security_coordinators.csv', headers: true, encoding:'iso
   p "Create #{sc.id} security coordinators"
 end
 
+# Worksites
+100.times do |n|
+  w = Worksite.create!(address: Faker::Address.street_address, start_date: DateTime.new(2020,9,1,17),
+    end_date: DateTime.new(2020,9,10,19), nature: "test_#{n+1} nature", workforce: "test_#{n+1} workforce",
+    timetable_start: '8h', timetable_end: '16h30', electrical: [true, false].sample)
+  p "Create #{w.id} Worksites"
+end
+
 # Create PPSP
 ppsps = []
 100.times do |n|
   ppsp = {
-    address: Faker::Address.street_address,
-    start_date: DateTime.new(2020,9,1,17),
-    end_date: DateTime.new(2020,9,10,19),
-    nature: "test_#{n+1} nature",
-    workforce: "test_#{n+1} workforce",
+    worksite_id: Worksite.all.sample.id,
     agglomeration: Ppsp::AGGLOMERATIONS.sample,
     street_impact: Ppsp::STREET_IMPACTS.sample,
     river_guidance: Ppsp::RIVER_GUIDANCES.sample,
@@ -258,8 +262,7 @@ ppsps = []
 end
 
 ppsps.each do |ppsp|
-  p = Ppsp.create!(address: ppsp[:address], start_date: ppsp[:start_date], end_date: ppsp[:end_date], nature: ppsp[:nature], 
-  workforce: ppsp[:workforce], user_id: ppsp[:user_id], moa_id: ppsp[:moa_id],
+  p = Ppsp.create!(worksite_id: ppsp[:worksite_id], user_id: ppsp[:user_id], moa_id: ppsp[:moa_id],
   moe_id: ppsp[:moe_id], project_information_id: ppsp[:project_information_id], agglomeration: ppsp[:agglomeration],
   street_impact: ppsp[:street_impact], river_guidance: ppsp[:river_guidance], security_coordinator_id: ppsp[:security_coordinator_id],
   pension_insurance_id: ppsp[:pension_insurance_id], direcct_id: ppsp[:direcct_id], work_medecine_id: ppsp[:work_medecine_id],
