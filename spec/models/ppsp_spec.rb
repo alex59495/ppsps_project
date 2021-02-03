@@ -15,20 +15,7 @@ RSpec.describe Ppsp, type: :model do
   # end
 
   it { should validate_presence_of(:address) }
-
-  # it "Doesn't work if workforce isn't completed" do
-  #   ppsp = build(:ppsp, workforce: nil)
-  #   ppsp.valid?
-  #   expect(ppsp.errors[:workforce]).to include("doit être rempli(e)")
-  # end
-
   it { should validate_presence_of(:workforce) }
-
-  # it "Doesn't work if moe doesn't exist" do
-  #   ppsp = build(:ppsp, moe: nil)
-  #   ppsp.valid?
-  #   expect(ppsp.errors[:moe]).to include("doit exister")
-  # end
   it { should validate_presence_of(:start_date) }
   it { should validate_presence_of(:end_date) }
   it { should validate_presence_of(:nature) }

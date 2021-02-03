@@ -276,10 +276,7 @@
         <%= f.text_area :content_secu, class: 'tinymce', 'data-company_secu': current_user.company.content_secu, 'data-ppsp_secu': @ppsp_content_secu %>
         <%= tinymce %>
       </div>
-      <div class="col-md-6 offset-md-3 offset-3 offset-md-5 mt-5">
-        <%= f.submit "J'ai terminé", class: 'btn-blue' %>
-      </div>
-      <div class="col-md-6 offset-md-3">
+      <div class="col-md-6 offset-md-3 mt-3">
         <%= f.input :annexes, label: "Annexes (si besoin)", input_html: { multiple: true } %>
         <p class="text-alert">Vous pouvez maintenir la touche CTRL enfoncée lors de la sélection pour choisir plusieurs fichiers</p>
       </div>
@@ -288,6 +285,9 @@
           <%= render 'render_annexes' %>
         </div>
       <% end %>
+      <div class="col-md-6 offset-md-3 offset-3 offset-md-5 mt-5">
+        <%= f.submit "J'ai terminé", class: 'btn-blue' %>
+      </div>
     </div>
   <% end %>
   <% if policy(SecurityCoordinator).create? %>

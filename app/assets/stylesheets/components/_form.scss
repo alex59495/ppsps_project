@@ -60,8 +60,9 @@
   border-bottom-left-radius: 8px;
   border-top-right-radius: 0px;
   border-top-left-radius: 0px;
+}
 
-  .form-flex {
+.form-flex {
   display: flex;
   flex-direction: row;
 }
@@ -82,3 +83,4 @@
   height: 300px;
   overflow: auto;
   margin: 30px auto;
+}

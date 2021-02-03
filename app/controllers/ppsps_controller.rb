@@ -117,6 +117,7 @@ class PpspsController < ApplicationController
       create_selected_risks
       create_selected_site_installations
       create_selected_altitude_works
+      create_selected_conductors
 
       redirect_to ppsp_path(@ppsp, format: :pdf)
     else
@@ -208,6 +209,7 @@ class PpspsController < ApplicationController
       create_selected_risks
       create_selected_site_installations
       create_selected_altitude_works
+      create_selected_conductors
 
       redirect_to ppsp_path(@ppsp, format: :pdf)
     else
@@ -241,6 +243,13 @@ class PpspsController < ApplicationController
   end
 
   private
+
+  def create_selected_conductors
+    @conductors = policy_scope(Conductor.all)
+    @conductors.each do |conductor|
+      conductor.ppsp = @ppsp if @conductors.any?
+    end
+  end
 
   def create_selected_subcontractors
     if params.require(:ppsp).key?(:subcontractors)
@@ -307,9 +316,9 @@ class PpspsController < ApplicationController
                                  :street_impact, :river_guidance, :moa_id, :moe_id, :security_coordinator_id,
                                  :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
                                  :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, :logo_client, :content_secu, annexes: [],
-                                 project_information_attributes: [:ppsp_id, :reference, :responsible,
-                                                                  :phone, :email, { site_manager_attributes: %i[name email phone],
-                                                                                    team_manager_attributes: %i[name
-                                                                                                                email phone] }])
+                                                                                                                         project_information_attributes: [:ppsp_id, :reference, :responsible,
+                                                                                                                                                          :phone, :email, { site_manager_attributes: %i[name email phone],
+                                                                                                                                                                            team_manager_attributes: %i[name
+                                                                                                                                                                                                        email phone] }])
   end
 end
