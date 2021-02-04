@@ -6,6 +6,6 @@ class SelectedLifesaverPolicy < ApplicationPolicy
   end
 
   def destroy_selected_lifesavers?
-    true
+    !user.nil?
   end
 end

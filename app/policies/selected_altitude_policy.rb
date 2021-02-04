@@ -6,6 +6,6 @@ class SelectedAltitudePolicy < ApplicationPolicy
   end
 
   def destroy_selected_altitudes?
-    true
+    !user.nil?
   end
 end

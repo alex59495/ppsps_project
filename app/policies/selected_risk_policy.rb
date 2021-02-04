@@ -6,6 +6,6 @@ class SelectedRiskPolicy < ApplicationPolicy
   end
 
   def destroy_selected_risks?
-    true
+    !user.nil?
   end
 end

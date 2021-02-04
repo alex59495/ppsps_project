@@ -6,6 +6,6 @@ class SelectedSubcontractorPolicy < ApplicationPolicy
   end
 
   def destroy_selected_subcontractors?
-    true
+    !user.nil?
   end
 end

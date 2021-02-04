@@ -6,6 +6,6 @@ class SelectedInstallationPolicy < ApplicationPolicy
   end
 
   def destroy_selected_installations?
-    true
+    !user.nil?
   end
 end

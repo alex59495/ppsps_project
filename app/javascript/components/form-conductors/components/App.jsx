@@ -24,11 +24,11 @@ const App = () => {
 // DOM
   const btnSubmitMachines = document.getElementById('submit-machine')
   const formListMachine = document.querySelector('.form-list-machines')
-  const formWorkers = document.querySelector('.chechboxes-workers')
+  const formWorkers = document.querySelector('.checkboxes-workers')
 
 // Machine's Logic
   const fetchMachines = () => {
-    fetch(`${url}/api/v1/machines`, {
+    fetch(`${url}/api/v1/machines?ppsps_id=${ppspsId}`, {
       method: 'GET',
       'Content-Type': 'application/json'
     }).then(response => response.json()).then(data => setListMachines(data))
@@ -85,7 +85,7 @@ const App = () => {
 
 // Conductors logic
   const fetchConductors = () => {
-    fetch(`${url}/api/v1/conductors?ppsp_id=${ppspsId}`, {
+    fetch(`${url}/api/v1/conductors?ppsps_id=${ppspsId}`, {
       method: 'GET',
       'Content-Type': 'application/json'
     }).then(response => response.json()).then(listConductors => {

@@ -23,7 +23,7 @@ const WorkersList = ({listWorkers, handleWorkers, selectWorkers}) => {
   })
   
   return (
-    <form className='container-center-column chechboxes-workers' style={{display: 'none'}} onSubmit={handleWorkers}>
+    <form className='container-center-column checkboxes-workers' style={{display: 'none'}} onSubmit={handleWorkers}>
       <div className="form-checkboxes-title">
         Choisir les conducteurs de ce véhicule
       </div>
@@ -33,7 +33,7 @@ const WorkersList = ({listWorkers, handleWorkers, selectWorkers}) => {
       <div className="form-checkboxes">
         {renderList}
       </div>
-      <button type='submit' className='btn-orange'>OK</button>
+      <button type='submit' className='btn-orange' id='submit-conductors'>OK</button>
     </form>
   )
 }

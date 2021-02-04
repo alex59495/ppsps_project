@@ -38,6 +38,12 @@ $btn-add-size: 24px;
     text-decoration: none;
     color: black;
   }
+  &:disabled {
+    background-color: gray;
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
 }
 
 // Button with animated border

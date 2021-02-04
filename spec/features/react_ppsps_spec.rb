@@ -9,7 +9,9 @@ RSpec.feature "React Handling", type: :feature, js: true do
       @site_installations = create_list(:site_installation, 5)
       @altitude_works = create_list(:altitude_work, 5)
       @lifesavers = create_list(:worker, 5, company: @user.company, lifesaver: true)
+      @worker_conductors = create_list(:worker, 5, company: @user.company, conductor: true)
       @ppsp = create(:ppsp, user: @user)
+      create_list(:machine, 10)
     end
 
     feature 'React within the form selected database' do
@@ -150,6 +152,50 @@ RSpec.feature "React Handling", type: :feature, js: true do
           sleep 2
           expect(find('#containerSelectedLifesavers').all('.card-form-selected').size).to eq(count - 1)
         end
+      end
+    end
+
+    feature 'Select a conductor' do
+      before do
+        login_as(@user)
+      end
+
+      scenario 'Button disabled when not selected option' do
+        visit(new_ppsp_path)
+        expect(page).to have_button('submit-machine', disabled: true)
+      end
+
+      scenario 'When I select machine and conductors => Create a Conductor instance + hide the respectives forms' do
+        conductor = create(:conductor, user: @user, ppsp: @ppsp)
+        visit(edit_ppsp_path(@ppsp))
+        count = find('.form-conductors-selection').all('.card-vehicule').size
+        find('.form-select-machines').find(:xpath, 'option[5]').select_option
+        find('#submit-machine').click
+        expect(page).to have_selector('.form-list-machines', visible: false)
+        expect(page).to have_selector('.checkboxes-workers', visible: true)
+        check "check_worker_#{@worker_conductors.first.id}"
+        find('#submit-conductors').click
+        expect(page).to have_selector('.checkboxes-workers', visible: false)
+        sleep 2
+        expect(find('.form-conductors-selection').all('.card-vehicule').size).to eq(count + 1)
+      end
+    end
+
+    feature 'Delete a conductor' do
+      before :all do
+        @conductor = create_list(:conductor, 2, user: @user, ppsp: @ppsp)
+      end
+
+      before do
+        login_as(@user)
+      end
+
+      scenario 'Can delete a conductor' do
+        visit(edit_ppsp_path(@ppsp))
+        count = find('.form-conductors-selection').all('.card-vehicule').size
+        first('.form-conductors-selection .card-vehicule .card-delete').click
+        sleep 2
+        expect(find('.form-conductors-selection').all('.card-vehicule').size).to eq(count - 1)
       end
     end
   end

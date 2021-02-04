@@ -17,8 +17,8 @@ class Api::V1::ConductorsController < Api::V1::BaseController
   end
 
   def index
-    ppsp_id = params[:ppsp_id].empty? ? nil : params[:ppsp_id]
-    @conductors = policy_scope(Conductor.all.where(ppsp_id: ppsp_id))
+    ppsps_id = params[:ppsps_id].empty? ? nil : params[:ppsps_id]
+    @conductors = policy_scope(Conductor.all.where(ppsp_id: ppsps_id))
   end
 
   private

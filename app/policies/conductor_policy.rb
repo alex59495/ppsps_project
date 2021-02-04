@@ -6,10 +6,10 @@ class ConductorPolicy < ApplicationPolicy
   end
 
   def create?
-    !user.nil?
+    user == record.user
   end
 
   def destroy?
-    !user.nil?
+    user == record.user
   end
 end
