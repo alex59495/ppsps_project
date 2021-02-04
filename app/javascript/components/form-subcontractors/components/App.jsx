@@ -42,19 +42,17 @@ const App = () => {
   const ppspsId = document.getElementById('react-render-subcontractors').dataset
     .ppsps_id;
 
-  const fetchSubcontractorsFormList = () => {
-    fetch(`${url}/api/v1/subcontractors?ppsps_id=${ppspsId}`, {
+  const fetchSubcontractorsFormList = async () => {
+    const arrayFull = await fetch(`${url}/api/v1/subcontractors?ppsps_id=${ppspsId}`, {
       method: 'GET',
     })
       .then((response) => response.json())
-      .then( async (subcontractors) => {
-        const addListIds = addList.map(subcontractor => subcontractor.id) || []
-        // On filtre le fetching pour ne pas fetcher les éléments déjà sélectionnés par l'utilisateur
-        const arrayResult = await subcontractors.filter(subcontractor => {
-          return !addListIds.includes(subcontractor.id)
-        })
-        setFormList(arrayResult)
-      });
+    // On filtre le fetching pour ne pas fetcher les éléments déjà sélectionnés par l'utilisateur
+    const addListIds = addList.map(subcontractor => subcontractor.id) || []
+    const arrayResult = arrayFull.filter(subcontractor => {
+      return !addListIds.includes(subcontractor.id)
+    })
+    setFormList(arrayResult)
   };
 
   const fetchSavedSubcontractors = () => {
