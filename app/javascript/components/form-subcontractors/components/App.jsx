@@ -47,7 +47,14 @@ const App = () => {
       method: 'GET',
     })
       .then((response) => response.json())
-      .then((data) => setFormList(data));
+      .then( async (subcontractors) => {
+        const addListIds = addList.map(subcontractor => subcontractor.id) || []
+        // On filtre le fetching pour ne pas fetcher les éléments déjà sélectionnés par l'utilisateur
+        const arrayResult = await subcontractors.filter(subcontractor => {
+          return !addListIds.includes(subcontractor.id)
+        })
+        setFormList(arrayResult)
+      });
   };
 
   const fetchSavedSubcontractors = () => {
@@ -73,6 +80,14 @@ const App = () => {
     fetchSubcontractorsFormList();
     fetchSavedSubcontractors();
   }, [trigger]);
+
+
+  // We have to re-render the list if a user add a new sbucontractor (Handled by Ruby), in this case we'll add a 
+  // fetch when the user click on the submit Subcontractor New form (wether the form is submitted or not)
+  const btnAddSubcontractor = document.getElementById('SubcontractorBtn');
+  btnAddSubcontractor.addEventListener('click', () => {
+    fetchSubcontractorsFormList();
+  })
 
   return (
     <>

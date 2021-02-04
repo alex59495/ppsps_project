@@ -2,7 +2,21 @@ import React from 'react';
 import FormInput from './FormInput';
 
 const FormList = ({ site_installations, handleClick }) => {
-  const renderList = site_installations.map(site_installation => {
+  // Order the list by name
+  const listOrdered = site_installations.sort((a, b) => {
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
+
+    let comparison = 0;
+      if (nameA > nameB) {
+        comparison = 1;
+      } else if (nameA < nameB) {
+        comparison = -1;
+      }
+      return comparison;
+  })
+
+  const renderList = listOrdered.map(site_installation => {
     return(
       <FormInput
       id={site_installation.id}

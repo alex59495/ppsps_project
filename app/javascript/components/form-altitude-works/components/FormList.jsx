@@ -2,7 +2,21 @@ import React from 'react';
 import FormInput from './FormInput';
 
 const FormList = ({ altitude_works, handleClick }) => {
-  const renderList = altitude_works.map(altitude_work => {
+  // Order the list by name
+  const listOrdered = altitude_works.sort((a, b) => {
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
+
+    let comparison = 0;
+      if (nameA > nameB) {
+        comparison = 1;
+      } else if (nameA < nameB) {
+        comparison = -1;
+      }
+      return comparison;
+  })
+
+  const renderList = listOrdered.map(altitude_work => {
     return(
       <FormInput
         id={altitude_work.id}

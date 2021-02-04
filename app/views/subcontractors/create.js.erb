@@ -2,9 +2,6 @@ $(document).ready(function() {
   $(".modal-backdrop").hide();
   $("#ModalSubcontractor").hide();
   $(".modal-open").css({overflow: 'scroll'});
-  if (document.getElementById("form-subcontractors")) {
-    document.getElementById("form-subcontractors").innerHTML = "<%= j(render 'form_field_subcontractor') %>";
-  }
   if (document.querySelector(".content-db")) {
     document.querySelector(".content-db").innerHTML = "<%= j(render 'database/content-db') %>";
   }

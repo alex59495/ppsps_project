@@ -2,7 +2,21 @@ import React from 'react';
 import FormInput from './FormInput';
 
 const FormList = ({ lifesavers, handleClick }) => {
-  const renderList = lifesavers.map(lifesaver => {
+  // Order the list by name
+  const listOrdered = lifesavers.sort((a, b) => {
+    const nameA = `${a.first_name} ${a.last_name}`.toLowerCase();
+    const nameB = `${b.first_name} ${b.last_name}`.toLowerCase();
+
+    let comparison = 0;
+      if (nameA > nameB) {
+        comparison = 1;
+      } else if (nameA < nameB) {
+        comparison = -1;
+      }
+      return comparison;
+  })
+
+  const renderList = listOrdered.map(lifesaver => {
     return(
       <FormInput 
         key={lifesaver.id}
