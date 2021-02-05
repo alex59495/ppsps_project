@@ -49,6 +49,7 @@ const ButtonAdd = ({admin, url, fetchSubcontractorsFormList}) => {
         // Close and reset the modal
         $(".modal-backdrop").hide();
         $("#ModalSubcontractor").hide();
+        $(".fade.modal").hide();
         document.getElementById("new_subcontractor").reset();
         $(".modal-open").css({overflow: 'scroll'});
         // Actualize the form list

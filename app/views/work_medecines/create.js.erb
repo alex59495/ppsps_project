@@ -1,6 +1,8 @@
 $(document).ready(function() {
   $(".modal-backdrop").hide();
   $("#ModalWorkMedecine").hide();
+  $(".fade.modal").hide();
+  document.getElementById("new_work_medecine").reset();
   $(".modal-open").css({overflow: 'scroll'});
   if (document.getElementById("ppsp_work_medecine_id")) {
     document.getElementById("ppsp_work_medecine_id").innerHTML = "<%= j(render 'form_field_work_medecine') %>";
