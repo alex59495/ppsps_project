@@ -8,15 +8,14 @@ const FormInput = ({ id, name, handleClick, formList }) => {
       onClick={(e) => handleClick(e)}
     >
       <input
-        className="form-check-input check_boxes optional"
-        type="checkbox"
+        type="hidden"
         value={id}
         name="ppsp[lifesavers][]"
         id={`ppsp_lifesavers_${id}`}
         defaultChecked={!formList}
       />
       <label
-        className="form-check-label collection_check_boxes"
+        className={`form-checkbox ${!formList ? 'active' : ''}`}
         htmlFor={`ppsp_lifesavers_${id}`}
       >
         {name}

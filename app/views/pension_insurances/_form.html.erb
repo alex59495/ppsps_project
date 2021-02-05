@@ -2,9 +2,5 @@
   <%= f.input :address, label: 'Adresse' %>
   <%= f.input :phone, label: 'Téléphone' %>
   <%= f.input :fax, label: 'Fax' %>
-  <% if params[:action] == 'new' || params[:action] == 'index' %>
-    <%= f.submit "Créer un caisse d'assurance retraite", class: 'btn-blue', id: "PensionBtn" %>
-  <% else %>
-    <%= f.submit "Modifier cette caisse d'assurance retraite", class: 'btn-blue', id: "PensionBtn" %>
-  <% end %>
+  <%= f.submit "Ajouter", class: 'btn-blue', id: "PensionBtn" %>
 <% end %>

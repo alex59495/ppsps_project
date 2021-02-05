@@ -7,15 +7,14 @@ const FormInput = ({ name, id, handleClick, formList }) => (
     onClick={(e) => handleClick(e)}
   >
     <input
-      className="form-check-input check_boxes optional"
-      type="checkbox"
+      type="hidden"
       value={id}
       name="ppsp[site_installations][]"
       id={`ppsp_site_installations_${id}`}
       defaultChecked={!formList}
     />
     <label
-      className="form-check-label collection_check_boxes"
+      className={`form-checkbox ${!formList ? 'active' : ''}`}
       htmlFor={`ppsp_site_installations_${id}`}
     >
       {`${name}`}

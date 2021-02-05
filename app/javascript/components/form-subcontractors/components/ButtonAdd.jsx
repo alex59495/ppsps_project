@@ -62,7 +62,7 @@ const ButtonAdd = ({admin, url, fetchSubcontractorsFormList}) => {
     <>
       <div className="container-header-form">
         Ajouter des sous-traitants
-        <button onClick={showModal} className="icon-btn add-btn">
+        <button onClick={showModal} className="icon-btn add-btn" id="SubcontractorDb">
           <div className="add-icon"></div>
           <div className="btn-txt">Ajouter</div>
         </button>

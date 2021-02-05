@@ -4,9 +4,5 @@
   <%= f.input :representative, label: 'Représentant' %>
   <%= f.input :phone, label: 'Téléphone' %>
   <%= f.input :email, label: 'Email' %>
-  <% if params[:action] == 'new' || params[:action] == 'index' %>
-    <%= f.submit 'Créer un MOE', class: 'btn-blue', id: "MoeBtn" %>
-  <% else %>
-    <%= f.submit 'Modifier ce MOE', class: 'btn-blue', id: "MoeBtn" %>
-  <% end %>
+  <%= f.submit 'Ajouter', class: 'btn-blue', id: "MoeBtn" %>
 <% end %>

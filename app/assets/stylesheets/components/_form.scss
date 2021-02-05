@@ -1,5 +1,24 @@
-.form-altitude-other {
-  width: 90%;
+.form-checkbox {
+  &:hover {
+    cursor: pointer;
+    font-size: 17px;
+  }
+  &:before {
+    content: '\f0c8';
+    font-family: 'Font Awesome\ 5 Free';
+    margin-right: 8px;
+    font-size: 12px;
+  }
+  &.active {
+    &:before {
+      content: '\f00c';
+      font-family: 'Font Awesome\ 5 Free';
+      margin-right: 8px;
+      font-size: 12px;
+      color: green;
+      font-weight: 900;
+    }
+  }
 }
 
 .form-title {
