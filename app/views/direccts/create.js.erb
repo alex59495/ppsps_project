@@ -1,6 +1,7 @@
 $(document).ready(function() {
   $(".modal-backdrop").hide();
   $("#ModalDirecct").hide();
+  document.getElementById("new_hospital").reset();
   $(".modal-open").css({overflow: 'scroll'});
   if (document.getElementById("ppsp_direcct_id")) {
     document.getElementById("ppsp_direcct_id").innerHTML = "<%= j(render 'form_field_direcct') %>";

@@ -80,9 +80,4 @@ ReactRailsUJS.handleEvent('turbolinks:before-render', () => {
   if (document.getElementById('ppsps-react')) {
     ReactDOM.unmountComponentAtNode(document.getElementById('ppsps-react'));
   }
-  if (document.getElementById('react-render-subcontractors')) {
-    ReactDOM.unmountComponentAtNode(
-      document.getElementById('react-render-subcontractors')
-    );
-  }
 });

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import FormList from './FormList';
 import ListSelected from './ListSelected';
 import SavedChoices from './SavedChoices';
+import ButtonAdd from './ButtonAdd';
 
 const App = () => {
   const [formList, setFormList] = useState([]);
@@ -42,16 +43,21 @@ const App = () => {
   const ppspsId = document.getElementById('react-render-subcontractors').dataset
     .ppsps_id;
 
+  const admin = document.getElementById('react-render-subcontractors').dataset
+    .admin;
+
   const fetchSubcontractorsFormList = async () => {
-    const arrayFull = await fetch(`${url}/api/v1/subcontractors?ppsps_id=${ppspsId}`, {
+    const response = await fetch(`${url}/api/v1/subcontractors?ppsps_id=${ppspsId}`, {
       method: 'GET',
     })
-      .then((response) => response.json())
+    const arrayFull = await response.json()
+
     // On filtre le fetching pour ne pas fetcher les éléments déjà sélectionnés par l'utilisateur
-    const addListIds = addList.map(subcontractor => subcontractor.id) || []
-    const arrayResult = arrayFull.filter(subcontractor => {
+    const addListIds = await addList.map(subcontractor => subcontractor.id) || []
+    const arrayResult = await arrayFull.filter(subcontractor => {
       return !addListIds.includes(subcontractor.id)
     })
+
     setFormList(arrayResult)
   };
 
@@ -79,16 +85,9 @@ const App = () => {
     fetchSavedSubcontractors();
   }, [trigger]);
 
-
-  // We have to re-render the list if a user add a new sbucontractor (Handled by Ruby), in this case we'll add a 
-  // fetch when the user click on the submit Subcontractor New form (wether the form is submitted or not)
-  const btnAddSubcontractor = document.getElementById('SubcontractorBtn');
-  btnAddSubcontractor.addEventListener('click', () => {
-    fetchSubcontractorsFormList();
-  })
-
   return (
     <>
+      <ButtonAdd admin={admin} url={url} fetchSubcontractorsFormList={fetchSubcontractorsFormList}/>
       <SavedChoices subcontractors={savedChoices} handleRemove={handleRemove} />
       <div className="form-flex" id="form-subcontractors">
         <FormList subcontractors={formList} handleClick={handleClick} />

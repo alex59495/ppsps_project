@@ -46,15 +46,9 @@
         Les sous-traitants
       </h3>
       <div class="col-md-10 offset-md-1">
-        <div class="container-header-form">
-          Ajouter des sous-traitants
-          <% if policy(Subcontractor).create? %>
-            <%= render 'btn_add_database', data: 'Subcontractor' %>
-          <% end %>
-        </div>
-        <div id="react-render-subcontractors" data-ppsps_id=<%=@ppsp.id%>></div>
+        <div id="react-render-subcontractors" data-admin=<%= "#{current_user.admin}" %> data-ppsps_id=<%="#{@ppsp.id}"%>></div>
       </div>
-
+      
       <h3 class="col-12 form-subtitle">
         Les correspondants
       </h3>
@@ -376,11 +370,6 @@
   <% if policy(Demining).create? %>
     <div class="modal fade" id="ModalDemining" tabindex="-1" role="dialog" aria-labelledby="ModalDemining" aria-hidden="true">
       <%= render 'ppsps/modal_demining' %>
-    </div>
-  <% end %>
-  <% if policy(Subcontractor).create? %>
-    <div class="modal fade" id="ModalSubcontractor" tabindex="-1" role="dialog" aria-labelledby="ModalSubcontractor" aria-hidden="true">
-      <%= render 'ppsps/modal_subcontractor' %>
     </div>
   <% end %>
 </div>

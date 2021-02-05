@@ -1,6 +1,7 @@
 $(document).ready(function() {
   $(".modal-backdrop").hide();
   $("#ModalDemining").hide();
+  document.getElementById("new_demining").reset();
   $(".modal-open").css({overflow: 'scroll'});
   if (document.getElementById("ppsp_demining_id")) {
     document.getElementById("ppsp_demining_id").innerHTML = "<%= j(render 'form_field_demining') %>";

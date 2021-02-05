@@ -1,6 +1,7 @@
 $(document).ready(function() {
   $(".modal-backdrop").hide();
   $("#ModalSubcontractor").hide();
+  document.getElementById("new_subcontractor").reset();
   $(".modal-open").css({overflow: 'scroll'});
   if (document.querySelector(".content-db")) {
     document.querySelector(".content-db").innerHTML = "<%= j(render 'database/content-db') %>";
