@@ -27,17 +27,18 @@ const infiniteScroll = () => {
     const handleDisplaying = () => {
       paginationElem = $('.container-pagination');
       const numberElements = parseInt(paginationElem.attr('data-number'), 10);
+      console.log(numberElements)
       if (numberElements < 20) {
         paginationElem.hide();
       }
       const dbVide = $('.container-db-vide')[0];
       if (numberElements === 0) {
         dbVide.style.display = '';
-      } else {
+      } else if ((numberElements) ) {
         dbVide.style.display = 'none';
       }
     };
-
+    
     // Call the function when click on the search button or database btn
     document.getElementById('btn-database').addEventListener('click', () => {
       document.getElementById('query').value = '';

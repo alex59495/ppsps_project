@@ -28,10 +28,10 @@
       <div class="flex-database d-flex flex-wrap mt-2 justify-content-center">
         <%= render 'elements', collection: @database_page %>
       </div>
-      <div class="container-flex" style='display: none'>
+      <div class="container-flex container-db-vide" style='display: none'>
         Votre recherche n'a retourné aucun résultat
       </div>
-      <div class="container-flex" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %> data-search=<%=@search%> data-number = <%= @database_page.count %>>
+      <div class="container-flex container-pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %> data-search=<%=@search%> data-number = <%= @database_page.count %>>
         <%= image_tag('gif-loading.gif') %>
       </div>
     </div>
