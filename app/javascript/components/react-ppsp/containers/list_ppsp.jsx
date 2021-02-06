@@ -51,7 +51,7 @@ class ListPpsp extends Component {
 
   renderSpinner = (loading) => {
     if (loading) {
-      return <Spinner />;
+      return <Spinner message= 'Chargement'/>;
     } else {
       return null;
     }
@@ -77,10 +77,14 @@ class ListPpsp extends Component {
         </>
       )
     } else if(search === '') {
-      return <Spinner message='Chargement ...' />
+      return (
+        <div className="container-flex">
+          Vous n'avez pas encore de PPSP créé...
+        </div>
+      )
     } else {
       return (
-        <div className="container-db-vide">
+        <div className="container-flex">
           Votre recherche n'a retourné aucun résultat...
         </div>
       )

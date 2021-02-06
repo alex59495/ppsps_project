@@ -11,7 +11,7 @@ RSpec.feature "React Handling", type: :feature, js: true do
       @lifesavers = create_list(:worker, 5, company: @user.company, lifesaver: true)
       @worker_conductors = create_list(:worker, 5, company: @user.company, conductor: true)
       @ppsp = create(:ppsp, user: @user)
-      create_list(:machine, 10)
+      @machines = create_list(:machine, 10)
     end
 
     feature 'React within the form selected database' do
@@ -21,36 +21,31 @@ RSpec.feature "React Handling", type: :feature, js: true do
 
       scenario "Can see the list of Subcontractor's options" do
         visit(new_ppsp_path)
-        count = @subcontractors.size
-        find('.form-group.check_boxes.optional.ppsp_subcontractors').all('label').size
+        count = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('label').size
         expect(count).to eq(@subcontractors.size)
       end
 
       scenario "Can see the list of Risk's options" do
         visit(new_ppsp_path)
-        count = @risks.size
-        find('.form-group.check_boxes.optional.ppsp_risks').all('label').size
+        count = find('.form-group.check_boxes.optional.ppsp_risks').all('label').size
         expect(count).to eq(@risks.size)
       end
 
       scenario "Can see the list of Site Installation's options" do
         visit(new_ppsp_path)
-        count = @site_installations.size
-        find('.form-group.check_boxes.optional.ppsp_site_installations').all('label').size
+        count = find('.form-group.check_boxes.optional.ppsp_site_installations').all('label').size
         expect(count).to eq(@site_installations.size)
       end
 
       scenario "Can see the list of Altitude Work's options" do
         visit(new_ppsp_path)
-        count = @altitude_works.size
-        find('.form-group.check_boxes.optional.ppsp_altitude_works').all('label').size
+        count = find('.form-group.check_boxes.optional.ppsp_altitude_works').all('label').size
         expect(count).to eq(@altitude_works.size)
       end
 
       scenario "Can see the list of Lifesavers options" do
         visit(new_ppsp_path)
-        count = @lifesavers.size
-        find('.form-group.check_boxes.optional.ppsp_lifesavers').all('label').size
+        count = find('.form-group.check_boxes.optional.ppsp_lifesavers').all('label').size
         expect(count).to eq(@lifesavers.size)
       end
 

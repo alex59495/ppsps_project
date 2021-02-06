@@ -2,6 +2,7 @@ const ShowCompanySecuContent = () => {
   const containerTiny = document.querySelector('.tinymce');
   const editFormPpsp = document.querySelector('.edit_ppsp');
   const newFormPpsp = document.querySelector('.new_ppsp');
+  const editCompany = document.querySelector('.edit_company')
   if (containerTiny && (editFormPpsp || newFormPpsp)) {
     const ppspSecuContent = containerTiny.dataset.ppsp_secu;
     // Si pas de content enregistré pour le PPSPS on renvoit celui de l'entreprise
@@ -9,6 +10,8 @@ const ShowCompanySecuContent = () => {
       const text = containerTiny.dataset.company_secu;
       tinymce.activeEditor.setContent(text);
     }
+  } else if (editCompany) {
+    tinymce.activeEditor.setContent(document.getElementById('company_content_secu').value);
   }
 };
 

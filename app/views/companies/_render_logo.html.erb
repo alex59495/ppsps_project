@@ -1,0 +1,10 @@
+<% if @user.company.logo.attached? %>
+  <div class='d-flex flex-column mb-2 align-items-center'>
+    <%= cl_image_tag @user.company.logo.key, class: 'icon-logo mb-3' %>
+    <%= link_to 'Supprimer', destroy_logo_company_path(@user.company), class: 'btn-delete', remote: true %>
+  </div>
+<% else %>
+  <i style='font-size: 80px;'class="fas fa-question-circle mb-4"></i>
+<% end %>
+<i class="fas fa-long-arrow-alt-right mx-4" style='font-size: 40px; display: none;'></i>
+<img id="newLogo" width="200" class='icon-logo'>

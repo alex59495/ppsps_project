@@ -4,19 +4,18 @@ class CompaniesController < ApplicationController
   def update
     authorize @company
     if @company.update(params_company)
-      redirect_to edit_profile_path(current_user)
+      redirect_to profile_path(current_user)
     else
-      # Que faire si probleme ?
+      render 'profiles/edit'
     end
   end
 
   def destroy_logo
     authorize @company
+    @user = current_user
     if @company.logo.purge.nil?
       respond_to do |format|
-        # render destroy_logo.js.erb
         format.js { render 'companies/destroy_logo' }
-        # format.html { redirect_to edit_profile_path(current_user) }
       end
     else
       # Que faire si probleme ?
@@ -26,7 +25,7 @@ class CompaniesController < ApplicationController
   private
 
   def params_company
-    params.require(:company).permit(:logo)
+    params.require(:company).permit(:logo, :content_secu)
   end
 
   def find_company
