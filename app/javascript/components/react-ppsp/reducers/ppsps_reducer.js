@@ -10,6 +10,7 @@ const reducerPpsps = (state, action) => {
         selectedPpsps: action.payload.slice(0, 12),
         // Reinitialize the infinite scroll when use the search bar
         page: 2,
+        loading: false
       };
     case LOAD_MORE:
       return {

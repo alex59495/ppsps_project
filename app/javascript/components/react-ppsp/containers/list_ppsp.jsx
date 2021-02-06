@@ -10,6 +10,7 @@ import Spinner from '../components/Spinner';
 
 class ListPpsp extends Component {
   componentDidMount() {
+    this.props.loadingTrue();
     this.props.fetchPpsps(this.props.showUser);
   }
 
@@ -76,13 +77,17 @@ class ListPpsp extends Component {
           {this.renderSpinner(loading)}
         </>
       )
-    } else if(search === '') {
+    } else if(search === '' && loading) {
+      return (<Spinner message='Chargement ...' />)
+
+    } else if((search === '' && !loading)) {
       return (
         <div className="container-flex">
-          Vous n'avez pas encore de PPSP créé...
+          Vous n'avez pas encore de PPSPS...
         </div>
       )
-    } else {
+    }
+    else {
       return (
         <div className="container-flex">
           Votre recherche n'a retourné aucun résultat...
