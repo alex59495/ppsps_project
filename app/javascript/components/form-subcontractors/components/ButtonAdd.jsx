@@ -2,12 +2,9 @@ import React from 'react';
 import Modal from "react-bootstrap/Modal";
 
 
-const ButtonAdd = ({admin, url, fetchSubcontractorsFormList}) => {
+const ButtonAdd = ({admin, url, fetchSubcontractorsFormList, token}) => {
 
   if (admin === 'true') {
-    const csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-
-
     const [isOpen, setIsOpen] = React.useState(false);
 
     const showModal = (e) => {
@@ -31,7 +28,7 @@ const ButtonAdd = ({admin, url, fetchSubcontractorsFormList}) => {
       fetch(`${url}/subcontractors`, {
         headers: {
           'Content-Type': 'application/json',
-          'X-CSRF-Token': csrf
+          'X-CSRF-Token': token
         },
         method: 'POST',
         body: JSON.stringify({
@@ -47,11 +44,8 @@ const ButtonAdd = ({admin, url, fetchSubcontractorsFormList}) => {
       })
       .then(response => {
         // Close and reset the modal
-        $(".modal-backdrop").hide();
-        $("#ModalSubcontractor").hide();
-        $(".fade.modal").hide();
+        hideModal();
         document.getElementById("new_subcontractor").reset();
-        $(".modal-open").css({overflow: 'scroll'});
         // Actualize the form list
         fetchSubcontractorsFormList();
       })
@@ -76,6 +70,7 @@ const ButtonAdd = ({admin, url, fetchSubcontractorsFormList}) => {
         </Modal.Header>
         <Modal.Body>
           <div className="cards-form">
+            <input type="hidden" name="authenticity_token" value={token} />
             <form className="simple_form new_subcontractor" id="new_subcontractor" noValidate="" acceptCharset="UTF-8" onSubmit={handleSubmit}>
               <div className="form-group string required subcontractor_name">
                 <label className="string required" htmlFor="subcontractor_name">Nom<abbr title="required">*</abbr></label>

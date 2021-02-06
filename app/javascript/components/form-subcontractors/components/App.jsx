@@ -4,7 +4,7 @@ import ListSelected from './ListSelected';
 import SavedChoices from './SavedChoices';
 import ButtonAdd from './ButtonAdd';
 
-const App = () => {
+const App = ({token}) => {
   const [formList, setFormList] = useState([]);
   const [addList, setAddList] = useState([]);
   const [savedChoices, setSavedChoices] = useState([]);
@@ -47,7 +47,7 @@ const App = () => {
     .admin;
 
   const fetchSubcontractorsFormList = async () => {
-    const response = await fetch(`${url}/api/v1/subcontractors?ppsps_id=${ppspsId}`, {
+    const response = await fetch(`${url}/api/v1/list_subcontractors?ppsps_id=${ppspsId}`, {
       method: 'GET',
     })
     const arrayFull = await response.json()
@@ -87,7 +87,7 @@ const App = () => {
 
   return (
     <>
-      <ButtonAdd admin={admin} url={url} fetchSubcontractorsFormList={fetchSubcontractorsFormList}/>
+      <ButtonAdd admin={admin} url={url} token={token} fetchSubcontractorsFormList={fetchSubcontractorsFormList}/>
       <SavedChoices subcontractors={savedChoices} handleRemove={handleRemove} />
       <div className="form-flex" id="form-subcontractors">
         <FormList subcontractors={formList} handleClick={handleClick} />

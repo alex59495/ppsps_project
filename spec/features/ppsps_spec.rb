@@ -308,7 +308,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       end
 
       scenario "Can add Subcontractors from PPSP new page" do
-        count = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('input').size
+        count = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('label').size
         find('#SubcontractorDb').click
         page.execute_script("$('#subcontractor_name').val('Test subcontractor')")
         page.execute_script("$('#subcontractor_address').val('Test subcontractor')")
@@ -317,8 +317,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         page.execute_script("$('#subcontractor_responsible_name').val('Test name')")
         page.execute_script("$('#subcontractor_responsible_phone').val('0600000000')")
         find('#SubcontractorBtn').click
-        count_end = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('input').size
-        sleep 3
+        count_end = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('label').size
         expect(count_end).to eq(count + 1)
       end
 
@@ -379,16 +378,6 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         fill_in('direcct_fax', with: '0600000000')
         fill_in('direcct_phone', with: '0600000000')
         find('#DirecctBtn').click
-        expect(page).to have_css('.is-invalid')
-      end
-
-      scenario "Rerender Subcontractor when not filling right" do
-        find('#SubcontractorDb').click
-        fill_in('subcontractor_name', with: 'Test subcontractor')
-        fill_in('subcontractor_responsible_name', with: 'Test subcontractor')
-        fill_in('subcontractor_responsible_email', with: 'test_subcontractor@gmail.com')
-        fill_in('subcontractor_responsible_phone', with: '0600000000')
-        find('#SubcontractorBtn').click
         expect(page).to have_css('.is-invalid')
       end
 

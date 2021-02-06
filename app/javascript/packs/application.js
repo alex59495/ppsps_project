@@ -14,7 +14,6 @@ import ReactDOM from 'react-dom';
 // Import react elements
 import reactPpsp from '../components/react-ppsp/index';
 import reactFromConductors from '../components/form-conductors/index';
-import reactFormSubcontractors from '../components/form-subcontractors/index';
 import reactFormRisks from '../components/form-risks/index';
 import reactFormAltitudeWorks from '../components/form-altitude-works/index';
 import reactFormSiteInstallations from '../components/form-site-installations/index';
@@ -61,7 +60,6 @@ document.addEventListener('turbolinks:load', () => {
   // React
   reactFromConductors();
   reactPpsp();
-  reactFormSubcontractors();
   reactFormRisks();
   reactFormAltitudeWorks();
   reactFormSiteInstallations();

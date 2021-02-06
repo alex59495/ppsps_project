@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const infiniteScroll = () => {
   if (document.querySelector('.container-database')) {
-    const THRESHOLD = 30;
+    const THRESHOLD = 200;
     const windowScreen = $(window);
     const documentScreen = $(document);
     let paginationElem = $('.container-pagination');
@@ -28,7 +28,7 @@ const infiniteScroll = () => {
       paginationElem = $('.container-pagination');
       const numberElements = parseInt(paginationElem.attr('data-number'), 10);
       console.log(numberElements)
-      if (numberElements < 20) {
+      if (numberElements < 50) {
         paginationElem.hide();
       }
       const dbVide = $('.container-db-vide')[0];

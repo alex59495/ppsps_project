@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :ppsps, only: [ :destroy, :index, :show ]
       
-      resources :subcontractors, only: [ :index ]
+      get 'list_subcontractors', to: 'subcontractors#list_subcontractors'
       get 'selected_subcontractors', to: 'subcontractors#selected_subcontractors'     
       delete 'selected_subcontractors/:subcontractor_id', to: 'subcontractors#destroy_selected_subcontractors'
       

@@ -1,5 +1,5 @@
 class Api::V1::SubcontractorsController < Api::V1::BaseController
-  def index
+  def list_subcontractors
     # Renvoie la liste des sous-traitants qui n'ont pas encore été sélectionnés
     if params[:ppsps_id] == ''
       @subcontractors = policy_scope(Subcontractor)

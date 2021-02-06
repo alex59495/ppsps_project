@@ -93,7 +93,7 @@ class DatabaseController < ApplicationController
       @database = policy_scope(@model_name.all)
     end
     authorize @database
-    @database_page = @database.page(params[:page]).per(20)
+    @database_page = @database.page(params[:page]).per(50)
     render "#{controller_name}/_elements", collection: @database_page, layout: false
   end
 
@@ -101,7 +101,7 @@ class DatabaseController < ApplicationController
 
   def init_infinite_scroll
     # Useful for the infinite scroll
-    @database_page = Kaminari.paginate_array(@database).page.per(20)
+    @database_page = Kaminari.paginate_array(@database).page.per(50)
     @endpoint = @pagination_path
     @page_amount = @database_page.total_pages
   end

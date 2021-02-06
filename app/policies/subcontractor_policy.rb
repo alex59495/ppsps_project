@@ -6,7 +6,7 @@ class SubcontractorPolicy < ApplicationPolicy
   end
 
   def index?
-    true
+    user.admin
   end
 
   def create?
@@ -31,6 +31,10 @@ class SubcontractorPolicy < ApplicationPolicy
 
   def pagination?
     index?
+  end
+
+  def list_subcontractors?
+    true
   end
 
   def selected_subcontractors?

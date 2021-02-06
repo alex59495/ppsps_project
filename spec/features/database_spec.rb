@@ -283,15 +283,6 @@ RSpec.feature "Databases", type: :feature, js: true do
       expect(page).to have_css('.is-invalid')
     end
 
-    scenario "Rerender Subcontractor when not filling right" do
-      visit(subcontractors_path)
-      find('.btn-blue').click
-      fill_in('subcontractor_name', with: 'Test subcontractor')
-      fill_in('subcontractor_work', with: 'Test work')
-      find('#SubcontractorBtn').click
-      expect(page).to have_css('.is-invalid')
-    end
-
     scenario "Search bar is working for anti_poison" do
       visit(anti_poisons_path)
       find('.search-db').set("Test1")
