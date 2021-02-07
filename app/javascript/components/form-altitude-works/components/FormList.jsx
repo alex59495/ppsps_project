@@ -22,7 +22,7 @@ const FormList = ({ altitude_works, handleClick }) => {
         id={altitude_work.id}
         handleClick={handleClick}
         name={altitude_work.name}
-        formList
+        formList = {true}
         key={altitude_work.id}
       />
     )

@@ -34,7 +34,7 @@ const FormList = ({ site_installations, handleClick }) => {
       id={site_installation.id}
       name={site_installation.name}
       handleClick={handleClick}
-      formList
+      formList = {true}
       key={site_installation.id}
     />
     )
@@ -46,7 +46,7 @@ const FormList = ({ site_installations, handleClick }) => {
       id={site_installation.id}
       name={site_installation.name}
       handleClick={handleClick}
-      formList
+      formList = {true}
       key={site_installation.id}
     />
     )

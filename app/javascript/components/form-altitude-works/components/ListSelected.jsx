@@ -9,6 +9,7 @@ const ListSelected = ({ altitude_works, handleClick }) => {
         handleClick={handleClick} 
         name={altitude_work.name} 
         key={altitude_work.id}
+        formList = {false}
       />
     )
   })

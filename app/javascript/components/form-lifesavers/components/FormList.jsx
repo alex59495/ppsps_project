@@ -22,7 +22,7 @@ const FormList = ({ lifesavers, handleClick }) => {
         key={lifesaver.id}
         id={lifesaver.id} 
         handleClick={handleClick} 
-        formList 
+        formList = {true} 
         name={`${lifesaver.first_name} ${lifesaver.last_name}`}
       />
     )

@@ -11,6 +11,7 @@ const ListSelected = ({ subcontractors, handleClick }) => {
           work={subcontractor.work}
           handleClick={handleClick}
           key={subcontractor.id}
+          formList = {false}
         />
     )
   })

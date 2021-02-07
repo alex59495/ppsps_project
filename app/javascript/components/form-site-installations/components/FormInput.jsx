@@ -7,7 +7,8 @@ const FormInput = ({ name, id, handleClick, formList, mobile }) => (
     onClick={(e) => handleClick(e)}
   >
     <input
-      type="hidden"
+      type="checkbox"
+      className='hidden'
       value={id}
       name="ppsp[site_installations][]"
       id={`ppsp_site_installations_${id}`}

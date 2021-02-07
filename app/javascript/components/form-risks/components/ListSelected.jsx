@@ -7,7 +7,9 @@ const ListSelected = ({ risks, handleClick }) => {
       name={risk.name} 
       handleClick={handleClick} 
       id={risk.id} 
-      key={risk.id} />
+      key={risk.id} 
+      formList={false}
+    />
     )
   })
 

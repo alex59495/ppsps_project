@@ -55,7 +55,9 @@ class PpspsController < ApplicationController
 
   def show
     authorize @ppsp
-    @n = 0
+    select_lifesaver = SelectedLifesaver.where(ppsp_id: @ppsp.id).pluck(:worker_id)
+    @lifesavers = Worker.where(id: select_lifesaver)
+
     @marker = { lat: @ppsp.worksite.latitude, lng: @ppsp.worksite.longitude }
     handle_annexes
     respond_to do |format|
@@ -165,10 +167,6 @@ class PpspsController < ApplicationController
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
     # @subcontractors = policy_scope(Subcontractor.all)
-
-    # Modifier la liste des sous-traitants affichés en fonction des sous-traitants déjà sélectionnés
-    selected_subcontractors = SelectedSubcontractor.where(ppsp_id: params[:id])
-    @subcontractors = Subcontractor.where.not(id: selected_subcontractors.map(&:subcontractor_id))
 
     ppsp_content_secu?
   end

@@ -9,6 +9,7 @@ const ListSelected = ({ lifesavers, handleClick }) => {
         id={lifesaver.id} 
         handleClick={handleClick} 
         name={`${lifesaver.first_name} ${lifesaver.last_name}`}
+        formList = {false}
       />
     )
   })

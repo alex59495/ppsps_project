@@ -10,6 +10,7 @@ const ListSelected = ({ site_installations, handleClick }) => {
           handleClick={handleClick}
           key={site_installation.id}
           mobile={site_installation.mobile ? 'mobile' : 'fixe'}
+          formList = {false}
         />
     )
   })

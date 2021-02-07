@@ -26,7 +26,7 @@ const FormList = ({ subcontractors, handleClick }) => {
       work={subcontractor.work}
       handleClick={handleClick}
       key={subcontractor.id}
-      formList
+      formList = {true}
     />
     )
   })

@@ -21,7 +21,7 @@ const FormList = ({ risks, handleClick }) => {
       <FormInput 
         id={risk.id} 
         name={risk.name} 
-        formList
+        formList = {true}
         handleClick={handleClick}
         key={risk.id}
       />
