@@ -30,7 +30,9 @@ const FormList = ({ lifesavers, handleClick }) => {
 
   return(
     <div className="form-lifesavers-list form-flex-element">
-      <p>Liste des sauveteurs de l'entreprise</p>
+      <div className="title">
+        <p>Liste des sauveteurs de l'entreprise</p>
+      </div>
       <fieldset className="form-group check_boxes optional ppsp_lifesavers">
         <legend className="col-form-label pt-0" />
         <input type="hidden" name="ppsp[lifesavers][]" value="" />

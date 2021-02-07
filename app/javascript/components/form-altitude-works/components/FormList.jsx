@@ -30,7 +30,9 @@ const FormList = ({ altitude_works, handleClick }) => {
 
   return(
     <div className="form-altitude_works-list form-flex-element">
-      <p>Accès au chantier disponibles</p>
+      <div className="title">
+        <p>Accès au chantier disponibles</p>
+      </div>
       <fieldset className="form-group check_boxes optional ppsp_altitude_works">
         <legend className="col-form-label pt-0" />
         <input type="hidden" name="ppsp[altitude_works][]" value="" />

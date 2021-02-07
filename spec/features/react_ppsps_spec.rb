@@ -119,7 +119,6 @@ RSpec.feature "React Handling", type: :feature, js: true do
           visit(edit_ppsp_path(@ppsp))
           count = find('#containerSelectedSubcontractors').all('.card-form-selected').size
           first('#containerSelectedSubcontractors > .card-form-selected > .card-form-delete').click
-          sleep 2
           expect(find('#containerSelectedSubcontractors').all('.card-form-selected').size).to eq(count - 1)
         end
 
@@ -127,7 +126,6 @@ RSpec.feature "React Handling", type: :feature, js: true do
           visit(edit_ppsp_path(@ppsp))
           count = find('#containerSelectedSiteInstallations').all('.card-form-selected').size
           first('#containerSelectedSiteInstallations > .card-form-selected > .card-form-delete').click
-          sleep 2
           expect(find('#containerSelectedSiteInstallations').all('.card-form-selected').size).to eq(count - 1)
         end
 
@@ -135,7 +133,6 @@ RSpec.feature "React Handling", type: :feature, js: true do
           visit(edit_ppsp_path(@ppsp))
           count = find('#containerSelectedRisks').all('.card-form-selected').size
           first('#containerSelectedRisks > .card-form-selected > .card-form-delete').click
-          sleep 2
           expect(find('#containerSelectedRisks').all('.card-form-selected').size).to eq(count - 1)
         end
 
@@ -143,7 +140,6 @@ RSpec.feature "React Handling", type: :feature, js: true do
           visit(edit_ppsp_path(@ppsp))
           count = find('#containerSelectedAltitudeWorks').all('.card-form-selected').size
           first('#containerSelectedAltitudeWorks > .card-form-selected > .card-form-delete').click
-          sleep 2
           expect(find('#containerSelectedAltitudeWorks').all('.card-form-selected').size).to eq(count - 1)
         end
 
@@ -151,7 +147,6 @@ RSpec.feature "React Handling", type: :feature, js: true do
           visit(edit_ppsp_path(@ppsp))
           count = find('#containerSelectedLifesavers').all('.card-form-selected').size
           first('#containerSelectedLifesavers > .card-form-selected > .card-form-delete').click
-          sleep 2
           expect(find('#containerSelectedLifesavers').all('.card-form-selected').size).to eq(count - 1)
         end
       end

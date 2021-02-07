@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FormInput = ({ name, id, handleClick, formList }) => (
+const FormInput = ({ name, id, handleClick, formList, mobile }) => (
   <div
     className="form-check"
     id={`check_ppsp_site_installations_${id}`}
@@ -17,7 +17,7 @@ const FormInput = ({ name, id, handleClick, formList }) => (
       className={`form-checkbox ${!formList ? 'active' : ''}`}
       htmlFor={`ppsp_site_installations_${id}`}
     >
-      {`${name}`}
+      {mobile ? `${name} - ${mobile}` : `${name}`}
     </label>
   </div>
 )

@@ -9,14 +9,17 @@ const ListSelected = ({ site_installations, handleClick }) => {
           name={site_installation.name}
           handleClick={handleClick}
           key={site_installation.id}
+          mobile={site_installation.mobile ? 'mobile' : 'fixe'}
         />
     )
   })
 
   return(
     <div className="form-selected-site_installation form-flex-element">
-      <p>Mes ajouts</p>
-      <div className="selected-site_installations">
+      <div className="title">
+        <p>Mes ajouts</p>
+      </div>
+      <div className="selected-site_installations selected-form-check">
         {renderList}
       </div>
     </div>

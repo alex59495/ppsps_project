@@ -15,8 +15,10 @@ const ListSelected = ({ altitude_works, handleClick }) => {
 
   return(
     <div className="form-selected-altitude_work form-flex-element">
-      <p>Mes ajouts</p>
-      <div className="selected-altitude_works">
+      <div className="title">
+        <p>Mes ajouts</p>
+      </div>
+      <div className="selected-altitude_works selected-form-check">
         {renderList}
       </div>
     </div>

@@ -15,8 +15,10 @@ const ListSelected = ({ lifesavers, handleClick }) => {
 
   return(
     <div className="form-selected-lifesaver form-flex-element">
-      <p>Mes ajouts</p>
-      <div className="selected-lifesavers">
+      <div className="title">
+        <p>Mes ajouts</p>
+      </div>
+      <div className="selected-lifesavers selected-form-check">
         {renderList}
       </div>
     </div>
