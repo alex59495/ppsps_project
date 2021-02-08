@@ -7,6 +7,9 @@
       </h2>
       <%= f.simple_fields_for :project_information, @project_information do |h| %>
         <div class="col-md-6 offset-md-3">
+          <%= h.input :name, label: "Désignation du chantier", placeholder: "Réalisation de la voirie E140 entre Bidule et Machin" %>
+        </div>
+        <div class="col-md-6 offset-md-3">
           <%= h.input :reference, label: "Référence du projet", placeholder: "B 484..." %>
         </div>
         <div class="col-md-6 offset-md-3">
@@ -45,7 +48,7 @@
       <div class="col-md-6">
         <div class="form-group select required ppsp_moe_id">
           <div class="container-header-form">
-            <label class="select required" for="ppsp_moe_id">MOE <abbr title="required">*</abbr></label>
+            <label class="select" for="ppsp_moe_id">MOE</label>
             <% if policy(Moe).new? %>
               <%= render 'btn_add_database', data: 'Moe' %>
             <% end %>

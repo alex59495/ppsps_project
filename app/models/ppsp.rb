@@ -34,7 +34,6 @@ class Ppsp < ApplicationRecord
   validates :street_impact, presence: true
   validates :river_guidance, presence: true
   validates :moa_id, presence: true
-  validates :moe_id, presence: true
   validates :demining_id, presence: true
   validates :anti_poison_id, presence: true
   validates :sos_hand_id, presence: true

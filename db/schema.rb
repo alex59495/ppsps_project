@@ -204,6 +204,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_161812) do
 
   create_table "project_informations", force: :cascade do |t|
     t.string "reference"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "responsible_id"

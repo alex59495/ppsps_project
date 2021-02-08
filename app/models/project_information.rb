@@ -5,4 +5,5 @@ class ProjectInformation < ApplicationRecord
   belongs_to :site_manager, class_name: "Worker"
   belongs_to :company
   validates :reference, presence: true
+  validates :name, presence: true
 end
