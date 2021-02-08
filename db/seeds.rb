@@ -34,11 +34,11 @@ Subcontractor.destroy_all
 Company.destroy_all
 
 # Create company
-c1 = Company.create(name: "Company Angelique", address: 'Test adress', phone: '0300000000', representative: 'Chef de Company Angelique')
+c1 = Company.create!(name: "Company Angelique", address: 'Test adress', phone: '0300000000', representative: 'Chef de Company Angelique')
 p "create #{c1.id} company"
-c2 = Company.create(name: Faker::Company.name, address: Faker::Address.street_address, phone: Faker::PhoneNumber.cell_phone_in_e164, representative: Faker::Name.name )
+c2 = Company.create!(name: Faker::Company.name, address: Faker::Address.street_address, phone: Faker::PhoneNumber.cell_phone_in_e164, representative: Faker::Name.name )
 p "create #{c2.id} company"
-c3 = Company.create(name: Faker::Company.name, address: Faker::Address.street_address, phone: Faker::PhoneNumber.cell_phone_in_e164, representative: Faker::Name.name )
+c3 = Company.create!(name: Faker::Company.name, address: Faker::Address.street_address, phone: Faker::PhoneNumber.cell_phone_in_e164, representative: Faker::Name.name )
 p "create #{c3.id} company"
 
 # Create users
@@ -229,7 +229,7 @@ CSV.foreach('./Database_security_coordinators.csv', headers: true, encoding:'iso
 end
 
 # Worksites
-100.times do |n|
+20.times do |n|
   w = Worksite.create!(address: Faker::Address.street_address, start_date: DateTime.new(2020,9,1,17),
     end_date: DateTime.new(2020,9,10,19), nature: "test_#{n+1} nature", workforce: "test_#{n+1} workforce",
     timetable_start: '8h', timetable_end: '16h30', electrical: [true, false].sample)
@@ -273,23 +273,19 @@ ppsps.each do |ppsp|
 end
 
 # Create Subcontractor
-subcontractors = [{
-  name: "Sous Traitant",
-  address: "address subcontract",
-  work: "work subcontract",
-  responsible_name: "Alexis Responsable",
-  responsible_phone: "03 28 26 18 63",
-  responsible_email: "alexis@gmail.com",
-  company_id: c1.id
-}, {
-  name: "Sous Traitant 2",
-  address: "address subcontract 2",
-  work: "work subcontract 2",
-  responsible_name: "Maxence Responsable",
-  responsible_phone: "03 28 26 18 63",
-  responsible_email: "maxences@gmail.com",
-  company_id: c1.id
-}]
+subcontractors = []
+30.times do |n|
+  subcontractor = {
+    name: "Sous Traitant #{n}",
+    address: "address subcontract #{n}",
+    work: "work subcontract #{n}",
+    responsible_name: Faker::Name.name,
+    responsible_phone: "03 28 26 18 63",
+    responsible_email: "alexis@gmail.com",
+    company_id: Company.all.sample.id
+  }
+  subcontractors.append(subcontractor)
+end
 
 subcontractors.each do |subcontractor|
   subcontractor = Subcontractor.create(name: subcontractor[:name], address: subcontractor[:address], 
@@ -315,7 +311,7 @@ Risk::RISKS.each do |risk|
 end
 # Create Machines
 Machine::MACHINES.each do |machine|
-  m = Machine.create!(name: machine)
+  m = Machine.create!(caces: machine[:caces], category: machine[:category], description: machine[:description])
   p "Create #{m.id} machines"
 end
 

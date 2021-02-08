@@ -1,18 +1,21 @@
 import React from 'react'
 import InputMachine from './InputMachine'
 
-const MachinesList = ({listMachines, handleMachine, selectMachine}) => {
+const ListMachines = ({listMachines, handleMachine, selectMachine}) => {
   const renderList = listMachines.map(machine => {
-    return(
-        <InputMachine key={machine.id} machine={machine}/>
-    )
-  })
-  
+   return(
+   <InputMachine 
+      key={machine.id} 
+      caces={machine.caces} 
+      id={machine.id} 
+      description={machine.description}
+    />)
+  });
 
   return (
-    <form className='container-center-column form-list-machines' onSubmit={handleMachine}>
+    <form className='container-center-column form-list-machines' onSubmit={handleMachine} style={{display: 'none'}} >
       <div className="form-select-machines-title">
-        Choisir un véhicule dans la liste ci-dessous si votre chantier implique la conduite d'engins
+        Choisir une catégorie de CACES
       </div>
       <select className="form-select-machines" onClick={selectMachine}>
         {renderList}
@@ -24,4 +27,4 @@ const MachinesList = ({listMachines, handleMachine, selectMachine}) => {
   )
 }
 
-export default MachinesList
+export default ListMachines

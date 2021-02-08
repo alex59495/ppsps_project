@@ -309,10 +309,19 @@
         <% if @lifesavers.any? %>
           <div class="pdf-subtitle">Liste des SST</div>
           <% @lifesavers.each do |lifesaver| %>
-            <%= "#{lifesaver.first_name} #{lifesaver.last_name}" %>
+            <div>
+              <%= "#{lifesaver.first_name} #{lifesaver.last_name}" %>
+            </div>
           <% end %>
         <% end %>
-        <div class="pdf-subtitle"></div>
+
+        <div class="pdf-subtitle">La trousse de secours de l'Entreprise</div>
+        <% @ppsp.user.company.kit_security_elements.each do |kit| %>
+          <div>
+            <%= "#{kit.number} : #{kit.name}" %>
+          </div>
+        <% end %>
+
         <div class="external-services">
           <div class="pdf-subtitle">
             Moyens d'appel des secours
@@ -411,16 +420,6 @@
       </div>
     </div>
     
-    <% if @ppsp.content_secu.present? %>
-      <div class="last-page">
-        <div class="pdf-text-container pdf-align-left">
-          <div class="pdf-title">
-            Spécificité du chantier
-          </div>
-          <%= @ppsp.content_secu.html_safe %>
-        </div>
-      </div>
-    <% end %>
     <% if @ppsp.content_secu.present? %>
       <div class="last-page">
         <div class="pdf-text-container pdf-align-left">

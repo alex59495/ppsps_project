@@ -8,7 +8,7 @@ import CardPpsp from './card_ppsp';
 import { fetchPpsps, loadingTrue, loadMore } from '../actions/index';
 import Spinner from '../components/Spinner';
 
-class ListPpsp extends Component {
+class ListPpsp extends Component {  
   componentDidMount() {
     this.props.loadingTrue();
     this.props.fetchPpsps(this.props.showUser);
@@ -29,7 +29,7 @@ class ListPpsp extends Component {
 
   // Active the Loading Gif and charge more Ppsps
   chargeLoad(loadMore) {
-    // Had to divide into constantes because, can't call the arguments this.props inside the fcallback setTimeout function
+    // Had to divide into constantes because, can't call the arguments this.props inside the callback setTimeout function
     const { showUser, page, search } = this.props;
     this.props.loadingTrue();
     setTimeout(() => {

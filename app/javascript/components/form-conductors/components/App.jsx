@@ -1,12 +1,15 @@
 import React, {useState, useEffect} from 'react'
-import MachinesList from './MachinesList'
+import ListCategory from './ListCategory'
+import ListMachines from './ListMachines'
 import WorkersList from './WorkersList'
 import SavedVehicules from './SavedVehicules'
 
 const App = () => {
-  const [machineId, setMachineId] = useState(null)
+  const [category, setCategory] = useState(null)
   const [workersId, setWorkersId] = useState([])
+  const [machineId, setMachineId] = useState([])
 // Form lists
+  const [listCategory, setlistCategory] = useState([])
   const [listMachines, setListMachines] = useState([])
   const [listWorkers, setListWorkers] = useState([])
 
@@ -23,23 +26,68 @@ const App = () => {
 
 // DOM
   const btnSubmitMachines = document.getElementById('submit-machine')
-  const formListMachine = document.querySelector('.form-list-machines')
+  const btnSubmitCategories = document.getElementById('submit-category')
+  const formListCategory = document.querySelector('.form-list-categories')
+  const formListMachines = document.querySelector('.form-list-machines')
   const formWorkers = document.querySelector('.checkboxes-workers')
 
-// Machine's Logic
-  const fetchMachines = () => {
-    fetch(`${url}/api/v1/machines?ppsps_id=${ppspsId}`, {
+// // Machine's Logic
+//   const fetchMachines = () => {
+//     fetch(`${url}/api/v1/machines?ppsps_id=${ppspsId}`, {
+//       method: 'GET',
+//       'Content-Type': 'application/json'
+//     }).then(response => response.json()).then(data => setlistCategory(data))
+//   }
+
+  // Category's logic
+  const fetchCategories = () => {
+    fetch(`${url}/api/v1/machines/categories?ppsps_id=${ppspsId}`, {
       method: 'GET',
       'Content-Type': 'application/json'
-    }).then(response => response.json()).then(data => setListMachines(data))
+    }).then(response => response.json()).then(data => {
+      const arrayCategory = data.map(machine => {
+        return machine.category
+      })
+      setlistCategory(arrayCategory)
+    })
   }
 
-  const handleMachine = (e) => {
+  const fetchMachines = () => {
+    fetch(`${url}/api/v1/machines?ppsps_id=${ppspsId}&category=${category}`, {
+      method: 'GET',
+      'Content-Type': 'application/json'
+    })
+      .then(response => response.json())
+      .then(data => setListMachines(data))
+  }
+
+
+  const handleCategory = async (e) => {
     e.preventDefault()
-    formListMachine.style.display = 'none';
+    await fetchMachines()
+    formListCategory.style.display = 'none';
+    formListMachines.style.display = 'flex';
+    // Clean the inputs of the form
+    formListCategory.reset()
+    btnSubmitCategories.disabled = true
+
+  }
+
+  const selectCategory = (e) => {
+    setCategory(e.currentTarget.value)
+    btnSubmitCategories.disabled = false
+  }
+
+
+
+// Machines' logic
+  const handleMachine = async (e) => {
+    e.preventDefault()
+    await fetchWorkers()
+    formListMachines.style.display = 'none';
     formWorkers.style.display = 'flex';
     // Clean the inputs of the form
-    formListMachine.reset()
+    formListMachines.reset()
     btnSubmitMachines.disabled = true
   }
 
@@ -66,7 +114,7 @@ const App = () => {
         method: 'POST'
       }).then(response => {
         formWorkers.style.display = 'none';
-        formListMachine.style.display = 'flex';
+        formListCategory.style.display = 'flex';
         // Clean the inputs of the form
         formWorkers.reset()
         let count = trigger
@@ -89,15 +137,16 @@ const App = () => {
       method: 'GET',
       'Content-Type': 'application/json'
     }).then(response => response.json()).then(listConductors => {
-      // On groupes les couples machines/workers par nom de machine
+      // On groupes les couples machines/workers par "category - caces" pour avoir un hash organisé par couple "category - caces"
       const grouped = listConductors.reduce((acc, obj) => {
-        const key = obj.machine_name
+        const key = `${obj.machine_category} - ${obj.machine_caces}` 
         if(!acc[key]){
           acc[key] = [];
         }
         acc[key].push(obj);
         return acc;
       }, {});
+
 
       // React doesn't accept Object as a child so whe have to pass them in array
       const groupedArray = []
@@ -125,8 +174,7 @@ const App = () => {
   // Start the App
   useEffect(() => {
     const fetchData = async () => {
-      await fetchWorkers(),
-      await fetchMachines(),
+      await fetchCategories(),
       fetchConductors()
     }
     fetchData()
@@ -136,7 +184,8 @@ const App = () => {
   return (
     <React.Fragment>
       <div className="form-react-conductors">
-        <MachinesList listMachines={listMachines} handleMachine={handleMachine} selectMachine={selectMachine}/>
+        <ListCategory listCategory={listCategory} handleCategory={handleCategory} selectCategory={selectCategory}/>
+        <ListMachines listMachines={listMachines} handleMachine={handleMachine} selectMachine={selectMachine}/>
         <WorkersList listWorkers={listWorkers} handleWorkers={handleWorkers} selectWorkers={selectWorkers}/>
       </div>
       <SavedVehicules listSelected={listSelected} handleDelete={handleDelete}/>

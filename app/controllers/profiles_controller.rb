@@ -7,6 +7,7 @@ class ProfilesController < ApplicationController
 
   def edit
     authorize @user
+    @kit_security_element = KitSecurityElement.new
     @company = @user.company
   end
 

@@ -1,17 +1,7 @@
 <div class="mb-3">
   <%= link_to "Revenir au profil", profile_path(@user), class: 'link' %>
 </div>
-<div class="row">
-  <div class=<%= @user.admin && @user == current_user ? 'col-md-6' : 'col-12' %>>
-    <h2>Mes informations</h2>
-    <%= simple_form_for @user, url: profile_path(@user), html: { method: :put } do |f| %>
-      <%= f.input :first_name, label: "Prénom" %>
-      <%= f.input :last_name, label: "Nom de famille" %>
-      <%= f.input :email, label: "Email" %>
-      <%= f.submit "Valider mes modifications", class: 'btn-blue' %>
-    <% end %>
-  </div>
-
+<div class="row mr-0 ml-0">
   <% if @user.admin && @user == current_user  %>
     <div class='col-md-6'>
       <h2>Les informations de mon entreprise</h2>
@@ -34,6 +24,29 @@
           <div class="d-flex justify-content-center">
             <%= f.input :logo, label: false, input_html: {:onchange => "loadLogo(event)"} %>
           </div>
+          <div class="d-flex justify-content-center my-4">
+            <%= f.submit "Modifier", class: 'btn-blue' %>
+          </div>
+        <% end %>
+
+        <div class="security-kit">
+          <h3>La trousse de sécurité de mon entreprise</h3>
+          <div id="selected-kit-security">
+            <% @user.company.kit_security_elements.each do |kit| %>
+              <%= "#{kit.number} : #{kit.name}" %>
+              <%= link_to 'x', kit_security_element_path(kit, user_id: @user.id), method: :delete, data: {confirm: 'Êtes-vous sûr ?'}, remote: true%>
+            <% end %>
+          </div>
+          <div class="btn-add-security-kit link">Ajouter</div>
+          <%= simple_form_for @kit_security_element, remote: true, html: {class: 'hidden', id: 'add-security-kit' } do |f| %>
+            <p>Ajouter un nouvel élément dans la trousse</p>
+            <%= f.input :number, label: 'Nombre' %>
+            <%= f.input :name, label: 'Contenu' %>
+            <%= f.submit 'Ajouter', class: 'btn-blue' %>
+          <% end %>
+        </div>
+
+        <%= simple_form_for @user.company do |f| %>
           <h3 class="text-center">Texte de sécurité de l'entreprise</h3>
           <%= f.text_area :content_secu, class: 'tinymce' %>
           <%= tinymce %>
@@ -44,6 +57,16 @@
       </div>
     </div>
   <% end %>
+
+  <div class=<%= @user.admin && @user == current_user ? 'col-md-6' : 'col-12' %>>
+    <h2>Mes informations</h2>
+    <%= simple_form_for @user, url: profile_path(@user), html: { method: :put } do |f| %>
+      <%= f.input :first_name, label: "Prénom" %>
+      <%= f.input :last_name, label: "Nom de famille" %>
+      <%= f.input :email, label: "Email" %>
+      <%= f.submit "Valider mes modifications", class: 'btn-blue' %>
+    <% end %>
+  </div>
 </div>
 <script>
   const loadLogo = (event) => {

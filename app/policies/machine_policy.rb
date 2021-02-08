@@ -4,4 +4,8 @@ class MachinePolicy < ApplicationPolicy
       scope.all
     end
   end
+
+  def categories?
+    true
+  end
 end

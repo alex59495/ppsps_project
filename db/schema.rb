@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_06_170443) do
+ActiveRecord::Schema.define(version: 2021_02_08_111715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,8 +110,19 @@ ActiveRecord::Schema.define(version: 2021_02_06_170443) do
     t.index ["company_id"], name: "index_hospitals_on_company_id"
   end
 
-  create_table "machines", force: :cascade do |t|
+  create_table "kit_security_elements", force: :cascade do |t|
+    t.bigint "company_id", null: false
     t.string "name"
+    t.integer "number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_kit_security_elements_on_company_id"
+  end
+
+  create_table "machines", force: :cascade do |t|
+    t.string "category"
+    t.string "caces"
+    t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -396,6 +407,7 @@ ActiveRecord::Schema.define(version: 2021_02_06_170443) do
   add_foreign_key "deminings", "companies"
   add_foreign_key "direccts", "companies"
   add_foreign_key "hospitals", "companies"
+  add_foreign_key "kit_security_elements", "companies"
   add_foreign_key "moas", "companies"
   add_foreign_key "moes", "companies"
   add_foreign_key "pension_insurances", "companies"

@@ -1,9 +1,9 @@
 import React from 'react'
 
-const InputMachine = ({machine}) => {
+const InputMachine = ({caces, id}) => {
   return (
-    <option value={machine.id}>
-      {machine.name}
+    <option value={id}>
+      {caces}
     </option>
   )
 }

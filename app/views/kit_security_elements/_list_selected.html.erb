@@ -1,0 +1,6 @@
+<div id="selected-kit-security">
+  <% @user.company.kit_security_elements. each do |kit| %>
+    <%= "#{kit.number} : #{kit.name}" %>
+    <%= link_to 'x', kit_security_element_path(kit, user_id: @user.id), method: :delete, data: {confirm: 'Êtes-vous sûr ?'}, remote: true%>
+  <% end %>
+</div>

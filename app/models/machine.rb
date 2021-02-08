@@ -1,7 +1,25 @@
 class Machine < ApplicationRecord
   has_many :conductors
   has_many :workers, through: :conductors
-  validates :name, presence: true
+  validates :caces, presence: true
+  validates :category, presence: true
+  validates :description, presence: true
 
-  MACHINES = ['CACES 1', 'CACES 2', 'CACES 3', 'CACES 4', 'CACES 5', 'CACES 6', 'CACES 7', 'CACES 8', 'CACES 9', 'CACES 10', 'CACES 11', 'CACES 12']
+  MACHINES = [
+    {
+      category: 'Engin de chantier',
+      caces: 'Categorie A',
+      description: 'Bla bla bla je suis un engin de chantier de categorie A'
+    },
+    {
+      category: 'Engin de chantier',
+      caces: 'Categorie B',
+      description: 'Bla bla bla je suis un engin de chantier de categorie B'
+    },
+    {
+      category: 'Pont Roulant',
+      caces: 'Categorie A',
+      description: 'Bla bla bla je suis un pont roulant de categorie A'
+    }
+  ]
 end

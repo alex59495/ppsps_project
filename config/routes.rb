@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       
       resources :conductors, only: [:index, :destroy]      
       resources :machines, only: [ :index ]
+      get 'machines/categories', to: 'machines#categories'
       post 'conductors/:machine_id/:worker_id', to: 'conductors#create'
       get 'workers/conductors', to: 'workers#conductors'
       get 'workers/lifesavers', to: 'workers#lifesavers'
@@ -52,6 +53,8 @@ Rails.application.routes.draw do
   resources :profiles, only: [:show, :edit, :update]
 
   # Database
+  resources :kit_security_elements, only: [:create, :destroy]
+
   resources :companies, only: [:update] do
     member do      
       get :destroy_logo
