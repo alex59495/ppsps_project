@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_08_111715) do
+ActiveRecord::Schema.define(version: 2021_02_08_161812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,15 +204,13 @@ ActiveRecord::Schema.define(version: 2021_02_08_111715) do
 
   create_table "project_informations", force: :cascade do |t|
     t.string "reference"
-    t.string "responsible"
-    t.string "phone"
-    t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "site_manager_id", null: false
-    t.bigint "team_manager_id", null: false
-    t.index ["site_manager_id"], name: "index_project_informations_on_site_manager_id"
-    t.index ["team_manager_id"], name: "index_project_informations_on_team_manager_id"
+    t.integer "responsible_id"
+    t.integer "team_manager_id"
+    t.integer "site_manager_id"
+    t.bigint "company_id", null: false
+    t.index ["company_id"], name: "index_project_informations_on_company_id"
   end
 
   create_table "regional_committees", force: :cascade do |t|
@@ -300,14 +298,6 @@ ActiveRecord::Schema.define(version: 2021_02_08_111715) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "site_managers", force: :cascade do |t|
-    t.string "name"
-    t.string "phone"
-    t.string "email"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "sos_hands", force: :cascade do |t|
     t.string "name"
     t.string "address"
@@ -331,14 +321,6 @@ ActiveRecord::Schema.define(version: 2021_02_08_111715) do
     t.bigint "company_id", null: false
     t.boolean "is_destroyed", default: false
     t.index ["company_id"], name: "index_subcontractors_on_company_id"
-  end
-
-  create_table "team_managers", force: :cascade do |t|
-    t.string "name"
-    t.string "phone"
-    t.string "email"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -375,6 +357,9 @@ ActiveRecord::Schema.define(version: 2021_02_08_111715) do
     t.boolean "lifesaver"
     t.boolean "conductor"
     t.boolean "is_destroyed", default: false
+    t.string "role"
+    t.integer "phone"
+    t.string "email"
     t.bigint "company_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -425,8 +410,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_111715) do
   add_foreign_key "ppsps", "users"
   add_foreign_key "ppsps", "work_medecines"
   add_foreign_key "ppsps", "worksites"
-  add_foreign_key "project_informations", "site_managers"
-  add_foreign_key "project_informations", "team_managers"
+  add_foreign_key "project_informations", "companies"
   add_foreign_key "regional_committees", "companies"
   add_foreign_key "security_coordinators", "companies"
   add_foreign_key "selected_lifesavers", "ppsps"

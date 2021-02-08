@@ -19,9 +19,7 @@ WorkMedecine.destroy_all
 Risk.destroy_all
 SecurityCoordinator.destroy_all
 SiteInstallation.destroy_all
-SiteManager.destroy_all
 SosHand.destroy_all
-TeamManager.destroy_all
 Direcct.destroy_all
 AntiPoison.destroy_all
 AltitudeWork.destroy_all
@@ -102,34 +100,28 @@ CSV.foreach('./Database_MOE.csv', headers: true, encoding:'utf-8', col_sep: ";")
   p "Create #{mo.id} MOE"
 end
 
-# Create Site Manager
-site_manager = {
-  name: "Test chef de chantier",
-  phone: "0600000000",
-  email: "chefdechantier@gmail.com",
-}
-site_manager1 = SiteManager.create(name: site_manager[:name], phone:site_manager[:phone], email:site_manager[:email])
-p "create #{site_manager1.id} site manager"
-
-# Create Team Manager
-team_manager = {
-  name: "Test chef d'équipe",
-  phone: "0600000000",
-  email: "chefdequipe@gmail.com",
-}
-team_manager1 = TeamManager.create(name: team_manager[:name], phone:team_manager[:phone], email:team_manager[:email])
-p "create #{team_manager1.id} team manager"
+# Create workers
+100.times do
+  worker = Worker.create!(
+    first_name: Faker::Name.first_name, 
+    last_name: Faker::Name.last_name, 
+    lifesaver: [true, false].sample, 
+    conductor: [true, false].sample, 
+    role: Worker::ROLE.sample,
+    company: Company.all.sample)
+  p "Create #{worker.id} worker"
+end
 
 # Create Project Informations
 infos = []
 100.times do |n|
+  company = Company.all.sample
   project_info = {
     reference: "AABB1#{n+10}",
-    responsible: "Responsible Test-#{n}",
-    phone: "0300000000",
-    email: "project-#{n}@gmail.com",
-    site_manager_id: SiteManager.first.id,
-    team_manager_id: TeamManager.first.id
+    company: company,
+    responsible_id: Worker.where(company: company).sample.id,
+    site_manager_id: Worker.where(company: company).sample.id,
+    team_manager_id: Worker.where(company: company).sample.id,
   }
   infos.append(project_info)
 end
@@ -137,10 +129,10 @@ end
 
 infos.each do |project|
   project_information1 = ProjectInformation.create!(
-    reference: project[:reference], phone:project[:phone],
-    responsible:project[:responsible], email:project[:email], 
-    site_manager_id:project[:site_manager_id],
-    team_manager_id:project[:team_manager_id])
+    reference: project[:reference], company:project[:company],
+    responsible_id: project[:responsible_id],
+    site_manager_id: project[:site_manager_id],
+    team_manager_id: project[:team_manager_id])
   p "create #{project_information1.id} project info"
 end
 
@@ -313,11 +305,4 @@ end
 Machine::MACHINES.each do |machine|
   m = Machine.create!(caces: machine[:caces], category: machine[:category], description: machine[:description])
   p "Create #{m.id} machines"
-end
-
-# Create workers
-100.times do
-  worker = Worker.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, 
-    lifesaver: [true, false].sample, conductor: [true, false].sample, company: Company.all.sample)
-  p "Create #{worker.id} worker"
 end

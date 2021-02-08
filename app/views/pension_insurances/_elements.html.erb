@@ -11,7 +11,7 @@
         <div class="line"><i class="fas fa-phone-alt"></i><%= pension_insurance.phone %></div>
         <div class="line"><i class="fas fa-laptop-code"></i></i><%= pension_insurance.website.present? ? pension_insurance.website : 'site web non renseigné' %></div>
         <div class="card-db-action">
-          <%= link_to edit_pension_insurance_path(pension_insurance), class: "card-db-edit", target: '_blank' do %>
+          <%= link_to edit_pension_insurance_path(pension_insurance), class: "card-db-edit" do %>
             <i class='fas fa-pencil-alt'></i>
           <% end %>
           <%= link_to "x", destroy_pension_insurance_path(pension_insurance), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>

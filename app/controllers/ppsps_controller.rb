@@ -11,13 +11,10 @@ class PpspsController < ApplicationController
   def new
     @ppsp = Ppsp.new
     authorize @ppsp
-    # Create the fields for the project_information, site_manager and team_manager => Nested form in the view
-    # This way they are created in the DB if the @ppsp is saved
+    # Create the fields for the project_information,
     # We used the 'accepts_nested_attributes_for' in the models
     # We used the projection_information_attributes in the params
     @project_information = @ppsp.build_project_information
-    @site_manager = @ppsp.build_project_information.build_site_manager
-    @team_manager = @ppsp.build_project_information.build_team_manager
 
     @worksite = @ppsp.build_worksite
 
@@ -85,6 +82,7 @@ class PpspsController < ApplicationController
 
   def create
     @ppsp = Ppsp.new(params_ppsp)
+    @ppsp.project_information.company = current_user.company
     # Info to add the possibility to create a new element through a modal form
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
@@ -135,8 +133,6 @@ class PpspsController < ApplicationController
     authorize @ppsp
     # This way the edit page is able to retrieve the project informations
     @project_information = @ppsp.project_information
-    @site_manager = @ppsp.project_information.site_manager
-    @team_manager = @ppsp.project_information.team_manager
 
     @worksite = @ppsp.worksite
 
@@ -175,8 +171,6 @@ class PpspsController < ApplicationController
     authorize @ppsp
     # This way the update is able to retrieve the project informations
     @project_information = @ppsp.project_information
-    @site_manager = @ppsp.project_information.site_manager
-    @team_manager = @ppsp.project_information.team_manager
 
     @worksite = @ppsp.worksite
 
@@ -336,7 +330,6 @@ class PpspsController < ApplicationController
                                  :street_impact, :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
                                  :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, :logo_client, :content_secu, annexes: [],
                                                                                                                          worksite_attributes: %i[address start_date end_date timetable_start timetable_end workforce electrical nature],
-                                                                                                                         project_information_attributes: [:reference, :responsible, :phone, :email,
-                                                                                                                                                          { site_manager_attributes: %i[name email phone], team_manager_attributes: %i[name email phone] }])
+                                                                                                                         project_information_attributes: %i[reference responsible_id site_manager_id team_manager_id])
   end
 end

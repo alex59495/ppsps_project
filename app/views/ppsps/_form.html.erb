@@ -10,36 +10,14 @@
           <%= h.input :reference, label: "Référence du projet", placeholder: "B 484..." %>
         </div>
         <div class="col-md-6 offset-md-3">
-          <%= h.input :responsible, label: "Responsable", placeholder: "Entrez le nom du responsable..." %>
+          <%= h.input :responsible_id, label: "Responsable", collection: Worker.where(role: 'Conducteur de travaux').order(:last_name), label_method: lambda {|x| "#{x.last_name} #{x.first_name}"}, input_html: {class: "select-2"} %>
         </div>
         <div class="col-md-6 offset-md-3">
-          <%= h.input :phone, label: "Téléphone", placeholder: "Entrez le numéro de téléphone du responsable..." %>
+          <%= h.input :site_manager_id, label: "Chef de chantier", collection: Worker.where(role: 'Chef de chantier').order(:last_name), label_method: lambda {|x| "#{x.last_name} #{x.first_name}"}, input_html: {class: "select-2"} %>
         </div>
         <div class="col-md-6 offset-md-3">
-          <%= h.input :email, label: "Email", placeholder: "Entrez l'email du responsable..."  %>
+          <%= h.input :team_manager_id, label: "Chef d'équipe", collection: Worker.where(role: "Chef d'équipe").order(:last_name), label_method: lambda {|x| "#{x.last_name} #{x.first_name}"}, input_html: {class: "select-2"} %>
         </div>
-        <%= h.simple_fields_for :site_manager, @site_manager do |j| %>
-          <div class="col-md-6 offset-md-3">
-            <%= j.input :name, label: "Chef de chantier", placeholder: "Entrez le nom du chef de chantier..."  %>
-          </div>
-          <div class="col-md-6 offset-md-3">
-            <%= j.input :phone, label: "Téléphone", placeholder: "Entrez le numéro de téléphone du chef de chantier..."  %>
-          </div>
-          <div class="col-md-6 offset-md-3">  
-            <%= j.input :email, label: "Email", placeholder: "Entrez l'email du chef de chantier..."  %>
-          </div>
-        <% end %>
-        <%= h.simple_fields_for :team_manager, @team_manager do |k| %>
-        <div class="col-md-6 offset-md-3">
-          <%= k.input :name, label: "Chef d'équipe", placeholder: "Entrez le nom du chef d'équipe..." %>
-        </div>
-        <div class="col-md-6 offset-md-3">
-          <%= k.input :phone, label: "Téléphone", placeholder: "Entrez le numéro de téléphone du chef d'équipe..."  %>
-        </div>
-        <div class="col-md-6 offset-md-3">
-          <%= k.input :email, label: "Email", placeholder: "Entrez l'email du chef d'équipe..." %>
-        </div>
-        <% end %>
       <% end %>
 
       <h3 class="col-12 form-subtitle">

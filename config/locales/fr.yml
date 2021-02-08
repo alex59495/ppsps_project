@@ -25,8 +25,8 @@ fr:
       project_information:
         reference: La référence
         responsible: Le responsable
-        phone: Le téléphone
-        email: L'email
+        site_manager: Le chef de chantier
+        team_manager: Le chef d'équipe
       worksite:
         address: L'adresse
         start_date: La date de début
@@ -36,14 +36,6 @@ fr:
         timetable_start: L'horaire
         timetable_end: L'horaire
         electrical: Les installations électriques
-      site_manager:
-        name: Le nom
-        email: L'email
-        phone: Le téléphone
-      team_manager:
-        name: Le nom
-        email: L'email
-        phone: Le téléphone
       hospital:
         name: Le nom
         address: L'adresse

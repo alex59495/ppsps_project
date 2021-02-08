@@ -1,6 +1,7 @@
 <%= simple_form_for @worker, remote: true do |f| %>
   <%= f.input :first_name, label: 'Prénom' %>
   <%= f.input :last_name, label: 'Nom' %>
+  <%= f.input :role, label: "Status", as: :select, collection: Worker::ROLE %>
   <%= f.input :lifesaver, label: 'Sauveteur' %>
   <%= f.input :conductor, label: 'Conducteur' %>
   <%= f.submit 'Ajouter', class: 'btn-blue', id: "WorkerBtn" %>

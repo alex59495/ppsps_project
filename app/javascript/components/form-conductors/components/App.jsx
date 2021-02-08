@@ -96,7 +96,6 @@ const App = () => {
     btnSubmitMachines.disabled = false
   }
 
-
 // Workers Logic
   const fetchWorkers = () => {
     fetch(`${url}/api/v1/workers/conductors`, {

@@ -11,7 +11,7 @@
         <div class="line"><i class="fas fa-phone-alt"></i><%= direcct.phone %></div>
         <div class="line"><i class="fas fa-laptop-code"></i><%= direcct.website.present? ? direcct.website : 'site web non-renseigné' %></div>
         <div class="card-db-action">
-          <%= link_to edit_direcct_path(direcct), class: "card-db-edit", target: '_blank' do %>
+          <%= link_to edit_direcct_path(direcct), class: "card-db-edit" do %>
             <i class='fas fa-pencil-alt'></i>
           <% end %>
           <%= link_to "x", destroy_direcct_path(direcct), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
