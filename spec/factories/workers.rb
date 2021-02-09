@@ -23,7 +23,7 @@ FactoryBot.define do
     end
 
     trait :team_manager do
-      role { "Chef d'équi[e" }
+      role { "Chef d'équipe" }
     end
 
     factory :responsible, traits: [:responsible]

@@ -10,3 +10,16 @@
   font-style: italic;
   font-size: 14px;
 }
+
+#alert-text-plan {
+  transition: opacity 1s ease-out;
+  opacity: 1;
+  height: auto;
+  overflow: hidden;
+}
+
+#alert-text-plan.hidden-visibility {
+  transition: opacity 1s ease-out;
+  height: 0;
+  opacity: 0;
+}

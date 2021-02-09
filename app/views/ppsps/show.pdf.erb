@@ -317,7 +317,7 @@
       </div>
     </div>
 
-    <div class=<%= @ppsp.content_secu.present? ? "page-break" : "last-page" %> >
+    <div class="page-break">
       <div class="pdf-text-container">
         <div class="pdf-title mb-2">
           Disposition en matière de secours et d'évacuation
@@ -437,7 +437,7 @@
     </div>
     
     <% if @ppsp.content_secu.present? %>
-      <div class="last-page">
+      <div class="page-break">
         <div class="pdf-text-container pdf-align-left">
           <div class="pdf-title">
             Spécificité du chantier
@@ -446,11 +446,17 @@
         </div>
       </div>
     <% end %>
+    <% if @ppsp.plan_installation.attached? %>
+      <h3>Plan d'installation</h3>
+      <div class='page-break'>
+        <%# <%= cl_image_tag(@ppsp.plan_installation.key + .jpg}, crop: "scale", width: 1500,  height: 2000) %> %>
+      </div>
+    <% end %>
     <% if @ppsp.annexes.attached? %>
       <% @annexes.each do |_key, value| %>
-        <% for i in (1..value[:pages]) %>
-          <div>
-            <%= cl_image_tag(value[:key] + '.jpg', page: i, crop: "scale") %>
+        <% (1..value[:pages]).each do |i| %>
+          <div class='page-break'>
+            <%= cl_image_tag(value[:key] + '.jpg', page: i, crop: "scale", width: 1500,  height: 2000) %>
           </div>
         <% end %>
       <% end %>

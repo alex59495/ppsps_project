@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Ppsps Controller", type: :request do
+  before :all do
+    @user = create(:user_admin)
+  end
+
   context 'Logged as User Admin' do
     let(:moa) { create(:moa) }
     let(:moe) { create(:moe) }
@@ -16,18 +20,19 @@ RSpec.describe "Ppsps Controller", type: :request do
     let(:hospital) { create(:hospital) }
     let(:sos_hand) { create(:sos_hand) }
     let(:anti_poison) { create(:anti_poison) }
-    let(:user) { create(:user_admin) }
     let(:demining) { create(:demining) }
     let(:direcct) { create(:direcct) }
+    let(:responsible) { create(:responsible) }
+    let(:site_manager) { create(:site_manager) }
+    let(:team_manager) { create(:team_manager) }
     let(:params_ppsp) do
       attributes_for(:ppsp).merge({
                                     security_coordinator_id: security_coordinator.id,
                                     moa_id: moa.id,
                                     moe_id: moe.id,
-                                    project_information_attributes: attributes_for(:project_information).merge({
-                                                                                                                 site_manager_attributes: attributes_for(:site_manager),
-                                                                                                                 team_manager_attributes: attributes_for(:team_manager)
-                                                                                                               }),
+                                    project_information_attributes: attributes_for(:project_information)
+                                    .merge(company_id: @user.company.id, responsible_id: responsible.id,
+                                           site_manager_id: site_manager.id, team_manager_id: team_manager.id),
                                     worksite_attributes: attributes_for(:worksite),
                                     direcct_id: direcct.id,
                                     regional_committee_id: regional_committee.id,
@@ -36,16 +41,15 @@ RSpec.describe "Ppsps Controller", type: :request do
                                     hospital_id: hospital.id,
                                     sos_hand_id: sos_hand.id,
                                     anti_poison_id: anti_poison.id,
-                                    user_id: user.id,
+                                    user_id: @user.id,
                                     demining_id: demining.id
                                   })
     end
 
     context 'Actions when you are the record owner' do
       before do
-        user = create(:user)
-        @ppsp = create(:ppsp, user: user)
-        login_as(user)
+        @ppsp = create(:ppsp, user: @user)
+        login_as(@user)
       end
 
       context 'Action Create' do

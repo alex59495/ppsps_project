@@ -95,9 +95,15 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
     scenario 'Complete and Submit the PPSP' do
       count = Ppsp.includes(:user).where(users: { company: @user.company }).count
       visit(new_ppsp_path)
+      fill_in('ppsp_project_information_attributes_name', with: 'Test de nom de projet')
       fill_in('ppsp_worksite_attributes_address', with: 'Test adresse')
       fill_in('ppsp_worksite_attributes_nature', with: 'Test de nature')
-      fill_in('ppsp_worksite_attributes_workforce', with: 'Test de personnel')
+      fill_in('ppsp_worksite_attributes_num_responsible', with: 1)
+      fill_in('ppsp_worksite_attributes_num_conductor', with: 3)
+      fill_in('ppsp_worksite_attributes_num_worker', with: 10)
+      fill_in('ppsp_worksite_attributes_timetable_start', with: '8h30')
+      fill_in('ppsp_worksite_attributes_timetable_end', with: '16h30')
+
       # complete the flatpickr date
       page.execute_script("$('#range_start').val('2020-12-12')")
       fill_in('range_end', with: Date.today.next_day.next_month.next_month.to_s)
@@ -106,17 +112,9 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#ppsp_moa_id').find(:xpath, 'option[2]').select_option
       find('#ppsp_moe_id').find(:xpath, 'option[2]').select_option
       fill_in('ppsp_project_information_attributes_reference', with: "ABRFH78")
-      fill_in('ppsp_project_information_attributes_responsible', with: 'Test de responsable')
-      fill_in('ppsp_project_information_attributes_phone', with: Faker::PhoneNumber.cell_phone_in_e164)
-      fill_in('ppsp_project_information_attributes_email', with: Faker::Internet.email)
-      fill_in('ppsp_project_information_attributes_site_manager_attributes_name', with: 'Test de chef de chantier')
-      fill_in('ppsp_project_information_attributes_site_manager_attributes_phone',
-              with: Faker::PhoneNumber.cell_phone_in_e164)
-      fill_in('ppsp_project_information_attributes_site_manager_attributes_email', with: Faker::Internet.email)
-      fill_in("ppsp_project_information_attributes_team_manager_attributes_name", with: "Test de chef d'équipe")
-      fill_in("ppsp_project_information_attributes_team_manager_attributes_phone",
-              with: Faker::PhoneNumber.cell_phone_in_e164)
-      fill_in("ppsp_project_information_attributes_team_manager_attributes_email", with: Faker::Internet.email)
+      find('#ppsp_project_information_attributes_responsible_id').find(:xpath, 'option[2]').select_option
+      find('#ppsp_project_information_attributes_site_manager_id').find(:xpath, 'option[2]').select_option
+      find('#ppsp_project_information_attributes_team_manager_id').find(:xpath, 'option[2]').select_option
       find('#ppsp_direcct_id').find(:xpath, 'option[2]').select_option
       find('#ppsp_work_medecine_id').find(:xpath, 'option[2]').select_option
       find('#ppsp_demining_id').find(:xpath, 'option[2]').select_option
@@ -130,8 +128,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#ppsp_street_impact').find(:xpath, 'option[2]').select_option
       find('#ppsp_river_guidance').find(:xpath, 'option[2]').select_option
       click_button "J'ai terminé"
-      # A refacto
-      sleep 5
+      sleep 2
       expect(Ppsp.includes(:user).where(users: { company: @user.company }).count).to eq(count + 1)
     end
 
@@ -144,11 +141,11 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
     scenario 'Change the field when update' do
       visit(edit_ppsp_path(@ppsp))
-      fill_in('ppsp_project_information_attributes_site_manager_attributes_name', with: 'Update chef de chantier')
+      fill_in('ppsp_project_information_attributes_reference', with: 'Reference Updated')
       click_button("J'ai terminé")
       # A refacto
       sleep 2
-      expect(@ppsp.reload.project_information.site_manager.name).to eq('Update chef de chantier')
+      expect(@ppsp.reload.project_information.reference).to eq('Reference Updated')
     end
 
     scenario 'Confirmation message when delete a Ppsp' do

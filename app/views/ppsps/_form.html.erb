@@ -48,7 +48,6 @@
         <div class="col-md-6 offset-md-3">
           <%= h.input :team_manager_id, label: "Chef d'équipe", collection: Worker.where(role: "Chef d'équipe").order(:last_name), label_method: lambda {|x| "#{x.last_name} #{x.first_name}"}, input_html: {class: "select-2"} %>
         </div>
-        <input class="hidden" value=<%= "#{current_user.company.id}" %> name="ppsp[project_information_attributes][company_id]" id="ppsp_project_information_attributes_company_id">
       <% end %>
 
       <h3 class="col-md-6 offset-3 form-subtitle">
@@ -256,8 +255,10 @@
          <div class="col-md-6 offset-md-3">
           <p>Votre chantier dispose-t-il d'un plan d'installation ?</p>
           <%= w.input :plan, label: '&nbsp;'.html_safe,input_html: { class: 'checkbox-visual hidden' } %>
-          <p class="text-alert">Veuillez ajouter votre plan d'installation en annexe</p>
-          <%= f.input :annexes, label: false, input_html: { multiple: true } %>
+          <div id="alert-text-plan" class="hidden-visibility" <%= @ppsp.plan_installation.present? ? 'data-plan-attachment: true' : ''%>>
+            <p class="text-alert">Veuillez ajouter votre plan d'installation en annexe</p>
+            <%= f.input :plan_installation, label: false %>
+          </div>
         </div>
 
 

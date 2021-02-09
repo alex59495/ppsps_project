@@ -10,7 +10,9 @@ RSpec.describe Worksite, type: :model do
 
   it { should validate_presence_of(:address) }
   it { should validate_presence_of(:nature) }
-  it { should validate_presence_of(:workforce) }
+  it { should validate_presence_of(:num_responsible) }
+  it { should validate_presence_of(:num_conductor) }
+  it { should validate_presence_of(:num_worker) }
   it { should validate_presence_of(:start_date) }
   it { should validate_presence_of(:end_date) }
   it { should validate_presence_of(:timetable_start) }

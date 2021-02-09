@@ -7,7 +7,19 @@ const hideSecurityKit = () => {
       btnAdd.innerText = btnAdd.innerText === 'Ajouter' ? 'Cacher' : 'Ajouter';
     })
   }
-
 }
 
-export default hideSecurityKit
+const hidePlanInstallation = () => {
+  const inputPlan = document.getElementById('ppsp_worksite_attributes_plan')
+  const alertText =document.getElementById('alert-text-plan')
+  if(inputPlan) {
+    if(inputPlan.checked === true) {
+      alertText.classList.remove('hidden-visibility')
+    }
+    inputPlan.addEventListener('click', () => {
+      alertText.classList.toggle('hidden-visibility')
+    })
+  }
+}
+
+export { hideSecurityKit, hidePlanInstallation }
