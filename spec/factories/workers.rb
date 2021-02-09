@@ -5,6 +5,8 @@ FactoryBot.define do
     conductor { [true, false].sample }
     lifesaver { [true, false].sample }
     role { Worker::ROLE.sample }
+    phone { Faker::PhoneNumber.cell_phone_in_e164 }
+    email { Faker::Internet.email }
     company
 
     factory :worker_update do

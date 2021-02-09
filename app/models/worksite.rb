@@ -5,10 +5,14 @@ class Worksite < ApplicationRecord
   validates :start_date, presence: true
   validates :end_date, presence: true
   validates :nature, presence: true
-  validates :workforce, presence: true
+  validates :num_responsible, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :num_conductor, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :num_worker, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :timetable_start, presence: true
   validates :timetable_end, presence: true
-  validates :electrical, inclusion: { in: [true, false] }
+  validates :electrical_site, inclusion: { in: [true, false] }
+  validates :water_site, inclusion: { in: [true, false] }
+  validates :plan, inclusion: { in: [true, false] }
   validate :start_date_cant_be_after_end_date
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?

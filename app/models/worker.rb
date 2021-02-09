@@ -10,6 +10,8 @@ class Worker < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :role, presence: true
+  validates :email, presence: true, email: true
+  validates :phone, presence: true, phone: true
 
   ROLE = ['Conducteur de travaux', 'Chef de chantier', "Chef d'équipe"]
 

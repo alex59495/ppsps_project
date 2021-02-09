@@ -47,11 +47,25 @@
           <div class="flex-div-50">
             <div class="pi-site-manager">
               <div class="pdf-subsubtitle">
+                Responsable
+              </div>
+              <div class="container-80">
+                <div class="flexbox">
+                    <div class="flex-div-40">Nom : </div><div class="flex-div-60"><%= "#{@ppsp.project_information.responsible.first_name} #{@ppsp.project_information.responsible.last_name}" %></div>
+                    <div class="flex-div-40">Téléphone : </div><div class="flex-div-60"><%= @ppsp.project_information.responsible.phone %></div>
+                    <div class="flex-div-40">Email : </div><div class="flex-div-60"><%= @ppsp.project_information.responsible.email %></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-div-50">
+            <div class="pi-site-manager">
+              <div class="pdf-subsubtitle">
                 Chef de chantier
               </div>
               <div class="container-80">
                 <div class="flexbox">
-                    <div class="flex-div-40">Nom : </div><div class="flex-div-60"><%= @ppsp.project_information.site_manager.name %></div>
+                    <div class="flex-div-40">Nom : </div><div class="flex-div-60"><%= "#{@ppsp.project_information.site_manager.first_name} #{@ppsp.project_information.site_manager.last_name}" %></div>
                     <div class="flex-div-40">Téléphone : </div><div class="flex-div-60"><%= @ppsp.project_information.site_manager.phone %></div>
                     <div class="flex-div-40">Email : </div><div class="flex-div-60"><%= @ppsp.project_information.site_manager.email %></div>
                 </div>
@@ -65,7 +79,7 @@
               </div>
               <div class="container-80">
                 <div class="flexbox">
-                  <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= @ppsp.project_information.team_manager.name %></div>
+                  <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= "#{@ppsp.project_information.team_manager.first_name} #{@ppsp.project_information.team_manager.last_name}" %></div>
                   <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.project_information.team_manager.phone %></div>
                   <div class="flex-div-40">Email :</div><div class="flex-div-60"><%= @ppsp.project_information.team_manager.email %></div>
                 </div>
@@ -227,12 +241,14 @@
           <div class="flex-div-40">Date de début : </div><div class="flex-div-60"><%= @ppsp.worksite.start_date %></div>
           <div class="flex-div-40">Date de fin : </div><div class="flex-div-60"><%= @ppsp.worksite.end_date %></div>
           <div class="flex-div-40">Référence : </div><div class="flex-div-60"><%= @ppsp.project_information.reference %></div>
-          <div class="flex-div-40">Responsable : </div><div class="flex-div-60"><%= @ppsp.project_information.responsible %></div>
-          <div class="flex-div-40">Téléphone : </div><div class="flex-div-60"><%= @ppsp.project_information.phone %></div>
-          <div class="flex-div-40">Email : </div><div class="flex-div-60"><%= @ppsp.project_information.email %></div>
           <div class="flex-div-40">Nature des travaux : </div><div class="flex-div-60"><%= @ppsp.worksite.nature %></div>
-          <div class="flex-div-40">Moyens humains : </div><div class="flex-div-60"><%= @ppsp.worksite.workforce %></div>
-          <div class="flex-div-40">Installations électriques : </div><div class="flex-div-60"><%= @ppsp.worksite.electrical ? 'Oui' : 'Non' %></div>
+          <div class="flex-div-100">Moyens humains : </div>
+          <div class="flex-div-60">Nombre de d'encadrants : </div><div class="flex-div-40"><%= @ppsp.worksite.num_responsible %></div>
+          <div class="flex-div-60">Nombre de conducteurs : </div><div class="flex-div-40"><%= @ppsp.worksite.num_conductor %></div>
+          <div class="flex-div-60">Nombre de compagnons : </div><div class="flex-div-40"><%= @ppsp.worksite.num_worker %></div>
+          <div class="flex-div-60">Installations électriques : </div><div class="flex-div-40"><%= @ppsp.worksite.electrical_site ? 'Oui' : 'Non' %></div>
+          <div class="flex-div-60">Installations électriques : </div><div class="flex-div-40"><%= @ppsp.worksite.water_site ? 'Oui' : 'Non' %></div>
+          <div class="flex-div-60">Plan d'installation : </div><div class="flex-div-40"><%= @ppsp.worksite.plan ? 'Oui' : 'Non' %></div>
         </div>
       </div>
 

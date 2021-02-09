@@ -5,7 +5,7 @@ class CreateWorkers < ActiveRecord::Migration[6.0]
       t.boolean :conductor
       t.boolean :is_destroyed, default: false
       t.string :role
-      t.integer :phone
+      t.string :phone
       t.string :email
       t.references :company, null: false, foreign_key: true
 

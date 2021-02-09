@@ -82,7 +82,6 @@ class PpspsController < ApplicationController
 
   def create
     @ppsp = Ppsp.new(params_ppsp)
-    @ppsp.project_information.company = current_user.company
     # Info to add the possibility to create a new element through a modal form
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
@@ -131,9 +130,8 @@ class PpspsController < ApplicationController
 
   def edit
     authorize @ppsp
-    # This way the edit page is able to retrieve the project informations
+    # This way the edit page is able to retrieve the project informations and worksite
     @project_information = @ppsp.project_information
-
     @worksite = @ppsp.worksite
 
     # Info to add the possibility to create a new element through a modal form!
@@ -169,12 +167,7 @@ class PpspsController < ApplicationController
 
   def update
     authorize @ppsp
-    # This way the update is able to retrieve the project informations
-    @project_information = @ppsp.project_information
 
-    @worksite = @ppsp.worksite
-
-    # Info to add the possibility to create a new element through a modal form
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
     @moa = Moa.new
@@ -329,7 +322,8 @@ class PpspsController < ApplicationController
     params.require(:ppsp).permit(:agglomeration, :river_guidance, :moa_id, :moe_id, :security_coordinator_id,
                                  :street_impact, :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
                                  :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, :logo_client, :content_secu, annexes: [],
-                                                                                                                         worksite_attributes: %i[address start_date end_date timetable_start timetable_end workforce electrical nature],
-                                                                                                                         project_information_attributes: %i[reference responsible_id site_manager_id team_manager_id])
+                                                                                                                         worksite_attributes: %i[address start_date end_date timetable_start timetable_end electrical_site water_site nature plan
+                                                                                                                                                 num_responsible num_conductor num_worker],
+                                                                                                                         project_information_attributes: %i[name reference responsible_id site_manager_id team_manager_id company_id])
   end
 end

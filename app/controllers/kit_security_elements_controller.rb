@@ -2,16 +2,18 @@ class KitSecurityElementsController < ApplicationController
   before_action :params_security_element, only: :create
   before_action :find_element, only: :destroy
   def create
-    kit_element = KitSecurityElement.new(params_security_element)
+    @kit_security_element = KitSecurityElement.new(params_security_element)
     @user = current_user
-    kit_element.company = @user.company
-    authorize kit_element
-    if kit_element.save
+    @kit_security_element.company = @user.company
+    authorize @kit_security_element
+    if @kit_security_element.save
       respond_to do |format|
-        format.js { 'kit_security_elements/create.js.erb' }
+        format.js { render 'kit_security_elements/create.js.erb' }
       end
     else
-      # render
+      respond_to do |format|
+        format.js { render 'kit_security_elements/error.js.erb' }
+      end
     end
   end
 

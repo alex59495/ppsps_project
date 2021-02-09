@@ -31,19 +31,23 @@
 
         <div class="security-kit">
           <h3>La trousse de sécurité de mon entreprise</h3>
-          <div id="selected-kit-security">
+          <div id="selected-kit-security" class='card-kit-security'>
             <% @user.company.kit_security_elements.each do |kit| %>
-              <%= "#{kit.number} : #{kit.name}" %>
-              <%= link_to 'x', kit_security_element_path(kit, user_id: @user.id), method: :delete, data: {confirm: 'Êtes-vous sûr ?'}, remote: true%>
+              <div>
+                <%= "#{kit.number} : #{kit.name}" %>
+                <%= link_to 'x', kit_security_element_path(kit, user_id: @user.id), method: :delete, data: {confirm: 'Êtes-vous sûr ?'}, remote: true%>
+              </div>
+            <% end %>
+            <div class="btn-add-security-kit link">Ajouter</div>
+            <div id="container-form-kit">
+            <%= simple_form_for @kit_security_element, remote: true, html: {class: 'hidden', id: 'add-security-kit' } do |f| %>
+              <p>Ajouter un nouvel élément dans la trousse</p>
+              <%= f.input :number, label: 'Nombre' %>
+              <%= f.input :name, label: 'Contenu' %>
+              <%= f.submit 'Ajouter', class: 'btn-blue' %>
             <% end %>
           </div>
-          <div class="btn-add-security-kit link">Ajouter</div>
-          <%= simple_form_for @kit_security_element, remote: true, html: {class: 'hidden', id: 'add-security-kit' } do |f| %>
-            <p>Ajouter un nouvel élément dans la trousse</p>
-            <%= f.input :number, label: 'Nombre' %>
-            <%= f.input :name, label: 'Contenu' %>
-            <%= f.submit 'Ajouter', class: 'btn-blue' %>
-          <% end %>
+          </div>
         </div>
 
         <%= simple_form_for @user.company do |f| %>

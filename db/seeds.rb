@@ -39,6 +39,12 @@ p "create #{c2.id} company"
 c3 = Company.create!(name: Faker::Company.name, address: Faker::Address.street_address, phone: Faker::PhoneNumber.cell_phone_in_e164, representative: Faker::Name.name )
 p "create #{c3.id} company"
 
+
+(1..11).each do |n|
+  kit_security_element = KitSecurityElement.create!(name: "Bandellete de protection n*#{n}", number: rand(1..11), company: c1)
+  p "Create #{kit_security_element.id} Security kit for #{c1.name}"
+end
+
 # Create users
 users = [{
   first_name: "Angelique",
@@ -62,6 +68,13 @@ users = [{
   password: "@leX1s",
   admin: false,
   company: c2,
+},{
+  first_name: "Jean",
+  last_name: "Castex",
+  email: "test4@gmail.com",
+  password: "@leX1s",
+  admin: false,
+  company: c3,
 }]
 
 users.each do |user|
@@ -108,7 +121,9 @@ end
     lifesaver: [true, false].sample, 
     conductor: [true, false].sample, 
     role: Worker::ROLE.sample,
-    company: Company.all.sample)
+    company: Company.all.sample,
+    email: Faker::Internet.email,
+    phone: Faker::PhoneNumber.cell_phone_in_e164)
   p "Create #{worker.id} worker"
 end
 
@@ -120,9 +135,9 @@ infos = []
     reference: "AABB1#{n+10}",
     company: company,
     name: "Ceci est la désiagnation du chantier #{n}",
-    responsible_id: Worker.where(company: company).sample.id,
-    site_manager_id: Worker.where(company: company).sample.id,
-    team_manager_id: Worker.where(company: company).sample.id,
+    responsible_id: Worker.where(company: company, role: 'Conducteur de travaux').sample.id,
+    site_manager_id: Worker.where(company: company, role: 'Chef de chantier').sample.id,
+    team_manager_id: Worker.where(company: company, role: "Chef d'équipe").sample.id,
   }
   infos.append(project_info)
 end
@@ -134,7 +149,9 @@ infos.each do |project|
     name: project[:name],
     responsible_id: project[:responsible_id],
     site_manager_id: project[:site_manager_id],
-    team_manager_id: project[:team_manager_id])
+    team_manager_id: project[:team_manager_id],
+    company: project[:company]
+  )
   p "create #{project_information1.id} project info"
 end
 
@@ -225,23 +242,25 @@ end
 # Worksites
 20.times do |n|
   w = Worksite.create!(address: Faker::Address.street_address, start_date: DateTime.new(2020,9,1,17),
-    end_date: DateTime.new(2020,9,10,19), nature: "test_#{n+1} nature", workforce: "test_#{n+1} workforce",
-    timetable_start: '8h', timetable_end: '16h30', electrical: [true, false].sample)
+    end_date: DateTime.new(2020,9,10,19), nature: "test_#{n+1} nature", num_responsible: rand(0..10), num_conductor: rand(0..10), 
+    num_worker: rand(0..10), timetable_start: '8h', timetable_end: '16h30', electrical_site: [true, false].sample, 
+    water_site: [true, false].sample, plan: [true, false].sample)
   p "Create #{w.id} Worksites"
 end
 
 # Create PPSP
 ppsps = []
 100.times do |n|
+  company = Company.all.sample
   ppsp = {
     worksite_id: Worksite.all.sample.id,
     agglomeration: Ppsp::AGGLOMERATIONS.sample,
     street_impact: Ppsp::STREET_IMPACTS.sample,
     river_guidance: Ppsp::RIVER_GUIDANCES.sample,
-    user_id: User.all.sample.id,
+    user_id: User.where(company: company).sample.id,
     moa_id: Moa.all.sample.id,
     moe_id: Moe.all.sample.id,
-    project_information_id: ProjectInformation.all[n-1].id,
+    project_information_id: ProjectInformation.where(company: company).sample.id,
     pension_insurance_id: PensionInsurance.all.sample.id,
     direcct_id: Direcct.all.sample.id,
     work_medecine_id: WorkMedecine.all.sample.id,

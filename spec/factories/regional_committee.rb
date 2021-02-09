@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :regional_committee do
     name { Faker::Name.name}
     address { Faker::Address.street_address}
-    phone { '0300000000' }
+    phone { Faker::PhoneNumber.cell_phone_in_e164  }
     fax { Faker::PhoneNumber.phone_number }
     company
 

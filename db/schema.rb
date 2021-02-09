@@ -359,7 +359,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_161812) do
     t.boolean "conductor"
     t.boolean "is_destroyed", default: false
     t.string "role"
-    t.integer "phone"
+    t.string "phone"
     t.string "email"
     t.bigint "company_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -373,11 +373,15 @@ ActiveRecord::Schema.define(version: 2021_02_08_161812) do
     t.date "start_date"
     t.date "end_date"
     t.string "nature"
-    t.string "workforce"
+    t.integer "num_responsible"
+    t.integer "num_conductor"
+    t.integer "num_worker"
     t.string "address"
     t.string "timetable_start"
     t.string "timetable_end"
-    t.boolean "electrical"
+    t.boolean "electrical_site"
+    t.boolean "water_site"
+    t.boolean "plan"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.float "latitude"

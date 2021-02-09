@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :sos_hand do
     name { Faker::Name.name}
     address { Faker::Address.street_address}
-    phone { '0300000000' }
+    phone { Faker::PhoneNumber.cell_phone_in_e164  }
     company
 
     factory :sos_hand_update do

@@ -23,10 +23,11 @@ fr:
         street_impact: Le champs
         river_guidance: Le champs
       project_information:
+        Name: La désignation du chantier
         reference: La référence
-        responsible: Le responsable
-        site_manager: Le chef de chantier
-        team_manager: Le chef d'équipe
+        responsible_id: Le responsable
+        site_manager_id: Le chef de chantier
+        team_manager_id: Le chef d'équipe
       worksite:
         address: L'adresse
         start_date: La date de début
@@ -88,6 +89,9 @@ fr:
         representative: Le nom du représentant
         phone: Le téléphone
         email: L'email
+      kit_security_element:
+        name: Le contenu
+        number: Le nombre
     models:
       user: Utilisateur
       ppsp: Ppsp

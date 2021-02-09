@@ -1,0 +1,6 @@
+<%= simple_form_for @kit_security_element, remote: true, html: {id: 'add-security-kit' } do |f| %>
+  <p>Ajouter un nouvel élément dans la trousse</p>
+  <%= f.input :number, label: 'Nombre' %>
+  <%= f.input :name, label: 'Contenu' %>
+  <%= f.submit 'Ajouter', class: 'btn-blue' %>
+<% end %>

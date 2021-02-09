@@ -3,8 +3,35 @@
   <%= simple_form_for @ppsp, remote: true do |f| %>
     <div class="row">
       <h2 class="col-12 form-title">
-        Renseignements administratifs
+        I. Renseignements administratifs
       </h2>
+
+      <h3 class="col-md-6 offset-3 form-subtitle">
+        1-1. L'entreprise titulaire du lot
+      </h3>
+      <div class="col-md-6 offset-md-3">
+        <div class='text-center'>
+          <%= current_user.company.name %>
+        </div>
+        <div class='text-center'>
+          <%= current_user.company.address %>
+        </div>
+        <div class='text-center'>
+          <%= current_user.company.phone %>
+        </div>
+      </div>
+
+      <h3 class="col-md-6 offset-3 form-subtitle">
+        1-2. Les entreprises sous-traitantes
+      </h3>
+      <div class="col-md-10 offset-md-1">
+        <% csrf_token = form_authenticity_token %>
+        <%= react_component("form-subcontractors/components/App", {token: csrf_token}, {id: 'react-render-subcontractors', 'data-ppsps_id': @ppsp.id, 'data-admin': current_user.admin}) %>
+      </div>
+
+      <h3 class="col-md-6 offset-3 form-subtitle">
+        1-3. La désignation du chantier
+      </h3>
       <%= f.simple_fields_for :project_information, @project_information do |h| %>
         <div class="col-md-6 offset-md-3">
           <%= h.input :name, label: "Désignation du chantier", placeholder: "Réalisation de la voirie E140 entre Bidule et Machin" %>
@@ -21,31 +48,13 @@
         <div class="col-md-6 offset-md-3">
           <%= h.input :team_manager_id, label: "Chef d'équipe", collection: Worker.where(role: "Chef d'équipe").order(:last_name), label_method: lambda {|x| "#{x.last_name} #{x.first_name}"}, input_html: {class: "select-2"} %>
         </div>
+        <input class="hidden" value=<%= "#{current_user.company.id}" %> name="ppsp[project_information_attributes][company_id]" id="ppsp_project_information_attributes_company_id">
       <% end %>
 
-      <h3 class="col-12 form-subtitle">
-        Les sous-traitants
+      <h3 class="col-md-6 offset-3 form-subtitle">
+        1-4. Désignation du maitre d'oeuvre
       </h3>
-      <div class="col-md-10 offset-md-1">
-        <% csrf_token = form_authenticity_token %>
-        <%= react_component("form-subcontractors/components/App", {token: csrf_token}, {id: 'react-render-subcontractors', 'data-ppsps_id': @ppsp.id, 'data-admin': current_user.admin}) %>
-      </div>
-
-      <h3 class="col-12 form-subtitle">
-        Les correspondants
-      </h3>
-      <div class="col-md-6">
-        <div class="form-group select required ppsp_moa_id">
-          <div class="container-header-form">
-            <label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
-            <% if policy(Moa).new? %>
-              <%= render 'btn_add_database', data: 'Moa' %>
-            <% end %>
-          </div>
-          <%= f.input :moa_id, as: :select, label: false, collection: @moas, label_method: lambda {|x| "#{x.name} - #{x.representative}"}, input_html: {class: "select-2"} %>
-        </div>
-      </div>
-      <div class="col-md-6">
+      <div class="col-md-6 offset-md-3">
         <div class="form-group select required ppsp_moe_id">
           <div class="container-header-form">
             <label class="select" for="ppsp_moe_id">MOE</label>
@@ -57,20 +66,48 @@
         </div>
       </div>
 
-      <h3 class="col-12 form-subtitle container-header-for">
-        Le Coordonnateur Sécurité<i style='font-size: 0.7em; margin-left: 8px;'>(laissez vide si il n'y en a pas)</i>
+      <h3 class="col-md-6 offset-3 form-subtitle">
+        1-5. Désignation du maitre d'ouvrage
+      </h3>
+      <div class="col-md-6 offset-md-3">
+        <div class="form-group select required ppsp_moa_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
+            <% if policy(Moa).new? %>
+              <%= render 'btn_add_database', data: 'Moa' %>
+            <% end %>
+          </div>
+          <%= f.input :moa_id, as: :select, label: false, collection: @moas, label_method: lambda {|x| "#{x.name} - #{x.representative}"}, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+
+      <h3 class="col-md-6 offset-3 form-subtitle">
+        1-6. Ajout du logo du client (si disponible)
+      </h3>
+      <div class="col-md-6 offset-md-3">
+      <%= f.input :logo_client, label: "Logo du client (si disponible)", disabled: @ppsp.logo_client.attached? %>
+      <img id="newLogo" class='icon-logo' style='display: none'>
+      <div class='btn-delete' id="removeUpload" style='display: none;'>Annuler</div>
+        <div class="render-logo">
+          <%= render 'render_logo_client' %>
+        </div>
+      </div>
+      
+
+      <h3 class="col-md-6 offset-3 form-subtitle">
+        1-7. Désignation du coordonateur SPS<i style='font-size: 0.7em; margin-left: 8px;'>(laissez vide si il n'y en a pas)</i>
         <% if policy(SecurityCoordinator).new? %>
           <%= render 'btn_add_database', data: 'SecurityCoordinator' %>
         <% end %>
       </h3>
       <div class="col-md-6 offset-md-3">
         <div class="form-group select required ppsp_security_coordinator_id">
-          <%= f.input :security_coordinator_id, as: :select, collection: @security_coordinators, label: false, label_method: lambda { |x| "#{x.name} - #{x.representative}" }, input_html: {class: "select-2"} %>
+          <%= f.input :security_coordinator_id, as: :select, collection: @security_coordinators, label: 'Coordonateur SPS', label_method: lambda { |x| "#{x.name} - #{x.representative}" }, input_html: {class: "select-2"} %>
         </div>
       </div>
 
-      <h3 class="col-12 form-subtitle">
-        Organismes de prévention
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        1-8. Les organismes de prévention
       </h3>
       <div class="col-md-6 offset-md-3">
         <div class="form-group select required ppsp_regional_committee_id">
@@ -119,12 +156,27 @@
 
 
       <h2 class="col-12 form-title">
-        Chantier
+        II. Le chantier
       </h2>
+
       <%= f.simple_fields_for :worksite, @worksite do |w| %>
+        <h3 class="col-md-6 offset-md-3 form-subtitle">
+          2-1. Description des travaux
+        </h3>
         <div class="col-md-6 offset-md-3">
-          <%= w.input :address, label: "Adresse", placeholder: "Indiquez une adresse..." %>
+          <%= w.input :nature, label: false, placeholder: "Description des travaux..." %>
         </div>
+
+        <h3 class="col-md-6 offset-md-3 form-subtitle">
+          2-2. Adresse du chantier
+        </h3>
+        <div class="col-md-6 offset-md-3">
+          <%= w.input :address,label: false, placeholder: "Indiquez une adresse..." %>
+        </div>
+
+        <h3 class="col-md-6 offset-md-3 form-subtitle">
+          2-3. Dates du chantier
+        </h3>
         <div class="col-md-6 offset-md-3">
           <div class="container-calendar">
             <div class="calendar-box">
@@ -167,67 +219,103 @@
             </div>
           </div>
         </div>
+
+        <h3 class="col-md-6 offset-md-3 form-subtitle">
+          2-4. Horaires de travail
+        </h3>
         <div class="col-md-6 offset-md-3">
-          <%= w.input :nature, label: "Nature du travail", placeholder: "Description des travaux..." %>
+          <%= w.input :timetable_start, label: "Horaires de début de chantier" %>
         </div>
         <div class="col-md-6 offset-md-3">
-          <%= w.input :workforce, label: "Personnel impliqué", placeholder: "1 Chef de chantier, 2 ouvriers..." %>
+          <%= w.input :timetable_end, label: "Horaires de fin de chantier" %>
+        </div>
+
+        <h3 class="col-md-6 offset-md-3 form-subtitle">
+          2-5. Effectifs
+        </h3>
+        <div class="col-md-6 offset-md-3">
+          <%= w.input :num_responsible, label: "Nombre de responsables" %>
         </div>
         <div class="col-md-6 offset-md-3">
-          <%= w.input :timetable_start, label: "Horaires de début de chantier", placeholder: "1 Chef de chantier, 2 ouvriers..." %>
+          <%= w.input :num_worker, label: "Nombre de compagnons" %>
         </div>
         <div class="col-md-6 offset-md-3">
-          <%= w.input :timetable_end, label: "Horaires de fin de chantier", placeholder: "1 Chef de chantier, 2 ouvriers..." %>
+          <%= w.input :num_conductor, label: "Nombre de conducteurs" %>
         </div>
+
+        <h3 class="col-md-6 offset-md-3 form-subtitle">
+          2-6. Locaux affectés au personnel
+        </h3>
+        <div class="col-md-10 offeset-md-3">
+           <div id="react-render-site-installations" data-ppsps_id=<%=@ppsp.id%>></div>
+        </div>
+
+        <h3 class="col-md-6 offset-md-3 form-subtitle">
+          2-7. Plan d'installation
+        </h3>
+         <div class="col-md-6 offset-md-3">
+          <p>Votre chantier dispose-t-il d'un plan d'installation ?</p>
+          <%= w.input :plan, label: '&nbsp;'.html_safe,input_html: { class: 'checkbox-visual hidden' } %>
+          <p class="text-alert">Veuillez ajouter votre plan d'installation en annexe</p>
+          <%= f.input :annexes, label: false, input_html: { multiple: true } %>
+        </div>
+
+
+        <h3 class="col-md-6 offset-md-3 form-subtitle">
+          2-8. Installations électriques
+        </h3>
         <div class="col-md-6 offset-md-3">
-          <%= w.input :electrical, label: "Installation électrique sur le chantier", placeholder: "1 Chef de chantier, 2 ouvriers..." %>
+          <p>Votre chantier implique-t-il des installations électriques ?</p>
+          <%= w.input :electrical_site, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden' } %>
         </div>
+
+        <h3 class="col-md-6 offset-md-3 form-subtitle">
+          2-9. Installations d'eau
+        </h3>
+        <div class="col-md-6 offset-md-3">
+          <p>Votre chantier implique-t-il un raccordement aux installations d'eau ?</p>
+          <%= w.input :water_site, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden' } %>
+        </div>
+
+        <h3 class="col-md-6 offset-md-3 form-subtitle">
+          2-10. Moyens d'accès au poste de travail
+        </h3>
+        <div class="col-md-10 offeset-md-3">
+          <div id="react-render-altitude-works" data-ppsps_id=<%=@ppsp.id%>></div>
+        </div>
+
+        <h3 class="col-md-6 offset-md-3 form-subtitle">
+          2-11. Engins de chantier utilisés
+        </h3>
+        <div class="col-md-10 offeset-md-3">
+          <div class='col-12' id="conductors-form-react" data-ppsps_id=<%=@ppsp.id%>></div>
+        </div>
+
       <% end %>
       <div class="col-md-10 offset-md-1">
         <div id="react-render-risks" data-ppsps_id=<%=@ppsp.id%>></div>
-
-        <div id="react-render-site-installations" data-ppsps_id=<%=@ppsp.id%>></div>
-
-        <div id="react-render-altitude-works" data-ppsps_id=<%=@ppsp.id%>></div>
-
-        <div class='col-12' id="conductors-form-react" data-ppsps_id=<%=@ppsp.id%>></div>
-
-      </div>
-
-      <h3 class="col-12 form-subtitle">
-        Signalisation
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
-      </div>
-      <div class="col-md-6 offset-md-3">
-      <%= f.input :logo_client, label: "Logo du client (si disponible)", disabled: @ppsp.logo_client.attached? %>
-      <img id="newLogo" class='icon-logo' style='display: none'>
-      <div class='btn-delete' id="removeUpload" style='display: none;'>Annuler</div>
-        <div class="render-logo">
-          <%= render 'render_logo_client' %>
-        </div>
       </div>
 
 
       <h2 class="col-12 form-title">
-        Dispositifs en matière de secours et d'évacuation
+        III. Dispositions en matière de secours et d'évacuation
       </h2>
 
-      <h3 class="col-12 form-subtitle">
-        Liste des SSP
-      </h4>
-      <div id="react-render-lifesavers" data-ppsps_id=<%=@ppsp.id%>></div>
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        3-1. Infirmerie de chantier
+      </h3>
+      <p>A compléter</p>
 
-      <h3 class="col-12 form-subtitle">
-        Services extérieurs
-      </h4>
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        3-2. Liste des SSP
+      </h3>
+      <div class="col-md-10 offset-md-1">
+        <div id="react-render-lifesavers" data-ppsps_id=<%=@ppsp.id%>></div>
+      </div>
+
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        3-3. Contacts des secours
+      </h3>
       <div class="col-md-6 offset-md-3">
         <div class="form-group select required ppsp_demining_id">
           <div class="container-header-form">
@@ -261,6 +349,10 @@
           <%= f.input :anti_poison_id, as: :select, label: false, collection: @anti_poisons, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
         </div>
       </div>
+
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        3-4. Hôpital le plus proche
+      </h3>
       <div class="col-md-6 offset-md-3">
         <div class="form-group select required ppsp_hospital_id">
           <div class="container-header-form">
@@ -273,8 +365,31 @@
         </div>
       </div>
 
-      <div class="col-12 form-title">
-        Les informations sécurité de l'entreprise
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        3-5. Signalisation
+      </div>
+      <div class="col-md-6 offset-md-3">
+        <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
+      </div>
+      <div class="col-md-6 offset-md-3">
+        <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>
+      </div>
+      <div class="col-md-6 offset-md-3">
+        <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
+      </div>
+
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        3-6. Trousse de secours
+      </h3>
+      <p class='text-alert'>Les informations affichées dans cette partie sont issues de la trousse de secours établies par l'entreprise, si cette liste a été mise à jour vous pouvez la modifier (si vous êtes administrateur) dans "Mon profil" - "Modifier les informations"</p>
+      <% current_user.company.kit_security_elements.each do |kit| %>
+        <div>
+          <%= "#{kit.number} : #{kit.name}" %>
+        </div>
+      <% end %>
+
+      <div class="col-md-6 offset-md-3 form-subtitle">
+        3-7. Ajouter des spécificités sur le chantier
       </div>
       <div class="col-md-10 offset-md-1">
         <input class='hidden' name=image type=file id="upload" onchange="">
