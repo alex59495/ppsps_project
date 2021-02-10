@@ -81,7 +81,9 @@ class PpspsController < ApplicationController
   end
 
   def create
-    @ppsp = Ppsp.new(params_ppsp.merge({ project_information: { company_id: current_user.company.id } }))
+    @ppsp = Ppsp.new(params_ppsp)
+    @ppsp.project_information.company = current_user.company
+    @ppsp.user = current_user
     # Info to add the possibility to create a new element through a modal form
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
@@ -95,7 +97,6 @@ class PpspsController < ApplicationController
     @sos_hand = SosHand.new
     @anti_poison = AntiPoison.new
     @subcontractor = Subcontractor.new
-    @ppsp.user = current_user
 
     # Select the databases present in the select lists
     @moas = policy_scope(Moa.all)

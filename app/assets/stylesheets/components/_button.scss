@@ -2,7 +2,7 @@ $btn-add-size: 24px;
 
 .btn-blue {
   padding: 4px 8px;
-  border-radius: 8px;
+  border-radius: 4px;
   color: white;
   background-color: $blue-light;
   border: none;
@@ -15,7 +15,7 @@ $btn-add-size: 24px;
 
 .btn-blue-ext {
   padding: 4px 8px;
-  border-radius: 8px;
+  border-radius: 4px;
   border: $blue solid 0.5px;
   color: black;
   &:hover {
@@ -28,7 +28,7 @@ $btn-add-size: 24px;
 
 .btn-orange {
   padding: 4px 8px;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: $orange-soft;
   color: black;
   border: none;
@@ -175,7 +175,7 @@ $btn-add-size: 24px;
 
 .btn-orange-ext {
   padding: 4px 8px;
-  border-radius: 8px;
+  border-radius: 4px;
   border: $orange solid 0.5px;
   color: black;
   display: inline-block;
@@ -378,7 +378,7 @@ $btn-add-size: 24px;
 }
 
 input[type='file']::-webkit-file-upload-button {
-  border-radius: 8px;
+  border-radius: 4px;
   border: 1px solid $orange;
   outline: none;
   &:hover {

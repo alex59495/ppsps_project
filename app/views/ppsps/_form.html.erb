@@ -418,7 +418,7 @@
 
 
       <div class="col-md-6 offset-md-3 offset-3 offset-md-5 mt-5">
-        <%= f.submit "J'ai terminé", class: 'btn-blue' %>
+        <%= f.button :button, "J'ai terminé", class: 'btn-blue', data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe } %>
       </div>
     </div>
   <% end %>

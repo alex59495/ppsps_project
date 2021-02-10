@@ -7,6 +7,9 @@ class ProjectInformation < ApplicationRecord
   validates :reference, presence: true
   validates :name, presence: true
   validate :validate_workers_role
+  validates :responsible_id, presence: true
+  validates :team_manager_id, presence: true
+  validates :site_manager_id, presence: true
 
   def validate_workers_role
     if responsible_id.present? && Worker.find(responsible_id).role != 'Conducteur de travaux'
