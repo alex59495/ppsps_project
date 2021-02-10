@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :selected_risks, only: [ :create, :destroy ]
     resources :selected_subcontractors, only: [ :create, :destroy ]
     member do
+      get 'worksite/destroy_plan_installation/:public_id', to: 'worksites#destroy_plan_installation', as: :destroy_plan_installation
       get 'destroy_annexe/:public_id', to: 'ppsps#destroy_annexe', as: :destroy_annexe 
       get :destroy_logo_client
       get :duplicate

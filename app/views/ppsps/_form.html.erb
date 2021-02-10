@@ -255,9 +255,16 @@
          <div class="col-md-6 offset-md-3">
           <p>Votre chantier dispose-t-il d'un plan d'installation ?</p>
           <%= w.input :plan, label: '&nbsp;'.html_safe,input_html: { class: 'checkbox-visual hidden' } %>
-          <div id="alert-text-plan" class="hidden-visibility" <%= @ppsp.plan_installation.present? ? 'data-plan-attachment: true' : ''%>>
-            <p class="text-alert">Veuillez ajouter votre plan d'installation en annexe</p>
-            <%= f.input :plan_installation, label: false %>
+          <div id="alert-text-plan" class="hidden-visibility">
+            <% if @ppsp.worksite.plan_installation.attached? %>
+              <div class="render-plan">
+                <%= render 'worksites/plan_installation' %>
+              </div>
+            <% end %>
+            <div id="input-plan-installation" class=<%= @ppsp.worksite.plan_installation.attached? ? 'hidden' : '' %>>
+              <p class="text-alert">Veuillez ajouter votre plan d'installation en annexe</p>
+              <%= w.input :plan_installation, label: false %>
+            </div>
           </div>
         </div>
 

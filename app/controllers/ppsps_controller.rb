@@ -120,6 +120,7 @@ class PpspsController < ApplicationController
       create_selected_altitude_works
       create_selected_conductors
       create_selected_lifesavers
+      purge_plan_installation_if_not_selected
 
       redirect_to ppsp_path(@ppsp, format: :pdf)
     else
@@ -196,7 +197,7 @@ class PpspsController < ApplicationController
     @subcontractors = policy_scope(Subcontractor.all)
 
     # We have to redefine the ID because if we don't nested form of rails will create a new instance of worksite and project info
-    if @ppsp.update(params_ppsp.merge({ project_information_attributes: { id: @ppsp.project_information.id, company_id: current_user.company.id }, worksite_attributes: { id: @ppsp.worksite.id } }))
+    if @ppsp.update(params_ppsp)
       # Create the joint table if necessary
       create_selected_subcontractors
       create_selected_risks
@@ -204,6 +205,7 @@ class PpspsController < ApplicationController
       create_selected_altitude_works
       create_selected_conductors
       create_selected_lifesavers
+      purge_plan_installation_if_not_selected
 
       redirect_to ppsp_path(@ppsp, format: :pdf)
     else
@@ -298,6 +300,10 @@ class PpspsController < ApplicationController
     end
   end
 
+  def purge_plan_installation_if_not_selected
+    @ppsp.worksite.plan_installation.purge if !@ppsp.worksite.plan && @ppsp.worksite.plan_installation.attached?
+  end
+
   def find_ppsp
     @ppsp = Ppsp.find(params[:id])
   end
@@ -322,9 +328,9 @@ class PpspsController < ApplicationController
   def params_ppsp
     params.require(:ppsp).permit(:agglomeration, :river_guidance, :moa_id, :moe_id, :security_coordinator_id,
                                  :street_impact, :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
-                                 :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, :logo_client, :plan_installation, :content_secu, annexes: [],
-                                                                                                                                             worksite_attributes: %i[address start_date end_date timetable_start timetable_end electrical_site water_site nature plan
-                                                                                                                                                                     num_responsible num_conductor num_worker],
-                                                                                                                                             project_information_attributes: %i[name reference responsible_id site_manager_id team_manager_id company_id])
+                                 :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, :logo_client, :content_secu, annexes: [],
+                                                                                                                         worksite_attributes: %i[id address start_date end_date timetable_start timetable_end electrical_site water_site nature plan
+                                                                                                                                                 num_responsible num_conductor num_worker plan_installation],
+                                                                                                                         project_information_attributes: %i[id name reference responsible_id site_manager_id team_manager_id company_id])
   end
 end

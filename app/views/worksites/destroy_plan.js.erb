@@ -1,0 +1,7 @@
+document.querySelector('.render-plan').innerHTML = "<%= j(render 'worksites/plan_installation') %>"
+<%# On passe la booléen plan à false %>
+document.getElementById('ppsp_worksite_attributes_plan').checked = false
+<%# On cache le texte pour ajouter un nouveau fichier%>
+document.getElementById('alert-text-plan').classList.add('hidden-visibility')
+<%# On desactive le hidden l'input de sélection du fichier %>
+document.getElementById('input-plan-installation').classList.remove('hidden')

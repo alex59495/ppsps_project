@@ -16,6 +16,7 @@ class Worksite < ApplicationRecord
   validate :start_date_cant_be_after_end_date
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
+  has_one_attached :plan_installation
 
   def start_date_cant_be_after_end_date
     if start_date.present? && end_date.present? && start_date >= end_date

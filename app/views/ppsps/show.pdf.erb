@@ -446,17 +446,19 @@
         </div>
       </div>
     <% end %>
-    <% if @ppsp.plan_installation.attached? %>
-      <h3>Plan d'installation</h3>
+    <% if @ppsp.worksite.plan_installation.attached? %>
       <div class='page-break'>
-        <%# <%= cl_image_tag(@ppsp.plan_installation.key + .jpg}, crop: "scale", width: 1500,  height: 2000) %> %>
+        <div class="pdf-title mb-2">
+          Plan d'installation
+        </div>
+        <%= cl_image_tag(@ppsp.worksite.plan_installation.key, crop: "scale", width: 850) %>
       </div>
     <% end %>
     <% if @ppsp.annexes.attached? %>
       <% @annexes.each do |_key, value| %>
         <% (1..value[:pages]).each do |i| %>
           <div class='page-break'>
-            <%= cl_image_tag(value[:key] + '.jpg', page: i, crop: "scale", width: 1500,  height: 2000) %>
+            <%= cl_image_tag(value[:key] + '.jpg', page: i, crop: "scale", width: 850) %>
           </div>
         <% end %>
       <% end %>

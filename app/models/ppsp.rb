@@ -43,6 +43,5 @@ class Ppsp < ApplicationRecord
   validates :pension_insurance_id, presence: true
   validates :hospital_id, presence: true
   has_one_attached :logo_client
-  has_one_attached :plan_installation
   has_many_attached :annexes
 end
