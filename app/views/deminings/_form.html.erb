@@ -2,5 +2,5 @@
   <%= f.input :name, label: 'Nom' %>
   <%= f.input :address, label: 'Adresse' %>
   <%= f.input :phone, label: 'Téléphone' %>
-  <%= f.submit 'Ajouter', class: 'btn-blue', id: "DeminingBtn" %>
+  <%= f.button :button, 'Valider', class: 'btn-blue', id: "DeminingBtn", data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe }%>
 <% end %>

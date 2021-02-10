@@ -407,12 +407,60 @@
 }
 
 .card-kit-security {
+  max-width: 500px;
+  margin: auto;
   .top {
+    width: 200px;
+    height: 50px; /* as the half of the width */
+    border-top-left-radius: 110px; /* 100px of height + 10px of border */
+    border-top-right-radius: 110px; /* 100px of height + 10px of border */
+    border: 16px solid rgba(255, 0, 0, 0.493);
+    border-bottom: 0;
+    margin: auto;
   }
-  .content {
-    padding: 8px;
+  .card-kit-content {
+    padding: 16px;
+    color: black;
     margin: 0px 10px;
-    border-radius: 14px;
-    background-color: rgba(255, 0, 0, 0.445);
+    height: 200px;
+    position: relative;
+    &::before {
+      content: '';
+      background-image: url('secours.png');
+      background-size: cover;
+      background-position: center;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.3;
+      border-top-right-radius: 40px;
+      border-top-left-radius: 40px;
+    }
+    .list {
+      position: relative;
+      height: 175px;
+      overflow: auto;
+      text-shadow: 1px 1px 2px $blue-shadow;
+    }
+    .list::-webkit-scrollbar {
+      background-color: white;
+      border-top-right-radius: 40px;
+      border-bottom-right-radius: 40px;
+    }
+    .list::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 0, 0, 0.493);
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .card-kit-security {
+    .top {
+      width: 150px;
+    }
   }
 }

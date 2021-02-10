@@ -3,5 +3,5 @@
   <%= f.input :phone, label: 'Téléphone' %>
   <%= f.input :fax, label: 'Fax' %>
   <%= f.input :website, label: 'Site internet' %>
-  <%= f.submit "Ajouter", class: 'btn-blue', id: "PensionBtn" %>
+  <%= f.button :button, "Valider", class: 'btn-blue', id: "PensionBtn", data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe } %>
 <% end %>

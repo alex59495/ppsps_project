@@ -2,7 +2,9 @@
   <%= f.input :first_name, label: 'Prénom' %>
   <%= f.input :last_name, label: 'Nom' %>
   <%= f.input :role, label: "Status", as: :select, collection: Worker::ROLE %>
-  <%= f.input :lifesaver, label: 'Sauveteur' %>
-  <%= f.input :conductor, label: 'Conducteur' %>
-  <%= f.submit 'Ajouter', class: 'btn-blue', id: "WorkerBtn" %>
+  <p>Sauveteur</p>
+  <%= f.input :lifesaver, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden' }  %>
+  <p>Conducteur</p>
+  <%= f.input :conductor, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden' }  %>
+  <%= f.button :button, 'Valider', class: 'btn-blue', id: "WorkerBtn", data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe } %>
 <% end %>

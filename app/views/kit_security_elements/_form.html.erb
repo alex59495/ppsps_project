@@ -2,5 +2,5 @@
   <p>Ajouter un nouvel élément dans la trousse</p>
   <%= f.input :number, label: 'Nombre' %>
   <%= f.input :name, label: 'Contenu' %>
-  <%= f.submit 'Ajouter', class: 'btn-blue' %>
+  <%= f.button :button 'Valider', class: 'btn-blue', data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe } %>
 <% end %>

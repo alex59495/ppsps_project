@@ -6,22 +6,21 @@
         I. Renseignements administratifs
       </h2>
 
-      <h3 class="col-md-6 offset-3 form-subtitle">
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
         1-1. L'entreprise titulaire du lot
       </h3>
-      <div class="col-md-6 offset-md-3">
-        <div class='text-center'>
-          <%= current_user.company.name %>
-        </div>
-        <div class='text-center'>
-          <%= current_user.company.address %>
-        </div>
-        <div class='text-center'>
-          <%= current_user.company.phone %>
-        </div>
+      <div class="col-md-6 offset-md-3 wrapper">
+        <div class='text-bold'>Nom :</div>
+        <div><%= current_user.company.name %></div>
+        <div class='text-bold'>Adresse :</div>
+        <div><%= current_user.company.address %></div>
+        <div class='text-bold'>Téléphone :</div>
+        <div><%= current_user.company.phone %></div>
+        <div class='text-bold'>Représentant :</div>
+        <div><%= current_user.company.representative %></div>
       </div>
 
-      <h3 class="col-md-6 offset-3 form-subtitle">
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
         1-2. Les entreprises sous-traitantes
       </h3>
       <div class="col-md-10 offset-md-1">
@@ -29,7 +28,7 @@
         <%= react_component("form-subcontractors/components/App", {token: csrf_token}, {id: 'react-render-subcontractors', 'data-ppsps_id': @ppsp.id, 'data-admin': current_user.admin}) %>
       </div>
 
-      <h3 class="col-md-6 offset-3 form-subtitle">
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
         1-3. La désignation du chantier
       </h3>
       <%= f.simple_fields_for :project_information, @project_information do |h| %>
@@ -50,7 +49,7 @@
         </div>
       <% end %>
 
-      <h3 class="col-md-6 offset-3 form-subtitle">
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
         1-4. Désignation du maitre d'oeuvre
       </h3>
       <div class="col-md-6 offset-md-3">
@@ -65,7 +64,7 @@
         </div>
       </div>
 
-      <h3 class="col-md-6 offset-3 form-subtitle">
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
         1-5. Désignation du maitre d'ouvrage
       </h3>
       <div class="col-md-6 offset-md-3">
@@ -80,7 +79,7 @@
         </div>
       </div>
 
-      <h3 class="col-md-6 offset-3 form-subtitle">
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
         1-6. Ajout du logo du client (si disponible)
       </h3>
       <div class="col-md-6 offset-md-3">
@@ -93,7 +92,7 @@
       </div>
       
 
-      <h3 class="col-md-6 offset-3 form-subtitle">
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
         1-7. Désignation du coordonateur SPS<i style='font-size: 0.7em; margin-left: 8px;'>(laissez vide si il n'y en a pas)</i>
       </h3>
       <div class="col-md-6 offset-md-3">
@@ -317,11 +316,7 @@
         <div class="col-md-10 offset-md-1">
           <div class='col-12' id="conductors-form-react" data-ppsps_id=<%=@ppsp.id%>></div>
         </div>
-
       <% end %>
-      <div class="col-md-10 offset-md-1">
-        <div id="react-render-risks" data-ppsps_id=<%=@ppsp.id%>></div>
-      </div>
 
 
       <h2 class="col-12 form-title">
@@ -408,17 +403,29 @@
       <h3 class="col-md-6 offset-md-3 form-subtitle">
         3-6. Trousse de secours
       </h3>
-      <div class="col-md-6 offset-3">
+      <div class="col-md-6 offset-md-3">
         <p class='text-alert'>Les informations affichées dans cette partie sont issues de la trousse de secours établies par l'entreprise, si cette liste a été mise à jour vous pouvez la modifier (si vous êtes administrateur) dans "Mon profil" - "Modifier les informations"</p>
         <div class="card-kit-security">
-          <% current_user.company.kit_security_elements.each do |kit| %>
-            <li><%= "#{kit.number} : #{kit.name}" %></li>
-          <% end %>
+          <div class="top"></div>
+          <div class="card-kit-content">
+            <div class="list">
+              <% current_user.company.kit_security_elements.each do |kit| %>
+                <li><%= "#{kit.number} #{kit.name}" %></li>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
 
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        3-7. Les risques associés à mon chantier
+      </h3>
+      <div class="col-md-10 offset-md-1">
+        <div id="react-render-risks" data-ppsps_id=<%=@ppsp.id%>></div>
+      </div>
+
       <div class="col-md-6 offset-md-3 form-subtitle">
-        3-7. Ajouter des spécificités sur le chantier
+        3-8. Ajouter des spécificités sur le chantier
       </div>
       <div class="col-md-10 offset-md-1">
         <input class='hidden' name=image type=file id="upload" onchange="">
@@ -438,7 +445,7 @@
       <% end %>
 
 
-      <div class="col-md-6 offset-md-3 offset-3 offset-md-5 mt-5">
+      <div class="col-md-6 offset-md-3 mt-5">
         <%= f.button :button, "J'ai terminé", class: 'btn-blue', data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe } %>
       </div>
     </div>
