@@ -15,10 +15,10 @@ class Worksite < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
   has_one_attached :plan_installation
+  validates :plan_installation, presence: true, if: :has_a_plan?
 
   validates :timetable_summer, inclusion: { in: [true, false] }
   validates :timetable_winter, inclusion: { in: [true, false] }
-  validates :plan_installation, presence: true, if: :has_a_plan?
   validates :timetable_summer_start, presence: true, if: :summer?
   validates :timetable_summer_end, presence: true, if: :summer?
   validates :timetable_summer_start, absence: true, unless: :summer?

@@ -17,7 +17,7 @@ const ListMachines = ({listMachines, handleMachine, selectMachine}) => {
       <div className="form-select-machines-title">
         Choisir une catégorie de CACES
       </div>
-      <select className="form-select-machines" onClick={selectMachine}>
+      <select className="form-select-machines" name="formSelectMachine" id="formSelectMachine"  onClick={selectMachine}>
         {renderList}
       </select>
       <div className='d-flex justify-content-center mt-4'>

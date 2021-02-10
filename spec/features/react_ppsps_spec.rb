@@ -15,7 +15,9 @@ RSpec.feature "React Handling", type: :feature, js: true do
       @ppsp = create(:ppsp, user: @user)
       @machine1 = create(:machine, category: 'Engin de chantier', caces: 'Categorie A', description: 'Bla bla bla je suis un engin de chantier de categorie A')
       @machine2 = create(:machine, category: 'Engin de chantier', caces: 'Categorie B', description: 'Bla bla bla je suis un engin de chantier de categorie B')
-      @machine3 = create(:machine, category: 'Pont Roulant', caces: 'Categorie A', description: 'Bla bla bla je suis un pont roulant de categorie A')
+      @machine3 = create(:machine, category: 'Pont roulant', caces: 'Categorie A', description: 'Bla bla bla je suis un pont roulant de categorie A')
+      @machine3 = create(:machine, category: 'Pont roulant', caces: 'Categorie B', description: 'Bla bla bla je suis un pont roulant de categorie B')
+      @machine4 = create(:machine, category: 'Pont Fixe', caces: 'Categorie A', description: 'Bla bla bla je suis un pont fixe de categorie A')
     end
 
     feature 'React within the form selected database' do
@@ -170,16 +172,17 @@ RSpec.feature "React Handling", type: :feature, js: true do
         create(:conductor, user: @user, ppsp_id: @ppsp.id, machine: @machine1)
         visit(edit_ppsp_path(@ppsp))
         count = find('.form-conductors-selection').all('.card-vehicule').size
-        find('.form-select-category').find(:xpath, 'option[1]').select_option
+        select "Pont roulant", from: 'formSelectCategory'
+        expect(page).to have_button('submit-category', disabled: false)
         find('#submit-category').click
         expect(page).to have_selector('.form-select-machines', visible: true)
-        find('.form-select-machines').find(:xpath, 'option[2]').select_option
+        select "Categorie B", from: 'formSelectMachine'
+        expect(page).to have_button('submit-machine', disabled: false)
         find('#submit-machine').click
         expect(page).to have_selector('.checkboxes-workers', visible: true)
         check "check_worker_#{@worker_conductors.first.id}"
         find('#submit-conductors').click
         expect(page).to have_selector('.checkboxes-workers', visible: false)
-        sleep 2
         expect(find('.form-conductors-selection').all('.card-vehicule').size).to eq(count + 1)
       end
     end

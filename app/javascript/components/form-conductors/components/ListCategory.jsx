@@ -14,7 +14,7 @@ const ListCategory = ({listCategory, handleCategory, selectCategory}) => {
       <div className="form-select-category-title">
         Choisir un type d'engin dans la liste ci-dessous si votre chantier implique la conduite d'engins
       </div>
-      <select className="form-select-category" onClick={selectCategory}>
+      <select className="form-select-category" name="formSelectCategory" id="formSelectCategory" onClick={selectCategory}>
         {renderList}
       </select>
       <div className='d-flex justify-content-center mt-4'>

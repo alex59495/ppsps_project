@@ -227,7 +227,7 @@
         <h3 class="col-md-6 offset-md-3 form-subtitle">
           2-4. Horaires de travail
         </h3>
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-6 offset-md-3" id='timetable-summer'>
           Mon document doit faire figurer des horaires d'été
           <%= w.input :timetable_summer, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden' } %>
         </div>
@@ -237,7 +237,7 @@
             <%= w.input :timetable_summer_end %>
           </div>
         </div>
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-6 offset-md-3" id='timetable-winter'>
           Mon document doit faire figurer des horaires d'hiver
           <%= w.input :timetable_winter, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden' } %>
         </div>
@@ -264,7 +264,7 @@
         <h3 class="col-md-6 offset-md-3 form-subtitle">
           2-6. Locaux affectés au personnel
         </h3>
-        <div class="col-md-10 offeset-md-3">
+        <div class="col-md-10 offset-md-3">
            <div id="react-render-site-installations" data-ppsps_id=<%=@ppsp.id%>></div>
         </div>
 
@@ -307,14 +307,14 @@
         <h3 class="col-md-6 offset-md-3 form-subtitle">
           2-10. Moyens d'accès au poste de travail
         </h3>
-        <div class="col-md-10 offeset-md-3">
+        <div class="col-md-10 offset-md-3">
           <div id="react-render-altitude-works" data-ppsps_id=<%=@ppsp.id%>></div>
         </div>
 
         <h3 class="col-md-6 offset-md-3 form-subtitle">
           2-11. Engins de chantier utilisés
         </h3>
-        <div class="col-md-10 offeset-md-3">
+        <div class="col-md-10 offset-md-3">
           <div class='col-12' id="conductors-form-react" data-ppsps_id=<%=@ppsp.id%>></div>
         </div>
 
