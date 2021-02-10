@@ -410,11 +410,11 @@
       </h3>
       <div class="col-md-6 offset-3">
         <p class='text-alert'>Les informations affichées dans cette partie sont issues de la trousse de secours établies par l'entreprise, si cette liste a été mise à jour vous pouvez la modifier (si vous êtes administrateur) dans "Mon profil" - "Modifier les informations"</p>
-        <% current_user.company.kit_security_elements.each do |kit| %>
-          <div>
-            <%= "#{kit.number} : #{kit.name}" %>
-          </div>
-        <% end %>
+        <div class="card-kit-security">
+          <% current_user.company.kit_security_elements.each do |kit| %>
+            <li><%= "#{kit.number} : #{kit.name}" %></li>
+          <% end %>
+        </div>
       </div>
 
       <div class="col-md-6 offset-md-3 form-subtitle">

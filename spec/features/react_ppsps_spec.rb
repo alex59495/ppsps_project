@@ -183,6 +183,7 @@ RSpec.feature "React Handling", type: :feature, js: true do
         check "check_worker_#{@worker_conductors.first.id}"
         find('#submit-conductors').click
         expect(page).to have_selector('.checkboxes-workers', visible: false)
+        sleep 2
         expect(find('.form-conductors-selection').all('.card-vehicule').size).to eq(count + 1)
       end
     end

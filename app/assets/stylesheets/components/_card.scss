@@ -407,6 +407,12 @@
 }
 
 .card-kit-security {
-  padding: 8px;
-  margin: 0px 10px;
+  .top {
+  }
+  .content {
+    padding: 8px;
+    margin: 0px 10px;
+    border-radius: 14px;
+    background-color: rgba(255, 0, 0, 0.445);
+  }
 }
