@@ -18,7 +18,9 @@ const ListSelected = ({ subcontractors, handleClick }) => {
 
   return(
     <div className="form-selected-subcontractor form-flex-element">
-      <p>Mes ajouts</p>
+      <div className="title">
+        <p>Mes ajouts</p>
+      </div>
       <div className="selected-subcontractors selected-form-check">
         {renderList}
       </div>

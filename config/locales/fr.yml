@@ -29,6 +29,10 @@ fr:
         site_manager_id: Le chef de chantier
         team_manager_id: Le chef d'équipe
       worksite:
+        timetable_summer_start: Horaire de début de chantier
+        timetable_summer_end: Horaire de fin de chantier
+        timetable_winter_start: Horaire de début de chantier
+        timetable_winter_end: Horaire de fin de chantier
         address: L'adresse
         start_date: La date de début
         end_date: La date de fin

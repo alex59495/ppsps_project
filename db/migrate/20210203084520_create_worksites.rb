@@ -8,8 +8,12 @@ class CreateWorksites < ActiveRecord::Migration[6.0]
       t.integer :num_conductor
       t.integer :num_worker
       t.string :address
-      t.string :timetable_start
-      t.string :timetable_end
+      t.boolean :timetable_summer
+      t.string :timetable_summer_start
+      t.string :timetable_summer_end
+      t.boolean :timetable_winter
+      t.string :timetable_winter_start
+      t.string :timetable_winter_end
       t.boolean :electrical_site
       t.boolean :water_site
       t.boolean :plan

@@ -95,13 +95,18 @@
 
       <h3 class="col-md-6 offset-3 form-subtitle">
         1-7. Désignation du coordonateur SPS<i style='font-size: 0.7em; margin-left: 8px;'>(laissez vide si il n'y en a pas)</i>
-        <% if policy(SecurityCoordinator).new? %>
-          <%= render 'btn_add_database', data: 'SecurityCoordinator' %>
-        <% end %>
       </h3>
       <div class="col-md-6 offset-md-3">
         <div class="form-group select required ppsp_security_coordinator_id">
-          <%= f.input :security_coordinator_id, as: :select, collection: @security_coordinators, label: 'Coordonateur SPS', label_method: lambda { |x| "#{x.name} - #{x.representative}" }, input_html: {class: "select-2"} %>
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_security_coordinator_id">Coordonateur sécurité <abbr title="required">*</abbr></label>
+            <% if policy(SecurityCoordinator).new? %>
+              <%= render 'btn_add_database', data: 'SecurityCoordinator' %>
+            <% end %>
+          </div>
+          <div class="form-group select required ppsp_security_coordinator_id">
+            <%= f.input :security_coordinator_id, as: :select, collection: @security_coordinators, label: false, label_method: lambda { |x| "#{x.name} - #{x.representative}" }, input_html: {class: "select-2"} %>
+          </div>
         </div>
       </div>
 
@@ -223,10 +228,24 @@
           2-4. Horaires de travail
         </h3>
         <div class="col-md-6 offset-md-3">
-          <%= w.input :timetable_start, label: "Horaires de début de chantier" %>
+          Mon document doit faire figurer des horaires d'été
+          <%= w.input :timetable_summer, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden' } %>
         </div>
         <div class="col-md-6 offset-md-3">
-          <%= w.input :timetable_end, label: "Horaires de fin de chantier" %>
+          <div id="timetable-summer-input" class=<%= @ppsp.worksite.timetable_summer ? '' : 'hidden-visibility' %>>
+            <%= w.input :timetable_summer_start %>
+            <%= w.input :timetable_summer_end %>
+          </div>
+        </div>
+        <div class="col-md-6 offset-md-3">
+          Mon document doit faire figurer des horaires d'hiver
+          <%= w.input :timetable_winter, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden' } %>
+        </div>
+        <div class="col-md-6 offset-md-3">
+          <div id="timetable-winter-input" class=<%= @ppsp.worksite.timetable_winter ? '' : 'hidden-visibility' %>>
+            <%= w.input :timetable_winter_start %>
+            <%= w.input :timetable_winter_end %>
+          </div>
         </div>
 
         <h3 class="col-md-6 offset-md-3 form-subtitle">
@@ -254,8 +273,8 @@
         </h3>
          <div class="col-md-6 offset-md-3">
           <p>Votre chantier dispose-t-il d'un plan d'installation ?</p>
-          <%= w.input :plan, label: '&nbsp;'.html_safe,input_html: { class: 'checkbox-visual hidden' } %>
-          <div id="alert-text-plan" class="hidden-visibility">
+          <%= w.input :plan, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden' } %>
+          <div id="alert-text-plan" class= <%= @ppsp.worksite.plan ? '' : 'hidden-visibility'%>>
             <% if @ppsp.worksite.plan_installation.attached? %>
               <div class="render-plan">
                 <%= render 'worksites/plan_installation' %>

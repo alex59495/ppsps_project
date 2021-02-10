@@ -7,9 +7,13 @@ FactoryBot.define do
     num_worker { rand(0..10) }
     num_responsible { rand(0..10) }
     num_conductor { rand(0..10) }
-    timetable_start { "MyString" }
-    timetable_end { "MyString" }
-    plan { [true, false].sample }
+    timetable_summer { true }
+    timetable_winter { true }
+    timetable_summer_start { "MyString" }
+    timetable_summer_end { "MyString" }
+    timetable_winter_start { "MyString" }
+    timetable_winter_end { "MyString" }
+    plan { false }
     electrical_site { [true, false].sample }
     water_site { [true, false].sample }
   end

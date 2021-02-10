@@ -15,10 +15,12 @@ const FormInput = ({ name, id, responsible_name, work, handleClick, formList }) 
       defaultChecked={!formList}
     />
     <label
-      className={`form-checkbox ${!formList ? 'active' : ''}`}
+      className={`form-checkbox-subcontractor ${!formList ? 'active' : ''}`}
       htmlFor={`ppsp_subcontractors_${id}`}
     >
-      {`${name} - ${responsible_name} - ${work}`}
+      <div className='text-center'><b>{name}</b></div>
+      <div className="line"><i className="fas fa-user mr-2"></i>{responsible_name}</div>
+      <div className="line"><i className="fas fa-tools mr-2"></i>{work}</div>
     </label>
   </div>
 )

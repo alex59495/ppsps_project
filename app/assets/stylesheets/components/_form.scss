@@ -21,6 +21,21 @@
   }
 }
 
+.form-checkbox-subcontractor {
+  background-color: rgba(255, 196, 129, 0.521);
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 100%;
+  &.active {
+    background-color: rgba(248, 174, 90, 0.664);
+  }
+  &:hover {
+    cursor: pointer;
+    box-shadow: 1px 1px 5px rgba(189, 189, 189, 0.5);
+  }
+}
+
 .form-title {
   font-size: 26px;
   font-weight: 500;

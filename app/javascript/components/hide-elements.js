@@ -13,13 +13,40 @@ const hidePlanInstallation = () => {
   const inputPlan = document.getElementById('ppsp_worksite_attributes_plan')
   const alertText =document.getElementById('alert-text-plan')
   if(inputPlan) {
-    if(inputPlan.checked === true) {
-      alertText.classList.remove('hidden-visibility')
-    }
     inputPlan.addEventListener('click', () => {
       alertText.classList.toggle('hidden-visibility')
     })
   }
 }
 
-export { hideSecurityKit, hidePlanInstallation }
+const hideTimetableSummer = () => {
+  const inputSummer = document.getElementById('ppsp_worksite_attributes_timetable_summer');
+  const timetables = document.getElementById('timetable-summer-input')
+  if(inputSummer) {
+    inputSummer.addEventListener('click', () => {
+      timetables.classList.toggle('hidden-visibility')
+      if(timetables.classList.contains('hidden-visibility')) {
+        timetables.querySelectorAll('input').forEach(input => {
+          input.value = ''
+        })
+      }
+    })
+  }
+}
+
+const hideTimetableWinter = () => {
+  const inputWinter = document.getElementById('ppsp_worksite_attributes_timetable_winter');
+  const timetables = document.getElementById('timetable-winter-input')
+  if(inputWinter) {
+    inputWinter.addEventListener('click', () => {
+      timetables.classList.toggle('hidden-visibility')
+      if(timetables.classList.contains('hidden-visibility')) {
+        timetables.querySelectorAll('input').forEach(input => {
+          input.value = ''
+        })
+      }
+    })
+  }
+}
+
+export { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter }

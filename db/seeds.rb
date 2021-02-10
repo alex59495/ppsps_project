@@ -241,10 +241,26 @@ end
 
 # Worksites
 20.times do |n|
-  w = Worksite.create!(address: Faker::Address.street_address, start_date: DateTime.new(2020,9,1,17),
-    end_date: DateTime.new(2020,9,10,19), nature: "test_#{n+1} nature", num_responsible: rand(0..10), num_conductor: rand(0..10), 
-    num_worker: rand(0..10), timetable_start: '8h', timetable_end: '16h30', electrical_site: [true, false].sample, 
-    water_site: [true, false].sample, plan: [true, false].sample)
+  summer = [true, false].sample
+  winter = [true, false].sample
+  w = Worksite.create!(
+    address: Faker::Address.street_address, 
+    start_date: DateTime.new(2020,9,1,17),
+    end_date: DateTime.new(2020,9,10,19), 
+    nature: "test_#{n+1} nature", 
+    num_responsible: rand(0..10), 
+    num_conductor: rand(0..10), 
+    num_worker: rand(0..10), 
+    timetable_summer: summer,
+    timetable_summer_start: summer ? '8h' : nil,
+    timetable_summer_end: summer ? '16h30' : nil,
+    timetable_winter: winter,
+    timetable_winter_start: winter ? '9h' : nil,
+    timetable_winter_end: winter ? '17h30' : nil,
+    electrical_site: [true, false].sample, 
+    water_site: [true, false].sample, 
+    plan: false,
+  )
   p "Create #{w.id} Worksites"
 end
 

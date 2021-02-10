@@ -32,7 +32,7 @@ import sweetAlertMail from '../components/sweetAlert';
 import InitializeTinyMce from '../components/tinymce-editor';
 import { initMapbox } from '../components/mapbox';
 import logoClient from '../components/displayLogoClient';
-import { hideSecurityKit, hidePlanInstallation } from '../components/hide-elements'
+import { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter } from '../components/hide-elements'
 
 require('@rails/ujs').start();
 require('turbolinks').start();
@@ -58,6 +58,8 @@ document.addEventListener('turbolinks:load', () => {
   logoClient();
   hideSecurityKit();
   hidePlanInstallation();
+  hideTimetableWinter();
+  hideTimetableSummer();
 
   // React
   reactFromConductors();

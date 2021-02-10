@@ -1,8 +1,9 @@
 import { render } from 'enzyme';
 import React from 'react';
 import FormInput from './FormInput';
+import SearchBar from './Searchbar'
 
-const FormList = ({ subcontractors, handleClick }) => {
+const FormList = ({ subcontractors, handleClick, handleSearch }) => {
   // Order the list by name
   const listOrdered = subcontractors.sort((a, b) => {
     const nameA = `${a.name} - ${a.responsible_name} - ${a.work}`.toLowerCase();
@@ -33,7 +34,10 @@ const FormList = ({ subcontractors, handleClick }) => {
 
   return(
     <div className="form-subcontractors-list form-flex-element">
-      <p>Les sous-traitants disponibles</p>
+      <div className="title">
+        <p>Les sous-traitants disponibles</p>
+      </div>
+      <SearchBar handleSearch={handleSearch} />
       <fieldset className="form-group check_boxes optional ppsp_subcontractors">
         <legend className="col-form-label pt-0" />
         <input type="hidden" name="ppsp[subcontractors][]" value="" />

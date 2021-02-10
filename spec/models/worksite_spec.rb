@@ -15,8 +15,40 @@ RSpec.describe Worksite, type: :model do
   it { should validate_presence_of(:num_worker) }
   it { should validate_presence_of(:start_date) }
   it { should validate_presence_of(:end_date) }
-  it { should validate_presence_of(:timetable_start) }
-  it { should validate_presence_of(:timetable_end) }
+
+  context "if summer timetable" do
+    before { allow(subject).to receive(:summer?).and_return(true) }
+    it { should validate_presence_of(:timetable_summer_start) }
+    it { should validate_presence_of(:timetable_summer_end) }
+  end
+
+  context "if winter timetable" do
+    before { allow(subject).to receive(:winter?).and_return(true) }
+    it { should validate_presence_of(:timetable_winter_start) }
+    it { should validate_presence_of(:timetable_winter_end) }
+  end
+
+  context "if not summer timetable" do
+    before { allow(subject).to receive(:summer?).and_return(false) }
+    it { should validate_absence_of(:timetable_summer_start) }
+    it { should validate_absence_of(:timetable_summer_end) }
+  end
+
+  context "if not winter timetable" do
+    before { allow(subject).to receive(:winter?).and_return(false) }
+    it { should validate_absence_of(:timetable_winter_start) }
+    it { should validate_absence_of(:timetable_winter_end) }
+  end
+
+  context "if plan installtion" do
+    before { allow(subject).to receive(:has_a_plan?).and_return(true) }
+    it { should validate_presence_of(:plan_installation) }
+  end
+
+  context "if no plan installtion" do
+    before { allow(subject).to receive(:has_a_plan?).and_return(false) }
+    it { should_not validate_presence_of(:plan_installation) }
+  end
 
   it { should have_many(:ppsps) }
 end

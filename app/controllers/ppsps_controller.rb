@@ -330,8 +330,9 @@ class PpspsController < ApplicationController
     params.require(:ppsp).permit(:agglomeration, :river_guidance, :moa_id, :moe_id, :security_coordinator_id,
                                  :street_impact, :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
                                  :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, :logo_client, :content_secu, annexes: [],
-                                                                                                                         worksite_attributes: %i[id address start_date end_date timetable_start timetable_end electrical_site water_site nature plan
-                                                                                                                                                 num_responsible num_conductor num_worker plan_installation],
+                                                                                                                         worksite_attributes: %i[id address start_date end_date timetable_summer timetable_summer_start timetable_summer_end
+                                                                                                                                                 timetable_winter timetable_winter_start timetable_winter_end electrical_site
+                                                                                                                                                 water_site nature plan num_responsible num_conductor num_worker plan_installation],
                                                                                                                          project_information_attributes: %i[id name reference responsible_id site_manager_id team_manager_id company_id])
   end
 end

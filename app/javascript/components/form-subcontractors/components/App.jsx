@@ -6,6 +6,7 @@ import ButtonAdd from './ButtonAdd';
 
 const App = ({token}) => {
   const [formList, setFormList] = useState([]);
+  const [formListSearched, setFormListSearched] = useState(formList);
   const [addList, setAddList] = useState([]);
   const [savedChoices, setSavedChoices] = useState([]);
   const [trigger, setTrigger] = useState(0);
@@ -16,13 +17,13 @@ const App = ({token}) => {
     if (e.currentTarget.parentNode.classList.contains('ppsp_subcontractors')) {
       // Si on est dans la liste des choix, le fait de cliquer ajoute l'élément dans la liste de la selection en cours
       // et le supprime de la liste des choix
-      const formListRemove = formList.filter(
+      const formListRemove = formListSearched.filter(
         (subcontractor) => subcontractor.id !== id
       );
-      const addListAdd = formList.find(
+      const addListAdd = formListSearched.find(
         (subcontractor) => subcontractor.id === id
       );
-      setFormList(formListRemove);
+      setFormListSearched(formListRemove);
       setAddList([addListAdd, ...addList]);
     } else {
       // Si on est dans la liste de la selection en cours, le fait de cliquer ajoute l'élément dans la liste des choix
@@ -34,7 +35,7 @@ const App = ({token}) => {
         (subcontractor) => subcontractor.id === id
       );
       setAddList(addListRemove);
-      setFormList([formListAdd, ...formList]);
+      setFormListSearched([formListAdd, ...formListSearched]);
     }
   };
 
@@ -58,7 +59,9 @@ const App = ({token}) => {
       return !addListIds.includes(subcontractor.id)
     })
 
+    // On initialise les deux listes, la première servira de "base" et la seconde cherchera dans la première quand on tape quelque chose dans la seachbar
     setFormList(arrayResult)
+    setFormListSearched(arrayResult)
   };
 
   const fetchSavedSubcontractors = () => {
@@ -80,6 +83,15 @@ const App = ({token}) => {
     setTrigger(count + 1)
   };
 
+  // SearchBar
+  const handleSearch = async (e) => {
+    const search = e.currentTarget.value
+    const searched = await formList.filter(subcontractor => {
+      return subcontractor.name.toLowerCase().includes(search) || subcontractor.work.toLowerCase().includes(search) || subcontractor.responsible_name.toLowerCase().includes(search) 
+    })
+    setFormListSearched(searched);
+  }
+
   useEffect(() => {
     fetchSubcontractorsFormList();
     fetchSavedSubcontractors();
@@ -90,7 +102,7 @@ const App = ({token}) => {
       <ButtonAdd admin={admin} url={url} token={token} fetchSubcontractorsFormList={fetchSubcontractorsFormList}/>
       <SavedChoices subcontractors={savedChoices} handleRemove={handleRemove} />
       <div className="form-flex" id="form-subcontractors">
-        <FormList subcontractors={formList} handleClick={handleClick} />
+        <FormList subcontractors={formListSearched} handleClick={handleClick} handleSearch={handleSearch}/>
         <ListSelected subcontractors={addList} handleClick={handleClick} />
       </div>
     </>

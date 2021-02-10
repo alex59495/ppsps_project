@@ -1,0 +1,45 @@
+.hidden {
+  display: none;
+}
+
+// Attention pour utiliser le hidden visibility (permet de faire une transisiton)
+// ne pas oublier de définir (opacity, height, overflow) sur l'élément visé
+
+#alert-text-plan {
+  transition: opacity 1s ease-out;
+  opacity: 1;
+  height: auto;
+  overflow: hidden;
+}
+
+#alert-text-plan.hidden-visibility {
+  transition: opacity 1s ease-out;
+  height: 0;
+  opacity: 0;
+}
+
+#timetable-winter-input {
+  transition: opacity 1s ease-out;
+  opacity: 1;
+  height: auto;
+  overflow: hidden;
+}
+
+#timetable-winter-input.hidden-visibility {
+  transition: opacity 1s ease-out;
+  height: 0;
+  opacity: 0;
+}
+
+#timetable-summer-input {
+  transition: opacity 1s ease-out;
+  opacity: 1;
+  height: auto;
+  overflow: hidden;
+}
+
+#timetable-summer-input.hidden-visibility {
+  transition: opacity 1s ease-out;
+  height: 0;
+  opacity: 0;
+}
