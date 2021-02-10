@@ -5,6 +5,7 @@ import SavedChoices from './SavedChoices';
 
 const App = () => {
   const [formList, setFormList] = useState([]);
+  const [formListSearched, setFormListSearched] = useState([]);
   const [addList, setAddList] = useState([]);
   const [savedChoices, setSavedChoices] = useState([]);
   const [trigger, setTrigger] = useState(0);
@@ -21,6 +22,11 @@ const App = () => {
       const addListAdd = formList.find(
         (lifesaver) => lifesaver.id === id
       );
+      const formListSearchedRemove = formListSearched.filter(
+        (lifesaver) => lifesaver.id !== id
+      );
+      // On retire des deux FormList l'option qui vient d'être selectionné pour ne pas qu'elle apparaisse dans le handleSearch
+      setFormListSearched(formListSearchedRemove);
       setFormList(formListRemove);
       setAddList([addListAdd, ...addList]);
     } else {
@@ -32,7 +38,9 @@ const App = () => {
       const formListAdd = addList.find(
         (lifesaver) => lifesaver.id === id
       );
+      // On ajoute dans les deux FormList l'option qui vient d'être selectionné pour qu'elle apparaisse dans le handleSearch
       setAddList(addListRemove);
+      setFormListSearched([formListAdd, ...formListSearched]);
       setFormList([formListAdd, ...formList]);
     }
   };
@@ -47,7 +55,11 @@ const App = () => {
       method: 'GET',
     })
       .then((response) => response.json())
-      .then((data) => setFormList(data));
+      .then((data) => {
+        // On initialise les deux listes, la première servira de "base" et la seconde cherchera dans la première quand on tape quelque chose dans la seachbar
+        setFormList(data)
+        setFormListSearched(data)
+      });
   };
 
   const fetchSavedLifesaver = () => {
@@ -68,6 +80,18 @@ const App = () => {
     let count = trigger
     setTrigger(count + 1)
   };
+
+  const handleSearch = (e) => {
+    const search = e.currentTarget.value;
+    const searched = formList.filter(lifesaver => {
+      return (lifesaver.first_name.toLowerCase().includes(search.toLowerCase()) || 
+        lifesaver.last_name.toLowerCase().includes(search.toLowerCase()) ||
+        `${lifesaver.last_name} ${lifesaver.first_name}`.toLowerCase().includes(search.toLowerCase()) ||
+        `${lifesaver.first_name} ${lifesaver.last_name}`.toLowerCase().includes(search.toLowerCase())
+      )
+    })
+    setFormListSearched(searched)
+  }
   
   useEffect(() => {
     fetchLifesaversFormList();
@@ -78,7 +102,7 @@ const App = () => {
     <>
       <SavedChoices lifesavers={savedChoices} handleRemove={handleRemove} />
       <div className="form-flex" id="form-lifesavers">
-        <FormList lifesavers={formList} handleClick={handleClick} />
+        <FormList lifesavers={formListSearched} handleClick={handleClick} handleSearch={handleSearch} />
         <ListSelected lifesavers={addList} handleClick={handleClick} />
       </div>
     </>

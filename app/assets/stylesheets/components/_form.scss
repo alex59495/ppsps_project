@@ -22,13 +22,13 @@
 }
 
 .form-checkbox-subcontractor {
-  background-color: rgba(255, 196, 129, 0.521);
+  background-color: #ff7e676b;
   padding: 8px;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 13px;
   width: 100%;
   &.active {
-    background-color: rgba(248, 174, 90, 0.664);
+    background-color: #ff7e678c;
   }
   &:hover {
     cursor: pointer;
@@ -124,12 +124,12 @@
 
 .form-flex-element {
   min-width: 300px;
-  margin: 20px;
   width: 50px;
-  box-shadow: 1px 1px 2px 2px $blue-shadow;
+  box-shadow: 1px 1px 5px $blue-shadow;
   padding: 8px;
   border-radius: 12px;
-  margin: 30px auto;
+  margin: 10px auto;
+  background-color: white;
   .title {
     border-bottom: solid 1px gray;
     margin-bottom: 0.4em;

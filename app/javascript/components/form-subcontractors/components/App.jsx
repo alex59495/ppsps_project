@@ -17,13 +17,18 @@ const App = ({token}) => {
     if (e.currentTarget.parentNode.classList.contains('ppsp_subcontractors')) {
       // Si on est dans la liste des choix, le fait de cliquer ajoute l'élément dans la liste de la selection en cours
       // et le supprime de la liste des choix
-      const formListRemove = formListSearched.filter(
+      const formListRemove = formList.filter(
         (subcontractor) => subcontractor.id !== id
       );
-      const addListAdd = formListSearched.find(
+      const addListAdd = formList.find(
         (subcontractor) => subcontractor.id === id
       );
-      setFormListSearched(formListRemove);
+      const formListSearchedRemove = formListSearched.filter(
+        (lifesaver) => lifesaver.id !== id
+      );
+      // On retire des deux FormList l'option qui vient d'être selectionné pour ne pas qu'elle apparaisse dans le handleSearch
+      setFormListSearched(formListSearchedRemove);
+      setFormList(formListRemove);
       setAddList([addListAdd, ...addList]);
     } else {
       // Si on est dans la liste de la selection en cours, le fait de cliquer ajoute l'élément dans la liste des choix
@@ -34,7 +39,9 @@ const App = ({token}) => {
       const formListAdd = addList.find(
         (subcontractor) => subcontractor.id === id
       );
+      // On ajoute dans les deux FormList l'option qui vient d'être selectionné pour qu'elle apparaisse dans le handleSearch
       setAddList(addListRemove);
+      setFormListSearched([formListAdd, ...formList]);
       setFormListSearched([formListAdd, ...formListSearched]);
     }
   };
@@ -87,7 +94,7 @@ const App = ({token}) => {
   const handleSearch = async (e) => {
     const search = e.currentTarget.value
     const searched = await formList.filter(subcontractor => {
-      return subcontractor.name.toLowerCase().includes(search) || subcontractor.work.toLowerCase().includes(search) || subcontractor.responsible_name.toLowerCase().includes(search) 
+      return subcontractor.name.toLowerCase().includes(search.toLowerCase()) || subcontractor.work.toLowerCase().includes(search.toLowerCase()) || subcontractor.responsible_name.toLowerCase().includes(search.toLowerCase()) 
     })
     setFormListSearched(searched);
   }
