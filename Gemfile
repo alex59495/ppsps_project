@@ -90,8 +90,6 @@ group :development, :test do
   gem 'shoulda-matchers'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  # Handle N+1
-  gem 'bullet'
 end
 
 group :development do
@@ -102,6 +100,10 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring-commands-rspec'
+  # Handle N+1
+  gem 'bullet'
+  # Verify speed
+  gem 'rack-mini-profiler'
 end
 
 group :test do

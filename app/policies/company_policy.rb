@@ -10,7 +10,11 @@ class CompanyPolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin
+    edit?
+  end
+
+  def edit?
+    user.admin && user.company == record
   end
 
   def destroy_logo?

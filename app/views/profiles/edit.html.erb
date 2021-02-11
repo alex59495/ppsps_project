@@ -1,83 +1,14 @@
-<div class="mb-3">
-  <%= link_to "Revenir au profil", profile_path(@user), class: 'link' %>
-</div>
-<div class="row mr-0 ml-0">
-  <% if @user.admin && @user == current_user  %>
-    <div class='col-md-6'>
-      <h2>Les informations de mon entreprise</h2>
-      <div class="d-flex flex-column">
-        <h3>Logo de l'entreprise</h3>
-        <div class="d-flex justify-content-center align-items-center render-logo">
-          <% if @user.company.logo.attached? %>
-            <div class='d-flex flex-column mb-2 align-items-center'>
-              <%= cl_image_tag @user.company.logo.key, class: 'icon-logo mb-3' %>
-              <%= link_to 'Supprimer', destroy_logo_company_path(@user.company), class: 'btn-delete', remote: true %>
-            </div>
-          <% else %>
-            <i style='font-size: 80px;'class="fas fa-question-circle mb-4"></i>
-          <% end %>
-          <i class="fas fa-long-arrow-alt-right mx-4" style='font-size: 40px; display: none;'></i>
-          <img id="newLogo" width="200" class='icon-logo'>
-        </div>
-        <div class='btn-delete' id="removeUpload" style='display: none; text-align: center; width: 100%'>Annuler</div>
-        <%= simple_form_for @user.company do |f| %>
-          <div class="d-flex justify-content-center">
-            <%= f.input :logo, label: false, input_html: {:onchange => "loadLogo(event)"} %>
-          </div>
-          <div class="d-flex justify-content-center my-4">
-            <%= f.submit "Modifier", class: 'btn-blue' %>
-          </div>
-        <% end %>
-
-        <div class="security-kit">
-          <h3>La trousse de sécurité de mon entreprise</h3>
-          <div id="selected-kit-security" class='card-kit-security'>
-            <div class="card-kit-security">
-              <div class="top"></div>
-              <div class="card-kit-content">
-                <div class="list">
-                  <% @user.company.kit_security_elements.each do |kit| %>
-                    <li>
-                      <%= "#{kit.number} #{kit.name}" %>
-                      <%= link_to 'x', kit_security_element_path(kit, user_id: @user.id), method: :delete, data: {confirm: 'Êtes-vous sûr ?'}, class: 'ml-1', remote: true %>
-                    </li>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-            <div class="btn-add-security-kit link my-2">Ajouter</div>
-            <div id="container-form-kit">
-              <%= simple_form_for @kit_security_element, remote: true, html: {class: 'hidden', id: 'add-security-kit' } do |f| %>
-                <p>Ajouter un nouvel élément dans la trousse</p>
-                <%= f.input :number, label: 'Nombre' %>
-                <%= f.input :name, label: 'Contenu' %>
-                <%= f.submit 'Ajouter', class: 'btn-blue' %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-
-        <%= simple_form_for @user.company do |f| %>
-          <h3 class="text-center">Texte de sécurité de l'entreprise</h3>
-          <%= f.text_area :content_secu, class: 'tinymce' %>
-          <%= tinymce %>
-          <div class="d-flex justify-content-center my-4">
-            <%= f.submit "Valider mes modifications", class: 'btn-blue' %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-
-  <div class=<%= @user.admin && @user == current_user ? 'col-md-6' : 'col-12' %>>
-    <h2>Mes informations</h2>
-    <%= simple_form_for @user, url: profile_path(@user), html: { method: :put } do |f| %>
-      <%= f.input :first_name, label: "Prénom" %>
-      <%= f.input :last_name, label: "Nom de famille" %>
-      <%= f.input :email, label: "Email" %>
-      <%= f.submit "Valider mes modifications", class: 'btn-blue' %>
-    <% end %>
+<div class='col-md-6 offset-md-3'>
+  <div class="mb-3">
+    <%= link_to "Revenir au profil", profile_path(@user), class: 'link' %>
   </div>
+  <h2>Mes informations</h2>
+  <%= simple_form_for @user, url: profile_path(@user), html: { method: :put } do |f| %>
+    <%= f.input :first_name, label: "Prénom" %>
+    <%= f.input :last_name, label: "Nom de famille" %>
+    <%= f.input :email, label: "Email" %>
+    <%= f.submit "Valider mes modifications", class: 'btn-blue' %>
+  <% end %>
 </div>
 <script>
   const loadLogo = (event) => {

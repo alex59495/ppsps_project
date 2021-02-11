@@ -1,6 +1,6 @@
-<%= simple_form_for @kit_security_element, remote: true, html: {id: 'add-security-kit' } do |f| %>
+<%= simple_form_for @kit_security_element, remote: true, html: {id: 'add-security-kit', class: 'hidden' } do |f| %>
   <p>Ajouter un nouvel élément dans la trousse</p>
   <%= f.input :number, label: 'Nombre' %>
   <%= f.input :name, label: 'Contenu' %>
-  <%= f.button :button 'Valider', class: 'btn-blue', data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe } %>
+  <%= f.button :button, 'Valider', class: 'btn-blue', data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe } %>
 <% end %>

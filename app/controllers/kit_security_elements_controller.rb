@@ -3,8 +3,8 @@ class KitSecurityElementsController < ApplicationController
   before_action :find_element, only: :destroy
   def create
     @kit_security_element = KitSecurityElement.new(params_security_element)
-    @user = current_user
-    @kit_security_element.company = @user.company
+    @kit_security_element.company = current_user.company
+    @company = @kit_security_element.company
     authorize @kit_security_element
     if @kit_security_element.save
       respond_to do |format|
@@ -20,8 +20,7 @@ class KitSecurityElementsController < ApplicationController
   def destroy
     authorize @element
     @element.destroy
-    user_id = params[:user_id]
-    redirect_to edit_profile_path(user_id)
+    redirect_to edit_company_path(@company)
   end
 
   private
