@@ -14,6 +14,7 @@ class ProfilesController < ApplicationController
     @user.user_update = true
     if @user.update(user_params)
       redirect_to profile_path(@user)
+      flash[:notice_ok] = 'Les modifications ont bien été prises en compte'
     else
       render :edit
     end

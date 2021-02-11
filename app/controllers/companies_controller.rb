@@ -10,6 +10,7 @@ class CompaniesController < ApplicationController
     authorize @company
     if @company.update(params_company)
       redirect_to profile_path(current_user)
+      flash[:notice_ok] = 'Les modifications ont bien été prises en compte'
     else
       render 'profiles/edit'
     end
@@ -30,7 +31,7 @@ class CompaniesController < ApplicationController
   private
 
   def params_company
-    params.require(:company).permit(:logo, :content_secu)
+    params.require(:company).permit(:logo, :content_secu, :name, :address, :represnetative)
   end
 
   def find_company

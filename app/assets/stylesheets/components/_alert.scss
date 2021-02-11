@@ -10,3 +10,16 @@
   font-style: italic;
   font-size: 14px;
 }
+
+.notice {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+
+.notice-ok {
+  background-color: rgb(78, 146, 78);
+  color: white;
+  padding-right: 4rem;
+}

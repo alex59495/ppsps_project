@@ -81,6 +81,7 @@ class DatabaseController < ApplicationController
     if @data.update(params_data)
       # @path variable comes from child controller
       redirect_to @path
+      flash[:notice_ok] = 'Les modifications ont bien été prises en compte'
     else
       # render error is possible with remote true thanks to turbolinks-render
       # We render from an unique folder which is able to redirect to others folders

@@ -1,6 +1,18 @@
 <div class='col-md-6 offset-md-3'>
+  <%= link_to 'Retourner à mon profil', profile_path(current_user), class: 'link' %>
   <h2>Les informations de mon entreprise</h2>
   <div class="d-flex flex-column">
+    <%= simple_form_for @company do |f| %>
+      <h3>Nom</h3>
+      <%= f.input :name, label: false %>
+      <h3>Adresse</h3>
+      <%= f.input :address, label: false %>
+      <h3>Représentant</h3>
+      <%= f.input :representative, label: false %>
+      <div class="d-flex justify-content-center my-4">
+        <%= f.submit 'Valider', class: 'btn-blue' %>
+      </div>
+    <% end %>
     <h3>Logo de l'entreprise</h3>
     <div class="d-flex justify-content-center align-items-center render-logo">
       <% if @company.logo.attached? %>
