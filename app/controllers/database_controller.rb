@@ -6,9 +6,15 @@ class DatabaseController < ApplicationController
     authorize @model_name
     @data = @model_name.new
     instance_variable_creation(@data)
-
     if params[:query]
-      @database = policy_scope(@model_name.search(params[:query]))
+      # Si le modele à un "name" on classe les données par nom, sinon par prénom puis par adresse
+      if @model_name.new.attributes.keys.include?('name')
+        @database = policy_scope(@model_name.search(params[:query])).order(name: :asc)
+      elsif @model_name.new.attributes.keys.include?('first_name')
+        @database = policy_scope(@model_name.search(params[:query])).order(first_name: :asc)
+      else
+        @database = policy_scope(@model_name.search(params[:query])).order(address: :asc)
+      end
       init_infinite_scroll
 
       @search = 'search'
@@ -19,7 +25,14 @@ class DatabaseController < ApplicationController
         format.js { render "database/index" }
       end
     else
-      @database = policy_scope(@model_name.all)
+
+      if @model_name.new.attributes.keys.include?('name')
+        @database = policy_scope(@model_name.all).order(name: :asc)
+      elsif @model_name.new.attributes.keys.include?('first_name')
+        @database = policy_scope(@model_name.all).order(first_name: :asc)
+      else
+        @database = policy_scope(@model_name.all).order(address: :asc)
+      end
       init_infinite_scroll
 
       @search = 'none'
@@ -42,7 +55,7 @@ class DatabaseController < ApplicationController
     @search = "none"
     if @data.save
       # Create an ordered list to put the last one in first
-      @database = policy_scope(@model_name.all).sort_by { |datab| datab.created_at }
+      @database = policy_scope(@model_name.all).order(updated_at: :desc)
       # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
       init_infinite_scroll
       # Respond with the view anti_poison/create.js.erb to close the modal and come back to the form

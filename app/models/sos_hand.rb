@@ -14,10 +14,9 @@ class SosHand < ApplicationRecord
 
   def self.search(query)
     if query.present?
-      search_sos_hand(query).order(created_at: :asc)
+      search_sos_hand(query)
     else
-      # No query? Return all records, newest first.
-      order("created_at ASC")
+      order("name ASC")
     end
   end
 end

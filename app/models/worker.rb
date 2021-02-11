@@ -25,10 +25,10 @@ class Worker < ApplicationRecord
 
   def self.search(query)
     if query.present?
-      search_worker(query).order(created_at: :asc)
+      search_worker(query)
     else
-      # No query? Return all records, newest first.
-      order("created_at ASC")
+      # No query? Return all records by name.
+      order("first_name ASC")
     end
   end
 end

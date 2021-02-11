@@ -27,7 +27,6 @@ const infiniteScroll = () => {
     const handleDisplaying = () => {
       paginationElem = $('.container-pagination');
       const numberElements = parseInt(paginationElem.attr('data-number'), 10);
-      console.log(numberElements)
       if (numberElements < 50) {
         paginationElem.hide();
       }

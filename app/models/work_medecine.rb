@@ -14,10 +14,10 @@ class WorkMedecine < ApplicationRecord
 
   def self.search(query)
     if query.present?
-      search_work_medecine(query).order(created_at: :asc)
+      search_work_medecine(query)
     else
-      # No query? Return all records, newest first.
-      order("created_at ASC")
+      # No query? Return all records by address.
+      order("address ASC")
     end
   end
 end
