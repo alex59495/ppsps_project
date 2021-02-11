@@ -1,4 +1,4 @@
-<body class="bg-white" onload="initMapBox()">
+<body class="bg-white">
   <div class="container">
     <div class="page-break">
       <div class="flexbox">
@@ -435,7 +435,6 @@
         </div>
       </div>
     </div>
-    
     <% if @ppsp.content_secu.present? %>
       <div class="page-break">
         <div class="pdf-text-container pdf-align-left">
@@ -447,7 +446,7 @@
       </div>
     <% end %>
     <% if @ppsp.worksite.plan_installation.attached? %>
-      <div class='page-break'>
+      <div class=<%= "page-break" %>>
         <div class="pdf-title mb-2">
           Plan d'installation
         </div>
@@ -455,14 +454,31 @@
       </div>
     <% end %>
     <% if @ppsp.annexes.attached? %>
-      <% @annexes.each do |_key, value| %>
-        <% (1..value[:pages]).each do |i| %>
-          <div class='page-break'>
-            <%= cl_image_tag(value[:key] + '.jpg', page: i, crop: "scale", width: 850) %>
+      <% @annexes.each do |index, value| %>
+        <div class='page-break'>
+          <div class="pdf-title mb-2">
+            <%= "Annexe #{index + 1}" %>
           </div>
-        <% end %>
+          <% (1..value[:pages]).each do |i| %>
+              <%= cl_image_tag(value[:key] + '.jpg', page: i, crop: "scale", width: 850) %>
+          <% end %>
+          </div>
       <% end %>
     <% end %>
+    <div class="last-page">
+      <div class="pdf-title">
+        Feuille d'émargement
+      </div>
+      <div class="flexbox mt-3">
+        <div class="flex-div-50 pdf-title">
+          Nom de l'agent
+        </div>
+        <div class="flex-div-50 pdf-title">
+          Signature
+        </div>
+        <div class="border-right"></div>
+      </div>
+    </div>
   </div>
 </body>
 

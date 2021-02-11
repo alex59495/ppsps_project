@@ -31,7 +31,7 @@ class CompaniesController < ApplicationController
   private
 
   def params_company
-    params.require(:company).permit(:logo, :content_secu, :name, :address, :represnetative)
+    params.require(:company).permit(:logo, :content_secu, :name, :address, :representative)
   end
 
   def find_company

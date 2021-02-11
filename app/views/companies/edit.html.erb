@@ -1,5 +1,5 @@
 <div class='col-md-6 offset-md-3'>
-  <%= link_to 'Retourner à mon profil', profile_path(current_user), class: 'link' %>
+  <%= link_to 'Revenir à mon profil', profile_path(current_user), class: 'link' %>
   <h2>Les informations de mon entreprise</h2>
   <div class="d-flex flex-column">
     <%= simple_form_for @company do |f| %>
@@ -52,7 +52,7 @@
             </div>
           </div>
         </div>
-        <div class="btn-add-security-kit link my-2">Ajouter</div>
+        <div class="link my-2" id="btn-add-security-kit">Ajouter</div>
         <div id="container-form-kit">
           <%= render 'kit_security_elements/form' %>
         </div>

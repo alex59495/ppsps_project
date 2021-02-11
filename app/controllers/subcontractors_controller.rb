@@ -32,7 +32,6 @@ class SubcontractorsController < DatabaseController
       respond_to do |format|
         format.js { render "#{controller_name}/create.js.erb" }
       end
-      flash[:notice_ok] = "L'élément a bien été ajouté"
     else
       # Respond with the .js.erb to print the modal with errors
       respond_to do |format|

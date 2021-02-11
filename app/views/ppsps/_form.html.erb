@@ -445,8 +445,14 @@
       <% end %>
 
 
-      <div class="col-md-6 offset-md-3 mt-5">
-        <%= f.button :button, "J'ai terminé", class: 'btn-blue', data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe } %>
+      <div class="d-flex justify-content-center mt-5">
+        <%= f.button :button, "J'ai terminé", class: 'btn-blue', data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe }, id: 'SubmitPpspsFormBtn' %>
+      </div>
+    </div>
+    <div id="myModal" class="modal-background">
+      <div class="text-center modal-loading">
+        <div class="spinner-border" role="status"></div>
+         <div class="mt-2">Votre PPSPS est en cours de préparation...</div>
       </div>
     </div>
   <% end %>

@@ -62,6 +62,9 @@ gem 'devise'
 # Authorization
 gem 'pundit'
 
+# Analyze the images
+gem "mini_magick"
+
 # Advanced search
 gem 'pg_search'
 

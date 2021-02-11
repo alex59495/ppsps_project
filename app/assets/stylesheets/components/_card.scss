@@ -32,7 +32,7 @@
   .card-ppsp-duplicate {
     position: relative;
     float: left;
-    font-size: 18px;
+    font-size: 13px;
     color: $blue-dark;
     font-weight: 700;
     margin-left: 6px;
@@ -422,6 +422,7 @@
     position: relative;
     &::before {
       content: '';
+      border: 3px solid rgba(255, 0, 0, 0.493);
       background-image: url('secours.png');
       background-size: cover;
       background-position: center;

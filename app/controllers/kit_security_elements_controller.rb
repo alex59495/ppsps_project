@@ -10,7 +10,6 @@ class KitSecurityElementsController < ApplicationController
       respond_to do |format|
         format.js { render 'kit_security_elements/create.js.erb' }
       end
-      flash[:notice_ok] = "L'ajout a été validé"
     else
       respond_to do |format|
         format.js { render 'kit_security_elements/error.js.erb' }

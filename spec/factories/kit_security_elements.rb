@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :kit_security_element do
     company
-    name { "MyString" }
-    number { 1 }
+    sequence(:name) { |n| "Elemment de secours #{n}" }
+    number { rand(0..10) }
   end
 end

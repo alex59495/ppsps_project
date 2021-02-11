@@ -27,8 +27,11 @@ RSpec.describe "Companies", type: :request do
     end
 
     it "Can modify my company" do
-      params_company = attributes_for(:company)
-      company_path(@user.company, params: params_company)
+      params = { company: attributes_for(:company) }
+      patch company_path(@user.company, params: params)
+      expect(@user.company.reload.name).to eq(params[:company][:name])
+      expect(@user.company.reload.address).to eq(params[:company][:address])
+      expect(@user.company.reload.representative).to eq(params[:company][:representative])
     end
   end
 end

@@ -8,7 +8,7 @@
   height: 300px;
   width: 100%;
 }
-  
+
 .pdf-banner .banner-title {
   position: absolute;
   top: 90px;
@@ -19,12 +19,12 @@
 }
 
 .pdf-banner .banner-subtitle {
-    position: absolute;
-    top: 180px;
-    width: 100%;
-    text-align: center;
-    font-weight: 400;
-    font-size: 18px;
+  position: absolute;
+  top: 180px;
+  width: 100%;
+  text-align: center;
+  font-weight: 400;
+  font-size: 18px;
 }
 
 .pdf-title {
@@ -41,6 +41,7 @@
   font-weight: 500;
   font-size: 22px;
   margin-bottom: 1em;
+  margin-top: 1.5em;
 }
 
 .pdf-subsubtitle {
@@ -80,10 +81,10 @@
   display: block;
 }
 
-.flexbox::after { 
-  content: " ";
-  display: block; 
-  height: 0; 
+.flexbox::after {
+  content: ' ';
+  display: block;
+  height: 0;
   clear: both;
 }
 
@@ -124,17 +125,17 @@
   margin-top: 3em;
 }
 
-.page-break { 
-  display:block; 
-  clear:both; 
-  page-break-after:always;
-  padding-top: 6px;
-  padding-bottom: 6px;
+.page-break {
+  display: block;
+  clear: both;
+  page-break-after: always;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
-.last-page { 
-  display:block; 
-  clear:both; 
+.last-page {
+  display: block;
+  clear: both;
   padding-top: 6px;
   padding-bottom: 6px;
 }
@@ -144,20 +145,37 @@
   padding-right: 8px;
   padding-left: 8px;
   text-align: center;
+  position: relative;
 }
 
-.footer-container div {
-  float: left;
+.footer-container .footer-pages {
+  float: right;
+  width: 50px;
 }
 
 .footer-container .footer-text {
   margin-top: 10px;
   margin-left: 10px;
   width: 95%;
-  vertical-align: bottom
+  vertical-align: bottom;
 }
 
 .pdf-logo {
   height: 150px;
-  object-fit: fill; 
+  object-fit: fill;
 }
+
+.border-right {
+  border-right: solid 1px black;
+  height: 1200px;
+  width: 50%;
+}
+
+// .landscape {
+//   position: relative;
+//   margin: 270mm 0;
+//   width: 270mm;
+//   height: 195mm;
+//   -webkit-transform: rotate(-90deg);
+//   -webkit-transform-origin: 0mm 0mm;
+// }

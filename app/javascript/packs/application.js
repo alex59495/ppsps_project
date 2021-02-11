@@ -33,6 +33,7 @@ import InitializeTinyMce from '../components/tinymce-editor';
 import { initMapbox } from '../components/mapbox';
 import logoClient from '../components/displayLogoClient';
 import { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter } from '../components/hide-elements'
+import animateSubmitPpsps from '../components/animateSubmitPpsps'
 
 require('@rails/ujs').start();
 require('turbolinks').start();
@@ -60,6 +61,7 @@ document.addEventListener('turbolinks:load', () => {
   hidePlanInstallation();
   hideTimetableWinter();
   hideTimetableSummer();
+  animateSubmitPpsps();
 
   // React
   reactFromConductors();

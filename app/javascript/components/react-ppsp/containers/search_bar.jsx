@@ -12,7 +12,7 @@ class SearchBar extends Component {
 
   render () {
     return (
-      <input type="text" placeholder="Référence, nom d'utilisateur..." className="form-control search-ppsp" onChange={this.handleChange}/>
+      <input type="text" placeholder="Référence, nom d'utilisateur..." id='search-bar-ppsp' className="form-control search-ppsp" onChange={this.handleChange}/>
     )
   }
 }

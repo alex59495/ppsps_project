@@ -173,6 +173,7 @@ RSpec.feature "React Handling", type: :feature, js: true do
         visit(edit_ppsp_path(@ppsp))
         count = find('.form-conductors-selection').all('.card-vehicule').size
         select "Pont roulant", from: 'formSelectCategory'
+        wait_for_ajax
         expect(page).to have_button('submit-category', disabled: false)
         find('#submit-category').click
         expect(page).to have_selector('.form-select-machines', visible: true)
