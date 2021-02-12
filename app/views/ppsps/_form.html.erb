@@ -83,9 +83,11 @@
         1-6. Ajout du logo du client (si disponible)
       </h3>
       <div class="col-md-6 offset-md-3">
-      <%= f.input :logo_client, label: "Logo du client (si disponible)", disabled: @ppsp.logo_client.attached? %>
-      <img id="newLogo" class='icon-logo' style='display: none'>
-      <div class='btn-delete' id="removeUpload" style='display: none;'>Annuler</div>
+        <div class="text-alert-black">Maximum 100kB (format PNG, JPG ou JPEG)</div>
+        <%= f.input :logo_client, label: false, disabled: @ppsp.logo_client.attached? && @ppsp.logo_client.persisted? %>
+        <div id="error-format" class='text-alert'></div>
+        <img id="newLogo" class='icon-logo' style='display: none'>
+        <div class='btn-delete' id="removeUpload" style='display: none;'>Annuler</div>
         <div class="render-logo">
           <%= render 'render_logo_client' %>
         </div>

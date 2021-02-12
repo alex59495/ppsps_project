@@ -12,9 +12,12 @@ const logoClient = () => {
     const image = document.getElementById('newLogo');
     const oldLogo = document.getElementById('oldLogo');
     const btnCancelUpload = document.getElementById('removeUpload');
+    const formatAccepted = ["image/jpeg", "image/jpg", "image/png"];
+    const errorFormat = document.getElementById('error-format')
     // Si il exite un fichier à uploader
-    if (event.target.files[0]) {
+    if (event.target.files[0] && formatAccepted.includes(event.target.files[0].type)) {
       btnCancelUpload.style.display = 'block';
+      errorFormat.innerText = '';
       // Si il existe un ancien logo client
       if (oldLogo) {
         oldLogo.style.display = 'none';
@@ -29,7 +32,12 @@ const logoClient = () => {
       image.style.display = 'block';
       // eslint-disable-next-line no-return-assign
       return (image.src = URL.createObjectURL(event.target.files[0]));
-    }
+    }  
+    // Si l'input existe mais est au mauvais format
+    else if (event.target.files[0]) {
+      event.target.value = null;
+      errorFormat.innerText = "Le format et/ou la taille de l'image n'est pas valide"
+    };
     image.style.display = 'none';
     if (oldLogo) {
       oldLogo.style.display = 'block';

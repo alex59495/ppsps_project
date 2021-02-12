@@ -13,7 +13,6 @@ const hidePlanInstallation = () => {
   const inputPlan = document.getElementById('ppsp_worksite_attributes_plan')
   const alertText =document.getElementById('alert-text-plan')
   if(inputPlan) {
-    console.log('coucou')
     inputPlan.addEventListener('click', () => {
       alertText.classList.toggle('hidden-visibility')
     })
