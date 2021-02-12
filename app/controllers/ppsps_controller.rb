@@ -127,7 +127,7 @@ class PpspsController < ApplicationController
       redirect_to ppsp_path(@ppsp, format: :pdf)
     else
       render :new
-      flash[:notice] = "Le formulaire n'a pas été rempli correctement, merci de réessayer"
+      flash.now.alert = "Le formulaire n'a pas été rempli correctement, merci de réessayer"
     end
   end
 
@@ -136,7 +136,6 @@ class PpspsController < ApplicationController
     # This way the edit page is able to retrieve the project informations and worksite
     @project_information = @ppsp.project_information
     @worksite = @ppsp.worksite
-
     # Info to add the possibility to create a new element through a modal form!
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
@@ -211,7 +210,7 @@ class PpspsController < ApplicationController
       redirect_to ppsp_path(@ppsp, format: :pdf)
     else
       render :edit
-      flash[:notice] = "Le formulaire n'a pas été rempli correctement, merci de réessayer"
+      flash.now.alert = "Le formulaire n'a pas été rempli correctement, merci de réessayer"
     end
   end
 

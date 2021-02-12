@@ -15,7 +15,8 @@ class Worksite < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
   has_one_attached :plan_installation
-  validates :plan_installation, presence: true, if: :has_a_plan?
+
+  validates :plan_installation, attached: true, size: { less_than: 300.kilobytes, message: 'est trop lourd' }, if: :has_a_plan?
 
   validates :timetable_summer, inclusion: { in: [true, false] }
   validates :timetable_winter, inclusion: { in: [true, false] }

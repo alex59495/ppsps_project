@@ -44,4 +44,5 @@ class Ppsp < ApplicationRecord
   validates :hospital_id, presence: true
   has_one_attached :logo_client
   has_many_attached :annexes
+  validates :annexes, size: { less_than: 500.kilobytes, message: 'est trop lourd' }
 end
