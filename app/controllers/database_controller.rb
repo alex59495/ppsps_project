@@ -60,6 +60,7 @@ class DatabaseController < ApplicationController
       init_infinite_scroll
       # Respond with the view anti_poison/create.js.erb to close the modal and come back to the form
       respond_to do |format|
+        flash.now[:notice_ok] = "Ajouté"
         format.js { render "#{controller_name}/create.js.erb" }
       end
     else

@@ -8,6 +8,7 @@ class KitSecurityElementsController < ApplicationController
     authorize @kit_security_element
     if @kit_security_element.save
       respond_to do |format|
+        flash.now[:notice_ok] = "Ajouté"
         format.js { render 'kit_security_elements/create.js.erb' }
       end
     else
