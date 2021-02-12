@@ -29,7 +29,7 @@
     <div class='btn-delete' id="removeUpload" style='display: none; text-align: center; width: 100%'>Annuler</div>
     <%= simple_form_for @company do |f| %>
       <div class="d-flex justify-content-center">
-        <%= f.input :logo, label: false, input_html: {:onchange => "loadLogo(event)"} %>
+        <%= f.input :logo, label: false %>
       </div>
       <div class="d-flex justify-content-center my-4">
         <%= f.submit "Modifier", class: 'btn-blue' %>

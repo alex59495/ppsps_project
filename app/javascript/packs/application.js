@@ -31,7 +31,7 @@ import navbarDropdown from '../components/navbar-dropdown';
 import sweetAlertMail from '../components/sweetAlert';
 import InitializeTinyMce from '../components/tinymce-editor';
 import { initMapbox } from '../components/mapbox';
-import logoClient from '../components/displayLogoClient';
+import { logoClient, logoCompany } from '../components/displayLogo';
 import { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter } from '../components/hide-elements'
 import animateSubmitPpsps from '../components/animateSubmitPpsps'
 
@@ -57,6 +57,7 @@ document.addEventListener('turbolinks:load', () => {
   calendar();
   sweetAlertMail();
   logoClient();
+  logoCompany();
   hideSecurityKit();
   hidePlanInstallation();
   hideTimetableWinter();
