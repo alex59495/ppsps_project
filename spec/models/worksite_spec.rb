@@ -16,6 +16,11 @@ RSpec.describe Worksite, type: :model do
   it { should validate_presence_of(:start_date) }
   it { should validate_presence_of(:end_date) }
 
+  context 'Verify size of plan_installation if plan is true' do
+    before { allow(subject).to receive(:has_a_plan?).and_return(true) }
+    it { is_expected.to validate_size_of(:plan_installation).less_than(300.kilobytes) }
+  end
+
   context "if summer timetable" do
     before { allow(subject).to receive(:summer?).and_return(true) }
     it { should validate_presence_of(:timetable_summer_start) }

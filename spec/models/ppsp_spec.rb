@@ -15,6 +15,9 @@ RSpec.describe Ppsp, type: :model do
   it { should validate_presence_of(:street_impact) }
   it { should validate_presence_of(:river_guidance) }
 
+  it { is_expected.to validate_size_of(:annexes).less_than(500.kilobytes) }
+  it { is_expected.to validate_size_of(:logo_client).less_than(100.kilobytes) }
+
   it { should belong_to(:moe) }
   it { should belong_to(:moa) }
   it { should belong_to(:hospital) }
