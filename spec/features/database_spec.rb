@@ -112,7 +112,6 @@ RSpec.feature "Databases", type: :feature, js: true do
       page.execute_script("$('#direcct_address').val('Test direcct')")
       page.execute_script("$('#direcct_phone').val('0600000000')")
       find('#DirecctBtn').click
-      wait_for_ajax
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
