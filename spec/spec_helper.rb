@@ -22,18 +22,6 @@ Capybara.register_driver :chrome do |app|
   Selenium::WebDriver::Chrome::Options.new(args: %w[headless disable-gpu])
 end
 
-module WaitForAjax
-  def wait_for_ajax
-    Timeout.timeout(Capybara.default_max_wait_time) do
-      loop until finished_all_ajax_requests?
-    end
-  end
-
-  def finished_all_ajax_requests?
-    page.evaluate_script('jQuery.active').zero?
-  end
-end
-
 Capybara.javascript_driver = :chrome
 Capybara.default_max_wait_time = 10
 
@@ -46,8 +34,6 @@ RSpec.configure do |config|
     # Start FactoryBot
     FactoryBot.lint
   end
-
-  config.include WaitForAjax, type: :feature
 
   # Active storage validation
   config.include ActiveStorageValidations::Matchers
