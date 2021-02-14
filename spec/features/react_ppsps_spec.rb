@@ -172,10 +172,12 @@ RSpec.feature "React Handling", type: :feature, js: true do
         create(:conductor, user: @user, ppsp_id: @ppsp.id, machine: @machine1)
         visit(edit_ppsp_path(@ppsp))
         count = find('.form-conductors-selection').all('.card-vehicule').size
+        # find('#formSelectCategory').find(:xpath, 'option[2]').select_option
         select "Pont roulant", from: 'formSelectCategory'
-        # expect(page).to have_button('submit-category', disabled: false)
+        expect(page).to have_button('submit-category', disabled: false)
         find('#submit-category').click
         expect(page).to have_selector('.form-select-machines', visible: true)
+        # find('#formSelectMachine').find(:xpath, 'option[1]').select_option
         select "Categorie B", from: 'formSelectMachine'
         expect(page).to have_button('submit-machine', disabled: false)
         find('#submit-machine').click
