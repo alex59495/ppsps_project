@@ -173,6 +173,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       page.execute_script("$('#subcontractor_responsible_email').val('test_responsible@gmail.com')")
       page.execute_script("$('#subcontractor_responsible_phone').val('0600000000')")
       find('#SubcontractorBtn').click
+      sleep 2
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
