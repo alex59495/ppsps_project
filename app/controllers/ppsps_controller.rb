@@ -55,8 +55,16 @@ class PpspsController < ApplicationController
     authorize @ppsp
     select_lifesaver = SelectedLifesaver.where(ppsp_id: @ppsp.id).pluck(:worker_id)
     @lifesavers = Worker.where(id: select_lifesaver)
+    @conductors = Conductor.where(ppsp_id: @ppsp.id).order(:machine_id).group_by(&:machine_id)
 
     @marker = { lat: @ppsp.worksite.latitude, lng: @ppsp.worksite.longitude }
+
+    # Numéro de suivi des titres de chaque partie
+    @num_admin = 1
+    @num_worksite = 1
+    @num_security = 1
+    @num_risk = 1
+
     handle_annexes
     respond_to do |format|
       # Two response for the show method depending on the format we call
@@ -69,11 +77,26 @@ class PpspsController < ApplicationController
           template: 'ppsps/show.pdf.erb',
           layout: 'pdf.html.erb',
           view_as_html: true,
-          # Display number of pages
-          header: { right: '[page] of [topage]' },
-          footer: {
+          # La couverture (cover) permet d'avoir une premiere page. Elle n'est pas incluse dans le layout, il faut tout intégrer "à la main" pour cette page.
+          cover: render_to_string('ppsps/render_pages/cover.pdf.erb'),
+          # Table of Content
+          toc: {
+            header_text: "Sommaire"
+          },
+          margin: {
+            top: 28, # default 10 (mm)
+            bottom: 10
+          },
+          header: {
             html: {
-              template: 'ppsps/footer.html.erb'
+              template: 'ppsps/render_pages/header.html.erb'
+            }
+          },
+          footer: {
+            # Display number of pages
+            # right: '[page] of [topage]',
+            html: {
+              template: 'ppsps/render_pages/footer.html.erb'
             }
           }
         )

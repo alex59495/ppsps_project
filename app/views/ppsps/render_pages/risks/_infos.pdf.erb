@@ -1,0 +1,29 @@
+<div class="pdf-text-container">
+  <h1 class="pdf-title mb-2">
+    IV. L'évaluation des risques
+  </h1>
+  <h2 class="pdf-subtitle">
+    4.<%= @num_risk %> La signalisation
+    <% @num_risk += 1 %>
+  </h2>
+  <div class="container-50 mb-2">
+    <div class="flexbox">
+      <div class="flex-div-50">Agglomération : </div><div class="flex-div-50"><%= @ppsp.agglomeration %></div>
+      <div class="flex-div-50">Impact Voirie : </div><div class="flex-div-50"><%= @ppsp.street_impact %></div>
+      <div class="flex-div-50">Signalisation fluviale : </div><div class="flex-div-50"><%= @ppsp.river_guidance %></div>
+    </div>
+  </div>
+</div>
+<% if @ppsp.risks != [] %>
+  <div class="pdf-text-container">
+    <h2 class="pdf-subtitle">
+      4.<%= @num_risk %> Les types de risques
+      <% @num_risk += 1 %>
+    </h2>
+    <% @ppsp.risks.each do |risk| %>
+      <div class="risk-name">
+        <%= risk.name %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

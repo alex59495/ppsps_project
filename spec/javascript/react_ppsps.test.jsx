@@ -1,23 +1,51 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 
-import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-
+import {storeFactory, initialTestState} from './configs/utilities'
 
 import App from '../../app/javascript/components/react-ppsp/components/react_app';
 import SearchBar from '../../app/javascript/components/react-ppsp/containers/search_bar';
 import ListPpsp from '../../app/javascript/components/react-ppsp/containers/list_ppsp';
 
-configure({ adapter: new Adapter() });
+/**
+ * @function setup
+ * @param {object} props - Component props specific to this setup
+ * @returns {shallowWrapper}
+ */
 
-test('App is rendering without error', () => {
-  const app = shallow(<App />);
-  const ppsps = app.containsAllMatchingElements([<SearchBar />, <ListPpsp />]);
-  expect(ppsps).toEqual(true);
-});
+const setupApp = (props={}) => {
+  return shallow(<App {...props} />);
+};
 
+const setupListPpsp = (initialState) => {
+  const store = storeFactory(initialState)
+  const wrapper = shallow(<ListPpsp store={store}/>).dive().dive();
+  return wrapper;
+};
 
-test('filter on PPSPS when enter something in the SearchBar', () => {
+const setupSearchBar = (initialState) => {
+  const store = storeFactory(initialState)
+  const wrapper = shallow(<SearchBar store={store}/>).dive().dive();
+  return wrapper;
+};
+
+describe('Test PPSPs index', () => {
+  let wrapper
+  let wrapperSearchBar
+
+  test('App is rendering without error', () => {
+    wrapper = setupApp()
+    const ppsps = wrapper.containsAllMatchingElements([<SearchBar />, <ListPpsp />]);
+    expect(ppsps).toEqual(true);
+  });
+  
+  
+  test('filter on PPSPS when enter something in the SearchBar', () => {
+    // Initial Test State is defines in utilities
+    wrapperSearchBar = setupSearchBar(initialTestState);
+    const searchBar = wrapperSearchBar.find(`[data-test='component-search-ppsps']`)
+    wrapperListPpsp = setupListPpsp(initialTestState);
+    const listPpsp = wrapperListPpsp.find(`[data-test='component-search-ppsps']`)
+    searchBar.simulate('change', { currentTarget: { value: 'AB' }})
+  })
 })

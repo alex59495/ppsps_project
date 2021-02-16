@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_161812) do
     t.string "category"
     t.string "caces"
     t.text "description"
+    t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -372,7 +373,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_161812) do
   create_table "worksites", force: :cascade do |t|
     t.date "start_date"
     t.date "end_date"
-    t.string "nature"
+    t.text "nature"
     t.integer "num_responsible"
     t.integer "num_conductor"
     t.integer "num_worker"

@@ -1,0 +1,45 @@
+<h2 class="pdf-subtitle">
+  1.<%= @num_admin %> Désignation du Maître d'Ouvrage
+  <% @num_admin += 1 %>
+</h2>
+<div class="container-50">
+  <div class="flexbox">
+    <div class="flex-div-40">Nom : </div><div class="flex-div-60"><%= @ppsp.moa.name %></div>
+    <div class="flex-div-40">Adresse : </div><div class="flex-div-60"><%= @ppsp.moa.address %></div>
+    <div class="flex-div-40">Représentant : </div><div class="flex-div-60"><%= @ppsp.moa.representative %></div>
+    <div class="flex-div-40">Téléphone : </div><div class="flex-div-60"><%= @ppsp.moa.phone %></div>
+    <div class="flex-div-40">Email : </div><div class="flex-div-60"><%= @ppsp.moa.email %></div>
+  </div>
+</div>
+<% if @ppsp.moe %>
+  <div class="pdf-moe">
+    <h2 class="pdf-subtitle">
+      1.<%= @num_admin %> Désignation du Maître d'Oeuvre
+      <% @num_admin += 1 %>
+    </h2>
+    <div class="container-50">
+      <div class="flexbox">
+        <div class="flex-div-40">Nom : </div><div class="flex-div-60"><%= @ppsp.moe.name %></div>
+        <div class="flex-div-40">Adresse : </div><div class="flex-div-60"><%= @ppsp.moe.address %></div>
+        <div class="flex-div-40">Représentant : </div><div class="flex-div-60"><%= @ppsp.moe.representative %></div>
+        <div class="flex-div-40">Téléphone : </div><div class="flex-div-60"><%= @ppsp.moe.phone %></div>
+        <div class="flex-div-40">Email : </div><div class="flex-div-60"><%= @ppsp.moe.email %></div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<% if @ppsp.security_coordinator %>
+  <h2 class="pdf-subtitle">
+    1.<%= @num_admin %> Coordinateur Sécurité
+      <% @num_admin += 1 %>
+  </h2>
+  <div class="container-50 mb-2">
+    <div class="flexbox">
+      <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= @ppsp.security_coordinator.name %></div>
+      <div class="flex-div-40">Représentant :</div><div class="flex-div-60"><%= @ppsp.security_coordinator.representative %></div>
+      <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= @ppsp.security_coordinator.address %></div>
+      <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.security_coordinator.phone %></div>
+      <div class="flex-div-40">Email :</div><div class="flex-div-60"><%= @ppsp.security_coordinator.email %></div>
+    </div>
+  </div>
+<% end %>

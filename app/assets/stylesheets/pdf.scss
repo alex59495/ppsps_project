@@ -1,38 +1,8 @@
-.pdf-banner {
-  height: 300px;
-  color: white;
-  position: relative;
-}
-
-.pdf-banner img {
-  height: 300px;
-  width: 100%;
-}
-
-.pdf-banner .banner-title {
-  position: absolute;
-  top: 90px;
-  width: 100%;
-  text-align: center;
-  font-weight: 600;
-  font-size: 30px;
-}
-
-.pdf-banner .banner-subtitle {
-  position: absolute;
-  top: 180px;
-  width: 100%;
-  text-align: center;
-  font-weight: 400;
-  font-size: 18px;
-}
-
 .pdf-title {
   text-align: center;
   font-weight: 500;
   font-size: 26px;
   border-bottom: solid 0.5px gray;
-  margin-bottom: 8px;
   margin-bottom: 1em;
 }
 
@@ -48,11 +18,36 @@
   font-weight: 700;
   text-decoration: underline;
   font-size: 18px;
+  margin-top: 1em;
   margin-bottom: 1em;
+}
+
+.pdf-title-header {
+  text-align: center;
+  font-weight: 600;
+  font-size: 22px;
+  margin-bottom: 1em;
+}
+
+.pdf-subtitle-header {
+  text-align: center;
+  font-size: 18px;
+}
+
+.pdf-header {
+  border-bottom: 1px solid gray;
 }
 
 .container-text {
   text-align: start;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.bold {
+  font-weight: 700;
 }
 
 .pdf-text-container {
@@ -78,7 +73,7 @@
 }
 
 .flexbox {
-  display: block;
+  display: flex;
 }
 
 .flexbox::after {
@@ -106,6 +101,18 @@
 .flex-div-30 {
   float: left;
   width: 33%;
+}
+
+.mt-1 {
+  margin-top: 1em;
+}
+
+.mt-2 {
+  margin-top: 2em;
+}
+
+.mt-3 {
+  margin-top: 3em;
 }
 
 .mb-1 {
@@ -161,14 +168,42 @@
 }
 
 .pdf-logo {
-  height: 150px;
+  height: 100px;
   object-fit: fill;
+}
+
+.pdf-image-list img {
+  width: 100%;
+  height: 200px;
+}
+
+.list-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.list-subtitle {
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+.border {
+  border: 1px solid black;
+}
+
+.border-top {
+  border-top: 1px solid black;
 }
 
 .border-right {
   border-right: solid 1px black;
-  height: 1200px;
+  height: 1000px;
   width: 50%;
+}
+
+.grid {
+  padding: 16px;
+  margin: auto;
 }
 
 // .landscape {

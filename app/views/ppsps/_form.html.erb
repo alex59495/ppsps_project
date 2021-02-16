@@ -21,15 +21,7 @@
       </div>
 
       <h3 class="col-md-6 offset-md-3 form-subtitle">
-        1-2. Les entreprises sous-traitantes
-      </h3>
-      <div class="col-md-10 offset-md-1">
-        <% csrf_token = form_authenticity_token %>
-        <%= react_component("form-subcontractors/components/App", {token: csrf_token}, {id: 'react-render-subcontractors', 'data-ppsps_id': @ppsp.id, 'data-admin': current_user.admin}) %>
-      </div>
-
-      <h3 class="col-md-6 offset-md-3 form-subtitle">
-        1-3. La désignation du chantier
+        1-2. La désignation du chantier
       </h3>
       <%= f.simple_fields_for :project_information, @project_information do |h| %>
         <div class="col-md-6 offset-md-3">
@@ -48,6 +40,14 @@
           <%= h.input :team_manager_id, label: "Chef d'équipe", collection: Worker.where(role: "Chef d'équipe").order(:last_name), label_method: lambda {|x| "#{x.last_name} #{x.first_name}"}, input_html: {class: "select-2"} %>
         </div>
       <% end %>
+
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        1-3. Les entreprises sous-traitantes
+      </h3>
+      <div class="col-md-10 offset-md-1">
+        <% csrf_token = form_authenticity_token %>
+        <%= react_component("form-subcontractors/components/App", {token: csrf_token}, {id: 'react-render-subcontractors', 'data-ppsps_id': @ppsp.id, 'data-admin': current_user.admin}) %>
+      </div>
 
       <h3 class="col-md-6 offset-md-3 form-subtitle">
         1-4. Désignation du maitre d'oeuvre
@@ -259,7 +259,7 @@
           <%= w.input :num_worker, label: "Nombre de compagnons" %>
         </div>
         <div class="col-md-6 offset-md-3">
-          <%= w.input :num_conductor, label: "Nombre de conducteurs" %>
+          <%= w.input :num_conductor, label: "Nombre de conducteurs d'engin" %>
         </div>
 
         <h3 class="col-md-6 offset-md-3 form-subtitle">
@@ -391,20 +391,7 @@
       </div>
 
       <h3 class="col-md-6 offset-md-3 form-subtitle">
-        3-5. Signalisation
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
-      </div>
-
-      <h3 class="col-md-6 offset-md-3 form-subtitle">
-        3-6. Trousse de secours
+        3-5. Trousse de secours
       </h3>
       <div class="col-md-6 offset-md-3">
         <p class='text-alert'>Les informations affichées dans cette partie sont issues de la trousse de secours établies par l'entreprise, si cette liste a été mise à jour vous pouvez la modifier (si vous êtes administrateur) dans "Mon profil" - "Modifier les informations"</p>
@@ -420,15 +407,33 @@
         </div>
       </div>
 
+
+      <h2 class="col-12 form-title">
+        IV. L'évaluation des risques
+      </h2>
+
       <h3 class="col-md-6 offset-md-3 form-subtitle">
-        3-7. Les risques associés à mon chantier
+        4-1. Signalisation
+      </div>
+      <div class="col-md-6 offset-md-3">
+        <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
+      </div>
+      <div class="col-md-6 offset-md-3">
+        <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>
+      </div>
+      <div class="col-md-6 offset-md-3">
+        <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
+      </div>
+
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        4-2. Les risques associés à mon chantier
       </h3>
       <div class="col-md-10 offset-md-1">
         <div id="react-render-risks" data-ppsps_id=<%=@ppsp.id%>></div>
       </div>
 
       <div class="col-md-6 offset-md-3 form-subtitle">
-        3-8. Ajouter des spécificités sur le chantier
+        4-3. Ajouter des spécificités sur le chantier
       </div>
       <div class="col-md-10 offset-md-1">
         <input class='hidden' name=image type=file id="upload" onchange="">

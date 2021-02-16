@@ -1,0 +1,26 @@
+<div class="pdf-text-container">
+  <h2 class="pdf-subtitle">
+    2.<%= @num_worksite %> Les conducteurs d'engin
+    <% @num_worksite += 1 %>
+  </h2>
+  <% @conductors.each do |machine| %>
+    <div class='conductor flexbox'>
+      <div class="flex-div-30 pdf-image-list">
+        <%= wicked_pdf_image_tag Machine.find(machine[0]).image %>
+      </div>
+      <div class="flex-div-60 border grid">
+        <div class="list-title">
+          <%= Machine.find(machine[0]).category %>
+        </div>
+        <div class="list-subtitle">
+          <%= Machine.find(machine[0]).caces %>
+        </div>
+        <% machine[1].each do |conductor| %>
+          <div class="conductor-name">
+            <%= "#{conductor.worker.first_name} #{conductor.worker.last_name}" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

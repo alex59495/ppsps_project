@@ -21,7 +21,7 @@ const ListMachines = ({listMachines, handleMachine, selectMachine}) => {
         {renderList}
       </select>
       <div className='d-flex justify-content-center mt-4'>
-        <button type='submit' className='btn-orange' id='submit-machine' disabled>OK</button>
+        <button type='submit' className='btn-orange' id='submit-machine'>OK</button>
       </div>
     </form>
   )

@@ -3,7 +3,7 @@ class CreateWorksites < ActiveRecord::Migration[6.0]
     create_table :worksites do |t|
       t.date :start_date
       t.date :end_date
-      t.string :nature
+      t.text :nature
       t.integer :num_responsible
       t.integer :num_conductor
       t.integer :num_worker

@@ -25,7 +25,6 @@ const App = () => {
   .ppsps_id;
 
 // DOM
-  const btnSubmitMachines = document.getElementById('submit-machine')
   const btnSubmitCategories = document.getElementById('submit-category')
   const formListCategory = document.querySelector('.form-list-categories')
   const formListMachines = document.querySelector('.form-list-machines')
@@ -70,14 +69,12 @@ const App = () => {
     // Clean the inputs of the form
     formListCategory.reset()
     btnSubmitCategories.disabled = true
-
   }
 
   const selectCategory = (e) => {
     setCategory(e.currentTarget.value)
     btnSubmitCategories.disabled = false
   }
-
 
 
 // Machines' logic
@@ -88,12 +85,10 @@ const App = () => {
     formWorkers.style.display = 'flex';
     // Clean the inputs of the form
     formListMachines.reset()
-    btnSubmitMachines.disabled = true
   }
 
   const selectMachine = (e) => {
     setMachineId(e.currentTarget.value)
-    btnSubmitMachines.disabled = false
   }
 
 // Workers Logic

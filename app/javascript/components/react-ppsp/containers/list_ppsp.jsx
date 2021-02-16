@@ -67,11 +67,15 @@ class ListPpsp extends Component {
             {selectedPpsps.map((ppsp) => (
               <CardPpsp
               key={ppsp.id}
-                id={ppsp.id}
-                reference={ppsp.project_information.reference}
-              user_first_name={ppsp.user.first_name} user_last_name={ppsp.user.last_name}
-              start_date={ppsp.worksite.start_date} end_date={ppsp.worksite.end_date} address={ppsp.worksite.address}
+              id={ppsp.id}
+              reference={ppsp.project_information.reference}
+              user_first_name={ppsp.user.first_name} 
+              user_last_name={ppsp.user.last_name}
+              start_date={ppsp.worksite.start_date} 
+              end_date={ppsp.worksite.end_date} 
+              address={ppsp.worksite.address}
               user={ppsp.user}
+              data-test='component-ppsps-card'
             />))}
           </div>
           {this.renderSpinner(loading)}

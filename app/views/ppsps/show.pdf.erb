@@ -1,484 +1,104 @@
 <body class="bg-white">
   <div class="container">
     <div class="page-break">
-      <div class="flexbox">
-        <% if @ppsp.user.company.logo.attached? %>
-          <div class="flex-div-50">
-            <%= cl_image_tag @ppsp.user.company.logo.key, class: 'pdf-logo' %>
-          </div>
-        <% end %>
-        <% if @ppsp.logo_client.attached? %>
-          <div class="flex-div-50" style='text-align: right;'>
-            <%= cl_image_tag @ppsp.logo_client.key, class: 'pdf-logo' %>
-          </div>
-        <% end %>
-      </div>
-      <div class="pdf-banner my-3">
-        <%= wicked_pdf_image_tag "PPSP.jpg", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))" %>
-        <div class="banner-title">
-          Plan Particulier de Sécurité et de Protection de la Santé
-        </div>
-        <div class="banner-subtitle">
-          Si tu veux écrire un sous-titre c'est ici
-        </div>
-      </div>
-      <div class="pdf-text-container">
-        <div class="pdf-title">
-          Renseignement Administratifs
-        </div>
-        <div class="pdf-company my-3">
-          <div class="pdf-subtitle">
-            Entreprise titulaire
-          </div>
-          <div class="container-50 mb-2">
-            <div class="flexbox">
-              <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= current_user.company.name %></div>
-              <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= current_user.company.address %></div>
-              <div class="flex-div-40">Représentant :</div><div class="flex-div-60"><%= "#{@ppsp.user.company.representative}" %></div>
-              <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= current_user.company.phone %></div>
-              <div class="flex-div-40">Email :</div><div class="flex-div-60"><%= current_user.email %></div>
-              <div class="flex-div-40">Travaux effectués : </div><div class="flex-div-60"><%= @ppsp.worksite.nature %></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="gi-site mb-2">
-        <div class="flexbox">
-          <div class="flex-div-50">
-            <div class="pi-site-manager">
-              <div class="pdf-subsubtitle">
-                Responsable
-              </div>
-              <div class="container-80">
-                <div class="flexbox">
-                    <div class="flex-div-40">Nom : </div><div class="flex-div-60"><%= "#{@ppsp.project_information.responsible.first_name} #{@ppsp.project_information.responsible.last_name}" %></div>
-                    <div class="flex-div-40">Téléphone : </div><div class="flex-div-60"><%= @ppsp.project_information.responsible.phone %></div>
-                    <div class="flex-div-40">Email : </div><div class="flex-div-60"><%= @ppsp.project_information.responsible.email %></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex-div-50">
-            <div class="pi-site-manager">
-              <div class="pdf-subsubtitle">
-                Chef de chantier
-              </div>
-              <div class="container-80">
-                <div class="flexbox">
-                    <div class="flex-div-40">Nom : </div><div class="flex-div-60"><%= "#{@ppsp.project_information.site_manager.first_name} #{@ppsp.project_information.site_manager.last_name}" %></div>
-                    <div class="flex-div-40">Téléphone : </div><div class="flex-div-60"><%= @ppsp.project_information.site_manager.phone %></div>
-                    <div class="flex-div-40">Email : </div><div class="flex-div-60"><%= @ppsp.project_information.site_manager.email %></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex-div-50">
-            <div class="pi-team-manager">
-              <div class="pdf-subsubtitle">
-                Chef d'équipe
-              </div>
-              <div class="container-80">
-                <div class="flexbox">
-                  <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= "#{@ppsp.project_information.team_manager.first_name} #{@ppsp.project_information.team_manager.last_name}" %></div>
-                  <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.project_information.team_manager.phone %></div>
-                  <div class="flex-div-40">Email :</div><div class="flex-div-60"><%= @ppsp.project_information.team_manager.email %></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>   
-      </div>
+      <%= render partial: 'ppsps/render_pages/admin/company_resps' %>
     </div>
 
-    <div class="page-break">
-      <% if @ppsp.subcontractors.count > 0 %>
-        <div class="pdf-subtitle">
-          Les sous-traitants
-        </div>
-        <div class="pdf-text-container">
-          <% @ppsp.subcontractors.each_with_index do |subcontract, index| %>
-            <div class="pdf-subcontractor">
-              <div class="pdf-subsubtitle">
-                Sous-Traitant nº<%= index + 1 %>
-              </div>
-              <div class="container-50 mb-2">
-                <div class="flexbox">
-                  <div class="flex-div-50">Nom :</div><div class="flex-div-50"><%= subcontract.name %></div>
-                  <div class="flex-div-50">Adresse :</div><div class="flex-div-50"><%= subcontract.address %></div>
-                  <div class="flex-div-50">Travail effectué :</div><div class="flex-div-50"><%= subcontract.work %></div>
-                  <div class="flex-div-50">Responsable :</div><div class="flex-div-50"><%= subcontract.responsible_name %></div>
-                  <div class="flex-div-50">Téléphone :</div><div class="flex-div-50"><%= subcontract.responsible_phone %></div>
-                  <div class="flex-div-50">Email :</div><div class="flex-div-50"><%= subcontract.responsible_email %></div>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-
-
-      <div class="pdf-subtitle">
-        Les correspondants
-      </div>
-      <div class="pdf-text-container">
-        <div class="pdf-subsubtitle">
-          Maître d'Ouvrage
-        </div>
-        <div class="container-50 mb-2">
-          <div class="flexbox">
-            <div class="flex-div-40">Nom : </div><div class="flex-div-60"><%= @ppsp.moa.name %></div>
-            <div class="flex-div-40">Adresse : </div><div class="flex-div-60"><%= @ppsp.moa.address %></div>
-            <div class="flex-div-40">Représentant : </div><div class="flex-div-60"><%= @ppsp.moa.representative %></div>
-            <div class="flex-div-40">Téléphone : </div><div class="flex-div-60"><%= @ppsp.moa.phone %></div>
-            <div class="flex-div-40">Email : </div><div class="flex-div-60"><%= @ppsp.moa.email %></div>
-          </div>
-        </div>
-        <div class="pdf-moe mt-3">
-          <div class="pdf-subsubtitle">
-            Maître d'Oeuvre
-          </div>
-          <div class="container-50">
-            <div class="flexbox">
-              <div class="flex-div-40">Nom : </div><div class="flex-div-60"><%= @ppsp.moe.name %></div>
-              <div class="flex-div-40">Adresse : </div><div class="flex-div-60"><%= @ppsp.moe.address %></div>
-              <div class="flex-div-40">Représentant : </div><div class="flex-div-60"><%= @ppsp.moe.representative %></div>
-              <div class="flex-div-40">Téléphone : </div><div class="flex-div-60"><%= @ppsp.moe.phone %></div>
-              <div class="flex-div-40">Email : </div><div class="flex-div-60"><%= @ppsp.moe.email %></div>
-            </div>
-          </div>
-        </div>
-        <% if @ppsp.security_coordinator %>
-          <div class="pdf-text-container">
-            <div class="pdf-subsubtitle">
-              Coordinateur Sécurité
-            </div>
-            <div class="container-50 mb-2">
-              <div class="flexbox">
-                <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= @ppsp.security_coordinator.name %></div>
-                <div class="flex-div-40">Représentant :</div><div class="flex-div-60"><%= @ppsp.security_coordinator.representative %></div>
-                <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= @ppsp.security_coordinator.address %></div>
-                <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.security_coordinator.phone %></div>
-                <div class="flex-div-40">Email :</div><div class="flex-div-60"><%= @ppsp.security_coordinator.email %></div>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="page-break">
-      <div class="prevention-organisms">
-        <div class="pdf-subtitle">
-          Organismes de préventions
-        </div>
-        <div class="flexbox">
-          <div class="flex-div-50">
-            <div class="po-direcct">
-              <div class="pdf-subsubtitle">
-                DIRECCT
-              </div>
-              <div class="container-80 mb-2">
-                <div class="flexbox">
-                  <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= @ppsp.direcct.address %></div>
-                  <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.direcct.phone %></div>
-                  <div class="flex-div-40">Fax :</div><div class="flex-div-60"><%= @ppsp.direcct.fax %></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex-div-50">
-            <div class="po-regional-committee">
-              <div class="pdf-subsubtitle">
-                Comité Régional de l'OPPBTP
-              </div>
-              <div class="container-80 mb-2">
-                <div class="flexbox">
-                  <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= @ppsp.regional_committee.name %></div>
-                  <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= @ppsp.regional_committee.address %></div>
-                  <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.regional_committee.phone %></div>
-                  <div class="flex-div-40">Fax :</div><div class="flex-div-60"><%= @ppsp.regional_committee.fax %></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex-div-50">
-            <div class="po-pension-insurance">
-              <div class="pdf-subsubtitle">
-                CARSAT
-              </div>
-              <div class="container-80 mb-2">
-                <div class="flexbox">
-                  <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= @ppsp.pension_insurance.address %></div>
-                  <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.pension_insurance.phone %></div>
-                  <div class="flex-div-40">Fax :</div><div class="flex-div-60"><%= @ppsp.pension_insurance.fax %></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex-div-50">
-            <div class="po-work-medecine">
-              <div class="pdf-subsubtitle">
-                Médecine du Travail
-              </div>
-              <div class="container-80 mb-2">
-                <div class="flexbox">
-                  <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= @ppsp.work_medecine.address %></div>
-                  <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.work_medecine.phone %></div>
-                  <div class="flex-div-40">Fax :</div><div class="flex-div-60"><%= @ppsp.work_medecine.fax %></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="page-break">
-      <div class="pdf-title">Le chantier</div>
-      <div class="container-50 mb-2">
-        <div class="flexbox">
-          <div class="flex-div-40">Lieu du chantier :</div><div class="flex-div-60"><%= @ppsp.worksite.address %></div>
-          <div class="flex-div-40">Date de début : </div><div class="flex-div-60"><%= @ppsp.worksite.start_date %></div>
-          <div class="flex-div-40">Date de fin : </div><div class="flex-div-60"><%= @ppsp.worksite.end_date %></div>
-          <div class="flex-div-40">Référence : </div><div class="flex-div-60"><%= @ppsp.project_information.reference %></div>
-          <div class="flex-div-40">Nature des travaux : </div><div class="flex-div-60"><%= @ppsp.worksite.nature %></div>
-          <div class="flex-div-100">Moyens humains : </div>
-          <div class="flex-div-60">Nombre de d'encadrants : </div><div class="flex-div-40"><%= @ppsp.worksite.num_responsible %></div>
-          <div class="flex-div-60">Nombre de conducteurs : </div><div class="flex-div-40"><%= @ppsp.worksite.num_conductor %></div>
-          <div class="flex-div-60">Nombre de compagnons : </div><div class="flex-div-40"><%= @ppsp.worksite.num_worker %></div>
-          <div class="flex-div-60">Installations électriques : </div><div class="flex-div-40"><%= @ppsp.worksite.electrical_site ? 'Oui' : 'Non' %></div>
-          <div class="flex-div-60">Installations électriques : </div><div class="flex-div-40"><%= @ppsp.worksite.water_site ? 'Oui' : 'Non' %></div>
-          <div class="flex-div-60">Plan d'installation : </div><div class="flex-div-40"><%= @ppsp.worksite.plan ? 'Oui' : 'Non' %></div>
-        </div>
-      </div>
-
-      <div class="pdf-subtitle">Localisation</div>
-      <% unless @marker[:lng].nil? || @marker[:lat].nil? %>
-        <div class="d-flex justify-content-center">
-          <img src="https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/static/pin-s+ff7e67(<%= @marker[:lng] %>,<%= @marker[:lat] %>)/<%= @marker[:lng] %>,<%= @marker[:lat] %>,16/860x400?access_token=pk.eyJ1IjoibWF4ZW5jZWxlbm9pciIsImEiOiJja2RhNG9iMG8wZXY2MnptaDUzeDhidThpIn0.uNEuinv9hVcuU9VvtlOOsg" alt="map" id="map-mapbox">
-        </div>
-      <% end %>
-    </div>
-
-    <div class="page-break">
-      <% if @ppsp.site_installations != [] %>
-        <div class="pdf-text-container">
-          <div class="pdf-subtitle">
-            Installations de chantier
-          </div>
-          <% @ppsp.site_installations.each do |site| %>
-            <div class="si-name">
-              <%= site.name %>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-      <% if @ppsp.altitude_works != [] %>
-        <div class="pdf-text-container">
-          <div class="pdf-subtitle">
-            Les accès au chantier
-          </div>
-          <% @ppsp.selected_altitudes.each do |altitude| %>
-            <% if altitude.other %>
-              <div class="aw-name">
-                <%= altitude.altitude_work.name %>, <%= altitude.other %>
-              </div>
-            <% else %>
-              <div class="aw-name">
-                <%= altitude.altitude_work.name %>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
-      <% if @ppsp.risks != [] %>
-        <div class="pdf-text-container">
-          <div class="pdf-subtitle">
-            Les types de travaux
-          </div>
-          <% @ppsp.risks.each do |risk| %>
-            <div class="risk-name">
-              <%= risk.name %>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-      <div class="pdf-text-container">
-        <div class="pdf-subtitle">
-          Signalisation
-        </div>
-        <div class="container-50 mb-2">
-          <div class="flexbox">
-            <div class="flex-div-50">Agglomération : </div><div class="flex-div-50"><%= @ppsp.agglomeration %></div>
-            <div class="flex-div-50">Impact Voirie : </div><div class="flex-div-50"><%= @ppsp.street_impact %></div>
-            <div class="flex-div-50">Signalisation fluviale : </div><div class="flex-div-50"><%= @ppsp.river_guidance %></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="page-break">
-      <div class="pdf-text-container">
-        <div class="pdf-title mb-2">
-          Disposition en matière de secours et d'évacuation
-        </div>
-        <% if @lifesavers.any? %>
-          <div class="pdf-subtitle">Liste des SST</div>
-          <% @lifesavers.each do |lifesaver| %>
-            <div>
-              <%= "#{lifesaver.first_name} #{lifesaver.last_name}" %>
-            </div>
-          <% end %>
-        <% end %>
-
-        <div class="pdf-subtitle">La trousse de secours de l'Entreprise</div>
-        <% @ppsp.user.company.kit_security_elements.each do |kit| %>
-          <div>
-            <%= "#{kit.number} : #{kit.name}" %>
-          </div>
-        <% end %>
-
-        <div class="external-services">
-          <div class="pdf-subtitle">
-            Moyens d'appel des secours
-          </div>
-          <div class="flexbox mb-2">
-            <div class="flex-div-30">
-              <div class="es-firemen">
-                <div class="pdf-subsubtitle">
-                  Pompier
-                </div>
-                <div class="es-firemen-num">
-                  18 ou 112 (portable)
-                </div>
-              </div>
-            </div>
-            <div class="flex-div-30">
-              <div class="es-police">
-                <div class="pdf-subsubtitle">
-                  Police
-                </div>
-                <div class="es-police-num">
-                  17
-                </div>
-              </div>
-            </div>
-            <div class="flex-div-30">
-              <div class="es-SAMU">
-                <div class="pdf-subsubtitle">
-                  SAMU
-                </div>
-                <div class="es-SAMU-num">
-                  15
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flexbox">
-            <div class="flex-div-50">
-              <div class="es-demining">
-                <div class="pdf-subsubtitle">
-                  Centre de déminage
-                </div>
-                <div class="container-80 mb-2">
-                  <div class="flexbox">
-                    <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= @ppsp.demining.name %></div>
-                    <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= @ppsp.demining.address %></div>
-                    <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.demining.phone %></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="flex-div-50">
-              <div class="es-anti-poison">
-                <div class="pdf-subsubtitle">
-                  Centre Anti-Poison
-                </div>
-                <div class="container-80 mb-2">
-                  <div class="flexbox">
-                    <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= @ppsp.anti_poison.name %></div>
-                    <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= @ppsp.anti_poison.address %></div>
-                    <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.anti_poison.phone %></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="flex-div-50">
-              <div class="es-sos-hand">
-                <div class="pdf-subsubtitle">
-                  SOS Mains et Doigts
-                </div>
-                <div class="container-80 mb-2">
-                  <div class="flexbox">
-                    <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= @ppsp.sos_hand.name %></div>
-                    <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= @ppsp.sos_hand.address %></div>
-                    <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.sos_hand.phone %></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="flex-div-50">
-              <div class="es-hospital">
-                <div class="pdf-subsubtitle">
-                  Hôpital le plus proche
-                </div>
-                <div class="container-80 mb-2">
-                  <div class="flexbox">
-                    <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= @ppsp.hospital.name %></div>
-                    <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= @ppsp.hospital.address %></div>
-                    <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.hospital.phone %></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <% if @ppsp.content_secu.present? %>
+    <% if @ppsp.subcontractors.any? %>
       <div class="page-break">
-        <div class="pdf-text-container pdf-align-left">
-          <div class="pdf-title">
-            Spécificité du chantier
-          </div>
-          <%= @ppsp.content_secu.html_safe %>
-        </div>
+        <%= render partial: 'ppsps/render_pages/admin/subcontractors' %>
       </div>
     <% end %>
+
+    <div class="page-break">
+      <%= render partial: 'ppsps/render_pages/admin/correspondants' %>
+    </div>
+
+    <div class="page-break">
+      <%= render partial: 'ppsps/render_pages/admin/prevention_organisms' %>
+    </div>
+
+    <div class="page-break">
+      <%= render partial: 'ppsps/render_pages/worksite/infos' %>
+    </div>
+
+    <div class="page-break">
+      <%= render partial: 'ppsps/render_pages/worksite/effectifs_locals' %>
+    </div>
+
+    <% if @ppsp.worksite.electrical_site %>
+      <div class="page-break">
+        <%= render partial: 'ppsps/render_pages/worksite/plan_electrical' %>
+      </div>
+    <% end %>
+
+    <% if @ppsp.worksite.water_site %>
+      <div class="page-break">
+        <%= render partial: 'ppsps/render_pages/worksite/plan_water' %>
+      </div>
+    <% end %>
+
     <% if @ppsp.worksite.plan_installation.attached? %>
-      <div class=<%= "page-break" %>>
-        <div class="pdf-title mb-2">
-          Plan d'installation
-        </div>
-        <%= cl_image_tag(@ppsp.worksite.plan_installation.key, crop: "scale", width: 850) %>
+      <div class="page-break">
+        <%= render partial: 'ppsps/render_pages/worksite/plan_installation' %>
       </div>
     <% end %>
+
+    <% if @ppsp.altitude_works.any? %>
+      <div class="page-break">
+        <%= render partial: 'ppsps/render_pages/worksite/altitude_work' %>
+      </div>
+    <% end %>
+
+    <% if @conductors.any? %>
+      <div class="page-break">
+        <%= render partial: 'ppsps/render_pages/worksite/conductors' %>
+      </div>
+    <% end %>
+
+    <% if @lifesavers.any? %>
+      <div class="page-break">
+        <%= render partial: 'ppsps/render_pages/security/list' %>
+      </div>
+    <% end %>
+
+    <div class="page-break">
+      <%= render partial: 'ppsps/render_pages/security/services' %>
+    </div>
+
+    <% if @ppsp.user.company.kit_security_elements.any? %>
+      <div class="page-break">
+        <%= render partial: 'ppsps/render_pages/security/kit' %>
+      </div>
+    <% end %>
+
+    <div class="page-break">
+      <%= render partial: 'ppsps/render_pages/risks/infos' %>
+    </div>
+
+    <% if @ppsp.content_secu.present? %>
+      <%= render partial: 'ppsps/render_pages/risks/specificity' %>
+    <% end %>
+
+
     <% if @ppsp.annexes.attached? %>
       <% @annexes.each do |index, value| %>
         <div class='page-break'>
-          <div class="pdf-title mb-2">
+          <h1 class="pdf-title mb-2">
             <%= "Annexe #{index + 1}" %>
-          </div>
+          </h1>
           <% (1..value[:pages]).each do |i| %>
               <%= cl_image_tag(value[:key] + '.jpg', page: i, crop: "scale", width: 850) %>
           <% end %>
           </div>
       <% end %>
     <% end %>
+
+
     <div class="last-page">
-      <div class="pdf-title">
-        Feuille d'émargement
-      </div>
-      <div class="flexbox mt-3">
-        <div class="flex-div-50 pdf-title">
-          Nom de l'agent
-        </div>
-        <div class="flex-div-50 pdf-title">
-          Signature
-        </div>
-        <div class="border-right"></div>
-      </div>
+      <%= render 'ppsps/render_pages/emargement' %>
     </div>
+    
   </div>
 </body>
 

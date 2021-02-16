@@ -340,6 +340,6 @@ Risk::RISKS.each do |risk|
 end
 # Create Machines
 Machine::MACHINES.each do |machine|
-  m = Machine.create!(caces: machine[:caces], category: machine[:category], description: machine[:description])
+  m = Machine.create!(caces: machine[:caces], category: machine[:category], description: machine[:description], image: machine[:image])
   p "Create #{m.id} machines"
 end

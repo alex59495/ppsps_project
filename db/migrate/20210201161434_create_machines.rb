@@ -4,6 +4,7 @@ class CreateMachines < ActiveRecord::Migration[6.0]
       t.string :category
       t.string :caces
       t.text :description
+      t.string :image
       
 
       t.timestamps

@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+  <head>
+    <style type="text/css">
+    .pdf-banner {
+      height: 300px;
+      color: white;
+      position: relative;
+    }
+
+    .pdf-banner img {
+      height: 300px;
+      width: 100%;
+    }
+
+    .pdf-banner .banner-title {
+      position: absolute;
+      top: 90px;
+      width: 100%;
+      text-align: center;
+      font-weight: 600;
+      font-size: 30px;
+    }
+
+    .pdf-banner .banner-subtitle {
+      position: absolute;
+      top: 180px;
+      width: 100%;
+      text-align: center;
+      font-weight: 400;
+      font-size: 18px;
+    }
+
+    .pdf-title {
+      text-align: center;
+      font-weight: 500;
+      font-size: 26px;
+      border-bottom: solid 0.5px gray;
+      margin-bottom: 8px;
+      margin-bottom: 1em;
+    }
+
+    .pdf-subtitle {
+      text-align: center;
+      font-weight: 500;
+      font-size: 22px;
+      margin-bottom: 1em;
+      margin-top: 1.5em;
+    }
+
+    .pdf-logo {
+      height: 100px;
+      object-fit: fill;
+      margin-top: 0;
+    }
+
+    .flexbox {
+      display: block;
+    }
+
+    .flexbox::after {
+      content: ' ';
+      display: block;
+      height: 0;
+      clear: both;
+    }
+    
+    .flex-div-30 {
+      float: left;
+      width: 33%;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="flexbox">
+      <% if @ppsp.user.company.logo.attached? %>
+        <div class="flex-div-30">
+          <%= cl_image_tag @ppsp.user.company.logo.key, class: 'pdf-logo' %>
+        </div>
+      <% end %>
+      <div class="flex-div-30">
+        <div class="pdf-title mb-1">
+          P.P.S.P.S
+        </div>
+        <div class="pdf-subtitle">
+          <%= "Opération : #{@ppsp.project_information.name}" %>
+        </div>
+      </div>
+      <% if @ppsp.logo_client.attached? %>
+        <div class="flex-div-30" style='text-align: right;'>
+          <%= cl_image_tag @ppsp.logo_client.key, class: 'pdf-logo' %>
+        </div>
+      <% end %>
+    </div>
+    <div class="pdf-banner my-3">
+      <%= wicked_pdf_image_tag "PPSP.jpg", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))" %>
+      <div class="banner-title">
+        Plan Particulier de Sécurité pour la Protection de la Santé
+      </div>
+      <div class="banner-subtitle">
+        Si tu veux écrire un sous-titre c'est ici
+      </div>
+    </div>
+    <div class="pdf-title">
+      <%= @ppsp.project_information.name %>
+    </div>
+    <div class="pdf-subtitle">
+      <%= @ppsp.worksite.nature %>
+    </div>
+    <div class="date">
+      <%= "Créé le #{@ppsp.created_at.strftime("%d/%m/%Y")}" %>
+    </div>
+    <div class="date">
+      <% if @ppsp.updated_at > @ppsp.created_at %>
+        <%= "Créé le #{@ppsp.updated_at.strftime("%d/%m/%Y")}" %>
+      <% end %>
+    </div>
+  </body>
+</html>

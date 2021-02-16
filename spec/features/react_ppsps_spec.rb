@@ -179,7 +179,6 @@ RSpec.feature "React Handling", type: :feature, js: true do
         expect(page).to have_selector('.form-select-machines', visible: true)
         # find('#formSelectMachine').find(:xpath, 'option[1]').select_option
         select "Categorie B", from: 'formSelectMachine'
-        expect(page).to have_button('submit-machine', disabled: false)
         find('#submit-machine').click
         expect(page).to have_selector('.checkboxes-workers', visible: true)
         check "check_worker_#{@worker_conductors.first.id}"
