@@ -9,7 +9,7 @@ RSpec.describe Machine, type: :model do
   it { should validate_presence_of(:category) }
   it { should validate_presence_of(:caces) }
   it { should validate_presence_of(:description) }
-  it { should validate_presence_of(:images) }
+  it { should validate_presence_of(:image) }
 
   it { should have_many(:conductors) }
 end

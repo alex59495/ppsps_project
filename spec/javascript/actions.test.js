@@ -1,59 +1,22 @@
-import moxios from 'moxios';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
-import { storeFactory } from './configs/utilities';
-import { fetchPpsps } from '../../app/javascript/components/react-ppsp/actions/index';
+import { storeFactory, initialTestState } from './configs/utilities'
+import { searchPpsp } from '../../app/javascript/components/react-ppsp/actions/index'
 
-describe('secretWord action creator', () => {
-  beforeEach(() => {
-    moxios.install();
-  });
-  afterEach(() => {
-    moxios.uninstall();
-  });
-  
-  test('add response word to state', () => {
-    const ppsps = [{
-      id: 1,
-      project_information: {
-        reference: 'AB1234',
-      },
-      user_first_name: 'Alexis',
-      user_last_name: 'Lenoir',
-      start_date: '01/01/2020', 
-      end_date: '01/01/2021', 
-      address: 'Test adress',
-      user: {
-        full_name: 'Alexis Lenoir'
-      }
-    }, {
-      id: 2,
-      project_information: {
-        reference: 'AB1235',
-      },
-      user_first_name: 'Maxence',
-      user_last_name: 'Lenoir',
-      start_date: '01/01/2020', 
-      end_date: '01/01/2021', 
-      address: 'Test adress',
-      user: {
-        full_name: 'Maxence Lenoir'
-      }
-    }];
+Enzyme.configure({ adapter: new Adapter() });
 
-    const store = storeFactory();
 
-    moxios.wait(() => {
-      const request = moxios.requests.mostRecent();
-      request.respondWith({
-        status: 200,
-        response: ppsps,
-      });
-    });
-
-    return store.dispatch(fetchPpsps())
-      .then(() => {
-        const newState = store.getState();
-        expect(newState.ppsps).toBe(ppsps)
-      })
+describe('test action searchPpsp', () => {
+  test('change state when enter reference in the navbar', () => {
+    // Initial Test State is defines in configs/utilities
+    const search = 'AB'
+    const store = storeFactory(initialTestState);
+    
+    store.dispatch(searchPpsp(search))
+    const newSelectedPpsps = store.getState().selectedPpsps
+    newSelectedPpsps.forEach(ppsp => {
+      expect(ppsp.project_information.reference.toLowerCase()).toContain(search.toLowerCase())
+    })
   })
 })

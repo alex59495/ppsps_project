@@ -4,5 +4,6 @@ FactoryBot.define do
     category { machine[:category] }
     caces { machine[:caces] }
     description { machine[:description] }
+    image { machine[:image] }
   end
 end
