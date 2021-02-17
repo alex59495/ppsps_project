@@ -2,9 +2,5 @@
   <%= f.input :name, label: 'Nom' %>
   <%= f.input :address, label: 'Adresse' %>
   <%= f.input :phone, label: 'Téléphone' %>
-  <% if params[:action] == 'new' || params[:action] == 'index' %>
-    <%= f.submit 'Créer un centre de déminage', class: 'btn-blue', id: "DeminingBtn" %>
-  <% else %>
-    <%= f.submit 'Modifier ce centre de démninage', class: 'btn-blue', id: "DeminingBtn" %>
-  <% end %>
+  <%= f.button :button, 'Valider', class: 'btn-blue', id: "DeminingBtn", data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe }%>
 <% end %>

@@ -1,70 +1,12 @@
-<div class="row">
-  <div class="col-10 offset-1">
-    <div class="mb-3">
-      <%= link_to "Revenir au profil", profile_path(@user), class: 'link' %>
-    </div>
-    <%= simple_form_for @user, url: profile_path(@user), html: { method: :put } do |f| %>
-      <%= f.input :first_name, label: "Prénom" %>
-      <%= f.input :last_name, label: "Nom de famille" %>
-      <%= f.input :email, label: "Email" %>
-      <% if @user.admin %>
-        <div class="d-flex flex-column align-items-center">
-          <% if @user.company.logo.attached? %>
-            <h2>Logo de l'entreprise</h2>
-            <div class="d-flex align-items-center">
-              <%= cl_image_tag @user.company.logo.key, class: 'icon-logo mb-3' %>
-              <i class="fas fa-long-arrow-alt-right mx-4" style='font-size: 40px; display: none;'></i>
-              <img id="newLogo" width="200" class='icon-logo'>
-            </div>
-          <% end %>
-          <%= f.simple_fields_for :company, @company do |h| %>
-            <%= h.input :logo, label: false, input_html: {:onchange => "loadLogo(event)"} %>
-          <% end %>
-          <div class='btn-delete' id="removeUpload" style='dislpay: none;'></div>
-        </div>
-        <h2 class="text-center">Texte de sécurité de l'entreprise</h2>
-        <%= f.simple_fields_for :company, @company do |h| %>
-          <%= h.text_area :content_secu, class: 'tinymce' %>
-          <%= tinymce %>
-        <% end %>
-      <% end %>
-      <div class="d-flex justify-content-center my-4">
-        <%= f.submit "Valider mes modifications", class: 'btn-blue' %>
-      </div>
-    <% end %>
+<div class='col-md-6 offset-md-3'>
+  <div class="mb-3">
+    <%= link_to "Revenir au profil", profile_path(@user), class: 'link' %>
   </div>
+  <h2>Mes informations</h2>
+  <%= simple_form_for @user, url: profile_path(@user), html: { method: :put } do |f| %>
+    <%= f.input :first_name, label: "Prénom" %>
+    <%= f.input :last_name, label: "Nom de famille" %>
+    <%= f.input :email, label: "Email" %>
+    <%= f.submit "Valider mes modifications", class: 'btn-blue' %>
+  <% end %>
 </div>
-<script>
-  const loadLogo = (event) => {
-    const image = document.getElementById('newLogo');
-    const arrow = document.querySelector('.fa-long-arrow-alt-right');
-    const btnCancelUpload = document.getElementById('removeUpload');
-    const btnDeleteLogo = document.getElementById('removeLogo');
-    // Si il exite un fichier à uploader
-    if(event.target.files[0]) {
-
-      arrow.style.display = 'block';
-      btnCancelUpload.style.display = 'block'
-      // Si l'entreprise n'a pas encore de logo le bouton n'existe pas
-      if(btnDeleteLogo) {
-        btnDeleteLogo.style.display = 'none'
-      }
-      btnCancelUpload.addEventListener('click', (e) => {
-        // Si il exite un fichier à uploader
-        event.target.value = null
-        btnCancelUpload.style.display = 'none'
-        loadLogo(event)
-      })
-      image.style.display = 'block';
-      console.log('coucou')
-      return image.src = URL.createObjectURL(event.target.files[0]);
-    } {
-      arrow.style.display = 'none';
-      image.style.display = 'none';
-      // Si l'entreprise n'a pas encore de logo le bouton n'existe pas
-      if(btnDeleteLogo) {
-        btnDeleteLogo.style.display = 'block'
-      }
-    }
-  };
-</script>

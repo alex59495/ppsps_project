@@ -5,5 +5,5 @@
   <%= f.input :responsible_name, label: "Responsable" %>
   <%= f.input :responsible_phone, label: "Téléphone"%>
   <%= f.input :responsible_email, label: "Email" %>
-  <%= f.submit 'Ajouter', class: 'btn-blue', id: 'SubcontractorBtn' %>
+  <%= f.button :button, 'Valider', class: 'btn-blue', id: 'SubcontractorBtn', data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe } %>
 <% end %>

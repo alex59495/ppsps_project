@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :company do
     name { Faker::Name.name}
     address { Faker::Address.street_address}
-    phone { '0300000000' }
+    phone { Faker::PhoneNumber.cell_phone_in_e164  }
     representative { Faker::Name.name }
 
     trait :uber do

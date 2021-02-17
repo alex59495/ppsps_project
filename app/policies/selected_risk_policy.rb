@@ -5,19 +5,7 @@ class SelectedRiskPolicy < ApplicationPolicy
     end
   end
 
-  def index?
-    true
-  end
-
-  def create?
-    true
-  end
-
-  def destroy?
-    true
-  end
-
-  def selected_risks?
-    true
+  def destroy_selected_risks?
+    !user.nil?
   end
 end

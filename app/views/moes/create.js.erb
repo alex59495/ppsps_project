@@ -1,6 +1,8 @@
 $(document).ready(function() {
   $(".modal-backdrop").hide();
   $("#ModalMoe").hide();
+  $(".fade.modal").hide();
+  document.getElementById("new_moe").reset();
   $(".modal-open").css({overflow: 'scroll'});
   if (document.getElementById("ppsp_moe_id")) {
     document.getElementById("ppsp_moe_id").innerHTML = "<%= j(render 'form_field_moe') %>";

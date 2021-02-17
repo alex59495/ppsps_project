@@ -27,6 +27,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       anti_poison_2 = create(:anti_poison, company: company, name: "Test2")
       sos_hand_2 = create(:sos_hand, company: company, name: "Test2")
       hospital_2 = create(:hospital, company: company, name: "Test2")
+      subcontractors = create_list(:subcontractor, 5, company: company)
     end
 
     before do
@@ -172,7 +173,7 @@ RSpec.feature "Databases", type: :feature, js: true do
       page.execute_script("$('#subcontractor_responsible_email').val('test_responsible@gmail.com')")
       page.execute_script("$('#subcontractor_responsible_phone').val('0600000000')")
       find('#SubcontractorBtn').click
-      sleep 3
+      sleep 2
       expect(page).to have_css('.card-bdd', count: count + 1)
     end
 
@@ -279,15 +280,6 @@ RSpec.feature "Databases", type: :feature, js: true do
       fill_in('security_coordinator_phone', with: '0600000000')
       fill_in('security_coordinator_email', with: 'test_representative@gmail.com')
       find('#SecurityBtn').click
-      expect(page).to have_css('.is-invalid')
-    end
-
-    scenario "Rerender Subcontractor when not filling right" do
-      visit(subcontractors_path)
-      find('.btn-blue').click
-      fill_in('subcontractor_name', with: 'Test subcontractor')
-      fill_in('subcontractor_work', with: 'Test work')
-      find('#SubcontractorBtn').click
       expect(page).to have_css('.is-invalid')
     end
 

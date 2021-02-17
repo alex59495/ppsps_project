@@ -2,7 +2,7 @@ $btn-add-size: 24px;
 
 .btn-blue {
   padding: 4px 8px;
-  border-radius: 8px;
+  border-radius: 4px;
   color: white;
   background-color: $blue-light;
   border: none;
@@ -15,7 +15,7 @@ $btn-add-size: 24px;
 
 .btn-blue-ext {
   padding: 4px 8px;
-  border-radius: 8px;
+  border-radius: 4px;
   border: $blue solid 0.5px;
   color: black;
   &:hover {
@@ -28,14 +28,21 @@ $btn-add-size: 24px;
 
 .btn-orange {
   padding: 4px 8px;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: $orange-soft;
   color: black;
   border: none;
   &:hover {
+    cursor: pointer;
     background-color: $orange;
     text-decoration: none;
     color: black;
+  }
+  &:disabled {
+    background-color: gray;
+    &:hover {
+      cursor: not-allowed;
+    }
   }
 }
 
@@ -168,7 +175,7 @@ $btn-add-size: 24px;
 
 .btn-orange-ext {
   padding: 4px 8px;
-  border-radius: 8px;
+  border-radius: 4px;
   border: $orange solid 0.5px;
   color: black;
   display: inline-block;
@@ -194,8 +201,9 @@ $btn-add-size: 24px;
   overflow: hidden;
   position: relative;
   transition: width 0.2s ease-in-out;
-  background: linear-gradient(134.17deg, #EEF0F5 4.98%, #E6E9EF 94.88%);
-  box-shadow: -2px -2px 5px rgba(255, 255, 255, 0.8), 2px 2px 5px rgba(166, 180, 200, 0.7);
+  background: linear-gradient(134.17deg, #eef0f5 4.98%, #e6e9ef 94.88%);
+  box-shadow: -2px -2px 5px rgba(255, 255, 255, 0.8),
+    2px 2px 5px rgba(166, 180, 200, 0.7);
 }
 .add-btn:hover {
   width: $btn-add-size * 2.5;
@@ -203,7 +211,7 @@ $btn-add-size: 24px;
 .add-btn::before,
 .add-btn::after {
   transition: width 0.2s ease-in-out, border-radius 0.2s ease-in-out;
-  content: "";
+  content: '';
   position: absolute;
   height: 2px;
   width: 9px;
@@ -241,7 +249,7 @@ $btn-add-size: 24px;
 .add-icon::after,
 .add-icon::before {
   transition: all 0.2s ease-in-out;
-  content: "";
+  content: '';
   position: absolute;
   height: 10px;
   width: 1px;
@@ -269,7 +277,6 @@ $btn-add-size: 24px;
   height: 2px;
   top: calc(50% - 1px);
 }
-
 
 .btn-round {
   cursor: pointer;
@@ -317,6 +324,7 @@ $btn-add-size: 24px;
   color: $orange;
   &:hover {
     color: $orange-dark;
+    cursor: pointer;
   }
 }
 
@@ -350,7 +358,7 @@ $btn-add-size: 24px;
   }
 }
 
-@media(max-width: 700px) {
+@media (max-width: 700px) {
   #btn-mes-infos {
     position: fixed;
     bottom: 10px;
@@ -369,12 +377,12 @@ $btn-add-size: 24px;
   }
 }
 
-input[type=file]::-webkit-file-upload-button {
-  border-radius: 8px;
+input[type='file']::-webkit-file-upload-button {
+  border-radius: 4px;
   border: 1px solid $orange;
   outline: none;
   &:hover {
     cursor: pointer;
     box-shadow: 0.5px 0.5px 0.5px 0.5px $orange;
-  } 
+  }
 }

@@ -2,9 +2,5 @@
   <%= f.input :address, label: 'Adresse' %>
   <%= f.input :phone, label: 'Téléphone' %>
   <%= f.input :fax, label: 'Fax' %>
-  <% if params[:action] == 'new' || params[:action] == 'index' %>
-    <%= f.submit 'Créer un nouveau', class: 'btn-blue', id: "WorkMedecineBtn" %>
-  <% else %>
-    <%= f.submit 'Modifier', class: 'btn-blue', id: "WorkMedecineBtn" %>
-  <% end %>
+  <%= f.button :button, 'Valider', class: 'btn-blue', id: "WorkMedecineBtn", data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe } %>
 <% end %>

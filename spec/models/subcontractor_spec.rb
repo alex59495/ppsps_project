@@ -12,6 +12,7 @@ RSpec.describe Subcontractor, type: :model do
   it { should validate_presence_of(:responsible_name) }
   it { should validate_presence_of(:responsible_phone) }
   it { should validate_presence_of(:responsible_email) }
+  it { should allow_value(true, false).for(:is_destroyed) }
 
   it { should have_many(:selected_subcontractors) }
   it { should belong_to(:company) }

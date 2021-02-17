@@ -51,9 +51,6 @@ gem 'turbolinks_render'
 # Text Editor in rails
 gem 'tinymce-rails', '~> 5.6.2.1'
 
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
-
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
@@ -62,6 +59,12 @@ gem 'devise'
 # Authorization
 gem 'pundit'
 
+# Analyze the images
+gem "mini_magick"
+
+# Gérer les validation d'active storage
+gem 'active_storage_validations'
+
 # Advanced search
 gem 'pg_search'
 
@@ -69,13 +72,15 @@ gem 'pg_search'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
-# Faker
-gem 'faker'
+# Tokens for API
+gem 'simple_token_authentication'
 
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'
 group :development, :test do
+  # Faker
+  gem 'faker'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'dotenv-rails'
@@ -88,8 +93,6 @@ group :development, :test do
   gem 'shoulda-matchers'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  # Handle N+1
-  gem 'bullet'
 end
 
 group :development do
@@ -100,6 +103,10 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring-commands-rspec'
+  # Handle N+1
+  gem 'bullet'
+  # Verify speed
+  gem 'rack-mini-profiler'
 end
 
 group :test do

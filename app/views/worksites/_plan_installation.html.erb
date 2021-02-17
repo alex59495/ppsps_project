@@ -1,0 +1,6 @@
+<% if @ppsp.worksite.plan_installation.attached? %>
+  <div class="logo">
+    <%= cl_image_tag(@ppsp.worksite.plan_installation.key, class: "#{@orientation_plan} mx-4") %>
+  </div>
+  <%= link_to 'Supprimer', destroy_plan_installation_ppsp_path(@ppsp.id, @ppsp.worksite.plan_installation.key), class: 'btn-delete', remote: true %>
+<% end %>

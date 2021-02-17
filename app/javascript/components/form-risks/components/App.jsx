@@ -7,6 +7,7 @@ const App = () => {
   const [formList, setFormList] = useState([]);
   const [addList, setAddList] = useState([]);
   const [savedChoices, setSavedChoices] = useState([]);
+  const [trigger, setTrigger] = useState(0);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -41,24 +42,26 @@ const App = () => {
       .then((data) => setFormList(data));
   };
 
-  const handleRemove = async (risk) => {
-    await fetch(`${url}/api/v1/risks/${risk.id}/?ppsps_id=${ppspsId}`, {
-      method: 'DELETE',
-    });
-    fetchrisksFormList();
-  };
-
-  useEffect(() => {
+  const fetchSavedRisks = () => {
     fetch(`${url}/api/v1/selected_risks?ppsps_id=${ppspsId}`, {
       method: 'GET',
     })
       .then((response) => response.json())
       .then((data) => setSavedChoices(data));
-  }, [formList]);
+  }
+
+  const handleRemove = async (risk) => {
+    await fetch(`${url}/api/v1/selected_risks/${risk.id}/?ppsps_id=${ppspsId}`, {
+      method: 'DELETE',
+    });
+    let count = trigger
+    setTrigger(count + 1)
+  };
 
   useEffect(() => {
+    fetchSavedRisks();
     fetchrisksFormList();
-  }, []);
+  }, [trigger]);
 
   return (
     <>

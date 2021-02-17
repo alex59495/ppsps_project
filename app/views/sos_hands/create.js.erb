@@ -1,6 +1,8 @@
 $(document).ready(function() {
   $(".modal-backdrop").hide();
   $("#ModalSosHand").hide();
+  $(".fade.modal").hide();
+  document.getElementById("new_sos_hand").reset();
   $(".modal-open").css({overflow: 'scroll'});
   if (document.getElementById("ppsp_sos_hand_id")) {
     document.getElementById("ppsp_sos_hand_id").innerHTML = "<%= j(render 'form_field_sos_hand') %>";

@@ -12,17 +12,15 @@ import 'bootstrap';
 import ReactDOM from 'react-dom';
 
 // Import react elements
-// import '../react-ppsp/index'
 import reactPpsp from '../components/react-ppsp/index';
-import FormSubcontractors from '../components/form-subcontractors/index';
-import FormRisks from '../components/form-risks/index';
-import FormAltitudeWorks from '../components/form-altitude-work/index';
-import FormSiteInstallations from '../components/form-site-installation/index';
+import reactFromConductors from '../components/form-conductors/index';
+import reactFormRisks from '../components/form-risks/index';
+import reactFormAltitudeWorks from '../components/form-altitude-works/index';
+import reactFormSiteInstallations from '../components/form-site-installations/index';
+import reactFormLifesaver from '../components/form-lifesavers/index';
 
 // import { AutoCompleteGeocoding } from "../components/autocomplete"
 // La clé API pour l'utilisation de l'autocomplete Geocoding se trouve dans config/application.yml
-import { hideForm, hideInfosSelect } from '../components/hide-elements';
-import { cardForm } from '../components/card-form';
 import flatPicker from '../components/flat-pickr';
 import select2 from '../components/select-2';
 import infiniteScroll from '../components/infinite-scroll-db';
@@ -33,7 +31,9 @@ import navbarDropdown from '../components/navbar-dropdown';
 import sweetAlertMail from '../components/sweetAlert';
 import InitializeTinyMce from '../components/tinymce-editor';
 import { initMapbox } from '../components/mapbox';
-import logoClient from '../components/displayLogoClient';
+import { logoClient, logoCompany } from '../components/displayLogo';
+import { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter } from '../components/hide-elements'
+import animateSubmitPpsps from '../components/animateSubmitPpsps'
 
 require('@rails/ujs').start();
 require('turbolinks').start();
@@ -46,28 +46,31 @@ require('../channels');
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
-
 document.addEventListener('turbolinks:load', () => {
   InitializeTinyMce();
   navbarDropdown();
   error();
   select2();
   flatPicker();
-  hideForm();
-  hideInfosSelect();
-  cardForm();
   infiniteScroll();
   popUp();
   calendar();
   sweetAlertMail();
   logoClient();
+  logoCompany();
+  hideSecurityKit();
+  hidePlanInstallation();
+  hideTimetableWinter();
+  hideTimetableSummer();
+  animateSubmitPpsps();
 
   // React
+  reactFromConductors();
   reactPpsp();
-  FormSubcontractors();
-  FormRisks();
-  FormAltitudeWorks();
-  FormSiteInstallations();
+  reactFormRisks();
+  reactFormAltitudeWorks();
+  reactFormSiteInstallations();
+  reactFormLifesaver();
 
   // initMapbox(); Pas nécessaire pour le moment
 });
@@ -79,10 +82,5 @@ ReactRailsUJS.useContext(componentRequireContext);
 ReactRailsUJS.handleEvent('turbolinks:before-render', () => {
   if (document.getElementById('ppsps-react')) {
     ReactDOM.unmountComponentAtNode(document.getElementById('ppsps-react'));
-  }
-  if (document.getElementById('react-render-subcontractors')) {
-    ReactDOM.unmountComponentAtNode(
-      document.getElementById('react-render-subcontractors')
-    );
   }
 });

@@ -6,13 +6,13 @@
   }
 }
 
-@media(min-width: 701px) {
+@media (min-width: 701px) {
   .icon-home {
     width: 218px;
   }
 }
 
-@media(max-width: 700px) {
+@media (max-width: 700px) {
   .icon-home {
     width: 45px;
   }
@@ -34,6 +34,5 @@
 
 .icon-logo {
   height: 150px;
-  width: auto;
+  object-fit: contain;
 }
-

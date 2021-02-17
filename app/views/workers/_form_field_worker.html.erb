@@ -1,0 +1,14 @@
+<div class="container-header-form">
+  <label class="select required" for="ppsp_worker_id">Compagnon<abbr title="required">*</abbr></label>
+  <% if policy(Worker).create? %>
+    <button type="button" class="btn-round btn-fill" data-toggle="modal" data-target="#ModalWorker" id="WorkerDb">
+      <i class="fas fa-plus"></i>
+    </button>
+  <% end %>
+</div>
+<select class="form-control select required" name="ppsp[worker_id]" id="ppsp_worker_id">
+  <option value=""></option>
+  <% @database.each do |instance| %>
+    <%= "<option value=#{instance.id}>#{instance.first_name}</option>".html_safe %>
+  <% end %>
+</select>

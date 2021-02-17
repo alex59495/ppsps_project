@@ -1,6 +1,8 @@
 $(document).ready(function() {
   $(".modal-backdrop").hide();
   $("#ModalPensionInsurance").hide();
+  $(".fade.modal").hide();
+  document.getElementById("new_pension_insurance").reset();
   $(".modal-open").css({overflow: 'scroll'});
   if (document.getElementById("ppsp_pension_insurance_id")) {
     document.getElementById("ppsp_pension_insurance_id").innerHTML = "<%= j(render 'form_field_pension_insurance') %>";

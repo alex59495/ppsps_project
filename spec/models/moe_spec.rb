@@ -11,6 +11,7 @@ RSpec.describe Moe, type: :model do
   it { should validate_presence_of(:representative)}
   it { should validate_presence_of(:phone)}
   it { should validate_presence_of(:email)}
+  it { should allow_value(true, false).for(:is_destroyed) }
 
   it { should have_many(:ppsps)}
 

@@ -3,9 +3,6 @@
   <%= f.input :address, label: 'Adresse'%>
   <%= f.input :phone, label: 'Téléphone' %>
   <%= f.input :fax, label: 'Fax' %>
-  <% if params[:action] == 'new' || params[:action] == 'index' %>
-    <%= f.submit 'Créer un comité régional', class: 'btn-blue', id: "RegionalBtn" %>
-  <% else %>
-    <%= f.submit 'Modifier ce comité régional', class: 'btn-blue', id: "RegionalBtn" %>
-  <% end %>
+  <%= f.input :website, label: 'Site internet' %>
+  <%= f.button :button, 'Valider', class: 'btn-blue', id: "RegionalBtn", data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe } %>
 <% end %>

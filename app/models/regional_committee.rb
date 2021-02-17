@@ -15,10 +15,10 @@ class RegionalCommittee < ApplicationRecord
 
   def self.search(query)
     if query.present?
-      search_regional_committee(query).order(created_at: :asc)
+      search_regional_committee(query)
     else
-      # No query? Return all records, newest first.
-      order("created_at ASC")
+      # No query? Return all records by name.
+      order("name ASC")
     end
   end
 end

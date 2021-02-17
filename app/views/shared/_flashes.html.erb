@@ -1,3 +1,12 @@
+<% if notice_ok %>
+  <div class="notice notice-ok alert alert-dismissible fade show m-1" role="alert">
+    <%= notice_ok %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>
+
 <% if notice %>
   <div class="alert alert-info alert-dismissible fade show m-1" role="alert">
     <%= notice %>

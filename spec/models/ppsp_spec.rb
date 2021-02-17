@@ -4,8 +4,6 @@ RSpec.describe Ppsp, type: :model do
   it 'Work if all attributes are completed' do
     ppsp = create(:ppsp)
     expect(ppsp).to be_valid
-    expect(ppsp.latitude).not_to be_nil
-    expect(ppsp.longitude).not_to be_nil
   end
 
   # it "Doesn't work if address isn't completed" do
@@ -13,28 +11,12 @@ RSpec.describe Ppsp, type: :model do
   #   ppsp.valid?
   #   expect(ppsp.errors[:address]).to include("doit être rempli(e)")
   # end
-
-  it { should validate_presence_of(:address) }
-
-  # it "Doesn't work if workforce isn't completed" do
-  #   ppsp = build(:ppsp, workforce: nil)
-  #   ppsp.valid?
-  #   expect(ppsp.errors[:workforce]).to include("doit être rempli(e)")
-  # end
-
-  it { should validate_presence_of(:workforce) }
-
-  # it "Doesn't work if moe doesn't exist" do
-  #   ppsp = build(:ppsp, moe: nil)
-  #   ppsp.valid?
-  #   expect(ppsp.errors[:moe]).to include("doit exister")
-  # end
-  it { should validate_presence_of(:start_date) }
-  it { should validate_presence_of(:end_date) }
-  it { should validate_presence_of(:nature) }
   it { should validate_presence_of(:agglomeration) }
   it { should validate_presence_of(:street_impact) }
   it { should validate_presence_of(:river_guidance) }
+
+  it { is_expected.to validate_size_of(:annexes).less_than(500.kilobytes) }
+  it { is_expected.to validate_size_of(:logo_client).less_than(100.kilobytes) }
 
   it { should belong_to(:moe) }
   it { should belong_to(:moa) }

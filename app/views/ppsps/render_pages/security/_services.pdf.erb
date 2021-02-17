@@ -1,0 +1,92 @@
+<div class="container-80">
+  <% if @lifesavers.empty? %>
+    <h1 class="pdf-title mb-2">
+      III. Disposition en matière de secours et d'évacuation
+    </h1>
+  <% end %>
+  <h2 class="pdf-subtitle">
+    3.<%= @num_security %> Moyens d'appel des secours
+    <% @num_security += 1 %>
+  </h2>
+  <div class="flexbox mb-2">
+    <div class="flex-div-30">
+      <div class="es-firemen">
+        <div class="pdf-subsubtitle">
+          Pompier
+        </div>
+        <div class="es-firemen-num">
+          18 ou 112 (portable)
+        </div>
+      </div>
+    </div>
+    <div class="flex-div-30">
+      <div class="es-police">
+        <div class="pdf-subsubtitle">
+          Police
+        </div>
+        <div class="es-police-num">
+          17
+        </div>
+      </div>
+    </div>
+    <div class="flex-div-30">
+      <div class="es-SAMU">
+        <div class="pdf-subsubtitle">
+          SAMU
+        </div>
+        <div class="es-SAMU-num">
+          15
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flexbox">
+    <div class="flex-div-50">
+      <div class="pdf-subsubtitle">
+        Centre de déminage
+      </div>
+      <div class="container-80 mb-2">
+        <div class="flexbox">
+          <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= @ppsp.demining.name %></div>
+          <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= @ppsp.demining.address %></div>
+          <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.demining.phone %></div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-div-50">
+      <div class="pdf-subsubtitle">
+        Centre Anti-Poison
+      </div>
+      <div class="container-80 mb-2">
+        <div class="flexbox">
+          <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= @ppsp.anti_poison.name %></div>
+          <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= @ppsp.anti_poison.address %></div>
+          <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.anti_poison.phone %></div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-div-50">
+      <div class="pdf-subsubtitle">
+        SOS Mains et Doigts
+      </div>
+      <div class="container-80 mb-2">
+        <div class="flexbox">
+          <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= @ppsp.sos_hand.name %></div>
+          <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= @ppsp.sos_hand.address %></div>
+          <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.sos_hand.phone %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h2 class="pdf-subtitle">
+    3.<%= @num_security %> Hôpital le plus proche
+    <% @num_security += 1 %>
+  </h2>
+  <div class="container-80 mb-2">
+    <div class="flexbox">
+      <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= @ppsp.hospital.name %></div>
+      <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= @ppsp.hospital.address %></div>
+      <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.hospital.phone %></div>
+    </div>
+  </div>
+</div>

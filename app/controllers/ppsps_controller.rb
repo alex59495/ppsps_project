@@ -1,5 +1,6 @@
 class PpspsController < ApplicationController
-  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit destroy_logo_client]
+  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit destroy_logo_client duplicate destroy_annexe]
+  # before_action :analyze_images, only: %i[edit show]
 
   def index
     # Handled by react :) (app/assets/javascript/ppsp-react)
@@ -11,13 +12,12 @@ class PpspsController < ApplicationController
   def new
     @ppsp = Ppsp.new
     authorize @ppsp
-    # Create the fields for the project_information, site_manager and team_manager => Nested form in the view
-    # This way they are created in the DB if the @ppsp is saved
+    # Create the fields for the project_information,
     # We used the 'accepts_nested_attributes_for' in the models
     # We used the projection_information_attributes in the params
     @project_information = @ppsp.build_project_information
-    @site_manager = @ppsp.build_project_information.build_site_manager
-    @team_manager = @ppsp.build_project_information.build_team_manager
+
+    @worksite = @ppsp.build_worksite
 
     # Info to add the possibility to create a new element through a modal form
     @project_information = ProjectInformation.new
@@ -53,8 +53,18 @@ class PpspsController < ApplicationController
 
   def show
     authorize @ppsp
-    @n = 0
-    @marker = { lat: @ppsp.latitude, lng: @ppsp.longitude }
+    select_lifesaver = SelectedLifesaver.where(ppsp_id: @ppsp.id).pluck(:worker_id)
+    @lifesavers = Worker.where(id: select_lifesaver)
+    @conductors = Conductor.where(ppsp_id: @ppsp.id).order(:machine_id).group_by(&:machine_id)
+
+    @marker = { lat: @ppsp.worksite.latitude, lng: @ppsp.worksite.longitude }
+
+    # Numéro de suivi des titres de chaque partie
+    @num_admin = 1
+    @num_worksite = 1
+    @num_security = 1
+    @num_risk = 1
+
     handle_annexes
     respond_to do |format|
       # Two response for the show method depending on the format we call
@@ -67,11 +77,26 @@ class PpspsController < ApplicationController
           template: 'ppsps/show.pdf.erb',
           layout: 'pdf.html.erb',
           view_as_html: true,
-          # Display number of pages
-          header: { right: '[page] of [topage]' },
-          footer: {
+          # La couverture (cover) permet d'avoir une premiere page. Elle n'est pas incluse dans le layout, il faut tout intégrer "à la main" pour cette page.
+          cover: render_to_string('ppsps/render_pages/cover.pdf.erb'),
+          # Table of Content
+          toc: {
+            header_text: "Sommaire"
+          },
+          margin: {
+            top: 28, # default 10 (mm)
+            bottom: 10
+          },
+          header: {
             html: {
-              template: 'ppsps/footer.html.erb'
+              template: 'ppsps/render_pages/header.html.erb'
+            }
+          },
+          footer: {
+            # Display number of pages
+            # right: '[page] of [topage]',
+            html: {
+              template: 'ppsps/render_pages/footer.html.erb'
             }
           }
         )
@@ -81,6 +106,8 @@ class PpspsController < ApplicationController
 
   def create
     @ppsp = Ppsp.new(params_ppsp)
+    @ppsp.project_information.company = current_user.company
+    @ppsp.user = current_user
     # Info to add the possibility to create a new element through a modal form
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
@@ -94,7 +121,6 @@ class PpspsController < ApplicationController
     @sos_hand = SosHand.new
     @anti_poison = AntiPoison.new
     @subcontractor = Subcontractor.new
-    @ppsp.user = current_user
 
     # Select the databases present in the select lists
     @moas = policy_scope(Moa.all)
@@ -117,21 +143,22 @@ class PpspsController < ApplicationController
       create_selected_risks
       create_selected_site_installations
       create_selected_altitude_works
+      create_selected_conductors
+      create_selected_lifesavers
+      purge_plan_installation_if_not_selected
 
       redirect_to ppsp_path(@ppsp, format: :pdf)
     else
-      flash.now.alert = "Le formulaire n'a pas été rempli correctement, merci de réessayer !"
       render :new
+      flash.now.alert = "Le formulaire n'a pas été rempli correctement, merci de réessayer"
     end
   end
 
   def edit
     authorize @ppsp
-    # This way the edit page is able to retrieve the project informations
+    # This way the edit page is able to retrieve the project informations and worksite
     @project_information = @ppsp.project_information
-    @site_manager = @ppsp.project_information.site_manager
-    @team_manager = @ppsp.project_information.team_manager
-
+    @worksite = @ppsp.worksite
     # Info to add the possibility to create a new element through a modal form!
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
@@ -160,21 +187,11 @@ class PpspsController < ApplicationController
     @security_coordinators = policy_scope(SecurityCoordinator.all)
     # @subcontractors = policy_scope(Subcontractor.all)
 
-    # Modifier la liste des sous-traitants affichés en fonction des sous-traitants déjà sélectionnés
-    selected_subcontractors = SelectedSubcontractor.where(ppsp_id: params[:id])
-    @subcontractors = Subcontractor.where.not(id: selected_subcontractors.map(&:subcontractor_id))
-
     ppsp_content_secu?
   end
 
   def update
     authorize @ppsp
-    # This way the update is able to retrieve the project informations
-    @project_information = @ppsp.project_information
-    @site_manager = @ppsp.project_information.site_manager
-    @team_manager = @ppsp.project_information.team_manager
-
-    # Info to add the possibility to create a new element through a modal form
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
     @moa = Moa.new
@@ -202,15 +219,20 @@ class PpspsController < ApplicationController
     @security_coordinators = policy_scope(SecurityCoordinator.all)
     @subcontractors = policy_scope(Subcontractor.all)
 
+    # We have to redefine the ID because if we don't nested form of rails will create a new instance of worksite and project info
     if @ppsp.update(params_ppsp)
       # Create the joint table if necessary
       create_selected_subcontractors
       create_selected_risks
       create_selected_site_installations
       create_selected_altitude_works
+      create_selected_conductors
+      create_selected_lifesavers
+      purge_plan_installation_if_not_selected
 
       redirect_to ppsp_path(@ppsp, format: :pdf)
     else
+      flash.now.alert = "Le formulaire n'a pas été rempli correctement, merci de réessayer"
       render :edit
     end
   end
@@ -225,6 +247,7 @@ class PpspsController < ApplicationController
 
   def destroy_annexe
     authorize @ppsp
+    analyze_images
     blob = ActiveStorage::Blob.find_by(key: params[:public_id])
     ActiveStorage::Attachment.find_by(blob: blob).purge
     respond_to do |format|
@@ -242,11 +265,32 @@ class PpspsController < ApplicationController
 
   private
 
+  # On regarde quels sont les Tables jointes des conducteurs (associé au current_user) qui n'ont pas encore de PPSP
+  # et on leur associe le PPSP qui vient d'être créé
+  def create_selected_conductors
+    @conductors = policy_scope(Conductor.all.where(ppsp_id: nil))
+    @conductors.each do |conductor|
+      conductor.ppsp = @ppsp
+      conductor.save!
+    end
+  end
+
+  def create_selected_lifesavers
+    if params.require(:ppsp).key?(:lifesavers)
+      lifesavers = params.require(:ppsp).require(:lifesavers)
+      lifesavers.shift
+      lifesavers.each do |lifesaver_id|
+        SelectedLifesaver.create!(ppsp_id: @ppsp.id, worker_id: lifesaver_id)
+      end
+    end
+  end
+
   def create_selected_subcontractors
     if params.require(:ppsp).key?(:subcontractors)
       subcontractors = params.require(:ppsp).require(:subcontractors)
+      subcontractors.shift
       subcontractors.each do |subcontractor_id|
-        SelectedSubcontractor.create(ppsp_id: @ppsp.id, subcontractor_id: subcontractor_id)
+        SelectedSubcontractor.create!(ppsp_id: @ppsp.id, subcontractor_id: subcontractor_id)
       end
     end
   end
@@ -256,7 +300,7 @@ class PpspsController < ApplicationController
       risks = params.require(:ppsp).require(:risks)
       risks.shift
       risks.each do |risk_id|
-        SelectedRisk.create(ppsp_id: @ppsp.id, risk_id: risk_id)
+        SelectedRisk.create!(ppsp_id: @ppsp.id, risk_id: risk_id)
       end
     end
   end
@@ -266,7 +310,7 @@ class PpspsController < ApplicationController
       site_installations = params.require(:ppsp).require(:site_installations)
       site_installations.shift
       site_installations.each do |site_installation_id|
-        SelectedInstallation.create(ppsp_id: @ppsp.id, site_installation_id: site_installation_id)
+        SelectedInstallation.create!(ppsp_id: @ppsp.id, site_installation_id: site_installation_id)
       end
     end
   end
@@ -276,13 +320,26 @@ class PpspsController < ApplicationController
       altitude_works = params.require(:ppsp).require(:altitude_works)
       altitude_works.shift
       altitude_works.each do |altitude_work_id|
-        SelectedAltitude.create(ppsp_id: @ppsp.id, altitude_work_id: altitude_work_id)
+        SelectedAltitude.create!(ppsp_id: @ppsp.id, altitude_work_id: altitude_work_id)
       end
     end
   end
 
+  def purge_plan_installation_if_not_selected
+    @ppsp.worksite.plan_installation.purge if !@ppsp.worksite.plan && @ppsp.worksite.plan_installation.attached?
+  end
+
   def find_ppsp
     @ppsp = Ppsp.find(params[:id])
+  end
+
+  def analyze_images
+    @ppsp.worksite.plan_installation.analyze if @ppsp.worksite.plan_installation.attached?
+    if @ppsp.worksite.plan_installation.attached? && @ppsp.worksite.plan_installation.metadata['width'] > @ppsp.worksite.plan_installation.metadata['height']
+      @orientation_plan = 'landscape'
+    elsif @ppsp.worksite.plan_installation.attached? && @ppsp.worksite.plan_installation.metadata['width'] <= @ppsp.worksite.plan_installation.metadata['height']
+      @orientation_plan = 'portrait'
+    end
   end
 
   # Add in the dataset of the view a indicator which show if the PPSP already have a content_secu or not
@@ -303,13 +360,12 @@ class PpspsController < ApplicationController
   end
 
   def params_ppsp
-    params.require(:ppsp).permit(:address, :start_date, :end_date, :nature, :workforce, :agglomeration,
-                                 :street_impact, :river_guidance, :moa_id, :moe_id, :security_coordinator_id,
-                                 :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
+    params.require(:ppsp).permit(:agglomeration, :river_guidance, :moa_id, :moe_id, :security_coordinator_id,
+                                 :street_impact, :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
                                  :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, :logo_client, :content_secu, annexes: [],
-                                 project_information_attributes: [:ppsp_id, :reference, :responsible,
-                                                                  :phone, :email, { site_manager_attributes: %i[name email phone],
-                                                                                    team_manager_attributes: %i[name
-                                                                                                                email phone] }])
+                                                                                                                         worksite_attributes: %i[id address start_date end_date timetable_summer timetable_summer_start timetable_summer_end
+                                                                                                                                                 timetable_winter timetable_winter_start timetable_winter_end electrical_site
+                                                                                                                                                 water_site nature plan num_responsible num_conductor num_worker plan_installation],
+                                                                                                                         project_information_attributes: %i[id name reference responsible_id site_manager_id team_manager_id company_id])
   end
 end

@@ -1,38 +1,47 @@
 <div class="container">
-  <h1 class="d-flex justify-content-center"><div class="title-profile"><%= @user == current_user ? "Bonjour #{current_user.first_name}" : "La page de #{@user.first_name}" %></div></h1>
+  <h1 class="d-flex justify-content-center">
+    <div class="title-profile">
+      <%= @user == current_user ? "Bonjour #{current_user.first_name}" : "La page de #{@user.first_name}" %>
+    </div>
+  </h1>
   <div class="card-profile">
-    <div class="card-profile-info">
+    <div class="card-profile-element">
       <div class="info-profile"><i class="fas fa-signature tag-profile"></i> <%= @user.full_name %></div>
       <div class="info-profile"><i class="fas fa-envelope tag-profile"></i> <%= @user.email %></div>
       <div class="info-profile"><i class="fas fa-industry tag-profile"></i> <%= @user.company.name %></div>
-      </div>
-      <% if @user.company.logo.attached? %>
-        <div class="card-logo-company">
-          <%= cl_image_tag @user.company.logo.key, class: 'icon-logo' %>
-        </div>
-      <% else %>
-        <div class="card-logo-empty">
-          <i style='font-size: 40px;'class="fas fa-question-circle mb-4"></i>
-          <p>Vous n'avez pas encore de logo d'entreprise</p>
-          <% if @user.admin && @user == current_user %>
-            <i style='font-size: 0.8em'>Vous pouvez modifier ça dans "modifier les informations"</i>
-          <% end %>
-        </div>
-      <% end %>
-      <div class="card-profile-stat">
-        <% if @user == current_user %>
-          <%= @user.admin ? "<div><i class='fas fa-check green-color'></i> Admin</div>".html_safe : "<div><i class='fas fa-times red-color'></i> Admin</div>".html_safe %> 
-        <% end %>
-        <div><span class="pin-profile"><%= @user.ppsps.count %></span> PPSPS</div>
+      <div class="info-profile">
         <% if policy(@user).edit? %>
           <%= link_to edit_profile_path(@user), class: "link" do %>
             <i class="fas fa-pencil-alt"></i>
-            Modifier les informations
+            Modifider mes informations
           <% end %>
         <% end %>
       </div>
     </div>
-    <h2><%= @user == current_user ? 'Vos PPSPS' : "Les PPSP de #{@user.first_name}" %></h2>
-    <div id="ppsps-react" class="show-user" data-current=<%= current_user.id %> data-usershow=<%= @user.id %>></div>
+    <% if @user.company.logo.attached? %>
+      <div class="card-profile-element">
+        <%= cl_image_tag @user.company.logo.key, class: 'icon-logo' %>
+      </div>
+    <% else %>
+      <div class="card-profile-element">
+        <i style='font-size: 40px;'class="fas fa-question-circle mb-4"></i>
+        <p>Vous n'avez pas encore de logo d'entreprise</p>
+        <% if @user.admin && @user == current_user %>
+          <i style='font-size: 0.8em'>Vous pouvez modifier ça dans "Les informations de votre entreprise"</i>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="card-profile-element">      
+      <div><span class="pin-profile"><%= @user.ppsps.count %></span> PPSPS</div>
+      <%= @user.admin ? "<div><i class='fas fa-check green-color'></i> Admin</div>".html_safe : "<div><i class='fas fa-times red-color'></i> Admin</div>".html_safe %> 
+      <% if @user == current_user && @user.admin %>
+        <%= link_to edit_company_path(current_user.company), class: "link ml-3" do %>
+          <i class="fas fa-pencil-alt"></i>
+          Mon entreprise
+        <% end %>
+      <% end %>
+    </div>
   </div>
+  <h2><%= @user == current_user ? 'Vos PPSPS' : "Les PPSP de #{@user.first_name}" %></h2>
+  <div id="ppsps-react" class="show-user" data-current=<%= current_user.id %> data-usershow=<%= @user.id %>></div>
 </div>

@@ -1,0 +1,5 @@
+<h2 class="pdf-subtitle mb-2">
+  2.<%= @num_worksite %> Plan d'installation
+  <% @num_worksite += 1 %> 
+</h2>
+<%= cl_image_tag(@ppsp.worksite.plan_installation.key, crop: "scale", width: 850) %>

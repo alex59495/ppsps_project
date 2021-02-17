@@ -35,7 +35,7 @@ class SubcontractorsController < DatabaseController
     else
       # Respond with the .js.erb to print the modal with errors
       respond_to do |format|
-        format.js { render "ppsps/modal_#{controller_name.chop}" }
+        format.js { render "modals/subcontractors/modal_#{controller_name.chop}" }
       end
     end
   end

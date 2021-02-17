@@ -4,9 +4,5 @@
   <%= f.input :address, label: 'Adresse' %>
   <%= f.input :phone, label: 'Téléphone' %>
   <%= f.input :email, label: 'Email' %>
-  <% if params[:action] == 'new' || params[:action] == 'index' %>
-    <%= f.submit 'Créer un coordinateur', class: 'btn-blue', id: "SecurityBtn" %>
-  <% else %>
-    <%= f.submit 'Modifier ce coordinateur', class: 'btn-blue', id: "SecurityBtn" %>
-  <% end %>
+  <%= f.button :button, 'Valider', class: 'btn-blue', id: "SecurityBtn", data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe } %>
 <% end %>

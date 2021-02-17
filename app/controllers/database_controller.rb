@@ -6,9 +6,15 @@ class DatabaseController < ApplicationController
     authorize @model_name
     @data = @model_name.new
     instance_variable_creation(@data)
-
     if params[:query]
-      @database = policy_scope(@model_name.search(params[:query]))
+      # Si le modele à un "name" on classe les données par nom, sinon par prénom puis par adresse
+      if @model_name.new.attributes.keys.include?('name')
+        @database = policy_scope(@model_name.search(params[:query])).order(name: :asc)
+      elsif @model_name.new.attributes.keys.include?('first_name')
+        @database = policy_scope(@model_name.search(params[:query])).order(first_name: :asc)
+      else
+        @database = policy_scope(@model_name.search(params[:query])).order(address: :asc)
+      end
       init_infinite_scroll
 
       @search = 'search'
@@ -19,7 +25,14 @@ class DatabaseController < ApplicationController
         format.js { render "database/index" }
       end
     else
-      @database = policy_scope(@model_name.all)
+
+      if @model_name.new.attributes.keys.include?('name')
+        @database = policy_scope(@model_name.all).order(name: :asc)
+      elsif @model_name.new.attributes.keys.include?('first_name')
+        @database = policy_scope(@model_name.all).order(first_name: :asc)
+      else
+        @database = policy_scope(@model_name.all).order(address: :asc)
+      end
       init_infinite_scroll
 
       @search = 'none'
@@ -42,17 +55,18 @@ class DatabaseController < ApplicationController
     @search = "none"
     if @data.save
       # Create an ordered list to put the last one in first
-      @database = policy_scope(@model_name.all).sort_by { |datab| datab.created_at }
+      @database = policy_scope(@model_name.all).order(updated_at: :desc)
       # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
       init_infinite_scroll
       # Respond with the view anti_poison/create.js.erb to close the modal and come back to the form
       respond_to do |format|
+        flash.now[:notice_ok] = "Ajouté"
         format.js { render "#{controller_name}/create.js.erb" }
       end
     else
       # Respond with the .js.erb to print the modal with errors
       respond_to do |format|
-        format.js { render "ppsps/modal_#{controller_name.chop}" }
+        format.js { render "modals/#{controller_name}/modal_#{controller_name.chop}" }
       end
     end
   end
@@ -68,6 +82,7 @@ class DatabaseController < ApplicationController
     if @data.update(params_data)
       # @path variable comes from child controller
       redirect_to @path
+      flash[:notice_ok] = 'Les modifications ont bien été prises en compte'
     else
       # render error is possible with remote true thanks to turbolinks-render
       # We render from an unique folder which is able to redirect to others folders
@@ -93,7 +108,7 @@ class DatabaseController < ApplicationController
       @database = policy_scope(@model_name.all)
     end
     authorize @database
-    @database_page = @database.page(params[:page]).per(20)
+    @database_page = @database.page(params[:page]).per(50)
     render "#{controller_name}/_elements", collection: @database_page, layout: false
   end
 
@@ -101,7 +116,7 @@ class DatabaseController < ApplicationController
 
   def init_infinite_scroll
     # Useful for the infinite scroll
-    @database_page = Kaminari.paginate_array(@database).page.per(20)
+    @database_page = Kaminari.paginate_array(@database).page.per(50)
     @endpoint = @pagination_path
     @page_amount = @database_page.total_pages
   end

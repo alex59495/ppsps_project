@@ -37,6 +37,8 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_storage_validations (0.9.2)
+      rails (>= 5.2.0)
     activejob (6.0.3.4)
       activesupport (= 6.0.3.4)
       globalid (>= 0.3.6)
@@ -167,6 +169,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2020.1104)
     mimemagic (0.3.5)
+    mini_magick (4.11.0)
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
     minitest (5.14.2)
@@ -197,6 +200,8 @@ GEM
       activesupport (>= 3.0.0)
     racc (1.5.2)
     rack (2.2.3)
+    rack-mini-profiler (2.3.1)
+      rack (>= 1.2.0)
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -287,6 +292,10 @@ GEM
     simple_form (5.0.3)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
+    simple_token_authentication (1.17.0)
+      actionmailer (>= 3.2.6, < 7)
+      actionpack (>= 3.2.6, < 7)
+      devise (>= 3.2, < 6)
     spring (2.1.1)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -347,6 +356,7 @@ PLATFORMS
 
 DEPENDENCIES
   actionview (>= 6.0.3.3)
+  active_storage_validations
   autoprefixer-rails
   bootsnap (>= 1.4.2)
   bootstrap (~> 5.0.0.alpha1)
@@ -369,12 +379,14 @@ DEPENDENCIES
   kaminari
   launchy
   listen (~> 3.2)
+  mini_magick
   pg (>= 0.18, < 2.0)
   pg_search
   pry-byebug
   pry-rails
   puma (~> 4.1)
   pundit
+  rack-mini-profiler
   rails (~> 6.0.3, >= 6.0.3.3)
   rails-i18n
   react-rails
@@ -385,6 +397,7 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers
   simple_form
+  simple_token_authentication
   spring
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)

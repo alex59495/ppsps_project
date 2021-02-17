@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :pension_insurance do
     address { Faker::Address.street_address}
-    phone { '0300000000' }
+    phone { Faker::PhoneNumber.cell_phone_in_e164  }
     fax { Faker::PhoneNumber.phone_number }
     company
 

@@ -8,8 +8,9 @@ import CardPpsp from './card_ppsp';
 import { fetchPpsps, loadingTrue, loadMore } from '../actions/index';
 import Spinner from '../components/Spinner';
 
-class ListPpsp extends Component {
+class ListPpsp extends Component {  
   componentDidMount() {
+    this.props.loadingTrue();
     this.props.fetchPpsps(this.props.showUser);
   }
 
@@ -28,7 +29,7 @@ class ListPpsp extends Component {
 
   // Active the Loading Gif and charge more Ppsps
   chargeLoad(loadMore) {
-    // Had to divide into constantes because, can't call the arguments this.props inside the fcallback setTimeout function
+    // Had to divide into constantes because, can't call the arguments this.props inside the callback setTimeout function
     const { showUser, page, search } = this.props;
     this.props.loadingTrue();
     setTimeout(() => {
@@ -51,7 +52,7 @@ class ListPpsp extends Component {
 
   renderSpinner = (loading) => {
     if (loading) {
-      return <Spinner />;
+      return <Spinner message= 'Chargement'/>;
     } else {
       return null;
     }
@@ -66,21 +67,33 @@ class ListPpsp extends Component {
             {selectedPpsps.map((ppsp) => (
               <CardPpsp
               key={ppsp.id}
-                id={ppsp.id}
-                reference={ppsp.project_information.reference}
-              user_first_name={ppsp.user.first_name} user_last_name={ppsp.user.last_name}
-              start_date={ppsp.start_date} end_date={ppsp.end_date} address={ppsp.address}
+              id={ppsp.id}
+              reference={ppsp.project_information.reference}
+              user_first_name={ppsp.user.first_name} 
+              user_last_name={ppsp.user.last_name}
+              start_date={ppsp.worksite.start_date} 
+              end_date={ppsp.worksite.end_date} 
+              address={ppsp.worksite.address}
               user={ppsp.user}
+              data-test='component-ppsps-card'
             />))}
           </div>
           {this.renderSpinner(loading)}
         </>
       )
-    } else if(search === '') {
-      return <Spinner message='Chargement ...' />
-    } else {
+    } else if(search === '' && loading) {
+      return (<Spinner message='Chargement ...' />)
+
+    } else if((search === '' && !loading)) {
       return (
-        <div className="container-db-vide">
+        <div className="container-flex">
+          Vous n'avez pas encore de PPSPS...
+        </div>
+      )
+    }
+    else {
+      return (
+        <div className="container-flex">
           Votre recherche n'a retourné aucun résultat...
         </div>
       )

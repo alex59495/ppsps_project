@@ -1,6 +1,8 @@
 $(document).ready(function() {
   $(".modal-backdrop").hide();
   $("#ModalDirecct").hide();
+  $(".fade.modal").hide();
+  document.getElementById("new_direcct").reset();
   $(".modal-open").css({overflow: 'scroll'});
   if (document.getElementById("ppsp_direcct_id")) {
     document.getElementById("ppsp_direcct_id").innerHTML = "<%= j(render 'form_field_direcct') %>";

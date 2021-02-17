@@ -1,0 +1,20 @@
+<% if @ppsp.subcontractors.count > 0 %>
+  <h2 class="pdf-subtitle">
+    1.<%= @num_admin %> Les entreprises sous-traitantes
+    <% @num_admin += 1 %>
+  </h2>
+  <div class="pdf-text-container">
+    <% @ppsp.subcontractors.each_with_index do |subcontract| %>
+      <div class="container-50 mb-2">
+        <div class="flexbox">
+          <div class='text-center bold mb-1'><%= subcontract.work %></div>
+          <div class="flex-div-50">Nom :</div><div class="flex-div-50"><%= subcontract.name %></div>
+          <div class="flex-div-50">Adresse :</div><div class="flex-div-50"><%= subcontract.address %></div>
+          <div class="flex-div-50">Responsable :</div><div class="flex-div-50"><%= subcontract.responsible_name %></div>
+          <div class="flex-div-50">Téléphone :</div><div class="flex-div-50"><%= subcontract.responsible_phone %></div>
+          <div class="flex-div-50">Email :</div><div class="flex-div-50"><%= subcontract.responsible_email %></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

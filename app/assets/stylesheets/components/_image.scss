@@ -1,4 +1,15 @@
-@media(min-width: 1020px) {
+.logo {
+  .portait {
+    width: 200px;
+    height: 300px;
+  }
+  .landscape {
+    width: 300px;
+    height: 200px;
+  }
+}
+
+@media (min-width: 1020px) {
   .img-background-bottom-right {
     position: absolute;
     right: 20px;
@@ -8,7 +19,7 @@
   }
 }
 
-@media(max-width: 1020px) {
+@media (max-width: 1020px) {
   .img-background-bottom-right {
     display: none;
   }

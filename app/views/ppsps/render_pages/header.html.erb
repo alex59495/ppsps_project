@@ -1,0 +1,20 @@
+<div class="flexbox pdf-header">
+  <% if @ppsp.user.company.logo.attached? %>
+    <div class="flex-div-30">
+      <%= cl_image_tag @ppsp.user.company.logo.key, class: 'pdf-logo' %>
+    </div>
+  <% end %>
+  <div class=<%= @ppsp.user.company.logo.attached? ? 'flex-div-30' : '' %> >
+    <div class="pdf-title-header">
+      P.P.S.P.S
+    </div>
+    <div class="pdf-subtitle-header">
+      <%= "Opération : #{@ppsp.project_information.name}" %>
+    </div>
+  </div>
+  <% if @ppsp.logo_client.attached? %>
+    <div class="flex-div-30" style='text-align: right;'>
+      <%= cl_image_tag @ppsp.logo_client.key, class: 'pdf-logo' %>
+    </div>
+  <% end %>
+</div>

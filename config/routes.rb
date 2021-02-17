@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :selected_risks, only: [ :create, :destroy ]
     resources :selected_subcontractors, only: [ :create, :destroy ]
     member do
+      get 'worksite/destroy_plan_installation/:public_id', to: 'worksites#destroy_plan_installation', as: :destroy_plan_installation
       get 'destroy_annexe/:public_id', to: 'ppsps#destroy_annexe', as: :destroy_annexe 
       get :destroy_logo_client
       get :duplicate
@@ -21,32 +22,31 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :ppsps, only: [ :destroy, :index, :show ]
-    end
-  end
-  
-  # Use to display the selected forms
-  namespace :api, defaults: { format: :json } do
-    namespace :v1 do
-      resources :subcontractors, only: [ :index, :destroy ]
-      get 'selected_subcontractors', to: 'subcontractors#selected_subcontractors'
-    end
-  end
-  namespace :api, defaults: { format: :json } do
-    namespace :v1 do
-      resources :risks, only: [ :index, :destroy ]
+      
+      get 'list_subcontractors', to: 'subcontractors#list_subcontractors'
+      get 'selected_subcontractors', to: 'subcontractors#selected_subcontractors'     
+      delete 'selected_subcontractors/:subcontractor_id', to: 'subcontractors#destroy_selected_subcontractors'
+      
+      resources :risks, only: [ :index ]
       get 'selected_risks', to: 'risks#selected_risks'
-    end
-  end
-  namespace :api, defaults: { format: :json } do
-    namespace :v1 do
-      resources :altitude_works, only: [ :index, :destroy ]
+      delete 'selected_risks/:risk_id', to: 'risks#destroy_selected_risks'
+      
+      resources :altitude_works, only: [ :index ]
+      delete 'selected_altitudes/:altitude_id', to: 'altitude_works#destroy_selected_altitudes'
       get 'selected_altitude_works', to: 'altitude_works#selected_altitude_works'
-    end
-  end
-  namespace :api, defaults: { format: :json } do
-    namespace :v1 do
-      resources :site_installations, only: [ :index, :destroy ]
+      
+      resources :site_installations, only: [ :index ]
       get 'selected_site_installations', to: 'site_installations#selected_site_installations'
+      delete 'selected_installations/:installation_id', to: 'site_installations#destroy_selected_installations'
+      
+      resources :conductors, only: [:index, :destroy]      
+      resources :machines, only: [ :index ]
+      get 'machines/categories', to: 'machines#categories'
+      post 'conductors/:machine_id/:worker_id', to: 'conductors#create'
+      get 'workers/conductors', to: 'workers#conductors'
+      get 'workers/lifesavers', to: 'workers#lifesavers'
+      get 'workers/selected_lifesavers', to: 'workers#selected_lifesavers'
+      delete 'selected_lifesavers/:lifesaver_id', to: 'workers#destroy_selected_lifesavers'
     end
   end
 
@@ -54,7 +54,9 @@ Rails.application.routes.draw do
   resources :profiles, only: [:show, :edit, :update]
 
   # Database
-  resources :companies, only: [:update] do
+  resources :kit_security_elements, only: [:create, :destroy]
+
+  resources :companies, only: [:edit, :update] do
     member do      
       get :destroy_logo
     end
@@ -80,6 +82,15 @@ Rails.application.routes.draw do
 
 
   resources :security_coordinators, except: [:new, :show, :destroy] do
+    member do
+      post :destroyed, as: :destroy
+    end
+    collection do
+      get :pagination, as: :pagination
+    end
+  end
+
+  resources :workers, except: [:new, :show, :destroy] do
     member do
       post :destroyed, as: :destroy
     end

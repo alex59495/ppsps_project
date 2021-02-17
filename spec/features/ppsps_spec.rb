@@ -53,9 +53,9 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       regional_committee = create(:regional_committee, company: @user.company)
       sos_hand = create(:sos_hand, company: @user.company)
       security_coordinator = create(:security_coordinator, company: @user.company)
-      # create_list(:subcontractor, 3, company: @user.company)
       @ppsp = create(:ppsp, user: @user, moa: moa, moe: moe, direcct: direcct, work_medecine: work_medecine, hospital: hospital, pension_insurance: pension_insurance,
-                            demining: demining, anti_poison: anti_poison, regional_committee: regional_committee, sos_hand: sos_hand, security_coordinator: security_coordinator)
+                            demining: demining, anti_poison: anti_poison, regional_committee: regional_committee, sos_hand: sos_hand,
+                            security_coordinator: security_coordinator)
     end
 
     before do
@@ -95,47 +95,51 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
     scenario 'Complete and Submit the PPSP' do
       count = Ppsp.includes(:user).where(users: { company: @user.company }).count
       visit(new_ppsp_path)
-      fill_in('ppsp_address', with: 'Test adresse')
-      fill_in('ppsp_nature', with: 'Test de nature')
-      fill_in('ppsp_workforce', with: 'Test de personnel')
+      fill_in('ppsp_project_information_attributes_name', with: 'Test de nom de projet')
+      fill_in('ppsp_project_information_attributes_reference', with: "ABRFH78")
+      find('#ppsp_project_information_attributes_responsible_id').find(:xpath, 'option[2]').select_option
+      find('#ppsp_project_information_attributes_site_manager_id').find(:xpath, 'option[2]').select_option
+      find('#ppsp_project_information_attributes_team_manager_id').find(:xpath, 'option[2]').select_option
+
+      find('#ppsp_moa_id').find(:xpath, 'option[2]').select_option
+      find('#ppsp_moe_id').find(:xpath, 'option[2]').select_option
+      find('#ppsp_security_coordinator_id').find(:xpath, 'option[2]').select_option
+
+      find('#ppsp_regional_committee_id').find(:xpath, 'option[2]').select_option
+      find('#ppsp_pension_insurance_id').find(:xpath, 'option[2]').select_option
+      find('#ppsp_direcct_id').find(:xpath, 'option[2]').select_option
+      find('#ppsp_work_medecine_id').find(:xpath, 'option[2]').select_option
+
+      fill_in('ppsp_worksite_attributes_nature', with: 'Test de nature')
       # complete the flatpickr date
       page.execute_script("$('#range_start').val('2020-12-12')")
       fill_in('range_end', with: Date.today.next_day.next_month.next_month.to_s)
-      find('#ppsp_moa_id').find(:xpath, 'option[2]').select_option
-      find('#ppsp_moe_id').find(:xpath, 'option[2]').select_option
-      fill_in('ppsp_project_information_attributes_reference', with: "ABRFH78")
-      fill_in('ppsp_project_information_attributes_responsible', with: 'Test de responsable')
-      fill_in('ppsp_project_information_attributes_phone', with: Faker::PhoneNumber.cell_phone_in_e164)
-      fill_in('ppsp_project_information_attributes_email', with: Faker::Internet.email)
-      fill_in('ppsp_project_information_attributes_site_manager_attributes_name', with: 'Test de chef de chantier')
-      fill_in('ppsp_project_information_attributes_site_manager_attributes_phone',
-              with: Faker::PhoneNumber.cell_phone_in_e164)
-      fill_in('ppsp_project_information_attributes_site_manager_attributes_email', with: Faker::Internet.email)
-      fill_in("ppsp_project_information_attributes_team_manager_attributes_name", with: "Test de chef d'équipe")
-      fill_in("ppsp_project_information_attributes_team_manager_attributes_phone",
-              with: Faker::PhoneNumber.cell_phone_in_e164)
-      fill_in("ppsp_project_information_attributes_team_manager_attributes_email", with: Faker::Internet.email)
-      find('#ppsp_direcct_id').find(:xpath, 'option[2]').select_option
-      find('#ppsp_work_medecine_id').find(:xpath, 'option[2]').select_option
+      fill_in('ppsp_worksite_attributes_address', with: 'Test adresse')
+
+      # visible false because we hide the input to make designed css element
+      find('#timetable-summer label').click
+      fill_in('ppsp_worksite_attributes_timetable_summer_start', with: '7h30')
+      fill_in('ppsp_worksite_attributes_timetable_summer_end', with: '16h30')
+      find('#timetable-winter label').click
+      fill_in('ppsp_worksite_attributes_timetable_winter_start', with: '8h30')
+      fill_in('ppsp_worksite_attributes_timetable_winter_end', with: '16h30')
+
+      fill_in('ppsp_worksite_attributes_num_responsible', with: 1)
+      fill_in('ppsp_worksite_attributes_num_conductor', with: 3)
+      fill_in('ppsp_worksite_attributes_num_worker', with: 10)
+
       find('#ppsp_demining_id').find(:xpath, 'option[2]').select_option
-      find('#ppsp_regional_committee_id').find(:xpath, 'option[2]').select_option
-      find('#ppsp_pension_insurance_id').find(:xpath, 'option[2]').select_option
       find('#ppsp_sos_hand_id').find(:xpath, 'option[2]').select_option
       find('#ppsp_anti_poison_id').find(:xpath, 'option[2]').select_option
+
       find('#ppsp_hospital_id').find(:xpath, 'option[2]').select_option
-      find('#ppsp_security_coordinator_id').find(:xpath, 'option[2]').select_option
+
       find('#ppsp_agglomeration').find(:xpath, 'option[2]').select_option
       find('#ppsp_street_impact').find(:xpath, 'option[2]').select_option
       find('#ppsp_river_guidance').find(:xpath, 'option[2]').select_option
       click_button "J'ai terminé"
-      # A refacto
-      sleep 5
+      sleep 2
       expect(Ppsp.includes(:user).where(users: { company: @user.company }).count).to eq(count + 1)
-    end
-
-    scenario 'Show Page have content' do
-      visit(ppsp_path(@ppsp))
-      expect(page).to have_content('Plan Particulier de Sécurité et de Protection de la Santé')
     end
 
     scenario 'Open a new tab when click on PDF' do
@@ -147,11 +151,11 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
     scenario 'Change the field when update' do
       visit(edit_ppsp_path(@ppsp))
-      fill_in('ppsp_project_information_attributes_site_manager_attributes_name', with: 'Update chef de chantier')
+      fill_in('ppsp_project_information_attributes_reference', with: 'Reference Updated')
       click_button("J'ai terminé")
       # A refacto
       sleep 2
-      expect(@ppsp.reload.project_information.site_manager.name).to eq('Update chef de chantier')
+      expect(@ppsp.reload.project_information.reference).to eq('Reference Updated')
     end
 
     scenario 'Confirmation message when delete a Ppsp' do
@@ -311,7 +315,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       end
 
       scenario "Can add Subcontractors from PPSP new page" do
-        count = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('input').size
+        count = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('label').size
         find('#SubcontractorDb').click
         page.execute_script("$('#subcontractor_name').val('Test subcontractor')")
         page.execute_script("$('#subcontractor_address').val('Test subcontractor')")
@@ -320,8 +324,8 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         page.execute_script("$('#subcontractor_responsible_name').val('Test name')")
         page.execute_script("$('#subcontractor_responsible_phone').val('0600000000')")
         find('#SubcontractorBtn').click
-        count_end = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('input').size
-        sleep 3
+        sleep 2
+        count_end = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('label').size
         expect(count_end).to eq(count + 1)
       end
 
@@ -382,16 +386,6 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
         fill_in('direcct_fax', with: '0600000000')
         fill_in('direcct_phone', with: '0600000000')
         find('#DirecctBtn').click
-        expect(page).to have_css('.is-invalid')
-      end
-
-      scenario "Rerender Subcontractor when not filling right" do
-        find('#SubcontractorDb').click
-        fill_in('subcontractor_name', with: 'Test subcontractor')
-        fill_in('subcontractor_responsible_name', with: 'Test subcontractor')
-        fill_in('subcontractor_responsible_email', with: 'test_subcontractor@gmail.com')
-        fill_in('subcontractor_responsible_phone', with: '0600000000')
-        find('#SubcontractorBtn').click
         expect(page).to have_css('.is-invalid')
       end
 

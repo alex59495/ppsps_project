@@ -1,5 +1,39 @@
-.form-altitude-other {
-  width: 90%;
+.form-checkbox {
+  &:hover {
+    cursor: pointer;
+    font-size: 17px;
+  }
+  &:before {
+    content: '\f0c8';
+    font-family: 'Font Awesome\ 5 Free';
+    margin-right: 8px;
+    font-size: 12px;
+  }
+  &.active {
+    &:before {
+      content: '\f00c';
+      font-family: 'Font Awesome\ 5 Free';
+      margin-right: 8px;
+      font-size: 12px;
+      color: green;
+      font-weight: 900;
+    }
+  }
+}
+
+.form-checkbox-subcontractor {
+  background-color: #ff7e676b;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  width: 100%;
+  &.active {
+    background-color: #ff7e678c;
+  }
+  &:hover {
+    cursor: pointer;
+    box-shadow: 1px 1px 5px rgba(189, 189, 189, 0.5);
+  }
 }
 
 .form-title {
@@ -8,6 +42,68 @@
   text-align: center;
   margin-top: 2em;
   margin-bottom: 1em;
+}
+
+.form-subtitle {
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 1.5em;
+  text-align: left;
+}
+
+.form-react-conductors {
+  height: 380px;
+  color: white;
+  background-color: $blue-dark;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  .form-select-machines-title {
+    padding: 10px 20px;
+    font-weight: 500;
+    color: white;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.form-checkboxes-title {
+  background-color: white;
+  color: black;
+  padding: 5px 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.form-checkboxes-subtitle {
+  background-color: white;
+  color: black;
+  border-bottom: solid 1px gray;
+  padding: 5px 10px;
+}
+
+.form-checkboxes {
+  height: 200px;
+  color: black;
+  overflow-y: auto;
+  background: white;
+  padding: 20px 40px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.form-conductors-selection {
+  border: 1px solid $blue-dark-shadow;
+  padding: 20px 0;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
 }
 
 .form-flex {
@@ -19,16 +115,62 @@
   .form-flex {
     flex-direction: column;
   }
+  .form-flex-element {
+    width: 100%;
+  }
+}
+
+.selected-form-check {
+  overflow: auto;
+  height: 300px;
 }
 
 .form-flex-element {
   min-width: 300px;
-  margin: 20px;
-  box-shadow: 1px 1px 2px 2px $blue-shadow;
+  width: 50px;
+  box-shadow: 1px 1px 5px $blue-shadow;
   padding: 8px;
   border-radius: 12px;
-  height: fit-content;
-  height: 300px;
-  overflow: auto;
-  margin: 30px auto;
+  margin: 10px auto;
+  background-color: white;
+  .title {
+    border-bottom: solid 1px gray;
+    margin-bottom: 0.4em;
+  }
+  fieldset {
+    overflow: auto;
+    height: 300px;
+  }
+}
+
+// Checkbox Personalisée
+input[type='checkbox'].checkbox-visual + label {
+  box-sizing: border-box;
+  display: inline-block;
+  content: '';
+  width: 3rem;
+  height: 1.5rem;
+  border-radius: 1.5rem;
+  padding: 2px;
+  background-color: #c0ceda;
+  transition: all 0.5s;
+  &:hover {
+    cursor: pointer;
+  }
+}
+input[type='checkbox'].checkbox-visual + label::before {
+  box-sizing: border-box;
+  display: block;
+  content: '';
+  height: calc(1.5rem - 4px);
+  width: calc(1.5rem - 4px);
+  border-radius: 50%;
+  background-color: #fff;
+  transition: all 0.5s;
+}
+input[type='checkbox'].checkbox-visual:checked + label {
+  background-color: $orange;
+}
+input[type='checkbox'].checkbox-visual:checked + label::before {
+  margin-left: 1.5rem;
 }

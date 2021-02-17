@@ -3,25 +3,21 @@ require 'rails_helper'
 RSpec.feature "React Handling", type: :feature, js: true do
   feature 'Logged as User Admin' do
     before :all do
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with(:truncation)
       @user = create(:user_admin)
-      moa = create(:moa, company: @user.company)
-      moe = create(:moe, company: @user.company)
-      direcct = create(:direcct, company: @user.company)
-      pension_insurance = create(:pension_insurance, company: @user.company)
-      work_medecine = create(:work_medecine, company: @user.company)
-      hospital = create(:hospital, company: @user.company)
-      demining = create(:demining, company: @user.company)
-      anti_poison = create(:anti_poison, company: @user.company)
-      regional_committee = create(:regional_committee, company: @user.company)
-      sos_hand = create(:sos_hand, company: @user.company)
-      security_coordinator = create(:security_coordinator, company: @user.company)
       @subcontractors = create_list(:subcontractor, 5, company: @user.company)
       @risks = create_list(:risk, 5)
-      @site_installations = create_list(:site_installation, 5)
+      @site_installations = create_list(:site_installation, 5, mobile: false)
       @altitude_works = create_list(:altitude_work, 5)
-      @ppsp = create(:ppsp, user: @user, moa: moa, moe: moe, direcct: direcct, work_medecine: work_medecine, hospital: hospital,
-                            pension_insurance: pension_insurance, demining: demining, anti_poison: anti_poison, regional_committee: regional_committee,
-                            sos_hand: sos_hand, security_coordinator: security_coordinator)
+      @lifesavers = create_list(:worker, 5, company: @user.company, lifesaver: true)
+      @worker_conductors = create_list(:worker, 5, company: @user.company, conductor: true, lifesaver: false)
+      @ppsp = create(:ppsp, user: @user)
+      @machine1 = create(:machine, category: 'Engin de chantier', caces: 'Categorie A', description: 'Bla bla bla je suis un engin de chantier de categorie A')
+      @machine2 = create(:machine, category: 'Engin de chantier', caces: 'Categorie B', description: 'Bla bla bla je suis un engin de chantier de categorie B')
+      @machine3 = create(:machine, category: 'Pont roulant', caces: 'Categorie A', description: 'Bla bla bla je suis un pont roulant de categorie A')
+      @machine3 = create(:machine, category: 'Pont roulant', caces: 'Categorie B', description: 'Bla bla bla je suis un pont roulant de categorie B')
+      @machine4 = create(:machine, category: 'Pont Fixe', caces: 'Categorie A', description: 'Bla bla bla je suis un pont fixe de categorie A')
     end
 
     feature 'React within the form selected database' do
@@ -31,69 +27,82 @@ RSpec.feature "React Handling", type: :feature, js: true do
 
       scenario "Can see the list of Subcontractor's options" do
         visit(new_ppsp_path)
-        count = @subcontractors.size
-        find('.form-group.check_boxes.optional.ppsp_subcontractors').all('input').size
+        count = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('label').size
         expect(count).to eq(@subcontractors.size)
       end
 
       scenario "Can see the list of Risk's options" do
         visit(new_ppsp_path)
-        count = @risks.size
-        find('.form-group.check_boxes.optional.ppsp_risks').all('input').size
+        count = find('.form-group.check_boxes.optional.ppsp_risks').all('label').size
         expect(count).to eq(@risks.size)
       end
 
       scenario "Can see the list of Site Installation's options" do
         visit(new_ppsp_path)
-        count = @site_installations.size
-        find('.form-group.check_boxes.optional.ppsp_site_installations').all('input').size
+        find('#form-site-fixe').click
+        count = find('.form-group.check_boxes.optional.ppsp_site_installations').all('label').size
         expect(count).to eq(@site_installations.size)
       end
 
       scenario "Can see the list of Altitude Work's options" do
         visit(new_ppsp_path)
-        count = @altitude_works.size
-        find('.form-group.check_boxes.optional.ppsp_altitude_works').all('input').size
+        count = find('.form-group.check_boxes.optional.ppsp_altitude_works').all('label').size
         expect(count).to eq(@altitude_works.size)
+      end
+
+      scenario "Can see the list of Lifesavers options" do
+        visit(new_ppsp_path)
+        count = find('.form-group.check_boxes.optional.ppsp_lifesavers').all('label').size
+        expect(count).to eq(@lifesavers.size)
       end
 
       scenario 'When click on subcontractor option, actualize form list options + add in the addList' do
         visit(new_ppsp_path)
-        count_form_list = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('input').size
-        count_add_list = find('.form-selected-subcontractor').all('input').size
-        find("#ppsp_subcontractors_#{@subcontractors.first.id}").click
-        expect(find('.form-group.check_boxes.optional.ppsp_subcontractors').all('input').size).to eq(count_form_list - 1)
-        expect(find('.form-selected-subcontractor').all('input').size).to eq(count_add_list + 1)
+        count_form_list = find('.form-group.check_boxes.optional.ppsp_subcontractors').all('label').size
+        count_add_list = find('.form-selected-subcontractor').all('label').size
+        find("#check_ppsp_subcontractors_#{@subcontractors.first.id}").click
+        expect(find('.form-group.check_boxes.optional.ppsp_subcontractors').all('label').size).to eq(count_form_list - 1)
+        expect(find('.form-selected-subcontractor').all('label').size).to eq(count_add_list + 1)
       end
 
       scenario 'When click on risk option, actualize form list options + add in the addList' do
         visit(new_ppsp_path)
-        count_form_list = find('.form-group.check_boxes.optional.ppsp_risks').all('input').size
-        count_add_list = find('.form-selected-risk').all('input').size
-        find("#ppsp_risks_#{@risks.first.id}").click
-        expect(find('.form-group.check_boxes.optional.ppsp_risks').all('input').size).to eq(count_form_list - 1)
-        expect(find('.form-selected-risk').all('input').size).to eq(count_add_list + 1)
+        count_form_list = find('.form-group.check_boxes.optional.ppsp_risks').all('label').size
+        count_add_list = find('.form-selected-risk').all('label').size
+        find("#check_ppsp_risks_#{@risks.first.id}").click
+        expect(find('.form-group.check_boxes.optional.ppsp_risks').all('label').size).to eq(count_form_list - 1)
+        expect(find('.form-selected-risk').all('label').size).to eq(count_add_list + 1)
       end
 
       scenario 'When click on site installation option, actualize form list options + add in the addList' do
         visit(new_ppsp_path)
-        count_form_list = find('.form-group.check_boxes.optional.ppsp_site_installations').all('input').size
-        count_add_list = find('.form-selected-site_installation').all('input').size
-        find("#ppsp_site_installations_#{@site_installations.first.id}").click
-        expect(find('.form-group.check_boxes.optional.ppsp_site_installations').all('input').size).to eq(count_form_list - 1)
-        expect(find('.form-selected-site_installation').all('input').size).to eq(count_add_list + 1)
+        find('#form-site-fixe').click
+        count_form_list = find('.form-group.check_boxes.optional.ppsp_site_installations').all('label').size
+        count_add_list = find('.form-selected-site_installation').all('label').size
+        find("#check_ppsp_site_installations_#{@site_installations.first.id}").click
+        expect(find('.form-group.check_boxes.optional.ppsp_site_installations').all('label').size).to eq(count_form_list - 1)
+        expect(find('.form-selected-site_installation').all('label').size).to eq(count_add_list + 1)
       end
 
       scenario 'When click on altitude work option, actualize form list options + add in the addList' do
         visit(new_ppsp_path)
-        count_form_list = find('.form-group.check_boxes.optional.ppsp_altitude_works').all('input').size
-        count_add_list = find('.form-selected-altitude_work').all('input').size
-        find("#ppsp_altitude_works_#{@altitude_works.first.id}").click
-        expect(find('.form-group.check_boxes.optional.ppsp_altitude_works').all('input').size).to eq(count_form_list - 1)
-        expect(find('.form-selected-altitude_work').all('input').size).to eq(count_add_list + 1)
+        count_form_list = find('.form-group.check_boxes.optional.ppsp_altitude_works').all('label').size
+        count_add_list = find('.form-selected-altitude_work').all('label').size
+        find("#check_ppsp_altitude_works_#{@altitude_works.first.id}").click
+        expect(find('.form-group.check_boxes.optional.ppsp_altitude_works').all('label').size).to eq(count_form_list - 1)
+        expect(find('.form-selected-altitude_work').all('label').size).to eq(count_add_list + 1)
       end
 
-      feature 'When delete a selected subcontractor, actualize form list options' do
+      scenario 'When click on lifesaver option, actualize form list options + add in the addList' do
+        visit(new_ppsp_path)
+        count_form_list = find('.form-group.check_boxes.optional.ppsp_lifesavers').all('label').size
+        count_add_list = find('.form-selected-lifesaver').all('label').size
+        find("#check_ppsp_lifesavers_#{@lifesavers.first.id}").click
+        expect(find('.form-group.check_boxes.optional.ppsp_lifesavers').all('label').size).to eq(count_form_list - 1)
+        expect(find('.form-selected-lifesaver').all('label').size).to eq(count_add_list + 1)
+      end
+
+      feature 'When delete, actualize form list options' do
         before do
           @subcontractor_add = create_list(:subcontractor, 2, company: @user.company)
           @ppsp.subcontractors = @subcontractor_add
@@ -103,6 +112,8 @@ RSpec.feature "React Handling", type: :feature, js: true do
           @ppsp.altitude_works = @altitude_work_add
           @site_installation_add = create_list(:site_installation, 2)
           @ppsp.site_installations = @site_installation_add
+          @lifesavers_add = create_list(:worker, 2, lifesaver: true, company: @user.company)
+          @ppsp.workers = @lifesavers_add
         end
 
         scenario 'Actualize list subcontractors option when delete' do
@@ -136,6 +147,65 @@ RSpec.feature "React Handling", type: :feature, js: true do
           sleep 2
           expect(find('#containerSelectedAltitudeWorks').all('.card-form-selected').size).to eq(count - 1)
         end
+
+        scenario 'Actualize lifesaver list option when delete' do
+          visit(edit_ppsp_path(@ppsp))
+          count = find('#containerSelectedLifesavers').all('.card-form-selected').size
+          first('#containerSelectedLifesavers > .card-form-selected > .card-form-delete').click
+          sleep 2
+          expect(find('#containerSelectedLifesavers').all('.card-form-selected').size).to eq(count - 1)
+        end
+      end
+    end
+
+    feature 'Select a conductor' do
+      before do
+        login_as(@user)
+      end
+
+      scenario 'Button disabled when not selected option' do
+        visit(new_ppsp_path)
+        expect(page).to have_button('submit-category', disabled: true)
+      end
+
+      scenario 'When I select machine and conductors => Create a Conductor instance + hide the respectives forms' do
+        create(:conductor, user: @user, ppsp_id: @ppsp.id, machine: @machine1)
+        visit(edit_ppsp_path(@ppsp))
+        count = find('.form-conductors-selection').all('.card-vehicule').size
+        # find('#formSelectCategory').find(:xpath, 'option[2]').select_option
+        select "Pont roulant", from: 'formSelectCategory'
+        expect(page).to have_button('submit-category', disabled: false)
+        find('#submit-category').click
+        expect(page).to have_selector('.form-select-machines', visible: true)
+        # find('#formSelectMachine').find(:xpath, 'option[1]').select_option
+        select "Categorie B", from: 'formSelectMachine'
+        find('#submit-machine').click
+        expect(page).to have_selector('.checkboxes-workers', visible: true)
+        check "check_worker_#{@worker_conductors.first.id}"
+        find('#submit-conductors').click
+        expect(page).to have_selector('.checkboxes-workers', visible: false)
+        sleep 2
+        expect(find('.form-conductors-selection').all('.card-vehicule').size).to eq(count + 1)
+      end
+    end
+
+    feature 'Delete a conductor' do
+      before :all do
+        create(:conductor, user: @user, ppsp_id: @ppsp.id, machine: @machine1)
+        create(:conductor, user: @user, ppsp_id: @ppsp.id, machine: @machine2)
+        create(:conductor, user: @user, ppsp_id: @ppsp.id, machine: @machine3)
+      end
+
+      before do
+        login_as(@user)
+      end
+
+      scenario 'Can delete a conductor' do
+        visit(edit_ppsp_path(@ppsp))
+        count = find('.form-conductors-selection').all('.card-vehicule').size
+        first('.form-conductors-selection .card-vehicule .card-delete').click
+        sleep 2
+        expect(find('.form-conductors-selection').all('.card-vehicule').size).to eq(count - 1)
       end
     end
   end

@@ -6,11 +6,14 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :validatable
 
+  acts_as_token_authenticatable
+
   has_many :ppsps
+  has_many :conductors
   belongs_to :company
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :admin, inclusion: { in: [ true, false ] }
+  validates :admin, inclusion: { in: [true, false] }
   attr_accessor :user_update
 
   validate :secure_password, unless: :user_update?

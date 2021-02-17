@@ -1,8 +1,8 @@
 class Api::V1::RisksController < Api::V1::BaseController
   def index
-    # Renvois la liste des sous-traitants qui n'ont pas encore été sélectionnés
+    # Renvoie la liste des risques qui n'ont pas encore été sélectionnés
     if params[:ppsps_id] == ''
-      @risks = policy_scope(Risk.all)
+      @risks = policy_scope(Risk)
       authorize @risks
     else
       selected_risks = SelectedRisk.where(ppsp_id: params[:ppsps_id])
@@ -12,14 +12,14 @@ class Api::V1::RisksController < Api::V1::BaseController
   end
 
   def selected_risks
-    # Renvois la liste des sous-traitants aui ont déjà été sĺectionnés
+    # Renvois la liste des risques aui ont déjà été sĺectionnés
     selected_risks = SelectedRisk.where(ppsp_id: params[:ppsps_id])
     @risks = policy_scope(Risk).where(id: selected_risks.map(&:risk_id))
     authorize @risks
   end
 
-  def destroy
-    @selected_risk = SelectedRisk.where(ppsp_id: params[:ppsps_id], risk_id: params[:id]).first
+  def destroy_selected_risks
+    @selected_risk = SelectedRisk.where(ppsp_id: params[:ppsps_id], risk_id: params[:risk_id]).first
     authorize @selected_risk
     @selected_risk.destroy
     head :no_content

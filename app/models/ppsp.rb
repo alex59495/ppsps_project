@@ -17,6 +17,9 @@ class Ppsp < ApplicationRecord
   belongs_to :demining
   belongs_to :hospital
   belongs_to :security_coordinator, optional: true
+  belongs_to :worksite, inverse_of: :ppsps
+  accepts_nested_attributes_for :worksite
+  has_many :conductors, dependent: :destroy
   has_many :selected_subcontractors, dependent: :destroy
   has_many :subcontractors, through: :selected_subcontractors
   has_many :selected_installations, dependent: :destroy
@@ -25,16 +28,12 @@ class Ppsp < ApplicationRecord
   has_many :altitude_works, through: :selected_altitudes
   has_many :selected_risks, dependent: :destroy
   has_many :risks, through: :selected_risks
-  validates :address, presence: true
-  validates :start_date, presence: true
-  validates :end_date, presence: true
-  validates :nature, presence: true
-  validates :workforce, presence: true
+  has_many :selected_lifesavers, dependent: :destroy
+  has_many :workers, through: :selected_lifesavers
   validates :agglomeration, presence: true
   validates :street_impact, presence: true
   validates :river_guidance, presence: true
   validates :moa_id, presence: true
-  validates :moe_id, presence: true
   validates :demining_id, presence: true
   validates :anti_poison_id, presence: true
   validates :sos_hand_id, presence: true
@@ -43,16 +42,8 @@ class Ppsp < ApplicationRecord
   validates :work_medecine_id, presence: true
   validates :pension_insurance_id, presence: true
   validates :hospital_id, presence: true
-  validate :start_date_cant_be_after_end_date
   has_one_attached :logo_client
-  geocoded_by :address
-  after_validation :geocode, if: :will_save_change_to_address?
+  validates :logo_client, size: { less_than: 100.kilobytes, message: 'est trop lourd' }, content_type: ['image/png', 'image/jpg', 'image/jpeg']
   has_many_attached :annexes
-
-  def start_date_cant_be_after_end_date
-    if start_date.present? && end_date.present? && start_date >= end_date
-      errors.add(:end_date, "ne peut pas être avant ou égale à la date de début de chantier")
-      errors.add(:start_date, "ne peut pas être après ou égale à la date de fin de chantier")
-    end
-  end
+  validates :annexes, size: { less_than: 500.kilobytes, message: 'est trop lourd' }
 end

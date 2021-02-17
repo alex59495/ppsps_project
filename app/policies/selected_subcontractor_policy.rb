@@ -5,15 +5,7 @@ class SelectedSubcontractorPolicy < ApplicationPolicy
     end
   end
 
-  def index?
-    true
-  end
-
-  def create?
-    true
-  end
-
-  def destroy?
-    true
+  def destroy_selected_subcontractors?
+    !user.nil?
   end
 end

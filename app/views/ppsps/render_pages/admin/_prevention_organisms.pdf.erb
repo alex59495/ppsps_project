@@ -1,0 +1,65 @@
+<div class="prevention-organisms">
+  <h2 class="pdf-subtitle">
+    1.<%= @num_admin %> Les organismes de préventions
+     <% @num_admin += 1 %>
+  </h2>
+  <div class="flexbox">
+    <div class="flex-div-50">
+      <div class="po-direcct">
+        <div class="pdf-subsubtitle">
+          DIRECCT
+        </div>
+        <div class="container-80 mb-2">
+          <div class="flexbox">
+            <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= @ppsp.direcct.address %></div>
+            <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.direcct.phone %></div>
+            <div class="flex-div-40">Fax :</div><div class="flex-div-60"><%= @ppsp.direcct.fax %></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-div-50">
+      <div class="po-regional-committee">
+        <div class="pdf-subsubtitle">
+          Comité Régional de l'OPPBTP
+        </div>
+        <div class="container-80 mb-2">
+          <div class="flexbox">
+            <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= @ppsp.regional_committee.name %></div>
+            <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= @ppsp.regional_committee.address %></div>
+            <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.regional_committee.phone %></div>
+            <div class="flex-div-40">Fax :</div><div class="flex-div-60"><%= @ppsp.regional_committee.fax %></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-div-50">
+      <div class="po-pension-insurance">
+        <div class="pdf-subsubtitle">
+          CARSAT
+        </div>
+        <div class="container-80 mb-2">
+          <div class="flexbox">
+            <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= @ppsp.pension_insurance.address %></div>
+            <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.pension_insurance.phone %></div>
+            <div class="flex-div-40">Fax :</div><div class="flex-div-60"><%= @ppsp.pension_insurance.fax %></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-div-50">
+      <div class="po-work-medecine">
+        <div class="pdf-subsubtitle">
+          Médecine du Travail
+        </div>
+        <div class="container-80 mb-2">
+          <div class="flexbox">
+            <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= @ppsp.work_medecine.address %></div>
+            <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.work_medecine.phone %></div>
+            <div class="flex-div-40">Fax :</div><div class="flex-div-60"><%= @ppsp.work_medecine.fax %></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

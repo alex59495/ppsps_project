@@ -1,77 +1,52 @@
-const hideForm = () => {
-  const btnAddRisk = document.getElementById('checkRisks');
-  const btnAddAltitudeWork = document.getElementById('CheckAltitudeWork');
-  const btnAddSecurityCoordinator = document.getElementById(
-    'checkSecurityCoordinator'
-  );
+const hideSecurityKit = () => {
+  if(document.querySelector('form.edit_company')) {
+    const btnAdd = document.getElementById('btn-add-security-kit');
+    const formAdd = document.querySelector('#add-security-kit');
+    btnAdd.addEventListener('click', () => {
+      formAdd.classList.toggle('hidden');
+      btnAdd.innerText = btnAdd.innerText === 'Ajouter' ? 'Cacher' : 'Ajouter';
+    })
+  }
+}
 
-  if ($('#siteInstallationType')[0]) {
-    const siteInstallationType = $('#siteInstallationType')[0];
-    const checkSiteInstallation = $('#checkSiteInstallation')[0];
-    checkSiteInstallation.addEventListener('click', () => {
-      siteInstallationType.classList.toggle('hidden');
-    });
-    const checkSiteInstallationMobile = document.getElementById(
-      'checkSiteInstallationMobile'
-    );
-    const siteInstallationMobile = document.getElementById(
-      'siteInstallationMobile'
-    );
-    checkSiteInstallationMobile.addEventListener('click', () => {
-      siteInstallationMobile.classList.toggle('hidden');
-    });
-    const checkSiteInstallationFix = document.getElementById(
-      'checkSiteInstallationFix'
-    );
-    const siteInstallationFix = document.getElementById('siteInstallationFix');
-    checkSiteInstallationFix.addEventListener('click', () => {
-      siteInstallationFix.classList.toggle('hidden');
-    });
+const hidePlanInstallation = () => {
+  const inputPlan = document.getElementById('ppsp_worksite_attributes_plan')
+  const alertText =document.getElementById('alert-text-plan')
+  if(inputPlan) {
+    inputPlan.addEventListener('click', () => {
+      alertText.classList.toggle('hidden-visibility')
+    })
   }
-  if (btnAddAltitudeWork) {
-    const altitudeWork = document.getElementById('altitudeWork');
-    btnAddAltitudeWork.addEventListener('click', () => {
-      altitudeWork.classList.toggle('hidden');
-    });
-  }
-  if (btnAddSecurityCoordinator) {
-    const securityCoordinator = document.getElementById('securityCoordinator');
-    btnAddSecurityCoordinator.addEventListener('click', () => {
-      securityCoordinator.classList.toggle('hidden');
-    });
-  }
-  if (btnAddRisk) {
-    const selectedRisks = document.getElementById('new_selected_risk');
-    btnAddRisk.addEventListener('click', () => {
-      selectedRisks.classList.toggle('hidden');
-    });
-  }
-};
+}
 
-const hideInfosSelect = () => {
-  if (document.getElementById('cardSelect')) {
-    const cardInfo = document.querySelector('.card-info');
-    const btnMesInfos = document.getElementById('btn-mes-infos');
-    const cardInfoClose = document.getElementById('card-info-close');
-    // Remove button if card info exists (example : after adding a subcontractor)
-    if (cardInfo && !cardInfo.classList.contains('hidden')) {
-      btnMesInfos.classList.remove('hidden');
-    }
-    if (btnMesInfos) {
-      btnMesInfos.addEventListener('click', () => {
-        cardInfo.classList.toggle('hidden');
-      });
-    }
-    if (cardInfoClose) {
-      cardInfoClose.addEventListener('click', () => {
-        cardInfo.classList.toggle('hidden');
-      });
-    }
-    // Verify if we are coming back on the infos supp page from a destroy action
-    if (cardInfo && cardInfo.dataset.show === 'true') {
-      cardInfo.classList.remove('hidden');
-    }
+const hideTimetableSummer = () => {
+  const inputSummer = document.getElementById('ppsp_worksite_attributes_timetable_summer');
+  const timetables = document.getElementById('timetable-summer-input')
+  if(inputSummer) {
+    inputSummer.addEventListener('click', () => {
+      timetables.classList.toggle('hidden-visibility')
+      if(timetables.classList.contains('hidden-visibility')) {
+        timetables.querySelectorAll('input').forEach(input => {
+          input.value = ''
+        })
+      }
+    })
   }
-};
+}
 
-export { hideForm, hideInfosSelect };
+const hideTimetableWinter = () => {
+  const inputWinter = document.getElementById('ppsp_worksite_attributes_timetable_winter');
+  const timetables = document.getElementById('timetable-winter-input')
+  if(inputWinter) {
+    inputWinter.addEventListener('click', () => {
+      timetables.classList.toggle('hidden-visibility')
+      if(timetables.classList.contains('hidden-visibility')) {
+        timetables.querySelectorAll('input').forEach(input => {
+          input.value = ''
+        })
+      }
+    })
+  }
+}
+
+export { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter }

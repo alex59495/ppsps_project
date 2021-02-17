@@ -1,0 +1,9 @@
+ <h2 class="pdf-subtitle">
+  3.<%= @num_security %> La trousse de secours de l'Entreprise
+  <% @num_security += 1 %>
+</h2>
+<% @ppsp.user.company.kit_security_elements.each do |kit| %>
+  <div class='text-center'>
+    <%= "#{kit.number} #{kit.name}" %>
+  </div>
+<% end %>

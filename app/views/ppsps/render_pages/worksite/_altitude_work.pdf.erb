@@ -1,0 +1,17 @@
+<div class="pdf-text-container">
+  <h2 class="pdf-subtitle">
+    2.<%= @num_worksite %> Les accès au chantier
+    <% @num_worksite += 1 %>
+  </h2>
+  <% @ppsp.selected_altitudes.each do |altitude| %>
+    <% if altitude.other %>
+      <div class="aw-name">
+        <%= altitude.altitude_work.name %>, <%= altitude.other %>
+      </div>
+    <% else %>
+      <div class="aw-name">
+        <%= altitude.altitude_work.name %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

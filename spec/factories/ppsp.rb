@@ -1,10 +1,5 @@
 FactoryBot.define do
   factory :ppsp do
-    address { Faker::Address.street_address}
-    start_date { '2020-09-25' }
-    end_date { '2022-09-25' }
-    nature { 'Test de nature' }
-    workforce { '1 chef de chantier, 3 ouvriers' }
     agglomeration { 'Agglomération' }
     street_impact { 'Hors emprise voirie' }
     river_guidance { "Cours d'eau" }
@@ -21,6 +16,7 @@ FactoryBot.define do
     anti_poison
     user
     demining
+    worksite
 
     trait :company_uber do
       user { association(:user_uber) }

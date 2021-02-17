@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_31_110111) do
+ActiveRecord::Schema.define(version: 2021_02_08_161812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,19 @@ ActiveRecord::Schema.define(version: 2021_01_31_110111) do
     t.text "content_secu", default: ""
   end
 
+  create_table "conductors", force: :cascade do |t|
+    t.bigint "ppsp_id"
+    t.bigint "machine_id", null: false
+    t.bigint "worker_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["machine_id"], name: "index_conductors_on_machine_id"
+    t.index ["ppsp_id"], name: "index_conductors_on_ppsp_id"
+    t.index ["user_id"], name: "index_conductors_on_user_id"
+    t.index ["worker_id"], name: "index_conductors_on_worker_id"
+  end
+
   create_table "deminings", force: :cascade do |t|
     t.string "name"
     t.string "address"
@@ -82,6 +95,7 @@ ActiveRecord::Schema.define(version: 2021_01_31_110111) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "is_destroyed", default: false
+    t.string "website"
     t.index ["company_id"], name: "index_direccts_on_company_id"
   end
 
@@ -94,6 +108,24 @@ ActiveRecord::Schema.define(version: 2021_01_31_110111) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "is_destroyed", default: false
     t.index ["company_id"], name: "index_hospitals_on_company_id"
+  end
+
+  create_table "kit_security_elements", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.string "name"
+    t.integer "number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_kit_security_elements_on_company_id"
+  end
+
+  create_table "machines", force: :cascade do |t|
+    t.string "category"
+    t.string "caces"
+    t.text "description"
+    t.string "image"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "moas", force: :cascade do |t|
@@ -130,15 +162,11 @@ ActiveRecord::Schema.define(version: 2021_01_31_110111) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "is_destroyed", default: false
+    t.string "website"
     t.index ["company_id"], name: "index_pension_insurances_on_company_id"
   end
 
   create_table "ppsps", force: :cascade do |t|
-    t.string "address"
-    t.date "start_date"
-    t.date "end_date"
-    t.string "nature"
-    t.string "workforce"
     t.string "agglomeration"
     t.string "street_impact"
     t.string "river_guidance"
@@ -158,8 +186,7 @@ ActiveRecord::Schema.define(version: 2021_01_31_110111) do
     t.bigint "hospital_id", null: false
     t.bigint "security_coordinator_id"
     t.text "content_secu", default: ""
-    t.float "latitude"
-    t.float "longitude"
+    t.bigint "worksite_id", null: false
     t.index ["anti_poison_id"], name: "index_ppsps_on_anti_poison_id"
     t.index ["demining_id"], name: "index_ppsps_on_demining_id"
     t.index ["direcct_id"], name: "index_ppsps_on_direcct_id"
@@ -173,19 +200,19 @@ ActiveRecord::Schema.define(version: 2021_01_31_110111) do
     t.index ["sos_hand_id"], name: "index_ppsps_on_sos_hand_id"
     t.index ["user_id"], name: "index_ppsps_on_user_id"
     t.index ["work_medecine_id"], name: "index_ppsps_on_work_medecine_id"
+    t.index ["worksite_id"], name: "index_ppsps_on_worksite_id"
   end
 
   create_table "project_informations", force: :cascade do |t|
     t.string "reference"
-    t.string "responsible"
-    t.string "phone"
-    t.string "email"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "site_manager_id", null: false
-    t.bigint "team_manager_id", null: false
-    t.index ["site_manager_id"], name: "index_project_informations_on_site_manager_id"
-    t.index ["team_manager_id"], name: "index_project_informations_on_team_manager_id"
+    t.integer "responsible_id"
+    t.integer "team_manager_id"
+    t.integer "site_manager_id"
+    t.bigint "company_id", null: false
+    t.index ["company_id"], name: "index_project_informations_on_company_id"
   end
 
   create_table "regional_committees", force: :cascade do |t|
@@ -197,6 +224,7 @@ ActiveRecord::Schema.define(version: 2021_01_31_110111) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "is_destroyed", default: false
+    t.string "website"
     t.index ["company_id"], name: "index_regional_committees_on_company_id"
   end
 
@@ -238,6 +266,15 @@ ActiveRecord::Schema.define(version: 2021_01_31_110111) do
     t.index ["site_installation_id"], name: "index_selected_installations_on_site_installation_id"
   end
 
+  create_table "selected_lifesavers", force: :cascade do |t|
+    t.bigint "ppsp_id", null: false
+    t.bigint "worker_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ppsp_id"], name: "index_selected_lifesavers_on_ppsp_id"
+    t.index ["worker_id"], name: "index_selected_lifesavers_on_worker_id"
+  end
+
   create_table "selected_risks", force: :cascade do |t|
     t.bigint "ppsp_id", null: false
     t.bigint "risk_id", null: false
@@ -259,14 +296,6 @@ ActiveRecord::Schema.define(version: 2021_01_31_110111) do
   create_table "site_installations", force: :cascade do |t|
     t.string "name"
     t.boolean "mobile"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "site_managers", force: :cascade do |t|
-    t.string "name"
-    t.string "phone"
-    t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -296,14 +325,6 @@ ActiveRecord::Schema.define(version: 2021_01_31_110111) do
     t.index ["company_id"], name: "index_subcontractors_on_company_id"
   end
 
-  create_table "team_managers", force: :cascade do |t|
-    t.string "name"
-    t.string "phone"
-    t.string "email"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
@@ -316,6 +337,8 @@ ActiveRecord::Schema.define(version: 2021_01_31_110111) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "admin", default: false
     t.bigint "company_id", null: false
+    t.string "authentication_token", limit: 30
+    t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -332,11 +355,54 @@ ActiveRecord::Schema.define(version: 2021_01_31_110111) do
     t.index ["company_id"], name: "index_work_medecines_on_company_id"
   end
 
+  create_table "workers", force: :cascade do |t|
+    t.boolean "lifesaver"
+    t.boolean "conductor"
+    t.boolean "is_destroyed", default: false
+    t.string "role"
+    t.string "phone"
+    t.string "email"
+    t.bigint "company_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.index ["company_id"], name: "index_workers_on_company_id"
+  end
+
+  create_table "worksites", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.text "nature"
+    t.integer "num_responsible"
+    t.integer "num_conductor"
+    t.integer "num_worker"
+    t.string "address"
+    t.boolean "timetable_summer"
+    t.string "timetable_summer_start"
+    t.string "timetable_summer_end"
+    t.boolean "timetable_winter"
+    t.string "timetable_winter_start"
+    t.string "timetable_winter_end"
+    t.boolean "electrical_site"
+    t.boolean "water_site"
+    t.boolean "plan"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.float "latitude"
+    t.float "longitude"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "anti_poisons", "companies"
+  add_foreign_key "conductors", "machines"
+  add_foreign_key "conductors", "ppsps"
+  add_foreign_key "conductors", "users"
+  add_foreign_key "conductors", "workers"
   add_foreign_key "deminings", "companies"
   add_foreign_key "direccts", "companies"
   add_foreign_key "hospitals", "companies"
+  add_foreign_key "kit_security_elements", "companies"
   add_foreign_key "moas", "companies"
   add_foreign_key "moes", "companies"
   add_foreign_key "pension_insurances", "companies"
@@ -353,10 +419,12 @@ ActiveRecord::Schema.define(version: 2021_01_31_110111) do
   add_foreign_key "ppsps", "sos_hands"
   add_foreign_key "ppsps", "users"
   add_foreign_key "ppsps", "work_medecines"
-  add_foreign_key "project_informations", "site_managers"
-  add_foreign_key "project_informations", "team_managers"
+  add_foreign_key "ppsps", "worksites"
+  add_foreign_key "project_informations", "companies"
   add_foreign_key "regional_committees", "companies"
   add_foreign_key "security_coordinators", "companies"
+  add_foreign_key "selected_lifesavers", "ppsps"
+  add_foreign_key "selected_lifesavers", "workers"
   add_foreign_key "selected_risks", "ppsps"
   add_foreign_key "selected_risks", "risks"
   add_foreign_key "selected_subcontractors", "ppsps"
@@ -365,4 +433,5 @@ ActiveRecord::Schema.define(version: 2021_01_31_110111) do
   add_foreign_key "subcontractors", "companies"
   add_foreign_key "users", "companies"
   add_foreign_key "work_medecines", "companies"
+  add_foreign_key "workers", "companies"
 end

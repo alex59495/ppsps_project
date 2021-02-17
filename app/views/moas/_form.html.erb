@@ -4,9 +4,5 @@
   <%= f.input :representative, label: 'Représentant' %>
   <%= f.input :phone, label: 'Téléphone' %>
   <%= f.input :email, label: 'Email' %>
-  <% if params[:action] == 'new' || params[:action] == 'index' %>
-    <%= f.submit 'Créer un MOA', class: 'btn-blue', id: "MoaBtn" %>
-  <% else %>
-    <%= f.submit 'Modifier ce MOA', class: 'btn-blue', id: "MoaBtn" %>
-  <% end %>
+  <%= f.button :button, 'Valider', class: 'btn-blue', id: "MoaBtn", data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe } %>
 <% end %>

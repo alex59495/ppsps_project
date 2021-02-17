@@ -19,24 +19,31 @@ WorkMedecine.destroy_all
 Risk.destroy_all
 SecurityCoordinator.destroy_all
 SiteInstallation.destroy_all
-SiteManager.destroy_all
 SosHand.destroy_all
-TeamManager.destroy_all
 Direcct.destroy_all
 AntiPoison.destroy_all
 AltitudeWork.destroy_all
 PensionInsurance.destroy_all
+Conductor.destroy_all
+Machine.destroy_all
+Worker.destroy_all
 User.destroy_all
 Subcontractor.destroy_all
 Company.destroy_all
 
 # Create company
-c1 = Company.create(name: "Company Angelique", address: 'Test adress', phone: '0300000000', representative: 'Chef de Company Angelique')
+c1 = Company.create!(name: "Company Angelique", address: 'Test adress', phone: '0300000000', representative: 'Chef de Company Angelique')
 p "create #{c1.id} company"
-c2 = Company.create(name: Faker::Company.name, address: Faker::Address.street_address, phone: Faker::PhoneNumber.cell_phone_in_e164, representative: Faker::Name.name )
+c2 = Company.create!(name: Faker::Company.name, address: Faker::Address.street_address, phone: Faker::PhoneNumber.cell_phone_in_e164, representative: Faker::Name.name )
 p "create #{c2.id} company"
-c3 = Company.create(name: Faker::Company.name, address: Faker::Address.street_address, phone: Faker::PhoneNumber.cell_phone_in_e164, representative: Faker::Name.name )
+c3 = Company.create!(name: Faker::Company.name, address: Faker::Address.street_address, phone: Faker::PhoneNumber.cell_phone_in_e164, representative: Faker::Name.name )
 p "create #{c3.id} company"
+
+
+(1..11).each do |n|
+  kit_security_element = KitSecurityElement.create!(name: "Bandellete de protection n*#{n}", number: rand(1..11), company: c1)
+  p "Create #{kit_security_element.id} Security kit for #{c1.name}"
+end
 
 # Create users
 users = [{
@@ -61,6 +68,13 @@ users = [{
   password: "@leX1s",
   admin: false,
   company: c2,
+},{
+  first_name: "Jean",
+  last_name: "Castex",
+  email: "test4@gmail.com",
+  password: "@leX1s",
+  admin: false,
+  company: c3,
 }]
 
 users.each do |user|
@@ -99,34 +113,31 @@ CSV.foreach('./Database_MOE.csv', headers: true, encoding:'utf-8', col_sep: ";")
   p "Create #{mo.id} MOE"
 end
 
-# Create Site Manager
-site_manager = {
-  name: "Test chef de chantier",
-  phone: "0600000000",
-  email: "chefdechantier@gmail.com",
-}
-site_manager1 = SiteManager.create(name: site_manager[:name], phone:site_manager[:phone], email:site_manager[:email])
-p "create #{site_manager1.id} site manager"
-
-# Create Team Manager
-team_manager = {
-  name: "Test chef d'équipe",
-  phone: "0600000000",
-  email: "chefdequipe@gmail.com",
-}
-team_manager1 = TeamManager.create(name: team_manager[:name], phone:team_manager[:phone], email:team_manager[:email])
-p "create #{team_manager1.id} team manager"
+# Create workers
+100.times do
+  worker = Worker.create!(
+    first_name: Faker::Name.first_name, 
+    last_name: Faker::Name.last_name, 
+    lifesaver: [true, false].sample, 
+    conductor: [true, false].sample, 
+    role: Worker::ROLE.sample,
+    company: Company.all.sample,
+    email: Faker::Internet.email,
+    phone: Faker::PhoneNumber.cell_phone_in_e164)
+  p "Create #{worker.id} worker"
+end
 
 # Create Project Informations
 infos = []
 100.times do |n|
+  company = Company.all.sample
   project_info = {
     reference: "AABB1#{n+10}",
-    responsible: "Responsible Test-#{n}",
-    phone: "0300000000",
-    email: "project-#{n}@gmail.com",
-    site_manager_id: SiteManager.first.id,
-    team_manager_id: TeamManager.first.id
+    company: company,
+    name: "Ceci est la désiagnation du chantier #{n}",
+    responsible_id: Worker.where(company: company, role: 'Conducteur de travaux').sample.id,
+    site_manager_id: Worker.where(company: company, role: 'Chef de chantier').sample.id,
+    team_manager_id: Worker.where(company: company, role: "Chef d'équipe").sample.id,
   }
   infos.append(project_info)
 end
@@ -134,10 +145,13 @@ end
 
 infos.each do |project|
   project_information1 = ProjectInformation.create!(
-    reference: project[:reference], phone:project[:phone],
-    responsible:project[:responsible], email:project[:email], 
-    site_manager_id:project[:site_manager_id],
-    team_manager_id:project[:team_manager_id])
+    reference: project[:reference], company:project[:company],
+    name: project[:name],
+    responsible_id: project[:responsible_id],
+    site_manager_id: project[:site_manager_id],
+    team_manager_id: project[:team_manager_id],
+    company: project[:company]
+  )
   p "create #{project_information1.id} project info"
 end
 
@@ -225,22 +239,44 @@ CSV.foreach('./Database_security_coordinators.csv', headers: true, encoding:'iso
   p "Create #{sc.id} security coordinators"
 end
 
+# Worksites
+20.times do |n|
+  summer = [true, false].sample
+  winter = [true, false].sample
+  w = Worksite.create!(
+    address: Faker::Address.street_address, 
+    start_date: DateTime.new(2020,9,1,17),
+    end_date: DateTime.new(2020,9,10,19), 
+    nature: "test_#{n+1} nature", 
+    num_responsible: rand(0..10), 
+    num_conductor: rand(0..10), 
+    num_worker: rand(0..10), 
+    timetable_summer: summer,
+    timetable_summer_start: summer ? '8h' : nil,
+    timetable_summer_end: summer ? '16h30' : nil,
+    timetable_winter: winter,
+    timetable_winter_start: winter ? '9h' : nil,
+    timetable_winter_end: winter ? '17h30' : nil,
+    electrical_site: [true, false].sample, 
+    water_site: [true, false].sample, 
+    plan: false,
+  )
+  p "Create #{w.id} Worksites"
+end
+
 # Create PPSP
 ppsps = []
 100.times do |n|
+  company = Company.all.sample
   ppsp = {
-    address: Faker::Address.street_address,
-    start_date: DateTime.new(2020,9,1,17),
-    end_date: DateTime.new(2020,9,10,19),
-    nature: "test_#{n+1} nature",
-    workforce: "test_#{n+1} workforce",
+    worksite_id: Worksite.all.sample.id,
     agglomeration: Ppsp::AGGLOMERATIONS.sample,
     street_impact: Ppsp::STREET_IMPACTS.sample,
     river_guidance: Ppsp::RIVER_GUIDANCES.sample,
-    user_id: User.all.sample.id,
+    user_id: User.where(company: company).sample.id,
     moa_id: Moa.all.sample.id,
     moe_id: Moe.all.sample.id,
-    project_information_id: ProjectInformation.all[n-1].id,
+    project_information_id: ProjectInformation.where(company: company).sample.id,
     pension_insurance_id: PensionInsurance.all.sample.id,
     direcct_id: Direcct.all.sample.id,
     work_medecine_id: WorkMedecine.all.sample.id,
@@ -255,8 +291,7 @@ ppsps = []
 end
 
 ppsps.each do |ppsp|
-  p = Ppsp.create!(address: ppsp[:address], start_date: ppsp[:start_date], end_date: ppsp[:end_date], nature: ppsp[:nature], 
-  workforce: ppsp[:workforce], user_id: ppsp[:user_id], moa_id: ppsp[:moa_id],
+  p = Ppsp.create!(worksite_id: ppsp[:worksite_id], user_id: ppsp[:user_id], moa_id: ppsp[:moa_id],
   moe_id: ppsp[:moe_id], project_information_id: ppsp[:project_information_id], agglomeration: ppsp[:agglomeration],
   street_impact: ppsp[:street_impact], river_guidance: ppsp[:river_guidance], security_coordinator_id: ppsp[:security_coordinator_id],
   pension_insurance_id: ppsp[:pension_insurance_id], direcct_id: ppsp[:direcct_id], work_medecine_id: ppsp[:work_medecine_id],
@@ -267,23 +302,19 @@ ppsps.each do |ppsp|
 end
 
 # Create Subcontractor
-subcontractors = [{
-  name: "Sous Traitant",
-  address: "address subcontract",
-  work: "work subcontract",
-  responsible_name: "Alexis Responsable",
-  responsible_phone: "03 28 26 18 63",
-  responsible_email: "alexis@gmail.com",
-  company_id: c1.id
-}, {
-  name: "Sous Traitant 2",
-  address: "address subcontract 2",
-  work: "work subcontract 2",
-  responsible_name: "Maxence Responsable",
-  responsible_phone: "03 28 26 18 63",
-  responsible_email: "maxences@gmail.com",
-  company_id: c1.id
-}]
+subcontractors = []
+30.times do |n|
+  subcontractor = {
+    name: "Sous Traitant #{n}",
+    address: "address subcontract #{n}",
+    work: "work subcontract #{n}",
+    responsible_name: Faker::Name.name,
+    responsible_phone: "03 28 26 18 63",
+    responsible_email: "alexis@gmail.com",
+    company_id: Company.all.sample.id
+  }
+  subcontractors.append(subcontractor)
+end
 
 subcontractors.each do |subcontractor|
   subcontractor = Subcontractor.create(name: subcontractor[:name], address: subcontractor[:address], 
@@ -306,4 +337,9 @@ end
 Risk::RISKS.each do |risk|
   r = Risk.create(name: risk)
   p "Create #{r.id} risks"
+end
+# Create Machines
+Machine::MACHINES.each do |machine|
+  m = Machine.create!(caces: machine[:caces], category: machine[:category], description: machine[:description], image: machine[:image])
+  p "Create #{m.id} machines"
 end

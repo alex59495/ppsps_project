@@ -12,7 +12,7 @@
   <%# Modal Work Medecine %>
   <% if policy(WorkMedecine).new? %>
     <div class="modal fade" id="ModalWorkMedecine" tabindex="-1" role="dialog" aria-labelledby="ModalWorkMedecine" aria-hidden="true">
-      <%= render 'ppsps/modal_work_medecine' %>
+      <%= render 'modals/work_medecines/modal_work_medecine' %>
     </div>
   <% end %>
   <div class="container-database">
@@ -28,10 +28,15 @@
       <div class="flex-database">
         <%= render 'elements', collection: @database_page %>
       </div>
-      <div class="container-db-vide" style="display:none">
+      <% if @database_page.empty? %>
+        <div class="container-flex container-db-vide">
+          Votre base de données est vide
+        </div>
+      <% end %>
+      <div class="container-flex container-db-vide" style="display:none">
         Votre recherche n'a retourné aucun résultat
       </div>
-      <div class="container-pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %> data-search= <%= @search %> data-number = <%= @database_page.count %>>
+      <div class="container-flex container-pagination" data-pagination-endpoint=<%= @endpoint %> data-pagination-pages=<%= @page_amount %> data-search= <%= @search %> data-number = <%= @database_page.count %>>
         <%= image_tag('gif-loading.gif') %>
       </div>
     </div>
