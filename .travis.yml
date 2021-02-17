@@ -22,7 +22,7 @@ install:
   - node -v
   - npm i -g yarn
   - yarn
-  - yanr add axios --save
+  - yarn add axios
 
 script:
   - bundle exec rake db:schema:load
