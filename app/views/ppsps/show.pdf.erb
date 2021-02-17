@@ -23,8 +23,14 @@
     </div>
 
     <div class="page-break">
-      <%= render partial: 'ppsps/render_pages/worksite/effectifs_locals' %>
+      <%= render partial: 'ppsps/render_pages/worksite/date_effectifs' %>
     </div>
+
+    <% if @ppsp.site_installations.any? %>
+      <div class="page-break">
+        <%= render partial: 'ppsps/render_pages/worksite/locals' %>
+      </div>
+    <% end %>
 
     <% if @ppsp.worksite.electrical_site %>
       <div class="page-break">

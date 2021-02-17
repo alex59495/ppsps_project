@@ -234,8 +234,10 @@
         </div>
         <div class="col-md-6 offset-md-3">
           <div id="timetable-summer-input" class=<%= @ppsp.worksite.timetable_summer ? '' : 'hidden-visibility' %>>
-            <%= w.input :timetable_summer_start, placeholder: '8h30' %>
+            <%= w.input :timetable_summer_start, placeholder: '8h00' %>
             <%= w.input :timetable_summer_end, placeholder: '16h30' %>
+            <%= w.input :timetable_summer_start_friday, placeholder: '8h00' %>
+            <%= w.input :timetable_summer_end_friday, placeholder: '16h00' %>
           </div>
         </div>
         <div class="col-md-6 offset-md-3" id='timetable-winter'>
@@ -244,8 +246,10 @@
         </div>
         <div class="col-md-6 offset-md-3">
           <div id="timetable-winter-input" class=<%= @ppsp.worksite.timetable_winter ? '' : 'hidden-visibility' %>>
-            <%= w.input :timetable_winter_start, placeholder: '8h30' %>
+            <%= w.input :timetable_winter_start, placeholder: '8h00' %>
             <%= w.input :timetable_winter_end, placeholder: '16h30' %>
+            <%= w.input :timetable_winter_start_friday, placeholder: '8h00' %>
+            <%= w.input :timetable_winter_end_friday, placeholder: '16h30' %>
           </div>
         </div>
 

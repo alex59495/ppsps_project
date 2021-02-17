@@ -254,9 +254,13 @@ end
     timetable_summer: summer,
     timetable_summer_start: summer ? '8h' : nil,
     timetable_summer_end: summer ? '16h30' : nil,
+    timetable_summer_start_friday: summer ? '8h' : nil,
+    timetable_summer_end_friday: summer ? '16h00' : nil,
     timetable_winter: winter,
     timetable_winter_start: winter ? '9h' : nil,
     timetable_winter_end: winter ? '17h30' : nil,
+    timetable_winter_start_friday: winter ? '9h' : nil,
+    timetable_winter_end_friday: winter ? '17h30' : nil,
     electrical_site: [true, false].sample, 
     water_site: [true, false].sample, 
     plan: false,
@@ -333,9 +337,16 @@ AltitudeWork::ALTITUDE_WORKS.each do |work|
   w = AltitudeWork.create(name: work)
   p "Create #{w.id} altitude works"
 end
+
+# Create Risk types
+RiskType::RISK_TYPES.each do |type|
+  t = RiskType.create(name: type)
+  p "Create #{t.id} type de risques"
+end
+
 # Create risks
 Risk::RISKS.each do |risk|
-  r = Risk.create(name: risk)
+  r = Risk.create(name: risk, risk_type: RiskType.all.sample)
   p "Create #{r.id} risks"
 end
 # Create Machines

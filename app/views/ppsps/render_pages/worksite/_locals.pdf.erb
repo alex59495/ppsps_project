@@ -1,0 +1,11 @@
+<div class="pdf-text-container">
+  <h2 class="pdf-subtitle">
+    2.<%= @num_worksite %> Locaux affectés au personnel
+    <% @num_worksite += 1 %>
+  </h2>
+  <% @ppsp.site_installations.each do |site| %>
+    <div class="si-name">
+      <%= site.name %>
+    </div>
+  <% end %>
+</div>

@@ -1,6 +1,5 @@
 class PpspsController < ApplicationController
   before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit destroy_logo_client duplicate destroy_annexe]
-  # before_action :analyze_images, only: %i[edit show]
 
   def index
     # Handled by react :) (app/assets/javascript/ppsp-react)
@@ -185,7 +184,6 @@ class PpspsController < ApplicationController
     @anti_poisons = policy_scope(AntiPoison.all)
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
-    # @subcontractors = policy_scope(Subcontractor.all)
 
     ppsp_content_secu?
   end
@@ -247,7 +245,6 @@ class PpspsController < ApplicationController
 
   def destroy_annexe
     authorize @ppsp
-    analyze_images
     blob = ActiveStorage::Blob.find_by(key: params[:public_id])
     ActiveStorage::Attachment.find_by(blob: blob).purge
     respond_to do |format|
@@ -331,15 +328,6 @@ class PpspsController < ApplicationController
 
   def find_ppsp
     @ppsp = Ppsp.find(params[:id])
-  end
-
-  def analyze_images
-    @ppsp.worksite.plan_installation.analyze if @ppsp.worksite.plan_installation.attached?
-    if @ppsp.worksite.plan_installation.attached? && @ppsp.worksite.plan_installation.metadata['width'] > @ppsp.worksite.plan_installation.metadata['height']
-      @orientation_plan = 'landscape'
-    elsif @ppsp.worksite.plan_installation.attached? && @ppsp.worksite.plan_installation.metadata['width'] <= @ppsp.worksite.plan_installation.metadata['height']
-      @orientation_plan = 'portrait'
-    end
   end
 
   # Add in the dataset of the view a indicator which show if the PPSP already have a content_secu or not

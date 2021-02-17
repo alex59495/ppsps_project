@@ -1,14 +1,27 @@
 import React from 'react'
 import InputMachine from './InputMachine'
+import MachineDescription from './MachineDescription';
 
-const ListMachines = ({listMachines, handleMachine, selectMachine}) => {
+const ListMachines = ({listMachines, handleMachine, selectMachine, selectedMachineId}) => {
+
+  const renderDescription = listMachines.map(machine => {
+    if(machine.id == selectedMachineId) {
+      return(
+        <MachineDescription 
+          key={machine.id} 
+          description={machine.description}
+          image={machine.image} 
+        />
+      )
+    }
+  })
+
   const renderList = listMachines.map(machine => {
    return(
    <InputMachine 
       key={machine.id} 
       caces={machine.caces} 
       id={machine.id} 
-      description={machine.description}
     />)
   });
 
@@ -21,8 +34,9 @@ const ListMachines = ({listMachines, handleMachine, selectMachine}) => {
         {renderList}
       </select>
       <div className='d-flex justify-content-center mt-4'>
-        <button type='submit' className='btn-orange' id='submit-machine'>OK</button>
+        <button type='submit' className='btn-orange' id='submit-machine' disabled>OK</button>
       </div>
+      {renderDescription}
     </form>
   )
 }

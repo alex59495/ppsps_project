@@ -31,8 +31,12 @@ fr:
       worksite:
         timetable_summer_start: Horaire de début de chantier
         timetable_summer_end: Horaire de fin de chantier
+        timetable_summer_start_friday: Horaire de début de chantier (Vendredi)
+        timetable_summer_end_friday: Horaire de fin de chantier (Vendredi)
         timetable_winter_start: Horaire de début de chantier
         timetable_winter_end: Horaire de fin de chantier
+        timetable_winter_start_friday: Horaire de début de chantier (Vendredi)
+        timetable_winter_end_friday: Horaire de fin de chantier (Vendredi)
         address: L'adresse
         start_date: La date de début
         end_date: La date de fin
