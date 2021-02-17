@@ -1,3 +1,3 @@
 json.array! @machines do |machine|
-  json.extract! machine, :id, :category, :caces, :description
+  json.extract! machine, :id, :category, :caces, :description, :image
 end

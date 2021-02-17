@@ -30,14 +30,7 @@ const App = () => {
   const formListMachines = document.querySelector('.form-list-machines')
   const formWorkers = document.querySelector('.checkboxes-workers')
 
-// // Machine's Logic
-//   const fetchMachines = () => {
-//     fetch(`${url}/api/v1/machines?ppsps_id=${ppspsId}`, {
-//       method: 'GET',
-//       'Content-Type': 'application/json'
-//     }).then(response => response.json()).then(data => setlistCategory(data))
-//   }
-
+  
   // Category's logic
   const fetchCategories = () => {
     fetch(`${url}/api/v1/machines/categories?ppsps_id=${ppspsId}`, {

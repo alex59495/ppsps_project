@@ -68,6 +68,9 @@ gem 'active_storage_validations'
 # Advanced search
 gem 'pg_search'
 
+# Faker
+gem 'faker'
+
 # Handle PDF
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
@@ -79,8 +82,6 @@ gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'
 group :development, :test do
-  # Faker
-  gem 'faker'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'dotenv-rails'

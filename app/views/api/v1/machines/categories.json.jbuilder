@@ -1,3 +1,3 @@
 json.array! @categories do |machine|
-  json.extract! machine, :category
+  json.extract! machine, :category, :image
 end
