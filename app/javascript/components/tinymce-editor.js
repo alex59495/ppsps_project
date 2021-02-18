@@ -32,6 +32,10 @@ const containerTiny = document.querySelector('.tinymce');
         "insertdatetime media nonbreaking save table contextmenu directionality",
         "emoticons template paste textcolor colorpicker textpattern"
       ],
+      external_plugins: {
+        "paste-it-cleaned-tiny":
+          "https://cdn.pasteitapi.com/v1/pasteitcleaned.min.js?apiKey=KpAmpiNAMsXzZjQUZJHA"
+      },
       toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
       height: 600,
       image_advtab: true,
