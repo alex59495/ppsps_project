@@ -120,9 +120,13 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#timetable-summer label').click
       fill_in('ppsp_worksite_attributes_timetable_summer_start', with: '7h30')
       fill_in('ppsp_worksite_attributes_timetable_summer_end', with: '16h30')
+      fill_in('ppsp_worksite_attributes_timetable_summer_start_friday', with: '7h30')
+      fill_in('ppsp_worksite_attributes_timetable_summer_end_friday', with: '16h00')
       find('#timetable-winter label').click
       fill_in('ppsp_worksite_attributes_timetable_winter_start', with: '8h30')
       fill_in('ppsp_worksite_attributes_timetable_winter_end', with: '16h30')
+      fill_in('ppsp_worksite_attributes_timetable_winter_start_friday', with: '8h30')
+      fill_in('ppsp_worksite_attributes_timetable_winter_end_friday', with: '16h00')
 
       fill_in('ppsp_worksite_attributes_num_responsible', with: 1)
       fill_in('ppsp_worksite_attributes_num_conductor', with: 3)

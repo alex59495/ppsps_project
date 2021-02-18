@@ -134,7 +134,7 @@ infos = []
   project_info = {
     reference: "AABB1#{n+10}",
     company: company,
-    name: "Ceci est la désiagnation du chantier #{n}",
+    name: "Ceci est la désignation du chantier #{n}",
     responsible_id: Worker.where(company: company, role: 'Conducteur de travaux').sample.id,
     site_manager_id: Worker.where(company: company, role: 'Chef de chantier').sample.id,
     team_manager_id: Worker.where(company: company, role: "Chef d'équipe").sample.id,
@@ -349,8 +349,14 @@ Risk::RISKS.each do |risk|
   r = Risk.create(name: risk, risk_type: RiskType.all.sample)
   p "Create #{r.id} risks"
 end
+
+MachineCategory::MACHINE_CATEGORIES.each do |category|
+  c = MachineCategory.create!(name: category)
+  p "Create #{c.id} types de machines"
+end
+
 # Create Machines
 Machine::MACHINES.each do |machine|
-  m = Machine.create!(caces: machine[:caces], category: machine[:category], description: machine[:description], image: machine[:image])
+  m = Machine.create!(caces: machine[:caces], machine_category: machine[:machine_category], description: machine[:description], image: machine[:image])
   p "Create #{m.id} machines"
 end

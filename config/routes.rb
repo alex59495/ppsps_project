@@ -57,7 +57,7 @@ Rails.application.routes.draw do
   resources :kit_security_elements, only: [:create, :destroy]
 
   resources :companies, only: [:edit, :update] do
-    member do      
+    member do
       get :destroy_logo
     end
   end

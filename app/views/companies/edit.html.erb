@@ -1,70 +1,80 @@
 <div class='col-md-6 offset-md-3'>
   <%= link_to 'Revenir à mon profil', profile_path(current_user), class: 'link' %>
   <h2>Les informations de mon entreprise</h2>
-  <div class="d-flex flex-column">
-    <%= simple_form_for @company do |f| %>
-      <h3>Nom</h3>
-      <%= f.input :name, label: false %>
-      <h3>Adresse</h3>
-      <%= f.input :address, label: false %>
-      <h3>Représentant</h3>
-      <%= f.input :representative, label: false %>
-      <div class="d-flex justify-content-center my-4">
-        <%= f.submit 'Valider', class: 'btn-blue' %>
-      </div>
-    <% end %>
-    <h3>Logo de l'entreprise</h3>
-    <div class="d-flex justify-content-center align-items-center render-logo">
-      <% if @company.logo.attached? %>
-        <div class='d-flex flex-column mb-2 align-items-center'>
-          <%= cl_image_tag @company.logo.key, class: 'icon-logo mb-3' %>
-          <%= link_to 'Supprimer', destroy_logo_company_path(@company), class: 'btn-delete', remote: true %>
-        </div>
-      <% else %>
-        <i style='font-size: 80px;'class="fas fa-question-circle mb-4"></i>
-      <% end %>
-      <i class="fas fa-long-arrow-alt-right mx-4" style='font-size: 40px; display: none;'></i>
-      <img id="newLogo" width="200" class='icon-logo' style='display: none;'>
+  <%= simple_form_for @company do |f| %>
+    <h3>Nom</h3>
+    <%= f.input :name, label: false %>
+    <h3>Adresse</h3>
+    <%= f.input :address, label: false %>
+    <h3>Représentant</h3>
+    <%= f.input :representative, label: false %>
+    <div class="d-flex justify-content-center my-4">
+      <%= f.submit 'Valider', class: 'btn-blue' %>
     </div>
-    <div class='btn-delete' id="removeUpload" style='display: none; text-align: center; width: 100%'>Annuler</div>
-    <%= simple_form_for @company do |f| %>
-      <div class="d-flex justify-content-center">
-        <%= f.input :logo, label: false %>
+  <% end %>
+  <h3>Logo de l'entreprise</h3>
+  <div class="d-flex justify-content-center align-items-center render-logo">
+    <% if @company.logo.attached? %>
+      <div class='d-flex flex-column mb-2 align-items-center'>
+        <%= cl_image_tag @company.logo.key, class: 'icon-logo mb-3' %>
+        <%= link_to 'Supprimer', destroy_logo_company_path(@company), class: 'btn-delete', remote: true %>
       </div>
-      <div class="d-flex justify-content-center my-4">
-        <%= f.submit "Modifier", class: 'btn-blue' %>
-      </div>
+    <% else %>
+      <i style='font-size: 80px;'class="fas fa-question-circle mb-4"></i>
     <% end %>
+    <i class="fas fa-long-arrow-alt-right mx-4" style='font-size: 40px; display: none;'></i>
+    <img id="newLogo" width="200" class='icon-logo' style='display: none;'>
+  </div>
+  <div class='btn-delete' id="removeUpload" style='display: none; text-align: center; width: 100%'>Annuler</div>
+  <%= simple_form_for @company do |f| %>
+    <div class="d-flex justify-content-center">
+      <%= f.input :logo, label: false %>
+    </div>
+    <div class="d-flex justify-content-center my-4">
+      <%= f.submit "Modifier", class: 'btn-blue' %>
+    </div>
+  <% end %>
 
-    <div class="security-kit">
-      <h3>La trousse de sécurité de mon entreprise</h3>
-      <div class='card-kit-security'>
-        <div class="card-kit-security">
-          <div class="top"></div>
-          <div class="card-kit-content">
-            <div class="list selected-kit-security" id="selected-kit-security">
-              <% @company.kit_security_elements.each do |kit| %>
-                <li>
-                  <%= "#{kit.number} #{kit.name}" %>
-                  <%= link_to 'x', kit_security_element_path(kit), method: :delete, data: {confirm: 'Êtes-vous sûr ?'}, class: 'ml-1', remote: true %>
-                </li>
-              <% end %>
-            </div>
+  <div class="security-kit">
+    <h3>La trousse de sécurité de mon entreprise</h3>
+    <div class='card-kit-security'>
+      <div class="card-kit-security">
+        <div class="top"></div>
+        <div class="card-kit-content">
+          <div class="list selected-kit-security" id="selected-kit-security">
+            <% @company.kit_security_elements.each do |kit| %>
+              <li>
+                <%= "#{kit.number} #{kit.name}" %>
+                <%= link_to 'x', kit_security_element_path(kit), method: :delete, data: {confirm: 'Êtes-vous sûr ?'}, class: 'ml-1', remote: true %>
+              </li>
+            <% end %>
           </div>
         </div>
-        <div class="link my-2" id="btn-add-security-kit">Ajouter</div>
-        <div id="container-form-kit">
-          <%= render 'kit_security_elements/form' %>
-        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button class="btn-blue my-2" id="btn-add-security-kit">Ajouter</button>
+      </div>
+      <div id="container-form-kit">
+        <%= render 'kit_security_elements/form' %>
       </div>
     </div>
+  </div>
+</div>
 
+<div class='col-md-10 offset-md-1 mb-5'>
+  <h3 class="text-center mt-3">Préambule pour les PPSPS de votre entreprise</h3>
+  
+  <div class="d-flex justify-content-center">
+    <div id='btn-tinymce-form' class='btn-orange mb-2'>Éditeur de texte</div>
+  </div>
+
+  <div class="col-md-10 offset-md-1 hidden" id='tinymce-form'>
     <%= simple_form_for @company do |f| %>
-      <h3 class="text-center">Texte de sécurité de l'entreprise</h3>
-      <%= f.text_area :content_secu, class: 'tinymce' %>
+      <input class='hidden' name=image type=file id="upload" onchange="">
+      <%= f.text_area :content_secu, class: 'tinymce', 'data-company_secu': @company.content_secu %>
       <%= tinymce %>
-      <div class="d-flex justify-content-center my-4">
-        <%= f.submit "Valider mes modifications", class: 'btn-blue' %>
+      <div class="d-flex justify-content-center">
+        <%= f.submit 'Valider', class: 'btn-blue mt-2' %>
       </div>
     <% end %>
   </div>

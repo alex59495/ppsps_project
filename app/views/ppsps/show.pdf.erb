@@ -1,5 +1,11 @@
 <body class="bg-white">
   <div class="container">
+    <% if @ppsp.user.company.content_secu %>
+       <div class="page-break">
+          <%= render partial: 'ppsps/render_pages/preambule' %>
+        </div>
+    <% end %>
+
     <div class="page-break">
       <%= render partial: 'ppsps/render_pages/admin/company_resps' %>
     </div>
@@ -83,7 +89,9 @@
     </div>
 
     <% if @ppsp.content_secu.present? %>
-      <%= render partial: 'ppsps/render_pages/risks/specificity' %>
+      <div class="page-break">
+        <%= render partial: 'ppsps/render_pages/risks/specificity' %>
+      </div>
     <% end %>
 
 

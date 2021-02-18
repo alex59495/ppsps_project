@@ -60,7 +60,7 @@ gem 'devise'
 gem 'pundit'
 
 # Analyze the images
-gem "mini_magick"
+# gem "mini_magick"
 
 # Gérer les validation d'active storage
 gem 'active_storage_validations'

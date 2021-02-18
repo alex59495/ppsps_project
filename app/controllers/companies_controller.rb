@@ -1,5 +1,5 @@
 class CompaniesController < ApplicationController
-  before_action :find_company, only: %i[edit update destroy_logo]
+  before_action :find_company, only: %i[edit update destroy_logo edit_content_secu]
 
   def edit
     @kit_security_element = KitSecurityElement.new

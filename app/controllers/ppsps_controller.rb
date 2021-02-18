@@ -184,8 +184,6 @@ class PpspsController < ApplicationController
     @anti_poisons = policy_scope(AntiPoison.all)
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
-
-    ppsp_content_secu?
   end
 
   def update
@@ -328,11 +326,6 @@ class PpspsController < ApplicationController
 
   def find_ppsp
     @ppsp = Ppsp.find(params[:id])
-  end
-
-  # Add in the dataset of the view a indicator which show if the PPSP already have a content_secu or not
-  def ppsp_content_secu?
-    @ppsp_content_secu = @ppsp.content_secu.present?
   end
 
   def handle_annexes

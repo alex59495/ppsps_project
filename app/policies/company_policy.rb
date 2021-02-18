@@ -18,6 +18,10 @@ class CompanyPolicy < ApplicationPolicy
   end
 
   def destroy_logo?
-    user.admin
+    user.admin && user.company == record
+  end
+
+  def edit_content_secu?
+    user.admin && user.company == record
   end
 end

@@ -1,10 +1,7 @@
-<div class="page-break">
-    <div class="pdf-text-container pdf-align-left">
-      <h2 class="pdf-subtitle">
-        4.<%= @num_risk %> Les spécificités du chantier
-          <% @num_risk += 1 %>
-      </h2>
-      <%= @ppsp.content_secu.html_safe %>
-    </div>
-  </div>
-<% end %>
+<div class="pdf-text-container pdf-align-left">
+  <h2 class="pdf-subtitle">
+    4.<%= @num_risk %> Les spécificités du chantier
+      <% @num_risk += 1 %>
+  </h2>
+  <%= @ppsp.content_secu.html_safe %>
+</div>

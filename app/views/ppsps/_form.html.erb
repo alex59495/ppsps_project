@@ -439,12 +439,18 @@
       <div class="col-md-6 offset-md-3 form-subtitle">
         4-3. Ajouter des spécificités sur le chantier
       </div>
-      <div class="col-md-10 offset-md-1">
-        <input class='hidden' name=image type=file id="upload" onchange="">
-        <%= f.text_area :content_secu, class: 'tinymce', 'data-company_secu': current_user.company.content_secu, 'data-ppsp_secu': @ppsp_content_secu %>
-        <%= tinymce %>
-      </div>
 
+      <div class="col-md-10 offset-md-1">
+        <div class="d-flex justify-content-center">
+          <div id='btn-tinymce-form' class='btn-orange mb-2'>Éditeur de texte</div>
+        </div>
+
+        <div class="col-md-10 offset-md-1 hidden" id='tinymce-form'>
+          <input class='hidden' name=image type=file id="upload" onchange="">
+          <%= f.text_area :content_secu, class: 'tinymce', 'data-ppsp_secu': @ppsp.content_secu %>
+          <%= tinymce %>
+        </div>
+      </div>
 
       <div class="col-md-6 offset-md-3 mt-3">
         <p>Annexes, si besoin</p>
@@ -470,6 +476,7 @@
       </div>
     </div>
   <% end %>
+
   <% if policy(SecurityCoordinator).create? %>
     <div class="modal fade" id="ModalSecurityCoordinator" tabindex="-1" role="dialog" aria-labelledby="ModalSecurityCoordinator" aria-hidden="true">
       <%= render 'modals/security_coordinators/modal_security_coordinator' %>
