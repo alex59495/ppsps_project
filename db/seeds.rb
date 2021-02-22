@@ -346,7 +346,7 @@ end
 
 # Create risks
 Risk::RISKS.each do |risk|
-  r = Risk.create(name: risk, risk_type: RiskType.all.sample)
+  r = Risk.create(name: risk[:name], risk_type_id: risk[:type_id], file: risk[:file])
   p "Create #{r.id} risks"
 end
 
@@ -357,6 +357,6 @@ end
 
 # Create Machines
 Machine::MACHINES.each do |machine|
-  m = Machine.create!(caces: machine[:caces], machine_category: machine[:machine_category], description: machine[:description], image: machine[:image])
+  m = Machine.create!(caces: machine[:caces], machine_category_id: machine[:machine_category_id], description: machine[:description], image: machine[:image])
   p "Create #{m.id} machines"
 end

@@ -46,8 +46,6 @@ class PpspsController < ApplicationController
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
     @subcontractors = policy_scope(Subcontractor.all)
-
-    ppsp_content_secu?
   end
 
   def show

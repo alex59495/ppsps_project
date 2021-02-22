@@ -9,19 +9,19 @@ class Machine < ApplicationRecord
 
   MACHINES = [
     {
-      machine_category: MachineCategory.first,
+      machine_category_id: 1,
       caces: 'Categorie A',
       description: 'Bla bla bla je suis un engin de chantier de categorie A',
       image: 'test_engin_chantier.jpg'
     },
     {
-      machine_category: MachineCategory.first,
+      machine_category_id: 1,
       caces: 'Categorie B',
       description: 'Bla bla bla je suis un engin de chantier de categorie B',
       image: 'test_engin_chantier_2.jpg'
     },
     {
-      machine_category: MachineCategory.second,
+      machine_category_id: 2,
       caces: 'Categorie A',
       description: 'Bla bla bla je suis un pont roulant de categorie A',
       image: 'test_pont_roulant.png'
