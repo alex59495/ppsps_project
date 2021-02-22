@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :risk do
-    name { Risk::RISKS.sample }
-    risk_type
+    risk = Risk::RISKS.sample
+    name { risk[:name] }
+    association(:risk_type)
+    file { risk[:file] }
   end
 end

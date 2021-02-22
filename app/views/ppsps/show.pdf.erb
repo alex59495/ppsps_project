@@ -1,6 +1,6 @@
 <body class="bg-white">
   <div class="container">
-    <% if @ppsp.user.company.content_secu %>
+    <% if @ppsp.user.company.content_secu.present? %>
        <div class="page-break">
           <%= render partial: 'ppsps/render_pages/preambule' %>
         </div>

@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   resources :companies, only: [:edit, :update] do
     member do
       get :destroy_logo
+      get :destroy_cover
     end
   end
 

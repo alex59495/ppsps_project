@@ -8,6 +8,7 @@ RSpec.describe Risk, type: :model do
 
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:risk_type) }
+  it { should validate_presence_of(:file) }
 
   it { should belong_to(:risk_type) }
 end

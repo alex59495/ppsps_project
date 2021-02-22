@@ -21,4 +21,5 @@ class Company < ApplicationRecord
   validates :phone, presence: true, phone: true
   validates :representative, presence: true
   has_one_attached :logo
+  has_one_attached :cover_image
 end

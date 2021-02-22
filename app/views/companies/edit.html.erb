@@ -12,29 +12,43 @@
       <%= f.submit 'Valider', class: 'btn-blue' %>
     </div>
   <% end %>
-  <h3>Logo de l'entreprise</h3>
-  <div class="d-flex justify-content-center align-items-center render-logo">
-    <% if @company.logo.attached? %>
-      <div class='d-flex flex-column mb-2 align-items-center'>
-        <%= cl_image_tag @company.logo.key, class: 'icon-logo mb-3' %>
-        <%= link_to 'Supprimer', destroy_logo_company_path(@company), class: 'btn-delete', remote: true %>
-      </div>
-    <% else %>
-      <i style='font-size: 80px;'class="fas fa-question-circle mb-4"></i>
-    <% end %>
-    <i class="fas fa-long-arrow-alt-right mx-4" style='font-size: 40px; display: none;'></i>
-    <img id="newLogo" width="200" class='icon-logo' style='display: none;'>
-  </div>
-  <div class='btn-delete' id="removeUpload" style='display: none; text-align: center; width: 100%'>Annuler</div>
-  <%= simple_form_for @company do |f| %>
-    <div class="d-flex justify-content-center">
-      <%= f.input :logo, label: false %>
-    </div>
-    <div class="d-flex justify-content-center my-4">
-      <%= f.submit "Modifier", class: 'btn-blue' %>
-    </div>
-  <% end %>
+</div>
 
+<div class="col-md-10 offset-md-1">
+  <div class="row">
+    <div class="col-md-6">
+    <h3>Logo de l'entreprise</h3>
+    <div class="d-flex justify-content-center align-items-center render-logo">
+      <%= render 'render_logo' %>
+    </div>
+    <div class='btn-delete' id="removeUpload" style='display: none; text-align: center; width: 100%'>Annuler</div>
+    <%= simple_form_for @company do |f| %>
+      <div class="d-flex justify-content-center">
+        <%= f.input :logo, label: false %>
+      </div>
+      <div class="d-flex justify-content-center my-4">
+        <%= f.submit "Modifier", class: 'btn-blue' %>
+      </div>
+    <% end %>
+    </div>
+    <div class="col-md-6">
+      <h3>Image de couverture des PPSPS</h3>
+      <div class="d-flex justify-content-center align-items-center render-cover">
+        <%= render 'render_cover' %>
+      </div>
+      <%= simple_form_for @company do |f| %>
+        <div class="d-flex justify-content-center">
+          <%= f.input :cover_image, label: false %>
+        </div>
+        <div class="d-flex justify-content-center my-4">
+          <%= f.submit "Modifier", class: 'btn-blue' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class='col-md-6 offset-md-3'>
   <div class="security-kit">
     <h3>La trousse de sécurité de mon entreprise</h3>
     <div class='card-kit-security'>

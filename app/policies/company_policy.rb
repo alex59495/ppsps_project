@@ -21,6 +21,10 @@ class CompanyPolicy < ApplicationPolicy
     user.admin && user.company == record
   end
 
+  def destroy_cover?
+    user.admin && user.company == record
+  end
+
   def edit_content_secu?
     user.admin && user.company == record
   end
