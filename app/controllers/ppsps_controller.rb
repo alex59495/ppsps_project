@@ -339,8 +339,8 @@ class PpspsController < ApplicationController
   end
 
   def params_ppsp
-    params.require(:ppsp).permit(:agglomeration, :river_guidance, :moa_id, :moe_id, :security_coordinator_id,
-                                 :street_impact, :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
+    params.require(:ppsp).permit(:moa_id, :moe_id, :security_coordinator_id,
+                                 :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
                                  :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, :logo_client, :content_secu, annexes: [],
                                                                                                                          worksite_attributes: %i[id address start_date end_date timetable_summer timetable_summer_start timetable_summer_end
                                                                                                                                                  timetable_summer_start_friday timetable_summer_end_friday

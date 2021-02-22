@@ -137,10 +137,6 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#ppsp_anti_poison_id').find(:xpath, 'option[2]').select_option
 
       find('#ppsp_hospital_id').find(:xpath, 'option[2]').select_option
-
-      find('#ppsp_agglomeration').find(:xpath, 'option[2]').select_option
-      find('#ppsp_street_impact').find(:xpath, 'option[2]').select_option
-      find('#ppsp_river_guidance').find(:xpath, 'option[2]').select_option
       click_button "J'ai terminé"
       sleep 2
       expect(Ppsp.includes(:user).where(users: { company: @user.company }).count).to eq(count + 1)

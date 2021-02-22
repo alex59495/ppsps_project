@@ -30,9 +30,6 @@ class Ppsp < ApplicationRecord
   has_many :risks, through: :selected_risks
   has_many :selected_lifesavers, dependent: :destroy
   has_many :workers, through: :selected_lifesavers
-  validates :agglomeration, presence: true
-  validates :street_impact, presence: true
-  validates :river_guidance, presence: true
   validates :moa_id, presence: true
   validates :demining_id, presence: true
   validates :anti_poison_id, presence: true

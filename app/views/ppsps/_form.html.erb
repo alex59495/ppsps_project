@@ -417,27 +417,14 @@
       </h2>
 
       <h3 class="col-md-6 offset-md-3 form-subtitle">
-        4-1. Signalisation
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
-      </div>
-
-      <h3 class="col-md-6 offset-md-3 form-subtitle">
-        4-2. Les risques associés à mon chantier
+        4-1. Les risques associés à mon chantier
       </h3>
       <div class="col-md-10 offset-md-1">
         <div id="react-render-risks" data-ppsps_id=<%=@ppsp.id%>></div>
       </div>
 
       <div class="col-md-6 offset-md-3 form-subtitle">
-        4-3. Ajouter des spécificités sur le chantier
+        4-2. Ajouter des spécificités sur le chantier
       </div>
 
       <div class="col-md-10 offset-md-1">

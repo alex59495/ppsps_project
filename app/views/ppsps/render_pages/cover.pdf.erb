@@ -125,9 +125,11 @@
     <div class="pdf-subtitle mt-2">
       <%= @ppsp.worksite.nature %>
     </div>
-    <div class='pdf-logo center'>
-      <%= cl_image_tag(@ppsp.user.company.logo.key) %>
-    </div>
+    <% if @ppsp.user.company.logo.attached? %>
+      <div class='pdf-logo center'>
+        <%= cl_image_tag(@ppsp.user.company.logo.key) %>
+      </div>
+    <% end %>
     <div class='pdf-subtitle'>
       <%= @ppsp.user.company.name %>
     </div>

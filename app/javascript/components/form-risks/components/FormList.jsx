@@ -44,10 +44,10 @@ const FormList = ({ risks, handleClick, riskTypes }) => {
   const renderList = riskTypes.map(riskType => {
     return(
       <React.Fragment key={riskType}>
-        <div className="form-checkbox" onClick={handleShow} id={`risk_type_${riskType.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '_')}`}>
+        <div className="form-checkbox" onClick={handleShow} id={`risk_type_${riskType.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Z0-9]+/ig, '_')}`}>
           {riskType}
         </div>
-        <div className='hidden' id={`content_risk_type_${riskType.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '_')}`}>
+        <div className='hidden' id={`content_risk_type_${riskType.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Z0-9]+/ig, '_')}`}>
           {filterByRiskType(listOrdered, riskType)}
         </div>
       </React.Fragment>
