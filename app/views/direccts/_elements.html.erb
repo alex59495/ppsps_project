@@ -1,20 +1,35 @@
 <% @database_page.each do |direcct| %>
   <div class="card-bdd">
-    <div class="front">
-      <div class="card-bdd-container">
-        <div class="text-center"><%= direcct.address %></div>
+    <div class="flip-container">
+      <div class="front">
+        <div class="content-bdd"><%= direcct.address %></div>
       </div>
-    </div>
-    <div class="back">
-      <div class="card-bdd-container">
-        <div class="line"><i class="fas fa-fax"></i><%= direcct.fax %></div>
-        <div class="line"><i class="fas fa-phone-alt"></i><%= direcct.phone %></div>
-        <div class="line"><i class="fas fa-laptop-code"></i><%= direcct.website.present? ? direcct.website : 'site web non-renseigné' %></div>
-        <div class="card-db-action">
-          <%= link_to edit_direcct_path(direcct), class: "card-db-edit" do %>
-            <i class='fas fa-pencil-alt'></i>
-          <% end %>
-          <%= link_to "x", destroy_direcct_path(direcct), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+      <div class="back">
+        <div class="content-bdd">
+          <div class="line">
+            <i class="fas fa-fax"></i>
+            <div class="line-text">
+              <%= direcct.fax %>
+            </div>
+          </div>
+          <div class="line">
+            <i class="fas fa-phone-alt"></i>
+            <div class="line-text">
+              <%= direcct.phone %>
+            </div>
+          </div>
+          <div class="line">
+            <i class="fas fa-laptop-code"></i>
+            <div class="line-text">
+              <%= direcct.website.present? ? direcct.website : 'site web non-renseigné' %>
+            </div>
+          </div>
+          <div class="card-db-action">
+            <%= link_to edit_direcct_path(direcct), class: "card-db-edit" do %>
+              <i class='fas fa-pencil-alt'></i>
+            <% end %>
+            <%= link_to "x", destroy_direcct_path(direcct), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+          </div>
         </div>
       </div>
     </div>

@@ -1,21 +1,38 @@
 <% @database_page.each do |moa| %>
   <div class="card-bdd">
-    <div class="front">
-      <div class="card-bdd-container">
-        <div class="text-center"><%= moa.name %></div>
-        <div class="line"><i class="fas fa-user"></i><%= moa.representative %></div>
+    <div class="flip-container">
+      <div class="front">
+        <div class="content-bdd">
+          <div class="text-center"><%= moa.name %></div>
+          <div class="line"><i class="fas fa-user logo-bdd"></i><%= moa.representative %></div>
+        </div>
       </div>
-    </div>
-    <div class="back">
-      <div class="card-bdd-container">
-        <div class="line"><i class="fas fa-map-marker-alt"></i><%= moa.address %></div>
-        <div class="line"><i class="fas fa-phone-alt"></i><%= moa.phone %></div>
-        <div class="mail"><i class="fas fa-envelope"></i><%= moa.email %></div>
-        <div class="card-db-action">
-          <%= link_to edit_moa_path(moa), class: "card-db-edit" do %>
-            <i class='fas fa-pencil-alt'></i>
-          <% end %>
-          <%= link_to "x", destroy_moa_path(moa), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+      <div class="back">
+        <div class="content-bdd">
+          <div class="line">
+            <i class="fas fa-map-marker-alt logo-bdd"></i>
+            <div class="line-text">
+              <%= moa.address %>
+            </div>
+          </div>
+          <div class="line">
+            <i class="fas fa-phone-alt logo-bdd"></i>
+            <div class="line-text">
+              <%= moa.phone %>
+            </div>
+          </div>
+          <div class="line">
+            <i class="fas fa-envelope logo-bdd"></i>
+            <div class="line-text">
+              <%= moa.email %>
+            </div>
+          </div>
+          <div class="card-db-action">
+            <%= link_to edit_moa_path(moa), class: "card-db-edit" do %>
+              <i class='fas fa-pencil-alt'></i>
+            <% end %>
+            <%= link_to "x", destroy_moa_path(moa), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+          </div>
         </div>
       </div>
     </div>

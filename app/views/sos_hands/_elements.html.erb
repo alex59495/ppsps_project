@@ -1,19 +1,31 @@
 <% @database_page.each do |sos_hand| %>
   <div class="card-bdd">
-    <div class="front">
-      <div class="card-bdd-container">
-        <div class="text-center"><%= sos_hand.name %></div>
+    <div class="flip-container">
+      <div class="front">
+        <div class="content-bdd">
+          <div class="text-center"><%= sos_hand.name %></div>
+        </div>
       </div>
-    </div>
-    <div class="back">
-      <div class="card-bdd-container">
-        <div class="line"><i class="fas fa-map-marker-alt"></i><%= sos_hand.address %></div>
-        <div class="line"><i class="fas fa-phone-alt"></i><%= sos_hand.phone %></div>
-        <div class="card-db-action">
-          <%= link_to edit_sos_hand_path(sos_hand), class: "card-db-edit" do %>
-            <i class='fas fa-pencil-alt'></i>
-          <% end %>
-          <%= link_to "x", destroy_sos_hand_path(sos_hand), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+      <div class="back">
+        <div class="content-bdd">
+          <div class="line">
+            <i class="fas fa-map-marker-alt logo-bdd"></i>
+            <div class="line-text">
+              <%= sos_hand.address %>
+            </div>
+          </div>
+          <div class="line">
+            <i class="fas fa-phone-alt logo-bdd"></i>
+            <div class="line-text">
+              <%= sos_hand.phone %>
+            </div>
+          </div>
+          <div class="card-db-action">
+            <%= link_to edit_sos_hand_path(sos_hand), class: "card-db-edit" do %>
+              <i class='fas fa-pencil-alt'></i>
+            <% end %>
+            <%= link_to "x", destroy_sos_hand_path(sos_hand), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+          </div>
         </div>
       </div>
     </div>

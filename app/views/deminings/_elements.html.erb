@@ -1,19 +1,29 @@
 <% @database_page.each do |demining| %>
   <div class="card-bdd">
-    <div class="front">
-      <div class="card-bdd-container">
-        <div class="text-center"><%= demining.name %></div>
+    <div class="flip-container">
+      <div class="front">
+          <div class="content-bdd"><%= demining.name %></div>
       </div>
-    </div>
-    <div class="back">
-      <div class="card-bdd-container">
-        <div class="line"><i class="fas fa-map-marker-alt"></i><%= demining.address %></div>
-        <div class="line"><i class="fas fa-phone-alt"></i><%= demining.phone %></div>
-        <div class="card-db-action">
-          <%= link_to edit_demining_path(demining), class: "card-db-edit" do %>
-            <i class='fas fa-pencil-alt'></i>
-          <% end %>
-          <%= link_to "x", destroy_demining_path(demining), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+      <div class="back">
+        <div class="content-bdd">
+          <div class="line">
+            <i class="fas fa-map-marker-alt logo-bdd"></i>
+            <div class="line-text">
+              <%= demining.address %>
+            </div>
+          </div>
+          <div class="line">
+            <i class="fas fa-phone-alt logo-bdd"></i>
+            <div class="line-text">
+              <%= demining.phone %>
+            </div>
+          </div>
+          <div class="card-db-action">
+            <%= link_to edit_demining_path(demining), class: "card-db-edit" do %>
+              <i class='fas fa-pencil-alt'></i>
+            <% end %>
+            <%= link_to "x", destroy_demining_path(demining), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+          </div>
         </div>
       </div>
     </div>
