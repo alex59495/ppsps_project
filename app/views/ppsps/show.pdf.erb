@@ -38,18 +38,6 @@
       </div>
     <% end %>
 
-    <% if @ppsp.worksite.electrical_site %>
-      <div class="page-break">
-        <%= render partial: 'ppsps/render_pages/worksite/plan_electrical' %>
-      </div>
-    <% end %>
-
-    <% if @ppsp.worksite.water_site %>
-      <div class="page-break">
-        <%= render partial: 'ppsps/render_pages/worksite/plan_water' %>
-      </div>
-    <% end %>
-
     <% if @ppsp.worksite.plan_installation.attached? %>
       <div class="page-break">
         <%= render partial: 'ppsps/render_pages/worksite/plan_installation' %>
