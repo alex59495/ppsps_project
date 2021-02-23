@@ -34,14 +34,14 @@ class SubcontractorPolicy < ApplicationPolicy
   end
 
   def list_subcontractors?
-    true
+    user.present?
   end
 
   def selected_subcontractors?
-    true
+    user.present?
   end
 
   def destroy_selected_subcontractors?
-    true
+    user.present?
   end
 end

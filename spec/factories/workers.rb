@@ -26,8 +26,18 @@ FactoryBot.define do
       role { "Chef d'équipe" }
     end
 
+    trait :worker_lifesaver do
+      lifesaver { true }
+    end
+
+    trait :worker_conductor do
+      conductor { true }
+    end
+
     factory :responsible, traits: [:responsible]
     factory :site_manager, traits: [:site_manager]
     factory :team_manager, traits: [:team_manager]
+    factory :worker_lifesaver, traits: [:worker_lifesaver]
+    factory :worker_conductor, traits: [:worker_conductor]
   end
 end

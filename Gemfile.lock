@@ -260,6 +260,7 @@ GEM
     rspec-expectations (3.10.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
+    rspec-json_expectations (2.2.0)
     rspec-mocks (3.10.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
@@ -390,6 +391,7 @@ DEPENDENCIES
   react-rails
   redis (~> 4.0)
   repost
+  rspec-json_expectations
   rspec-rails
   sass-rails (>= 6)
   selenium-webdriver

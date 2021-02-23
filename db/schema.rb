@@ -174,9 +174,6 @@ ActiveRecord::Schema.define(version: 2021_02_22_095739) do
   end
 
   create_table "ppsps", force: :cascade do |t|
-    t.string "agglomeration"
-    t.string "street_impact"
-    t.string "river_guidance"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false

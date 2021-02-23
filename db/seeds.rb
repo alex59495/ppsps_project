@@ -274,9 +274,6 @@ ppsps = []
   company = Company.all.sample
   ppsp = {
     worksite_id: Worksite.all.sample.id,
-    agglomeration: Ppsp::AGGLOMERATIONS.sample,
-    street_impact: Ppsp::STREET_IMPACTS.sample,
-    river_guidance: Ppsp::RIVER_GUIDANCES.sample,
     user_id: User.where(company: company).sample.id,
     moa_id: Moa.all.sample.id,
     moe_id: Moe.all.sample.id,
@@ -296,8 +293,8 @@ end
 
 ppsps.each do |ppsp|
   p = Ppsp.create!(worksite_id: ppsp[:worksite_id], user_id: ppsp[:user_id], moa_id: ppsp[:moa_id],
-  moe_id: ppsp[:moe_id], project_information_id: ppsp[:project_information_id], agglomeration: ppsp[:agglomeration],
-  street_impact: ppsp[:street_impact], river_guidance: ppsp[:river_guidance], security_coordinator_id: ppsp[:security_coordinator_id],
+  moe_id: ppsp[:moe_id], project_information_id: ppsp[:project_information_id],
+  security_coordinator_id: ppsp[:security_coordinator_id],
   pension_insurance_id: ppsp[:pension_insurance_id], direcct_id: ppsp[:direcct_id], work_medecine_id: ppsp[:work_medecine_id],
   regional_committee_id: ppsp[:regional_committee_id], demining_id: ppsp[:demining_id], 
   sos_hand_id: ppsp[:sos_hand_id], anti_poison_id: ppsp[:anti_poison_id], hospital_id: ppsp[:hospital_id],
