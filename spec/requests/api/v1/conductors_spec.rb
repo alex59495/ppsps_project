@@ -9,11 +9,14 @@ RSpec.describe "Api::V1::Conductors Controller", type: :request, format: :json d
   end
 
   context 'Logged user' do
-    before do
+    before :all do
       @user = create(:user)
-      login_as(@user)
       @ppsp = create(:ppsp, user: @user)
-      @conductor = create_list(:conductor, 3, user: @ppsp.user, ppsp: @ppsp)
+      @conductors = create_list(:conductor, 3, user: @ppsp.user, ppsp: @ppsp)
+    end
+
+    before do
+      login_as(@user)
     end
 
     it "Can access the API" do
@@ -26,12 +29,32 @@ RSpec.describe "Api::V1::Conductors Controller", type: :request, format: :json d
       # Don't forget to use an array when there are more than on object
       expect(JSON.parse(response.body)).to include_json(
         [
+          id: (be_kind_of Integer),
+          ppsp_id: (be_kind_of Integer),
           machine_category: (be_kind_of String),
           machine_caces: (be_kind_of String),
           machine_description: (be_kind_of String),
           worker_first_name: (be_kind_of String),
           worker_last_name: (be_kind_of String)
         ]
+      )
+    end
+
+    it "Can create a conductor" do
+      worker = create(:worker, company: @user.company)
+      machine = create(:machine)
+      params_conductor = attributes_for(:conductor).merge(ppsp_id: @ppsp.id, user_id: @user.id, worker_id: worker.id, machine_id: machine.id)
+      # We need the machine ID and Worker ID to post
+      post(api_v1_create_conductor_path(machine_id: machine.id, worker_id: worker.id), params: { conductor: params_conductor })
+
+      expect(JSON.parse(response.body)).to include_json(
+        id: (be_kind_of Integer),
+        ppsp_id: (be_kind_of Integer),
+        machine_category: (be_kind_of String),
+        machine_caces: (be_kind_of String),
+        machine_description: (be_kind_of String),
+        worker_first_name: (be_kind_of String),
+        worker_last_name: (be_kind_of String)
       )
     end
   end

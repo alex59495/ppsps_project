@@ -1,4 +1,7 @@
 import React, {useState, useEffect} from 'react'
+import axios from 'axios'
+
+
 import ListCategory from './ListCategory'
 import ListMachines from './ListMachines'
 import WorkersList from './WorkersList'
@@ -100,8 +103,16 @@ const App = () => {
   const handleWorkers = (e) => {
     e.preventDefault()
     workersId.forEach(workerId => {
-      fetch(`${url}/api/v1/conductors/${machineId}/${workerId}?ppsp_id=${ppspsId}`, {
-        method: 'POST'
+      axios({
+        url: `${url}/api/v1/conductors/${machineId}/${workerId}?ppsp_id=${ppspsId}`,
+        method: 'POST',
+        data: {
+          conductor: {
+            machine_id: machineId,
+            ppsp_id: ppspsId,
+            worker_id: workerId,
+          }
+        }
       }).then(response => {
         formWorkers.style.display = 'none';
         formListCategory.style.display = 'flex';

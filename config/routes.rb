@@ -39,10 +39,10 @@ Rails.application.routes.draw do
       get 'selected_site_installations', to: 'site_installations#selected_site_installations'
       delete 'selected_installations/:installation_id', to: 'site_installations#destroy_selected_installations'
       
-      resources :conductors, only: [:index, :destroy]      
+      resources :conductors, only: [:index, :destroy, :show]      
       resources :machines, only: [ :index ]
       get 'machines/categories', to: 'machines#categories'
-      post 'conductors/:machine_id/:worker_id', to: 'conductors#create'
+      post 'conductors/:machine_id/:worker_id', to: 'conductors#create', as: :create_conductor
       get 'workers/conductors', to: 'workers#conductors'
       get 'workers/lifesavers', to: 'workers#lifesavers'
       get 'workers/selected_lifesavers', to: 'workers#selected_lifesavers'
