@@ -57,5 +57,11 @@ RSpec.describe "Api::V1::Conductors Controller", type: :request, format: :json d
         worker_last_name: (be_kind_of String)
       )
     end
+
+    it "Can destroy a conductor" do
+      conductor = create(:conductor, user: @user)
+      expect { delete(api_v1_conductor_path(id: conductor.id)) }.to change(Conductor, :count).by(-1)
+      expect(response).to have_http_status(204)
+    end
   end
 end
