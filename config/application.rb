@@ -13,7 +13,7 @@ module PpspsProject
     config.exceptions_app = self.routes
 
     # Set up tinymce
-    config.tinymce.install = :compile
+    config.tinymce.install = :copy
 
     config.generators do |generate|
       # generate.assets false
