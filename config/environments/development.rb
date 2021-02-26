@@ -41,7 +41,7 @@ Rails.application.configure do
     port:            587,
     authentication: :plain,
     user_name:      'apikey',
-    password:       ENV['SENDGRID_API_KEY']
+    password:       Rails.application.credentials.sendgrid[:key]
   }
 
   # Don't care if the mailer can't send.

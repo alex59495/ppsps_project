@@ -6,7 +6,7 @@ Rails.application.configure do
     port:            587,
     authentication: :plain,
     user_name:      'apikey',
-    password:       ENV['SENDGRID_API_KEY']
+    password:       Rails.application.credentials.sendgrid[:key]
   }
   # Settings specified here will take precedence over those in config/application.rb.
 
