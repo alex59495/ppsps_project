@@ -4,7 +4,7 @@ const MachineDescription = ({description, image}) => {
   return (
     <div className='d-flex align-items-center mt-4'>
       <div className="image image-form-machine">
-        <img src={require(`/assets/${image}`)} alt={`${image}`}/>
+        <img src={require(image)} alt={`${image}`}/>
       </div>
       <div className='description ml-4'>
         {description}
