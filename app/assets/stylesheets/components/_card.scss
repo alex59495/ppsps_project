@@ -416,7 +416,7 @@
     &::before {
       content: '';
       border: 3px solid rgba(255, 0, 0, 0.493);
-      background-image: url('secours.png');
+      background-image: image-url('secours.png');
       background-size: cover;
       background-position: center;
       position: absolute;
