@@ -25,24 +25,32 @@ RSpec.describe Worksite, type: :model do
     before { allow(subject).to receive(:summer?).and_return(true) }
     it { should validate_presence_of(:timetable_summer_start) }
     it { should validate_presence_of(:timetable_summer_end) }
+    it { should validate_presence_of(:timetable_summer_start_friday) }
+    it { should validate_presence_of(:timetable_summer_end_friday) }
   end
 
   context "if winter timetable" do
     before { allow(subject).to receive(:winter?).and_return(true) }
     it { should validate_presence_of(:timetable_winter_start) }
     it { should validate_presence_of(:timetable_winter_end) }
+    it { should validate_presence_of(:timetable_winter_start_friday) }
+    it { should validate_presence_of(:timetable_winter_end_friday) }
   end
 
   context "if not summer timetable" do
     before { allow(subject).to receive(:summer?).and_return(false) }
     it { should validate_absence_of(:timetable_summer_start) }
     it { should validate_absence_of(:timetable_summer_end) }
+    it { should validate_absence_of(:timetable_summer_start_friday) }
+    it { should validate_absence_of(:timetable_summer_end_friday) }
   end
 
   context "if not winter timetable" do
     before { allow(subject).to receive(:winter?).and_return(false) }
     it { should validate_absence_of(:timetable_winter_start) }
     it { should validate_absence_of(:timetable_winter_end) }
+    it { should validate_absence_of(:timetable_winter_start_friday) }
+    it { should validate_absence_of(:timetable_winter_end_friday) }
   end
 
   context "if plan installtion" do

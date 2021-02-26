@@ -1,0 +1,8 @@
+<% if @company.cover_image.attached? %>
+  <div class='d-flex flex-column mb-2 align-items-center'>
+    <%= cl_image_tag @company.cover_image.key, class: 'icon-logo mb-3' %>
+    <%= link_to 'Supprimer', destroy_cover_company_path(@company), class: 'btn-delete', remote: true %>
+  </div>
+<% else %>
+  <div class="text-alert mb-2">Vous n'avez pas d'image de couverture pour le moment</div>
+<% end %>

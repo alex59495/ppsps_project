@@ -3,7 +3,6 @@ class CreateSelectedAltitudes < ActiveRecord::Migration[6.0]
     create_table :selected_altitudes do |t|
       t.references :altitude_work
       t.references :ppsp
-      t.string :other
 
       t.timestamps
     end

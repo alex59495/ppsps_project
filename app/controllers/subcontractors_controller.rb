@@ -33,10 +33,7 @@ class SubcontractorsController < DatabaseController
         format.js { render "#{controller_name}/create.js.erb" }
       end
     else
-      # Respond with the .js.erb to print the modal with errors
-      respond_to do |format|
-        format.js { render "modals/subcontractors/modal_#{controller_name.chop}" }
-      end
+      # What to do ?
     end
   end
 end

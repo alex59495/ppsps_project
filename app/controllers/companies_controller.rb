@@ -1,8 +1,9 @@
 class CompaniesController < ApplicationController
-  before_action :find_company, only: %i[edit update destroy_logo]
+  before_action :find_company, only: %i[edit update destroy_logo destroy_cover edit_content_secu]
 
   def edit
     @kit_security_element = KitSecurityElement.new
+    @user = current_user
     authorize @company
   end
 
@@ -28,10 +29,22 @@ class CompaniesController < ApplicationController
     end
   end
 
+  def destroy_cover
+    authorize @company
+    @user = current_user
+    if @company.cover_image.purge.nil?
+      respond_to do |format|
+        format.js { render 'companies/destroy_cover' }
+      end
+    else
+      # Que faire si probleme ?
+    end
+  end
+
   private
 
   def params_company
-    params.require(:company).permit(:logo, :content_secu, :name, :address, :representative)
+    params.require(:company).permit(:logo, :content_secu, :name, :address, :representative, :cover_image)
   end
 
   def find_company

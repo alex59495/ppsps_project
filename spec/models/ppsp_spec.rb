@@ -11,9 +11,6 @@ RSpec.describe Ppsp, type: :model do
   #   ppsp.valid?
   #   expect(ppsp.errors[:address]).to include("doit être rempli(e)")
   # end
-  it { should validate_presence_of(:agglomeration) }
-  it { should validate_presence_of(:street_impact) }
-  it { should validate_presence_of(:river_guidance) }
 
   it { is_expected.to validate_size_of(:annexes).less_than(500.kilobytes) }
   it { is_expected.to validate_size_of(:logo_client).less_than(100.kilobytes) }

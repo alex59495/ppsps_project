@@ -120,9 +120,13 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#timetable-summer label').click
       fill_in('ppsp_worksite_attributes_timetable_summer_start', with: '7h30')
       fill_in('ppsp_worksite_attributes_timetable_summer_end', with: '16h30')
+      fill_in('ppsp_worksite_attributes_timetable_summer_start_friday', with: '7h30')
+      fill_in('ppsp_worksite_attributes_timetable_summer_end_friday', with: '16h00')
       find('#timetable-winter label').click
       fill_in('ppsp_worksite_attributes_timetable_winter_start', with: '8h30')
       fill_in('ppsp_worksite_attributes_timetable_winter_end', with: '16h30')
+      fill_in('ppsp_worksite_attributes_timetable_winter_start_friday', with: '8h30')
+      fill_in('ppsp_worksite_attributes_timetable_winter_end_friday', with: '16h00')
 
       fill_in('ppsp_worksite_attributes_num_responsible', with: 1)
       fill_in('ppsp_worksite_attributes_num_conductor', with: 3)
@@ -133,10 +137,6 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#ppsp_anti_poison_id').find(:xpath, 'option[2]').select_option
 
       find('#ppsp_hospital_id').find(:xpath, 'option[2]').select_option
-
-      find('#ppsp_agglomeration').find(:xpath, 'option[2]').select_option
-      find('#ppsp_street_impact').find(:xpath, 'option[2]').select_option
-      find('#ppsp_river_guidance').find(:xpath, 'option[2]').select_option
       click_button "J'ai terminé"
       sleep 2
       expect(Ppsp.includes(:user).where(users: { company: @user.company }).count).to eq(count + 1)

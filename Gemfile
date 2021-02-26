@@ -60,7 +60,7 @@ gem 'devise'
 gem 'pundit'
 
 # Analyze the images
-gem "mini_magick"
+# gem "mini_magick"
 
 # Gérer les validation d'active storage
 gem 'active_storage_validations'
@@ -94,6 +94,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'rspec-json_expectations'
 end
 
 group :development do

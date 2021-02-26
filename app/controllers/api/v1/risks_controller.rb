@@ -2,11 +2,11 @@ class Api::V1::RisksController < Api::V1::BaseController
   def index
     # Renvoie la liste des risques qui n'ont pas encore été sélectionnés
     if params[:ppsps_id] == ''
-      @risks = policy_scope(Risk)
+      @risks = policy_scope(Risk).includes([:risk_type])
       authorize @risks
     else
       selected_risks = SelectedRisk.where(ppsp_id: params[:ppsps_id])
-      @risks = policy_scope(Risk).where.not(id: selected_risks.map(&:risk_id))
+      @risks = policy_scope(Risk).includes([:risk_type]).where.not(id: selected_risks.map(&:risk_id))
       authorize @risks
     end
   end

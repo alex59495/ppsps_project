@@ -1,6 +1,5 @@
 class PpspsController < ApplicationController
   before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit destroy_logo_client duplicate destroy_annexe]
-  # before_action :analyze_images, only: %i[edit show]
 
   def index
     # Handled by react :) (app/assets/javascript/ppsp-react)
@@ -47,8 +46,6 @@ class PpspsController < ApplicationController
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
     @subcontractors = policy_scope(Subcontractor.all)
-
-    ppsp_content_secu?
   end
 
   def show
@@ -185,9 +182,6 @@ class PpspsController < ApplicationController
     @anti_poisons = policy_scope(AntiPoison.all)
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
-    # @subcontractors = policy_scope(Subcontractor.all)
-
-    ppsp_content_secu?
   end
 
   def update
@@ -247,7 +241,6 @@ class PpspsController < ApplicationController
 
   def destroy_annexe
     authorize @ppsp
-    analyze_images
     blob = ActiveStorage::Blob.find_by(key: params[:public_id])
     ActiveStorage::Attachment.find_by(blob: blob).purge
     respond_to do |format|
@@ -333,20 +326,6 @@ class PpspsController < ApplicationController
     @ppsp = Ppsp.find(params[:id])
   end
 
-  def analyze_images
-    @ppsp.worksite.plan_installation.analyze if @ppsp.worksite.plan_installation.attached?
-    if @ppsp.worksite.plan_installation.attached? && @ppsp.worksite.plan_installation.metadata['width'] > @ppsp.worksite.plan_installation.metadata['height']
-      @orientation_plan = 'landscape'
-    elsif @ppsp.worksite.plan_installation.attached? && @ppsp.worksite.plan_installation.metadata['width'] <= @ppsp.worksite.plan_installation.metadata['height']
-      @orientation_plan = 'portrait'
-    end
-  end
-
-  # Add in the dataset of the view a indicator which show if the PPSP already have a content_secu or not
-  def ppsp_content_secu?
-    @ppsp_content_secu = @ppsp.content_secu.present?
-  end
-
   def handle_annexes
     return unless @ppsp.annexes.attached?
 
@@ -360,11 +339,13 @@ class PpspsController < ApplicationController
   end
 
   def params_ppsp
-    params.require(:ppsp).permit(:agglomeration, :river_guidance, :moa_id, :moe_id, :security_coordinator_id,
-                                 :street_impact, :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
+    params.require(:ppsp).permit(:moa_id, :moe_id, :security_coordinator_id,
+                                 :regional_committee_id, :pension_insurance_id, :direcct_id, :work_medecine_id,
                                  :demining_id, :sos_hand_id, :anti_poison_id, :hospital_id, :logo_client, :content_secu, annexes: [],
                                                                                                                          worksite_attributes: %i[id address start_date end_date timetable_summer timetable_summer_start timetable_summer_end
+                                                                                                                                                 timetable_summer_start_friday timetable_summer_end_friday
                                                                                                                                                  timetable_winter timetable_winter_start timetable_winter_end electrical_site
+                                                                                                                                                 timetable_winter_start_friday timetable_winter_end_friday
                                                                                                                                                  water_site nature plan num_responsible num_conductor num_worker plan_installation],
                                                                                                                          project_information_attributes: %i[id name reference responsible_id site_manager_id team_manager_id company_id])
   end

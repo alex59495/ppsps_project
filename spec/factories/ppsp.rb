@@ -1,8 +1,5 @@
 FactoryBot.define do
   factory :ppsp do
-    agglomeration { 'Agglomération' }
-    street_impact { 'Hors emprise voirie' }
-    river_guidance { "Cours d'eau" }
     security_coordinator
     moa
     moe

@@ -24,27 +24,3 @@
     <img src="https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/static/pin-s+ff7e67(<%= @marker[:lng] %>,<%= @marker[:lat] %>)/<%= @marker[:lng] %>,<%= @marker[:lat] %>,16/860x400?access_token=pk.eyJ1IjoibWF4ZW5jZWxlbm9pciIsImEiOiJja2RhNG9iMG8wZXY2MnptaDUzeDhidThpIn0.uNEuinv9hVcuU9VvtlOOsg" alt="map" id="map-mapbox">
   </div>
 <% end %>
-<div class="container-50">
-  <h2 class="pdf-subtitle">
-     2.<%= @num_worksite %> Dates du chantier
-      <% @num_worksite += 1%>
-  </h2>
-  <div class="flex-div-40">Date de début : </div><div class="flex-div-60"><%= @ppsp.worksite.start_date %></div>
-  <div class="flex-div-40">Date de fin : </div><div class="flex-div-60"><%= @ppsp.worksite.end_date %></div>
-  <% if @ppsp.worksite.timetable_summer || @ppsp.worksite.timetable_winter %>
-    <h2 class="pdf-subtitle">
-      2.<%= @num_worksite %> Les horaires du chantier
-      <% @num_worksite += 1%>
-    </h2>
-    <% if @ppsp.worksite.timetable_summer %>
-      <div class='pdf-subsubtitle'>Horaires d'été</div>
-      <div class="flex-div-40">Heure de début : </div><div class="flex-div-60"><%= @ppsp.worksite.timetable_summer_start %></div>
-      <div class="flex-div-40">Heure de fin : </div><div class="flex-div-60"><%= @ppsp.worksite.timetable_summer_end %></div>
-    <% end %>
-    <% if @ppsp.worksite.timetable_winter %>
-      <div class='pdf-subsubtitle'>Horaires d'hiver</div>
-      <div class="flex-div-40">Heure de début : </div><div class="flex-div-60"><%= @ppsp.worksite.timetable_winter_start %></div>
-      <div class="flex-div-40">Heure de fin : </div><div class="flex-div-60"><%= @ppsp.worksite.timetable_winter_end %></div>
-    <% end %>
-  <% end %>
-</div>

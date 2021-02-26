@@ -134,7 +134,7 @@ infos = []
   project_info = {
     reference: "AABB1#{n+10}",
     company: company,
-    name: "Ceci est la désiagnation du chantier #{n}",
+    name: "Ceci est la désignation du chantier #{n}",
     responsible_id: Worker.where(company: company, role: 'Conducteur de travaux').sample.id,
     site_manager_id: Worker.where(company: company, role: 'Chef de chantier').sample.id,
     team_manager_id: Worker.where(company: company, role: "Chef d'équipe").sample.id,
@@ -254,9 +254,13 @@ end
     timetable_summer: summer,
     timetable_summer_start: summer ? '8h' : nil,
     timetable_summer_end: summer ? '16h30' : nil,
+    timetable_summer_start_friday: summer ? '8h' : nil,
+    timetable_summer_end_friday: summer ? '16h00' : nil,
     timetable_winter: winter,
     timetable_winter_start: winter ? '9h' : nil,
     timetable_winter_end: winter ? '17h30' : nil,
+    timetable_winter_start_friday: winter ? '9h' : nil,
+    timetable_winter_end_friday: winter ? '17h30' : nil,
     electrical_site: [true, false].sample, 
     water_site: [true, false].sample, 
     plan: false,
@@ -270,9 +274,6 @@ ppsps = []
   company = Company.all.sample
   ppsp = {
     worksite_id: Worksite.all.sample.id,
-    agglomeration: Ppsp::AGGLOMERATIONS.sample,
-    street_impact: Ppsp::STREET_IMPACTS.sample,
-    river_guidance: Ppsp::RIVER_GUIDANCES.sample,
     user_id: User.where(company: company).sample.id,
     moa_id: Moa.all.sample.id,
     moe_id: Moe.all.sample.id,
@@ -292,8 +293,8 @@ end
 
 ppsps.each do |ppsp|
   p = Ppsp.create!(worksite_id: ppsp[:worksite_id], user_id: ppsp[:user_id], moa_id: ppsp[:moa_id],
-  moe_id: ppsp[:moe_id], project_information_id: ppsp[:project_information_id], agglomeration: ppsp[:agglomeration],
-  street_impact: ppsp[:street_impact], river_guidance: ppsp[:river_guidance], security_coordinator_id: ppsp[:security_coordinator_id],
+  moe_id: ppsp[:moe_id], project_information_id: ppsp[:project_information_id],
+  security_coordinator_id: ppsp[:security_coordinator_id],
   pension_insurance_id: ppsp[:pension_insurance_id], direcct_id: ppsp[:direcct_id], work_medecine_id: ppsp[:work_medecine_id],
   regional_committee_id: ppsp[:regional_committee_id], demining_id: ppsp[:demining_id], 
   sos_hand_id: ppsp[:sos_hand_id], anti_poison_id: ppsp[:anti_poison_id], hospital_id: ppsp[:hospital_id],
@@ -333,13 +334,26 @@ AltitudeWork::ALTITUDE_WORKS.each do |work|
   w = AltitudeWork.create(name: work)
   p "Create #{w.id} altitude works"
 end
+
+# Create Risk types
+RiskType::RISK_TYPES.each do |type|
+  t = RiskType.create(name: type)
+  p "Create #{t.id} type de risques"
+end
+
 # Create risks
 Risk::RISKS.each do |risk|
-  r = Risk.create(name: risk)
+  r = Risk.create(name: risk[:name], risk_type_id: risk[:type_id], file: risk[:file])
   p "Create #{r.id} risks"
 end
+
+MachineCategory::MACHINE_CATEGORIES.each do |category|
+  c = MachineCategory.create!(name: category)
+  p "Create #{c.id} types de machines"
+end
+
 # Create Machines
 Machine::MACHINES.each do |machine|
-  m = Machine.create!(caces: machine[:caces], category: machine[:category], description: machine[:description], image: machine[:image])
+  m = Machine.create!(caces: machine[:caces], machine_category_id: machine[:machine_category_id], description: machine[:description], image: machine[:image])
   p "Create #{m.id} machines"
 end

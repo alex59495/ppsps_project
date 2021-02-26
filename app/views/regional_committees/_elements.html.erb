@@ -1,21 +1,43 @@
 <% @database_page.each do |regional_committee| %>
   <div class="card-bdd">
-    <div class="front">
-      <div class="card-bdd-container">
-        <div class="text-center"><%= regional_committee.name %></div>
+    <div class="flip-container">
+      <div class="front">
+        <div class="content-bdd">
+          <div class="text-center"><%= regional_committee.name %></div>
+        </div>
       </div>
-    </div>
-    <div class="back">
-      <div class="card-bdd-container">
-        <div class="line"><i class="fas fa-map-marker-alt"></i><%= regional_committee.address %></div>
-        <div class="line"><i class="fas fa-phone-alt"></i><%= regional_committee.phone %></div>
-        <div class="line"><i class="fas fa-fax"></i><%= regional_committee.fax %></div>
-        <div class="line"><i class="fas fa-laptop-code"></i><<%= regional_committee.website.present? ? regional_committee.website : 'site web non renseigné' %></div>
-        <div class="card-db-action">
-          <%= link_to edit_regional_committee_path(regional_committee), class: "card-db-edit" do %>
-            <i class='fas fa-pencil-alt'></i>
-          <% end %>
-          <%= link_to "x", destroy_regional_committee_path(regional_committee), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+      <div class="back">
+        <div class="content-bdd">
+          <div class="line">
+            <i class="fas fa-map-marker-alt logo-bdd"></i>
+            <div class="line-text">
+              <%= regional_committee.address %>
+            </div>
+          </div>
+          <div class="line">
+            <i class="fas fa-phone-alt logo-bdd"></i>
+            <div class="line-text">
+              <%= regional_committee.phone %>
+            </div>
+          </div>
+          <div class="line">
+            <i class="fas fa-fax logo-bdd"></i>
+            <div class="line-text">
+              <%= regional_committee.fax %>
+            </div>
+          </div>
+          <div class="line">
+            <i class="fas fa-laptop-code logo-bdd"></i>
+            <div class="line-text">
+              <%= regional_committee.website.present? ? regional_committee.website : 'site web non renseigné' %>
+            </div>
+          </div>
+          <div class="card-db-action">
+            <%= link_to edit_regional_committee_path(regional_committee), class: "card-db-edit" do %>
+              <i class='fas fa-pencil-alt'></i>
+            <% end %>
+            <%= link_to "x", destroy_regional_committee_path(regional_committee), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+          </div>
         </div>
       </div>
     </div>

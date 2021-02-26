@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_08_161812) do
+ActiveRecord::Schema.define(version: 2021_02_22_095739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,13 +119,20 @@ ActiveRecord::Schema.define(version: 2021_02_08_161812) do
     t.index ["company_id"], name: "index_kit_security_elements_on_company_id"
   end
 
+  create_table "machine_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "machines", force: :cascade do |t|
-    t.string "category"
     t.string "caces"
     t.text "description"
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "machine_category_id", null: false
+    t.index ["machine_category_id"], name: "index_machines_on_machine_category_id"
   end
 
   create_table "moas", force: :cascade do |t|
@@ -167,9 +174,6 @@ ActiveRecord::Schema.define(version: 2021_02_08_161812) do
   end
 
   create_table "ppsps", force: :cascade do |t|
-    t.string "agglomeration"
-    t.string "street_impact"
-    t.string "river_guidance"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
@@ -228,10 +232,19 @@ ActiveRecord::Schema.define(version: 2021_02_08_161812) do
     t.index ["company_id"], name: "index_regional_committees_on_company_id"
   end
 
+  create_table "risk_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "risks", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "risk_type_id", null: false
+    t.string "file"
+    t.index ["risk_type_id"], name: "index_risks_on_risk_type_id"
   end
 
   create_table "security_coordinators", force: :cascade do |t|
@@ -381,9 +394,13 @@ ActiveRecord::Schema.define(version: 2021_02_08_161812) do
     t.boolean "timetable_summer"
     t.string "timetable_summer_start"
     t.string "timetable_summer_end"
+    t.string "timetable_summer_start_friday"
+    t.string "timetable_summer_end_friday"
     t.boolean "timetable_winter"
     t.string "timetable_winter_start"
     t.string "timetable_winter_end"
+    t.string "timetable_winter_start_friday"
+    t.string "timetable_winter_end_friday"
     t.boolean "electrical_site"
     t.boolean "water_site"
     t.boolean "plan"
@@ -403,6 +420,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_161812) do
   add_foreign_key "direccts", "companies"
   add_foreign_key "hospitals", "companies"
   add_foreign_key "kit_security_elements", "companies"
+  add_foreign_key "machines", "machine_categories"
   add_foreign_key "moas", "companies"
   add_foreign_key "moes", "companies"
   add_foreign_key "pension_insurances", "companies"
@@ -422,6 +440,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_161812) do
   add_foreign_key "ppsps", "worksites"
   add_foreign_key "project_informations", "companies"
   add_foreign_key "regional_committees", "companies"
+  add_foreign_key "risks", "risk_types"
   add_foreign_key "security_coordinators", "companies"
   add_foreign_key "selected_lifesavers", "ppsps"
   add_foreign_key "selected_lifesavers", "workers"

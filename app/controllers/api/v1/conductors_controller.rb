@@ -1,9 +1,15 @@
 class Api::V1::ConductorsController < Api::V1::BaseController
+  def show
+    @conductor = Conductor.find(params[:id])
+    authorize @conductor
+  end
+
   def create
-    @conductor = Conductor.new(worker_id: params[:worker_id], machine_id: params[:machine_id], user_id: current_user.id, ppsp_id: params[:ppsp_id])
+    @conductor = Conductor.new(params_conductor)
+    @conductor.user = current_user
     authorize @conductor
     if @conductor.save
-      head :no_content
+      render :show
     else
       render_error
     end
@@ -22,6 +28,10 @@ class Api::V1::ConductorsController < Api::V1::BaseController
   end
 
   private
+
+  def params_conductor
+    params.require(:conductor).permit(:worker_id, :machine_id, :ppsp_id)
+  end
 
   def render_error
     render json: { errors: @conductor.errors.full_messages },

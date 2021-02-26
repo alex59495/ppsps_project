@@ -1,11 +1,19 @@
 const hideSecurityKit = () => {
-  if(document.querySelector('form.edit_company')) {
+  if(document.querySelector('.card-kit-security') && document.querySelector('.edit_company')) {
     const btnAdd = document.getElementById('btn-add-security-kit');
     const formAdd = document.querySelector('#add-security-kit');
+    // Add the hide form logic
     btnAdd.addEventListener('click', () => {
       formAdd.classList.toggle('hidden');
-      btnAdd.innerText = btnAdd.innerText === 'Ajouter' ? 'Cacher' : 'Ajouter';
     })
+    // Add logic to change name of button if the button doesn't have an event yet
+    const toggleHideButton = () => {
+      btnAdd.innerText = btnAdd.innerText === 'Ajouter' ? 'Cacher' : 'Ajouter';
+      btnAdd.classList.add('event')
+    }
+    if(!btnAdd.classList.contains('event')) {
+      btnAdd.addEventListener('click', toggleHideButton)
+    }
   }
 }
 
@@ -49,4 +57,16 @@ const hideTimetableWinter = () => {
   }
 }
 
-export { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter }
+const hideTinyMce = () => {
+  const tinyMce = document.getElementById('tinymce-form');
+  if(tinyMce) {
+    const btnTinyMce = document.getElementById('btn-tinymce-form');
+    btnTinyMce.addEventListener('click', (e) => {
+      tinyMce.classList.toggle('hidden');
+      btnTinyMce.innerText = btnTinyMce.innerText === 'Éditeur de texte' ? 'Cacher' : 'Éditeur de texte'
+  
+    })
+  }
+}
+
+export { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter, hideTinyMce }

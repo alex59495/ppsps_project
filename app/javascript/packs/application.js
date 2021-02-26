@@ -32,7 +32,7 @@ import sweetAlertMail from '../components/sweetAlert';
 import InitializeTinyMce from '../components/tinymce-editor';
 import { initMapbox } from '../components/mapbox';
 import { logoClient, logoCompany } from '../components/displayLogo';
-import { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter } from '../components/hide-elements'
+import { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter, hideTinyMce } from '../components/hide-elements'
 import animateSubmitPpsps from '../components/animateSubmitPpsps'
 
 require('@rails/ujs').start();
@@ -48,6 +48,7 @@ require('../channels');
 // const imagePath = (name) => images(name, true)
 document.addEventListener('turbolinks:load', () => {
   InitializeTinyMce();
+  hideTinyMce();
   navbarDropdown();
   error();
   select2();
@@ -63,6 +64,9 @@ document.addEventListener('turbolinks:load', () => {
   hideTimetableWinter();
   hideTimetableSummer();
   animateSubmitPpsps();
+
+  // Permet de pouvoir appeler la function dans mon JS.erb
+  window.hideSecurityKit = hideSecurityKit;
 
   // React
   reactFromConductors();

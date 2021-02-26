@@ -234,8 +234,10 @@
         </div>
         <div class="col-md-6 offset-md-3">
           <div id="timetable-summer-input" class=<%= @ppsp.worksite.timetable_summer ? '' : 'hidden-visibility' %>>
-            <%= w.input :timetable_summer_start, placeholder: '8h30' %>
+            <%= w.input :timetable_summer_start, placeholder: '8h00' %>
             <%= w.input :timetable_summer_end, placeholder: '16h30' %>
+            <%= w.input :timetable_summer_start_friday, placeholder: '8h00' %>
+            <%= w.input :timetable_summer_end_friday, placeholder: '16h00' %>
           </div>
         </div>
         <div class="col-md-6 offset-md-3" id='timetable-winter'>
@@ -244,8 +246,10 @@
         </div>
         <div class="col-md-6 offset-md-3">
           <div id="timetable-winter-input" class=<%= @ppsp.worksite.timetable_winter ? '' : 'hidden-visibility' %>>
-            <%= w.input :timetable_winter_start, placeholder: '8h30' %>
+            <%= w.input :timetable_winter_start, placeholder: '8h00' %>
             <%= w.input :timetable_winter_end, placeholder: '16h30' %>
+            <%= w.input :timetable_winter_start_friday, placeholder: '8h00' %>
+            <%= w.input :timetable_winter_end_friday, placeholder: '16h30' %>
           </div>
         </div>
 
@@ -413,34 +417,27 @@
       </h2>
 
       <h3 class="col-md-6 offset-md-3 form-subtitle">
-        4-1. Signalisation
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <%= f.input :agglomeration, label: "Agglomération", as: :select, collection: Ppsp::AGGLOMERATIONS %>
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <%= f.input :street_impact, label: "Impact sur voirie", as: :select, collection: Ppsp::STREET_IMPACTS %>
-      </div>
-      <div class="col-md-6 offset-md-3">
-        <%= f.input :river_guidance, label: "Signalisation fluviale", as: :select, collection: Ppsp::RIVER_GUIDANCES %>
-      </div>
-
-      <h3 class="col-md-6 offset-md-3 form-subtitle">
-        4-2. Les risques associés à mon chantier
+        4-1. Les risques associés à mon chantier
       </h3>
       <div class="col-md-10 offset-md-1">
         <div id="react-render-risks" data-ppsps_id=<%=@ppsp.id%>></div>
       </div>
 
       <div class="col-md-6 offset-md-3 form-subtitle">
-        4-3. Ajouter des spécificités sur le chantier
-      </div>
-      <div class="col-md-10 offset-md-1">
-        <input class='hidden' name=image type=file id="upload" onchange="">
-        <%= f.text_area :content_secu, class: 'tinymce', 'data-company_secu': current_user.company.content_secu, 'data-ppsp_secu': @ppsp_content_secu %>
-        <%= tinymce %>
+        4-2. Ajouter des spécificités sur le chantier
       </div>
 
+      <div class="col-md-10 offset-md-1">
+        <div class="d-flex justify-content-center">
+          <div id='btn-tinymce-form' class='btn-orange mb-2'>Éditeur de texte</div>
+        </div>
+
+        <div class="col-md-10 offset-md-1 hidden" id='tinymce-form'>
+          <input class='hidden' name=image type=file id="upload" onchange="">
+          <%= f.text_area :content_secu, class: 'tinymce', 'data-ppsp_secu': @ppsp.content_secu %>
+          <%= tinymce %>
+        </div>
+      </div>
 
       <div class="col-md-6 offset-md-3 mt-3">
         <p>Annexes, si besoin</p>
@@ -455,7 +452,7 @@
       <% end %>
 
 
-      <div class="d-flex justify-content-center mt-5">
+      <div class="d-flex justify-content-center mt-5" style='width: 100%'>
         <%= f.button :button, "J'ai terminé", class: 'btn-blue', data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe }, id: 'SubmitPpspsFormBtn' %>
       </div>
     </div>
@@ -466,6 +463,7 @@
       </div>
     </div>
   <% end %>
+
   <% if policy(SecurityCoordinator).create? %>
     <div class="modal fade" id="ModalSecurityCoordinator" tabindex="-1" role="dialog" aria-labelledby="ModalSecurityCoordinator" aria-hidden="true">
       <%= render 'modals/security_coordinators/modal_security_coordinator' %>

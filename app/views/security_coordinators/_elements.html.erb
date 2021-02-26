@@ -1,21 +1,38 @@
 <% @database_page.each do |security_coordinator| %>
   <div class="card-bdd">
-    <div class="front">
-      <div class="card-bdd-container">
-        <div class="text-center"><%= security_coordinator.name %></div>
-        <div class="line"><i class="fas fa-user"></i><%= security_coordinator.representative %></div>
+    <div class="flip-container">
+      <div class="front">
+        <div class="content-bdd">
+          <div class="text-center"><%= security_coordinator.name %></div>
+          <div class="line"><i class="fas fa-user logo-bdd"></i><%= security_coordinator.representative %></div>
+        </div>
       </div>
-    </div>
-    <div class="back">
-      <div class="card-bdd-container">
-        <div class="line"><i class="fas fa-map-marker-alt"></i><%= security_coordinator.address %></div>
-        <div class="line"><i class="fas fa-phone-alt"></i><%= security_coordinator.phone %></div>
-        <div class="mail"><i class="fas fa-envelope"></i><%= security_coordinator.email %></div>
-        <div class="card-db-action">
-          <%= link_to edit_security_coordinator_path(security_coordinator), class: "card-db-edit" do %>
-            <i class='fas fa-pencil-alt'></i>
-          <% end %>
-          <%= link_to "x", destroy_security_coordinator_path(security_coordinator), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+      <div class="back">
+        <div class="content-bdd">
+          <div class="line">
+            <i class="fas fa-map-marker-alt logo-bdd"></i>
+            <div class="line-text">
+              <%= security_coordinator.address %>
+            </div>
+          </div>
+          <div class="line">
+            <i class="fas fa-phone-alt logo-bdd"></i>
+            <div class="line-text">
+              <%= security_coordinator.phone %>
+            </div>
+          </div>
+          <div class="mail">
+            <i class="fas fa-envelope logo-bdd"></i>
+            <div class="line-text">
+              <%= security_coordinator.email %>
+            </div>
+          </div>
+          <div class="card-db-action">
+            <%= link_to edit_security_coordinator_path(security_coordinator), class: "card-db-edit" do %>
+              <i class='fas fa-pencil-alt'></i>
+            <% end %>
+            <%= link_to "x", destroy_security_coordinator_path(security_coordinator), class: "card-db-delete", method: :post, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet élément ?"} %>
+          </div>
         </div>
       </div>
     </div>

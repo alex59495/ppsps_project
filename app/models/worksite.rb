@@ -22,12 +22,20 @@ class Worksite < ApplicationRecord
   validates :timetable_winter, inclusion: { in: [true, false] }
   validates :timetable_summer_start, presence: true, if: :summer?
   validates :timetable_summer_end, presence: true, if: :summer?
+  validates :timetable_summer_start_friday, presence: true, if: :summer?
+  validates :timetable_summer_end_friday, presence: true, if: :summer?
   validates :timetable_summer_start, absence: true, unless: :summer?
   validates :timetable_summer_end, absence: true, unless: :summer?
+  validates :timetable_summer_start_friday, absence: true, unless: :summer?
+  validates :timetable_summer_end_friday, absence: true, unless: :summer?
   validates :timetable_winter_start, presence: true, if: :winter?
   validates :timetable_winter_end, presence: true, if: :winter?
+  validates :timetable_winter_start_friday, presence: true, if: :winter?
+  validates :timetable_winter_end_friday, presence: true, if: :winter?
   validates :timetable_winter_start, absence: true, unless: :winter?
   validates :timetable_winter_end, absence: true, unless: :winter?
+  validates :timetable_winter_start_friday, absence: true, unless: :winter?
+  validates :timetable_winter_end_friday, absence: true, unless: :winter?
 
   def start_date_cant_be_after_end_date
     if start_date.present? && end_date.present? && start_date >= end_date
