@@ -4,14 +4,8 @@
     <% @num_worksite += 1 %>
   </h2>
   <% @ppsp.selected_altitudes.each do |altitude| %>
-    <% if altitude.other %>
-      <div class="aw-name">
-        <%= altitude.altitude_work.name %>, <%= altitude.other %>
-      </div>
-    <% else %>
-      <div class="aw-name">
-        <%= altitude.altitude_work.name %>
-      </div>
-    <% end %>
+    <div class="aw-name">
+      <%= altitude.altitude_work.name %>
+    </div>
   <% end %>
 </div>

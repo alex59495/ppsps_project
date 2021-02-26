@@ -1,11 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Api::V1::Ppsps Controller", type: :request, format: :json do
-  
   context 'Unlogged user' do
     it "Can't access the API" do
       get(api_v1_ppsps_path)
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(401)
     end
   end
 
