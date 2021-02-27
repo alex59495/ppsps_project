@@ -146,8 +146,8 @@ class PpspsController < ApplicationController
 
       redirect_to ppsp_path(@ppsp, format: :pdf)
     else
-      render :new
       flash.now.alert = "Le formulaire n'a pas été rempli correctement, merci de réessayer"
+      render :new
     end
   end
 
