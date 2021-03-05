@@ -229,27 +229,104 @@
           2-4. Horaires de travail
         </h3>
         <div class="col-md-6 offset-md-3" id='timetable-summer'>
-          Mon document doit faire figurer des horaires d'été
+          Mon document doit faire figurer des <span class='time-emphasis'>horaires d'été</span>
           <%= w.input :timetable_summer, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden' } %>
         </div>
         <div class="col-md-6 offset-md-3">
           <div id="timetable-summer-input" class=<%= @ppsp.worksite.timetable_summer ? '' : 'hidden-visibility' %>>
-            <%= w.input :timetable_summer_start, placeholder: '8h00' %>
-            <%= w.input :timetable_summer_end, placeholder: '16h30' %>
-            <%= w.input :timetable_summer_start_friday, placeholder: '8h00' %>
-            <%= w.input :timetable_summer_end_friday, placeholder: '16h00' %>
+            <div class='timetable-title' >
+              Semaine classique
+            </div>
+            <div class="d-flex justify-content-around">
+              <div class="calendar-box">
+                <div class="title">
+                  Début
+                </div>
+                <div class="time">
+                  <%= w.input :timetable_summer_start, label: false, input_html: {id: 'time_summer_start'} %>
+                </div>
+              </div>
+              <div class="calendar-box">
+                <div class="title">
+                  Fin
+                </div>
+                <div class="time">
+                  <%= w.input :timetable_summer_end, label: false, input_html: {id: 'time_summer_end'} %>
+                </div>
+              </div>
+            </div>
+
+            <div class='timetable-title' >
+              Vendredi
+            </div>
+             <div class="d-flex justify-content-around">
+              <div class="calendar-box">
+                <div class="title">
+                  Début
+                </div>
+                <div class="time">
+                  <%= w.input :timetable_summer_start_friday, label: false, input_html: {id: 'time_summer_start_friday'} %>
+                </div>
+              </div>
+              <div class="calendar-box">
+                <div class="title">
+                  Fin
+                </div>
+                <div class="time">
+                  <%= w.input :timetable_summer_end_friday, label: false, input_html: {id: 'time_summer_end_friday'} %>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-md-6 offset-md-3" id='timetable-winter'>
-          Mon document doit faire figurer des horaires d'hiver
+          Mon document doit faire figurer des <span class='time-emphasis'>horaires d'hiver</span>
           <%= w.input :timetable_winter, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden' } %>
         </div>
         <div class="col-md-6 offset-md-3">
           <div id="timetable-winter-input" class=<%= @ppsp.worksite.timetable_winter ? '' : 'hidden-visibility' %>>
-            <%= w.input :timetable_winter_start, placeholder: '8h00' %>
-            <%= w.input :timetable_winter_end, placeholder: '16h30' %>
-            <%= w.input :timetable_winter_start_friday, placeholder: '8h00' %>
-            <%= w.input :timetable_winter_end_friday, placeholder: '16h30' %>
+            <div class='timetable-title' >
+              Semaine classique
+            </div>
+             <div class="d-flex justify-content-around">
+              <div class="calendar-box">
+                <div class="title">
+                  Début
+                </div>
+                <div class="time">
+                  <%= w.input :timetable_winter_start, label: false, input_html: {id: 'time_winter_start'} %>
+                </div>
+              </div>
+              <div class="calendar-box">
+                <div class="title">
+                  Fin
+                </div>
+                <div class="time">
+                  <%= w.input :timetable_winter_end, label: false, input_html: {id: 'time_winter_end'} %>
+                </div>
+              </div>
+            </div>
+            <div class='timetable-title' >
+              Vendredi
+            </div>
+             <div class="d-flex justify-content-around">
+              <div class="calendar-box">
+                <div class="title">
+                  Début
+                </div>
+                <div class="time">
+                  <%= w.input :timetable_winter_start_friday, label: false, input_html: {id: 'time_winter_start_friday'} %>
+                </div>
+              </div>
+              <div class="calendar-box">
+                <div class="title">
+                  Fin
+                </div>
+                <div class="time">
+                  <%= w.input :timetable_winter_end_friday, label: false, input_html: {id: 'time_winter_end_friday'} %>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

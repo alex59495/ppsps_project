@@ -21,7 +21,7 @@ import reactFormLifesaver from '../components/form-lifesavers/index';
 
 // import { AutoCompleteGeocoding } from "../components/autocomplete"
 // La clé API pour l'utilisation de l'autocomplete Geocoding se trouve dans config/application.yml
-import flatPicker from '../components/flat-pickr';
+import { flatPickerDate, flatPickerSummerTime, flatPickerWinterTime } from '../components/flat-pickr';
 import select2 from '../components/select-2';
 import infiniteScroll from '../components/infinite-scroll-db';
 import { popUp } from '../components/popup';
@@ -52,7 +52,9 @@ document.addEventListener('turbolinks:load', () => {
   navbarDropdown();
   error();
   select2();
-  flatPicker();
+  flatPickerDate();
+  flatPickerSummerTime();
+  flatPickerWinterTime();
   infiniteScroll();
   popUp();
   calendar();
