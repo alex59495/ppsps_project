@@ -118,16 +118,16 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
       # visible false because we hide the input to make designed css element
       find('#timetable-summer label').click
-      fill_in('ppsp_worksite_attributes_timetable_summer_start', with: '7h30')
-      fill_in('ppsp_worksite_attributes_timetable_summer_end', with: '16h30')
-      fill_in('ppsp_worksite_attributes_timetable_summer_start_friday', with: '7h30')
-      fill_in('ppsp_worksite_attributes_timetable_summer_end_friday', with: '16h00')
-      find('#timetable-winter label').click
-      fill_in('ppsp_worksite_attributes_timetable_winter_start', with: '8h30')
-      fill_in('ppsp_worksite_attributes_timetable_winter_end', with: '16h30')
-      fill_in('ppsp_worksite_attributes_timetable_winter_start_friday', with: '8h30')
-      fill_in('ppsp_worksite_attributes_timetable_winter_end_friday', with: '16h00')
+      page.execute_script("$('#time_summer_start').val('07:00')")
+      page.execute_script("$('#time_summer_end').val('16:30')")
+      page.execute_script("$('#time_summer_start_friday').val('07:00')")
+      page.execute_script("$('#time_summer_end_friday').val('16:00')")
 
+      find('#timetable-winter label').click
+      page.execute_script("$('#time_winter_start').val('07:00')")
+      page.execute_script("$('#time_winter_end').val('16:30')")
+      page.execute_script("$('#time_winter_start_friday').val('07:00')")
+      page.execute_script("$('#time_winter_end_friday').val('16:00')")
       fill_in('ppsp_worksite_attributes_num_responsible', with: 1)
       fill_in('ppsp_worksite_attributes_num_conductor', with: 3)
       fill_in('ppsp_worksite_attributes_num_worker', with: 10)
