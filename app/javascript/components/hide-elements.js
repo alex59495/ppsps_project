@@ -69,4 +69,18 @@ const hideTinyMce = () => {
   }
 }
 
-export { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter, hideTinyMce }
+const hideInfirmary = () => {
+  const btnInfirmary = document.getElementById('infirmary');
+  const infirmaryText = document.getElementById('infirmary-text');
+  if(btnInfirmary) {
+    btnInfirmary.addEventListener('click', (e) => {
+      infirmaryText.classList.toggle('hidden');
+      // Clean the input if it is hidden
+      if(infirmaryText.classList.contains('hidden')) {
+        infirmaryText.value = ''
+      }
+    })
+  }
+}
+
+export { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter, hideTinyMce, hideInfirmary }

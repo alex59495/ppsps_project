@@ -32,7 +32,7 @@ import sweetAlertMail from '../components/sweetAlert';
 import InitializeTinyMce from '../components/tinymce-editor';
 import { initMapbox } from '../components/mapbox';
 import { logoClient, logoCompany } from '../components/displayLogo';
-import { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter, hideTinyMce } from '../components/hide-elements'
+import { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter, hideTinyMce, hideInfirmary } from '../components/hide-elements'
 import animateSubmitPpsps from '../components/animateSubmitPpsps'
 
 require('@rails/ujs').start();
@@ -56,6 +56,7 @@ document.addEventListener('turbolinks:load', () => {
   flatPickerSummerTime();
   flatPickerWinterTime();
   infiniteScroll();
+  hideInfirmary();
   popUp();
   calendar();
   sweetAlertMail();

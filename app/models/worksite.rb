@@ -11,6 +11,8 @@ class Worksite < ApplicationRecord
   validates :electrical_site, inclusion: { in: [true, false] }
   validates :water_site, inclusion: { in: [true, false] }
   validates :plan, inclusion: { in: [true, false] }
+  validates :infirmary, inclusion: { in: [true, false] }
+  validates :infirmary_text, presence: true, if: :infirmary?
   validate :start_date_cant_be_after_end_date
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
@@ -46,6 +48,10 @@ class Worksite < ApplicationRecord
 
   def has_a_plan?
     plan == true
+  end
+
+  def infirmary?
+    infirmary
   end
 
   def summer?
