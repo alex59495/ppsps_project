@@ -42,7 +42,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
   feature 'Logged as User Admin' do
     before :all do
       @user = create(:user_admin)
-      moa = create(:moa, company: @user.company)
+      @moa = create(:moa, company: @user.company)
       moe = create(:moe, company: @user.company)
       direcct = create(:direcct, company: @user.company)
       pension_insurance = create(:pension_insurance, company: @user.company)
@@ -53,7 +53,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       regional_committee = create(:regional_committee, company: @user.company)
       sos_hand = create(:sos_hand, company: @user.company)
       security_coordinator = create(:security_coordinator, company: @user.company)
-      @ppsp = create(:ppsp, user: @user, moa: moa, moe: moe, direcct: direcct, work_medecine: work_medecine, hospital: hospital, pension_insurance: pension_insurance,
+      @ppsp = create(:ppsp, user: @user, moa: @moa, moe: moe, direcct: direcct, work_medecine: work_medecine, hospital: hospital, pension_insurance: pension_insurance,
                             demining: demining, anti_poison: anti_poison, regional_committee: regional_committee, sos_hand: sos_hand,
                             security_coordinator: security_coordinator)
     end
@@ -73,6 +73,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#moa').click
       first('.card-bdd').hover
       find('.card-db-edit').click
+      expect(page).to have_current_path(edit_moa_path(@moa))
       fill_in('moa_name', with: 'Update the name')
       click_button('MoaBtn')
       moas = Moa.all.order(updated_at: :desc)
