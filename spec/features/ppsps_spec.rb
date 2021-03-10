@@ -73,6 +73,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       find('#moa').click
       # Open a new window
       first('.card-bdd').hover.find('.card-db-edit').click
+      sleep 2
       fill_in('moa_name', with: 'Update the name')
       click_button('MoaBtn')
       moas = Moa.all.order(updated_at: :desc)
