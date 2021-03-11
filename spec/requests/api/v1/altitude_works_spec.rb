@@ -20,6 +20,7 @@ RSpec.describe "Api::V1::Altitude_Work Controller", type: :request, format: :jso
     end
 
     it 'Body includes the json with the good characteristics' do
+      create(:altitude_work)
       get(api_v1_altitude_works_path)
       # Don't forget to use an array when there are more than on object
       expect(JSON.parse(response.body)).to include_json(

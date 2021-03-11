@@ -29,11 +29,19 @@ Capybara.default_max_wait_time = 10
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   config.before(:suite) do
+    # Start FactoryBot
+    FactoryBot.lint
     # Clean the DB after the tests
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
-    # Start FactoryBot
-    FactoryBot.lint
+  end
+
+  config.before(:all) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:all) do
+    DatabaseCleaner.clean_with(:truncation)
   end
 
   # Active storage validation

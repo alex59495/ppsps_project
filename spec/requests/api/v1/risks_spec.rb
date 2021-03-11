@@ -20,6 +20,7 @@ RSpec.describe "Api::V1::Risks Controller", type: :request, format: :json do
     end
 
     it 'Body includes the json with the good characteristics' do
+      create(:risk)
       get(api_v1_risks_path)
       # Don't forget to use an array when there are more than on object
       expect(JSON.parse(response.body)).to include_json(
