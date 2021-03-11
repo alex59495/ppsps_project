@@ -15,6 +15,15 @@ RSpec.describe Worksite, type: :model do
   it { should validate_presence_of(:num_worker) }
   it { should validate_presence_of(:start_date) }
   it { should validate_presence_of(:end_date) }
+  it { should allow_value(true, false).for(:water_site) }
+  it { should allow_value(true, false).for(:electrical_site) }
+  it { should allow_value(true, false).for(:plan) }
+  it { should allow_value(true, false).for(:infirmary) }
+
+  context "if summer timetable" do
+    before { allow(subject).to receive(:infirmary?).and_return(true) }
+    it { should validate_presence_of(:infirmary_text) }
+  end
 
   context 'Verify size of plan_installation if plan is true' do
     before { allow(subject).to receive(:has_a_plan?).and_return(true) }

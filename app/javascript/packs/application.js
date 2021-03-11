@@ -21,7 +21,7 @@ import reactFormLifesaver from '../components/form-lifesavers/index';
 
 // import { AutoCompleteGeocoding } from "../components/autocomplete"
 // La clé API pour l'utilisation de l'autocomplete Geocoding se trouve dans config/application.yml
-import flatPicker from '../components/flat-pickr';
+import { flatPickerDate, flatPickerSummerTime, flatPickerWinterTime } from '../components/flat-pickr';
 import select2 from '../components/select-2';
 import infiniteScroll from '../components/infinite-scroll-db';
 import { popUp } from '../components/popup';
@@ -32,7 +32,7 @@ import sweetAlertMail from '../components/sweetAlert';
 import InitializeTinyMce from '../components/tinymce-editor';
 import { initMapbox } from '../components/mapbox';
 import { logoClient, logoCompany } from '../components/displayLogo';
-import { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter, hideTinyMce } from '../components/hide-elements'
+import { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter, hideTinyMce, hideInfirmary } from '../components/hide-elements'
 import animateSubmitPpsps from '../components/animateSubmitPpsps'
 
 require('@rails/ujs').start();
@@ -52,8 +52,11 @@ document.addEventListener('turbolinks:load', () => {
   navbarDropdown();
   error();
   select2();
-  flatPicker();
+  flatPickerDate();
+  flatPickerSummerTime();
+  flatPickerWinterTime();
   infiniteScroll();
+  hideInfirmary();
   popUp();
   calendar();
   sweetAlertMail();

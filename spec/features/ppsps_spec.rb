@@ -42,7 +42,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
   feature 'Logged as User Admin' do
     before :all do
       @user = create(:user_admin)
-      moa = create(:moa, company: @user.company)
+      @moa = create(:moa, company: @user.company)
       moe = create(:moe, company: @user.company)
       direcct = create(:direcct, company: @user.company)
       pension_insurance = create(:pension_insurance, company: @user.company)
@@ -53,7 +53,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       regional_committee = create(:regional_committee, company: @user.company)
       sos_hand = create(:sos_hand, company: @user.company)
       security_coordinator = create(:security_coordinator, company: @user.company)
-      @ppsp = create(:ppsp, user: @user, moa: moa, moe: moe, direcct: direcct, work_medecine: work_medecine, hospital: hospital, pension_insurance: pension_insurance,
+      @ppsp = create(:ppsp, user: @user, moa: @moa, moe: moe, direcct: direcct, work_medecine: work_medecine, hospital: hospital, pension_insurance: pension_insurance,
                             demining: demining, anti_poison: anti_poison, regional_committee: regional_committee, sos_hand: sos_hand,
                             security_coordinator: security_coordinator)
     end
@@ -71,8 +71,8 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       visit(ppsps_path)
       click_on 'Modifier les bases de données'
       find('#moa').click
-      # Open a new window
       first('.card-bdd').hover.find('.card-db-edit').click
+      expect(page).to have_current_path(edit_moa_path(@moa))
       fill_in('moa_name', with: 'Update the name')
       click_button('MoaBtn')
       moas = Moa.all.order(updated_at: :desc)
@@ -118,16 +118,16 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
 
       # visible false because we hide the input to make designed css element
       find('#timetable-summer label').click
-      fill_in('ppsp_worksite_attributes_timetable_summer_start', with: '7h30')
-      fill_in('ppsp_worksite_attributes_timetable_summer_end', with: '16h30')
-      fill_in('ppsp_worksite_attributes_timetable_summer_start_friday', with: '7h30')
-      fill_in('ppsp_worksite_attributes_timetable_summer_end_friday', with: '16h00')
-      find('#timetable-winter label').click
-      fill_in('ppsp_worksite_attributes_timetable_winter_start', with: '8h30')
-      fill_in('ppsp_worksite_attributes_timetable_winter_end', with: '16h30')
-      fill_in('ppsp_worksite_attributes_timetable_winter_start_friday', with: '8h30')
-      fill_in('ppsp_worksite_attributes_timetable_winter_end_friday', with: '16h00')
+      page.execute_script("$('#time_summer_start').val('07:00')")
+      page.execute_script("$('#time_summer_end').val('16:30')")
+      page.execute_script("$('#time_summer_start_friday').val('07:00')")
+      page.execute_script("$('#time_summer_end_friday').val('16:00')")
 
+      find('#timetable-winter label').click
+      page.execute_script("$('#time_winter_start').val('07:00')")
+      page.execute_script("$('#time_winter_end').val('16:30')")
+      page.execute_script("$('#time_winter_start_friday').val('07:00')")
+      page.execute_script("$('#time_winter_end_friday').val('16:00')")
       fill_in('ppsp_worksite_attributes_num_responsible', with: 1)
       fill_in('ppsp_worksite_attributes_num_conductor', with: 3)
       fill_in('ppsp_worksite_attributes_num_worker', with: 10)

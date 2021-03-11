@@ -56,7 +56,7 @@
       </div>
     <% end %>
 
-    <% if @lifesavers.any? %>
+    <% if @lifesavers.any? || @ppsp.worksite.infirmary %>
       <div class="page-break">
         <%= render partial: 'ppsps/render_pages/security/list' %>
       </div>

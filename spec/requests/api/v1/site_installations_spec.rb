@@ -20,6 +20,7 @@ RSpec.describe "Api::V1::Site Installation Controller", type: :request, format: 
     end
 
     it 'Body includes the json with the good characteristics' do
+      create(:site_installation)
       get(api_v1_site_installations_path)
       # Don't forget to use an array when there are more than on object
       expect(JSON.parse(response.body)).to include_json(

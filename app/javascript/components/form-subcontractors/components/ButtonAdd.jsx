@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from "react-bootstrap/Modal";
 
 
-const ButtonAdd = ({admin, url, fetchSubcontractorsFormList, token}) => {
+const ButtonAdd = ({admin, url, fetchSubcontractorsFormList, token, HandleSubmitIdea}) => {
 
   if (admin === 'true') {
     const [isOpen, setIsOpen] = React.useState(false);
