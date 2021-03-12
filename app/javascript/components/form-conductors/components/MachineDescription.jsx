@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
 
 const MachineDescription = ({description, image}) => {
-  const url = window.location.protocol
+  // Use this first request to require the image (with fingerprint) bundled by Webpack
+  const img = require(`../../../../assets/images/${image}`)
   return (
     <div className='d-flex align-items-center mt-4'>
       <div className="image image-form-machine">
-        <img src={`${url}/assets/${image}`} alt={`${image}`}/>
+        <img src={img} alt={`${image}`}/>
       </div>
       <div className='description ml-4'>
         {description}
