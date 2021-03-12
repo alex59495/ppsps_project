@@ -105,6 +105,11 @@ class PpspsController < ApplicationController
     @ppsp = Ppsp.new(params_ppsp)
     @ppsp.project_information.company = current_user.company
     @ppsp.user = current_user
+
+    # This way the edit page is able to retrieve the project informations and worksite
+    @project_information = @ppsp.project_information
+    @worksite = @ppsp.worksite
+
     # Info to add the possibility to create a new element through a modal form
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
@@ -186,6 +191,10 @@ class PpspsController < ApplicationController
 
   def update
     authorize @ppsp
+    # This way the edit page is able to retrieve the project informations and worksite
+    @project_information = @ppsp.project_information
+    @worksite = @ppsp.worksite
+
     @security_coordinator = SecurityCoordinator.new
     @hospital = Hospital.new
     @moa = Moa.new

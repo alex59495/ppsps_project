@@ -414,7 +414,7 @@
         <p>Le chantier implique-t-il une infirmerie sur place ?</p>
         <%= f.simple_fields_for :worksite, @worksite do |w| %>
           <%= w.input :infirmary, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden', id:'infirmary' }  %>
-          <div class="hidden" id="infirmary-text">
+          <div class=<%= @worksite.infirmary ? 'visible' : 'hidden' %> id="infirmary-text">
             <%= w.input :infirmary_text, label: 'Indiquer les informations sur cette infirmerie (localisation etc...)' %>
           </div>
         <% end %>
