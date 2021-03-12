@@ -21,7 +21,6 @@ const flatPickerSummerTime = () => {
     dateFormat: "H:i",
     time_24hr: true,
     locale: French,
-    defaultDate: "7:30",
   });
   flatpickr('#time_summer_end', {
     disableMobile: 'true',
@@ -30,7 +29,6 @@ const flatPickerSummerTime = () => {
     dateFormat: "H:i",
     time_24hr: true,
     locale: French,   
-    defaultDate: "16:30",
   });
   flatpickr('#time_summer_start_friday', {
     disableMobile: 'true',
@@ -39,7 +37,6 @@ const flatPickerSummerTime = () => {
     dateFormat: "H:i",
     time_24hr: true,
     locale: French,
-    defaultDate: "7:30",
   });
   flatpickr('#time_summer_end_friday', {
     disableMobile: 'true',
@@ -48,7 +45,6 @@ const flatPickerSummerTime = () => {
     dateFormat: "H:i",
     time_24hr: true,
     locale: French,
-    defaultDate: "16:00",
   });
 }
 
@@ -60,7 +56,6 @@ const flatPickerWinterTime = () => {
     dateFormat: "H:i",
     time_24hr: true,
     locale: French,
-    defaultDate: "7:30",
   });
   flatpickr('#time_winter_end', {
     disableMobile: 'true',
@@ -69,7 +64,6 @@ const flatPickerWinterTime = () => {
     dateFormat: "H:i",
     time_24hr: true,
     locale: French,
-    defaultDate: "16:30",
   });
   flatpickr('#time_winter_start_friday', {
     disableMobile: 'true',
@@ -78,7 +72,6 @@ const flatPickerWinterTime = () => {
     dateFormat: "H:i",
     time_24hr: true,
     locale: French,
-    defaultDate: "7:30",
   });
   flatpickr('#time_winter_end_friday', {
     disableMobile: 'true',
@@ -87,7 +80,6 @@ const flatPickerWinterTime = () => {
     dateFormat: "H:i",
     time_24hr: true,
     locale: French,
-    defaultDate: "16:00",
   });
 }
 

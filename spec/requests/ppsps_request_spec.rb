@@ -65,7 +65,7 @@ RSpec.describe "Ppsps Controller", type: :request do
         end
       end
 
-      context 'Update Create' do
+      context 'Action Update' do
         let(:update_action) { patch ppsp_path(@ppsp), params: { ppsp: params_ppsp } }
 
         it 'Update address of PPSP' do

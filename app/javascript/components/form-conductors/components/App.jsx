@@ -58,7 +58,7 @@ const App = () => {
   }
 
 
-  const handleCategory = async (e) => {
+  const handleSubmitCategory = async (e) => {
     e.preventDefault()
     await fetchMachines()
     formListCategory.style.display = 'none';
@@ -75,7 +75,7 @@ const App = () => {
 
 
 // Machines' logic
-  const handleMachine = async (e) => {
+  const handleSubmitMachine = async (e) => {
     e.preventDefault()
     await fetchWorkers()
     formListMachines.style.display = 'none';
@@ -86,8 +86,8 @@ const App = () => {
   }
 
   const selectMachine = (e) => {
-    setMachineId(e.currentTarget.value)
     btnSubmitMachines.disabled = false
+    setMachineId(e.currentTarget.value)
   }
 
 // Workers Logic
@@ -100,7 +100,7 @@ const App = () => {
 
   // C'est en cliquant sur ce bouton (form des workers) qu'on valide la création d'une instance dans la table conducteurs
   // On active donc le trigger ici pour relancer l'App
-  const handleWorkers = (e) => {
+  const handleSubmitWorkers = (e) => {
     e.preventDefault()
     workersId.forEach(workerId => {
       axios({
@@ -122,6 +122,16 @@ const App = () => {
         count += 1
         setTrigger(count)
       })
+      .then(response => {
+        // Reset all the infos
+        setListSelected([]);
+        setCategory(null);
+        setWorkersId([]);
+        setMachineId([]);
+        setlistCategory([])
+        setListWorkers([])
+      })
+      .catch(error => console.log(error))
     })
   }
 
@@ -181,13 +191,12 @@ const App = () => {
     fetchData()
   }, [trigger])
 
-
   return (
     <React.Fragment>
       <div className="form-react-conductors">
-        <ListCategory listCategory={listCategory} handleCategory={handleCategory} selectCategory={selectCategory}/>
-        <ListMachines listMachines={listMachines} handleMachine={handleMachine} selectMachine={selectMachine} selectedMachineId={machineId}/>
-        <WorkersList listWorkers={listWorkers} handleWorkers={handleWorkers} selectWorkers={selectWorkers}/>
+        <ListCategory listCategory={listCategory} handleSubmitCategory={handleSubmitCategory} selectCategory={selectCategory}/>
+        <ListMachines listMachines={listMachines} handleSubmitMachine={handleSubmitMachine} selectMachine={selectMachine} selectedMachineId={machineId}/>
+        <WorkersList listWorkers={listWorkers} handleSubmitWorkers={handleSubmitWorkers} selectWorkers={selectWorkers}/>
       </div>
       <SavedVehicules listSelected={listSelected} handleDelete={handleDelete}/>
     </React.Fragment>

@@ -1,7 +1,7 @@
 import React from 'react'
 import InputWorker from './InputWorker'
 
-const WorkersList = ({listWorkers, handleWorkers, selectWorkers}) => {
+const WorkersList = ({listWorkers, handleSubmitWorkers, selectWorkers}) => {
   // Order the list by name
   const listOrdered = listWorkers.sort((a, b) => {
     const nameA = `${a.first_name} ${a.last_name}`.toLowerCase();
@@ -23,7 +23,7 @@ const WorkersList = ({listWorkers, handleWorkers, selectWorkers}) => {
   })
   
   return (
-    <form className='container-center-column checkboxes-workers' style={{display: 'none'}} onSubmit={handleWorkers}>
+    <form className='container-center-column checkboxes-workers' style={{display: 'none'}} onSubmit={handleSubmitWorkers}>
       <div className="form-checkboxes-title">
         Choisir les conducteurs de ce véhicule
       </div>
