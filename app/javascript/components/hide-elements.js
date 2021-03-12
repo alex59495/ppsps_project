@@ -72,12 +72,13 @@ const hideTinyMce = () => {
 const hideInfirmary = () => {
   const btnInfirmary = document.getElementById('infirmary');
   const infirmaryText = document.getElementById('infirmary-text');
+  const InputInfirmaryText = document.getElementById('ppsp_worksite_attributes_infirmary_text');
   if(btnInfirmary) {
     btnInfirmary.addEventListener('click', (e) => {
       infirmaryText.classList.toggle('hidden');
       // Clean the input if it is hidden
       if(infirmaryText.classList.contains('hidden')) {
-        infirmaryText.value = ''
+        InputInfirmaryText.value = ''
       }
     })
   }
