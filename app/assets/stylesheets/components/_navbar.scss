@@ -5,6 +5,7 @@
   background-color: $gray-light;
   margin-bottom: 20px;
   border-bottom: solid 0.5px #cfcfcf;
+  width: 100%;
   .navbar-company {
     font-weight: 700;
     font-size: 20px;
@@ -15,6 +16,13 @@
     font-size: 14px;
     text-align: center;
   }
+}
+
+.navbar-home {
+  position: fixed;
+  z-index: 1;
+  padding: 10px 0;
+  transition: 0.3s ease-in-out;
 }
 
 @media (min-width: 701px) {

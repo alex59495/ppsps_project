@@ -1,7 +1,7 @@
+<%= link_to "Revenir à la page d'accueil", root_path, class: 'link' %>
 <div class="row">
   <div class="col-6 offset-3">
     <h2><%= t(".sign_in") %></h2>
-
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="form-inputs">
         <%= f.input :email,

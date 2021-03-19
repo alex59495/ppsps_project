@@ -1,9 +1,9 @@
-<div class="navbar-expand-sm navbar-light navbar-ppsp">
-  <%= link_to ppsps_path, class:"icon-home" do %>
-    <%= image_tag('logo/logo-ppsp.png', width: 80, height: 80) %>
-  <% end %>
+<% if user_signed_in? %>
+  <div class="navbar-expand-sm navbar-light navbar-ppsp">
+    <%= link_to ppsps_path, class:"icon-home" do %>
+      <%= image_tag('logo/logo-ppsp.png', width: 80, height: 80) %>
+    <% end %>
 
-  <% if user_signed_in? %>
     <div class="navbar-text">
       <div class="navbar-company">
         <%= current_user.company.name %>
@@ -24,10 +24,10 @@
         </div>
       </div>
     </div>
-  <% else %>
-    <div class="btn-orange-animated">
-      <a href="mailto:alexis.lenoir60@gmail.com">Demander une démo</a>
-    </div>
-    <%= link_to "Se connecter", new_user_session_path, class: "btn-orange-ext mr-3" %>
-  <% end %>
-</div>
+  </div>
+<% elsif !user_signed_in? && params[:action] == 'home' %>  
+  <div class="navbar-expand-sm navbar-light navbar-ppsp justify-content-between px-2 navbar-home" style="background-color: rgba(0,0,0,0); border-color: rgba(0,0,0,0)">
+    <%= image_tag('logo/logo-ppsp.png', width: 80, height: 80) %>
+    <%= link_to "Se connecter", new_user_session_path, class: "btn-orange-ext", style:"color: white", id:'btn-sign-in' %>
+  </div>
+<% end %>

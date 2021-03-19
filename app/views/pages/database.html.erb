@@ -1,61 +1,59 @@
-<div class="container">
-  <h1>Mes bases de données</h1>
-  <%= image_tag 'background-barriere.svg', class: 'img-background-bottom-right' %>
-  <div class="row">
-    <%= link_to anti_poisons_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "anti_poison" do %>
-      <%= image_tag 'logo/logo-poison.svg', width: 50, height: 50  %>
-      <p>Centres Anti-poison</p>
-    <% end %>
-    <%= link_to deminings_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "demining" do %>
-      <%= image_tag 'logo/logo-bomb.svg', width: 50, height: 50  %>
-      <p>Centres de déminages</p>
-    <% end %>
-    <%= link_to direccts_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "direcct" do %>
-      <p class='infos-popup'>?</p>
-      <%= image_tag 'logo/logo-direcct.svg', width: 50, height: 50  %>
-      <p>DIRECCTE</p>
-    <% end %>
-    <%= link_to hospitals_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "hospital" do %>
-      <%= image_tag 'logo/logo-hospital.svg', width: 50, height: 50  %>
-      <p>Hôpitaux</p>
-    <% end %>
-    <%= link_to moas_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "moa" do %>
-      <%= image_tag 'logo/logo-moa.svg', width: 50, height: 50  %>
-      <p>Maîtres d'ouvrage</p>
-    <% end %>
-    <%= link_to moes_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "moe" do %>
-      <%= image_tag 'logo/logo-moe.svg', width: 50, height: 50  %>
-      <p>Maîtres d'oeuvre</p>
-    <% end %>
-    <%= link_to security_coordinators_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "security" do %>
-      <%= image_tag 'logo/logo-secu.svg', width: 50, height: 50  %>
-      <p>Coordinateurs sécurité</p>
-    <% end %>
-    <%= link_to  pension_insurances_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "pension" do %>
-      <%= image_tag 'logo/logo-pension.svg', width: 50, height: 50 %>
-      <p>Caisses d'assurances retraite et de santé au travail</p>
-    <% end %>
-    <%= link_to regional_committees_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "committee" do %>
-      <p class='infos-popup'>?</p>
-      <%= image_tag 'logo/logo-committee.svg', width: 50, height: 50  %>
-      <p>Comités régionaux de l'OPPBTP</p>
-    <% end %>
-      <%= link_to sos_hands_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "sos_hand" do %>
-      <%= image_tag 'logo/logo-hand.svg', width: 50, height: 50  %>
-      <p>Centres SOS Mains et Doigts</p>
-    <% end %>
-    <%= link_to work_medecines_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "work_mdedecine" do %>
-      <%= image_tag 'logo/logo-doctor.svg', width: 50, height: 50  %>
-      <p>Médecine du travail</p>
-    <% end %>
-    <%= link_to workers_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "compagnon" do %>
-      <%= image_tag 'logo/logo-compagnon.svg', width: 50, height: 50  %>
-      <p>Compagnons</p>
-    <% end %>
-    <%= link_to subcontractors_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "subcontractors" do %>
-      <%= image_tag 'logo/logo-subcontractor.svg', width: 50, height: 50  %>
-      <p>Sous-Traitants</p>
-    <% end %>
-  </div>
+<h1>Mes bases de données</h1>
+<%= image_tag 'background-barriere.svg', class: 'img-background-bottom-right' %>
+<div class="row">
+  <%= link_to anti_poisons_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "anti_poison" do %>
+    <%= image_tag 'logo/logo-poison.svg', width: 50, height: 50  %>
+    <p>Centres Anti-poison</p>
+  <% end %>
+  <%= link_to deminings_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "demining" do %>
+    <%= image_tag 'logo/logo-bomb.svg', width: 50, height: 50  %>
+    <p>Centres de déminages</p>
+  <% end %>
+  <%= link_to direccts_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "direcct" do %>
+    <p class='infos-popup'>?</p>
+    <%= image_tag 'logo/logo-direcct.svg', width: 50, height: 50  %>
+    <p>DIRECCTE</p>
+  <% end %>
+  <%= link_to hospitals_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "hospital" do %>
+    <%= image_tag 'logo/logo-hospital.svg', width: 50, height: 50  %>
+    <p>Hôpitaux</p>
+  <% end %>
+  <%= link_to moas_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "moa" do %>
+    <%= image_tag 'logo/logo-moa.svg', width: 50, height: 50  %>
+    <p>Maîtres d'ouvrage</p>
+  <% end %>
+  <%= link_to moes_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "moe" do %>
+    <%= image_tag 'logo/logo-moe.svg', width: 50, height: 50  %>
+    <p>Maîtres d'oeuvre</p>
+  <% end %>
+  <%= link_to security_coordinators_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "security" do %>
+    <%= image_tag 'logo/logo-secu.svg', width: 50, height: 50  %>
+    <p>Coordinateurs sécurité</p>
+  <% end %>
+  <%= link_to  pension_insurances_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "pension" do %>
+    <%= image_tag 'logo/logo-pension.svg', width: 50, height: 50 %>
+    <p>Caisses d'assurances retraite et de santé au travail</p>
+  <% end %>
+  <%= link_to regional_committees_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "committee" do %>
+    <p class='infos-popup'>?</p>
+    <%= image_tag 'logo/logo-committee.svg', width: 50, height: 50  %>
+    <p>Comités régionaux de l'OPPBTP</p>
+  <% end %>
+    <%= link_to sos_hands_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "sos_hand" do %>
+    <%= image_tag 'logo/logo-hand.svg', width: 50, height: 50  %>
+    <p>Centres SOS Mains et Doigts</p>
+  <% end %>
+  <%= link_to work_medecines_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "work_mdedecine" do %>
+    <%= image_tag 'logo/logo-doctor.svg', width: 50, height: 50  %>
+    <p>Médecine du travail</p>
+  <% end %>
+  <%= link_to workers_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "compagnon" do %>
+    <%= image_tag 'logo/logo-compagnon.svg', width: 50, height: 50  %>
+    <p>Compagnons</p>
+  <% end %>
+  <%= link_to subcontractors_path, class: "card-selec-db col-lg-4 col-md-6 col-sm-12", id: "subcontractors" do %>
+    <%= image_tag 'logo/logo-subcontractor.svg', width: 50, height: 50  %>
+    <p>Sous-Traitants</p>
+  <% end %>
 </div>
 

@@ -27,7 +27,7 @@ import infiniteScroll from '../components/infinite-scroll-db';
 import { popUp } from '../components/popup';
 import calendar from '../components/calendar';
 import error from '../components/errors';
-import navbarDropdown from '../components/navbar-dropdown';
+import { navbarDropdown, navbarTransparency } from '../components/navbar';
 import sweetAlertMail from '../components/sweetAlert';
 import InitializeTinyMce from '../components/tinymce-editor';
 import { initMapbox } from '../components/mapbox';
@@ -50,6 +50,7 @@ document.addEventListener('turbolinks:load', () => {
   InitializeTinyMce();
   hideTinyMce();
   navbarDropdown();
+  navbarTransparency();
   error();
   select2();
   flatPickerDate();
