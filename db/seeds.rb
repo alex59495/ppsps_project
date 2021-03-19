@@ -145,7 +145,7 @@ end
 
 infos.each do |project|
   project_information1 = ProjectInformation.create!(
-    reference: project[:reference], company:project[:company],
+    reference: project[:reference],
     name: project[:name],
     responsible_id: project[:responsible_id],
     site_manager_id: project[:site_manager_id],

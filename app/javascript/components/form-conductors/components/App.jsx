@@ -124,12 +124,13 @@ const App = () => {
       })
       .then(response => {
         // Reset all the infos
-        setListSelected([]);
         setCategory(null);
         setWorkersId([]);
         setMachineId([]);
-        setlistCategory([])
-        setListWorkers([])
+        setlistCategory([]);
+        setListWorkers([]);
+        setListSelected([]);
+        setListMachines([]);
       })
       .catch(error => console.log(error))
     })
