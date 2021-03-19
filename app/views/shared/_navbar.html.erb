@@ -27,7 +27,7 @@
   </div>
 <% elsif !user_signed_in? && params[:action] == 'home' %>  
   <div class="navbar-expand-sm navbar-light navbar-ppsp justify-content-between px-2 navbar-home" style="background-color: rgba(0,0,0,0); border-color: rgba(0,0,0,0)">
-    <%= image_tag('logo/logo-ppsp.png', width: 80, height: 80) %>
+    <%= image_tag('logo/logo-ppsp.png', width: 60, height: 60) %>
     <%= link_to "Se connecter", new_user_session_path, class: "btn-orange-ext", style:"color: white", id:'btn-sign-in' %>
   </div>
 <% end %>

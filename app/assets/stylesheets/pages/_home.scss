@@ -1,27 +1,25 @@
 // Specific CSS for your home-page
 .container-home-page {
-  min-height: 100vh;
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  h2 {
-    font-size: 24px;
-    text-align: left;
-  }
 }
 
 .home-banner {
-  display: flex;
-  min-height: 100vh;
+  min-height: 70vh;
   background-position: center;
   background-size: cover;
-  position: relative;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)),
     asset-url('home-background.jpg');
+  .wave {
+    height: 10vh;
+    width: 100%;
+    background-image: asset-url('wave.png');
+    animation: animate 60s linear infinite;
+  }
   .container-banner {
-    position: absolute;
-    left: 40px;
-    top: 100px;
+    margin: 30px 10%;
     .banner-txt {
       color: white;
       h1 {
@@ -29,6 +27,10 @@
         font-weight: bold;
         text-align: left;
         margin-bottom: 1em;
+      }
+      h2 {
+        font-size: 24px;
+        text-align: left;
       }
     }
     .btn-orange {
@@ -45,11 +47,21 @@
   }
 }
 
+@keyframes animate {
+  0% {
+    background-position-x: 0;
+  }
+  100% {
+    background-position-x: 4000px;
+  }
+}
+
 .container-form-home {
   margin: 20%;
   border-radius: 16px;
   padding: 16px 32px;
   background-color: white;
+  z-index: 1;
 }
 
 @media(max-width: 991px) {
@@ -79,7 +91,7 @@
   }
   .container-media {
     width: 100%;
-    height: 75%;
+    height: 200px;
     display: flex;
     justify-content: center;
   }
