@@ -7,7 +7,7 @@
 }
 
 .pdf-subtitle {
-  text-align: center;
+  text-align: left;
   font-weight: 500;
   font-size: 22px;
   margin-bottom: 1em;
@@ -195,15 +195,23 @@
   border-top: 1px solid black;
 }
 
-.border-right {
-  border-right: solid 1px black;
-  height: 1000px;
-  width: 50%;
-}
-
 .grid {
   padding: 16px;
   margin: auto;
+}
+
+// Table
+th {
+  border: solid 1px black;
+  padding: 8px 10px;
+  width: 400px;
+}
+
+td { 
+  border: solid 1px black;
+  padding: 16px 10px;
+  width: 400px;
+  margin: 0
 }
 
 // .landscape {
