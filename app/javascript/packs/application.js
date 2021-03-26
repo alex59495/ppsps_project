@@ -10,6 +10,7 @@
 
 import 'bootstrap';
 import ReactDOM from 'react-dom';
+import ActiveStorageDragAndDrop from 'active_storage_drag_and_drop';
 
 // Import react elements
 import reactPpsp from '../components/react-ppsp/index';
@@ -32,7 +33,7 @@ import sweetAlertMail from '../components/sweetAlert';
 import InitializeTinyMce from '../components/tinymce-editor';
 import { initMapbox } from '../components/mapbox';
 import { logoClient, logoCompany } from '../components/displayLogo';
-import { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter, hideTinyMce, hideInfirmary } from '../components/hide-elements'
+import { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter, hideInfirmary } from '../components/hide-elements'
 import animateSubmitPpsps from '../components/animateSubmitPpsps'
 
 require('@rails/ujs').start();
@@ -48,7 +49,6 @@ require('../channels');
 // const imagePath = (name) => images(name, true)
 document.addEventListener('turbolinks:load', () => {
   InitializeTinyMce();
-  hideTinyMce();
   navbarDropdown();
   navbarTransparency();
   error();
@@ -68,6 +68,9 @@ document.addEventListener('turbolinks:load', () => {
   hideTimetableWinter();
   hideTimetableSummer();
   animateSubmitPpsps();
+
+  // Active Storage Drag adn Drop
+  ActiveStorageDragAndDrop.start();
 
   // Permet de pouvoir appeler la function dans mon JS.erb
   window.hideSecurityKit = hideSecurityKit;

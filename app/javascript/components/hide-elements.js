@@ -57,18 +57,6 @@ const hideTimetableWinter = () => {
   }
 }
 
-const hideTinyMce = () => {
-  const tinyMce = document.getElementById('tinymce-form');
-  if(tinyMce) {
-    const btnTinyMce = document.getElementById('btn-tinymce-form');
-    btnTinyMce.addEventListener('click', (e) => {
-      tinyMce.classList.toggle('hidden');
-      btnTinyMce.innerText = btnTinyMce.innerText === 'Éditeur de texte' ? 'Cacher' : 'Éditeur de texte'
-  
-    })
-  }
-}
-
 const hideInfirmary = () => {
   const btnInfirmary = document.getElementById('infirmary');
   const infirmaryText = document.getElementById('infirmary-text');
@@ -84,4 +72,4 @@ const hideInfirmary = () => {
   }
 }
 
-export { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter, hideTinyMce, hideInfirmary }
+export { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter, hideInfirmary }

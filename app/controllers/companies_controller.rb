@@ -10,7 +10,7 @@ class CompaniesController < ApplicationController
   def update
     authorize @company
     if @company.update(params_company)
-      redirect_to profile_path(current_user)
+      redirect_to edit_company_path(@company)
       flash[:notice_ok] = 'Les modifications ont bien été prises en compte'
     else
       render 'profiles/edit'

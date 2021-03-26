@@ -72,9 +72,11 @@
       </div>
     <% end %>
 
-    <div class="page-break">
-      <%= render partial: 'ppsps/render_pages/risks/infos' %>
-    </div>
+    <% if @ppsp.risks.any? %>
+      <div class="page-break">
+        <%= render partial: 'ppsps/render_pages/risks/infos' %>
+      </div>
+    <% end %>
 
     <% if @ppsp.content_secu.present? %>
       <div class="page-break">

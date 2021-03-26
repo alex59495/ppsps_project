@@ -1,19 +1,17 @@
-<% if @ppsp.risks.any? %>
-  <h1 class="pdf-title mb-2">
-    IV. L'évaluation des risques
-  </h1>
-  <h2 class="pdf-subtitle">
-    4.<%= @num_risk %> Les risques propres et exportés
-    <% @num_risk += 1 %>
-  </h2>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ex justo, molestie nec mi at, fringilla sollicitudin dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus et posuere risus, sed molestie purus. Proin lacinia leo quis justo sollicitudin lacinia. Donec auctor consequat libero, quis tincidunt nunc placerat in. Pellentesque scelerisque eget magna et venenatis. Nunc vitae elementum metus. Nullam tempus leo in enim consectetur, vitae consequat nibh blandit. Donec ultrices urna ac nibh tempor, a rutrum urna commodo. Sed eget luctus velit, vitae pretium metus. Maecenas tempor ligula risus, a suscipit massa tincidunt vel. Nam vulputate pellentesque vehicula. Nulla odio ipsum, egestas molestie aliquet sit amet, tincidunt vel nisl.
+<h1 class="pdf-title mb-2">
+  IV. L'évaluation des risques
+</h1>
+<h2 class="pdf-subtitle">
+  4.<%= @num_risk %> Les risques propres et exportés
+  <% @num_risk += 1 %>
+</h2>
+<p>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ex justo, molestie nec mi at, fringilla sollicitudin dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus et posuere risus, sed molestie purus. Proin lacinia leo quis justo sollicitudin lacinia. Donec auctor consequat libero, quis tincidunt nunc placerat in. Pellentesque scelerisque eget magna et venenatis. Nunc vitae elementum metus. Nullam tempus leo in enim consectetur, vitae consequat nibh blandit. Donec ultrices urna ac nibh tempor, a rutrum urna commodo. Sed eget luctus velit, vitae pretium metus. Maecenas tempor ligula risus, a suscipit massa tincidunt vel. Nam vulputate pellentesque vehicula. Nulla odio ipsum, egestas molestie aliquet sit amet, tincidunt vel nisl.
 
-    In id tristique ligula, at hendrerit odio. Donec gravida nulla vel odio pretium, molestie porta libero sodales. Curabitur dignissim velit sit amet mi rutrum varius. Nam eget quam sit amet lectus hendrerit porta at sed massa. Nam lectus tortor, pulvinar quis lorem non, elementum porta enim. Integer sed odio aliquet tortor vulputate blandit vitae eu dui. In hac habitasse platea dictumst. Maecenas blandit dapibus turpis nec accumsan. In tempus lacinia sem lobortis vulputate. Vivamus commodo rutrum sem vitae hendrerit.
+  In id tristique ligula, at hendrerit odio. Donec gravida nulla vel odio pretium, molestie porta libero sodales. Curabitur dignissim velit sit amet mi rutrum varius. Nam eget quam sit amet lectus hendrerit porta at sed massa. Nam lectus tortor, pulvinar quis lorem non, elementum porta enim. Integer sed odio aliquet tortor vulputate blandit vitae eu dui. In hac habitasse platea dictumst. Maecenas blandit dapibus turpis nec accumsan. In tempus lacinia sem lobortis vulputate. Vivamus commodo rutrum sem vitae hendrerit.
 
-    Cras in quam vitae elit tincidunt interdum ac et purus. Ut est orci, aliquam sed sagittis nec, sagittis sit amet nunc. Proin egestas metus malesuada sem commodo, id aliquet dui lacinia. Aliquam tincidunt faucibus ex, in aliquet elit rutrum in. Donec vitae pharetra ipsum. Pellentesque vulputate sed ante et accumsan. Aliquam suscipit lorem a justo viverra imperdiet. Nulla dignissim congue nibh at mattis. Donec leo magna, facilisis sed vehicula sit amet, pulvinar nec turpis. Sed sed efficitur ipsum. Nunc pulvinar neque felis, a mattis enim eleifend eget. Curabitur libero nibh, ultrices non vehicula non, sollicitudin eu purus.
-  </p>
-  <% @ppsp.risks.each do |risk| %>
-      <%= wicked_pdf_image_tag(risk.file, width: 830) %>
-  <% end %>
+  Cras in quam vitae elit tincidunt interdum ac et purus. Ut est orci, aliquam sed sagittis nec, sagittis sit amet nunc. Proin egestas metus malesuada sem commodo, id aliquet dui lacinia. Aliquam tincidunt faucibus ex, in aliquet elit rutrum in. Donec vitae pharetra ipsum. Pellentesque vulputate sed ante et accumsan. Aliquam suscipit lorem a justo viverra imperdiet. Nulla dignissim congue nibh at mattis. Donec leo magna, facilisis sed vehicula sit amet, pulvinar nec turpis. Sed sed efficitur ipsum. Nunc pulvinar neque felis, a mattis enim eleifend eget. Curabitur libero nibh, ultrices non vehicula non, sollicitudin eu purus.
+</p>
+<% @ppsp.risks.each do |risk| %>
+    <%= wicked_pdf_image_tag(risk.file, width: 830) %>
 <% end %>

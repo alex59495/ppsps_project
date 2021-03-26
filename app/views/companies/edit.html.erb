@@ -77,19 +77,60 @@
 
 <div class='col-md-10 offset-md-1 mb-5'>
   <h3 class="text-center mt-3">Préambule pour les PPSPS de votre entreprise</h3>
-  
-  <div class="d-flex justify-content-center">
-    <div id='btn-tinymce-form' class='btn-orange mb-2'>Éditeur de texte</div>
-  </div>
 
-  <div class="col-md-10 offset-md-1 hidden" id='tinymce-form'>
-    <%= simple_form_for @company do |f| %>
-      <input class='hidden' name=image type=file id="upload" onchange="">
-      <%= f.text_area :content_secu, class: 'tinymce', 'data-company_secu': @company.content_secu %>
-      <%= tinymce %>
-      <div class="d-flex justify-content-center">
-        <%= f.submit 'Valider', class: 'btn-blue mt-2' %>
+  <% if @company.content_secu.present? %>
+    <p>Voir le préambule de mon entreprise</p>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn-blue" data-toggle="modal" data-target="#modalContentSecu">
+      Voir le préabule
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalContentSecu" tabindex="-1" role="dialog" aria-labelledby="modalContentSecuLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalContentSecuLabel">Préambule</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <%= @company.content_secu.html_safe %>
+          </div>
+        </div>
       </div>
-    <% end %>
+    </div>
+    <p>Vous pouvez modifier votre prémabule en cliquant sur <span class="time-emphasis">Editeur de texte</span> </p>
+  <% else %>
+    <p>Vous n'avez pas encore entré de préambule. Vous pouvez cliquer sur <span class="time-emphasis">Editeur de texte</span> pour en ajouter un</p>
+  <% end %>
+  
+  <button type="button" class="btn-orange" data-toggle="modal" data-target="#modalTiny">
+    Editeur de texte
+  </button>
+  <div class="modal fade" id="modalTiny" tabindex="-1" role="dialog" aria-labelledby="modalTinyLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTinyLabel"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-tiny-body">
+          <div id='tinymce-form'>
+            <%= simple_form_for @company do |f| %>
+              <input class='hidden' name=image type=file id="upload" onchange="">
+              <%= f.text_area :content_secu, class: 'tinymce', 'data-company_secu': @company.content_secu %>
+              <%= tinymce %>
+              <div class="d-flex justify-content-center">
+                <%= f.submit 'Valider', class: 'btn-blue mt-2' %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
