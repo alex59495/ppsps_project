@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export function getMetaValue(name) {
   const element = findElement(document.head, `meta[name="${name}"]`);
   if(element) {
@@ -25,7 +27,20 @@ export function toArray(value) {
 
 export function removeElement(el) {
   if (el && el.parentNode) {
-    el.parentNode.removeChild(el)
+    el.parentNode.removeChild(el);
+    axios({
+      url: `${window.location.protocol}/destroy_annexe/${el.dataset.publicid}`,
+      headers: {
+        'X-CSRF-Token': getMetaValue('csrf-token')
+      },
+      method: 'delete'
+    })
+    .then(response => {
+      console.log('OK')
+    })
+    .catch(error => {
+      console.log(error)
+    })
   }
 }
 

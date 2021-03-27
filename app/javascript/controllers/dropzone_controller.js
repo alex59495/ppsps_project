@@ -32,7 +32,8 @@ export default class extends Controller {
     });
 
     this.dropZone.on('removedfile', file => {
-      file.controller && removeElement(file.controller.hiddenInput);
+      const hiddenInput = file.controller.hiddenInput
+      file.controller && removeElement(hiddenInput);
     });
 
     this.dropZone.on('canceled', file => {
@@ -74,13 +75,13 @@ class DirectUploadController {
 
   start() {
     this.file.controller = this;
-    this.hiddemInput = this.createHiddenInput();
+    this.hiddenInput = this.createHiddenInput();
     this.directUpload.create((error, attributes) => {
       if(error) {
         removeElement(this.hiddenInput);
         this.emitDropzoneError(error);
       } else {
-        this.hiddemInput.value = attributes.signed_id;
+        this.hiddenInput.value = attributes.signed_id;
         this.emitDropzoneSuccess();
       }
     })
@@ -118,6 +119,10 @@ class DirectUploadController {
   emitDropzoneUpLoading() {
     this.file.status = Dropzone.UPLOADING;
     this.source.dropZone.emit('processing', this.file);
+
+    // // Disable submit button
+    document.getElementById('SubmitPpspsFormBtn').disabled = true;
+    document.getElementById('SubmitPpspsFormBtn').innerText = 'Téléchargement en cours';
   }
 
   emitDropzoneError(error) {
@@ -130,6 +135,14 @@ class DirectUploadController {
     this.file.status = Dropzone.SUCCESS;
     this.source.dropZone.emit('success', this.file);
     this.source.dropZone.emit('complete', this.file);
+
+    // Add an attribute to the public storage
+    const active_record_key_id = (JSON.parse(this.file.controller.xhr.response)['public_id'])
+    this.hiddenInput.setAttribute('data-publicid', active_record_key_id)
+
+    // // Disable submit button
+    document.getElementById('SubmitPpspsFormBtn').disabled = false;
+    document.getElementById('SubmitPpspsFormBtn').innerText = 'Valider';
   }
 }
 
@@ -149,6 +162,6 @@ function createDropZone(controller) {
     maxFileSize: controller.maxFileSize,
     accetedFiles: controller.acceptedFiles,
     addRemoveLinks: controller.addRemoveLinks,
-    autoQueue: false
+    autoProcessQueue: false
   });
 }

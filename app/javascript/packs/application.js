@@ -35,7 +35,7 @@ import InitializeTinyMce from '../components/tinymce-editor';
 import { initMapbox } from '../components/mapbox';
 import { logoClient, logoCompany } from '../components/displayLogo';
 import { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter, hideInfirmary } from '../components/hide-elements'
-import animateSubmitPpsps from '../components/animateSubmitPpsps'
+import {animateSubmitPpsps} from '../components/submitPpsps'
 
 require('@rails/ujs').start();
 require('turbolinks').start();
@@ -64,10 +64,12 @@ document.addEventListener('turbolinks:load', () => {
   sweetAlertMail();
   logoClient();
   logoCompany();
+  // Hide Elements
   hideSecurityKit();
   hidePlanInstallation();
   hideTimetableWinter();
   hideTimetableSummer();
+  // Submit PPSPS
   animateSubmitPpsps();
 
   // Permet de pouvoir appeler la function dans mon JS.erb

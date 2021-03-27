@@ -1,5 +1,5 @@
 class PpspsController < ApplicationController
-  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit destroy_logo_client duplicate destroy_annexe]
+  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit destroy_logo_client duplicate]
 
   def index
     # Handled by react :) (app/assets/javascript/ppsp-react)
@@ -221,7 +221,6 @@ class PpspsController < ApplicationController
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
     @subcontractors = policy_scope(Subcontractor.all)
-    binding.pry
 
     # We have to redefine the ID because if we don't nested form of rails will create a new instance of worksite and project info
     if @ppsp.update(params_ppsp)
@@ -250,11 +249,17 @@ class PpspsController < ApplicationController
   end
 
   def destroy_annexe
+    @ppsp = Ppsp.new
     authorize @ppsp
     blob = ActiveStorage::Blob.find_by(key: params[:public_id])
-    ActiveStorage::Attachment.find_by(blob: blob).purge
-    respond_to do |format|
-      format.js { render 'ppsps/destroy_annexe' }
+    if ActiveStorage::Attachment.find_by(blob: blob)
+      ActiveStorage::Attachment.find_by(blob: blob).purge
+      respond_to do |format|
+        format.js { render 'ppsps/destroy_annexe' }
+      end
+    else
+      blob.purge
+      head :no_content
     end
   end
 

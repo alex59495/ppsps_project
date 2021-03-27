@@ -8,4 +8,5 @@ const animateSubmitPpsps = () => {
   }
 }
 
-export default animateSubmitPpsps
+
+export {animateSubmitPpsps}

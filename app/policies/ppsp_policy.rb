@@ -38,7 +38,7 @@ class PpspPolicy < ApplicationPolicy
   end
 
   def destroy_annexe?
-    record.user == user
+    user.present?
   end
 
   def duplicate?

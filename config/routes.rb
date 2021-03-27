@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'contact', to: 'pages#contact', as: :contact
   
   # Ppsp
+  delete 'destroy_annexe/:public_id', to: 'ppsps#destroy_annexe', as: :destroy_annexe 
   resources :ppsps, except: [:destroy] do
     resources :selected_installations, only: [ :create, :destroy ]
     resources :selected_altitudes, only: [ :create, :destroy ]
@@ -12,7 +13,6 @@ Rails.application.routes.draw do
     resources :selected_subcontractors, only: [ :create, :destroy ]
     member do
       get 'worksite/destroy_plan_installation/:public_id', to: 'worksites#destroy_plan_installation', as: :destroy_plan_installation
-      get 'destroy_annexe/:public_id', to: 'ppsps#destroy_annexe', as: :destroy_annexe 
       get :destroy_logo_client
       get :duplicate
     end

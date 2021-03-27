@@ -1,6 +1,6 @@
 <div class="container mb-3">
   <%= link_to "Revenir à mes PPSP", ppsps_path, class: 'link' %>
-  <%= simple_form_for @ppsp, remote: true do |f| %>
+  <%= simple_form_for @ppsp, remote: true, html: {multipart: true} do |f| %>
     <div class="row">
       <h2 class="col-12 form-title">
         I. Renseignements administratifs
@@ -514,16 +514,16 @@
         <%= render 'ppsps/form/modal_secu_ppsp', f: f %>
         </div>
       </div>
-
       <div class="col-md-6 offset-md-3 mt-3">
         <p>Annexes, si besoin</p>
-        <p class="text-alert">Vous pouvez maintenir la touche CTRL enfoncée lors de la sélection pour choisir plusieurs fichiers</p>
-        <p class="text-alert-black">Maximum : 500kB (par fichier)</p>
-        <div data-controller="dropzone" data-max-files-size="1" data-dropzone-max-files="5" class="dropzone dropzone-default dz-clickable">
-          <%= f.input :annexes, label: false, input_html: { direct_upload: true, data: { 'dropzone-target'.to_sym => "input" } } %>
+        <div data-controller="dropzone" data-max-files-size="0.5" data-dropzone-max-files="5" class="dropzone dropzone-default dz-clickable">
+          <%= f.input :annexes, label: false, input_html: { direct_upload: true, multiple: true, data: { 'dropzone-target'.to_sym => "input" } } %>
           <div class="dropzone-msg dz-message needsclick">
             <h3 class='dropzone-msg-title'>Glisser les fichiers ou cliquer sur la zone</h3>
-            <span class="dropzone-msg-desc text-sm">500 kB max. Fichiers autorisés : png, jpg, jpeg, pdf</span>
+            <span class="dropzone-msg-desc text-sm">
+              <p>500 kB max /fichier (Max 5 fichiers). </p>
+              <p>Fichiers autorisés : png, jpg, jpeg, pdf</p>
+            </span>
           </div>
         </div>
       </div>
