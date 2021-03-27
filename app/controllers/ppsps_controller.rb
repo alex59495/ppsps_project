@@ -221,6 +221,7 @@ class PpspsController < ApplicationController
     @hospitals = policy_scope(Hospital.all)
     @security_coordinators = policy_scope(SecurityCoordinator.all)
     @subcontractors = policy_scope(Subcontractor.all)
+    binding.pry
 
     # We have to redefine the ID because if we don't nested form of rails will create a new instance of worksite and project info
     if @ppsp.update(params_ppsp)

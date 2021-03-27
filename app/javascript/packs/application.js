@@ -7,10 +7,11 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
-
 import 'bootstrap';
 import ReactDOM from 'react-dom';
-import ActiveStorageDragAndDrop from 'active_storage_drag_and_drop';
+
+// Stimulus
+import 'controllers'
 
 // Import react elements
 import reactPpsp from '../components/react-ppsp/index';
@@ -68,9 +69,6 @@ document.addEventListener('turbolinks:load', () => {
   hideTimetableWinter();
   hideTimetableSummer();
   animateSubmitPpsps();
-
-  // Active Storage Drag adn Drop
-  ActiveStorageDragAndDrop.start();
 
   // Permet de pouvoir appeler la function dans mon JS.erb
   window.hideSecurityKit = hideSecurityKit;

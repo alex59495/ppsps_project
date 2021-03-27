@@ -519,7 +519,13 @@
         <p>Annexes, si besoin</p>
         <p class="text-alert">Vous pouvez maintenir la touche CTRL enfoncée lors de la sélection pour choisir plusieurs fichiers</p>
         <p class="text-alert-black">Maximum : 500kB (par fichier)</p>
-        <%= f.drag_and_drop_file_field :annexes, "Ajouter des fichier en cliquant ici ou glisser/déposer"%>
+        <div data-controller="dropzone" data-max-files-size="1" data-dropzone-max-files="5" class="dropzone dropzone-default dz-clickable">
+          <%= f.input :annexes, label: false, input_html: { direct_upload: true, data: { 'dropzone-target'.to_sym => "input" } } %>
+          <div class="dropzone-msg dz-message needsclick">
+            <h3 class='dropzone-msg-title'>Glisser les fichiers ou cliquer sur la zone</h3>
+            <span class="dropzone-msg-desc text-sm">500 kB max. Fichiers autorisés : png, jpg, jpeg, pdf</span>
+          </div>
+        </div>
       </div>
       <% if @ppsp.annexes.attached? %>
         <div class="d-flex flex-wrap justify-content-center w-100" id='container-annexes'>
