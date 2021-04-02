@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "PensionInsurances Controller", type: :request do
   context 'Logged as Normal User' do
+    let(:user_uber) { create(:user_uber) }
+
     before do
-      user_uber = create(:user_uber)
       login_as(user_uber)
     end
 
@@ -13,15 +14,12 @@ RSpec.describe "PensionInsurances Controller", type: :request do
   end
 
   context 'Logged as User Admin' do
-    before :all do
-      @user = create(:user_admin)
-      @pension_insurance = create(:pension_insurance)
-    end
-
+    let(:user) { create(:user_admin) }
+    let(:pension_insurance) { create(:pension_insurance) }
     before do
-      login_as(@user)
+      login_as(user)
     end
-
+    
     let(:params_pension_insurance) { attributes_for(:pension_insurance) }
     let(:params_pension_insurance_update) { attributes_for(:pension_insurance_update) }
 
@@ -31,7 +29,7 @@ RSpec.describe "PensionInsurances Controller", type: :request do
     end
 
     context 'Action Destroy' do
-      let(:destroy_action) { post destroy_pension_insurance_path(@pension_insurance) }
+      let(:destroy_action) { post destroy_pension_insurance_path(pension_insurance) }
       it 'Delete 1 instance of pension_insurance when using action destroy' do
         expect { destroy_action }.to change(PensionInsurance.where(is_destroyed: true), :count).by(1)
       end
@@ -51,14 +49,14 @@ RSpec.describe "PensionInsurances Controller", type: :request do
     end
 
     context 'Action Update' do
-      let(:update_action) { patch pension_insurance_path(@pension_insurance), params: { pension_insurance: params_pension_insurance_update } }
+      let(:update_action) { patch pension_insurance_path(pension_insurance), params: { pension_insurance: params_pension_insurance_update } }
 
       it 'Update the attributes of PensionInsurance' do
         update_action
-        @pension_insurance.reload
-        expect(@pension_insurance.fax).to eq(params_pension_insurance_update[:fax])
-        expect(@pension_insurance.address).to eq(params_pension_insurance_update[:address])
-        expect(@pension_insurance.phone).to eq(params_pension_insurance_update[:phone])
+        pension_insurance.reload
+        expect(pension_insurance.fax).to eq(params_pension_insurance_update[:fax])
+        expect(pension_insurance.address).to eq(params_pension_insurance_update[:address])
+        expect(pension_insurance.phone).to eq(params_pension_insurance_update[:phone])
       end
     end
   end

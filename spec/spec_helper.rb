@@ -36,14 +36,6 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
 
-  config.before(:all) do
-    DatabaseCleaner.start
-  end
-
-  config.after(:all) do
-    DatabaseCleaner.clean_with(:truncation)
-  end
-
   # Active storage validation
   config.include ActiveStorageValidations::Matchers
 

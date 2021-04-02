@@ -14,12 +14,13 @@ RSpec.describe "Api::V1::Workers Controller", type: :request, format: :json do
   end
 
   context 'Logged user' do
+    let(:user) {create(:user) }
+    let(:ppsp) { create(:ppsp, user: user) }
+    let(:conductors) { create_list(:worker, 3, company: user.company, conductor: true) }
+    let(:lifesavers) { create_list(:worker, 3, company: user.company, lifesaver: true) }
+
     before do
-      @user = create(:user)
-      login_as(@user)
-      @ppsp = create(:ppsp, user: @user)
-      @conductors = create_list(:worker, 3, company: @user.company, conductor: true)
-      @lifesavers = create_list(:worker, 3, company: @user.company, lifesaver: true)
+      login_as(user)
     end
 
     context 'Worker conductors' do
@@ -29,6 +30,7 @@ RSpec.describe "Api::V1::Workers Controller", type: :request, format: :json do
       end
 
       it 'Body includes the json with the good characteristics' do
+        conductors
         get(api_v1_workers_conductors_path)
         # Don't forget to use an array when there are more than on object
         expect(JSON.parse(response.body)).to include_json(
@@ -50,6 +52,7 @@ RSpec.describe "Api::V1::Workers Controller", type: :request, format: :json do
       end
 
       it 'Body includes the json with the good characteristics' do
+        lifesavers
         get(api_v1_workers_lifesavers_path)
         # Don't forget to use an array when there are more than on object
         expect(JSON.parse(response.body)).to include_json(
@@ -65,14 +68,14 @@ RSpec.describe "Api::V1::Workers Controller", type: :request, format: :json do
 
       context 'Selected lifesavers' do
         before do
-          ids_lifesavers = @lifesavers.map(&:id)
+          ids_lifesavers = lifesavers.map(&:id)
           ids_lifesavers.each do |id|
-            create(:selected_lifesaver, ppsp: @ppsp, worker_id: id)
+            create(:selected_lifesaver, ppsp: ppsp, worker_id: id)
           end
         end
 
         it 'Body includes the json with the good characteristics' do
-          get(api_v1_workers_selected_lifesavers_path(ppsps_id: @ppsp.id))
+          get(api_v1_workers_selected_lifesavers_path(ppsps_id: ppsp.id))
           # Don't forget to use an array when there are more than on object
           expect(JSON.parse(response.body)).to include_json(
             [

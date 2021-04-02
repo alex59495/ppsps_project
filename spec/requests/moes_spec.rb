@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Moes Controller", type: :request do
   context 'Logged as Normal User' do
+    let(:user_uber) { create(:user_uber) }
     before do
-      user_uber = create(:user_uber)
       login_as(user_uber)
     end
     
@@ -13,13 +13,10 @@ RSpec.describe "Moes Controller", type: :request do
   end
 
   context 'Logged as User Admin' do
-    before :all do
-      @user = create(:user_admin)
-      @moe = create(:moe)
-    end
-
+    let(:user) { create(:user_admin) }
+    let(:moe) { create(:moe) }
     before do
-      login_as(@user)
+      login_as(user)
     end
     
     let(:params_moe) { attributes_for(:moe)}
@@ -31,7 +28,7 @@ RSpec.describe "Moes Controller", type: :request do
     end
   
     context 'Action Destroy' do
-      let(:destroy_action) { post destroy_mo_path(@moe) }
+      let(:destroy_action) { post destroy_mo_path(moe) }
       it 'Delete 1 instance of moe when using action destroy' do
         expect { destroy_action }.to change(Moe.where(is_destroyed: true), :count).by(1)
       end
@@ -51,16 +48,16 @@ RSpec.describe "Moes Controller", type: :request do
     end
 
     context 'Action Update' do
-      let(:update_action) { patch mo_path(@moe), params: { moe: params_moe_update } }
+      let(:update_action) { patch mo_path(moe), params: { moe: params_moe_update } }
 
       it 'Update the attributes of Moe' do
         update_action
-        @moe.reload
-        expect(@moe.name).to eq(params_moe_update[:name])
-        expect(@moe.address).to eq(params_moe_update[:address])
-        expect(@moe.phone).to eq(params_moe_update[:phone])
-        expect(@moe.representative).to eq(params_moe_update[:representative])
-        expect(@moe.email).to eq(params_moe_update[:email])
+        moe.reload
+        expect(moe.name).to eq(params_moe_update[:name])
+        expect(moe.address).to eq(params_moe_update[:address])
+        expect(moe.phone).to eq(params_moe_update[:phone])
+        expect(moe.representative).to eq(params_moe_update[:representative])
+        expect(moe.email).to eq(params_moe_update[:email])
       end
     end
     

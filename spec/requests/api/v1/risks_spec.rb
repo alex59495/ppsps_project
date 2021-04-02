@@ -8,10 +8,11 @@ RSpec.describe "Api::V1::Risks Controller", type: :request, format: :json do
     end
   end
 
+  let(:user) { create(:user) }
+
   context 'Logged user' do
     before do
-      @user = create(:user)
-      login_as(@user)
+      login_as(user)
     end
 
     it "Can access the API" do
@@ -34,7 +35,7 @@ RSpec.describe "Api::V1::Risks Controller", type: :request, format: :json do
 
     context 'Selected Risks' do
       before do
-        @ppsp = create(:ppsp, user: @user)
+        @ppsp = create(:ppsp, user: user)
         @selected_risks = create_list(:selected_risk, 3, ppsp: @ppsp)
       end
 

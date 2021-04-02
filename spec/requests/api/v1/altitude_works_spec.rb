@@ -9,9 +9,10 @@ RSpec.describe "Api::V1::Altitude_Work Controller", type: :request, format: :jso
   end
 
   context 'Logged user' do
+    let(:user) { create(:user) }
+    
     before do
-      @user = create(:user)
-      login_as(@user)
+      login_as(user)
     end
 
     it "Can access the API" do
@@ -33,7 +34,7 @@ RSpec.describe "Api::V1::Altitude_Work Controller", type: :request, format: :jso
 
     context 'Selected altitude Works' do
       before do
-        @ppsp = create(:ppsp, user: @user)
+        @ppsp = create(:ppsp, user: user)
         @selected_altitudes = create_list(:selected_altitude, 3, ppsp: @ppsp)
       end
 

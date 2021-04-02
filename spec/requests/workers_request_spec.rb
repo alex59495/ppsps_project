@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "Workers Controller", type: :request do
   context 'Logged as Normal User' do
+    let(:user_uber) { create(:user_uber) }
+
     before do
-      user_uber = create(:user_uber)
       login_as(user_uber)
     end
 
@@ -13,13 +14,11 @@ RSpec.describe "Workers Controller", type: :request do
   end
 
   context 'Logged as User Admin' do
-    before :all do
-      @user = create(:user_admin)
-      @worker = create(:worker)
-    end
+    let(:user) { create(:user_admin) }
+    let(:worker) { create(:worker) }
 
     before do
-      login_as(@user)
+      login_as(user)
     end
 
     let(:params_worker) { attributes_for(:worker) }
@@ -31,7 +30,7 @@ RSpec.describe "Workers Controller", type: :request do
     end
 
     context 'Action Destroy' do
-      let(:destroy_action) { post destroy_worker_path(@worker) }
+      let(:destroy_action) { post destroy_worker_path(worker) }
       it 'Delete 1 instance of worker when using action destroy' do
         expect { destroy_action }.to change(Worker.where(is_destroyed: true), :count).by(1)
       end
@@ -51,13 +50,13 @@ RSpec.describe "Workers Controller", type: :request do
     end
 
     context 'Action Update' do
-      let(:update_action) { patch worker_path(@worker), params: { worker: params_worker_update } }
+      let(:update_action) { patch worker_path(worker), params: { worker: params_worker_update } }
 
       it 'Update the attributes of Worker' do
         update_action
-        @worker.reload
-        expect(@worker.first_name).to eq(params_worker_update[:first_name])
-        expect(@worker.last_name).to eq(params_worker_update[:last_name])
+        worker.reload
+        expect(worker.first_name).to eq(params_worker_update[:first_name])
+        expect(worker.last_name).to eq(params_worker_update[:last_name])
       end
     end
   end

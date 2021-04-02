@@ -46,12 +46,11 @@ RSpec.describe "Api::V1::Ppsps Controller", type: :request, format: :json do
                                   })
     end
 
+    let(:ppsp) { create(:ppsp, user: user) }
+
     context 'Actions when you are the record owner' do
       before do
-        @user = create(:user)
-        @ppsp = create(:ppsp, user: @user)
-        create_list(:ppsp, 3, user: @user)
-        login_as(@user)
+        login_as(user)
       end
 
       it 'Can access the list of PPSPS of your company' do
@@ -60,6 +59,7 @@ RSpec.describe "Api::V1::Ppsps Controller", type: :request, format: :json do
       end
 
       it 'Body includes the json with the good characteristics' do
+        ppsp
         get(api_v1_ppsps_path)
         # Don't forget to use an array when there are more than on object
         expect(JSON.parse(response.body)).to include_json(
@@ -103,23 +103,22 @@ RSpec.describe "Api::V1::Ppsps Controller", type: :request, format: :json do
       end
 
       context 'Action Destroy' do
-        let(:destroy_action) { delete api_v1_ppsp_path(@ppsp) }
-
         it 'Delete 1 instance of Ppsp when using action destroy' do
-          expect { destroy_action }.to change(Ppsp, :count).by(-1)
+          ppsp
+          expect { delete api_v1_ppsp_path(ppsp) }.to change(Ppsp, :count).by(-1)
         end
       end
     end
 
     context "Actions when you're not the record owner" do
       before do
-        user = create(:user)
-        @ppsp = create(:ppsp)
         login_as(user)
       end
 
-      let(:destroy_action) { delete api_v1_ppsp_path(@ppsp) }
-      it { expect { destroy_action }.to change(Ppsp, :count).by(0) }
+      it "Can't delete ppsp which isn't from this user" do
+        ppsp = create(:ppsp)
+        expect { delete api_v1_ppsp_path(ppsp) }.to change(Ppsp, :count).by(0)
+      end
     end
   end
 end

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "React Handling", type: :feature, js: true do
   feature 'Logged as User Admin' do
-    before :all do
+    before do
       DatabaseCleaner.strategy = :transaction
       DatabaseCleaner.clean_with(:truncation)
       @user = create(:user_admin)
@@ -110,7 +110,7 @@ RSpec.feature "React Handling", type: :feature, js: true do
       end
 
       feature 'When delete, actualize form list options' do
-        before :all do
+        before do
           @subcontractor_add = create_list(:subcontractor, 2, company: @user.company)
           @ppsp.subcontractors = @subcontractor_add
           @risk_add = create_list(:risk, 2)
@@ -198,7 +198,7 @@ RSpec.feature "React Handling", type: :feature, js: true do
     end
 
     feature 'Delete a conductor' do
-      before :all do
+      before do
         create(:conductor, user: @user, ppsp_id: @ppsp.id, machine: @machine1, worker: Worker.first)
         create(:conductor, user: @user, ppsp_id: @ppsp.id, machine: @machine2, worker: Worker.second)
         create(:conductor, user: @user, ppsp_id: @ppsp.id, machine: @machine3, worker: Worker.third)

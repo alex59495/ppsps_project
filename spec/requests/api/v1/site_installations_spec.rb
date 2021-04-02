@@ -9,9 +9,9 @@ RSpec.describe "Api::V1::Site Installation Controller", type: :request, format: 
   end
 
   context 'Logged user' do
+    let(:user) { create(:user) }
     before do
-      @user = create(:user)
-      login_as(@user)
+      login_as(user)
     end
 
     it "Can access the API" do
@@ -34,7 +34,7 @@ RSpec.describe "Api::V1::Site Installation Controller", type: :request, format: 
 
     context 'Selected site installation' do
       before do
-        @ppsp = create(:ppsp, user: @user)
+        @ppsp = create(:ppsp, user: user)
         @selected_installations = create_list(:selected_installation, 3, ppsp: @ppsp)
       end
 

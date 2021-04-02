@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "WorkMedecines Controller", type: :request do
   context 'Logged as Normal User' do
+    let(:user_uber) { create(:user_uber) }
+
     before do
-      user_uber = create(:user_uber)
       login_as(user_uber)
     end
 
@@ -13,13 +14,10 @@ RSpec.describe "WorkMedecines Controller", type: :request do
   end
 
   context 'Logged as User Admin' do
-    before :all do
-      @user = create(:user_admin)
-      @work_medecine = create(:work_medecine)
-    end
-
+    let(:user) { create(:user_admin) }
+    let(:work_medecine) { create(:work_medecine) }
     before do
-      login_as(@user)
+      login_as(user)
     end
 
     let(:params_work_medecine) { attributes_for(:work_medecine) }
@@ -31,7 +29,7 @@ RSpec.describe "WorkMedecines Controller", type: :request do
     end
 
     context 'Action Destroy' do
-      let(:destroy_action) { post destroy_work_medecine_path(@work_medecine) }
+      let(:destroy_action) { post destroy_work_medecine_path(work_medecine) }
       it 'Delete 1 instance of work_medecine when using action destroy' do
         expect { destroy_action }.to change(WorkMedecine.where(is_destroyed: true), :count).by(1)
       end
@@ -51,14 +49,14 @@ RSpec.describe "WorkMedecines Controller", type: :request do
     end
 
     context 'Action Update' do
-      let(:update_action) { patch work_medecine_path(@work_medecine), params: { work_medecine: params_work_medecine_update } }
+      let(:update_action) { patch work_medecine_path(work_medecine), params: { work_medecine: params_work_medecine_update } }
 
       it 'Update the attributes of WorkMedecine' do
         update_action
-        @work_medecine.reload
-        expect(@work_medecine.fax).to eq(params_work_medecine_update[:fax])
-        expect(@work_medecine.address).to eq(params_work_medecine_update[:address])
-        expect(@work_medecine.phone).to eq(params_work_medecine_update[:phone])
+        work_medecine.reload
+        expect(work_medecine.fax).to eq(params_work_medecine_update[:fax])
+        expect(work_medecine.address).to eq(params_work_medecine_update[:address])
+        expect(work_medecine.phone).to eq(params_work_medecine_update[:phone])
       end
     end
   end

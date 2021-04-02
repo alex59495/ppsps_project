@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Databases", type: :feature, js: true do
   feature 'Logged as admin User' do
-    before :all do
+    before do
       company = create(:company)
       @user = create(:user_admin, company: company)
       moa_1 = create(:moa, company: company, name: "Test1")

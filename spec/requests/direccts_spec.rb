@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "Direccts Controller", type: :request do
   context 'Logged as Normal User' do
+    let(:user_uber) { create(:user_uber) }
+
     before do
-      user_uber = create(:user_uber)
       login_as(user_uber)
     end
     
@@ -13,13 +14,11 @@ RSpec.describe "Direccts Controller", type: :request do
   end
 
   context 'Logged as User Admin' do
-    before :all do
-      @user = create(:user_admin)
-      @direcct = create(:direcct)
-    end
+    let(:user) { create(:user_admin) }
+    let(:direcct) { create(:direcct) }
 
     before do
-      login_as(@user)
+      login_as(user)
     end
     
     let(:params_direcct) { attributes_for(:direcct)}
@@ -31,7 +30,7 @@ RSpec.describe "Direccts Controller", type: :request do
     end
   
     context 'Action Destroy' do
-      let(:destroy_action) { post destroy_direcct_path(@direcct) }
+      let(:destroy_action) { post destroy_direcct_path(direcct) }
       it 'Delete 1 instance of direcct when using action destroy' do
         expect { destroy_action }.to change(Direcct.where(is_destroyed: true), :count).by(1)
       end
@@ -51,14 +50,14 @@ RSpec.describe "Direccts Controller", type: :request do
     end
 
     context 'Action Update' do
-      let(:update_action) { patch direcct_path(@direcct), params: { direcct: params_direcct_update } }
+      let(:update_action) { patch direcct_path(direcct), params: { direcct: params_direcct_update } }
 
       it 'Update the attributes of Direcct' do
         update_action
-        @direcct.reload
-        expect(@direcct.fax).to eq(params_direcct_update[:fax])
-        expect(@direcct.address).to eq(params_direcct_update[:address])
-        expect(@direcct.phone).to eq(params_direcct_update[:phone])
+        direcct.reload
+        expect(direcct.fax).to eq(params_direcct_update[:fax])
+        expect(direcct.address).to eq(params_direcct_update[:address])
+        expect(direcct.phone).to eq(params_direcct_update[:phone])
       end
     end
     
