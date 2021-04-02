@@ -1,6 +1,6 @@
 <div class="container mb-3">
   <%= link_to "Revenir à mes PPSP", ppsps_path, class: 'link' %>
-  <%= simple_form_for @ppsp, remote: true do |f| %>
+  <%= simple_form_for @ppsp, remote: true, html: {multipart: true} do |f| %>
     <div class="row">
       <h2 class="col-12 form-title">
         I. Renseignements administratifs
@@ -57,7 +57,7 @@
           <div class="container-header-form">
             <label class="select" for="ppsp_moe_id">MOE</label>
             <% if policy(Moe).new? %>
-              <%= render 'btn_add_database', data: 'Moe' %>
+              <%= render 'ppsps/form/btn_add_database', data: 'Moe' %>
             <% end %>
           </div>
           <%= f.input :moe_id, as: :select, label: false, collection: @moes, label_method: lambda {|x| "#{x.name} - #{x.representative}"}, input_html: {class: "select-2"} %>
@@ -72,7 +72,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_moa_id">MOA <abbr title="required">*</abbr></label>
             <% if policy(Moa).new? %>
-              <%= render 'btn_add_database', data: 'Moa' %>
+              <%= render 'ppsps/form/btn_add_database', data: 'Moa' %>
             <% end %>
           </div>
           <%= f.input :moa_id, as: :select, label: false, collection: @moas, label_method: lambda {|x| "#{x.name} - #{x.representative}"}, input_html: {class: "select-2"} %>
@@ -89,7 +89,7 @@
         <img id="newLogo" class='icon-logo' style='display: none'>
         <div class='btn-delete' id="removeUpload" style='display: none;'>Annuler</div>
         <div class="render-logo">
-          <%= render 'render_logo_client' %>
+          <%= render 'ppsps/form/render_logo_client' %>
         </div>
       </div>
       
@@ -102,7 +102,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_security_coordinator_id">Coordonateur sécurité <abbr title="required">*</abbr></label>
             <% if policy(SecurityCoordinator).new? %>
-              <%= render 'btn_add_database', data: 'SecurityCoordinator' %>
+              <%= render 'ppsps/form/btn_add_database', data: 'SecurityCoordinator' %>
             <% end %>
           </div>
           <div class="form-group select required ppsp_security_coordinator_id">
@@ -119,7 +119,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_regional_committee_id">Comité régional de l'OPPBTP <abbr title="required">*</abbr></label>
             <% if policy(RegionalCommittee).create? %>
-               <%= render 'btn_add_database', data: 'RegionalCommittee' %>
+               <%= render 'ppsps/form/btn_add_database', data: 'RegionalCommittee' %>
             <% end %>
           </div>
           <%= f.input :regional_committee_id, as: :select, label: false, collection: @regional_committees, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
@@ -130,7 +130,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_pension_insurance_id">Caisse d'assurance retraite <abbr title="required">*</abbr></label>
             <% if policy(PensionInsurance).create? %>
-              <%= render 'btn_add_database', data: 'PensionInsurance' %>
+              <%= render 'ppsps/form/btn_add_database', data: 'PensionInsurance' %>
             <% end %>
           </div>
           <%= f.input :pension_insurance_id, as: :select, label: false, collection: @pension_insurances, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
@@ -141,7 +141,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_direcct_id">DIRECCT <abbr title="required">*</abbr></label>
             <% if policy(Direcct).create? %>
-              <%= render 'btn_add_database', data: 'Direcct' %>
+              <%= render 'ppsps/form/btn_add_database', data: 'Direcct' %>
             <% end %>
           </div>
           <%= f.input :direcct_id, as: :select, label: false, collection: @direccts, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
@@ -152,7 +152,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_work_medecine_id">Médecine du travail <abbr title="required">*</abbr></label>
             <% if policy(WorkMedecine).create? %>
-              <%= render 'btn_add_database', data: 'WorkMedecine' %>
+              <%= render 'ppsps/form/btn_add_database', data: 'WorkMedecine' %>
             <% end %>
           </div>
           <%= f.input :work_medecine_id, as: :select, label: false, collection: @work_medecines, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
@@ -169,14 +169,14 @@
           2-1. Description des travaux
         </h3>
         <div class="col-md-6 offset-md-3">
-          <%= w.input :nature, label: false, placeholder: "Description des travaux..." %>
+          <%= w.input :nature, placeholder: "Description des travaux..." %>
         </div>
 
         <h3 class="col-md-6 offset-md-3 form-subtitle">
           2-2. Adresse du chantier
         </h3>
         <div class="col-md-6 offset-md-3">
-          <%= w.input :address,label: false, placeholder: "Indiquez une adresse..." %>
+          <%= w.input :address, placeholder: "Indiquez une adresse..." %>
         </div>
 
         <h3 class="col-md-6 offset-md-3 form-subtitle">
@@ -400,7 +400,6 @@
         <div class="col-md-10 offset-md-1">
           <div class='col-12' id="conductors-form-react" data-ppsps_id=<%=@ppsp.id%>></div>
         </div>
-      <% end %>
 
 
       <h2 class="col-12 form-title">
@@ -412,7 +411,6 @@
       </h3>
       <div class="col-md-6 offset-md-3">
         <p>Le chantier implique-t-il une infirmerie sur place ?</p>
-        <%= f.simple_fields_for :worksite, @worksite do |w| %>
           <%= w.input :infirmary, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden', id:'infirmary' }  %>
           <div class=<%= @worksite.infirmary ? 'visible' : 'hidden' %> id="infirmary-text">
             <%= w.input :infirmary_text, label: 'Indiquer les informations sur cette infirmerie (localisation etc...)' %>
@@ -435,7 +433,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_demining_id">Centre de déminage <abbr title="required">*</abbr></label>
             <% if policy(Demining).create? %>
-              <%= render 'btn_add_database', data: 'Demining' %>
+              <%= render 'ppsps/form/btn_add_database', data: 'Demining' %>
             <% end %>
           </div>
           <%= f.input :demining_id, as: :select, label: false, collection: @deminings, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
@@ -446,7 +444,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_sos_hand_id">Centre SOS Mains et Doigts<abbr title="required">*</abbr></label>
             <% if policy(SosHand).create? %>
-              <%= render 'btn_add_database', data: 'SosHand' %>
+              <%= render 'ppsps/form/btn_add_database', data: 'SosHand' %>
             <% end %>
           </div>
             <%= f.input :sos_hand_id, as: :select, label: false, collection: @sos_hands, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
@@ -457,7 +455,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_anti_poison_id">Centre anti-poison <abbr title="required">*</abbr></label>
             <% if policy(AntiPoison).create? %>
-              <%= render 'btn_add_database', data: 'AntiPoison' %>
+              <%= render 'ppsps/form/btn_add_database', data: 'AntiPoison' %>
             <% end %>
           </div>
           <%= f.input :anti_poison_id, as: :select, label: false, collection: @anti_poisons, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
@@ -472,7 +470,7 @@
           <div class="container-header-form">
             <label class="select required" for="ppsp_hospital_id">Hôpital le plus proche <abbr title="required">*</abbr></label>
             <% if policy(Hospital).create? %>
-              <%= render 'btn_add_database', data: 'Hospital' %>
+              <%= render 'ppsps/form/btn_add_database', data: 'Hospital' %>
             <% end %>
           </div>
           <%= f.input :hospital_id, as: :select, collection: @hospitals, label: false, label_method: lambda { |x| "#{x.name}"}, input_html: {class: "select-2"} %>
@@ -512,27 +510,26 @@
         4-2. Ajouter des spécificités sur le chantier
       </div>
 
-      <div class="col-md-10 offset-md-1">
-        <div class="d-flex justify-content-center">
-          <div id='btn-tinymce-form' class='btn-orange mb-2'>Éditeur de texte</div>
-        </div>
-
-        <div class="col-md-10 offset-md-1 hidden" id='tinymce-form'>
-          <input class='hidden' name=image type=file id="upload" onchange="">
-          <%= f.text_area :content_secu, class: 'tinymce', 'data-ppsp_secu': @ppsp.content_secu %>
-          <%= tinymce %>
+      <div class="col-md-10 offset-md-1 text-center">
+        <%= render 'ppsps/form/modal_secu_ppsp', f: f %>
         </div>
       </div>
-
       <div class="col-md-6 offset-md-3 mt-3">
         <p>Annexes, si besoin</p>
-        <p class="text-alert">Vous pouvez maintenir la touche CTRL enfoncée lors de la sélection pour choisir plusieurs fichiers</p>
-        <p class="text-alert-black">Maximum : 500kB (par fichier)</p>
-        <%= f.input :annexes, label: false, input_html: { multiple: true } %>
+        <div data-controller="dropzone" data-max-files-size="0.5" data-dropzone-max-files="5" class="dropzone dropzone-default dz-clickable">
+          <%= f.input :annexes, label: false, input_html: { direct_upload: true, multiple: true, data: { 'dropzone-target'.to_sym => "input" } } %>
+          <div class="dropzone-msg dz-message needsclick">
+            <h3 class='dropzone-msg-title'>Glisser les fichiers ou cliquer sur la zone</h3>
+            <span class="dropzone-msg-desc text-sm">
+              <p>500 kB max /fichier (Max 5 fichiers). </p>
+              <p>Fichiers autorisés : png, jpg, jpeg, pdf</p>
+            </span>
+          </div>
+        </div>
       </div>
       <% if @ppsp.annexes.attached? %>
         <div class="d-flex flex-wrap justify-content-center w-100" id='container-annexes'>
-          <%= render 'render_annexes' %>
+          <%= render 'ppsps/form/render_annexes' %>
         </div>
       <% end %>
 

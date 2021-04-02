@@ -9,10 +9,11 @@ RSpec.describe "Api::V1::Subcontractors Controller", type: :request, format: :js
   end
 
   context 'Logged user' do
+    let(:user) { create(:user) }
+    let(:subcontractors) { create_list(:subcontractor, 3, company: user.company) }
+
     before do
-      @user = create(:user)
-      login_as(@user)
-      @subcontractors = create_list(:subcontractor, 3, company: @user.company)
+      login_as(user)
     end
 
     it "Can access the API" do
@@ -21,6 +22,7 @@ RSpec.describe "Api::V1::Subcontractors Controller", type: :request, format: :js
     end
 
     it 'Body includes the json with the good characteristics' do
+      subcontractors
       get(api_v1_list_subcontractors_path)
       # Don't forget to use an array when there are more than on object
       expect(JSON.parse(response.body)).to include_json(
@@ -37,16 +39,16 @@ RSpec.describe "Api::V1::Subcontractors Controller", type: :request, format: :js
     end
 
     context 'Selected subcontractors' do
-      before do
-        @ppsp = create(:ppsp, user: @user)
-        subcontractors_ids = @subcontractors.map(&:id)
-        subcontractors_ids.each do |id|
-          create(:selected_subcontractor, ppsp: @ppsp, subcontractor_id: id)
-        end
-      end
+      let(:ppsp) { create(:ppsp, user: user) }
 
       it 'Body includes the json with the good characteristics' do
-        get(api_v1_selected_subcontractors_path, params: { ppsps_id: @ppsp.id })
+        # Populate instances
+        subcontractors_ids = subcontractors.map(&:id)
+        subcontractors_ids.each do |id|
+          create(:selected_subcontractor, ppsp: ppsp, subcontractor_id: id)
+        end
+        # Get API
+        get(api_v1_selected_subcontractors_path, params: { ppsps_id: ppsp.id })
         # Don't forget to use an array when there are more than on object
         expect(JSON.parse(response.body)).to include_json(
           [

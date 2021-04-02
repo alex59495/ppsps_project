@@ -9,7 +9,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
   end
 
   feature 'Logged as normal User' do
-    before :all do
+    before do
       @user_uber = create(:user_uber)
       project_info1 = create(:project_information, reference: "AABB130")
       project_info2 = create(:project_information, reference: "AABB120")
@@ -40,7 +40,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
   end
 
   feature 'Logged as User Admin' do
-    before :all do
+    before do
       @user = create(:user_admin)
       @moa = create(:moa, company: @user.company)
       moe = create(:moe, company: @user.company)

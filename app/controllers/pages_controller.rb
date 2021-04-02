@@ -2,7 +2,6 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[home contact]
 
   def home
-    @navbar = true
   end
 
   def database

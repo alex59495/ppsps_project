@@ -9,23 +9,19 @@ RSpec.describe "Database (in Controller Pages)", type: :request do
   end
 
   describe "Normal User" do
-    before :all do
-      @user_uber = create(:user_uber)
-    end
+    let(:user_uber) { create(:user_uber) }
 
     it "Can't access the database page" do
-      login_as(@user_uber)
+      login_as(user_uber)
       expect { get database_path }.to raise_error(Pundit::NotAuthorizedError)
     end
   end
 
   describe 'Admin user' do
-    before :all do
-      @user_admin = create(:user_admin)
-    end
+    let(:user_admin) { create(:user_admin) }
 
     it "Can access the database page" do
-      login_as(@user_admin)
+      login_as(user_admin)
       get database_path
       expect(response).to have_http_status(200)
     end

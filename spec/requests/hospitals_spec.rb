@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Hospitals Controller", type: :request do
   context 'Logged as Normal User' do
+    let(:user_uber) { create(:user_uber) }
     before do
-      user_uber = create(:user_uber)
       login_as(user_uber)
     end
     
@@ -13,13 +13,10 @@ RSpec.describe "Hospitals Controller", type: :request do
   end
 
   context 'Logged as User Admin' do
+    let(:user) { create(:user_admin) }
+    let(:hospital) { create(:hospital) }
     before do
-      @user = create(:user_admin)
-      @hospital = create(:hospital)
-    end
-
-    before do
-      login_as(@user)
+      login_as(user)
     end
     
     let(:params_hospital) { attributes_for(:hospital)}
@@ -31,7 +28,7 @@ RSpec.describe "Hospitals Controller", type: :request do
     end
   
     context 'Action Destroy' do
-      let(:destroy_action) { post destroy_hospital_path(@hospital) }
+      let(:destroy_action) { post destroy_hospital_path(hospital) }
       it 'Delete 1 instance of hospital when using action destroy' do
         expect { destroy_action }.to change(Hospital.where(is_destroyed: true), :count).by(1)
       end
@@ -51,14 +48,14 @@ RSpec.describe "Hospitals Controller", type: :request do
     end
 
     context 'Action Update' do
-      let(:update_action) { patch hospital_path(@hospital), params: { hospital: params_hospital_update } }
+      let(:update_action) { patch hospital_path(hospital), params: { hospital: params_hospital_update } }
 
       it 'Update the attributes of Hospital' do
         update_action
-        @hospital.reload
-        expect(@hospital.name).to eq(params_hospital_update[:name])
-        expect(@hospital.address).to eq(params_hospital_update[:address])
-        expect(@hospital.phone).to eq(params_hospital_update[:phone])
+        hospital.reload
+        expect(hospital.name).to eq(params_hospital_update[:name])
+        expect(hospital.address).to eq(params_hospital_update[:address])
+        expect(hospital.phone).to eq(params_hospital_update[:phone])
       end
     end
     

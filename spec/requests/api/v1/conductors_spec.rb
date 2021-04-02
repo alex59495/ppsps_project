@@ -9,23 +9,23 @@ RSpec.describe "Api::V1::Conductors Controller", type: :request, format: :json d
   end
 
   context 'Logged user' do
-    before :all do
-      @user = create(:user)
-      @ppsp = create(:ppsp, user: @user)
-      @conductors = create_list(:conductor, 3, user: @ppsp.user, ppsp: @ppsp)
-    end
+
+    let(:user) { create(:user) }
+    let(:ppsp) { create(:ppsp, user: user) }
+    let(:conductors) { create_list(:conductor, 3, user: ppsp.user, ppsp: ppsp) }
 
     before do
-      login_as(@user)
+      login_as(user)
     end
 
     it "Can access the API" do
-      get(api_v1_conductors_path(ppsps_id: @ppsp.id))
+      get(api_v1_conductors_path(ppsps_id: ppsp.id))
       expect(response).to have_http_status(200)
     end
 
     it 'Body includes the json with the good characteristics' do
-      get(api_v1_conductors_path(ppsps_id: @ppsp.id))
+      conductors
+      get(api_v1_conductors_path(ppsps_id: ppsp.id))
       # Don't forget to use an array when there are more than on object
       expect(JSON.parse(response.body)).to include_json(
         [
@@ -41,9 +41,9 @@ RSpec.describe "Api::V1::Conductors Controller", type: :request, format: :json d
     end
 
     it "Can create a conductor" do
-      worker = create(:worker, company: @user.company)
+      worker = create(:worker, company: user.company)
       machine = create(:machine)
-      params_conductor = attributes_for(:conductor).merge(ppsp_id: @ppsp.id, user_id: @user.id, worker_id: worker.id, machine_id: machine.id)
+      params_conductor = attributes_for(:conductor).merge(ppsp_id: ppsp.id, user_id: user.id, worker_id: worker.id, machine_id: machine.id)
       # We need the machine ID and Worker ID to post
       post(api_v1_create_conductor_path(machine_id: machine.id, worker_id: worker.id), params: { conductor: params_conductor })
 
@@ -59,7 +59,7 @@ RSpec.describe "Api::V1::Conductors Controller", type: :request, format: :json d
     end
 
     it "Can destroy a conductor" do
-      conductor = create(:conductor, user: @user)
+      conductor = create(:conductor, user: user)
       expect { delete(api_v1_conductor_path(id: conductor.id)) }.to change(Conductor, :count).by(-1)
       expect(response).to have_http_status(204)
     end

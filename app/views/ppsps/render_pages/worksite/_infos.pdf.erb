@@ -1,20 +1,18 @@
 <h1 class="pdf-title">II. Le chantier</h1>
-<div class="container-50">
-  <h2 class="pdf-subtitle">
-    2.<%= @num_worksite %> Description des travaux
-    <% @num_worksite += 1%>
-  </h2>
-  <div class="text-center">
-    <%= @ppsp.worksite.nature %>
-  </div>
+<h2 class="pdf-subtitle">
+  2.<%= @num_worksite %> Description des travaux
+  <% @num_worksite += 1%>
+</h2>
+<div class="text-center container-50">
+  <%= @ppsp.worksite.nature %>
+</div>
 
-  <h2 class="pdf-subtitle">
-    2.<%= @num_worksite %> Adresse du chantier
-    <% @num_worksite += 1%>
-  </h2>
-  <div class="text-center">
-    <%= @ppsp.worksite.address %>
-  </div>
+<h2 class="pdf-subtitle">
+  2.<%= @num_worksite %> Adresse du chantier
+  <% @num_worksite += 1%>
+</h2>
+<div class="text-center container-50">
+  <%= @ppsp.worksite.address %>
 </div>
 <div class="pdf-subsubtitle text-center">
   Localisation

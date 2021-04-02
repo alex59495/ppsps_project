@@ -6,7 +6,8 @@ class Api::V1::MachinesController < Api::V1::BaseController
   end
 
   def categories
-    @categories = MachineCategory.select(:name).distinct
+    conductor_ids = Conductor.where(user_id: current_user.id, ppsp_id: params[:ppsps_id]).pluck(:machine_id)
+    @categories = MachineCategory.includes(:machines).where.not(machines: { id: conductor_ids })
     authorize @categories
   end
 end

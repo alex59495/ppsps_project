@@ -181,6 +181,7 @@ $btn-add-size: 24px;
   display: inline-block;
   text-align: center;
   align-items: flex-start;
+  transition: 0.3s ease-in-out;
   &:hover {
     border: $orange-dark solid 0.5px;
     text-decoration: none;

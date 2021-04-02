@@ -13,13 +13,12 @@ RSpec.describe "Deminings Controller", type: :request do
   end
 
   context 'Logged as User Admin' do
-    before do
-      @user = create(:user_admin)
-      @demining = create(:demining)
-    end
+
+    let(:user) { create(:user_admin) }
+    let(:demining) { create(:demining) }
 
     before do
-      login_as(@user)
+      login_as(user)
     end
 
     let(:params_demining) { attributes_for(:demining) }
@@ -31,7 +30,7 @@ RSpec.describe "Deminings Controller", type: :request do
     end
 
     context 'Action Destroy' do
-      let(:destroy_action) { post destroy_demining_path(@demining) }
+      let(:destroy_action) { post destroy_demining_path(demining) }
       it 'Delete 1 instance of demining when using action destroy' do
         expect { destroy_action }.to change(Demining.where(is_destroyed: true), :count).by(1)
       end
@@ -51,14 +50,14 @@ RSpec.describe "Deminings Controller", type: :request do
     end
 
     context 'Action Update' do
-      let(:update_action) { patch demining_path(@demining), params: { demining: params_demining_update } }
+      let(:update_action) { patch demining_path(demining), params: { demining: params_demining_update } }
 
       it 'Update the attributes of Demining' do
         update_action
-        @demining.reload
-        expect(@demining.name).to eq(params_demining_update[:name])
-        expect(@demining.address).to eq(params_demining_update[:address])
-        expect(@demining.phone).to eq(params_demining_update[:phone])
+        demining.reload
+        expect(demining.name).to eq(params_demining_update[:name])
+        expect(demining.address).to eq(params_demining_update[:address])
+        expect(demining.phone).to eq(params_demining_update[:phone])
       end
     end
   end

@@ -26,6 +26,7 @@ AltitudeWork.destroy_all
 PensionInsurance.destroy_all
 Conductor.destroy_all
 Machine.destroy_all
+MachineCategory.destroy_all
 Worker.destroy_all
 User.destroy_all
 Subcontractor.destroy_all
@@ -145,7 +146,7 @@ end
 
 infos.each do |project|
   project_information1 = ProjectInformation.create!(
-    reference: project[:reference], company:project[:company],
+    reference: project[:reference],
     name: project[:name],
     responsible_id: project[:responsible_id],
     site_manager_id: project[:site_manager_id],
@@ -354,6 +355,6 @@ end
 
 # Create Machines
 Machine::MACHINES.each do |machine|
-  m = Machine.create!(caces: machine[:caces], machine_category_id: machine[:machine_category_id], description: machine[:description], image: machine[:image])
+  m = Machine.create!(caces: machine[:caces], machine_category: MachineCategory.all.sample, description: machine[:description], image: machine[:image])
   p "Create #{m.id} machines"
 end

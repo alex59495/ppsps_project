@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Companies", type: :feature, js: true do
   feature 'Company Edit page' do
-    before :all do
+    before do
       company = create(:company)
       @user = create(:user_admin, company: company)
       kit_security_elements = create_list(:kit_security_element, 3, company: company)

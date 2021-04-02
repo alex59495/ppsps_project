@@ -9,13 +9,14 @@ RSpec.describe "Api::V1::Machine Controller", type: :request, format: :json do
   end
 
   context 'Logged user' do
+    let(:user) { create(:user) }
+    let(:ppsp) { create(:ppsp, user: user) }
+    let(:machine) { create(:machine) }
+    let(:worker) { create(:worker, company: user.company) }
+    let(:conductor) { create(:conductor, ppsp_id: ppsp.id, user_id: user.id, worker_id: worker.id) }
+
     before do
-      @user = create(:user)
-      login_as(@user)
-      @ppsp = create(:ppsp, user: @user)
-      @machine = create(:machine)
-      @worker = create(:worker, company: @user.company)
-      @conductor = create(:conductor, ppsp_id: @ppsp.id, user_id: @user.id, worker_id: @worker.id)
+      login_as(user)
     end
 
     it "Can access the API" do
@@ -24,7 +25,8 @@ RSpec.describe "Api::V1::Machine Controller", type: :request, format: :json do
     end
 
     it 'Body includes the json with the good characteristics' do
-      get(api_v1_machines_path(params: { ppsps_id: @ppsp.id, category: @machine.machine_category.name }))
+      machine
+      get(api_v1_machines_path(params: { ppsps_id: ppsp.id, category: machine.machine_category.name }))
       # Don't forget to use an array when there are more than on object
       expect(JSON.parse(response.body)).to include_json(
         [
@@ -41,6 +43,7 @@ RSpec.describe "Api::V1::Machine Controller", type: :request, format: :json do
 
     context 'Machines categories' do
       it 'Body includes the json with the good characteristics' do
+        machine
         get(api_v1_machines_categories_path)
         # Don't forget to use an array when there are more than on object
         expect(JSON.parse(response.body)).to include_json(

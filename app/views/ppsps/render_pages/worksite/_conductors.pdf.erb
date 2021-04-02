@@ -15,6 +15,9 @@
         <div class="list-subtitle">
           <%= Machine.find(machine[0]).caces %>
         </div>
+        <div class="list-subline">
+          Conducteurs
+        </div>
         <% machine[1].each do |conductor| %>
           <div class="conductor-name">
             <%= "#{conductor.worker.first_name} #{conductor.worker.last_name}" %>

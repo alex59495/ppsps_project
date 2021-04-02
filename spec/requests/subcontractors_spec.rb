@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "Subcontractors Controller", type: :request do
   context 'Logged as Normal User' do
+    let(:user_uber) { create(:user_uber) }
+
     before do
-      user_uber = create(:user_uber)
       login_as(user_uber)
     end
 
@@ -13,13 +14,10 @@ RSpec.describe "Subcontractors Controller", type: :request do
   end
 
   context 'Logged as User Admin' do
-    before :all do
-      @user = create(:user_admin)
-      @subcontractor = create(:subcontractor)
-    end
-
+    let(:user) { create(:user_admin) }
+    let(:subcontractor) { create(:subcontractor) }
     before do
-      login_as(@user)
+      login_as(user)
     end
 
     let(:params_subcontractor) { attributes_for(:subcontractor) }
@@ -31,7 +29,7 @@ RSpec.describe "Subcontractors Controller", type: :request do
     end
 
     context 'Action Destroy' do
-      let(:destroy_action) { post destroy_subcontractor_path(@subcontractor) }
+      let(:destroy_action) { post destroy_subcontractor_path(subcontractor) }
       it 'Delete 1 instance of subcontractor when using action destroy' do
         expect { destroy_action }.to change(Subcontractor.where(is_destroyed: true), :count).by(1)
       end
@@ -51,17 +49,17 @@ RSpec.describe "Subcontractors Controller", type: :request do
     end
 
     context 'Action Update' do
-      let(:update_action) { patch subcontractor_path(@subcontractor), params: { subcontractor: params_subcontractor_update } }
+      let(:update_action) { patch subcontractor_path(subcontractor), params: { subcontractor: params_subcontractor_update } }
 
       it 'Update the attributes of Subcontractor' do
         update_action
-        @subcontractor.reload
-        expect(@subcontractor.name).to eq(params_subcontractor_update[:name])
-        expect(@subcontractor.work).to eq(params_subcontractor_update[:work])
-        expect(@subcontractor.address).to eq(params_subcontractor_update[:address])
-        expect(@subcontractor.responsible_name).to eq(params_subcontractor_update[:responsible_name])
-        expect(@subcontractor.responsible_email).to eq(params_subcontractor_update[:responsible_email])
-        expect(@subcontractor.responsible_phone).to eq(params_subcontractor_update[:responsible_phone])
+        subcontractor.reload
+        expect(subcontractor.name).to eq(params_subcontractor_update[:name])
+        expect(subcontractor.work).to eq(params_subcontractor_update[:work])
+        expect(subcontractor.address).to eq(params_subcontractor_update[:address])
+        expect(subcontractor.responsible_name).to eq(params_subcontractor_update[:responsible_name])
+        expect(subcontractor.responsible_email).to eq(params_subcontractor_update[:responsible_email])
+        expect(subcontractor.responsible_phone).to eq(params_subcontractor_update[:responsible_phone])
       end
     end
   end

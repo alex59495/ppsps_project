@@ -1,5 +1,5 @@
 class PpspsController < ApplicationController
-  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit destroy_logo_client duplicate destroy_annexe]
+  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit destroy_logo_client duplicate]
 
   def index
     # Handled by react :) (app/assets/javascript/ppsp-react)
@@ -249,11 +249,17 @@ class PpspsController < ApplicationController
   end
 
   def destroy_annexe
+    @ppsp = Ppsp.new
     authorize @ppsp
     blob = ActiveStorage::Blob.find_by(key: params[:public_id])
-    ActiveStorage::Attachment.find_by(blob: blob).purge
-    respond_to do |format|
-      format.js { render 'ppsps/destroy_annexe' }
+    if ActiveStorage::Attachment.find_by(blob: blob)
+      ActiveStorage::Attachment.find_by(blob: blob).purge
+      respond_to do |format|
+        format.js { render 'ppsps/destroy_annexe' }
+      end
+    else
+      blob.purge
+      head :no_content
     end
   end
 

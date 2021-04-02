@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "SosHands Controller", type: :request do
   context 'Logged as Normal User' do
+    let(:user_uber) { create(:user_uber) }
+
     before do
-      user_uber = create(:user_uber)
       login_as(user_uber)
     end
     
@@ -13,15 +14,12 @@ RSpec.describe "SosHands Controller", type: :request do
   end
 
   context 'Logged as User Admin' do
-    before :all do
-      @user = create(:user_admin)
-      @sos_hand = create(:sos_hand)
-    end
-
+    let(:user) { create(:user_admin) }
+    let(:sos_hand) { create(:sos_hand) }
     before do
-      login_as(@user)
+      login_as(user)
     end
-
+    
     let(:params_sos_hand) { attributes_for(:sos_hand)}
     let(:params_sos_hand_update) { attributes_for(:sos_hand_update)}
 
@@ -31,7 +29,7 @@ RSpec.describe "SosHands Controller", type: :request do
     end
 
     context 'Action Destroy' do
-      let(:destroy_action) { post destroy_sos_hand_path(@sos_hand) }
+      let(:destroy_action) { post destroy_sos_hand_path(sos_hand) }
       it 'Delete 1 instance of sos_hand when using action destroy' do
         expect { destroy_action }.to change(SosHand.where(is_destroyed: true), :count).by(1)
       end
@@ -51,14 +49,14 @@ RSpec.describe "SosHands Controller", type: :request do
     end
 
     context 'Action Update' do
-      let(:update_action) { patch sos_hand_path(@sos_hand), params: { sos_hand: params_sos_hand_update } }
+      let(:update_action) { patch sos_hand_path(sos_hand), params: { sos_hand: params_sos_hand_update } }
 
       it 'Update the attributes of SosHand' do
         update_action
-        @sos_hand.reload
-        expect(@sos_hand.name).to eq(params_sos_hand_update[:name])
-        expect(@sos_hand.address).to eq(params_sos_hand_update[:address])
-        expect(@sos_hand.phone).to eq(params_sos_hand_update[:phone])
+        sos_hand.reload
+        expect(sos_hand.name).to eq(params_sos_hand_update[:name])
+        expect(sos_hand.address).to eq(params_sos_hand_update[:address])
+        expect(sos_hand.phone).to eq(params_sos_hand_update[:phone])
       end
     end
     

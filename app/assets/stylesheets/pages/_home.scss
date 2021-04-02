@@ -1,50 +1,75 @@
 // Specific CSS for your home-page
 .container-home-page {
-  min-height: 100vh;
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  h2 {
-    font-size: 24px;
-  }
 }
 
 .home-banner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  min-height: 200px;
-  margin-bottom: 50px;
-  h1 {
-    font-size: 48px;
-    font-weight: bold;
-    margin-bottom: 0;
-  }
-  img {
-    width: 100px;
-    height: 100px;
-  }
-  .btn-orange {
-    width: fit-content;
-    font-size: 16px;
-  }
-  .btn-orange-ext {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: fit-content;
-    font-size: 16px;
-  }
-  &:before {
-    content: '';
-    position: absolute;
+  min-height: 70vh;
+  background-position: center;
+  background-size: cover;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)),
+    asset-url('home-background.jpg');
+  .wave {
+    height: 10vh;
     width: 100%;
-    height: 200px;
-    background-color: rgba($blue-dark, 0.6);
-    clip-path: ellipse(100vw 280px at 50% -50%);
-    z-index: -1;
+    background-image: asset-url('wave.png');
+    animation: animate 60s linear infinite;
+  }
+  .container-banner {
+    margin: 30px 10%;
+    .banner-txt {
+      color: white;
+      h1 {
+        font-size: 80px;
+        font-weight: bold;
+        text-align: left;
+        margin-bottom: 1em;
+      }
+      h2 {
+        font-size: 24px;
+        text-align: left;
+      }
+    }
+    .btn-orange {
+      width: fit-content;
+      font-size: 16px;
+    }
+    .btn-orange-ext {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: fit-content;
+      font-size: 16px;
+    }
+  }
+}
+
+@keyframes animate {
+  0% {
+    background-position-x: 0;
+  }
+  100% {
+    background-position-x: 4000px;
+  }
+}
+
+.container-form-home {
+  margin: 20%;
+  border-radius: 16px;
+  padding: 16px 32px;
+  background-color: white;
+  z-index: 1;
+}
+
+@media(max-width: 991px) {
+  .container-form-home {
+    margin: 10%;
+    border-radius: 16px;
+    padding: 16px 32px;
+    background-color: white;
   }
 }
 
@@ -66,7 +91,7 @@
   }
   .container-media {
     width: 100%;
-    height: 75%;
+    height: 200px;
     display: flex;
     justify-content: center;
   }
@@ -93,7 +118,7 @@
 }
 
 .home-media {
-  height: 100%;
+  height: 800px;
   width: 100%;
   object-fit: scale-down;
 }

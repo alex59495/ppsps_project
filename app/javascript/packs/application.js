@@ -7,9 +7,11 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
-
 import 'bootstrap';
 import ReactDOM from 'react-dom';
+
+// Stimulus
+import 'controllers'
 
 // Import react elements
 import reactPpsp from '../components/react-ppsp/index';
@@ -27,13 +29,13 @@ import infiniteScroll from '../components/infinite-scroll-db';
 import { popUp } from '../components/popup';
 import calendar from '../components/calendar';
 import error from '../components/errors';
-import navbarDropdown from '../components/navbar-dropdown';
+import { navbarDropdown, navbarTransparency } from '../components/navbar';
 import sweetAlertMail from '../components/sweetAlert';
 import InitializeTinyMce from '../components/tinymce-editor';
 import { initMapbox } from '../components/mapbox';
 import { logoClient, logoCompany } from '../components/displayLogo';
-import { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter, hideTinyMce, hideInfirmary } from '../components/hide-elements'
-import animateSubmitPpsps from '../components/animateSubmitPpsps'
+import { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter, hideInfirmary } from '../components/hide-elements'
+import {animateSubmitPpsps} from '../components/submitPpsps'
 
 require('@rails/ujs').start();
 require('turbolinks').start();
@@ -48,8 +50,8 @@ require('../channels');
 // const imagePath = (name) => images(name, true)
 document.addEventListener('turbolinks:load', () => {
   InitializeTinyMce();
-  hideTinyMce();
   navbarDropdown();
+  navbarTransparency();
   error();
   select2();
   flatPickerDate();
@@ -62,10 +64,12 @@ document.addEventListener('turbolinks:load', () => {
   sweetAlertMail();
   logoClient();
   logoCompany();
+  // Hide Elements
   hideSecurityKit();
   hidePlanInstallation();
   hideTimetableWinter();
   hideTimetableSummer();
+  // Submit PPSPS
   animateSubmitPpsps();
 
   // Permet de pouvoir appeler la function dans mon JS.erb

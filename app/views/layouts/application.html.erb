@@ -21,10 +21,8 @@
   </head>
 
   <body data-marker-env = "<%= Rails.env %>">
-    <% unless @navbar %>
-      <%= render 'shared/navbar' %>
-    <% end %>
+    <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
-    <%= yield %>
+    <%= yield %> 
   </body>
 </html>

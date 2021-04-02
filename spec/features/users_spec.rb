@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Users View", type: :feature, js: true do
   feature "Users View" do
-    before :all do
+    before do
       company = create(:company_uber)
       @user_uber1 = create(:user, company: company)
       @user_uber2 = create(:user, company: company)
