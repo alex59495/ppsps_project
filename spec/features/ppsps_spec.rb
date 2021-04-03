@@ -114,7 +114,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       # complete the flatpickr date
       page.execute_script("$('#range_start').val('2020-12-12')")
       fill_in('range_end', with: Date.today.next_day.next_month.next_month.to_s)
-      fill_in('ppsp_worksite_attributes_address', with: 'Test adresse')
+      fill_in('ppsp_worksite_attributes_address', with: "New York, NY")
 
       # visible false because we hide the input to make designed css element
       find('#timetable-summer label').click
