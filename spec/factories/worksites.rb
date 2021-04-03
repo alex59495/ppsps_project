@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :worksite do
-    address { Faker::Address.street_address }
+    address { "New York, NY" }
     start_date { '2020-09-25' }
     end_date { '2022-09-25' }
     nature { 'Test de nature' }
