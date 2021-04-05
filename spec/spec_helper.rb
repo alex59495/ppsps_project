@@ -34,6 +34,22 @@ RSpec.configure do |config|
     # Clean the DB after the tests
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+
+    # Config Geocoder for test
+    Geocoder.configure(lookup: :test, ip_lookup: :test)
+    Geocoder::Lookup::Test.add_stub(
+      "New York, NY", [
+        {
+          'latitude'     => 40.7143528,
+          'longitude'    => -74.0059731,
+          'address'      => 'New York, NY, USA',
+          'state'        => 'New York',
+          'state_code'   => 'NY',
+          'country'      => 'United States',
+          'country_code' => 'US'
+        }
+       ]
+      )
   end
 
   # Active storage validation

@@ -68,9 +68,9 @@ RSpec.describe "Ppsps Controller", type: :request do
         let(:update_action) { patch ppsp_path(ppsp), params: { ppsp: params_ppsp } }
 
         it 'Update address of PPSP' do
-          params_ppsp[:worksite_attributes][:address] = 'Update the address'
+          params_ppsp[:worksite_attributes][:nature] = 'Update the nature'
           update_action
-          expect(ppsp.reload.worksite.address).to eq('Update the address')
+          expect(ppsp.reload.worksite.nature).to eq('Update the nature')
         end
 
         it 'Redirect after update' do
