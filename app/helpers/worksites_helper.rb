@@ -1,2 +1,0 @@
-module WorksitesHelper
-end

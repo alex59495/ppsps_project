@@ -5,9 +5,12 @@ class Worksite < ApplicationRecord
   validates :start_date, presence: true
   validates :end_date, presence: true
   validates :nature, presence: true
-  validates :num_responsible, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :num_conductor, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :num_worker, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :num_responsible, presence: true
+  validates :num_responsible, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, if: :num_responsible
+  validates :num_conductor, presence: true
+  validates :num_conductor, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, if: :num_conductor
+  validates :num_worker, presence: true
+  validates :num_worker, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, if: :num_worker
   validates :electrical_site, inclusion: { in: [true, false] }
   validates :water_site, inclusion: { in: [true, false] }
   validates :plan, inclusion: { in: [true, false] }
