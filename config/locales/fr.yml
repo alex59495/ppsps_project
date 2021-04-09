@@ -23,7 +23,7 @@ fr:
         street_impact: Le champs
         river_guidance: Le champs
       project_information:
-        Name: La désignation du chantier
+        name: La désignation du chantier
         reference: La référence
         responsible_id: Le responsable
         site_manager_id: Le chef de chantier
@@ -45,6 +45,9 @@ fr:
         timetable_start: L'horaire
         timetable_end: L'horaire
         electrical: Les installations électriques
+        num_responsible: Le nombre de responsables
+        num_worker: Le nombre de compagnons
+        num_conductor: Le nombre de conducteurs
       hospital:
         name: Le nom
         address: L'adresse

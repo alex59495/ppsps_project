@@ -355,6 +355,11 @@ end
 
 # Create Machines
 Machine::MACHINES.each do |machine|
-  m = Machine.create!(caces: machine[:caces], machine_category: MachineCategory.all.sample, description: machine[:description], image: machine[:image])
+  m = Machine.create!(
+    caces: machine[:caces],
+    # Get the name from the MachineCategory::MACHINE_CATEGORIE array
+    machine_category: MachineCategory.find_by(name: MachineCategory::MACHINE_CATEGORIES[machine[:categorie]]),
+    description: machine[:description], 
+    image: machine[:image])
   p "Create #{m.id} machines"
 end
