@@ -17,7 +17,9 @@
 <div class="pdf-subsubtitle text-center">
   Localisation
 </div>
-<% unless @marker[:lng].nil? || @marker[:lat].nil? %>
+<% if @marker[:lng].nil? || @marker[:lat].nil? %>
+  <div class="text-error">Votre document ne dispose pas d'une adresse valide, merci de corriger cette information dans le formulaire si vous souhaitez afficher la localisation du chantier sur une carte</div>
+<% else %>
   <div class="d-flex justify-content-center">
     <img src="https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/static/pin-s+ff7e67(<%= @marker[:lng] %>,<%= @marker[:lat] %>)/<%= @marker[:lng] %>,<%= @marker[:lat] %>,16/860x400?access_token=<%= Rails.application.credentials.mapbox[:key] %>" alt="map" id="map-mapbox">
   </div>

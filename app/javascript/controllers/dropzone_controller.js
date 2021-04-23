@@ -136,7 +136,7 @@ class DirectUploadController {
     this.source.dropZone.emit('success', this.file);
     this.source.dropZone.emit('complete', this.file);
 
-    // Add an attribute to the public storage
+    // Get the ID of the upload from the chr response
     const active_record_key_id = (JSON.parse(this.file.controller.xhr.response)['public_id'])
     this.hiddenInput.setAttribute('data-publicid', active_record_key_id)
 

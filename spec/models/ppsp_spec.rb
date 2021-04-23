@@ -13,7 +13,7 @@ RSpec.describe Ppsp, type: :model do
   # end
 
   it { is_expected.to validate_size_of(:annexes).less_than(500.kilobytes) }
-  it { is_expected.to validate_size_of(:logo_client).less_than(100.kilobytes) }
+  it { is_expected.to validate_size_of(:logo_client).less_than(500.kilobytes) }
 
   it { should belong_to(:moe) }
   it { should belong_to(:moa) }

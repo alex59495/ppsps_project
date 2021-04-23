@@ -65,7 +65,6 @@ class PpspsController < ApplicationController
     handle_annexes
     respond_to do |format|
       # Two response for the show method depending on the format we call
-      format.html
       format.pdf do
         render(
           pdf: 'ppsp',
@@ -74,11 +73,12 @@ class PpspsController < ApplicationController
           template: 'ppsps/show.pdf.erb',
           layout: 'pdf.html.erb',
           view_as_html: true,
+          show_as_html: params.key?('debug'),
           # La couverture (cover) permet d'avoir une premiere page. Elle n'est pas incluse dans le layout, il faut tout intégrer "à la main" pour cette page.
           cover: render_to_string('ppsps/render_pages/cover.pdf.erb'),
           # Table of Content
           toc: {
-            header_text: "Sommaire"
+            header_text: "Sommaire",
           },
           margin: {
             top: 28, # default 10 (mm)
@@ -224,6 +224,8 @@ class PpspsController < ApplicationController
 
     # We have to redefine the ID because if we don't nested form of rails will create a new instance of worksite and project info
     if @ppsp.update(params_ppsp)
+      # On modifie la date updated_at du ppsp si celle du project_information ou worksite est en avance sur celle-ci
+      @ppsp.update(updated_at: [@ppsp.project_information.updated_at, @ppsp.worksite.updated_at].max) if [@ppsp.project_information.updated_at, @ppsp.worksite.updated_at].max > @ppsp.updated_at
       # Create the joint table if necessary
       create_selected_subcontractors
       create_selected_risks

@@ -33,7 +33,7 @@ import { navbarDropdown, navbarTransparency } from '../components/navbar';
 import sweetAlertMail from '../components/sweetAlert';
 import InitializeTinyMce from '../components/tinymce-editor';
 import { initMapbox } from '../components/mapbox';
-import { logoClient, logoCompany } from '../components/displayLogo';
+import { logoCompany } from '../components/displayLogo';
 import { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter, hideInfirmary } from '../components/hide-elements'
 import {animateSubmitPpsps} from '../components/submitPpsps'
 
@@ -62,7 +62,7 @@ document.addEventListener('turbolinks:load', () => {
   popUp();
   calendar();
   sweetAlertMail();
-  logoClient();
+  // Logos
   logoCompany();
   // Hide Elements
   hideSecurityKit();

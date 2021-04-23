@@ -139,11 +139,9 @@
     </div>
     <div class="bottom center mt-4">
       <%= "Créé le #{@ppsp.created_at.strftime("%d/%m/%Y")}" %>
+       <% if @ppsp.updated_at > @ppsp.created_at %>
+        <div><%= "Modifier le #{@ppsp.updated_at.strftime("%d/%m/%Y")}" %></div>
+      <% end %>
     </div>
-    <% if @ppsp.updated_at > @ppsp.created_at %>
-      <div class="center mt-1">
-        <%= "Modifier le #{@ppsp.updated_at.strftime("%d/%m/%Y")}" %>
-      </div>
-    <% end %>
   </body>
 </html>
