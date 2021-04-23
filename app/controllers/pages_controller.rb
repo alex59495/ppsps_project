@@ -2,6 +2,7 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[home contact]
 
   def home
+    redirect_to ppsps_path if user_signed_in?
   end
 
   def database
