@@ -16,6 +16,10 @@ const App = () => {
   const [listMachines, setListMachines] = useState([])
   const [listWorkers, setListWorkers] = useState([])
 
+  const [showListCategory, setShowListCategory] = useState(true)  
+  const [showListMachines, setShowListMachines] = useState(false)
+  const [showListWorkers, setShowListWorkers] = useState(false)
+
 // List des éléments déjà selectionés par l'utilisateur
   const [listSelected, setListSelected] = useState([])
 
@@ -28,13 +32,30 @@ const App = () => {
   .ppsps_id;
 
 // DOM
-  const btnSubmitMachines = document.getElementById('submit-machine')
   const btnSubmitCategories = document.getElementById('submit-category')
   const formListCategory = document.querySelector('.form-list-categories')
   const formListMachines = document.querySelector('.form-list-machines')
   const formWorkers = document.querySelector('.checkboxes-workers')
 
-  
+  const clearState = () => {
+    setCategory(null);
+    setWorkersId([]);
+    setMachineId([]);
+    setlistCategory([]);
+    setListWorkers([]);
+    setListSelected([]);
+    setListMachines([]);
+  }
+
+  const handleReset = () => {
+    console.log('reset');
+    setShowListCategory(true)
+    setShowListMachines(false)
+    setShowListWorkers(false)
+
+    clearState();
+  }
+
   // Category's logic
   const fetchCategories = () => {
     fetch(`${url}/api/v1/machines/categories?ppsps_id=${ppspsId}`, {
@@ -61,8 +82,8 @@ const App = () => {
   const handleSubmitCategory = async (e) => {
     e.preventDefault()
     await fetchMachines()
-    formListCategory.style.display = 'none';
-    formListMachines.style.display = 'flex';
+    setShowListCategory(false)
+    setShowListMachines(true)
     // Clean the inputs of the form
     formListCategory.reset()
     btnSubmitCategories.disabled = true
@@ -78,14 +99,15 @@ const App = () => {
   const handleSubmitMachine = async (e) => {
     e.preventDefault()
     await fetchWorkers()
-    formListMachines.style.display = 'none';
-    formWorkers.style.display = 'flex';
+    setShowListMachines(false)
+    setShowListWorkers(true)
     // Clean the inputs of the form
     formListMachines.reset()
     btnSubmitCategories.disabled = true
   }
 
   const selectMachine = (e) => {
+    const btnSubmitMachines = document.getElementById('submit-machine')
     btnSubmitMachines.disabled = false
     setMachineId(e.currentTarget.value)
   }
@@ -114,8 +136,8 @@ const App = () => {
           }
         }
       }).then(response => {
-        formWorkers.style.display = 'none';
-        formListCategory.style.display = 'flex';
+        setShowListWorkers(false)
+        setShowListCategory(true)
         // Clean the inputs of the form
         formWorkers.reset()
         let count = trigger
@@ -124,13 +146,7 @@ const App = () => {
       })
       .then(response => {
         // Reset all the infos
-        setCategory(null);
-        setWorkersId([]);
-        setMachineId([]);
-        setlistCategory([]);
-        setListWorkers([]);
-        setListSelected([]);
-        setListMachines([]);
+        clearState()
       })
       .catch(error => console.log(error))
     })
@@ -195,9 +211,9 @@ const App = () => {
   return (
     <React.Fragment>
       <div className="form-react-conductors">
-        <ListCategory listCategory={listCategory} handleSubmitCategory={handleSubmitCategory} selectCategory={selectCategory}/>
-        <ListMachines listMachines={listMachines} handleSubmitMachine={handleSubmitMachine} selectMachine={selectMachine} selectedMachineId={machineId}/>
-        <WorkersList listWorkers={listWorkers} handleSubmitWorkers={handleSubmitWorkers} selectWorkers={selectWorkers}/>
+        <ListCategory listCategory={listCategory} handleSubmitCategory={handleSubmitCategory} selectCategory={selectCategory} showListCategory={showListCategory}/>
+        <ListMachines listMachines={listMachines} handleSubmitMachine={handleSubmitMachine} selectMachine={selectMachine} selectedMachineId={machineId} handleReset={handleReset} showListMachines={showListMachines}/>
+        <WorkersList listWorkers={listWorkers} handleSubmitWorkers={handleSubmitWorkers} selectWorkers={selectWorkers} showListWorkers={showListWorkers}/>
       </div>
       <SavedVehicules listSelected={listSelected} handleDelete={handleDelete}/>
     </React.Fragment>

@@ -58,10 +58,15 @@ class CardPpsp extends Component {
           <div className="card-ppsp" onClick={this.handleCard}>
             <div className="card-ppsp-header">
               <div className="card-ppsp-duplicate" onClick={this.handleDuplicate}>
+                <span>Dupliquer</span>
                 <i className="fas fa-copy"></i>
               </div>
-              <div className="card-ppsp-delete" onClick={this.handleDelete}>x</div>
+              <div className="card-ppsp-delete" onClick={this.handleDelete}>
+                <span>Supprimer</span>
+                x
+              </div>
               <div className='card-ppsp-edit' onClick={this.handleEdit}>
+                <span>Modifier</span>
                 <i className='fas fa-pencil-alt'></i>
               </div>
               <div className="card-ppsp-reference">
@@ -85,6 +90,7 @@ class CardPpsp extends Component {
           <div className="card-ppsp" onClick={this.handleCard}>
             <div className="card-ppsp-header">
               <div className="card-ppsp-duplicate" onClick={this.handleDuplicate}>
+                <span>Dupliquer</span>
                 <i className="fas fa-copy"></i>
               </div>
               <div className="card-ppsp-reference">
