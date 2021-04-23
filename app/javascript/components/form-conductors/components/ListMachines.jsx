@@ -1,7 +1,6 @@
 import React from 'react'
 import InputMachine from './InputMachine'
 import MachineDescription from './MachineDescription';
-import App from './App';
 
 const ListMachines = ({listMachines, handleSubmitMachine, selectMachine, selectedMachineId, handleReset, showListMachines}) => {
 
@@ -32,9 +31,9 @@ const ListMachines = ({listMachines, handleSubmitMachine, selectMachine, selecte
       return(
         <>
           <b>
-            Plus d'option selectionnable
+            Plus d'option selectionnable pour ce type d'engin
           </b>
-          <div onClick={() => handleReset()}>Restart</div>
+          <button className='btn-orange mt-3' onClick={() => handleReset()}>Voir d'autres options</button>
         </>
       )
     } else {
@@ -53,13 +52,15 @@ const ListMachines = ({listMachines, handleSubmitMachine, selectMachine, selecte
 
   if(showListMachines) {
     return (
-      <form className='container-center-column form-list-machines' onSubmit={handleSubmitMachine} >
-        <div className="form-select-machines-title">
-          Choisir une catégorie de CACES
-        </div>
-        {renderSelectList()}
-        {renderDescription}
-      </form>
+      <>
+        <form className='container-center-column form-list-machines' onSubmit={handleSubmitMachine} >
+          <div className="form-select-machines-title">
+            Choisir une catégorie de CACES
+          </div>
+          {renderSelectList()}
+          {renderDescription}
+        </form>
+      </>
     )
   } else {
     return null

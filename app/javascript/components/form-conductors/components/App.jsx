@@ -32,7 +32,6 @@ const App = () => {
   .ppsps_id;
 
 // DOM
-  const btnSubmitCategories = document.getElementById('submit-category')
   const formListCategory = document.querySelector('.form-list-categories')
   const formListMachines = document.querySelector('.form-list-machines')
   const formWorkers = document.querySelector('.checkboxes-workers')
@@ -41,10 +40,6 @@ const App = () => {
     setCategory(null);
     setWorkersId([]);
     setMachineId([]);
-    setlistCategory([]);
-    setListWorkers([]);
-    setListSelected([]);
-    setListMachines([]);
   }
 
   const handleReset = () => {
@@ -86,11 +81,11 @@ const App = () => {
     setShowListMachines(true)
     // Clean the inputs of the form
     formListCategory.reset()
-    btnSubmitCategories.disabled = true
   }
 
   const selectCategory = (e) => {
     setCategory(e.currentTarget.value)
+    const btnSubmitCategories = document.getElementById('submit-category')
     btnSubmitCategories.disabled = false
   }
 
@@ -103,7 +98,6 @@ const App = () => {
     setShowListWorkers(true)
     // Clean the inputs of the form
     formListMachines.reset()
-    btnSubmitCategories.disabled = true
   }
 
   const selectMachine = (e) => {
@@ -153,6 +147,8 @@ const App = () => {
   }
 
   const selectWorkers = (e) => {
+    const btnSubmitConductors = document.getElementById('submit-conductors')
+    btnSubmitConductors.disabled = false
     const value = e.currentTarget.value
     if(!workersId.includes(value)) {
       setWorkersId([...workersId, value])
@@ -211,6 +207,7 @@ const App = () => {
   return (
     <React.Fragment>
       <div className="form-react-conductors">
+        <div className='link' style={{position: 'absolute', top: '10px', left: '40px'}} onClick={() => handleReset()}>Rénitialiser la recherche</div>
         <ListCategory listCategory={listCategory} handleSubmitCategory={handleSubmitCategory} selectCategory={selectCategory} showListCategory={showListCategory}/>
         <ListMachines listMachines={listMachines} handleSubmitMachine={handleSubmitMachine} selectMachine={selectMachine} selectedMachineId={machineId} handleReset={handleReset} showListMachines={showListMachines}/>
         <WorkersList listWorkers={listWorkers} handleSubmitWorkers={handleSubmitWorkers} selectWorkers={selectWorkers} showListWorkers={showListWorkers}/>

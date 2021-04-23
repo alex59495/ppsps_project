@@ -1,7 +1,7 @@
 import React from 'react'
 import InputWorker from './InputWorker'
 
-const WorkersList = ({listWorkers, handleSubmitWorkers, selectWorkers, showWorkerList}) => {
+const WorkersList = ({listWorkers, handleSubmitWorkers, selectWorkers, showListWorkers}) => {
   // Order the list by name
   const listOrdered = listWorkers.sort((a, b) => {
     const nameA = `${a.first_name} ${a.last_name}`.toLowerCase();
@@ -22,7 +22,7 @@ const WorkersList = ({listWorkers, handleSubmitWorkers, selectWorkers, showWorke
     )
   })
   
-  if(showWorkerList) {
+  if(showListWorkers) {
     return (
       <form className='container-center-column checkboxes-workers' onSubmit={handleSubmitWorkers}>
         <div className="form-checkboxes-title">
@@ -34,7 +34,7 @@ const WorkersList = ({listWorkers, handleSubmitWorkers, selectWorkers, showWorke
         <div className="form-checkboxes">
           {renderList}
         </div>
-        <button type='submit' className='btn-orange' id='submit-conductors'>OK</button>
+        <button type='submit' className='btn-orange' id='submit-conductors' disabled>OK</button>
       </form>
     )
   } else {
