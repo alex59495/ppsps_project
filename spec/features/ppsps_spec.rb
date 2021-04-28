@@ -76,6 +76,7 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       fill_in('moa_name', with: 'Update the name')
       click_button('MoaBtn')
       moas = Moa.all.order(updated_at: :desc)
+      sleep 2
       expect(page).to have_current_path(moas_path)
       expect(moas.first.name).to eq('Update the name')
     end

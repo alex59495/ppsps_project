@@ -24,7 +24,7 @@ class Api::V1::ConductorsController < Api::V1::BaseController
 
   def index
     ppsps_id = params[:ppsps_id].empty? ? nil : params[:ppsps_id]
-    @conductors = policy_scope(Conductor.all.where(ppsp_id: ppsps_id))
+    @conductors = policy_scope(Conductor.all.includes([:worker, {machine: :machine_category}]).where(ppsp_id: ppsps_id))
   end
 
   private
