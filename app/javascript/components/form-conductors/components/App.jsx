@@ -30,27 +30,16 @@ const App = () => {
 
   const ppspsId = document.getElementById('conductors-form-react').dataset
   .ppsps_id;
-
-// DOM
-  const formListCategory = document.querySelector('.form-list-categories')
-  const formListMachines = document.querySelector('.form-list-machines')
-  const formWorkers = document.querySelector('.checkboxes-workers')
-
-  const clearState = () => {
+  
+  const handleReset = () => {
+    setShowListCategory(true);
+    setShowListMachines(false);
+    setShowListWorkers(false);
     setCategory(null);
     setWorkersId([]);
     setMachineId([]);
   }
-
-  const handleReset = () => {
-    console.log('reset');
-    setShowListCategory(true)
-    setShowListMachines(false)
-    setShowListWorkers(false)
-
-    clearState();
-  }
-
+  
   // Category's logic
   const fetchCategories = () => {
     fetch(`${url}/api/v1/machines/categories?ppsps_id=${ppspsId}`, {
@@ -64,23 +53,9 @@ const App = () => {
     })
   }
 
-  const fetchMachines = () => {
-    fetch(`${url}/api/v1/machines?ppsps_id=${ppspsId}&category=${category}`, {
-      method: 'GET',
-      'Content-Type': 'application/json'
-    })
-      .then(response => response.json())
-      .then(data => setListMachines(data))
-  }
-
-
   const handleSubmitCategory = async (e) => {
     e.preventDefault()
     await fetchMachines()
-    setShowListCategory(false)
-    setShowListMachines(true)
-    // Clean the inputs of the form
-    formListCategory.reset()
   }
 
   const selectCategory = (e) => {
@@ -89,15 +64,25 @@ const App = () => {
     btnSubmitCategories.disabled = false
   }
 
+  // Machines' logic
+  const fetchMachines = () => {
+    fetch(`${url}/api/v1/machines?ppsps_id=${ppspsId}&category=${category}`, {
+      method: 'GET',
+      'Content-Type': 'application/json'
+    })
+    .then(response => response.json())
+    .then(data => setListMachines(data))
+    .then(() => {
+      setShowListCategory(false)
+      setShowListMachines(true)
+    })
+  }
 
-// Machines' logic
   const handleSubmitMachine = async (e) => {
     e.preventDefault()
     await fetchWorkers()
     setShowListMachines(false)
     setShowListWorkers(true)
-    // Clean the inputs of the form
-    formListMachines.reset()
   }
 
   const selectMachine = (e) => {
@@ -130,17 +115,8 @@ const App = () => {
           }
         }
       }).then(response => {
-        setShowListWorkers(false)
-        setShowListCategory(true)
-        // Clean the inputs of the form
-        formWorkers.reset()
-        let count = trigger
-        count += 1
-        setTrigger(count)
-      })
-      .then(response => {
         // Reset all the infos
-        clearState()
+        handleReset()
       })
       .catch(error => console.log(error))
     })

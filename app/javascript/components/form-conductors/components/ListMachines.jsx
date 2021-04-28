@@ -27,7 +27,7 @@ const ListMachines = ({listMachines, handleSubmitMachine, selectMachine, selecte
   });
 
   const renderSelectList = () => {
-    if(listMachines.length === 0) {
+    if(!listMachines.length) {
       return(
         <>
           <b>
