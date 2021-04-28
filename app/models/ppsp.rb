@@ -40,7 +40,7 @@ class Ppsp < ApplicationRecord
   validates :pension_insurance_id, presence: true
   validates :hospital_id, presence: true
   has_one_attached :logo_client
-  validates :logo_client, size: { less_than: 100.kilobytes, message: 'est trop lourd' }, content_type: ['image/png', 'image/jpg', 'image/jpeg']
+  validates :logo_client, size: { less_than: 500.kilobytes, message: 'est trop lourd' }, content_type: ['image/png', 'image/jpg', 'image/jpeg']
   has_many_attached :annexes
   validates :annexes, size: { less_than: 500.kilobytes, message: 'est trop lourd' }
 end

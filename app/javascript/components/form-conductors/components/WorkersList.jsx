@@ -1,7 +1,7 @@
 import React from 'react'
 import InputWorker from './InputWorker'
 
-const WorkersList = ({listWorkers, handleSubmitWorkers, selectWorkers}) => {
+const WorkersList = ({listWorkers, handleSubmitWorkers, selectWorkers, showListWorkers}) => {
   // Order the list by name
   const listOrdered = listWorkers.sort((a, b) => {
     const nameA = `${a.first_name} ${a.last_name}`.toLowerCase();
@@ -22,20 +22,24 @@ const WorkersList = ({listWorkers, handleSubmitWorkers, selectWorkers}) => {
     )
   })
   
-  return (
-    <form className='container-center-column checkboxes-workers' style={{display: 'none'}} onSubmit={handleSubmitWorkers}>
-      <div className="form-checkboxes-title">
-        Choisir les conducteurs de ce véhicule
-      </div>
-      <div className="form-checkboxes-subtitle text-alert">
-        Seuls les compagnons renseignés comme « conducteurs » sont listés
-      </div>
-      <div className="form-checkboxes">
-        {renderList}
-      </div>
-      <button type='submit' className='btn-orange' id='submit-conductors'>OK</button>
-    </form>
-  )
+  if(showListWorkers) {
+    return (
+      <form className='container-center-column checkboxes-workers' onSubmit={handleSubmitWorkers}>
+        <div className="form-checkboxes-title">
+          Choisir les conducteurs de ce véhicule
+        </div>
+        <div className="form-checkboxes-subtitle text-alert">
+          Seuls les compagnons renseignés comme « conducteurs » sont listés
+        </div>
+        <div className="form-checkboxes">
+          {renderList}
+        </div>
+        <button type='submit' className='btn-orange' id='submit-conductors' disabled>OK</button>
+      </form>
+    )
+  } else {
+    return null
+  }
 }
 
 export default WorkersList

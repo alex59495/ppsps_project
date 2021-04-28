@@ -65,7 +65,7 @@ class Risk < ApplicationRecord
     type_id: 4,
     file: 'pdf/risk_type_4_manuelles.png'
   }, {
-    name: 'Travaux liés aux éboulements',
+    name: "Travaux avec risques d'éboulements",
     type_id: 5,
     file: 'pdf/risk_type_5_eboulement.png'
   }, {

@@ -16,6 +16,10 @@ const App = () => {
   const [listMachines, setListMachines] = useState([])
   const [listWorkers, setListWorkers] = useState([])
 
+  const [showListCategory, setShowListCategory] = useState(true)  
+  const [showListMachines, setShowListMachines] = useState(false)
+  const [showListWorkers, setShowListWorkers] = useState(false)
+
 // List des éléments déjà selectionés par l'utilisateur
   const [listSelected, setListSelected] = useState([])
 
@@ -26,14 +30,15 @@ const App = () => {
 
   const ppspsId = document.getElementById('conductors-form-react').dataset
   .ppsps_id;
-
-// DOM
-  const btnSubmitMachines = document.getElementById('submit-machine')
-  const btnSubmitCategories = document.getElementById('submit-category')
-  const formListCategory = document.querySelector('.form-list-categories')
-  const formListMachines = document.querySelector('.form-list-machines')
-  const formWorkers = document.querySelector('.checkboxes-workers')
-
+  
+  const handleReset = () => {
+    setShowListCategory(true);
+    setShowListMachines(false);
+    setShowListWorkers(false);
+    setCategory(null);
+    setWorkersId([]);
+    setMachineId([]);
+  }
   
   // Category's logic
   const fetchCategories = () => {
@@ -48,44 +53,40 @@ const App = () => {
     })
   }
 
+  const handleSubmitCategory = async (e) => {
+    e.preventDefault()
+    await fetchMachines()
+  }
+
+  const selectCategory = (e) => {
+    setCategory(e.currentTarget.value)
+    const btnSubmitCategories = document.getElementById('submit-category')
+    btnSubmitCategories.disabled = false
+  }
+
+  // Machines' logic
   const fetchMachines = () => {
     fetch(`${url}/api/v1/machines?ppsps_id=${ppspsId}&category=${category}`, {
       method: 'GET',
       'Content-Type': 'application/json'
     })
-      .then(response => response.json())
-      .then(data => setListMachines(data))
+    .then(response => response.json())
+    .then(data => setListMachines(data))
+    .then(() => {
+      setShowListCategory(false)
+      setShowListMachines(true)
+    })
   }
 
-
-  const handleSubmitCategory = async (e) => {
-    e.preventDefault()
-    await fetchMachines()
-    formListCategory.style.display = 'none';
-    formListMachines.style.display = 'flex';
-    // Clean the inputs of the form
-    formListCategory.reset()
-    btnSubmitCategories.disabled = true
-  }
-
-  const selectCategory = (e) => {
-    setCategory(e.currentTarget.value)
-    btnSubmitCategories.disabled = false
-  }
-
-
-// Machines' logic
   const handleSubmitMachine = async (e) => {
     e.preventDefault()
     await fetchWorkers()
-    formListMachines.style.display = 'none';
-    formWorkers.style.display = 'flex';
-    // Clean the inputs of the form
-    formListMachines.reset()
-    btnSubmitCategories.disabled = true
+    setShowListMachines(false)
+    setShowListWorkers(true)
   }
 
   const selectMachine = (e) => {
+    const btnSubmitMachines = document.getElementById('submit-machine')
     btnSubmitMachines.disabled = false
     setMachineId(e.currentTarget.value)
   }
@@ -113,30 +114,20 @@ const App = () => {
             worker_id: workerId,
           }
         }
-      }).then(response => {
-        formWorkers.style.display = 'none';
-        formListCategory.style.display = 'flex';
-        // Clean the inputs of the form
-        formWorkers.reset()
-        let count = trigger
-        count += 1
-        setTrigger(count)
       })
       .then(response => {
         // Reset all the infos
-        setCategory(null);
-        setWorkersId([]);
-        setMachineId([]);
-        setlistCategory([]);
-        setListWorkers([]);
-        setListSelected([]);
-        setListMachines([]);
+        handleReset()
+        let count = trigger
+        setTrigger(count + 1)
       })
       .catch(error => console.log(error))
     })
   }
 
   const selectWorkers = (e) => {
+    const btnSubmitConductors = document.getElementById('submit-conductors')
+    btnSubmitConductors.disabled = false
     const value = e.currentTarget.value
     if(!workersId.includes(value)) {
       setWorkersId([...workersId, value])
@@ -158,8 +149,6 @@ const App = () => {
         acc[key].push(obj);
         return acc;
       }, {});
-
-
       // React doesn't accept Object as a child so whe have to pass them in array
       const groupedArray = []
       for (let key in grouped) {
@@ -195,9 +184,10 @@ const App = () => {
   return (
     <React.Fragment>
       <div className="form-react-conductors">
-        <ListCategory listCategory={listCategory} handleSubmitCategory={handleSubmitCategory} selectCategory={selectCategory}/>
-        <ListMachines listMachines={listMachines} handleSubmitMachine={handleSubmitMachine} selectMachine={selectMachine} selectedMachineId={machineId}/>
-        <WorkersList listWorkers={listWorkers} handleSubmitWorkers={handleSubmitWorkers} selectWorkers={selectWorkers}/>
+        <div className='link' style={{position: 'absolute', top: '10px', left: '40px'}} onClick={() => handleReset()}>Rénitialiser la recherche</div>
+        <ListCategory listCategory={listCategory} handleSubmitCategory={handleSubmitCategory} selectCategory={selectCategory} showListCategory={showListCategory}/>
+        <ListMachines listMachines={listMachines} handleSubmitMachine={handleSubmitMachine} selectMachine={selectMachine} selectedMachineId={machineId} handleReset={handleReset} showListMachines={showListMachines}/>
+        <WorkersList listWorkers={listWorkers} handleSubmitWorkers={handleSubmitWorkers} selectWorkers={selectWorkers} showListWorkers={showListWorkers}/>
       </div>
       <SavedVehicules listSelected={listSelected} handleDelete={handleDelete}/>
     </React.Fragment>

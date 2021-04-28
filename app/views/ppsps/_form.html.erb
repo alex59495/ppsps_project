@@ -82,18 +82,27 @@
       <h3 class="col-md-6 offset-md-3 form-subtitle">
         1-6. Ajout du logo du client (si disponible)
       </h3>
-      <div class="col-md-6 offset-md-3">
-        <div class="text-alert-black">Maximum 100kB (format PNG, JPG ou JPEG)</div>
-        <%= f.input :logo_client, label: false, disabled: @ppsp.logo_client.attached? && @ppsp.logo_client.persisted? %>
-        <div id="error-format" class='text-alert'></div>
-        <img id="newLogo" class='icon-logo' style='display: none'>
-        <div class='btn-delete' id="removeUpload" style='display: none;'>Annuler</div>
-        <div class="render-logo">
-          <%= render 'ppsps/form/render_logo_client' %>
+      <div class="col-md-6 offset-md-3 form-subtitle render-logo">
+        <% if @ppsp.logo_client.attached? %>
+          <div class="logo-client">
+            <%= cl_image_tag @ppsp.logo_client.key, class: 'icon-logo mb-3' %>
+            <div>
+              <%= link_to "Supprimer", destroy_logo_client_ppsp_path(@ppsp), class: 'btn-delete', id: 'btn-destroy-logo', remote: true %>
+            </div>
+          </div>
+        <% end %>
+        <div class="dropzone dropzone-default dz-clickable logo-client-input <%= "hidden" if @ppsp.logo_client.attached? %>" data-controller="dropzone" data-dropzone-max-files-size="0.5" data-dropzone-max-files="1" data-dropzone-accepted-files="image/png, image/jpg, image/jpeg">
+          <%= f.input :logo_client, label: false, input_html: { direct_upload: true, data: { 'dropzone-target'.to_sym => "input" } } %>
+          <div class="dropzone-msg dz-message needsclick">
+            <h3 class='dropzone-msg-title'>Glisser le fichier ou cliquer sur la zone</h3>
+            <span class="dropzone-msg-desc text-sm">
+              <p>500 kB max /fichier (Max 1 image). </p>
+              <p>Fichiers autorisés : png, jpg, jpeg</p>
+            </span>
+          </div>
         </div>
       </div>
       
-
       <h3 class="col-md-6 offset-md-3 form-subtitle">
         1-7. Désignation du coordonateur SPS<i style='font-size: 0.7em; margin-left: 8px;'>(laissez vide si il n'y en a pas)</i>
       </h3>
@@ -516,7 +525,7 @@
       </div>
       <div class="col-md-6 offset-md-3 mt-3">
         <p>Annexes, si besoin</p>
-        <div data-controller="dropzone" data-max-files-size="0.5" data-dropzone-max-files="5" class="dropzone dropzone-default dz-clickable">
+        <div data-controller="dropzone" data-dropzone-max-files-size="0.5" data-dropzone-max-files="5" class="dropzone dropzone-default dz-clickable">
           <%= f.input :annexes, label: false, input_html: { direct_upload: true, multiple: true, data: { 'dropzone-target'.to_sym => "input" } } %>
           <div class="dropzone-msg dz-message needsclick">
             <h3 class='dropzone-msg-title'>Glisser les fichiers ou cliquer sur la zone</h3>

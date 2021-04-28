@@ -1,58 +1,56 @@
-<div class="pdf-text-container">
-  <h1 class="pdf-title">
-    I. Renseignement Administratifs
-  </h1>
-  <h2 class="pdf-subtitle">
-    1.<%= @num_admin %> Entreprise titulaire
-     <% @num_admin += 1 %>
-  </h2>
-  <div class="container-50 mb-1">
-    <div class="flexbox">
-      <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= current_user.company.name %></div>
-      <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= current_user.company.address %></div>
-      <div class="flex-div-40">Représentant :</div><div class="flex-div-60"><%= "#{@ppsp.user.company.representative}" %></div>
-      <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= current_user.company.phone %></div>
-      <div class="flex-div-40">Email :</div><div class="flex-div-60"><%= current_user.email %></div>
-    </div>
+<h1 class="pdf-title">
+  I. Renseignement Administratifs
+</h1>
+<h2 class="pdf-subtitle">
+  1.<%= @num_admin %> Entreprise titulaire
+    <% @num_admin += 1 %>
+</h2>
+<div class="container-50 mb-1">
+  <div class="flexbox">
+    <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= current_user.company.name %></div>
+    <div class="flex-div-40">Adresse :</div><div class="flex-div-60"><%= current_user.company.address %></div>
+    <div class="flex-div-40">Représentant :</div><div class="flex-div-60"><%= "#{@ppsp.user.company.representative}" %></div>
+    <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= current_user.company.phone %></div>
+    <div class="flex-div-40">Email :</div><div class="flex-div-60"><%= current_user.email %></div>
   </div>
-  <h2 class="pdf-subtitle">
-    1.<%= @num_admin %> Désignation du chantier
-     <% @num_admin += 1 %>
-  </h2>
-  <div class="container-50 mb-1">
-    <div class="flexbox">
-      <div class="flex-div-40">Désignation :</div><div class="flex-div-60"><%= @ppsp.project_information.name %></div>
-      <div class="flex-div-40">Référence du projet :</div><div class="flex-div-60"><%= @ppsp.project_information.reference %></div>
-    </div>
+</div>
+<h2 class="pdf-subtitle">
+  1.<%= @num_admin %> Désignation du chantier
+    <% @num_admin += 1 %>
+</h2>
+<div class="container-50 mb-1">
+  <div class="flexbox">
+    <div class="flex-div-40">Désignation :</div><div class="flex-div-60"><%= @ppsp.project_information.name %></div>
+    <div class="flex-div-40">Référence du projet :</div><div class="flex-div-60"><%= @ppsp.project_information.reference %></div>
   </div>
-  <div class="pdf-subsubtitle mt-2">
-    Responsable
+</div>
+<div class="pdf-subsubtitle mt-2 text-center">
+  Responsable
+</div>
+<div class="container-50">
+  <div class="flexbox">
+      <div class="flex-div-40">Nom : </div><div class="flex-div-60"><%= "#{@ppsp.project_information.responsible.first_name} #{@ppsp.project_information.responsible.last_name}" %></div>
+      <div class="flex-div-40">Téléphone : </div><div class="flex-div-60"><%= @ppsp.project_information.responsible.phone %></div>
+      <div class="flex-div-40">Email : </div><div class="flex-div-60"><%= @ppsp.project_information.responsible.email %></div>
   </div>
-  <div class="container-50">
-    <div class="flexbox">
-        <div class="flex-div-40">Nom : </div><div class="flex-div-60"><%= "#{@ppsp.project_information.responsible.first_name} #{@ppsp.project_information.responsible.last_name}" %></div>
-        <div class="flex-div-40">Téléphone : </div><div class="flex-div-60"><%= @ppsp.project_information.responsible.phone %></div>
-        <div class="flex-div-40">Email : </div><div class="flex-div-60"><%= @ppsp.project_information.responsible.email %></div>
-    </div>
+</div>
+<div class="pdf-subsubtitle text-center">
+  Chef de chantier
+</div>
+<div class="container-50">
+  <div class="flexbox">
+      <div class="flex-div-40">Nom : </div><div class="flex-div-60"><%= "#{@ppsp.project_information.site_manager.first_name} #{@ppsp.project_information.site_manager.last_name}" %></div>
+      <div class="flex-div-40">Téléphone : </div><div class="flex-div-60"><%= @ppsp.project_information.site_manager.phone %></div>
+      <div class="flex-div-40">Email : </div><div class="flex-div-60"><%= @ppsp.project_information.site_manager.email %></div>
   </div>
-  <div class="pdf-subsubtitle">
-    Chef de chantier
-  </div>
-  <div class="container-50">
-    <div class="flexbox">
-        <div class="flex-div-40">Nom : </div><div class="flex-div-60"><%= "#{@ppsp.project_information.site_manager.first_name} #{@ppsp.project_information.site_manager.last_name}" %></div>
-        <div class="flex-div-40">Téléphone : </div><div class="flex-div-60"><%= @ppsp.project_information.site_manager.phone %></div>
-        <div class="flex-div-40">Email : </div><div class="flex-div-60"><%= @ppsp.project_information.site_manager.email %></div>
-    </div>
-  </div>
-  <div class="pdf-subsubtitle">
-    Chef d'équipe
-  </div>
-  <div class="container-50">
-    <div class="flexbox">
-      <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= "#{@ppsp.project_information.team_manager.first_name} #{@ppsp.project_information.team_manager.last_name}" %></div>
-      <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.project_information.team_manager.phone %></div>
-      <div class="flex-div-40">Email :</div><div class="flex-div-60"><%= @ppsp.project_information.team_manager.email %></div>
-    </div>
+</div>
+<div class="pdf-subsubtitle text-center">
+  Chef d'équipe
+</div>
+<div class="container-50">
+  <div class="flexbox">
+    <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= "#{@ppsp.project_information.team_manager.first_name} #{@ppsp.project_information.team_manager.last_name}" %></div>
+    <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.project_information.team_manager.phone %></div>
+    <div class="flex-div-40">Email :</div><div class="flex-div-60"><%= @ppsp.project_information.team_manager.email %></div>
   </div>
 </div>

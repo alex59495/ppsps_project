@@ -41,7 +41,7 @@ const App = ({token}) => {
       );
       // On ajoute dans les deux FormList l'option qui vient d'être selectionné pour qu'elle apparaisse dans le handleSearch
       setAddList(addListRemove);
-      setFormListSearched([formListAdd, ...formList]);
+      setFormList([formListAdd, ...formList]);
       setFormListSearched([formListAdd, ...formListSearched]);
     }
   };

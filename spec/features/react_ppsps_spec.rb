@@ -180,7 +180,6 @@ RSpec.feature "React Handling", type: :feature, js: true do
         visit(edit_ppsp_path(@ppsp))
         count = find('.form-conductors-selection').all('.card-vehicule').size
         # find('#formSelectCategory').find(:xpath, 'option[2]').select_option
-        select @machine2.machine_category.name.to_s, from: 'formSelectCategory'
         select @machine4.machine_category.name.to_s, from: 'formSelectCategory'
         expect(page).to have_button('submit-category', disabled: false)
         find('#submit-category').click
@@ -191,7 +190,6 @@ RSpec.feature "React Handling", type: :feature, js: true do
         expect(page).to have_selector('.checkboxes-workers', visible: true)
         check "check_worker_#{@worker_conductors.first.id}"
         find('#submit-conductors').click
-        expect(page).to have_selector('.checkboxes-workers', visible: false)
         sleep 2
         expect(find('.form-conductors-selection').all('.card-vehicule').size).to eq(count + 1)
       end

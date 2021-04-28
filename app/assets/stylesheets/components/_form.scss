@@ -22,13 +22,22 @@
 }
 
 .form-checkbox-subcontractor {
-  background-color: #ff7e676b;
+  border: solid 1px black;
   padding: 8px;
   border-radius: 8px;
   font-size: 13px;
   width: 100%;
   &.active {
-    background-color: #ff7e678c;
+    &:before{
+      content: '\f00c';
+      font-family: 'Font Awesome\ 5 Free';
+      margin-right: 8px;
+      font-size: 12px;
+      color: green;
+      font-weight: 900;
+      position: absolute;
+      right: 5%;
+    }
   }
   &:hover {
     cursor: pointer;
@@ -122,7 +131,7 @@
 
 .selected-form-check {
   overflow: auto;
-  height: 300px;
+  height: 330px;
 }
 
 .form-flex-element {
