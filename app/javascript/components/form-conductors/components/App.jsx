@@ -117,6 +117,8 @@ const App = () => {
       }).then(response => {
         // Reset all the infos
         handleReset()
+        let count = trigger
+        setTrigger(count + 1)
       })
       .catch(error => console.log(error))
     })
