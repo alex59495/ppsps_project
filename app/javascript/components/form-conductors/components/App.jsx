@@ -114,7 +114,8 @@ const App = () => {
             worker_id: workerId,
           }
         }
-      }).then(response => {
+      })
+      .then(response => {
         // Reset all the infos
         handleReset()
         let count = trigger
@@ -148,8 +149,6 @@ const App = () => {
         acc[key].push(obj);
         return acc;
       }, {});
-
-
       // React doesn't accept Object as a child so whe have to pass them in array
       const groupedArray = []
       for (let key in grouped) {
