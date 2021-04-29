@@ -12,6 +12,10 @@
     "@testing-library/dom": "^7.29.4",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.0",
+    "@types/jquery": "^3.5.5",
+    "@types/mapbox": "^1.6.41",
+    "@types/react": "^17.0.4",
+    "@types/react-dom": "^17.0.3",
     "axios": "^0.21.1",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
@@ -40,6 +44,7 @@
     "serialize-javascript": ">=3.1.0",
     "stimulus": "^2.0.0",
     "sweetalert2": "^10.13.0",
+    "ts-loader": "8.2.0",
     "turbolinks": "^5.2.0",
     "typescript": "^4.2.4",
     "worker-loader": "^3.0.7"

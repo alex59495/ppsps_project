@@ -1,15 +1,15 @@
-const logoCompany = () => {
-  const inputCompanyLogo = document.getElementById('company_logo');
+const logoCompany = () : void => {
+  const inputCompanyLogo : HTMLElement = document.getElementById('company_logo');
   
-  const loadLogoCompany = (event) => {
-    const editCompany = document.querySelector('.edit_company')
+  const loadLogoCompany = (event) : void | string => {
+    const editCompany : HTMLElement  = document.querySelector('.edit_company')
     if(editCompany) {
-      const image = document.getElementById('newLogo');
-      const arrow = document.querySelector('.fa-long-arrow-alt-right');
-      const btnCancelUpload = document.getElementById('removeUpload');
-      const btnDeleteLogo = document.getElementById('removeLogo');
+      const image : HTMLImageElement  = document.querySelector('#newLogo');
+      const arrow : HTMLElement  = document.querySelector('.fa-long-arrow-alt-right');
+      const btnCancelUpload : HTMLElement  = document.getElementById('removeUpload');
+      const btnDeleteLogo : HTMLElement  = document.getElementById('removeLogo');
       // Si il exite un fichier à uploader
-      if(event.target.files[0]) {
+      if((<HTMLInputElement>event.target).files[0]) {
         arrow.style.display = 'block';
         btnCancelUpload.style.display = 'block'
         // Si l'entreprise n'a pas encore de logo le bouton n'existe pas
@@ -18,9 +18,9 @@ const logoCompany = () => {
         }
         btnCancelUpload.addEventListener('click', (e) => {
           // Si il exite un fichier à uploader
-          event.target.value = null
+          (<HTMLInputElement>e.target).value = null
           btnCancelUpload.style.display = 'none'
-          loadLogo(event)
+          loadLogoCompany(e)
         })
         image.style.display = 'block';
         return image.src = URL.createObjectURL(event.target.files[0]);

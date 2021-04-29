@@ -1,13 +1,13 @@
 /* eslint-disable no-undef */
-const infiniteScroll = () => {
+const infiniteScroll = () : void => {
   if (document.querySelector('.container-database')) {
     const THRESHOLD = 200;
-    const windowScreen = $(window);
-    const documentScreen = $(document);
-    let paginationElem = $('.container-pagination');
-    const paginationUrl = paginationElem.attr('data-pagination-endpoint');
-    const pagesAmount = paginationElem.attr('data-pagination-pages');
-    let currentPage = 1;
+    const windowScreen : JQuery<Window> = $(window);
+    const documentScreen : JQuery<Document> = $(document);
+    let paginationElem : JQuery<HTMLElement> = $('.container-pagination');
+    const paginationUrl : string = paginationElem.attr('data-pagination-endpoint');
+    const pagesAmount : number = parseInt(paginationElem.attr('data-pagination-pages'), 10);
+    let currentPage : number = 1;
 
     // Initialize pagination
     paginationElem.hide();
@@ -18,15 +18,15 @@ const infiniteScroll = () => {
       paginationElem.hide();
     };
 
-    const appendResult = (resultat) => {
+    const appendResult = (resultat : HTMLElement) : void => {
       $('.flex-database').append(resultat);
       isPaginating = false;
       clearResult();
     };
 
-    const handleDisplaying = () => {
+    const handleDisplaying = () : void => {
       paginationElem = $('.container-pagination');
-      const numberElements = parseInt(paginationElem.attr('data-number'), 10);
+      const numberElements : number = parseInt(paginationElem.attr('data-number'), 10);
       if (numberElements < 50) {
         paginationElem.hide();
       }
@@ -40,7 +40,8 @@ const infiniteScroll = () => {
     
     // Call the function when click on the search button or database btn
     document.getElementById('btn-database').addEventListener('click', () => {
-      document.getElementById('query').value = '';
+      const query : HTMLInputElement = document.querySelector('#query');
+      query.value= '';
       setTimeout(handleDisplaying, 200);
     });
     document.getElementById('btn-search').addEventListener('click', () => {
@@ -48,7 +49,7 @@ const infiniteScroll = () => {
     });
 
     // Listen to scrolling
-    windowScreen.on('scroll', () => {
+    windowScreen.on('scroll', () : void => {
       // Handle the search, in this case we reset the variable - CurrentPage - to 1
       const paginationElemt = $('.container-pagination');
       if (paginationElemt.attr('data-search') === 'search') {
@@ -66,7 +67,8 @@ const infiniteScroll = () => {
       ) {
         isPaginating = true;
         currentPage += 1;
-        const query = document.getElementById('query').value;
+        const queryInput : HTMLInputElement = document.querySelector('#query')
+        const query : string = queryInput.value;
         paginationElemt.show();
         $.ajax({
           url: `${paginationUrl}?page=${currentPage}&query=${query}`,

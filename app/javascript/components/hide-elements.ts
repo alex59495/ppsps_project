@@ -1,7 +1,9 @@
-const hideSecurityKit = () => {
-  if(document.querySelector('.card-kit-security') && document.querySelector('.edit_company')) {
-    const btnAdd = document.getElementById('btn-add-security-kit');
-    const formAdd = document.querySelector('#add-security-kit');
+const hideSecurityKit = () : void => {
+  const cardKitSecurity : HTMLElement = document.querySelector('.card-kit-security')
+  const editCompany : HTMLElement = document.querySelector('.edit_company')
+  if(cardKitSecurity && editCompany) {
+    const btnAdd : HTMLElement  = document.getElementById('btn-add-security-kit');
+    const formAdd : HTMLElement  = document.querySelector('#add-security-kit');
     // Add the hide form logic
     btnAdd.addEventListener('click', () => {
       formAdd.classList.toggle('hidden');
@@ -18,8 +20,8 @@ const hideSecurityKit = () => {
 }
 
 const hidePlanInstallation = () => {
-  const inputPlan = document.getElementById('ppsp_worksite_attributes_plan')
-  const alertText = document.getElementById('alert-text-plan')
+  const inputPlan : HTMLElement = document.getElementById('ppsp_worksite_attributes_plan')
+  const alertText : HTMLElement = document.getElementById('alert-text-plan')
   if(inputPlan) {
     inputPlan.addEventListener('click', () => {
       alertText.classList.toggle('hidden-visibility')
@@ -28,8 +30,8 @@ const hidePlanInstallation = () => {
 }
 
 const hideTimetableSummer = () => {
-  const inputSummer = document.getElementById('ppsp_worksite_attributes_timetable_summer');
-  const timetables = document.getElementById('timetable-summer-input')
+  const inputSummer : HTMLElement = document.getElementById('ppsp_worksite_attributes_timetable_summer');
+  const timetables : HTMLElement = document.getElementById('timetable-summer-input')
   if(inputSummer) {
     inputSummer.addEventListener('click', () => {
       timetables.classList.toggle('hidden-visibility')
@@ -43,8 +45,8 @@ const hideTimetableSummer = () => {
 }
 
 const hideTimetableWinter = () => {
-  const inputWinter = document.getElementById('ppsp_worksite_attributes_timetable_winter');
-  const timetables = document.getElementById('timetable-winter-input')
+  const inputWinter : HTMLElement = document.getElementById('ppsp_worksite_attributes_timetable_winter');
+  const timetables : HTMLElement = document.getElementById('timetable-winter-input')
   if(inputWinter) {
     inputWinter.addEventListener('click', () => {
       timetables.classList.toggle('hidden-visibility')
@@ -58,9 +60,9 @@ const hideTimetableWinter = () => {
 }
 
 const hideInfirmary = () => {
-  const btnInfirmary = document.getElementById('infirmary');
-  const infirmaryText = document.getElementById('infirmary-text');
-  const InputInfirmaryText = document.getElementById('ppsp_worksite_attributes_infirmary_text');
+  const btnInfirmary : HTMLElement = document.getElementById('infirmary');
+  const infirmaryText : HTMLElement = document.getElementById('infirmary-text');
+  const InputInfirmaryText : HTMLInputElement = document.querySelector('#ppsp_worksite_attributes_infirmary_text');
   if(btnInfirmary) {
     btnInfirmary.addEventListener('click', (e) => {
       infirmaryText.classList.toggle('hidden');

@@ -1,20 +1,20 @@
-const error = () => {
-  if (document.querySelector('.stack-container')) {
-    const stackContainer = document.querySelector('.stack-container');
-    const cardNodes = document.querySelectorAll('.card-container');
-    const perspecNodes = document.querySelectorAll('.perspec');
-    const perspec = document.querySelector('.perspec');
-    const card = document.querySelector('.card');
+const error = () : void => {
+  const stackContainer : HTMLElement = document.querySelector('.stack-container')
+  if (stackContainer) {
+    const cardNodes : NodeListOf<HTMLElement> = document.querySelectorAll('.card-container');
+    const perspecNodes : NodeListOf<HTMLElement> = document.querySelectorAll('.perspec');
+    const perspec : HTMLElement = document.querySelector('.perspec');
+    const card : HTMLElement = document.querySelector('.card');
 
     let counter = stackContainer.children.length;
 
     // function to generate random number
-    const randomIntFromInterval = (min, max) =>
+    const randomIntFromInterval = (min : number, max : number) : number =>
       Math.floor(Math.random() * (max - min + 1) + min);
 
     // after tilt animation, fire the explode animation
     card.addEventListener('animationend', () => {
-      perspecNodes.forEach((elem, index) => {
+      perspecNodes.forEach((elem : HTMLElement, index) => {
         elem.classList.add('explode');
       });
     });
@@ -22,15 +22,15 @@ const error = () => {
     // after explode animation do a bunch of stuff
     perspec.addEventListener('animationend', (e) => {
       if (e.animationName === 'explode') {
-        cardNodes.forEach((elem, index) => {
+        cardNodes.forEach((elem : HTMLElement, index) => {
           // add hover animation class
           elem.classList.add('pokeup');
 
           // add event listner to throw card on click
           elem.addEventListener('click', () => {
-            const updown = [800, -800];
-            const randomY = updown[Math.floor(Math.random() * updown.length)];
-            const randomX = Math.floor(Math.random() * 1000) - 1000;
+            const updown : number[] = [800, -800];
+            const randomY : number = updown[Math.floor(Math.random() * updown.length)];
+            const randomX : number = Math.floor(Math.random() * 1000) - 1000;
             elem.style.transform = `translate(${randomX}px, ${randomY}px) rotate(-540deg)`;
             elem.style.transition = 'transform 1s ease, opacity 2s';
             elem.style.opacity = '0';
@@ -42,12 +42,12 @@ const error = () => {
           });
 
           // generate random number of lines of code between 4 and 10 and add to each card
-          const numLines = randomIntFromInterval(5, 10);
+          const numLines : number = randomIntFromInterval(5, 10);
 
           // loop through the lines and add them to the DOM
           for (let index = 0; index < numLines; index++) {
-            const lineLength = randomIntFromInterval(25, 97);
-            const node = document.createElement('li');
+            const lineLength : number = randomIntFromInterval(25, 97);
+            const node : HTMLElement = document.createElement('li');
             node.classList.add(`node-${index}`);
             elem
               .querySelector('.code ul')

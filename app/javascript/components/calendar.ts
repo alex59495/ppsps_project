@@ -1,16 +1,16 @@
 /* eslint-disable prefer-destructuring */
-const calendar = () => {
-  const startInput = document.querySelector('#range_start');
-  const startDayCalendar = document.getElementById('start-day-calendar');
-  const startMonthCalendar = document.getElementById('start-month-calendar');
-  const startYearCalendar = document.getElementById('start-year-calendar');
-  const endDayCalendar = document.getElementById('end-day-calendar');
-  const endMonthCalendar = document.getElementById('end-month-calendar');
-  const endYearCalendar = document.getElementById('end-year-calendar');
-  const endInput = document.querySelector('#range_end');
+const calendar = () : void => {
+  const startInput : HTMLInputElement = document.querySelector('#range_start');
+  const startDayCalendar : HTMLElement = document.getElementById('start-day-calendar');
+  const startMonthCalendar : HTMLElement = document.getElementById('start-month-calendar');
+  const startYearCalendar : HTMLElement = document.getElementById('start-year-calendar');
+  const endDayCalendar : HTMLElement = document.getElementById('end-day-calendar');
+  const endMonthCalendar : HTMLElement = document.getElementById('end-month-calendar');
+  const endYearCalendar : HTMLElement = document.getElementById('end-year-calendar');
+  const endInput : HTMLInputElement = document.querySelector('#range_end');
 
-  const changeDate = () => {
-    const dateStart = new Date(startInput.value);
+  const changeDate = () : void => {
+    const dateStart : Date = new Date(startInput.value);
     if (!Number.isNaN(dateStart.getTime())) {
       startMonthCalendar.firstChild.textContent = dateStart
         .toString()
@@ -18,7 +18,7 @@ const calendar = () => {
       startDayCalendar.innerText = dateStart.toString().split(' ')[2];
       startYearCalendar.innerText = dateStart.toString().split(' ')[3];
     }
-    const dateEnd = new Date(endInput.value);
+    const dateEnd : Date = new Date(endInput.value);
     if (!Number.isNaN(dateEnd.getTime())) {
       endMonthCalendar.firstChild.textContent = dateEnd
         .toString()
@@ -28,7 +28,7 @@ const calendar = () => {
     }
   };
 
-  const calendarBox = document.querySelector('.calendar-box');
+  const calendarBox : HTMLElement = document.querySelector('.calendar-box');
   if (calendarBox) {
     startInput.addEventListener('change', () => {
       changeDate();
