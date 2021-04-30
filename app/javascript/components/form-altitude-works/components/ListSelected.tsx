@@ -1,7 +1,13 @@
 import React from 'react';
 import FormInput from './FormInput';
+import {AltitudeWork} from './App'
 
-const ListSelected = ({ altitude_works, handleClick }) => {
+export interface PropsAltitudeList {
+  altitude_works: AltitudeWork[];
+  handleClick: Function
+}
+
+const ListSelected = ({ altitude_works, handleClick } : PropsAltitudeList) : JSX.Element => {
   const renderList = altitude_works.map(altitude_work => {
     return(
       <FormInput 

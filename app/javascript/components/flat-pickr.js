@@ -1,7 +1,8 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/themes/material_orange.css';
 import { French } from 'flatpickr/dist/l10n/fr';
-import rangePlugin from 'flatpickr/dist/plugins/rangePlugin';
+import  rangePlugin from 'flatpickr/dist/plugins/rangePlugin';
+
 
 const flatPickerDate = () => {
   flatpickr('#range_start', {

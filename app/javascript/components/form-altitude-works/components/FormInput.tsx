@@ -1,6 +1,14 @@
 import React from 'react';
+import {AltitudeWork} from './App';
 
-const FormInput = ({ id, handleClick, formList, name }) => (
+interface PropsFormInput {
+  id: number;
+  handleClick: Function;
+  formList: AltitudeWork[];
+  name: string;
+}
+
+const FormInput = ({ id, handleClick, formList, name } : PropsFormInput) : JSX.Element => (
     <div
       className="form-check"
       id={`check_ppsp_altitude_works_${id}`}

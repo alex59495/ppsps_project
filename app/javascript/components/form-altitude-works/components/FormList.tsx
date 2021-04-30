@@ -1,9 +1,11 @@
 import React from 'react';
+import { AltitudeWork } from './App';
 import FormInput from './FormInput';
+import {PropsAltitudeList} from './ListSelected';
 
-const FormList = ({ altitude_works, handleClick }) => {
+const FormList = ({ altitude_works, handleClick } : PropsAltitudeList) : JSX.Element => {
   // Order the list by name
-  const listOrdered = altitude_works.sort((a, b) => {
+  const listOrdered : AltitudeWork[] = altitude_works.sort((a : AltitudeWork, b : AltitudeWork) => {
     const nameA = a.name.toLowerCase();
     const nameB = b.name.toLowerCase();
 
@@ -16,7 +18,7 @@ const FormList = ({ altitude_works, handleClick }) => {
       return comparison;
   })
 
-  const renderList = listOrdered.map(altitude_work => {
+  const renderList : JSX.Element[] = listOrdered.map(altitude_work => {
     return(
       <FormInput
         id={altitude_work.id}

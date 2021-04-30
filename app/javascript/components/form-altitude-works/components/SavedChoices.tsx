@@ -1,8 +1,14 @@
 import React from 'react';
 import SavedItem from './SavedItems';
+import {AltitudeWork} from './App'
 
-const SavedChoices = ({ altitude_works, handleRemove }) => {
-  const renderSavedItem = altitude_works.map((altitude_work) => (
+interface PropsSavedChoice {
+  altitude_works: AltitudeWork[];
+  handleRemove: Function;
+}
+
+const SavedChoices = ({ altitude_works, handleRemove } : PropsSavedChoice) : JSX.Element => {
+  const renderSavedItem = altitude_works.map((altitude_work : AltitudeWork) => (
     <SavedItem
       altitude_work={altitude_work}
       key={altitude_work.id}
@@ -10,7 +16,7 @@ const SavedChoices = ({ altitude_works, handleRemove }) => {
     />
   ));
 
-  const renderTitle = (altitude_works) => {
+  const renderTitle = (altitude_works : AltitudeWork[]) : JSX.Element => {
     if (altitude_works.length > 0) {
       return (
         <p className="text-center">

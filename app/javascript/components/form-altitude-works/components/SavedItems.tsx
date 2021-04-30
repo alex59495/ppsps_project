@@ -1,6 +1,12 @@
 import React from 'react';
+import {AltitudeWork} from './App'
 
-const SavedItems = ({ altitude_work, handleRemove }) => (
+interface PropsSavedItems {
+  altitude_work: AltitudeWork;
+  handleRemove: Function;
+}
+
+const SavedItems = ({ altitude_work, handleRemove } : PropsSavedItems) : JSX.Element => (
   <div className="card-form-selected">
     <div
       className="card-form-delete"

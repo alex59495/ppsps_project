@@ -1452,6 +1452,13 @@
   dependencies:
     classnames "*"
 
+"@types/flatpickr@^3.1.2":
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@types/flatpickr/-/flatpickr-3.1.2.tgz#767e04fea776ddb399007028bed1a885e26d6d52"
+  integrity sha512-vCEuLqfSlpPhLDOvxyYMIlX20Dwn3XSEeYf9rXfcldDQdLVrtxDdIzE82xhlEFVeHpERujCCQIqETNEUrGsVtA==
+  dependencies:
+    flatpickr "*"
+
 "@types/geojson@*":
   version "7946.0.7"
   resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.7.tgz#c8fa532b60a0042219cdf173ca21a975ef0666ad"
@@ -1504,7 +1511,7 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jquery@^3.5.5":
+"@types/jquery@*", "@types/jquery@^3.5.5":
   version "3.5.5"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.5.5.tgz#2c63f47c9c8d96693d272f5453602afd8338c903"
   integrity sha512-6RXU9Xzpc6vxNrS6FPPapN1SxSHgQ336WC6Jj/N8q30OiaBZ00l1GBgeP7usjVZPivSkGUfL1z/WW6TX989M+w==
@@ -1607,6 +1614,13 @@
   version "0.16.1"
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.1.tgz#18845205e86ff0038517aab7a18a62a6b9f71275"
   integrity sha512-EaCxbanVeyxDRTQBkdLb3Bvl/HK7PBK6UJjsSixB0iHKoWxE5uu2Q/DgtpOhPIojN0Zl1whvOd7PoHs2P0s5eA==
+
+"@types/select2@^4.0.53":
+  version "4.0.53"
+  resolved "https://registry.yarnpkg.com/@types/select2/-/select2-4.0.53.tgz#1eef6cd44179fc2329ced2cc5ab8260ad38ce989"
+  integrity sha512-5+HxxtKgyR954mFL61pNvKenx55gYinkYfSG5tVeItvmHhc2h+yRiGXNTYSwcrAcrUJ2ewLgOxG3STZRsPEnag==
+  dependencies:
+    "@types/jquery" "*"
 
 "@types/sizzle@*":
   version "2.3.3"
@@ -4898,7 +4912,7 @@ flat-cache@^3.0.4:
     flatted "^3.1.0"
     rimraf "^3.0.2"
 
-flatpickr@^4.6.6:
+flatpickr@*, flatpickr@^4.6.6:
   version "4.6.9"
   resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.9.tgz#9a13383e8a6814bda5d232eae3fcdccb97dc1499"
   integrity sha512-F0azNNi8foVWKSF+8X+ZJzz8r9sE1G4hl06RyceIaLvyltKvDl6vqk9Lm/6AUUCi5HWaIjiUbk7UpeE/fOXOpw==
@@ -10662,6 +10676,11 @@ timsort@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
+
+tinymce@^5.7.1:
+  version "5.7.1"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.7.1.tgz#658a6fb4c7d53a8496cc00f8da33f4b8290da06d"
+  integrity sha512-1gY8RClc734srSlkYwY0MQzmkS1j73PuPC+nYtNtrrQVPY9VNcZ4bOiRwzTbdjPPD8GOtv6BAk8Ww/H2RiqKpA==
 
 tinyqueue@^2.0.3:
   version "2.0.3"

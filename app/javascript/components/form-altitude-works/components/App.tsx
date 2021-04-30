@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, {FunctionComponent} from 'react';
 import FormList from './FormList';
 import ListSelected from './ListSelected';
 import SavedChoices from './SavedChoices';
 
-const App = () => {
-  const [formList, setFormList] = useState([]);
-  const [addList, setAddList] = useState([]);
-  const [savedChoices, setSavedChoices] = useState([]);
-  const [trigger, setTrigger] = useState(0);
+export interface AltitudeWork {
+  name: string,
+  id: number
+}
 
-  const handleClick = (e) => {
+const App:FunctionComponent = () : JSX.Element => {
+  const [formList, setFormList] = React.useState <AltitudeWork[]> ([]);
+  const [addList, setAddList] = React.useState <AltitudeWork[]> ([]);
+  const [savedChoices, setSavedChoices] = React.useState <AltitudeWork[]> ([]);
+  const [trigger, setTrigger] = React.useState <number> (0);
+
+  const handleClick = (e) : void => {
     e.preventDefault();
     const id = parseInt(e.currentTarget.querySelector('input').value, 10);
     if (e.currentTarget.parentNode.classList.contains('ppsp_altitude_works')) {
@@ -37,12 +42,12 @@ const App = () => {
     }
   };
 
-  const url = window.location.protocol;
+  const url : string = window.location.protocol;
 
-  const ppspsId = document.getElementById('react-render-altitude-works').dataset
+  const ppspsId : string = document.getElementById('react-render-altitude-works').dataset
     .ppsps_id;
 
-  const fetchAltitudeWorksFormList = () => {
+  const fetchAltitudeWorksFormList = () : void => {
     fetch(`${url}/api/v1/altitude_works?ppsps_id=${ppspsId}`, {
       method: 'GET',
     })
@@ -50,7 +55,7 @@ const App = () => {
       .then((data) => setFormList(data));
   };
 
-  const fetchSavedAltitudeWorks = () => {
+  const fetchSavedAltitudeWorks = () : void => {
     fetch(`${url}/api/v1/selected_altitude_works?ppsps_id=${ppspsId}`, {
       method: 'GET',
     })
@@ -69,7 +74,7 @@ const App = () => {
     setTrigger(count + 1)
   };
   
-  useEffect(() => {
+  React.useEffect(() => {
     fetchAltitudeWorksFormList();
     fetchSavedAltitudeWorks()
   }, [trigger]);

@@ -1,8 +1,10 @@
+import tinymce from 'tinymce'
+
 const ShowSecuContent = () => {
-  const containerTiny = document.querySelector('.tinymce');
-  const editFormPpsp = document.querySelector('.edit_ppsp');
-  const newFormPpsp = document.querySelector('.new_ppsp');
-  const editCompany = document.querySelector('.edit_company')
+  const containerTiny : HTMLElement = document.querySelector('.tinymce');
+  const editFormPpsp : HTMLElement = document.querySelector('.edit_ppsp');
+  const newFormPpsp : HTMLElement = document.querySelector('.new_ppsp');
+  const editCompany : HTMLElement = document.querySelector('.edit_company')
   if (containerTiny && (editFormPpsp || newFormPpsp)) {
     const ppspSecuContent = containerTiny.dataset.ppsp_secu;
     // Si on est sur la page du form du PPSP on révupère le contenu du content_secu du PPSP
@@ -15,7 +17,7 @@ const ShowSecuContent = () => {
 };
 
 const InitializeTinyMce = async () => {
-const containerTiny = document.querySelector('.tinymce');
+const containerTiny : HTMLElement = document.querySelector('.tinymce');
   if(containerTiny) {
     tinymce.remove();
     await tinymce.init({
@@ -46,7 +48,7 @@ const containerTiny = document.querySelector('.tinymce');
         if (meta.filetype == 'image') {
           $('#upload').trigger('click');
           $('#upload').on('change', function() {
-            var file = this.files[0];
+            var file = (<HTMLInputElement>this).files[0];
             var reader = new FileReader();
             reader.onload = function(e) {
               callback(e.target.result, {

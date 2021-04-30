@@ -1,5 +1,5 @@
 const popUp = () => {
-  document.querySelectorAll('.infos-popup').forEach((pop, index) => {
+  document.querySelectorAll('.infos-popup').forEach((pop : Element, index : number) => {
     if(index == 0) {
       const text = "<div class='pop-up' id='pop-direcct'>Directions régionales des entreprises, de la concurrence, de la consommation, du travail et de l'emploi</div>"
       pop.addEventListener('mouseover', () => {
