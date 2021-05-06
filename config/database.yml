@@ -20,10 +20,14 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= Rails.application.credentials.database[:database_user] %>
+  password: <%= Rails.application.credentials.database[:database_password] %>
+  port: <%= Rails.application.credentials.database[:database_port] || '5432' %>
+  # host: <%= Rails.application.credentials.database[:database_host] %>
 
 development:
   <<: *default
-  database: ppsps_project_development
+  database: <%= Rails.application.credentials.database[:database_name_development] %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -57,7 +61,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: ppsps_project_test
+  database: <%= Rails.application.credentials.database[:database_name_test] %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -80,6 +84,6 @@ test:
 #
 production:
   <<: *default
-  database: ppsps_project_production
+  database: <%= Rails.application.credentials.database[:database_production] %>
   username: ppsps_project
   password: <%= ENV['PPSPS_PROJECT_DATABASE_PASSWORD'] %>

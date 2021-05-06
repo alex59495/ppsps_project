@@ -33,17 +33,18 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 
 # Application dependencies
 # We use an external Aptfile for that, stay tuned
-COPY Aptfile /tmp/Aptfile
-RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade && \
-  DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-    libpq-dev \
-    postgresql-client-$PG_MAJOR \
-    nodejs \
-    yarn=$YARN_VERSION-1 \
-    $(grep -Ev '^\s*#' /tmp/Aptfile | xargs) && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    truncate -s 0 /var/log/*log
+# COPY Aptfile /tmp/Aptfile
+
+# RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade && \
+#   DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
+#     libpq-dev \
+#     postgresql-client-$PG_MAJOR \
+#     nodejs \
+#     yarn=$YARN_VERSION-1 \
+#     $(grep -Ev '^\s*#' /tmp/Aptfile | xargs) && \
+#     apt-get clean && \
+#     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+#     truncate -s 0 /var/log/*log
 
 # Configure bundler
 ENV LANG=C.UTF-8 \
@@ -64,3 +65,6 @@ RUN gem update --system && \
 RUN mkdir -p /app
 
 WORKDIR /app
+
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
