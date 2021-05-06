@@ -1,6 +1,7 @@
 import React from 'react';
+import {Machine} from './App'
 
-const MachineDescription = ({description, image}) => {
+const MachineDescription = ({description, image} : Machine) : JSX.Element => {
   // Use this first request to require the image (with fingerprint) bundled by Webpack
   const img = require(`../../../../assets/images/${image}`)
   return (

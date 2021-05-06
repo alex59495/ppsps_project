@@ -1,8 +1,15 @@
 import React from 'react'
 import InputMachine from './InputCategory'
 
-const ListCategory = ({listCategory, handleSubmitCategory, selectCategory, showListCategory}) => {
-  const renderList = listCategory.map(category => {
+interface PropsListCategory {
+  listCategory: string[];
+  handleSubmitCategory: () => void;
+  selectCategory: () => void;
+  showListCategory: boolean;
+}
+
+const ListCategory = ({listCategory, handleSubmitCategory, selectCategory, showListCategory} : PropsListCategory) => {
+  const renderList = listCategory.map((category : string) => {
     return(
         <InputMachine key={category} category={category}/>
     )

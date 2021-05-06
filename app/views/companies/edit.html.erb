@@ -101,14 +101,15 @@
         </div>
       </div>
     </div>
-    <p>Vous pouvez modifier votre prémabule en cliquant sur <span class="time-emphasis">Editeur de texte</span> </p>
+    <p class="text-center">Vous pouvez modifier votre prémabule en cliquant sur <span class="time-emphasis">Editeur de texte</span> </p>
   <% else %>
-    <p>Vous n'avez pas encore entré de préambule. Vous pouvez cliquer sur <span class="time-emphasis">Editeur de texte</span> pour en ajouter un</p>
+    <p class="text-center">Vous n'avez pas encore entré de préambule. Vous pouvez cliquer sur <span class="time-emphasis">Editeur de texte</span> pour en ajouter un</p>
   <% end %>
-  
-  <button type="button" class="btn-orange" data-toggle="modal" data-target="#modalTiny">
-    Editeur de texte
-  </button>
+  <div class="flexbox justify-content-center">
+    <button type="button" class="btn-orange" data-toggle="modal" data-target="#modalTiny">
+      Editeur de texte
+    </button>
+  </div>
   <div class="modal fade" id="modalTiny" tabindex="-1" role="dialog" aria-labelledby="modalTinyLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

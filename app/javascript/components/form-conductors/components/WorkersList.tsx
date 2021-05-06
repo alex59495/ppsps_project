@@ -1,9 +1,17 @@
-import React from 'react'
-import InputWorker from './InputWorker'
+import React from 'react';
+import InputWorker from './InputWorker';
+import {Worker} from './App';
 
-const WorkersList = ({listWorkers, handleSubmitWorkers, selectWorkers, showListWorkers}) => {
+interface PropsWorkerList {
+  listWorkers: Worker[],
+  handleSubmitWorkers: () => void,
+  selectWorkers: () => void,
+  showListWorkers: boolean,
+}
+
+const WorkersList = ({listWorkers, handleSubmitWorkers, selectWorkers, showListWorkers} : PropsWorkerList) : JSX.Element => {
   // Order the list by name
-  const listOrdered = listWorkers.sort((a, b) => {
+  const listOrdered : Worker[] = listWorkers.sort((a : Worker, b : Worker) => {
     const nameA = `${a.first_name} ${a.last_name}`.toLowerCase();
     const nameB = `${b.first_name} ${b.last_name}`.toLowerCase();
 
@@ -16,7 +24,7 @@ const WorkersList = ({listWorkers, handleSubmitWorkers, selectWorkers, showListW
       return comparison;
   })
 
-  const renderList = listOrdered.map(worker => {
+  const renderList : JSX.Element[] = listOrdered.map((worker : Worker) => {
     return(
       <InputWorker key={worker.id} worker={worker} selectWorkers={selectWorkers}/>
     )

@@ -525,22 +525,24 @@
       </div>
       <div class="col-md-6 offset-md-3 mt-3">
         <p>Annexes, si besoin</p>
-        <div data-controller="dropzone" data-dropzone-max-files-size="0.5" data-dropzone-max-files="5" class="dropzone dropzone-default dz-clickable">
+        <div data-controller="dropzone" data-dropzone-max-files-size="0.5" data-dropzone-max-files=<%= "#{@num_dropzone_annexes}" %> class="dropzone dropzone-default dz-clickable">
           <%= f.input :annexes, label: false, input_html: { direct_upload: true, multiple: true, data: { 'dropzone-target'.to_sym => "input" } } %>
           <div class="dropzone-msg dz-message needsclick">
             <h3 class='dropzone-msg-title'>Glisser les fichiers ou cliquer sur la zone</h3>
             <span class="dropzone-msg-desc text-sm">
-              <p>500 kB max /fichier (Max 5 fichiers). </p>
+              <p>500 kB max /fichier (Max <%= pluralize(@num_dropzone_annexes, "fichier", plural: "fichiers") %>). </p>
               <p>Fichiers autorisés : png, jpg, jpeg, pdf</p>
             </span>
           </div>
         </div>
       </div>
-      <% if @ppsp.annexes.attached? %>
-        <div class="d-flex flex-wrap justify-content-center w-100" id='container-annexes'>
-          <%= render 'ppsps/form/render_annexes' %>
-        </div>
-      <% end %>
+      <div class="col-md-6 offset-md-3 mt-3">
+        <% if @ppsp.annexes.attached? %>
+          <div class="d-flex flex-wrap justify-content-center w-100" id='container-annexes'>
+            <%= render 'ppsps/form/render_annexes' %>
+          </div>
+        <% end %>
+      </div>
 
 
       <div class="d-flex justify-content-center mt-5" style='width: 100%'>

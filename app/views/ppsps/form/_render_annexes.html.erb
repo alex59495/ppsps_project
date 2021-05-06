@@ -1,8 +1,9 @@
 <% @ppsp.annexes.each_with_index do |annexe, index| %>
   <% unless annexe.id.nil? %>
     <div class="container-annexe logo" id=<%= annexe.key %>>
-      <%= cl_image_tag(annexe.key + '.jpg', height: 300, width: 200, class: "mx-4") %>
-      <%= link_to "Supprimer", destroy_annexe_path(public_id: annexe.key), class: 'btn-delete', remote: true, method: :delete %>
+      <%= cl_image_tag(annexe.key + '.jpg', height: 50, width: 50, class: "mx-4") %>
+      <%= annexe.filename %>
+      <%= link_to "Supprimer", destroy_annexe_path(id: @ppsp.id, public_id: annexe.key), class: 'btn-delete', remote: true, method: :delete %>
     </div>
   <% end %>
 <% end %>

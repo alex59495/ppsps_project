@@ -1,18 +1,14 @@
 // A CORRIGER SI UN JOUR ON UTILISE MAPBOX AUTRE QUE VIA LE LIEN
-import * as mapboxgl from 'mapbox-gl';
-import * as MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
+import mapboxgl from 'mapbox-gl';
+import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 
 mapboxgl.workerClass = MapboxWorker;
 
-interface marker {
-  lat: string,
-  lng: string
-}
 
-const initMapbox = () : void => {
-  const mapElement : HTMLElement = document.getElementById('map');
+const initMapbox = () => {
+  const mapElement = document.getElementById('map');
 
-  const fitMapToMarkers = (map, marker : marker) => {
+  const fitMapToMarkers = (map, marker ) => {
     const bounds = new mapboxgl.LngLatBounds();
     bounds.extend([ marker.lng, marker.lat ]);
     map.fitBounds(bounds, { padding: 70, maxZoom: 15, duration: 0 });

@@ -15,7 +15,7 @@ const ListSelected = ({ altitude_works, handleClick } : PropsAltitudeList) : JSX
         handleClick={handleClick} 
         name={altitude_work.name} 
         key={altitude_work.id}
-        formList = {false}
+        check = {false}
       />
     )
   })

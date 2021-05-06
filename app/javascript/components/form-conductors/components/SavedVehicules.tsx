@@ -1,8 +1,15 @@
 import React from 'react'
-import SavedWorkers from './SavedWorkers'
+import SavedWorkers from './SavedWorkers';
+import {Conductor} from './App'
 
-const SavedVehicules = ({listSelected, handleDelete}) => {
-  const renderList = listSelected.map(vehicule => {
+interface PropsSavedVehicules {
+  listSelected: Conductor[][];
+  handleDelete: () => void
+}
+
+const SavedVehicules = ({listSelected, handleDelete} : PropsSavedVehicules) : JSX.Element => {
+  console.log(listSelected)
+  const renderList : JSX.Element[] = listSelected.map((vehicule : Conductor[]) => {
     const id = vehicule[0].id
     const categoryVehicle = vehicule[0].machine_category
     const cacesVehicle = vehicule[0].machine_caces

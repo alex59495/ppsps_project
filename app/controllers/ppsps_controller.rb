@@ -1,5 +1,7 @@
 class PpspsController < ApplicationController
-  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit destroy_logo_client duplicate]
+  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit destroy_logo_client duplicate, destroy_annexe]
+  before_action :init_variables, only: %i[new create edit update]
+  before_action :dropzone_annexes, only: %i[new create edit update]
 
   def index
     # Handled by react :) (app/assets/javascript/ppsp-react)
@@ -15,37 +17,7 @@ class PpspsController < ApplicationController
     # We used the 'accepts_nested_attributes_for' in the models
     # We used the projection_information_attributes in the params
     @project_information = @ppsp.build_project_information
-
     @worksite = @ppsp.build_worksite
-
-    # Info to add the possibility to create a new element through a modal form
-    @project_information = ProjectInformation.new
-    @security_coordinator = SecurityCoordinator.new
-    @hospital = Hospital.new
-    @moa = Moa.new
-    @moe = Moe.new
-    @pension_insurance = PensionInsurance.new
-    @regional_committee = RegionalCommittee.new
-    @direcct = Direcct.new
-    @work_medecine = WorkMedecine.new
-    @demining = Demining.new
-    @sos_hand = SosHand.new
-    @anti_poison = AntiPoison.new
-    @subcontractor = Subcontractor.new
-
-    # Select the databases present in the select lists
-    @moas = policy_scope(Moa.all)
-    @moes = policy_scope(Moe.all)
-    @regional_committees = policy_scope(RegionalCommittee.all)
-    @pension_insurances = policy_scope(PensionInsurance.all)
-    @direccts = policy_scope(Direcct.all)
-    @work_medecines = policy_scope(WorkMedecine.all)
-    @deminings = policy_scope(Demining.all)
-    @sos_hands = policy_scope(SosHand.all)
-    @anti_poisons = policy_scope(AntiPoison.all)
-    @hospitals = policy_scope(Hospital.all)
-    @security_coordinators = policy_scope(SecurityCoordinator.all)
-    @subcontractors = policy_scope(Subcontractor.all)
   end
 
   def show
@@ -110,34 +82,6 @@ class PpspsController < ApplicationController
     @project_information = @ppsp.project_information
     @worksite = @ppsp.worksite
 
-    # Info to add the possibility to create a new element through a modal form
-    @security_coordinator = SecurityCoordinator.new
-    @hospital = Hospital.new
-    @moa = Moa.new
-    @moe = Moe.new
-    @pension_insurance = PensionInsurance.new
-    @regional_committee = RegionalCommittee.new
-    @direcct = Direcct.new
-    @work_medecine = WorkMedecine.new
-    @demining = Demining.new
-    @sos_hand = SosHand.new
-    @anti_poison = AntiPoison.new
-    @subcontractor = Subcontractor.new
-
-    # Select the databases present in the select lists
-    @moas = policy_scope(Moa.all)
-    @moes = policy_scope(Moe.all)
-    @regional_committees = policy_scope(RegionalCommittee.all)
-    @pension_insurances = policy_scope(PensionInsurance.all)
-    @direccts = policy_scope(Direcct.all)
-    @work_medecines = policy_scope(WorkMedecine.all)
-    @deminings = policy_scope(Demining.all)
-    @sos_hands = policy_scope(SosHand.all)
-    @anti_poisons = policy_scope(AntiPoison.all)
-    @hospitals = policy_scope(Hospital.all)
-    @security_coordinators = policy_scope(SecurityCoordinator.all)
-    @subcontractors = policy_scope(Subcontractor.all)
-
     authorize @ppsp
     if @ppsp.save
       # Create the joint table if necessary
@@ -161,32 +105,6 @@ class PpspsController < ApplicationController
     # This way the edit page is able to retrieve the project informations and worksite
     @project_information = @ppsp.project_information
     @worksite = @ppsp.worksite
-    # Info to add the possibility to create a new element through a modal form!
-    @security_coordinator = SecurityCoordinator.new
-    @hospital = Hospital.new
-    @moa = Moa.new
-    @moe = Moe.new
-    @pension_insurance = PensionInsurance.new
-    @regional_committee = RegionalCommittee.new
-    @direcct = Direcct.new
-    @work_medecine = WorkMedecine.new
-    @demining = Demining.new
-    @sos_hand = SosHand.new
-    @anti_poison = AntiPoison.new
-    @subcontractor = Subcontractor.new
-
-    # Select the databases present in the select lists
-    @moas = policy_scope(Moa.all)
-    @moes = policy_scope(Moe.all)
-    @regional_committees = policy_scope(RegionalCommittee.all)
-    @pension_insurances = policy_scope(PensionInsurance.all)
-    @direccts = policy_scope(Direcct.all)
-    @work_medecines = policy_scope(WorkMedecine.all)
-    @deminings = policy_scope(Demining.all)
-    @sos_hands = policy_scope(SosHand.all)
-    @anti_poisons = policy_scope(AntiPoison.all)
-    @hospitals = policy_scope(Hospital.all)
-    @security_coordinators = policy_scope(SecurityCoordinator.all)
   end
 
   def update
@@ -194,33 +112,6 @@ class PpspsController < ApplicationController
     # This way the edit page is able to retrieve the project informations and worksite
     @project_information = @ppsp.project_information
     @worksite = @ppsp.worksite
-
-    @security_coordinator = SecurityCoordinator.new
-    @hospital = Hospital.new
-    @moa = Moa.new
-    @moe = Moe.new
-    @pension_insurance = PensionInsurance.new
-    @regional_committee = RegionalCommittee.new
-    @direcct = Direcct.new
-    @work_medecine = WorkMedecine.new
-    @demining = Demining.new
-    @sos_hand = SosHand.new
-    @anti_poison = AntiPoison.new
-    @subcontractor = Subcontractor.new
-
-    # Select the databases present in the select lists
-    @moas = policy_scope(Moa.all)
-    @moes = policy_scope(Moe.all)
-    @regional_committees = policy_scope(RegionalCommittee.all)
-    @pension_insurances = policy_scope(PensionInsurance.all)
-    @direccts = policy_scope(Direcct.all)
-    @work_medecines = policy_scope(WorkMedecine.all)
-    @deminings = policy_scope(Demining.all)
-    @sos_hands = policy_scope(SosHand.all)
-    @anti_poisons = policy_scope(AntiPoison.all)
-    @hospitals = policy_scope(Hospital.all)
-    @security_coordinators = policy_scope(SecurityCoordinator.all)
-    @subcontractors = policy_scope(Subcontractor.all)
 
     # We have to redefine the ID because if we don't nested form of rails will create a new instance of worksite and project info
     if @ppsp.update(params_ppsp)
@@ -251,7 +142,6 @@ class PpspsController < ApplicationController
   end
 
   def destroy_annexe
-    @ppsp = Ppsp.new
     authorize @ppsp
     blob = ActiveStorage::Blob.find_by(key: params[:public_id])
     if ActiveStorage::Attachment.find_by(blob: blob)
@@ -260,7 +150,7 @@ class PpspsController < ApplicationController
         format.js { render 'ppsps/destroy_annexe' }
       end
     else
-      blob.purge
+      blob.purge if blob.present?
       head :no_content
     end
   end
@@ -274,6 +164,42 @@ class PpspsController < ApplicationController
   end
 
   private
+
+  def init_variables
+    # Info to add the possibility to create a new element through a modal form
+    @security_coordinator = SecurityCoordinator.new
+    @hospital = Hospital.new
+    @moa = Moa.new
+    @moe = Moe.new
+    @pension_insurance = PensionInsurance.new
+    @regional_committee = RegionalCommittee.new
+    @direcct = Direcct.new
+    @work_medecine = WorkMedecine.new
+    @demining = Demining.new
+    @sos_hand = SosHand.new
+    @anti_poison = AntiPoison.new
+    @subcontractor = Subcontractor.new
+
+    # Select the databases present in the select lists
+    @moas = policy_scope(Moa.all)
+    @moes = policy_scope(Moe.all)
+    @regional_committees = policy_scope(RegionalCommittee.all)
+    @pension_insurances = policy_scope(PensionInsurance.all)
+    @direccts = policy_scope(Direcct.all)
+    @work_medecines = policy_scope(WorkMedecine.all)
+    @deminings = policy_scope(Demining.all)
+    @sos_hands = policy_scope(SosHand.all)
+    @anti_poisons = policy_scope(AntiPoison.all)
+    @hospitals = policy_scope(Hospital.all)
+    @security_coordinators = policy_scope(SecurityCoordinator.all)
+    @subcontractors = policy_scope(Subcontractor.all)
+  end
+
+  def dropzone_annexes
+    # To know how many annexes the user can download
+    return @num_dropzone_annexes = 5 unless @ppsp
+    @num_dropzone_annexes = @ppsp.annexes.attached? ? 5 - @ppsp.annexes.count : 5
+  end
 
   # On regarde quels sont les Tables jointes des conducteurs (associé au current_user) qui n'ont pas encore de PPSP
   # et on leur associe le PPSP qui vient d'être créé

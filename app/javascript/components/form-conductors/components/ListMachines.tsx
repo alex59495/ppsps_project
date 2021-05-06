@@ -1,10 +1,21 @@
 import React from 'react'
 import InputMachine from './InputMachine'
 import MachineDescription from './MachineDescription';
+import {Machine} from './App';
 
-const ListMachines = ({listMachines, handleSubmitMachine, selectMachine, selectedMachineId, handleReset, showListMachines}) => {
 
-  const renderDescription = listMachines.map(machine => {
+interface PropsListMachine {
+  listMachines: Machine[];
+  handleSubmitMachine: () => void;
+  selectMachine: () => void;
+  selectedMachineId: number;
+  handleReset: () => void;
+  showListMachines: boolean;
+}
+
+const ListMachines = ({listMachines, handleSubmitMachine, selectMachine, selectedMachineId, handleReset, showListMachines} : PropsListMachine) : JSX.Element => {
+
+  const renderDescription : JSX.Element[] = listMachines.map((machine : Machine) => {
     if(machine.id == selectedMachineId) {
       return(
         <MachineDescription 
@@ -16,7 +27,7 @@ const ListMachines = ({listMachines, handleSubmitMachine, selectMachine, selecte
     }
   })
 
-  const renderList = listMachines.map(machine => {
+  const renderList : JSX.Element[] = listMachines.map((machine : Machine) => {
    return(
     <InputMachine 
         key={machine.id} 
@@ -26,14 +37,14 @@ const ListMachines = ({listMachines, handleSubmitMachine, selectMachine, selecte
     )
   });
 
-  const renderSelectList = () => {
+  const renderSelectList = () : JSX.Element => {
     if(!listMachines.length) {
       return(
         <>
           <b>
             Plus d'option selectionnable pour ce type d'engin
           </b>
-          <button className='btn-orange mt-3' onClick={() => handleReset()}>Voir d'autres options</button>
+          <button className='btn-orange mt-3' onClick={handleReset}>Voir d'autres options</button>
         </>
       )
     } else {

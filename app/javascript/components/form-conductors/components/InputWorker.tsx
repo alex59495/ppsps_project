@@ -1,6 +1,12 @@
-import React from 'react'
+import React from 'react';
+import {Worker} from './App'
 
-const InputWorker = ({worker, selectWorkers}) => {
+interface InputWorker {
+  worker: Worker,
+  selectWorkers: () => void
+}
+
+const InputWorker = ({worker, selectWorkers} : InputWorker) : JSX.Element => {
   return (
     <div className="form-check">
       <input className="form-check-input" type="checkbox" value={worker.id} id={`check_worker_${worker.id}`} onClick={selectWorkers} />

@@ -24,7 +24,7 @@ const FormList = ({ altitude_works, handleClick } : PropsAltitudeList) : JSX.Ele
         id={altitude_work.id}
         handleClick={handleClick}
         name={altitude_work.name}
-        formList = {true}
+        check = {true}
         key={altitude_work.id}
       />
     )

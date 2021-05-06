@@ -21,10 +21,10 @@ const App:FunctionComponent = () : JSX.Element => {
       // Si on est dans la liste des choix, le fait de cliquer ajoute l'élément dans la liste de la selection en cours
       // et le supprime de la liste des choix
       const formListRemove = formList.filter(
-        (altitude_work) => altitude_work.id !== id
+        (altitude_work : AltitudeWork) => altitude_work.id !== id
       );
       const addListAdd = formList.find(
-        (altitude_work) => altitude_work.id === id
+        (altitude_work : AltitudeWork) => altitude_work.id === id
       );
       setFormList(formListRemove);
       setAddList([addListAdd, ...addList]);
@@ -32,10 +32,10 @@ const App:FunctionComponent = () : JSX.Element => {
       // Si on est dans la liste de la selection en cours, le fait de cliquer ajoute l'élément dans la liste des choix
       // et le supprime de la selection en cours
       const addListRemove = addList.filter(
-        (altitude_work) => altitude_work.id !== id
+        (altitude_work : AltitudeWork) => altitude_work.id !== id
       );
       const formListAdd = addList.find(
-        (altitude_work) => altitude_work.id === id
+        (altitude_work : AltitudeWork) => altitude_work.id === id
       );
       setAddList(addListRemove);
       setFormList([formListAdd, ...formList]);

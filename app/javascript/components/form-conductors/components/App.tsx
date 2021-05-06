@@ -7,44 +7,76 @@ import ListMachines from './ListMachines'
 import WorkersList from './WorkersList'
 import SavedVehicules from './SavedVehicules'
 
-const App = () => {
-  const [category, setCategory] = useState(null)
-  const [workersId, setWorkersId] = useState([])
-  const [machineId, setMachineId] = useState([])
-// Form lists
-  const [listCategory, setlistCategory] = useState([])
-  const [listMachines, setListMachines] = useState([])
-  const [listWorkers, setListWorkers] = useState([])
+export interface Machine {
+  id?: number,
+  caces?: string,
+  description?: string,
+  image?: string,
+  category?: {
+    name: string
+  }
+}
 
-  const [showListCategory, setShowListCategory] = useState(true)  
-  const [showListMachines, setShowListMachines] = useState(false)
-  const [showListWorkers, setShowListWorkers] = useState(false)
+export interface Worker {
+  id: number,
+  first_name: string,
+  last_name: string,
+  conductor: boolean,
+  lifesaver: boolean
+}
+
+export interface Conductor {
+  id: number;
+  machine_caces: string;
+  machine_category: string;
+  machine_description: string;
+  ppsp_id: number;
+  worker_first_name: string;
+  worker_last_name: string;
+}
+
+
+const App = () : JSX.Element => {
+  const [category, setCategory] = useState<String>("")
+  const [workersId, setWorkersId] = useState<number[]>([])
+  const [machineId, setMachineId] = useState<number[]>([])
+// Form lists
+  const [listCategory, setlistCategory] = useState<String[]>([])
+  const [listMachines, setListMachines] = useState<Machine[]>([])
+  const [listWorkers, setListWorkers] = useState<Worker[]>([])
+
+  const [showListCategory, setShowListCategory] = useState<boolean>(true)  
+  const [showListMachines, setShowListMachines] = useState<boolean>(false)
+  const [showListWorkers, setShowListWorkers] = useState<boolean>(false)
 
 // List des éléments déjà selectionés par l'utilisateur
-  const [listSelected, setListSelected] = useState([])
+  const [listSelected, setListSelected] = useState<Conductor[][]>([])
 
 // Add a trigger to reactivate the app when creating a new conductor
-  const [trigger, setTrigger] = useState(0)
+  const [trigger, setTrigger] = useState<number>(0)
 
   const url = window.location.protocol
 
-  const ppspsId = document.getElementById('conductors-form-react').dataset
+  const ppspsId : string = document.getElementById('conductors-form-react').dataset
   .ppsps_id;
   
   const handleReset = () => {
     setShowListCategory(true);
     setShowListMachines(false);
     setShowListWorkers(false);
-    setCategory(null);
+    setCategory('');
     setWorkersId([]);
     setMachineId([]);
   }
   
   // Category's logic
-  const fetchCategories = () => {
+  const fetchCategories = () : void => {
+    const requestHeaders: HeadersInit = new Headers();
+    requestHeaders.set('Content-Type', 'application/json');
+
     fetch(`${url}/api/v1/machines/categories?ppsps_id=${ppspsId}`, {
       method: 'GET',
-      'Content-Type': 'application/json'
+      headers: requestHeaders
     }).then(response => response.json()).then(data => {
       const arrayCategory = data.map(machine => {
         return machine.category
@@ -53,22 +85,25 @@ const App = () => {
     })
   }
 
-  const handleSubmitCategory = async (e) => {
+  const handleSubmitCategory = async (e) : Promise<void> => {
     e.preventDefault()
     await fetchMachines()
   }
 
   const selectCategory = (e) => {
     setCategory(e.currentTarget.value)
-    const btnSubmitCategories = document.getElementById('submit-category')
+    const btnSubmitCategories : HTMLButtonElement = document.querySelector('#submit-category')
     btnSubmitCategories.disabled = false
   }
 
   // Machines' logic
   const fetchMachines = () => {
+    const requestHeaders: HeadersInit = new Headers();
+    requestHeaders.set('Content-Type', 'application/json');
+
     fetch(`${url}/api/v1/machines?ppsps_id=${ppspsId}&category=${category}`, {
       method: 'GET',
-      'Content-Type': 'application/json'
+      headers: requestHeaders
     })
     .then(response => response.json())
     .then(data => setListMachines(data))
@@ -86,16 +121,19 @@ const App = () => {
   }
 
   const selectMachine = (e) => {
-    const btnSubmitMachines = document.getElementById('submit-machine')
+    const btnSubmitMachines : HTMLButtonElement = document.querySelector('#submit-machine')
     btnSubmitMachines.disabled = false
     setMachineId(e.currentTarget.value)
   }
 
 // Workers Logic
   const fetchWorkers = () => {
+    const requestHeaders: HeadersInit = new Headers();
+    requestHeaders.set('Content-Type', 'application/json');
+
     fetch(`${url}/api/v1/workers/conductors`, {
       method: 'GET',
-      'Content-Type': 'application/json'
+      headers: requestHeaders
     }).then(response => response.json()).then(data => setListWorkers(data))
   }
 
@@ -126,7 +164,7 @@ const App = () => {
   }
 
   const selectWorkers = (e) => {
-    const btnSubmitConductors = document.getElementById('submit-conductors')
+    const btnSubmitConductors : HTMLButtonElement = document.querySelector('#submit-conductors')
     btnSubmitConductors.disabled = false
     const value = e.currentTarget.value
     if(!workersId.includes(value)) {
@@ -136,9 +174,12 @@ const App = () => {
 
 // Conductors logic
   const fetchConductors = () => {
+    const requestHeaders: HeadersInit = new Headers();
+    requestHeaders.set('Content-Type', 'application/json');
+
     fetch(`${url}/api/v1/conductors?ppsps_id=${ppspsId}`, {
       method: 'GET',
-      'Content-Type': 'application/json'
+      headers: requestHeaders
     }).then(response => response.json()).then(listConductors => {
       // On groupes les couples machines/workers par "category - caces" pour avoir un hash organisé par couple "category - caces"
       const grouped = listConductors.reduce((acc, obj) => {
@@ -149,11 +190,11 @@ const App = () => {
         acc[key].push(obj);
         return acc;
       }, {});
-      // React doesn't accept Object as a child so whe have to pass them in array
+      // // React doesn't accept Object as a child so whe have to pass them in array
       const groupedArray = []
       for (let key in grouped) {
         if (grouped.hasOwnProperty(key)) {
-           const obj = (key, grouped[key]);
+           const obj = grouped[key];
            groupedArray.push(obj)
         }
       }

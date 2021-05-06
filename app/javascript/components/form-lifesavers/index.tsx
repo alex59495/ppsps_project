@@ -12,7 +12,7 @@ import App from './components/App';
 //   selectedPpsps: reducerPpsps
 // });
 
-const reactFormLifesaver = () => {
+const reactFormLifesaver = () : void => {
   // Identify the user you're visiting (show page) = currrent_user
   if (document.getElementById('react-render-lifesavers')) {
     // render an instance of the component in the DOM

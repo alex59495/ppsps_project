@@ -4,11 +4,11 @@ import {AltitudeWork} from './App';
 interface PropsFormInput {
   id: number;
   handleClick: Function;
-  formList: AltitudeWork[];
+  check: boolean;
   name: string;
 }
 
-const FormInput = ({ id, handleClick, formList, name } : PropsFormInput) : JSX.Element => (
+const FormInput = ({ id, handleClick, check, name } : PropsFormInput) : JSX.Element => (
     <div
       className="form-check"
       id={`check_ppsp_altitude_works_${id}`}
@@ -20,10 +20,10 @@ const FormInput = ({ id, handleClick, formList, name } : PropsFormInput) : JSX.E
         value={id}
         name="ppsp[altitude_works][]"
         id={`ppsp_altitude_works_${id}`}
-        defaultChecked={!formList}
+        defaultChecked={!check}
       />
       <label
-        className={`form-checkbox ${!formList ? 'active' : ''}`}
+        className={`form-checkbox ${!check ? 'active' : ''}`}
         htmlFor={`ppsp_altitude_works_${id}`}
       >
         {name}

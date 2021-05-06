@@ -1,6 +1,12 @@
-import React from 'react'
+import React from 'react';
+import {Conductor} from './App';
 
-const ItemSelect = ({vehicule, handleDelete}) => {
+interface PropsSavedWorkers {
+  vehicule: Conductor[];
+  handleDelete: (id: number) => void;
+}
+
+const ItemSelect = ({vehicule, handleDelete} : PropsSavedWorkers) : JSX.Element => {
   const renderItem = vehicule.map(worker => {
     const conductorId = worker.id
     return(

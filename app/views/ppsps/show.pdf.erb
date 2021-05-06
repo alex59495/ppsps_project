@@ -92,7 +92,7 @@
             <%= "Annexe #{index + 1}" %>
           </h1>
           <% (1..value[:pages]).each do |i| %>
-              <%= cl_image_tag(value[:key] + '.jpg', page: i, crop: "scale", width: 850) %>
+              <%= cl_image_tag(value[:key] + '.jpg', page: i, crop: "scale", width: 750) %>
           <% end %>
           </div>
       <% end %>
