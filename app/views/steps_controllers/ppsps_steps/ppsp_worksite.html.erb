@@ -1,0 +1,68 @@
+<div class="container mb-3">
+  <%= simple_form_for @ppsp, remote: true, html: {multipart: true}, url: wizard_path do |f| %> 
+    <h2 class="col-12 form-title">
+      II. Le chantier
+    </h2>
+    <h3 class="col-md-6 offset-md-3 form-subtitle">
+      2-1. Description des travaux
+    </h3>
+    <div class="col-md-6 offset-md-3">
+      <%= f.input :nature, placeholder: "Description des travaux..." %>
+    </div>
+
+    <h3 class="col-md-6 offset-md-3 form-subtitle">
+      2-2. Adresse du chantier
+    </h3>
+    <div class="col-md-6 offset-md-3">
+      <%= f.input :address, placeholder: "Indiquez une adresse..." %>
+    </div>
+
+    <h3 class="col-md-6 offset-md-3 form-subtitle">
+      2-3. Dates du chantier
+    </h3>
+    <div class="col-md-6 offset-md-3">
+      <div class="container-calendar">
+        <div class="calendar-box">
+          <div class="title">
+            Début
+          </div>
+          <div class="date">
+          <%= f.input :start_date, label: false, as: :string, input_html: {id: 'range_start'}, require: true %>
+            <div class="date-day-month">
+              <div id="start-day-calendar" class="day">
+                <%= Date.today.to_formatted_s(:short).split(" ").first %>
+              </div>
+              <div id="start-month-calendar" class="month">
+                <%= Date.today.to_formatted_s(:short).split(" ").last %>
+              </div>
+            </div>
+            <div id="start-year-calendar" class="year">
+              <%= Date.today.to_formatted_s(:long).split(" ").last%>
+            </div>
+          </div>
+        </div>
+        <div class="calendar-box">
+          <div class="title">
+            Fin
+          </div>
+          <div class="date">
+          <%= f.input :end_date, label: false, as: :string, input_html: {id: 'range_end'}, require: true %>
+            <div class="date-day-month">
+              <div id="end-day-calendar" class="day">
+                <%= Date.today.to_formatted_s(:short).split(" ").first %>
+              </div>
+              <div id="end-month-calendar" class="month">
+                <%= Date.today.to_formatted_s(:short).split(" ").last %>
+              </div>
+            </div>
+            <div id="end-year-calendar" class="year">
+              <%= Date.today.to_formatted_s(:long).split(" ").last%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <%= f.submit 'Suivant' %>
+  <%= link_to "Précédent", previous_wizard_path, class: 'link' %>
+  <% end %>
+</div>

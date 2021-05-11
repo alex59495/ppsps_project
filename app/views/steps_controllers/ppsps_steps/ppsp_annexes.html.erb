@@ -1,0 +1,55 @@
+<div class="container mb-3">
+  <%= simple_form_for @ppsp, remote: true, html: {multipart: true}, url: wizard_path do |f| %>
+    <div class="row">
+      <h2 class="col-12 form-title">
+        IV. L'évaluation des risques
+      </h2>
+
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        4-1. Les risques associés à mon chantier
+      </h3>
+      <div class="col-md-10 offset-md-1">
+        <div id="react-render-risks" data-ppsps_id=<%=@ppsp.id%>></div>
+      </div>
+
+      <div class="col-md-6 offset-md-3 form-subtitle">
+        4-2. Ajouter des spécificités sur le chantier
+      </div>
+
+      <div class="col-md-10 offset-md-1 text-center">
+        <%= render 'ppsps/form/modal_secu_ppsp', f: f %>
+        </div>
+      </div>
+      <div class="col-md-6 offset-md-3 mt-3">
+        <p>Annexes, si besoin</p>
+        <div data-controller="dropzone" data-dropzone-max-files-size="0.5" data-dropzone-max-files="5" class="dropzone dropzone-default dz-clickable">
+          <%= f.input :annexes, label: false, input_html: { direct_upload: true, multiple: true, data: { 'dropzone-target'.to_sym => "input" } } %>
+          <div class="dropzone-msg dz-message needsclick">
+            <h3 class='dropzone-msg-title'>Glisser les fichiers ou cliquer sur la zone</h3>
+            <span class="dropzone-msg-desc text-sm">
+              <p>500 kB max /fichier (Max 5 fichiers). </p>
+              <p>Fichiers autorisés : png, jpg, jpeg, pdf</p>
+            </span>
+          </div>
+        </div>
+      </div>
+      <% if @ppsp.annexes.attached? %>
+        <div class="d-flex flex-wrap justify-content-center w-100" id='container-annexes'>
+          <%= render 'ppsps/form/render_annexes' %>
+        </div>
+      <% end %>
+
+
+      <div class="d-flex justify-content-center mt-5" style='width: 100%'>
+        <%= f.button :button, "J'ai terminé", class: 'btn-blue', data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe }, id: 'SubmitPpspsFormBtn' %>
+      </div>
+      <%= link_to "Précédent", previous_wizard_path, class: 'link' %>
+    </div>
+    <div id="myModal" class="modal-background">
+      <div class="text-center modal-loading">
+        <div class="spinner-border" role="status"></div>
+         <div class="mt-2">Votre PPSPS est en cours de préparation...</div>
+      </div>
+    </div>
+  <% end %>
+</div>

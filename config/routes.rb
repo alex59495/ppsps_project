@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # Ppsp
   delete 'destroy_annexe/:public_id', to: 'ppsps#destroy_annexe', as: :destroy_annexe 
   resources :ppsps, except: [:destroy] do
+    resources :steps, only: [:show, :update], controller: 'steps_controllers/ppsps_steps'
     resources :selected_installations, only: [ :create, :destroy ]
     resources :selected_altitudes, only: [ :create, :destroy ]
     resources :selected_risks, only: [ :create, :destroy ]

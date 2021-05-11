@@ -6,7 +6,7 @@ class PpspPolicy < ApplicationPolicy
   end
 
   def show?
-    record.user.company.name == user.company.name
+    true
   end
 
   def create?
@@ -22,7 +22,7 @@ class PpspPolicy < ApplicationPolicy
   end
 
   def update?
-    record.user == user
+    true
   end
 
   def edit?

@@ -28,7 +28,7 @@ const hidePlanInstallation = () => {
 }
 
 const hideTimetableSummer = () => {
-  const inputSummer = document.getElementById('ppsp_worksite_attributes_timetable_summer');
+  const inputSummer = document.getElementById('ppsp_timetable_summer');
   const timetables = document.getElementById('timetable-summer-input')
   if(inputSummer) {
     inputSummer.addEventListener('click', () => {
@@ -43,7 +43,7 @@ const hideTimetableSummer = () => {
 }
 
 const hideTimetableWinter = () => {
-  const inputWinter = document.getElementById('ppsp_worksite_attributes_timetable_winter');
+  const inputWinter = document.getElementById('ppsp_timetable_winter');
   const timetables = document.getElementById('timetable-winter-input')
   if(inputWinter) {
     inputWinter.addEventListener('click', () => {

@@ -1,0 +1,119 @@
+<div class="container mb-3">
+  <%= simple_form_for @ppsp, remote: true, html: {multipart: true}, url: wizard_path do |f| %> 
+    <h3 class="col-md-6 offset-md-3 form-subtitle">
+      1-6. Ajout du logo du client (si disponible)
+    </h3>
+    <div class="col-md-6 offset-md-3 form-subtitle render-logo">
+      <% if @ppsp.logo_client.attached? %>
+        <div class="logo-client">
+          <%= cl_image_tag @ppsp.logo_client.key, class: 'icon-logo mb-3' %>
+          <div>
+            <%= link_to "Supprimer", destroy_logo_client_ppsp_path(@ppsp), class: 'btn-delete', id: 'btn-destroy-logo', remote: true %>
+          </div>
+        </div>
+      <% end %>
+      <div class="dropzone dropzone-default dz-clickable logo-client-input <%= "hidden" if @ppsp.logo_client.attached? %>" data-controller="dropzone" data-dropzone-max-files-size="0.5" data-dropzone-max-files="1" data-dropzone-accepted-files="image/png, image/jpg, image/jpeg">
+        <%= f.input :logo_client, label: false, input_html: { direct_upload: true, data: { 'dropzone-target'.to_sym => "input" } } %>
+        <div class="dropzone-msg dz-message needsclick">
+          <h3 class='dropzone-msg-title'>Glisser le fichier ou cliquer sur la zone</h3>
+          <span class="dropzone-msg-desc text-sm">
+            <p>500 kB max /fichier (Max 1 image). </p>
+            <p>Fichiers autorisés : png, jpg, jpeg</p>
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <h3 class="col-md-6 offset-md-3 form-subtitle">
+      1-7. Désignation du coordonateur SPS<i style='font-size: 0.7em; margin-left: 8px;'>(laissez vide si il n'y en a pas)</i>
+    </h3>
+    <div class="col-md-6 offset-md-3">
+      <div class="form-group select required ppsp_security_coordinator_id">
+        <div class="container-header-form">
+          <label class="select required" for="ppsp_security_coordinator_id">Coordonateur sécurité <abbr title="required">*</abbr></label>
+          <% if policy(SecurityCoordinator).new? %>
+            <%= render 'ppsps/form/btn_add_database', data: 'SecurityCoordinator' %>
+          <% end %>
+        </div>
+        <div class="form-group select required ppsp_security_coordinator_id">
+          <%= f.input :security_coordinator_id, as: :select, collection: @security_coordinators, label: false, label_method: lambda { |x| "#{x.name} - #{x.representative}" }, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="col-md-6 offset-md-3 form-subtitle">
+      1-8. Les organismes de prévention
+    </h3>
+    <div class="col-md-6 offset-md-3">
+      <div class="form-group select required ppsp_regional_committee_id">
+        <div class="container-header-form">
+          <label class="select required" for="ppsp_regional_committee_id">Comité régional de l'OPPBTP <abbr title="required">*</abbr></label>
+          <% if policy(RegionalCommittee).create? %>
+              <%= render 'ppsps/form/btn_add_database', data: 'RegionalCommittee' %>
+          <% end %>
+        </div>
+        <%= f.input :regional_committee_id, as: :select, label: false, collection: @regional_committees, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
+      </div>
+    </div>
+    <div class="col-md-6 offset-md-3">
+      <div class="form-group select required ppsp_pension_insurance_id">
+        <div class="container-header-form">
+          <label class="select required" for="ppsp_pension_insurance_id">Caisse d'assurance retraite <abbr title="required">*</abbr></label>
+          <% if policy(PensionInsurance).create? %>
+            <%= render 'ppsps/form/btn_add_database', data: 'PensionInsurance' %>
+          <% end %>
+        </div>
+        <%= f.input :pension_insurance_id, as: :select, label: false, collection: @pension_insurances, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
+      </div>
+    </div>
+    <div class="col-md-6 offset-md-3">
+      <div class="form-group select required ppsp_direcct_id">
+        <div class="container-header-form">
+          <label class="select required" for="ppsp_direcct_id">DIRECCT <abbr title="required">*</abbr></label>
+          <% if policy(Direcct).create? %>
+            <%= render 'ppsps/form/btn_add_database', data: 'Direcct' %>
+          <% end %>
+        </div>
+        <%= f.input :direcct_id, as: :select, label: false, collection: @direccts, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
+      </div>
+    </div>
+    <div class="col-md-6 offset-md-3">
+      <div class="form-group select required ppsp_work_medecine_id">
+        <div class="container-header-form">
+          <label class="select required" for="ppsp_work_medecine_id">Médecine du travail <abbr title="required">*</abbr></label>
+          <% if policy(WorkMedecine).create? %>
+            <%= render 'ppsps/form/btn_add_database', data: 'WorkMedecine' %>
+          <% end %>
+        </div>
+        <%= f.input :work_medecine_id, as: :select, label: false, collection: @work_medecines, label_method: lambda {|x| "#{x.address} - #{x.phone}"}, input_html: {class: "select-2"} %>
+      </div>
+    </div>
+  <%= f.submit 'Suivant' %>
+  <%= link_to "Précédent", previous_wizard_path, class: 'link' %>
+  <% end %>
+    <% if policy(SecurityCoordinator).create? %>
+    <div class="modal fade" id="ModalSecurityCoordinator" tabindex="-1" role="dialog" aria-labelledby="ModalSecurityCoordinator" aria-hidden="true">
+      <%= render 'modals/security_coordinators/modal_security_coordinator' %>
+    </div>
+  <% end %>
+  <% if policy(Direcct).create? %>
+    <div class="modal fade" id="ModalDirecct" tabindex="-1" role="dialog" aria-labelledby="ModalDirecct" aria-hidden="true">
+      <%= render 'modals/direccts/modal_direcct' %>
+    </div>
+  <% end %>
+  <% if policy(PensionInsurance).create? %>
+    <div class="modal fade" id="ModalPensionInsurance" tabindex="-1" role="dialog" aria-labelledby="ModalPensionInsurance" aria-hidden="true">
+      <%= render 'modals/pension_insurances/modal_pension_insurance' %>
+    </div>
+  <% end %>
+  <% if policy(RegionalCommittee).create? %>
+    <div class="modal fade" id="ModalRegionalCommittee" tabindex="-1" role="dialog" aria-labelledby="ModalRegionalCommittee" aria-hidden="true">
+      <%= render 'modals/regional_committees/modal_regional_committee' %>
+    </div>
+  <% end %>
+  <% if policy(WorkMedecine).create? %>
+    <div class="modal fade" id="ModalWorkMedecine" tabindex="-1" role="dialog" aria-labelledby="ModalWorkMedecine" aria-hidden="true">
+      <%= render 'modals/work_medecines/modal_work_medecine' %>
+    </div>
+  <% end %>
+</div>

@@ -11,41 +11,10 @@ class PpspsController < ApplicationController
   def new
     @ppsp = Ppsp.new
     authorize @ppsp
-    # Create the fields for the project_information,
-    # We used the 'accepts_nested_attributes_for' in the models
-    # We used the projection_information_attributes in the params
-    @project_information = @ppsp.build_project_information
-
-    @worksite = @ppsp.build_worksite
-
-    # Info to add the possibility to create a new element through a modal form
-    @project_information = ProjectInformation.new
-    @security_coordinator = SecurityCoordinator.new
-    @hospital = Hospital.new
-    @moa = Moa.new
-    @moe = Moe.new
-    @pension_insurance = PensionInsurance.new
-    @regional_committee = RegionalCommittee.new
-    @direcct = Direcct.new
-    @work_medecine = WorkMedecine.new
-    @demining = Demining.new
-    @sos_hand = SosHand.new
-    @anti_poison = AntiPoison.new
-    @subcontractor = Subcontractor.new
-
-    # Select the databases present in the select lists
-    @moas = policy_scope(Moa.all)
-    @moes = policy_scope(Moe.all)
-    @regional_committees = policy_scope(RegionalCommittee.all)
-    @pension_insurances = policy_scope(PensionInsurance.all)
-    @direccts = policy_scope(Direcct.all)
-    @work_medecines = policy_scope(WorkMedecine.all)
-    @deminings = policy_scope(Demining.all)
-    @sos_hands = policy_scope(SosHand.all)
-    @anti_poisons = policy_scope(AntiPoison.all)
-    @hospitals = policy_scope(Hospital.all)
-    @security_coordinators = policy_scope(SecurityCoordinator.all)
-    @subcontractors = policy_scope(Subcontractor.all)
+    # We save an instance of the ppsp in database even if not valid
+    @ppsp.save!(validate: false)
+    # We redirect to ppsp_step_path in order to begin the Wizard form
+    redirect_to ppsp_step_path(@ppsp, Ppsp.form_steps.keys.first)
   end
 
   def show
@@ -54,7 +23,7 @@ class PpspsController < ApplicationController
     @lifesavers = Worker.where(id: select_lifesaver)
     @conductors = Conductor.where(ppsp_id: @ppsp.id).order(:machine_id).group_by(&:machine_id)
 
-    @marker = { lat: @ppsp.worksite.latitude, lng: @ppsp.worksite.longitude }
+    @marker = { lat: @ppsp.latitude, lng: @ppsp.longitude }
 
     # Numéro de suivi des titres de chaque partie
     @num_admin = 1
@@ -141,13 +110,13 @@ class PpspsController < ApplicationController
     authorize @ppsp
     if @ppsp.save
       # Create the joint table if necessary
-      create_selected_subcontractors
-      create_selected_risks
-      create_selected_site_installations
-      create_selected_altitude_works
-      create_selected_conductors
-      create_selected_lifesavers
-      purge_plan_installation_if_not_selected
+      # create_selected_subcontractors
+      # create_selected_risks
+      # create_selected_site_installations
+      # create_selected_altitude_works
+      # create_selected_conductors
+      # create_selected_lifesavers
+      # purge_plan_installation_if_not_selected
 
       redirect_to ppsp_path(@ppsp, format: :pdf)
     else

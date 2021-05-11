@@ -13,7 +13,7 @@ const App = () => {
   const handleClick = (e) => {
     e.preventDefault();
     const id = parseInt(e.currentTarget.querySelector('input').value, 10);
-    if (e.currentTarget.parentNode.parentNode.classList.contains('ppsp_risks')) {
+    if (e.currentTarget.parentNode.parentNode.classList.contains('risks')) {
       // Si on est dans la liste des choix, le fait de cliquer ajoute l'élément dans la liste de la selection en cours
       // et le supprime de la liste des choix
       const formListRemove = formList.filter((risk) => risk.id !== id);

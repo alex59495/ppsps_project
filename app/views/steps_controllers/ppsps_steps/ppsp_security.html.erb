@@ -1,0 +1,98 @@
+<div class="container mb-3">
+  <%= simple_form_for @ppsp, remote: true, html: {multipart: true}, url: wizard_path do |f| %>
+    <div class="row">
+      <h2 class="col-12 form-title">
+        III. Dispositions en matière de secours et d'évacuation
+      </h2>
+
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        3-1. Infirmerie de chantier
+      </h3>
+      <div class="col-md-6 offset-md-3">
+        <p>Le chantier implique-t-il une infirmerie sur place ?</p>
+        <%= f.input :infirmary, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden', id:'infirmary' }  %>
+        <div class=<%= @ppsp.infirmary ? 'visible' : 'hidden' %> id="infirmary-text">
+          <%= f.input :infirmary_text, label: 'Indiquer les informations sur cette infirmerie (localisation etc...)' %>
+        </div>
+      </div>
+
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        3-2. Liste des SSP
+      </h3>
+      <div class="col-md-10 offset-md-1">
+        <div id="react-render-lifesavers" data-ppsps_id=<%=@ppsp.id%>></div>
+      </div>
+
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        3-3. Contacts des secours
+      </h3>
+      <div class="col-md-6 offset-md-3">
+        <div class="form-group select required ppsp_demining_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_demining_id">Centre de déminage <abbr title="required">*</abbr></label>
+            <% if policy(Demining).create? %>
+              <%= render 'ppsps/form/btn_add_database', data: 'Demining' %>
+            <% end %>
+          </div>
+          <%= f.input :demining_id, as: :select, label: false, collection: @deminings, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+      <div class="col-md-6 offset-md-3">
+        <div class="form-group select required ppsp_sos_hand_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_sos_hand_id">Centre SOS Mains et Doigts<abbr title="required">*</abbr></label>
+            <% if policy(SosHand).create? %>
+              <%= render 'ppsps/form/btn_add_database', data: 'SosHand' %>
+            <% end %>
+          </div>
+            <%= f.input :sos_hand_id, as: :select, label: false, collection: @sos_hands, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+      <div class="col-md-6 offset-md-3">
+        <div class="form-group select required ppsp_anti_poison_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_anti_poison_id">Centre anti-poison <abbr title="required">*</abbr></label>
+            <% if policy(AntiPoison).create? %>
+              <%= render 'ppsps/form/btn_add_database', data: 'AntiPoison' %>
+            <% end %>
+          </div>
+          <%= f.input :anti_poison_id, as: :select, label: false, collection: @anti_poisons, label_method: lambda {|x| "#{x.name}"}, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        3-4. Hôpital le plus proche
+      </h3>
+      <div class="col-md-6 offset-md-3">
+        <div class="form-group select required ppsp_hospital_id">
+          <div class="container-header-form">
+            <label class="select required" for="ppsp_hospital_id">Hôpital le plus proche <abbr title="required">*</abbr></label>
+            <% if policy(Hospital).create? %>
+              <%= render 'ppsps/form/btn_add_database', data: 'Hospital' %>
+            <% end %>
+          </div>
+          <%= f.input :hospital_id, as: :select, collection: @hospitals, label: false, label_method: lambda { |x| "#{x.name}"}, input_html: {class: "select-2"} %>
+        </div>
+      </div>
+
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        3-5. Trousse de secours
+      </h3>
+      <div class="col-md-6 offset-md-3">
+        <p class='text-alert'>Les informations affichées dans cette partie sont issues de la trousse de secours établies par l'entreprise, si cette liste a été mise à jour vous pouvez la modifier (si vous êtes administrateur) dans "Mon profil" - "Modifier les informations"</p>
+        <div class="card-kit-security">
+          <div class="top"></div>
+          <div class="card-kit-content">
+            <div class="list">
+              <% current_user.company.kit_security_elements.each do |kit| %>
+                <li><%= "#{kit.number} #{kit.name}" %></li>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= f.submit 'Suivant' %>
+    <%= link_to "Précédent", previous_wizard_path, class: 'link' %>
+  <% end %>
+</div>

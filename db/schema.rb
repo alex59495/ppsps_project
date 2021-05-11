@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_05_093921) do
+ActiveRecord::Schema.define(version: 2021_05_11_095859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,21 +176,48 @@ ActiveRecord::Schema.define(version: 2021_03_05_093921) do
   create_table "ppsps", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
-    t.bigint "moa_id", null: false
-    t.bigint "moe_id", null: false
-    t.bigint "project_information_id", null: false
-    t.bigint "direcct_id", null: false
-    t.bigint "regional_committee_id", null: false
-    t.bigint "pension_insurance_id", null: false
-    t.bigint "work_medecine_id", null: false
-    t.bigint "demining_id", null: false
-    t.bigint "sos_hand_id", null: false
-    t.bigint "anti_poison_id", null: false
-    t.bigint "hospital_id", null: false
-    t.bigint "security_coordinator_id"
+    t.integer "user_id"
+    t.integer "moa_id"
+    t.integer "moe_id"
+    t.integer "direcct_id"
+    t.integer "regional_committee_id"
+    t.integer "pension_insurance_id"
+    t.integer "work_medecine_id"
+    t.integer "demining_id"
+    t.integer "sos_hand_id"
+    t.integer "anti_poison_id"
+    t.integer "hospital_id"
+    t.integer "security_coordinator_id"
     t.text "content_secu", default: ""
-    t.bigint "worksite_id", null: false
+    t.string "reference"
+    t.string "name"
+    t.bigint "responsible_id"
+    t.bigint "team_manager_id"
+    t.bigint "site_manager_id"
+    t.date "start_date"
+    t.date "end_date"
+    t.text "nature"
+    t.integer "num_responsible"
+    t.integer "num_conductor"
+    t.integer "num_worker"
+    t.string "address"
+    t.boolean "timetable_summer", default: false
+    t.string "timetable_summer_start"
+    t.string "timetable_summer_end"
+    t.string "timetable_summer_start_friday"
+    t.string "timetable_summer_end_friday"
+    t.boolean "timetable_winter", default: false
+    t.string "timetable_winter_start"
+    t.string "timetable_winter_end"
+    t.string "timetable_winter_start_friday"
+    t.string "timetable_winter_end_friday"
+    t.boolean "electrical_site", default: false
+    t.boolean "water_site", default: false
+    t.boolean "plan", default: false
+    t.float "latitude"
+    t.float "longitude"
+    t.boolean "infirmary", default: false
+    t.text "infirmary_text"
     t.index ["anti_poison_id"], name: "index_ppsps_on_anti_poison_id"
     t.index ["demining_id"], name: "index_ppsps_on_demining_id"
     t.index ["direcct_id"], name: "index_ppsps_on_direcct_id"
@@ -198,25 +225,14 @@ ActiveRecord::Schema.define(version: 2021_03_05_093921) do
     t.index ["moa_id"], name: "index_ppsps_on_moa_id"
     t.index ["moe_id"], name: "index_ppsps_on_moe_id"
     t.index ["pension_insurance_id"], name: "index_ppsps_on_pension_insurance_id"
-    t.index ["project_information_id"], name: "index_ppsps_on_project_information_id"
     t.index ["regional_committee_id"], name: "index_ppsps_on_regional_committee_id"
+    t.index ["responsible_id"], name: "index_ppsps_on_responsible_id"
     t.index ["security_coordinator_id"], name: "index_ppsps_on_security_coordinator_id"
+    t.index ["site_manager_id"], name: "index_ppsps_on_site_manager_id"
     t.index ["sos_hand_id"], name: "index_ppsps_on_sos_hand_id"
+    t.index ["team_manager_id"], name: "index_ppsps_on_team_manager_id"
     t.index ["user_id"], name: "index_ppsps_on_user_id"
     t.index ["work_medecine_id"], name: "index_ppsps_on_work_medecine_id"
-    t.index ["worksite_id"], name: "index_ppsps_on_worksite_id"
-  end
-
-  create_table "project_informations", force: :cascade do |t|
-    t.string "reference"
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "responsible_id"
-    t.integer "team_manager_id"
-    t.integer "site_manager_id"
-    t.bigint "company_id", null: false
-    t.index ["company_id"], name: "index_project_informations_on_company_id"
   end
 
   create_table "regional_committees", force: :cascade do |t|
@@ -382,35 +398,6 @@ ActiveRecord::Schema.define(version: 2021_03_05_093921) do
     t.index ["company_id"], name: "index_workers_on_company_id"
   end
 
-  create_table "worksites", force: :cascade do |t|
-    t.date "start_date"
-    t.date "end_date"
-    t.text "nature"
-    t.integer "num_responsible"
-    t.integer "num_conductor"
-    t.integer "num_worker"
-    t.string "address"
-    t.boolean "timetable_summer"
-    t.string "timetable_summer_start"
-    t.string "timetable_summer_end"
-    t.string "timetable_summer_start_friday"
-    t.string "timetable_summer_end_friday"
-    t.boolean "timetable_winter"
-    t.string "timetable_winter_start"
-    t.string "timetable_winter_end"
-    t.string "timetable_winter_start_friday"
-    t.string "timetable_winter_end_friday"
-    t.boolean "electrical_site"
-    t.boolean "water_site"
-    t.boolean "plan"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.float "latitude"
-    t.float "longitude"
-    t.boolean "infirmary", default: false
-    t.text "infirmary_text"
-  end
-
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "anti_poisons", "companies"
   add_foreign_key "conductors", "machines"
@@ -432,14 +419,14 @@ ActiveRecord::Schema.define(version: 2021_03_05_093921) do
   add_foreign_key "ppsps", "moas"
   add_foreign_key "ppsps", "moes", column: "moe_id"
   add_foreign_key "ppsps", "pension_insurances"
-  add_foreign_key "ppsps", "project_informations"
   add_foreign_key "ppsps", "regional_committees"
   add_foreign_key "ppsps", "security_coordinators"
   add_foreign_key "ppsps", "sos_hands"
   add_foreign_key "ppsps", "users"
   add_foreign_key "ppsps", "work_medecines"
-  add_foreign_key "ppsps", "worksites"
-  add_foreign_key "project_informations", "companies"
+  add_foreign_key "ppsps", "workers", column: "responsible_id"
+  add_foreign_key "ppsps", "workers", column: "site_manager_id"
+  add_foreign_key "ppsps", "workers", column: "team_manager_id"
   add_foreign_key "regional_committees", "companies"
   add_foreign_key "risks", "risk_types"
   add_foreign_key "security_coordinators", "companies"

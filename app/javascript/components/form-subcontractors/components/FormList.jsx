@@ -38,9 +38,9 @@ const FormList = ({ subcontractors, handleClick, handleSearch }) => {
         <p>Les sous-traitants disponibles</p>
       </div>
       <SearchBar handleSearch={handleSearch} />
-      <fieldset className="form-group check_boxes optional ppsp_subcontractors">
+      <fieldset className="form-group check_boxes optional subcontractors">
         <legend className="col-form-label pt-0" />
-        <input type="hidden" name="ppsp[subcontractors][]" value="" />
+        <input type="hidden" name="subcontractors[]" value="" />
         {renderList}
       </fieldset>
     </div>
