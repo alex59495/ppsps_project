@@ -76,59 +76,6 @@ class PpspsController < ApplicationController
     redirect_to ppsp_step_path(@ppsp, Ppsp.form_steps.keys.first)
   end
 
-  def update
-    authorize @ppsp
-    # This way the edit page is able to retrieve the project informations and worksite
-    @project_information = @ppsp.project_information
-    @worksite = @ppsp.worksite
-
-    @security_coordinator = SecurityCoordinator.new
-    @hospital = Hospital.new
-    @moa = Moa.new
-    @moe = Moe.new
-    @pension_insurance = PensionInsurance.new
-    @regional_committee = RegionalCommittee.new
-    @direcct = Direcct.new
-    @work_medecine = WorkMedecine.new
-    @demining = Demining.new
-    @sos_hand = SosHand.new
-    @anti_poison = AntiPoison.new
-    @subcontractor = Subcontractor.new
-
-    # Select the databases present in the select lists
-    @moas = policy_scope(Moa.all)
-    @moes = policy_scope(Moe.all)
-    @regional_committees = policy_scope(RegionalCommittee.all)
-    @pension_insurances = policy_scope(PensionInsurance.all)
-    @direccts = policy_scope(Direcct.all)
-    @work_medecines = policy_scope(WorkMedecine.all)
-    @deminings = policy_scope(Demining.all)
-    @sos_hands = policy_scope(SosHand.all)
-    @anti_poisons = policy_scope(AntiPoison.all)
-    @hospitals = policy_scope(Hospital.all)
-    @security_coordinators = policy_scope(SecurityCoordinator.all)
-    @subcontractors = policy_scope(Subcontractor.all)
-
-    # We have to redefine the ID because if we don't nested form of rails will create a new instance of worksite and project info
-    if @ppsp.update(params_ppsp)
-      # On modifie la date updated_at du ppsp si celle du project_information ou worksite est en avance sur celle-ci
-      @ppsp.update(updated_at: [@ppsp.project_information.updated_at, @ppsp.worksite.updated_at].max) if [@ppsp.project_information.updated_at, @ppsp.worksite.updated_at].max > @ppsp.updated_at
-      # Create the joint table if necessary
-      create_selected_subcontractors
-      create_selected_risks
-      create_selected_site_installations
-      create_selected_altitude_works
-      create_selected_conductors
-      create_selected_lifesavers
-      purge_plan_installation_if_not_selected
-
-      redirect_to ppsp_path(@ppsp, format: :pdf)
-    else
-      flash.now.alert = "Le formulaire n'a pas été rempli correctement, merci de réessayer"
-      render :edit
-    end
-  end
-
   def destroy_logo_client
     authorize @ppsp
     @purge = true if @ppsp.logo_client.purge
