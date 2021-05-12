@@ -20,8 +20,8 @@
 </h2>
 <div class="container-50 mb-1">
   <div class="flexbox">
-    <div class="flex-div-40">Désignation :</div><div class="flex-div-60"><%= @ppsp.project_information.name %></div>
-    <div class="flex-div-40">Référence du projet :</div><div class="flex-div-60"><%= @ppsp.project_information.reference %></div>
+    <div class="flex-div-40">Désignation :</div><div class="flex-div-60"><%= @ppsp.name %></div>
+    <div class="flex-div-40">Référence du projet :</div><div class="flex-div-60"><%= @ppsp.reference %></div>
   </div>
 </div>
 <div class="pdf-subsubtitle mt-2 text-center">
@@ -29,9 +29,9 @@
 </div>
 <div class="container-50">
   <div class="flexbox">
-      <div class="flex-div-40">Nom : </div><div class="flex-div-60"><%= "#{@ppsp.project_information.responsible.first_name} #{@ppsp.project_information.responsible.last_name}" %></div>
-      <div class="flex-div-40">Téléphone : </div><div class="flex-div-60"><%= @ppsp.project_information.responsible.phone %></div>
-      <div class="flex-div-40">Email : </div><div class="flex-div-60"><%= @ppsp.project_information.responsible.email %></div>
+      <div class="flex-div-40">Nom : </div><div class="flex-div-60"><%= "#{@ppsp.responsible.first_name} #{@ppsp.responsible.last_name}" %></div>
+      <div class="flex-div-40">Téléphone : </div><div class="flex-div-60"><%= @ppsp.responsible.phone %></div>
+      <div class="flex-div-40">Email : </div><div class="flex-div-60"><%= @ppsp.responsible.email %></div>
   </div>
 </div>
 <div class="pdf-subsubtitle text-center">
@@ -39,9 +39,9 @@
 </div>
 <div class="container-50">
   <div class="flexbox">
-      <div class="flex-div-40">Nom : </div><div class="flex-div-60"><%= "#{@ppsp.project_information.site_manager.first_name} #{@ppsp.project_information.site_manager.last_name}" %></div>
-      <div class="flex-div-40">Téléphone : </div><div class="flex-div-60"><%= @ppsp.project_information.site_manager.phone %></div>
-      <div class="flex-div-40">Email : </div><div class="flex-div-60"><%= @ppsp.project_information.site_manager.email %></div>
+      <div class="flex-div-40">Nom : </div><div class="flex-div-60"><%= "#{@ppsp.site_manager.first_name} #{@ppsp.site_manager.last_name}" %></div>
+      <div class="flex-div-40">Téléphone : </div><div class="flex-div-60"><%= @ppsp.site_manager.phone %></div>
+      <div class="flex-div-40">Email : </div><div class="flex-div-60"><%= @ppsp.site_manager.email %></div>
   </div>
 </div>
 <div class="pdf-subsubtitle text-center">
@@ -49,8 +49,8 @@
 </div>
 <div class="container-50">
   <div class="flexbox">
-    <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= "#{@ppsp.project_information.team_manager.first_name} #{@ppsp.project_information.team_manager.last_name}" %></div>
-    <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.project_information.team_manager.phone %></div>
-    <div class="flex-div-40">Email :</div><div class="flex-div-60"><%= @ppsp.project_information.team_manager.email %></div>
+    <div class="flex-div-40">Nom :</div><div class="flex-div-60"><%= "#{@ppsp.team_manager.first_name} #{@ppsp.team_manager.last_name}" %></div>
+    <div class="flex-div-40">Téléphone :</div><div class="flex-div-60"><%= @ppsp.team_manager.phone %></div>
+    <div class="flex-div-40">Email :</div><div class="flex-div-60"><%= @ppsp.team_manager.email %></div>
   </div>
 </div>

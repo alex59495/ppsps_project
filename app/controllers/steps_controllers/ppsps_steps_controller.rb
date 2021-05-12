@@ -30,7 +30,7 @@ module StepsControllers
     end
 
     def finish_wizard_path
-      ppsp_path(@ppsp)
+      ppsp_path(@ppsp, format: :pdf)
     end
 
     # -----------------
