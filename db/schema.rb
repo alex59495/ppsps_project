@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_11_095859) do
+ActiveRecord::Schema.define(version: 2021_05_12_100029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -218,7 +218,9 @@ ActiveRecord::Schema.define(version: 2021_05_11_095859) do
     t.float "longitude"
     t.boolean "infirmary", default: false
     t.text "infirmary_text"
+    t.bigint "company_id", null: false
     t.index ["anti_poison_id"], name: "index_ppsps_on_anti_poison_id"
+    t.index ["company_id"], name: "index_ppsps_on_company_id"
     t.index ["demining_id"], name: "index_ppsps_on_demining_id"
     t.index ["direcct_id"], name: "index_ppsps_on_direcct_id"
     t.index ["hospital_id"], name: "index_ppsps_on_hospital_id"
@@ -413,6 +415,7 @@ ActiveRecord::Schema.define(version: 2021_05_11_095859) do
   add_foreign_key "moes", "companies"
   add_foreign_key "pension_insurances", "companies"
   add_foreign_key "ppsps", "anti_poisons"
+  add_foreign_key "ppsps", "companies"
   add_foreign_key "ppsps", "deminings"
   add_foreign_key "ppsps", "direccts"
   add_foreign_key "ppsps", "hospitals"

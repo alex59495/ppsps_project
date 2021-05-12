@@ -22,6 +22,7 @@ class Ppsp < ApplicationRecord
   attr_accessor :form_step
 
   belongs_to :user
+  belongs_to :company
   belongs_to :moa
   belongs_to :moe
   belongs_to :pension_insurance
