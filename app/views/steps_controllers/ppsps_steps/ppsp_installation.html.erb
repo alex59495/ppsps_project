@@ -1,5 +1,5 @@
 <div class="container mb-3">
-  <%= simple_form_for @ppsp, remote: true, html: {multipart: true}, url: wizard_path do |f| %>
+  <%= simple_form_for @ppsp, remote: true, html: {multipart: true, id: 'ppsp_form' }, data: { id: @ppsp.id, step: @step }, url: wizard_path do |f| %>
     <div class="row">
       <h3 class="col-md-6 offset-md-3 form-subtitle">
         2-7. Plan d'installation
@@ -52,7 +52,6 @@
         <div class='col-12' id="conductors-form-react" data-ppsps_id=<%=@ppsp.id%>></div>
       </div>
     </div>
-  <%= f.submit 'Suivant' %>
-  <%= link_to "Précédent", previous_wizard_path, class: 'link' %>
+    <%= render 'render_footer_steps', step: @step, ppsp: @ppsp, f: f %>
   <% end %>
 </div>

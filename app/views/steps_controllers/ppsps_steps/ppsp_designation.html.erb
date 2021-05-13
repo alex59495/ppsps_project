@@ -1,6 +1,6 @@
 <div class="container mb-3">
   <%= link_to "Revenir à mes PPSP", ppsps_path, class: 'link' %>
-  <%= simple_form_for @ppsp, remote: true, html: {multipart: true}, url: wizard_path do |f| %>
+  <%= simple_form_for @ppsp, remote: true, html: {multipart: true, id: 'ppsp_form'}, data: { id: @ppsp.id }, url: wizard_path do |f| %>
     <div class="row">
       <h2 class="col-12 form-title">
         I. Renseignements administratifs
@@ -37,7 +37,7 @@
       <div class="col-md-6 offset-md-3">
         <%= f.input :team_manager_id, label: "Chef d'équipe", collection: @site_manager, label_method: lambda {|x| "#{x.last_name} #{x.first_name}"}, input_html: {class: "select-2"} %>
       </div>
-      <%= f.submit 'Suivant' %>
-    <% end %>
-  </div>
+    </div>
+    <%= render 'render_footer_steps', step: @step, ppsp: @ppsp, f: f %>
+  <% end %>
 </div>

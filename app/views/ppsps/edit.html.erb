@@ -1,1 +1,19 @@
-<%= render 'form' %>
+<h1>Edition du Ppsp <%= @ppsp.reference %></h1>
+
+<div class="d-flex align-items-center flex-column">
+  <p>Quelle partie souhaitez-vous modifier ?</p>
+  <div class="d-flex align-items-center flex-column mt-3">
+    <%= link_to "Informations générales", ppsp_step_path(@ppsp, Ppsp.form_steps.keys[0]) %>
+    <%= link_to "Maitre d'oeuvre / Maitre d'ouvrage", ppsp_step_path(@ppsp, Ppsp.form_steps.keys[1]) if @ppsp.valid_for_step(Ppsp.form_steps.keys[0].to_sym) %>
+    <%= link_to "Prévention", ppsp_step_path(@ppsp, Ppsp.form_steps.keys[2]) if @ppsp.valid_for_step(Ppsp.form_steps.keys[1].to_sym) %>
+    <%= link_to "Chantier", ppsp_step_path(@ppsp, Ppsp.form_steps.keys[3]) if @ppsp.valid_for_step(Ppsp.form_steps.keys[2].to_sym) %>
+    <%= link_to "Horaire", ppsp_step_path(@ppsp, Ppsp.form_steps.keys[4]) if @ppsp.valid_for_step(Ppsp.form_steps.keys[3].to_sym) %>
+    <%= link_to "Equipes", ppsp_step_path(@ppsp, Ppsp.form_steps.keys[5]) if @ppsp.valid_for_step(Ppsp.form_steps.keys[4].to_sym) %>
+    <%= link_to "Installations", ppsp_step_path(@ppsp, Ppsp.form_steps.keys[6]) if @ppsp.valid_for_step(Ppsp.form_steps.keys[5].to_sym) %>
+    <%= link_to "Sécurité", ppsp_step_path(@ppsp, Ppsp.form_steps.keys[7]) if @ppsp.valid_for_step(Ppsp.form_steps.keys[6].to_sym) %>
+    <%= link_to "Annexes", ppsp_step_path(@ppsp, Ppsp.form_steps.keys[8]) if @ppsp.valid_for_step(Ppsp.form_steps.keys[7].to_sym) %>
+  </div>
+  <div class="align-self-end">
+    <%= link_to "Supprimer ce ppsp", ppsp_path(@ppsp), class: "btn-orange", method: :delete %>
+  </div>
+</div>

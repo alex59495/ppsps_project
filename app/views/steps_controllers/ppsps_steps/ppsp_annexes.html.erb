@@ -1,5 +1,5 @@
 <div class="container mb-3">
-  <%= simple_form_for @ppsp, remote: true, html: {multipart: true}, url: wizard_path do |f| %>
+  <%= simple_form_for @ppsp, remote: true, html: {multipart: true}, url: wizard_path, html: { id: 'ppsp_form' } do |f| %>
     <div class="row">
       <h2 class="col-12 form-title">
         IV. L'évaluation des risques
@@ -38,18 +38,7 @@
           <%= render 'ppsps/form/render_annexes' %>
         </div>
       <% end %>
-
-
-      <div class="d-flex justify-content-center mt-5" style='width: 100%'>
-        <%= f.button :button, "J'ai terminé", class: 'btn-blue', data: { disable_with: '<i class="fas fa-spin fa-spinner"></i> En cours...'.html_safe }, id: 'SubmitPpspsFormBtn' %>
-      </div>
-      <%= link_to "Précédent", previous_wizard_path, class: 'link' %>
-    </div>
-    <div id="myModal" class="modal-background">
-      <div class="text-center modal-loading">
-        <div class="spinner-border" role="status"></div>
-         <div class="mt-2">Votre PPSPS est en cours de préparation...</div>
-      </div>
+      <%= render 'render_footer_steps', step: @step, ppsp: @ppsp, f: f %>
     </div>
   <% end %>
 </div>

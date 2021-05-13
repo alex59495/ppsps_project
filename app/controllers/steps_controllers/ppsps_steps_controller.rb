@@ -2,10 +2,13 @@ module StepsControllers
   class PpspsStepsController < ApplicationController
     include Wicked::Wizard
 
+    before_action :set_ppsp, only: %i[show update wizard_update_end]
+
     steps(*Ppsp.form_steps.keys)
 
     def show
       @ppsp = Ppsp.find(params[:ppsp_id])
+      @step = params[:id]
       authorize @ppsp
       usefull_variable_for_form
       render_wizard
@@ -17,9 +20,18 @@ module StepsControllers
       usefull_variable_for_form
       # Use #assign_attributes since render_wizard runs a #save for us
       @ppsp.assign_attributes ppsp_params
-      action_to_launch_if_saved if @ppsp.valid?
-
-      render_wizard @ppsp
+      # if ppsp is valid, we have to save it in case of back path because it's usually save in render_wizard method which is not called ...
+      if @ppsp.valid?
+        action_to_launch_if_saved
+        @ppsp.save if params[:back]
+      end
+      if params[:back]
+        redirect_to(ppsp_step_path(@ppsp, previous_step))
+      elsif params[:end]
+        @ppsp.save ? redirect_to(finish_wizard_path) : render_wizard
+      else
+        render_wizard(@ppsp)
+      end
     end
 
     private
@@ -31,6 +43,10 @@ module StepsControllers
 
     def finish_wizard_path
       ppsp_path(@ppsp, format: :pdf)
+    end
+
+    def set_ppsp
+      @ppsp = Ppsp.find(params[:ppsp_id])
     end
 
     # -----------------

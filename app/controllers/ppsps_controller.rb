@@ -1,15 +1,17 @@
 class PpspsController < ApplicationController
-  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit destroy_logo_client duplicate]
+  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit destroy_logo_client duplicate destroy_plan_installation]
 
   def index
     # Handled by react :) (app/assets/javascript/ppsp-react)
     # In order to search on direct
     users = User.where(company: current_user.company)
     @ppsps = policy_scope(Ppsp.where(user: users))
+    # hospital_id is the last attribute which is mandatory
+    @ppsps_on_working = Ppsp.where(user: current_user, hospital_id: nil)
   end
 
   def new
-    @ppsp = Ppsp.new
+    @ppsp = Ppsp.new(user: current_user)
     authorize @ppsp
     # We save an instance of the ppsp in database even if not valid
     @ppsp.save!(validate: false)
@@ -72,8 +74,12 @@ class PpspsController < ApplicationController
 
   def edit
     authorize @ppsp
-    # We redirect to ppsp_step_path in order to begin the Wizard form
-    redirect_to ppsp_step_path(@ppsp, Ppsp.form_steps.keys.first)
+  end
+
+  def destroy
+    authorize @ppsp
+    @ppsp.destroy
+    redirect_to ppsps_path
   end
 
   def destroy_logo_client
@@ -85,7 +91,7 @@ class PpspsController < ApplicationController
   end
 
   def destroy_annexe
-    @ppsp = Ppsp.new
+    @ppsp = Ppsp.find(params[:ppsp_id])
     authorize @ppsp
     blob = ActiveStorage::Blob.find_by(key: params[:public_id])
     if ActiveStorage::Attachment.find_by(blob: blob)
@@ -96,6 +102,14 @@ class PpspsController < ApplicationController
     else
       blob.purge
       head :no_content
+    end
+  end
+
+  def destroy_plan_installation
+    @ppsp.plan_installation.purge
+    authorize @ppsp
+    respond_to do |format|
+      format.js { render 'worksites/destroy_plan' }
     end
   end
 

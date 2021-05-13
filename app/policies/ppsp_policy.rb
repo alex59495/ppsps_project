@@ -1,16 +1,17 @@
 class PpspPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all
+      # Hospital_id is the last value in the Wizard form which is mandatory
+      scope.includes(:user).where.not(hospital_id: nil)
     end
   end
 
   def show?
-    true
+    record.company == user.company
   end
 
   def create?
-    true
+    record.user == user
   end
 
   def destroy?
@@ -22,7 +23,7 @@ class PpspPolicy < ApplicationPolicy
   end
 
   def update?
-    true
+    record.user == user
   end
 
   def edit?
@@ -43,5 +44,13 @@ class PpspPolicy < ApplicationPolicy
 
   def duplicate?
     true
+  end
+
+  def wizard_update_end?
+    record.user == user
+  end
+
+  def destroy_plan_installation?
+    !user.nil?
   end
 end

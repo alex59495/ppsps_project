@@ -29,3 +29,22 @@
   color: white;
   padding-right: 4rem;
 }
+
+.alert-red {
+  background-color: #F3DBDB;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+  color: $red;
+  position: relative;
+  animation-name: hide;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+}
+
+.alert-cross {
+  position: absolute;
+  top: 0;
+  right: 3px;
+}

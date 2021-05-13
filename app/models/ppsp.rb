@@ -6,7 +6,7 @@ class Ppsp < ApplicationRecord
   enum form_steps: {
     ppsp_designation: %i[responsible_id team_manager_id site_manager_id reference name],
     ppsp_master: %i[moe_id moa_id],
-    ppsp_prevention: %i[security_coordinator_id regional_committee_id pension_insurance_id direcct_id work_medecine_id],
+    ppsp_prevention: %i[security_coordinator_id regional_committee_id pension_insurance_id direcct_id work_medecine_id logo_client],
     ppsp_worksite: %i[nature address start_date end_date],
     ppsp_time_table: %i[
       timetable_summer timetable_summer_start timetable_summer_end
@@ -15,14 +15,13 @@ class Ppsp < ApplicationRecord
       timetable_winter_start_friday timetable_winter_end_friday
     ],
     ppsp_team_number: %i[num_responsible num_conductor num_worker],
-    ppsp_installation: %i[electrical_site water_site plan],
+    ppsp_installation: %i[electrical_site water_site plan plan_installation],
     ppsp_security: %i[infirmary infirmary_text demining_id sos_hand_id anti_poison_id hospital_id],
-    ppsp_annexes: []
+    ppsp_annexes: [:content_secu, { annexes: [] }]
   }
   attr_accessor :form_step
 
   belongs_to :user
-  belongs_to :company
   belongs_to :moa
   belongs_to :moe
   belongs_to :pension_insurance
@@ -48,11 +47,10 @@ class Ppsp < ApplicationRecord
   has_many :risks, through: :selected_risks
   has_many :selected_lifesavers, dependent: :destroy
   has_many :workers, through: :selected_lifesavers
+  has_one :company, through: :user
   has_one_attached :logo_client
-  validates :logo_client, size: { less_than: 500.kilobytes, message: 'est trop lourd' }, content_type: ['image/png', 'image/jpg', 'image/jpeg']
   has_many_attached :annexes
   has_one_attached :plan_installation
-  validates :annexes, size: { less_than: 500.kilobytes, message: 'est trop lourd' }
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
 
@@ -75,6 +73,7 @@ class Ppsp < ApplicationRecord
     validates :pension_insurance_id, presence: true
     validates :direcct_id, presence: true
     validates :work_medecine_id, presence: true
+    validates :logo_client, size: { less_than: 500.kilobytes, message: 'est trop lourd' }, content_type: ['image/png', 'image/jpg', 'image/jpeg']
   end
 
   with_options if: -> { required_for_step?(:ppsp_time_table) } do
@@ -119,6 +118,7 @@ class Ppsp < ApplicationRecord
     validates :electrical_site, inclusion: { in: [true, false] }
     validates :water_site, inclusion: { in: [true, false] }
     validates :plan, inclusion: { in: [true, false] }
+    validates :plan_installation, attached: true, size: { less_than: 300.kilobytes, message: 'est trop lourd' }, if: :has_a_plan?
   end
 
   with_options if: -> { required_for_step?(:ppsp_security) } do
@@ -130,6 +130,10 @@ class Ppsp < ApplicationRecord
     validates :hospital_id, presence: true
   end
 
+  with_options if: -> { required_for_step?(:ppsp_annexes) } do
+    validates :annexes, size: { less_than: 500.kilobytes, message: 'est trop lourd' }
+  end
+
   def required_for_step?(step)
     # All fields are required if no form step is present
     return true if form_step.nil?
@@ -139,12 +143,27 @@ class Ppsp < ApplicationRecord
     !!(ordered_keys.index(step) <= ordered_keys.index(form_step))
   end
 
+  def valid_for_step(step)
+    self.form_step = step
+    valid?
+  end
+
+  def valid_without_files?
+    ppsp_test = clone
+    ppsp_test.plan = false
+    ppsp_test.valid?
+  end
+
   def summer?
     timetable_summer
   end
 
   def winter?
     timetable_winter
+  end
+
+  def has_a_plan?
+    plan == true
   end
 
   def start_date_cant_be_after_end_date

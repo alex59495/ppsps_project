@@ -120,9 +120,12 @@ class DirectUploadController {
     this.file.status = Dropzone.UPLOADING;
     this.source.dropZone.emit('processing', this.file);
 
+    const submitPpspsFormBtn = document.getElementById('SubmitPpspsFormBtn')
     // // Disable submit button
-    document.getElementById('SubmitPpspsFormBtn').disabled = true;
-    document.getElementById('SubmitPpspsFormBtn').innerText = 'Téléchargement en cours';
+    if (submitPpspsFormBtn) {
+      document.getElementById('SubmitPpspsFormBtn').disabled = true;
+      document.getElementById('SubmitPpspsFormBtn').innerText = 'Téléchargement en cours';
+    }
   }
 
   emitDropzoneError(error) {
@@ -135,14 +138,20 @@ class DirectUploadController {
     this.file.status = Dropzone.SUCCESS;
     this.source.dropZone.emit('success', this.file);
     this.source.dropZone.emit('complete', this.file);
+    // Get the ppsp_id in the Url
+    const ppsps_id = window.location.href.split('/').map(el => parseInt(el, 10)).filter(el => !isNaN(el))[0]
 
-    // Get the ID of the upload from the chr response
+    // Get the ID of the upload from the xhr response
     const active_record_key_id = (JSON.parse(this.file.controller.xhr.response)['public_id'])
     this.hiddenInput.setAttribute('data-publicid', active_record_key_id)
+    this.hiddenInput.setAttribute('data-ppsps_id', ppsps_id)
 
+    const submitPpspsFormBtn = document.getElementById('SubmitPpspsFormBtn')
     // // Disable submit button
-    document.getElementById('SubmitPpspsFormBtn').disabled = false;
-    document.getElementById('SubmitPpspsFormBtn').innerText = 'Valider';
+    if (submitPpspsFormBtn) {
+      submitPpspsFormBtn.disabled = false;
+      submitPpspsFormBtn.innerText = 'Valider';
+    }
   }
 }
 

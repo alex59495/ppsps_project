@@ -11,7 +11,7 @@ class Api::V1::PpspsController < Api::V1::BaseController
       users = User.where(id: params[:show_user]).order(updated_at: :desc)
     end
     # Use the Kaminari gem to handle the pagination request to limit the number of element we display
-    @ppsps = params[:page] ? policy_scope(Ppsp.includes(:user).where(user: users).page(params[:page]).per(12).order(updated_at: :desc)) : policy_scope(Ppsp.includes(:user).where(user: users).order(updated_at: :desc))
+    @ppsps = params[:page] ? policy_scope(Ppsp).where(user: users).page(params[:page]).per(12).order(updated_at: :desc).select(&:valid?) : policy_scope(Ppsp).where(user: users).order(updated_at: :desc)
 
     # If params search exist then will filter with reference and/or user first and last names
     @ppsps = params[:search].present? ? @ppsps.where("CONCAT_WS(' ', users.first_name, users.last_name) ILIKE :query or ppsps.reference ILIKE :query", query: "%#{params[:search]}%").references(:users) : @ppsps

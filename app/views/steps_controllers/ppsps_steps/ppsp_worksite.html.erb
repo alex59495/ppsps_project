@@ -1,5 +1,5 @@
 <div class="container mb-3">
-  <%= simple_form_for @ppsp, remote: true, html: {multipart: true}, url: wizard_path do |f| %> 
+  <%= simple_form_for @ppsp, remote: true, html: {multipart: true}, url: wizard_path, html: { id: 'ppsp_form' } do |f| %> 
     <h2 class="col-12 form-title">
       II. Le chantier
     </h2>
@@ -62,7 +62,6 @@
         </div>
       </div>
     </div>
-  <%= f.submit 'Suivant' %>
-  <%= link_to "Précédent", previous_wizard_path, class: 'link' %>
+    <%= render 'render_footer_steps', step: @step, ppsp: @ppsp, f: f %>
   <% end %>
 </div>
