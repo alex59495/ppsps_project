@@ -94,4 +94,24 @@
     </div>
     <%= render 'render_footer_steps', step: @step, ppsp: @ppsp, f: f %>
   <% end %>
+  <% if policy(AntiPoison).create? %>
+    <div class="modal fade" id="ModalAntiPoison" tabindex="-1" role="dialog" aria-labelledby="ModalAntiPoison" aria-hidden="true">
+      <%= render 'modals/anti_poisons/modal_anti_poison' %>
+    </div>
+  <% end %>
+  <% if policy(SosHand).create? %>
+    <div class="modal fade" id="ModalSosHand" tabindex="-1" role="dialog" aria-labelledby="ModalSosHand" aria-hidden="true">
+      <%= render 'modals/sos_hands/modal_sos_hand' %>
+    </div>
+  <% end %>
+  <% if policy(Demining).create? %>
+    <div class="modal fade" id="ModalDemining" tabindex="-1" role="dialog" aria-labelledby="ModalDemining" aria-hidden="true">
+      <%= render 'modals/deminings/modal_demining' %>
+    </div>
+  <% end %>
+  <% if policy(Hospital).create? %>
+    <div class="modal fade" id="ModalHospital" tabindex="-1" role="dialog" aria-labelledby="ModalHospital" aria-hidden="true">
+      <%= render 'modals/hospitals/modal_hospital' %>
+    </div>
+  <% end %>
 </div>

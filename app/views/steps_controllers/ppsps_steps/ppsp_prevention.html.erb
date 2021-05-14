@@ -90,7 +90,7 @@
     </div>
     <%= render 'render_footer_steps', step: @step, ppsp: @ppsp, f: f %>
   <% end %>
-    <% if policy(SecurityCoordinator).create? %>
+  <% if policy(SecurityCoordinator).create? %>
     <div class="modal fade" id="ModalSecurityCoordinator" tabindex="-1" role="dialog" aria-labelledby="ModalSecurityCoordinator" aria-hidden="true">
       <%= render 'modals/security_coordinators/modal_security_coordinator' %>
     </div>

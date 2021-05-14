@@ -25,7 +25,6 @@ RSpec.describe Company, type: :model do
   it { should have_many(:pension_insurances) }
   it { should have_many(:regional_committees) }
   it { should have_many(:direccts) }
-  it { should have_many(:project_informations) }
   it { should have_many(:kit_security_elements) }
   it { should have_many(:work_medecines) }
   it { should have_many(:deminings) }

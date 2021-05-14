@@ -1,5 +1,5 @@
 class PpspsController < ApplicationController
-  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit destroy_logo_client duplicate destroy_plan_installation]
+  before_action :find_ppsp, only: %i[show ppsp_pdf destroy edit destroy_logo_client duplicate destroy_plan_installation]
 
   def index
     # Handled by react :) (app/assets/javascript/ppsp-react)

@@ -1,5 +1,5 @@
 <body class="bg-white">
-  <div class="container">
+  <div class="container" id="show-pdf">
     <% if @ppsp.user.company.content_secu.present? %>
        <div class="page-break">
           <%= render partial: 'ppsps/render_pages/preambule' %>

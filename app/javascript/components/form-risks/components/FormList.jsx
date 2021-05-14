@@ -59,7 +59,7 @@ const FormList = ({ risks, handleClick, riskTypes }) => {
       <div className="title">
         <p>Les types de travaux disponibles</p>
       </div>
-      <fieldset className="form-group check_boxes optional ppsp_risks">
+      <fieldset className="form-group check_boxes optional risks">
         <legend className="col-form-label pt-0" />
         <input type="hidden" name="risks[]" value="" />
         {renderList}

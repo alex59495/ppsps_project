@@ -22,7 +22,7 @@
   <div class="col-4">
     <div class="d-flex justify-content-center">
       <% unless step == Ppsp.form_steps.keys.last %>
-        <%= f.submit 'Suivant', class: 'link' %>
+        <%= f.submit 'Suivant', class: 'link', id: 'link-next' %>
       <% end %>
     </div>
   </div>

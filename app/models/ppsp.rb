@@ -6,7 +6,7 @@ class Ppsp < ApplicationRecord
   enum form_steps: {
     ppsp_designation: %i[responsible_id team_manager_id site_manager_id reference name],
     ppsp_master: %i[moe_id moa_id],
-    ppsp_prevention: %i[security_coordinator_id regional_committee_id pension_insurance_id direcct_id work_medecine_id logo_client],
+    ppsp_prevention: %i[regional_committee_id pension_insurance_id direcct_id work_medecine_id logo_client],
     ppsp_worksite: %i[nature address start_date end_date],
     ppsp_time_table: %i[
       timetable_summer timetable_summer_start timetable_summer_end
@@ -68,7 +68,6 @@ class Ppsp < ApplicationRecord
   end
 
   with_options if: -> { required_for_step?(:ppsp_prevention) } do
-    validates :security_coordinator_id, presence: true
     validates :regional_committee_id, presence: true
     validates :pension_insurance_id, presence: true
     validates :direcct_id, presence: true

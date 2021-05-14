@@ -38,4 +38,14 @@
     </div>
     <%= render 'render_footer_steps', step: @step, ppsp: @ppsp, f: f %>
   <% end %>
+  <% if policy(Moa).create? %>
+    <div class="modal fade" id="ModalMoa" tabindex="-1" role="dialog" aria-labelledby="ModalMoa" aria-hidden="true">
+      <%= render 'modals/moas/modal_moa' %>
+    </div>
+  <% end %>
+  <% if policy(Moe).create? %>
+    <div class="modal fade" id="ModalMoe" tabindex="-1" role="dialog" aria-labelledby="ModalMoe" aria-hidden="true">
+      <%= render 'modals/moes/modal_moe' %>
+    </div>
+  <% end %>
 </div>
