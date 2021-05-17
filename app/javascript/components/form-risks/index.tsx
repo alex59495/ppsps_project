@@ -12,7 +12,7 @@ import App from './components/App';
 //   selectedPpsps: reducerPpsps
 // });
 
-const reactFormRisks = () => {
+const reactFormRisks = () : void => {
   // Identify the user you're visiting (show page) = currrent_user
   if (document.getElementById('react-render-risks')) {
     // render an instance of the component in the DOM

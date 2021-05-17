@@ -1,8 +1,15 @@
 import React from 'react';
 import FormInput from './FormInput';
 
-const ListSelected = ({ site_installations, handleClick }) => {
-  const renderList = site_installations.map(site_installation => {
+import {SiteInstallation} from './App';
+
+interface PropsFormInput {
+  site_installations: SiteInstallation[];
+  handleClick: (e: React.MouseEvent) => void;
+}
+
+const ListSelected = ({ site_installations, handleClick } : PropsFormInput) => {
+  const renderList = site_installations.map((site_installation : SiteInstallation) => {
     return(
       <FormInput
           id={site_installation.id}
@@ -10,7 +17,7 @@ const ListSelected = ({ site_installations, handleClick }) => {
           handleClick={handleClick}
           key={site_installation.id}
           mobile={site_installation.mobile ? 'mobile' : 'fixe'}
-          formList = {false}
+          checked = {false}
         />
     )
   })

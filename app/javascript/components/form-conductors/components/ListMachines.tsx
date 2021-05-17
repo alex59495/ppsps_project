@@ -6,7 +6,7 @@ import {Machine} from './App';
 
 interface PropsListMachine {
   listMachines: Machine[];
-  handleSubmitMachine: () => void;
+  handleSubmitMachine: (e : React.FormEvent) => void;
   selectMachine: () => void;
   selectedMachineId: number;
   handleReset: () => void;
@@ -64,7 +64,7 @@ const ListMachines = ({listMachines, handleSubmitMachine, selectMachine, selecte
   if(showListMachines) {
     return (
       <>
-        <form className='container-center-column form-list-machines' onSubmit={handleSubmitMachine} >
+        <form className='container-center-column form-list-machines' onSubmit={(e) => handleSubmitMachine(e)} >
           <div className="form-select-machines-title">
             Choisir une catégorie de CACES
           </div>

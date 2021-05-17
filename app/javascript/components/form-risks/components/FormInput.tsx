@@ -1,6 +1,14 @@
 import React from 'react';
+import {Risk} from './App';
 
-const FormInput = ({ id, name, handleClick, formList }) => (
+interface PropsFormInput {
+  id: number;
+  name: string;
+  handleClick: (e : React.MouseEvent<HTMLDivElement>) => void;
+  checked: boolean
+}
+
+const FormInput = ({ id, name, handleClick, checked } : PropsFormInput) => (
   <div
     className="form-check"
     id={`check_ppsp_risks_${id}`}
@@ -12,10 +20,10 @@ const FormInput = ({ id, name, handleClick, formList }) => (
       value={id}
       name="ppsp[risks][]"
       id={`ppsp_risks_${id}`}
-      defaultChecked={!formList}
+      defaultChecked={!checked}
     />
     <label
-      className={`form-checkbox ${!formList ? 'active' : ''}`}
+      className={`form-checkbox ${!checked ? 'active' : ''}`}
       htmlFor={`ppsp_risks_${id}`}
     >
       {`${name}`}

@@ -1,6 +1,13 @@
 import React from 'react';
 
-const SavedItems = ({ subcontractor, handleRemove }) => (
+import {Subcontractor} from './App';
+
+interface PropsSavedItem {
+  subcontractor: Subcontractor
+  handleRemove: (subcontractor: Subcontractor) => void
+}
+
+const SavedItems = ({ subcontractor, handleRemove } : PropsSavedItem) => (
   <div className="card-form-selected">
     <div
       className="card-form-delete"

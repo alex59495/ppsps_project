@@ -1,51 +1,48 @@
+import axios from 'axios';
 import React from 'react';
 import Modal from "react-bootstrap/Modal";
 
+import {Subcontractor} from './App';
 
-const ButtonAdd = ({admin, url, fetchSubcontractorsFormList, token, HandleSubmitIdea}) => {
+interface PropsButtonAdd {
+  admin: string;
+  url: string;
+  fetchSubcontractorsFormList: () => Promise<void>;
+  token: string;
+}
+
+const ButtonAdd = ({admin, url, fetchSubcontractorsFormList, token} : PropsButtonAdd) : JSX.Element => {
 
   if (admin === 'true') {
     const [isOpen, setIsOpen] = React.useState(false);
 
-    const showModal = (e) => {
+    const showModal = (e : React.MouseEvent) : void => {
       e.preventDefault();
       setIsOpen(true);
     };
 
-    const hideModal = () => {
+    const hideModal = () : void => {
       setIsOpen(false);
     };
 
-    const handleSubmit = (e) => {
-      e.preventDefault()
-      const name = document.getElementById('subcontractor_name').value;
-      const address = document.getElementById('subcontractor_address').value;
-      const work = document.getElementById('subcontractor_work').value;
-      const responsible_name = document.getElementById('subcontractor_responsible_name').value;
-      const responsible_phone = document.getElementById('subcontractor_responsible_phone').value;
-      const responsible_email = document.getElementById('subcontractor_responsible_email').value;
+    const handleSubmit = (e : React.SyntheticEvent) : void => {
+      e.preventDefault();
+      const form = e.currentTarget as HTMLFormElement
+      const formData = new FormData(form)
 
-      fetch(`${url}/subcontractors`, {
+      axios({
+        url:`${url}/subcontractors`,
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'multipart/form-data',
           'X-CSRF-Token': token
         },
         method: 'POST',
-        body: JSON.stringify({
-          subcontractor: {
-            name: name,
-            address: address,
-            work: work,
-            responsible_email: responsible_email,
-            responsible_name: responsible_name,
-            responsible_phone: responsible_phone
-          }
-        })
+        data: formData
       })
       .then(response => {
         // Close and reset the modal
         hideModal();
-        document.getElementById("new_subcontractor").reset();
+        (document.getElementById("new_subcontractor") as HTMLFormElement).reset();
         // Actualize the form list
         fetchSubcontractorsFormList();
       })
@@ -71,7 +68,7 @@ const ButtonAdd = ({admin, url, fetchSubcontractorsFormList, token, HandleSubmit
         <Modal.Body>
           <div className="cards-form">
             <input type="hidden" name="authenticity_token" value={token} />
-            <form className="simple_form new_subcontractor" id="new_subcontractor" noValidate="" acceptCharset="UTF-8" onSubmit={handleSubmit}>
+            <form className="simple_form new_subcontractor" id="new_subcontractor" noValidate={false} acceptCharset="UTF-8" onSubmit={handleSubmit}>
               <div className="form-group string required subcontractor_name">
                 <label className="string required" htmlFor="subcontractor_name">Nom<abbr title="required">*</abbr></label>
                 <input className="form-control string required" type="text" name="subcontractor[name]" id="subcontractor_name" required/>

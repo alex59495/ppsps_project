@@ -8,7 +8,6 @@ interface PropsSavedVehicules {
 }
 
 const SavedVehicules = ({listSelected, handleDelete} : PropsSavedVehicules) : JSX.Element => {
-  console.log(listSelected)
   const renderList : JSX.Element[] = listSelected.map((vehicule : Conductor[]) => {
     const id = vehicule[0].id
     const categoryVehicle = vehicule[0].machine_category

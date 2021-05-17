@@ -20,10 +20,10 @@ const App:FunctionComponent = () : JSX.Element => {
     if (e.currentTarget.parentNode.classList.contains('ppsp_altitude_works')) {
       // Si on est dans la liste des choix, le fait de cliquer ajoute l'élément dans la liste de la selection en cours
       // et le supprime de la liste des choix
-      const formListRemove = formList.filter(
+      const formListRemove : AltitudeWork[] = formList.filter(
         (altitude_work : AltitudeWork) => altitude_work.id !== id
       );
-      const addListAdd = formList.find(
+      const addListAdd : AltitudeWork = formList.find(
         (altitude_work : AltitudeWork) => altitude_work.id === id
       );
       setFormList(formListRemove);
@@ -31,10 +31,10 @@ const App:FunctionComponent = () : JSX.Element => {
     } else {
       // Si on est dans la liste de la selection en cours, le fait de cliquer ajoute l'élément dans la liste des choix
       // et le supprime de la selection en cours
-      const addListRemove = addList.filter(
+      const addListRemove : AltitudeWork[] = addList.filter(
         (altitude_work : AltitudeWork) => altitude_work.id !== id
       );
-      const formListAdd = addList.find(
+      const formListAdd : AltitudeWork = addList.find(
         (altitude_work : AltitudeWork) => altitude_work.id === id
       );
       setAddList(addListRemove);

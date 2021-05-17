@@ -1,7 +1,8 @@
 class PpspsController < ApplicationController
-  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit destroy_logo_client duplicate, destroy_annexe]
+  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit duplicate, destroy_annexe]
   before_action :init_variables, only: %i[new create edit update]
   before_action :dropzone_annexes, only: %i[new create edit update]
+  before_action :skip_authorization, only: :destroy_logo_client
 
   def index
     # Handled by react :) (app/assets/javascript/ppsp-react)
@@ -52,6 +53,12 @@ class PpspsController < ApplicationController
           toc: {
             header_text: "Sommaire",
           },
+
+          # Protect document
+          basic_auth: true,  # when true username & password are automatically sent from session
+          username: 'Obras',
+          password: Rails.application.credentials.dig(:pdf, :password),
+
           margin: {
             top: 28, # default 10 (mm)
             bottom: 10
@@ -59,7 +66,7 @@ class PpspsController < ApplicationController
           header: {
             html: {
               template: 'ppsps/render_pages/header.html.erb'
-            }
+            },
           },
           footer: {
             # Display number of pages
@@ -134,8 +141,8 @@ class PpspsController < ApplicationController
   end
 
   def destroy_logo_client
-    authorize @ppsp
-    @purge = true if @ppsp.logo_client.purge
+    blob = ActiveStorage::Blob.find_by(key: params[:public_id])
+    ActiveStorage::Attachment.find_by(blob: blob) ? ActiveStorage::Attachment.find_by(blob: blob).purge : blob.purge
     respond_to do |format|
       format.js { render 'ppsps/destroy_logo_client' }
     end

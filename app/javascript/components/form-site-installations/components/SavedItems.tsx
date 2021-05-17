@@ -1,6 +1,13 @@
 import React from 'react';
 
-const SavedItems = ({ site_installation, handleRemove }) => (
+import {SiteInstallation} from './App';
+
+interface PropsSavedItem {
+  site_installation: SiteInstallation;
+  handleRemove: (site_installation: SiteInstallation) => void;
+}
+
+const SavedItems = ({ site_installation, handleRemove } : PropsSavedItem) => (
   <div className="card-form-selected">
     <div
       className="card-form-delete"

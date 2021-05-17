@@ -3,7 +3,7 @@ import InputMachine from './InputCategory'
 
 interface PropsListCategory {
   listCategory: string[];
-  handleSubmitCategory: () => void;
+  handleSubmitCategory: (e: React.FormEvent) => void;
   selectCategory: () => void;
   showListCategory: boolean;
 }
@@ -33,7 +33,7 @@ const ListCategory = ({listCategory, handleSubmitCategory, selectCategory, showL
   
   if(showListCategory) {
     return (
-      <form className='container-center-column form-list-categories' onSubmit={handleSubmitCategory}>
+      <form className='container-center-column form-list-categories' onSubmit={(e) => handleSubmitCategory(e)}>
         <div className="form-select-category-title">
           Choisir un type d'engin dans la liste ci-dessous si votre chantier implique la conduite d'engins
         </div>

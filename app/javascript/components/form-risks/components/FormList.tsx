@@ -1,9 +1,16 @@
 import React from 'react';
 import FormInput from './FormInput';
+import {Risk} from './App';
 
-const FormList = ({ risks, handleClick, riskTypes }) => {
+interface PropsFormList {
+  risks: Risk[];
+  handleClick: () => void;
+  riskTypes: string[];
+}
+
+const FormList = ({ risks, handleClick, riskTypes } : PropsFormList) => {
   // Order the list by name
-  const listOrdered = risks.sort((a, b) => {
+  const listOrdered : Risk[] = risks.sort((a, b) => {
     const nameA = a.name.toLowerCase();
     const nameB = b.name.toLowerCase();
 
@@ -16,16 +23,16 @@ const FormList = ({ risks, handleClick, riskTypes }) => {
       return comparison;
   })
 
-  const filterByRiskType = (listOrdered, riskType) => {
-    const filteredList =  listOrdered.filter(risk => {
+  const filterByRiskType = (listOrdered : Risk[], riskType: string) : JSX.Element[] => {
+    const filteredList =  listOrdered.filter((risk : Risk) => {
       return risk.categorie === riskType
     })
-    const filter = filteredList.map(risk => {
+    const filter = filteredList.map((risk : Risk) => {
       return(
         <FormInput 
           id={risk.id} 
           name={risk.name} 
-          formList = {true}
+          checked = {true}
           handleClick={handleClick}
           key={risk.id}
         />
@@ -34,14 +41,14 @@ const FormList = ({ risks, handleClick, riskTypes }) => {
     return filter
   }
 
-  const handleShow = (e) => {
+  const handleShow = (e : React.MouseEvent) : void => {
     document.getElementById(`${e.currentTarget.id}`).classList.toggle('active')
     document.getElementById(`content_${e.currentTarget.id}`).classList.toggle('hidden')
   }
 
   // .toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '_') is used to transform the string this way :
   // Chantier lié à l'électricté => chantier_lie_a_l_electricite
-  const renderList = riskTypes.map(riskType => {
+  const renderList = riskTypes.map((riskType : string) : JSX.Element => {
     return(
       <React.Fragment key={riskType}>
         <div className="form-checkbox" onClick={handleShow} id={`risk_type_${riskType.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Z0-9]+/ig, '_')}`}>

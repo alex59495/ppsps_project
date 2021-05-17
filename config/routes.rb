@@ -13,10 +13,11 @@ Rails.application.routes.draw do
     resources :selected_subcontractors, only: [ :create, :destroy ]
     member do
       get 'worksite/destroy_plan_installation/:public_id', to: 'worksites#destroy_plan_installation', as: :destroy_plan_installation
-      get :destroy_logo_client
       get :duplicate
     end
   end
+
+  delete 'destroy_logo_client/:public_id', to: 'ppsps#destroy_logo_client', as: :destroy_logo_client
 
   # API
   namespace :api, defaults: { format: :json } do

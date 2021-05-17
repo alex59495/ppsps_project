@@ -1,6 +1,15 @@
 import React from 'react';
 
-const FormInput = ({ name, id, responsible_name, work, handleClick, formList }) => (
+interface PropsFormInput {
+  name: string;
+  id: number;
+  responsible_name: string;
+  work: string;
+  handleClick: (e: React.MouseEvent) => void;
+  checked: boolean;
+}
+
+const FormInput = ({ name, id, responsible_name, work, handleClick, checked } : PropsFormInput) => (
   <div
     className="form-check"
     id={`check_ppsp_subcontractors_${id}`}
@@ -12,10 +21,10 @@ const FormInput = ({ name, id, responsible_name, work, handleClick, formList }) 
       value={id}
       name="ppsp[subcontractors][]"
       id={`ppsp_subcontractors_${id}`}
-      defaultChecked={!formList}
+      defaultChecked={!checked}
     />
     <label
-      className={`form-checkbox-subcontractor ${!formList ? 'active' : ''}`}
+      className={`form-checkbox-subcontractor ${!checked ? 'active' : ''}`}
       htmlFor={`ppsp_subcontractors_${id}`}
     >
       <div className='text-center'><b>{name}</b></div>

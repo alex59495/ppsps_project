@@ -37,11 +37,11 @@ export interface Conductor {
 
 
 const App = () : JSX.Element => {
-  const [category, setCategory] = useState<String>("")
+  const [category, setCategory] = useState<string>("")
   const [workersId, setWorkersId] = useState<number[]>([])
-  const [machineId, setMachineId] = useState<number[]>([])
+  const [machineId, setMachineId] = useState<number>(null)
 // Form lists
-  const [listCategory, setlistCategory] = useState<String[]>([])
+  const [listCategory, setlistCategory] = useState<string[]>([])
   const [listMachines, setListMachines] = useState<Machine[]>([])
   const [listWorkers, setListWorkers] = useState<Worker[]>([])
 
@@ -66,7 +66,7 @@ const App = () : JSX.Element => {
     setShowListWorkers(false);
     setCategory('');
     setWorkersId([]);
-    setMachineId([]);
+    setMachineId(null);
   }
   
   // Category's logic
@@ -85,13 +85,13 @@ const App = () : JSX.Element => {
     })
   }
 
-  const handleSubmitCategory = async (e) : Promise<void> => {
+  const handleSubmitCategory = async (e : React.MouseEvent) : Promise<void> => {
     e.preventDefault()
     await fetchMachines()
   }
 
-  const selectCategory = (e) => {
-    setCategory(e.currentTarget.value)
+  const selectCategory = (e : React.MouseEvent) : void => {
+    setCategory((e.currentTarget as HTMLInputElement).value)
     const btnSubmitCategories : HTMLButtonElement = document.querySelector('#submit-category')
     btnSubmitCategories.disabled = false
   }
@@ -190,7 +190,7 @@ const App = () : JSX.Element => {
         acc[key].push(obj);
         return acc;
       }, {});
-      // // React doesn't accept Object as a child so whe have to pass them in array
+      // // React doesn't accept Object as a chiStringld so whe have to pass them in array
       const groupedArray = []
       for (let key in grouped) {
         if (grouped.hasOwnProperty(key)) {
@@ -204,8 +204,8 @@ const App = () : JSX.Element => {
     })
   }
 
-  const handleDelete = async (id) => {
-    await fetch(`${url}/api/v1/conductors/${id}`, {
+  const handleDelete = (id : number) : void => {
+    fetch(`${url}/api/v1/conductors/${id}`, {
       method: 'DELETE'
     }).then(response => {
       let count = trigger
@@ -226,11 +226,11 @@ const App = () : JSX.Element => {
     <React.Fragment>
       <div className="form-react-conductors">
         <div className='link' style={{position: 'absolute', top: '10px', left: '40px'}} onClick={() => handleReset()}>Rénitialiser la recherche</div>
-        <ListCategory listCategory={listCategory} handleSubmitCategory={handleSubmitCategory} selectCategory={selectCategory} showListCategory={showListCategory}/>
-        <ListMachines listMachines={listMachines} handleSubmitMachine={handleSubmitMachine} selectMachine={selectMachine} selectedMachineId={machineId} handleReset={handleReset} showListMachines={showListMachines}/>
-        <WorkersList listWorkers={listWorkers} handleSubmitWorkers={handleSubmitWorkers} selectWorkers={selectWorkers} showListWorkers={showListWorkers}/>
+        <ListCategory listCategory={listCategory} handleSubmitCategory={handleSubmitCategory} selectCategory={() => selectCategory} showListCategory={showListCategory}/>
+        <ListMachines listMachines={listMachines} handleSubmitMachine={handleSubmitMachine} selectMachine={() => selectMachine} selectedMachineId={machineId} handleReset={handleReset} showListMachines={showListMachines}/>
+        <WorkersList listWorkers={listWorkers} handleSubmitWorkers={handleSubmitWorkers} selectWorkers={() => selectWorkers} showListWorkers={showListWorkers}/>
       </div>
-      <SavedVehicules listSelected={listSelected} handleDelete={handleDelete}/>
+      <SavedVehicules listSelected={listSelected} handleDelete={() => handleDelete}/>
     </React.Fragment>
   )
 }

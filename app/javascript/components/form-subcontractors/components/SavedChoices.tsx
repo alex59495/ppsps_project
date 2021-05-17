@@ -1,8 +1,15 @@
 import React from 'react';
 import SavedItem from './SavedItems';
 
-const SavedChoices = ({ subcontractors, handleRemove }) => {
-  const renderSavedItem = subcontractors.map((subcontractor) => (
+import {Subcontractor} from './App';
+
+interface PropsSavedChoice {
+  subcontractors: Subcontractor[];
+  handleRemove: (subcontractor : Subcontractor) => void;
+}
+
+const SavedChoices = ({ subcontractors, handleRemove } : PropsSavedChoice) : JSX.Element => {
+  const renderSavedItem = subcontractors.map((subcontractor : Subcontractor) => (
     <SavedItem
       subcontractor={subcontractor}
       key={subcontractor.id}
@@ -10,7 +17,7 @@ const SavedChoices = ({ subcontractors, handleRemove }) => {
     />
   ));
 
-  const renderTitle = (subcontractors) => {
+  const renderTitle = (subcontractors : Subcontractor[]) : JSX.Element => {
     if (subcontractors.length > 0) {
       return (
         <p className="text-center">

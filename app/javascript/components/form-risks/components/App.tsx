@@ -3,39 +3,45 @@ import FormList from './FormList';
 import ListSelected from './ListSelected';
 import SavedChoices from './SavedChoices';
 
-const App = () => {
-  const [riskTypes, setRiskTypes] = useState([]);
-  const [formList, setFormList] = useState([]);
-  const [addList, setAddList] = useState([]);
-  const [savedChoices, setSavedChoices] = useState([]);
-  const [trigger, setTrigger] = useState(0);
+export interface Risk {
+  id: number;
+  name: string;
+  categorie: string;
+}
+
+const App = () : JSX.Element => {
+  const [riskTypes, setRiskTypes] = useState<string[]>([]);
+  const [formList, setFormList] = useState<Risk[]>([]);
+  const [addList, setAddList] = useState<Risk[]>([]);
+  const [savedChoices, setSavedChoices] = useState<Risk[]>([]);
+  const [trigger, setTrigger] = useState<number>(0);
 
   const handleClick = (e) => {
     e.preventDefault();
-    const id = parseInt(e.currentTarget.querySelector('input').value, 10);
+    const id : number = parseInt(e.currentTarget.querySelector('input').value, 10);
     if (e.currentTarget.parentNode.parentNode.classList.contains('ppsp_risks')) {
       // Si on est dans la liste des choix, le fait de cliquer ajoute l'élément dans la liste de la selection en cours
       // et le supprime de la liste des choix
-      const formListRemove = formList.filter((risk) => risk.id !== id);
-      const addListAdd = formList.find((risk) => risk.id === id);
+      const formListRemove : Risk[] = formList.filter((risk : Risk) => risk.id !== id);
+      const addListAdd : Risk = formList.find((risk : Risk) => risk.id === id);
       setFormList(formListRemove);
       setAddList([addListAdd, ...addList]);
     } else {
       // Si on est dans la liste de la selection en cours, le fait de cliquer ajoute l'élément dans la liste des choix
       // et le supprime de la selection en cours
-      const addListRemove = addList.filter((risk) => risk.id !== id);
-      const formListAdd = addList.find((risk) => risk.id === id);
+      const addListRemove : Risk[] = addList.filter((risk : Risk) => risk.id !== id);
+      const formListAdd : Risk = addList.find((risk : Risk) => risk.id === id);
       setAddList(addListRemove);
       setFormList([formListAdd, ...formList]);
     }
   };
 
-  const url = window.location.protocol;
+  const url : string = window.location.protocol;
 
-  const ppspsId = document.getElementById('react-render-risks').dataset
+  const ppspsId : string = document.getElementById('react-render-risks').dataset
     .ppsps_id;
 
-  const fetchrisksFormList = () => {
+  const fetchrisksFormList = () : void => {
     fetch(`${url}/api/v1/risks?ppsps_id=${ppspsId}`, {
       method: 'GET',
     })
@@ -43,12 +49,12 @@ const App = () => {
       .then((data) => {
         setFormList(data)
         // On ne récupère que les valeurs uniques pour les types de risques
-        const riskTypeUnique = [... new Set(data.map(risk => risk.categorie))];
+        const riskTypeUnique : string[] = Array.from(new Set(data.map((risk : Risk) => risk.categorie)));
         setRiskTypes(riskTypeUnique);
       });
   };
 
-  const fetchSavedRisks = () => {
+  const fetchSavedRisks = () : void => {
     fetch(`${url}/api/v1/selected_risks?ppsps_id=${ppspsId}`, {
       method: 'GET',
     })
@@ -56,7 +62,7 @@ const App = () => {
       .then((data) => setSavedChoices(data));
   }
 
-  const handleRemove = async (risk) => {
+  const handleRemove = async (risk) : Promise<void> => {
     await fetch(`${url}/api/v1/selected_risks/${risk.id}/?ppsps_id=${ppspsId}`, {
       method: 'DELETE',
     });
@@ -64,7 +70,7 @@ const App = () => {
     setTrigger(count + 1)
   };
 
-  useEffect(() => {
+  useEffect(() : void => {
     fetchSavedRisks();
     fetchrisksFormList();
   }, [trigger]);

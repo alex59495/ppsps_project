@@ -1,14 +1,21 @@
 import React from 'react';
 import FormInput from './FormInput';
 
-const ListSelected = ({ risks, handleClick }) => {
-  const renderList = risks.map(risk => {
+import {Risk} from './App';
+
+interface PropsListSelected {
+  risks: Risk[];
+  handleClick: (e: React.MouseEvent) => void;
+}
+
+const ListSelected = ({ risks, handleClick } : PropsListSelected) => {
+  const renderList = risks.map((risk : Risk) => {
     return (<FormInput 
       name={risk.name} 
       handleClick={handleClick} 
       id={risk.id} 
       key={risk.id} 
-      formList={false}
+      checked={false}
     />
     )
   })

@@ -17,13 +17,13 @@ const App = () => {
     if (e.currentTarget.parentNode.classList.contains('ppsp_lifesavers')) {
       // Si on est dans la liste des choix, le fait de cliquer ajoute l'élément dans la liste de la selection en cours
       // et le supprime de la liste des choix
-      const formListRemove = formList.filter(
+      const formListRemove : Worker[] = formList.filter(
         (lifesaver : Worker) => lifesaver.id !== id
       );
-      const addListAdd = formList.find(
+      const addListAdd : Worker = formList.find(
         (lifesaver : Worker) => lifesaver.id === id
       );
-      const formListSearchedRemove = formListSearched.filter(
+      const formListSearchedRemove : Worker[] = formListSearched.filter(
         (lifesaver : Worker) => lifesaver.id !== id
       );
       // On retire des deux FormList l'option qui vient d'être selectionné pour ne pas qu'elle apparaisse dans le handleSearch
@@ -33,10 +33,10 @@ const App = () => {
     } else {
       // Si on est dans la liste de la selection en cours, le fait de cliquer ajoute l'élément dans la liste des choix
       // et le supprime de la selection en cours
-      const addListRemove = addList.filter(
+      const addListRemove : Worker[] = addList.filter(
         (lifesaver : Worker) => lifesaver.id !== id
       );
-      const formListAdd = addList.find(
+      const formListAdd : Worker = addList.find(
         (lifesaver : Worker) => lifesaver.id === id
       );
       // On ajoute dans les deux FormList l'option qui vient d'être selectionné pour qu'elle apparaisse dans le handleSearch

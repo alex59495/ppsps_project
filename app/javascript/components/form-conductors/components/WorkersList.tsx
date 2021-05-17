@@ -4,7 +4,7 @@ import {Worker} from './App';
 
 interface PropsWorkerList {
   listWorkers: Worker[],
-  handleSubmitWorkers: () => void,
+  handleSubmitWorkers: (e: React.FormEvent) => void,
   selectWorkers: () => void,
   showListWorkers: boolean,
 }
@@ -32,7 +32,7 @@ const WorkersList = ({listWorkers, handleSubmitWorkers, selectWorkers, showListW
   
   if(showListWorkers) {
     return (
-      <form className='container-center-column checkboxes-workers' onSubmit={handleSubmitWorkers}>
+      <form className='container-center-column checkboxes-workers' onSubmit={(e) => handleSubmitWorkers(e)}>
         <div className="form-checkboxes-title">
           Choisir les conducteurs de ce véhicule
         </div>

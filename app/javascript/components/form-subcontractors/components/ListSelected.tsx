@@ -1,8 +1,15 @@
 import React from 'react';
 import FormInput from './FormInput';
 
-const ListSelected = ({ subcontractors, handleClick }) => {
-  const renderList = subcontractors.map(subcontractor => {
+import {Subcontractor} from './App';
+
+interface PropsListSelected {
+  subcontractors: Subcontractor[];
+  handleClick: (e : React.MouseEvent) => void
+}
+
+const ListSelected = ({ subcontractors, handleClick } : PropsListSelected) : JSX.Element => {
+  const renderList : JSX.Element[] = subcontractors.map((subcontractor : Subcontractor) => {
     return(
       <FormInput
           id={subcontractor.id}
@@ -11,7 +18,7 @@ const ListSelected = ({ subcontractors, handleClick }) => {
           work={subcontractor.work}
           handleClick={handleClick}
           key={subcontractor.id}
-          formList = {false}
+          checked = {false}
         />
     )
   })

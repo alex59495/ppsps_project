@@ -1,12 +1,18 @@
 import React from 'react';
 import SavedItem from './SavedItems';
+import {Risk} from './App';
 
-const SavedChoices = ({ risks, handleRemove }) => {
-  const renderSavedItem = risks.map((risk) => (
+interface PropsSavedChoice { 
+  risks: Risk[];
+  handleRemove: (e: React.MouseEvent) => void;
+}
+
+const SavedChoices = ({ risks, handleRemove }: PropsSavedChoice) => {
+  const renderSavedItem = risks.map((risk : Risk) => (
     <SavedItem risk={risk} key={risk.id} handleRemove={handleRemove} />
   ));
 
-  const renderTitle = (risks) => {
+  const renderTitle = (risks : Risk[]) => {
     if (risks.length > 0) {
       return (
         <p className="text-center">

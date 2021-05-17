@@ -1,9 +1,16 @@
 import React from 'react';
 import FormInput from './FormInput';
 
-const FormList = ({ site_installations, handleClick }) => {
+import {SiteInstallation} from './App';
+
+interface PropsFormList {
+  site_installations: SiteInstallation[];
+  handleClick: (e : React.MouseEvent) => void;
+}
+
+const FormList = ({ site_installations, handleClick } : PropsFormList) => {
   // Order the list by name
-  const listOrdered = site_installations.sort((a, b) => {
+  const listOrdered : SiteInstallation[] = site_installations.sort((a : SiteInstallation, b : SiteInstallation) => {
     const nameA = a.name.toLowerCase();
     const nameB = b.name.toLowerCase();
 
@@ -16,50 +23,50 @@ const FormList = ({ site_installations, handleClick }) => {
       return comparison;
   })
 
-  const listMobile = listOrdered.filter(site => {
+  const listMobile : SiteInstallation[] = listOrdered.filter((site : SiteInstallation) => {
     if(site != undefined) {
       return site.mobile === true
     }
   })
 
-  const listFixe = listOrdered.filter(site => {
+  const listFixe : SiteInstallation[] = listOrdered.filter((site : SiteInstallation) => {
     if(site != undefined) {
       return site.mobile === false
     }
   })
 
-  const renderListMobile = listMobile.map(site_installation => {
+  const renderListMobile : JSX.Element[] = listMobile.map((site_installation : SiteInstallation) => {
     return(
       <FormInput
-      id={site_installation.id}
-      name={site_installation.name}
-      handleClick={handleClick}
-      formList = {true}
-      key={site_installation.id}
-    />
+        id={site_installation.id}
+        name={site_installation.name}
+        handleClick={handleClick}
+        checked = {true}
+        key={site_installation.id}
+      />
     )
   })
 
-  const renderListFixe = listFixe.map(site_installation => {
+  const renderListFixe : JSX.Element[] = listFixe.map((site_installation : SiteInstallation) => {
     return(
       <FormInput
-      id={site_installation.id}
-      name={site_installation.name}
-      handleClick={handleClick}
-      formList = {true}
-      key={site_installation.id}
-    />
+        id={site_installation.id}
+        name={site_installation.name}
+        handleClick={handleClick}
+        checked = {true}
+        key={site_installation.id}
+      />
     )
   })
 
-  const handleClickMobile = () => {
+  const handleClickMobile = () : void => {
     const mobile = document.getElementById('form-site-mobile')
     mobile.classList.toggle('active')
     const listMobile = document.querySelector('.list-mobile')
     listMobile.classList.toggle('hidden')
   }
 
-  const handleClickFixe= () => {
+  const handleClickFixe= () : void => {
     const fixe = document.getElementById('form-site-fixe')
     fixe.classList.toggle('active')
     const listFixe = document.querySelector('.list-fixe')

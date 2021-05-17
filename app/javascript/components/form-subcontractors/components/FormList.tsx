@@ -1,11 +1,18 @@
-import { render } from 'enzyme';
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
 import FormInput from './FormInput';
-import SearchBar from './Searchbar'
+import SearchBar from './Searchbar';
 
-const FormList = ({ subcontractors, handleClick, handleSearch }) => {
+import {Subcontractor} from './App';
+
+interface PropsFormList {
+  subcontractors: Subcontractor[];
+  handleClick: (e : React.MouseEvent) => void;
+  handleSearch: ChangeEventHandler<Element>
+}
+
+const FormList = ({ subcontractors, handleClick, handleSearch } : PropsFormList) : JSX.Element => {
   // Order the list by name
-  const listOrdered = subcontractors.sort((a, b) => {
+  const listOrdered = subcontractors.sort((a : Subcontractor, b : Subcontractor) => {
     const nameA = `${a.name} - ${a.responsible_name} - ${a.work}`.toLowerCase();
     const nameB = `${b.name} - ${b.responsible_name} - ${b.work}`.toLowerCase();
 
@@ -18,17 +25,17 @@ const FormList = ({ subcontractors, handleClick, handleSearch }) => {
       return comparison;
   })
 
-  const renderList = listOrdered.map(subcontractor => {
+  const renderList : JSX.Element[] = listOrdered.map((subcontractor : Subcontractor) => {
     return(
       <FormInput
-      id={subcontractor.id}
-      name={subcontractor.name}
-      responsible_name={subcontractor.responsible_name}
-      work={subcontractor.work}
-      handleClick={handleClick}
-      key={subcontractor.id}
-      formList = {true}
-    />
+        id={subcontractor.id}
+        name={subcontractor.name}
+        responsible_name={subcontractor.responsible_name}
+        work={subcontractor.work}
+        handleClick={handleClick}
+        key={subcontractor.id}
+        checked = {true}
+      />
     )
   })
 
