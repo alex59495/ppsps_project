@@ -4,13 +4,13 @@ import {Risk} from './App';
 
 interface PropsFormList {
   risks: Risk[];
-  handleClick: () => void;
+  handleClick: (e : React.MouseEvent) => void;
   riskTypes: string[];
 }
 
 const FormList = ({ risks, handleClick, riskTypes } : PropsFormList) => {
   // Order the list by name
-  const listOrdered : Risk[] = risks.sort((a, b) => {
+  const listOrdered : Risk[] = risks.sort((a : Risk, b : Risk) => {
     const nameA = a.name.toLowerCase();
     const nameB = b.name.toLowerCase();
 

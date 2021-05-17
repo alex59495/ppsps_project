@@ -3,7 +3,7 @@ import {Worker} from './App'
 
 interface InputWorker {
   worker: Worker,
-  selectWorkers: () => void
+  selectWorkers: (e : React.MouseEvent) => void
 }
 
 const InputWorker = ({worker, selectWorkers} : InputWorker) : JSX.Element => {

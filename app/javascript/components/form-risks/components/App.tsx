@@ -18,13 +18,8 @@ const App = () : JSX.Element => {
 
   const handleClick = (e) => {
     e.preventDefault();
-<<<<<<< HEAD:app/javascript/components/form-risks/components/App.tsx
     const id : number = parseInt(e.currentTarget.querySelector('input').value, 10);
-    if (e.currentTarget.parentNode.parentNode.classList.contains('ppsp_risks')) {
-=======
-    const id = parseInt(e.currentTarget.querySelector('input').value, 10);
     if (e.currentTarget.parentNode.parentNode.classList.contains('risks')) {
->>>>>>> d7c92b24fedda37ca84bd0577d11fab29349f61a:app/javascript/components/form-risks/components/App.jsx
       // Si on est dans la liste des choix, le fait de cliquer ajoute l'élément dans la liste de la selection en cours
       // et le supprime de la liste des choix
       const formListRemove : Risk[] = formList.filter((risk : Risk) => risk.id !== id);

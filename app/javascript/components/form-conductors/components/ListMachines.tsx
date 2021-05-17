@@ -7,7 +7,7 @@ import {Machine} from './App';
 interface PropsListMachine {
   listMachines: Machine[];
   handleSubmitMachine: (e : React.FormEvent) => void;
-  selectMachine: () => void;
+  selectMachine: (e : React.MouseEvent) => void;
   selectedMachineId: number;
   handleReset: () => void;
   showListMachines: boolean;

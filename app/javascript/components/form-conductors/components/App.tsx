@@ -226,11 +226,11 @@ const App = () : JSX.Element => {
     <React.Fragment>
       <div className="form-react-conductors">
         <div className='link' style={{position: 'absolute', top: '10px', left: '40px'}} onClick={() => handleReset()}>Rénitialiser la recherche</div>
-        <ListCategory listCategory={listCategory} handleSubmitCategory={handleSubmitCategory} selectCategory={() => selectCategory} showListCategory={showListCategory}/>
-        <ListMachines listMachines={listMachines} handleSubmitMachine={handleSubmitMachine} selectMachine={() => selectMachine} selectedMachineId={machineId} handleReset={handleReset} showListMachines={showListMachines}/>
-        <WorkersList listWorkers={listWorkers} handleSubmitWorkers={handleSubmitWorkers} selectWorkers={() => selectWorkers} showListWorkers={showListWorkers}/>
+        <ListCategory listCategory={listCategory} handleSubmitCategory={handleSubmitCategory} selectCategory={selectCategory} showListCategory={showListCategory}/>
+        <ListMachines listMachines={listMachines} handleSubmitMachine={handleSubmitMachine} selectMachine={selectMachine} selectedMachineId={machineId} handleReset={handleReset} showListMachines={showListMachines}/>
+        <WorkersList listWorkers={listWorkers} handleSubmitWorkers={handleSubmitWorkers} selectWorkers={selectWorkers} showListWorkers={showListWorkers}/>
       </div>
-      <SavedVehicules listSelected={listSelected} handleDelete={() => handleDelete}/>
+      <SavedVehicules listSelected={listSelected} handleDelete={handleDelete}/>
     </React.Fragment>
   )
 }

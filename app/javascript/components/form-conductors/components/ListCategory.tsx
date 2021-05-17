@@ -4,7 +4,7 @@ import InputMachine from './InputCategory'
 interface PropsListCategory {
   listCategory: string[];
   handleSubmitCategory: (e: React.FormEvent) => void;
-  selectCategory: () => void;
+  selectCategory: (e : React.MouseEvent) => void;
   showListCategory: boolean;
 }
 

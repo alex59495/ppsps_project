@@ -4,7 +4,7 @@ import {Conductor} from './App'
 
 interface PropsSavedVehicules {
   listSelected: Conductor[][];
-  handleDelete: () => void
+  handleDelete: (id : number) => void
 }
 
 const SavedVehicules = ({listSelected, handleDelete} : PropsSavedVehicules) : JSX.Element => {

@@ -5,7 +5,7 @@ import {Worker} from './App';
 interface PropsWorkerList {
   listWorkers: Worker[],
   handleSubmitWorkers: (e: React.FormEvent) => void,
-  selectWorkers: () => void,
+  selectWorkers: (e : React.MouseEvent) => void,
   showListWorkers: boolean,
 }
 

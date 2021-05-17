@@ -4,12 +4,12 @@ import {Risk} from './App';
 
 interface PropsSavedChoice { 
   risks: Risk[];
-  handleRemove: (e: React.MouseEvent) => void;
+  handleRemove: (risk: Risk) => void;
 }
 
 const SavedChoices = ({ risks, handleRemove }: PropsSavedChoice) => {
   const renderSavedItem = risks.map((risk : Risk) => (
-    <SavedItem risk={risk} key={risk.id} handleRemove={handleRemove} />
+    <SavedItem risk={risk} key={risk.id} handleRemove={() => handleRemove(risk)} />
   ));
 
   const renderTitle = (risks : Risk[]) => {
