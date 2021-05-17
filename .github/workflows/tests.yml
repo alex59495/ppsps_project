@@ -53,8 +53,8 @@ jobs:
       env:
         RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }} 
         PGHOST: localhost
-        PGUSER: postgres
-        PGPASSWORD: postgres
+        PGUSER: ${{ secrets.DB_USER }} 
+        PGPASSWORD: ${{ secrets.DB_PASSWORD }} 
         RAILS_ENV: test
       run: |
         bin/rails db:setup
