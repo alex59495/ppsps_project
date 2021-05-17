@@ -68,12 +68,12 @@ class ListPpsp extends Component {
               <CardPpsp
               key={ppsp.id}
               id={ppsp.id}
-              reference={ppsp.project_information.reference}
+              reference={ppsp.reference}
               user_first_name={ppsp.user.first_name} 
               user_last_name={ppsp.user.last_name}
-              start_date={ppsp.worksite.start_date} 
-              end_date={ppsp.worksite.end_date} 
-              address={ppsp.worksite.address}
+              start_date={ppsp.start_date} 
+              end_date={ppsp.end_date} 
+              address={ppsp.address}
               user={ppsp.user}
               data-test='component-ppsps-card'
             />))}

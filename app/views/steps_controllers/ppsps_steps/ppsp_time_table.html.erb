@@ -1,0 +1,110 @@
+<div class="container mb-3">
+  <%= simple_form_for @ppsp, remote: true, html: {multipart: true}, url: wizard_path, html: { id: 'ppsp_form' } do |f| %> 
+    <h3 class="col-md-6 offset-md-3 form-subtitle">
+      2-4. Horaires de travail
+    </h3>
+    <div class="col-md-6 offset-md-3" id='timetable-summer'>
+      Mon document doit faire figurer des <span class='time-emphasis'>horaires d'été</span>
+      <%= f.input :timetable_summer, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden' } %>
+    </div>
+    <div class="col-md-6 offset-md-3">
+      <div id="timetable-summer-input" class=<%= @ppsp.timetable_summer ? '' : 'hidden-visibility' %>>
+        <div class='timetable-title' >
+          Semaine classique
+        </div>
+        <div class="d-flex justify-content-around">
+          <div class="calendar-box">
+            <div class="title">
+              Début
+            </div>
+            <div class="time">
+              <%= f.input :timetable_summer_start, label: false, input_html: {id: 'time_summer_start'} %>
+            </div>
+          </div>
+          <div class="calendar-box">
+            <div class="title">
+              Fin
+            </div>
+            <div class="time">
+              <%= f.input :timetable_summer_end, label: false, input_html: {id: 'time_summer_end'} %>
+            </div>
+          </div>
+        </div>
+
+        <div class='timetable-title' >
+          Vendredi
+        </div>
+          <div class="d-flex justify-content-around">
+          <div class="calendar-box">
+            <div class="title">
+              Début
+            </div>
+            <div class="time">
+              <%= f.input :timetable_summer_start_friday, label: false, input_html: {id: 'time_summer_start_friday'} %>
+            </div>
+          </div>
+          <div class="calendar-box">
+            <div class="title">
+              Fin
+            </div>
+            <div class="time">
+              <%= f.input :timetable_summer_end_friday, label: false, input_html: {id: 'time_summer_end_friday'} %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 offset-md-3" id='timetable-winter'>
+      Mon document doit faire figurer des <span class='time-emphasis'>horaires d'hiver</span>
+      <%= f.input :timetable_winter, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden' } %>
+    </div>
+    <div class="col-md-6 offset-md-3">
+      <div id="timetable-winter-input" class=<%= @ppsp.timetable_winter ? '' : 'hidden-visibility' %>>
+        <div class='timetable-title' >
+          Semaine classique
+        </div>
+          <div class="d-flex justify-content-around">
+          <div class="calendar-box">
+            <div class="title">
+              Début
+            </div>
+            <div class="time">
+              <%= f.input :timetable_winter_start, label: false, input_html: {id: 'time_winter_start'} %>
+            </div>
+          </div>
+          <div class="calendar-box">
+            <div class="title">
+              Fin
+            </div>
+            <div class="time">
+              <%= f.input :timetable_winter_end, label: false, input_html: {id: 'time_winter_end'} %>
+            </div>
+          </div>
+        </div>
+        <div class='timetable-title' >
+          Vendredi
+        </div>
+          <div class="d-flex justify-content-around">
+          <div class="calendar-box">
+            <div class="title">
+              Début
+            </div>
+            <div class="time">
+              <%= f.input :timetable_winter_start_friday, label: false, input_html: {id: 'time_winter_start_friday'} %>
+            </div>
+          </div>
+          <div class="calendar-box">
+            <div class="title">
+              Fin
+            </div>
+            <div class="time">
+              <%= f.input :timetable_winter_end_friday, label: false, input_html: {id: 'time_winter_end_friday'} %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= render 'render_footer_steps', step: @step, ppsp: @ppsp, f: f %>
+  <% end %>
+</div>
+  

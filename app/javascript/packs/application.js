@@ -36,6 +36,7 @@ import { initMapbox } from '../components/mapbox';
 import { logoCompany } from '../components/displayLogo';
 import { hideSecurityKit, hidePlanInstallation, hideTimetableSummer, hideTimetableWinter, hideInfirmary } from '../components/hide-elements'
 import {animateSubmitPpsps} from '../components/submitPpsps'
+import {submitPreviousForm} from '../components/submitPreviousForm'
 
 require('@rails/ujs').start();
 require('turbolinks').start();
@@ -71,6 +72,7 @@ document.addEventListener('turbolinks:load', () => {
   hideTimetableSummer();
   // Submit PPSPS
   animateSubmitPpsps();
+  submitPreviousForm();
 
   // Permet de pouvoir appeler la function dans mon JS.erb
   window.hideSecurityKit = hideSecurityKit;

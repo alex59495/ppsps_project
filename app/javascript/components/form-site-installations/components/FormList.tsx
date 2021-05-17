@@ -78,9 +78,9 @@ const FormList = ({ site_installations, handleClick } : PropsFormList) => {
       <div className="title">
         <p>Installations disponibles</p>
       </div>
-      <fieldset className="form-group check_boxes optional ppsp_site_installations">
+      <fieldset className="form-group check_boxes optional site_installations">
         <legend className="col-form-label pt-0" />
-        <input type="hidden" name="ppsp[site_installations][]" value="" />
+        <input type="hidden" name="site_installations[]" value="" />
           <div className="form-checkbox" onClick={handleClickFixe} id='form-site-fixe'>
             Fixe
           </div>

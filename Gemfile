@@ -81,6 +81,7 @@ gem 'simple_token_authentication'
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'
+gem 'wicked'
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'

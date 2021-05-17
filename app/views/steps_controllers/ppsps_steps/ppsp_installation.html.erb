@@ -1,0 +1,57 @@
+<div class="container mb-3">
+  <%= simple_form_for @ppsp, remote: true, html: {multipart: true, id: 'ppsp_form' }, data: { id: @ppsp.id, step: @step }, url: wizard_path do |f| %>
+    <div class="row">
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        2-7. Plan d'installation
+      </h3>
+      <div class="col-md-6 offset-md-3">
+        <p>Votre chantier dispose-t-il d'un plan d'installation ?</p>
+        <%= f.input :plan, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden' } %>
+        <div id="alert-text-plan" class= <%= @ppsp.plan ? '' : 'hidden-visibility'%>>
+          <% if @ppsp.plan_installation.attached? && @ppsp.plan_installation.persisted? %>
+            <div class="render-plan">
+              <%= render 'worksites/plan_installation' %>
+            </div>
+          <% end %>
+          <div id="input-plan-installation" class=<%= @ppsp.plan_installation.attached? && @ppsp.plan_installation.persisted? ? 'hidden' : '' %>>
+            <p class="text-alert">Veuillez ajouter votre plan d'installation en annexe</p>
+            <p class="text-alert-black">Maximum : 300kB !</p>
+            <%= f.input :plan_installation, label: false %>
+          </div>
+        </div>
+      </div>
+
+
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        2-8. Installations électriques
+      </h3>
+      <div class="col-md-6 offset-md-3">
+        <p>Votre chantier implique-t-il des installations électriques ?</p>
+        <%= f.input :electrical_site, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden' } %>
+      </div>
+
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        2-9. Installations d'eau
+      </h3>
+      <div class="col-md-6 offset-md-3">
+        <p>Votre chantier implique-t-il un raccordement aux installations d'eau ?</p>
+        <%= f.input :water_site, label: '&nbsp;'.html_safe, input_html: { class: 'checkbox-visual hidden' } %>
+      </div>
+
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        2-10. Moyens d'accès au poste de travail
+      </h3>
+      <div class="col-md-10 offset-md-1">
+        <div id="react-render-altitude-works" data-ppsps_id=<%=@ppsp.id%>></div>
+      </div>
+
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        2-11. Engins de chantier utilisés
+      </h3>
+      <div class="col-md-10 offset-md-1">
+        <div class='col-12' id="conductors-form-react" data-ppsps_id=<%=@ppsp.id%>></div>
+      </div>
+    </div>
+    <%= render 'render_footer_steps', step: @step, ppsp: @ppsp, f: f %>
+  <% end %>
+</div>

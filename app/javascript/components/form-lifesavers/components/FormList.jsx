@@ -35,9 +35,9 @@ const FormList = ({ lifesavers, handleClick, handleSearch }) => {
         <p>Liste des sauveteurs de l'entreprise</p>
       </div>
       <SearchBar handleSearch={handleSearch} />
-      <fieldset className="form-group check_boxes optional ppsp_lifesavers">
+      <fieldset className="form-group check_boxes optional lifesavers">
         <legend className="col-form-label pt-0" />
-        <input type="hidden" name="ppsp[lifesavers][]" value="" />
+        <input type="hidden" name="lifesavers[]" value="" />
         {renderList}
       </fieldset>
   </div>

@@ -76,22 +76,10 @@ RSpec.describe "Api::V1::Ppsps Controller", type: :request, format: :json do
             sos_hand_id: (be_kind_of Integer),
             anti_poison_id: (be_kind_of Integer),
             hospital_id: (be_kind_of Integer),
-            project_information: {
-              id: (be_kind_of Integer),
-              reference: (be_kind_of String),
-              name: (be_kind_of String),
-              created_at: (be_kind_of String),
-              updated_at: (be_kind_of String),
-              responsible_id: (be_kind_of Integer),
-              team_manager_id: (be_kind_of Integer),
-              site_manager_id: (be_kind_of Integer),
-              company_id: (be_kind_of Integer)
-            },
-            worksite: {
-              address: (be_kind_of String),
-              start_date: (be_kind_of String),
-              end_date: (be_kind_of String)
-            },
+            reference: (be_kind_of String),
+            address: (be_kind_of String),
+            start_date: (be_kind_of String),
+            end_date: (be_kind_of String),
             user: {
               id: (be_kind_of Integer),
               first_name: (be_kind_of String),

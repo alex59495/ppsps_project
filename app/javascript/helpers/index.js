@@ -29,7 +29,7 @@ export function removeElement(el) {
   if (el && el.parentNode) {
     el.parentNode.removeChild(el);
     axios({
-      url: `${window.location.protocol}/destroy_annexe/${el.dataset.publicid}`,
+      url: `${window.location.protocol}/ppsps/${el.dataset.ppsps_id}/destroy_annexe/${el.dataset.publicid}`,
       headers: {
         'X-CSRF-Token': getMetaValue('csrf-token')
       },

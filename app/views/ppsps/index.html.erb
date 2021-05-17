@@ -1,4 +1,22 @@
 <div class="container">
+  <% if @ppsps_on_working.present? %>
+    <div class="alert-red">
+      <%= link_to ppsps_path, class: "alert-link font-weight-normal", data: {toggle:"collapse", target:"#collapseInfos"}, aria: { expanded: false} do %>
+        <i id="arrow" class="fas fa-angle-down"></i>
+      <% end %>
+      <strong>Ppsp en cours de création</strong>
+      <div class="alert-cross">
+        <%= link_to ppsps_path, remote: true do  %>
+          <i class="fas fa-times alert-link"></i>
+        <% end %>
+      </div>
+      <div class="collapse" id="collapseInfos">
+        <% @ppsps_on_working.each do |ppsp| %>
+          <div><%= link_to ppsp.reference ? ppsp.reference : "Non renseigné", edit_ppsp_path(ppsp) %></div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
   <div class="container-btn">
     <%= link_to "Créer un nouveau PPSP", new_ppsp_path, class: 'btn-blue mr-2 mt-2' %>
       <% if policy(Page).database? %>

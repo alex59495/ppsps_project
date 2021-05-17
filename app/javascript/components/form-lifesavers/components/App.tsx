@@ -13,8 +13,8 @@ const App = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    const id : number = parseInt(e.currentTarget.querySelector('input').value, 10);
-    if (e.currentTarget.parentNode.classList.contains('ppsp_lifesavers')) {
+    const id = parseInt(e.currentTarget.querySelector('input').value, 10);
+    if (e.currentTarget.parentNode.classList.contains('lifesavers')) {
       // Si on est dans la liste des choix, le fait de cliquer ajoute l'élément dans la liste de la selection en cours
       // et le supprime de la liste des choix
       const formListRemove : Worker[] = formList.filter(
@@ -48,7 +48,7 @@ const App = () => {
 
   const url : string = window.location.protocol;
 
-  const ppspsId : string = document.getElementById('react-render-altitude-works').dataset
+  const ppspsId : string = document.getElementById('react-render-lifesavers').dataset
     .ppsps_id;
 
   const fetchLifesaversFormList = () : void => {

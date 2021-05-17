@@ -20,8 +20,8 @@ const hideSecurityKit = () : void => {
 }
 
 const hidePlanInstallation = () => {
-  const inputPlan : HTMLElement = document.getElementById('ppsp_worksite_attributes_plan')
-  const alertText : HTMLElement = document.getElementById('alert-text-plan')
+  const inputPlan = document.getElementById('ppsp_plan')
+  const alertText = document.getElementById('alert-text-plan')
   if(inputPlan) {
     inputPlan.addEventListener('click', () => {
       alertText.classList.toggle('hidden-visibility')
@@ -30,8 +30,8 @@ const hidePlanInstallation = () => {
 }
 
 const hideTimetableSummer = () => {
-  const inputSummer : HTMLElement = document.getElementById('ppsp_worksite_attributes_timetable_summer');
-  const timetables : HTMLElement = document.getElementById('timetable-summer-input')
+  const inputSummer = document.getElementById('ppsp_timetable_summer');
+  const timetables = document.getElementById('timetable-summer-input')
   if(inputSummer) {
     inputSummer.addEventListener('click', () => {
       timetables.classList.toggle('hidden-visibility')
@@ -45,8 +45,8 @@ const hideTimetableSummer = () => {
 }
 
 const hideTimetableWinter = () => {
-  const inputWinter : HTMLElement = document.getElementById('ppsp_worksite_attributes_timetable_winter');
-  const timetables : HTMLElement = document.getElementById('timetable-winter-input')
+  const inputWinter = document.getElementById('ppsp_timetable_winter');
+  const timetables = document.getElementById('timetable-winter-input')
   if(inputWinter) {
     inputWinter.addEventListener('click', () => {
       timetables.classList.toggle('hidden-visibility')

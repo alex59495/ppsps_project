@@ -2,13 +2,13 @@
   <h1 class="pdf-title mb-2">
     III. Disposition en matière de secours et d'évacuation
   </h1>
-  <% if @ppsp.worksite.infirmary %>
+  <% if @ppsp.infirmary %>
     <h2 class="pdf-subtitle">
       3.<%= @num_security %> Infirmerie
       <% @num_security += 1 %>
     </h2>
     <div class="infirmary">
-      <%= @ppsp.worksite.infirmary_text %>
+      <%= @ppsp.infirmary_text %>
     </div>
   <% end %>
   <% if @lifesavers.any? %>

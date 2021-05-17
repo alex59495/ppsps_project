@@ -17,7 +17,7 @@ const App:FunctionComponent = () : JSX.Element => {
   const handleClick = (e) : void => {
     e.preventDefault();
     const id = parseInt(e.currentTarget.querySelector('input').value, 10);
-    if (e.currentTarget.parentNode.classList.contains('ppsp_altitude_works')) {
+    if (e.currentTarget.parentNode.classList.contains('altitude_works')) {
       // Si on est dans la liste des choix, le fait de cliquer ajoute l'élément dans la liste de la selection en cours
       // et le supprime de la liste des choix
       const formListRemove : AltitudeWork[] = formList.filter(

@@ -14,7 +14,6 @@ class Company < ApplicationRecord
   has_many :moas
   has_many :moes
   has_many :kit_security_elements, dependent: :destroy
-  has_many :project_informations
 
   validates :name, presence: true
   validates :address, presence: true

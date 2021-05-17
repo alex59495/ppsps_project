@@ -1,0 +1,43 @@
+<div class="container mb-3">
+  <%= link_to "Revenir à mes PPSP", ppsps_path, class: 'link' %>
+  <%= simple_form_for @ppsp, remote: true, html: {multipart: true, id: 'ppsp_form'}, data: { id: @ppsp.id }, url: wizard_path do |f| %>
+    <div class="row">
+      <h2 class="col-12 form-title">
+        I. Renseignements administratifs
+      </h2>
+
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        1-1. L'entreprise titulaire du lot
+      </h3>
+      <div class="col-md-6 offset-md-3 wrapper">
+        <div class='text-bold'>Nom :</div>
+        <div><%= current_user.company.name %></div>
+        <div class='text-bold'>Adresse :</div>
+        <div><%= current_user.company.address %></div>
+        <div class='text-bold'>Téléphone :</div>
+        <div><%= current_user.company.phone %></div>
+        <div class='text-bold'>Représentant :</div>
+        <div><%= current_user.company.representative %></div>
+      </div>
+      <h3 class="col-md-6 offset-md-3 form-subtitle">
+        1-2. La désignation du chantier
+      </h3>
+      <div class="col-md-6 offset-md-3">
+        <%= f.input :name, label: "Désignation du chantier", placeholder: "Réalisation de la voirie E140 entre Bidule et Machin" %>
+      </div>
+      <div class="col-md-6 offset-md-3">
+        <%= f.input :reference, label: "Référence du projet", placeholder: "B 484..." %>
+      </div>
+      <div class="col-md-6 offset-md-3">
+        <%= f.input :responsible_id, label: "Responsable", collection: @responsible, label_method: lambda {|x| "#{x.last_name} #{x.first_name}"}, input_html: {class: "select-2"} %>
+      </div>
+      <div class="col-md-6 offset-md-3">
+        <%= f.input :site_manager_id, label: "Chef de chantier", collection: @team_manager, label_method: lambda {|x| "#{x.last_name} #{x.first_name}"}, input_html: {class: "select-2"} %>
+      </div>
+      <div class="col-md-6 offset-md-3">
+        <%= f.input :team_manager_id, label: "Chef d'équipe", collection: @site_manager, label_method: lambda {|x| "#{x.last_name} #{x.first_name}"}, input_html: {class: "select-2"} %>
+      </div>
+    </div>
+    <%= render 'render_footer_steps', step: @step, ppsp: @ppsp, f: f %>
+  <% end %>
+</div>
