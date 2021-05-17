@@ -28,8 +28,7 @@ const calendar = () => {
     }
   };
 
-  const calendarBox = document.querySelector('.calendar-box');
-  if (calendarBox) {
+  if (startInput) {
     startInput.addEventListener('change', () => {
       changeDate();
     });

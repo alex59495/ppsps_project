@@ -25,7 +25,7 @@ const reducerPpsps = (state, action) => {
       const selected = state.ppsps.filter(
         (ppsp) =>
           // Select the Ppsps which reference correspond to the value of search
-          (ppsp.project_information.reference
+          (ppsp.reference
             .toLowerCase()
             .includes(action.payload.toLowerCase()) ||
             // Select the Ppsps which user first name + last_name correspond to the value of search

@@ -323,9 +323,13 @@ $btn-add-size: 24px;
 
 .link {
   color: $orange;
+  background-color: none;
+  padding: 0;
+  border: none;
   &:hover {
     color: $orange-dark;
     cursor: pointer;
+    text-decoration: underline;
   }
 }
 

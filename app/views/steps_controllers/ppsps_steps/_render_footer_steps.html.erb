@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-4">
+    <div class="d-flex justify-content-center">
+      <% unless step == Ppsp.form_steps.keys.first %>
+        <%= f.submit 'Précédent', class: 'link', id: 'link-previous' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="d-flex justify-content-center">
+      <% if ppsp.valid_without_files? || step == Ppsp.form_steps.keys.last %>
+        <%= f.submit "J'ai terminé", class: 'btn-orange', id: 'SubmitPpspsFormBtn' %>
+      <% end %>
+      <div id="myModal" class="modal-background">
+        <div class="text-center modal-loading">
+          <div class="spinner-border" role="status"></div>
+          <div class="mt-2">Votre PPSPS est en cours de préparation...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="d-flex justify-content-center">
+      <% unless step == Ppsp.form_steps.keys.last %>
+        <%= f.submit 'Suivant', class: 'link', id: 'link-next' %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -2,7 +2,7 @@
   <% unless annexe.id.nil? %>
     <div class="container-annexe logo" id=<%= annexe.key %>>
       <%= cl_image_tag(annexe.key + '.jpg', height: 300, width: 200, class: "mx-4") %>
-      <%= link_to "Supprimer", destroy_annexe_path(public_id: annexe.key), class: 'btn-delete', remote: true, method: :delete %>
+      <%= link_to "Supprimer", ppsp_destroy_annexe_path(@ppsp, public_id: annexe.key), class: 'btn-delete', remote: true, method: :delete %>
     </div>
   <% end %>
 <% end %>

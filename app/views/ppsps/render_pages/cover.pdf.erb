@@ -119,11 +119,11 @@
         Plan Particulier de Sécurité pour la Protection de la Santé
       </div>
       <div class="banner-subtitle">
-        <%= @ppsp.project_information.name %>
+        <%= @ppsp.name %>
       </div>
     </div>
     <div class="pdf-subtitle mt-2">
-      <%= @ppsp.worksite.nature %>
+      <%= @ppsp.nature %>
     </div>
     <% if @ppsp.user.company.logo.attached? %>
       <div class='pdf-logo center'>

@@ -3,34 +3,34 @@
     <% @num_worksite += 1%>
 </h2>
 <div class="flexbox container-50">
-  <div class="flex-div-40">Date de début : </div><div class="flex-div-60"><%= @ppsp.worksite.start_date %></div>
-  <div class="flex-div-40">Date de fin : </div><div class="flex-div-60"><%= @ppsp.worksite.end_date %></div>
-  <div class="flex-div-40">Durée : </div><div class="flex-div-60"><%= "#{(@ppsp.worksite.end_date - @ppsp.worksite.start_date).to_i} jours" %></div>
+  <div class="flex-div-40">Date de début : </div><div class="flex-div-60"><%= @ppsp.start_date %></div>
+  <div class="flex-div-40">Date de fin : </div><div class="flex-div-60"><%= @ppsp.end_date %></div>
+  <div class="flex-div-40">Durée : </div><div class="flex-div-60"><%= "#{(@ppsp.end_date - @ppsp.start_date).to_i} jours" %></div>
 </div>
-<% if @ppsp.worksite.timetable_summer || @ppsp.worksite.timetable_winter %>
+<% if @ppsp.timetable_summer || @ppsp.timetable_winter %>
   <h2 class="pdf-subtitle">
     2.<%= @num_worksite %> Les horaires du chantier
     <% @num_worksite += 1%>
   </h2>
-  <% if @ppsp.worksite.timetable_summer %>
+  <% if @ppsp.timetable_summer %>
     <div class="container-50">
       <div class='pdf-subsubtitle'>Horaires d'été</div>
       <div class="flexbox">
         <% ['Lundi', 'Mardi', 'Mercredi', 'Jeudi'].each do |day| %>
-          <div class="flex-div-40"><%= day %> : </div><div class="flex-div-60"><%= @ppsp.worksite.timetable_summer_start %> - <%= @ppsp.worksite.timetable_summer_end %></div>
+          <div class="flex-div-40"><%= day %> : </div><div class="flex-div-60"><%= @ppsp.timetable_summer_start %> - <%= @ppsp.timetable_summer_end %></div>
         <% end %>
-        <div class="flex-div-40">Vendredi : </div><div class="flex-div-60"><%= @ppsp.worksite.timetable_summer_start_friday %> - <%= @ppsp.worksite.timetable_summer_end_friday %></div>
+        <div class="flex-div-40">Vendredi : </div><div class="flex-div-60"><%= @ppsp.timetable_summer_start_friday %> - <%= @ppsp.timetable_summer_end_friday %></div>
       </div>
     </div>
   <% end %>
-  <% if @ppsp.worksite.timetable_winter %>
+  <% if @ppsp.timetable_winter %>
     <div class="container-50">
       <div class='pdf-subsubtitle'>Horaires d'hiver</div>
       <div class="flexbox">
         <% ['Lundi', 'Mardi', 'Mercredi', 'Jeudi'].each do |day| %>
-          <div class="flex-div-40"><%= day %> : </div><div class="flex-div-60"><%= @ppsp.worksite.timetable_winter_start %> - <%= @ppsp.worksite.timetable_winter_end %></div>
+          <div class="flex-div-40"><%= day %> : </div><div class="flex-div-60"><%= @ppsp.timetable_winter_start %> - <%= @ppsp.timetable_winter_end %></div>
         <% end %>
-        <div class="flex-div-40">Vendredi: </div><div class="flex-div-60"><%= @ppsp.worksite.timetable_winter_start_friday %> - <%= @ppsp.worksite.timetable_winter_end_friday %></div>
+        <div class="flex-div-40">Vendredi: </div><div class="flex-div-60"><%= @ppsp.timetable_winter_start_friday %> - <%= @ppsp.timetable_winter_end_friday %></div>
       </div>
     </div>
   <% end %>
@@ -41,12 +41,12 @@
   <% @num_worksite += 1 %>
 </h2>
 <div class="flexbox container-50">
-  <div class="flex-div-60">Nombre de d'encadrants : </div><div class="flex-div-40"><%= @ppsp.worksite.num_responsible %></div>
-  <div class="flex-div-60">Nombre de conducteurs d'engins : </div><div class="flex-div-40"><%= @ppsp.worksite.num_conductor %></div>
-  <div class="flex-div-60">Nombre de compagnons : </div><div class="flex-div-40"><%= @ppsp.worksite.num_worker %></div>
+  <div class="flex-div-60">Nombre de d'encadrants : </div><div class="flex-div-40"><%= @ppsp.num_responsible %></div>
+  <div class="flex-div-60">Nombre de conducteurs d'engins : </div><div class="flex-div-40"><%= @ppsp.num_conductor %></div>
+  <div class="flex-div-60">Nombre de compagnons : </div><div class="flex-div-40"><%= @ppsp.num_worker %></div>
 </div>
 
-<% if @ppsp.worksite.electrical_site %>
+<% if @ppsp.electrical_site %>
   <div class="pdf-subtitle"> 
     2.<%= @num_worksite %> Installation electrique
     <% @num_worksite += 1 %>
@@ -54,7 +54,7 @@
   <p>Le chantier implique la mise en place d'installations électriques</p>
 <% end %>
 
-<% if @ppsp.worksite.water_site %>
+<% if @ppsp.water_site %>
   <div class="pdf-subtitle">
     2.<%= @num_worksite %> Installation d'eau
       <% @num_worksite += 1 %> 

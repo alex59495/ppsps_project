@@ -1,51 +1,22 @@
 class PpspsController < ApplicationController
-  before_action :find_ppsp, only: %i[update show ppsp_pdf destroy edit destroy_logo_client duplicate]
+  before_action :find_ppsp, only: %i[show ppsp_pdf destroy edit destroy_logo_client duplicate destroy_plan_installation]
 
   def index
     # Handled by react :) (app/assets/javascript/ppsp-react)
     # In order to search on direct
     users = User.where(company: current_user.company)
     @ppsps = policy_scope(Ppsp.where(user: users))
+    # hospital_id is the last attribute which is mandatory
+    @ppsps_on_working = Ppsp.where(user: current_user, hospital_id: nil)
   end
 
   def new
-    @ppsp = Ppsp.new
+    @ppsp = Ppsp.new(user: current_user)
     authorize @ppsp
-    # Create the fields for the project_information,
-    # We used the 'accepts_nested_attributes_for' in the models
-    # We used the projection_information_attributes in the params
-    @project_information = @ppsp.build_project_information
-
-    @worksite = @ppsp.build_worksite
-
-    # Info to add the possibility to create a new element through a modal form
-    @project_information = ProjectInformation.new
-    @security_coordinator = SecurityCoordinator.new
-    @hospital = Hospital.new
-    @moa = Moa.new
-    @moe = Moe.new
-    @pension_insurance = PensionInsurance.new
-    @regional_committee = RegionalCommittee.new
-    @direcct = Direcct.new
-    @work_medecine = WorkMedecine.new
-    @demining = Demining.new
-    @sos_hand = SosHand.new
-    @anti_poison = AntiPoison.new
-    @subcontractor = Subcontractor.new
-
-    # Select the databases present in the select lists
-    @moas = policy_scope(Moa.all)
-    @moes = policy_scope(Moe.all)
-    @regional_committees = policy_scope(RegionalCommittee.all)
-    @pension_insurances = policy_scope(PensionInsurance.all)
-    @direccts = policy_scope(Direcct.all)
-    @work_medecines = policy_scope(WorkMedecine.all)
-    @deminings = policy_scope(Demining.all)
-    @sos_hands = policy_scope(SosHand.all)
-    @anti_poisons = policy_scope(AntiPoison.all)
-    @hospitals = policy_scope(Hospital.all)
-    @security_coordinators = policy_scope(SecurityCoordinator.all)
-    @subcontractors = policy_scope(Subcontractor.all)
+    # We save an instance of the ppsp in database even if not valid
+    @ppsp.save!(validate: false)
+    # We redirect to ppsp_step_path in order to begin the Wizard form
+    redirect_to ppsp_step_path(@ppsp, Ppsp.form_steps.keys.first)
   end
 
   def show
@@ -54,7 +25,7 @@ class PpspsController < ApplicationController
     @lifesavers = Worker.where(id: select_lifesaver)
     @conductors = Conductor.where(ppsp_id: @ppsp.id).order(:machine_id).group_by(&:machine_id)
 
-    @marker = { lat: @ppsp.worksite.latitude, lng: @ppsp.worksite.longitude }
+    @marker = { lat: @ppsp.latitude, lng: @ppsp.longitude }
 
     # Numéro de suivi des titres de chaque partie
     @num_admin = 1
@@ -101,145 +72,14 @@ class PpspsController < ApplicationController
     end
   end
 
-  def create
-    @ppsp = Ppsp.new(params_ppsp)
-    @ppsp.project_information.company = current_user.company
-    @ppsp.user = current_user
-
-    # This way the edit page is able to retrieve the project informations and worksite
-    @project_information = @ppsp.project_information
-    @worksite = @ppsp.worksite
-
-    # Info to add the possibility to create a new element through a modal form
-    @security_coordinator = SecurityCoordinator.new
-    @hospital = Hospital.new
-    @moa = Moa.new
-    @moe = Moe.new
-    @pension_insurance = PensionInsurance.new
-    @regional_committee = RegionalCommittee.new
-    @direcct = Direcct.new
-    @work_medecine = WorkMedecine.new
-    @demining = Demining.new
-    @sos_hand = SosHand.new
-    @anti_poison = AntiPoison.new
-    @subcontractor = Subcontractor.new
-
-    # Select the databases present in the select lists
-    @moas = policy_scope(Moa.all)
-    @moes = policy_scope(Moe.all)
-    @regional_committees = policy_scope(RegionalCommittee.all)
-    @pension_insurances = policy_scope(PensionInsurance.all)
-    @direccts = policy_scope(Direcct.all)
-    @work_medecines = policy_scope(WorkMedecine.all)
-    @deminings = policy_scope(Demining.all)
-    @sos_hands = policy_scope(SosHand.all)
-    @anti_poisons = policy_scope(AntiPoison.all)
-    @hospitals = policy_scope(Hospital.all)
-    @security_coordinators = policy_scope(SecurityCoordinator.all)
-    @subcontractors = policy_scope(Subcontractor.all)
-
-    authorize @ppsp
-    if @ppsp.save
-      # Create the joint table if necessary
-      create_selected_subcontractors
-      create_selected_risks
-      create_selected_site_installations
-      create_selected_altitude_works
-      create_selected_conductors
-      create_selected_lifesavers
-      purge_plan_installation_if_not_selected
-
-      redirect_to ppsp_path(@ppsp, format: :pdf)
-    else
-      flash.now.alert = "Le formulaire n'a pas été rempli correctement, merci de réessayer"
-      render :new
-    end
-  end
-
   def edit
     authorize @ppsp
-    # This way the edit page is able to retrieve the project informations and worksite
-    @project_information = @ppsp.project_information
-    @worksite = @ppsp.worksite
-    # Info to add the possibility to create a new element through a modal form!
-    @security_coordinator = SecurityCoordinator.new
-    @hospital = Hospital.new
-    @moa = Moa.new
-    @moe = Moe.new
-    @pension_insurance = PensionInsurance.new
-    @regional_committee = RegionalCommittee.new
-    @direcct = Direcct.new
-    @work_medecine = WorkMedecine.new
-    @demining = Demining.new
-    @sos_hand = SosHand.new
-    @anti_poison = AntiPoison.new
-    @subcontractor = Subcontractor.new
-
-    # Select the databases present in the select lists
-    @moas = policy_scope(Moa.all)
-    @moes = policy_scope(Moe.all)
-    @regional_committees = policy_scope(RegionalCommittee.all)
-    @pension_insurances = policy_scope(PensionInsurance.all)
-    @direccts = policy_scope(Direcct.all)
-    @work_medecines = policy_scope(WorkMedecine.all)
-    @deminings = policy_scope(Demining.all)
-    @sos_hands = policy_scope(SosHand.all)
-    @anti_poisons = policy_scope(AntiPoison.all)
-    @hospitals = policy_scope(Hospital.all)
-    @security_coordinators = policy_scope(SecurityCoordinator.all)
   end
 
-  def update
+  def destroy
     authorize @ppsp
-    # This way the edit page is able to retrieve the project informations and worksite
-    @project_information = @ppsp.project_information
-    @worksite = @ppsp.worksite
-
-    @security_coordinator = SecurityCoordinator.new
-    @hospital = Hospital.new
-    @moa = Moa.new
-    @moe = Moe.new
-    @pension_insurance = PensionInsurance.new
-    @regional_committee = RegionalCommittee.new
-    @direcct = Direcct.new
-    @work_medecine = WorkMedecine.new
-    @demining = Demining.new
-    @sos_hand = SosHand.new
-    @anti_poison = AntiPoison.new
-    @subcontractor = Subcontractor.new
-
-    # Select the databases present in the select lists
-    @moas = policy_scope(Moa.all)
-    @moes = policy_scope(Moe.all)
-    @regional_committees = policy_scope(RegionalCommittee.all)
-    @pension_insurances = policy_scope(PensionInsurance.all)
-    @direccts = policy_scope(Direcct.all)
-    @work_medecines = policy_scope(WorkMedecine.all)
-    @deminings = policy_scope(Demining.all)
-    @sos_hands = policy_scope(SosHand.all)
-    @anti_poisons = policy_scope(AntiPoison.all)
-    @hospitals = policy_scope(Hospital.all)
-    @security_coordinators = policy_scope(SecurityCoordinator.all)
-    @subcontractors = policy_scope(Subcontractor.all)
-
-    # We have to redefine the ID because if we don't nested form of rails will create a new instance of worksite and project info
-    if @ppsp.update(params_ppsp)
-      # On modifie la date updated_at du ppsp si celle du project_information ou worksite est en avance sur celle-ci
-      @ppsp.update(updated_at: [@ppsp.project_information.updated_at, @ppsp.worksite.updated_at].max) if [@ppsp.project_information.updated_at, @ppsp.worksite.updated_at].max > @ppsp.updated_at
-      # Create the joint table if necessary
-      create_selected_subcontractors
-      create_selected_risks
-      create_selected_site_installations
-      create_selected_altitude_works
-      create_selected_conductors
-      create_selected_lifesavers
-      purge_plan_installation_if_not_selected
-
-      redirect_to ppsp_path(@ppsp, format: :pdf)
-    else
-      flash.now.alert = "Le formulaire n'a pas été rempli correctement, merci de réessayer"
-      render :edit
-    end
+    @ppsp.destroy
+    redirect_to ppsps_path
   end
 
   def destroy_logo_client
@@ -251,7 +91,7 @@ class PpspsController < ApplicationController
   end
 
   def destroy_annexe
-    @ppsp = Ppsp.new
+    @ppsp = Ppsp.find(params[:ppsp_id])
     authorize @ppsp
     blob = ActiveStorage::Blob.find_by(key: params[:public_id])
     if ActiveStorage::Attachment.find_by(blob: blob)
@@ -262,6 +102,14 @@ class PpspsController < ApplicationController
     else
       blob.purge
       head :no_content
+    end
+  end
+
+  def destroy_plan_installation
+    @ppsp.plan_installation.purge
+    authorize @ppsp
+    respond_to do |format|
+      format.js { render 'worksites/destroy_plan' }
     end
   end
 

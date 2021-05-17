@@ -12,7 +12,6 @@ Moe.destroy_all
 Moa.destroy_all
 Hospital.destroy_all
 Demining.destroy_all
-ProjectInformation.destroy_all
 RegionalCommittee.destroy_all
 RegionalCommittee.destroy_all
 WorkMedecine.destroy_all
@@ -128,34 +127,6 @@ end
   p "Create #{worker.id} worker"
 end
 
-# Create Project Informations
-infos = []
-100.times do |n|
-  company = Company.all.sample
-  project_info = {
-    reference: "AABB1#{n+10}",
-    company: company,
-    name: "Ceci est la désignation du chantier #{n}",
-    responsible_id: Worker.where(company: company, role: 'Conducteur de travaux').sample.id,
-    site_manager_id: Worker.where(company: company, role: 'Chef de chantier').sample.id,
-    team_manager_id: Worker.where(company: company, role: "Chef d'équipe").sample.id,
-  }
-  infos.append(project_info)
-end
-
-
-infos.each do |project|
-  project_information1 = ProjectInformation.create!(
-    reference: project[:reference],
-    name: project[:name],
-    responsible_id: project[:responsible_id],
-    site_manager_id: project[:site_manager_id],
-    team_manager_id: project[:team_manager_id],
-    company: project[:company]
-  )
-  p "create #{project_information1.id} project info"
-end
-
 # Create DIRECCT
 direcct = {
   address: "70 rue saint sauveur",
@@ -240,11 +211,31 @@ CSV.foreach('./Database_security_coordinators.csv', headers: true, encoding:'iso
   p "Create #{sc.id} security coordinators"
 end
 
-# Worksites
-20.times do |n|
+# Create PPSP
+ppsps = []
+100.times do |n|
+  company = Company.all.sample
   summer = [true, false].sample
   winter = [true, false].sample
-  w = Worksite.create!(
+  p = Ppsp.create!(
+    user: User.where(company: company).sample,
+    moa: Moa.all.sample,
+    moe: Moe.all.sample,
+    pension_insurance: PensionInsurance.all.sample,
+    direcct: Direcct.all.sample,
+    work_medecine: WorkMedecine.all.sample,
+    regional_committee: RegionalCommittee.all.sample,
+    security_coordinator: SecurityCoordinator.all.sample,
+    demining: Demining.all.sample,
+    sos_hand: SosHand.all.sample,
+    anti_poison: AntiPoison.all.sample,
+    hospital: Hospital.all.sample,
+    reference: "AABB1#{n+10}",
+    company: company,
+    name: "Ceci est la désignation du chantier #{n}",
+    responsible: Worker.where(company: company, role: 'Conducteur de travaux').sample,
+    site_manager: Worker.where(company: company, role: 'Chef de chantier').sample,
+    team_manager: Worker.where(company: company, role: "Chef d'équipe").sample,
     address: Faker::Address.street_address, 
     start_date: DateTime.new(2020,9,1,17),
     end_date: DateTime.new(2020,9,10,19), 
@@ -264,41 +255,7 @@ end
     timetable_winter_end_friday: winter ? '17h30' : nil,
     electrical_site: [true, false].sample, 
     water_site: [true, false].sample, 
-    plan: false,
-  )
-  p "Create #{w.id} Worksites"
-end
-
-# Create PPSP
-ppsps = []
-100.times do |n|
-  company = Company.all.sample
-  ppsp = {
-    worksite_id: Worksite.all.sample.id,
-    user_id: User.where(company: company).sample.id,
-    moa_id: Moa.all.sample.id,
-    moe_id: Moe.all.sample.id,
-    project_information_id: ProjectInformation.where(company: company).sample.id,
-    pension_insurance_id: PensionInsurance.all.sample.id,
-    direcct_id: Direcct.all.sample.id,
-    work_medecine_id: WorkMedecine.all.sample.id,
-    regional_committee_id: RegionalCommittee.all.sample.id,
-    security_coordinator_id: SecurityCoordinator.all.sample.id,
-    demining_id: Demining.all.sample.id,
-    sos_hand_id: SosHand.all.sample.id,
-    anti_poison_id: AntiPoison.all.sample.id,
-    hospital_id: Hospital.all.sample.id,
-  }
-  ppsps.append(ppsp)
-end
-
-ppsps.each do |ppsp|
-  p = Ppsp.create!(worksite_id: ppsp[:worksite_id], user_id: ppsp[:user_id], moa_id: ppsp[:moa_id],
-  moe_id: ppsp[:moe_id], project_information_id: ppsp[:project_information_id],
-  security_coordinator_id: ppsp[:security_coordinator_id],
-  pension_insurance_id: ppsp[:pension_insurance_id], direcct_id: ppsp[:direcct_id], work_medecine_id: ppsp[:work_medecine_id],
-  regional_committee_id: ppsp[:regional_committee_id], demining_id: ppsp[:demining_id], 
-  sos_hand_id: ppsp[:sos_hand_id], anti_poison_id: ppsp[:anti_poison_id], hospital_id: ppsp[:hospital_id],
+    plan: false
   )
   p "create #{p.id} PPSP"
 end
