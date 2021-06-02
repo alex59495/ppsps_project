@@ -1,0 +1,32 @@
+<div class="container-cover">
+  <div class="pdf-banner" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),url(<%= @ppsp.user.company.cover_image.attached? ? cl_image_path(@ppsp.user.company.cover_image.key) : image_path("PPSP.jpg") %>);">
+    <h2>
+      Plan Particulier de Sécurité pour la Protection de la Santé
+    </h2>
+    <h4>
+      <%= @ppsp.name %>
+    </h4>
+  </div>
+  <div class="d-flex flex-column justify-content-between align-items-center">
+    <div class="pdf-subtitle mt-2">
+      
+      <div class="underline">Nature des travaux :</div>
+      <%= @ppsp.nature %>
+    </div>
+    <% if @ppsp.user.company.logo.attached? %>
+      <div class='pdf-logo center'>
+        <%= cl_image_tag(@ppsp.user.company.logo.key) %>
+      </div>
+    <% end %>
+    <div class='pdf-subtitle'>
+      <div class="underline">Nom de la société :</div>
+      <%= @ppsp.user.company.name %>
+    </div>
+    <div class="underline">Adresse :</div> <%= @ppsp.user.company.address %>
+    <div class="underline">Telephone :</div> <%= @ppsp.user.company.phone %>
+  </div>
+  <div class="flex-grow-1 d-flex justify-content-between align-items-end mx-2">
+    <div class="flex-start"><%= "Créé le #{@ppsp.created_at.strftime("%d/%m/%Y")}" %></div>
+    <div class="flex-end"><%= "Modifié le #{@ppsp.updated_at.strftime("%d/%m/%Y")}" %></div>  
+  </div>
+</div>
