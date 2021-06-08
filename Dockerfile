@@ -22,4 +22,4 @@ WORKDIR /app
 
 # Upgrade RubyGems and install required Bundler version
 RUN gem update --system && \
-  gem install bundler -v $BUNDLER_VERSION
+gem install bundler -v $BUNDLER_VERSION

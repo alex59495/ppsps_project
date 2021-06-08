@@ -1,4 +1,7 @@
 class PpspsController < ApplicationController
+  before_action :init_variables, only: %i[new create edit update]
+  before_action :dropzone_annexes, only: %i[new create edit update]
+  before_action :skip_authorization, only: :destroy_logo_client
   before_action :find_ppsp, only: %i[show ppsp_pdf destroy edit destroy_logo_client duplicate destroy_plan_installation]
 
   def index
@@ -51,6 +54,12 @@ class PpspsController < ApplicationController
           toc: {
             header_text: "Sommaire",
           },
+
+          # Protect document
+          basic_auth: true,  # when true username & password are automatically sent from session
+          username: 'Obras',
+          password: Rails.application.credentials.dig(:pdf, :password),
+
           margin: {
             top: 28, # default 10 (mm)
             bottom: 10
@@ -58,7 +67,7 @@ class PpspsController < ApplicationController
           header: {
             html: {
               template: 'ppsps/render_pages/header.html.erb'
-            }
+            },
           },
           footer: {
             # Display number of pages
@@ -83,8 +92,8 @@ class PpspsController < ApplicationController
   end
 
   def destroy_logo_client
-    authorize @ppsp
-    @purge = true if @ppsp.logo_client.purge
+    blob = ActiveStorage::Blob.find_by(key: params[:public_id])
+    ActiveStorage::Attachment.find_by(blob: blob) ? ActiveStorage::Attachment.find_by(blob: blob).purge : blob.purge
     respond_to do |format|
       format.js { render 'ppsps/destroy_logo_client' }
     end
@@ -100,7 +109,7 @@ class PpspsController < ApplicationController
         format.js { render 'ppsps/destroy_annexe' }
       end
     else
-      blob.purge
+      blob.purge if blob.present?
       head :no_content
     end
   end
@@ -122,6 +131,42 @@ class PpspsController < ApplicationController
   end
 
   private
+
+  def init_variables
+    # Info to add the possibility to create a new element through a modal form
+    @security_coordinator = SecurityCoordinator.new
+    @hospital = Hospital.new
+    @moa = Moa.new
+    @moe = Moe.new
+    @pension_insurance = PensionInsurance.new
+    @regional_committee = RegionalCommittee.new
+    @direcct = Direcct.new
+    @work_medecine = WorkMedecine.new
+    @demining = Demining.new
+    @sos_hand = SosHand.new
+    @anti_poison = AntiPoison.new
+    @subcontractor = Subcontractor.new
+
+    # Select the databases present in the select lists
+    @moas = policy_scope(Moa.all)
+    @moes = policy_scope(Moe.all)
+    @regional_committees = policy_scope(RegionalCommittee.all)
+    @pension_insurances = policy_scope(PensionInsurance.all)
+    @direccts = policy_scope(Direcct.all)
+    @work_medecines = policy_scope(WorkMedecine.all)
+    @deminings = policy_scope(Demining.all)
+    @sos_hands = policy_scope(SosHand.all)
+    @anti_poisons = policy_scope(AntiPoison.all)
+    @hospitals = policy_scope(Hospital.all)
+    @security_coordinators = policy_scope(SecurityCoordinator.all)
+    @subcontractors = policy_scope(Subcontractor.all)
+  end
+
+  def dropzone_annexes
+    # To know how many annexes the user can download
+    return @num_dropzone_annexes = 5 unless @ppsp
+    @num_dropzone_annexes = @ppsp.annexes.attached? ? 5 - @ppsp.annexes.count : 5
+  end
 
   # On regarde quels sont les Tables jointes des conducteurs (associé au current_user) qui n'ont pas encore de PPSP
   # et on leur associe le PPSP qui vient d'être créé

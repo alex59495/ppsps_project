@@ -1,5 +1,5 @@
 <div class="container mb-3">
-  <%= simple_form_for @ppsp, remote: true, html: {multipart: true}, url: wizard_path, html: { id: 'ppsp_form' } do |f| %>
+  <%= simple_form_for @ppsp, remote: true, url: wizard_path, html: { id: 'ppsp_form', multipart: true } do |f| %>
     <div class="row">
       <h2 class="col-12 form-title">
         IV. L'évaluation des risques

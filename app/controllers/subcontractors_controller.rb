@@ -25,12 +25,13 @@ class SubcontractorsController < DatabaseController
     @subcontractors = policy_scope(Subcontractor.all)
     if @data.save
       # Create an ordered list to put the last one in first
-      @database = policy_scope(@model_name.all).sort_by { |datab| datab.created_at }
+      @database = policy_scope(@model_name.all).sort_by(&:created_at)
       # Useful for the infinite scroll, wh have to do it because we re-render the page after the action
       init_infinite_scroll
       # Respond with the view anti_poison/create.js.erb to close the modal and come back to the form
       respond_to do |format|
         format.js { render "#{controller_name}/create.js.erb" }
+        format.html { render "#{controller_name}/create.js.erb" }
       end
     else
       # What to do ?

@@ -10,6 +10,19 @@
   padding: 40px 40px;
 }
 
+.container-annexe {
+  background: white;
+  padding: 4px;
+  box-shadow: 2px 2px 2px grey;
+  margin-top: 4px;
+}
+
+.container-machine-description {
+  display: flex;
+  align-items: center;
+  margin: 2rem 4rem;
+}
+
 @media (min-width: 576px) {
   .container-app {
     max-width: 540px;

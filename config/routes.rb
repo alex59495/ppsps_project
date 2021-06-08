@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     end
   end
 
+  delete 'destroy_logo_client/:public_id', to: 'ppsps#destroy_logo_client', as: :destroy_logo_client
+
   # API
   namespace :api, defaults: { format: :json } do
     namespace :v1 do

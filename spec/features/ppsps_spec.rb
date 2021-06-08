@@ -193,8 +193,9 @@ RSpec.feature "Ppsps Views", type: :feature, js: true do
       visit(ppsps_path)
       click_on 'Modifier les bases de données'
       find('#moa').click
-      first('.card-bdd').hover.find('.card-db-edit').click
-      sleep(2)
+      first('.card-bdd').hover
+      find('.card-db-edit').click
+      find('.moa_name')
       expect(page).to have_current_path(edit_moa_path(moa))
       fill_in('moa_name', with: 'Update the name')
       click_button('MoaBtn')
