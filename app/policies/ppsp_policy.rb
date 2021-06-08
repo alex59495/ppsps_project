@@ -7,7 +7,8 @@ class PpspPolicy < ApplicationPolicy
   end
 
   def show?
-    record.company == user.company
+    # We got the previous step in 'form_step' and it must be valid to access a show page
+    record.form_step.nil? ? record.company == user.company : record.company == user.company && record.valid?
   end
 
   def create?

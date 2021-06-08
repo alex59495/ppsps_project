@@ -9,6 +9,8 @@ module StepsControllers
     def show
       @ppsp = Ppsp.find(params[:ppsp_id])
       @step = params[:id]
+      # We are using the previous step in our authorization system
+      @ppsp.form_step = Ppsp.form_steps.keys[Ppsp.form_steps.keys.index(@step) - 1].to_sym unless Ppsp.form_steps.keys.index(@step).zero?
       authorize @ppsp
       usefull_variable_for_form
       render_wizard

@@ -278,6 +278,15 @@ RSpec.describe "Ppsps Controller", type: :request do
           }
         )
       end
+
+      it "Can't access an edit ppsp step page at an avanced step if previous steps are not completed" do
+        expect { get ppsp_step_path(ppsp_designation, :ppsp_annexes) }.to raise_error(Pundit::NotAuthorizedError)
+      end
+
+      it "Can access an edit ppsp step page at an avanced step if previous steps are completed" do
+        get ppsp_step_path(ppsp_security, :ppsp_annexes)
+        expect(response).to have_http_status(200)
+      end
     end
   end
 end
