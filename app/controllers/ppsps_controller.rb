@@ -35,41 +35,62 @@ class PpspsController < ApplicationController
 
     handle_annexes
     respond_to do |format|
-      # Two response for the show method depending on the format we call
       format.pdf do
-        render(
-          pdf: 'ppsp',
-          enable_local_file_access: true,
-          encoding: 'utf8',
-          template: 'ppsps/show.pdf.erb',
-          layout: 'pdf.html.erb',
-          view_as_html: true,
-          show_as_html: params.key?('debug'),
-          # La couverture (cover) permet d'avoir une premiere page. Elle n'est pas incluse dans le layout, il faut tout intégrer "à la main" pour cette page.
-          cover: render_to_string('ppsps/render_pages/cover.pdf.erb'),
-          # Table of Content
-          toc: {
-            header_text: "Sommaire",
-          },
-          margin: {
-            top: 28, # default 10 (mm)
-            bottom: 10
-          },
-          header: {
-            html: {
-              template: 'ppsps/render_pages/header.html.erb'
-            }
-          },
-          footer: {
-            # Display number of pages
-            # right: '[page] of [topage]',
-            html: {
-              template: 'ppsps/render_pages/footer.html.erb'
-            }
+        html = render_to_string(
+          {
+            template: 'ppsps/show.pdf.erb',
+            layout: 'pdf.html.erb'
           }
         )
+        base_url = "http://localhost:3000/"
+        html_absolute = Grover::HTMLPreprocessor.process html, base_url, "http"
+        pdf = Grover.new(html_absolute, {
+                                          format: 'A4',
+                                          display_url: base_url,
+                                          locals: { :@ppsp => @ppsp }
+                                        }).to_pdf
+        send_data(
+          pdf,
+          type: 'application/pdf',
+          filename: "test.pdf",
+          disposition: 'inline'
+        )
       end
-    end
+      #   render(
+      #     pdf: 'ppsp',
+      #     enable_local_file_access: true,
+      #     encoding: 'utf8',
+      #     template: 'ppsps/show.pdf.erb',
+      #     layout: 'pdf.html.erb',
+      #     view_as_html: true,
+      #     show_as_html: params.key?('debug'),
+      #     # La couverture (cover) permet d'avoir une premiere page. Elle n'est pas incluse dans le layout, il faut tout intégrer "à la main" pour cette page.
+      #     cover: render_to_string('ppsps/render_pages/cover.pdf.erb'),
+      #     # Table of Content
+      #     toc: {
+      #       header_text: "Sommaire",
+      #     },
+      #     margin: {
+      #       top: 0, # default 10 (mm)
+      #       bottom: 0,
+      #       right: 0,
+      #       left: 0
+      #     },
+      #     header: {
+      #       html: {
+      #         template: 'ppsps/render_pages/header.html.erb'
+      #       }
+      #     },
+      #     footer: {
+      #       # Display number of pages
+      #       # right: '[page] of [topage]',
+      #       html: {
+      #         template: 'ppsps/render_pages/footer.html.erb'
+      #       }
+      #     }
+      #   )
+      end
+    # end
   end
 
   def edit

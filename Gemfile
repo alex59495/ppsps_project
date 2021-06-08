@@ -74,6 +74,7 @@ gem 'faker'
 # Handle PDF
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'grover'
 
 # Tokens for API
 gem 'simple_token_authentication'

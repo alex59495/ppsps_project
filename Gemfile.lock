@@ -95,6 +95,8 @@ GEM
       rest-client (>= 2.0.0)
     cocoon (1.2.15)
     coderay (1.1.3)
+    combine_pdf (1.0.21)
+      ruby-rc4 (>= 0.1.5)
     concurrent-ruby (1.1.8)
     connection_pool (2.2.3)
     crass (1.0.6)
@@ -147,6 +149,9 @@ GEM
       net-http-pipeline
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    grover (1.0.0)
+      combine_pdf (~> 1.0)
+      nokogiri (~> 1.0)
     highline (1.7.10)
     http-accept (1.7.0)
     http-cookie (1.0.3)
@@ -295,6 +300,7 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
+    ruby-rc4 (0.1.5)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -412,6 +418,7 @@ DEPENDENCIES
   figaro
   font-awesome-sass
   geocoder
+  grover
   i18n
   jbuilder (~> 2.7)
   kaminari
@@ -455,4 +462,4 @@ RUBY VERSION
    ruby 2.6.6p146
 
 BUNDLED WITH
-   2.2.14
+   2.2.17
